@@ -1,0 +1,68 @@
+
+Cabbage.png
+format: RGBA8888
+filter: Linear,Linear
+repeat: none
+子图_ATLASES_PLANTCABBAGEPULT_1536_00_PTX_png/10
+  rotate: true
+  xy: 131, 15
+  size: 41, 63
+  orig: 41, 63
+  offset: 0, 0
+  index: -1
+子图_ATLASES_PLANTCABBAGEPULT_1536_00_PTX_png/19
+  rotate: true
+  xy: 425, 52
+  size: 69, 73
+  orig: 69, 73
+  offset: 0, 0
+  index: -1
+子图_ATLASES_PLANTCABBAGEPULT_1536_00_PTX_png/20
+  rotate: false
+  xy: 2, 21
+  size: 127, 100
+  orig: 127, 100
+  offset: 0, 0
+  index: -1
+子图_ATLASES_PLANTCABBAGEPULT_1536_00_PTX_png/25
+  rotate: false
+  xy: 131, 58
+  size: 113, 63
+  orig: 113, 63
+  offset: 0, 0
+  index: -1
+子图_ATLASES_PLANTCABBAGEPULT_1536_00_PTX_png/28
+  rotate: false
+  xy: 246, 58
+  size: 76, 63
+  orig: 76, 63
+  offset: 0, 0
+  index: -1
+子图_ATLASES_PLANTCABBAGEPULT_1536_00_PTX_png/34
+  rotate: false
+  xy: 324, 83
+  size: 99, 38
+  orig: 99, 38
+  offset: 0, 0
+  index: -1
+子图_ATLASES_PLANTCABBAGEPULT_1536_00_PTX_png/42
+  rotate: false
+  xy: 196, 29
+  size: 55, 27
+  orig: 55, 27
+  offset: 0, 0
+  index: -1
+子图_ATLASES_PLANTCABBAGEPULT_1536_00_PTX_png/49
+  rotate: true
+  xy: 2, 2
+  size: 17, 25
+  orig: 17, 25
+  offset: 0, 0
+  index: -1
+子图_ATLASES_PLANTCABBAGEPULT_1536_00_PTX_png/5
+  rotate: false
+  xy: 324, 63
+  size: 26, 18
+  orig: 26, 18
+  offset: 0, 0
+  index: -1

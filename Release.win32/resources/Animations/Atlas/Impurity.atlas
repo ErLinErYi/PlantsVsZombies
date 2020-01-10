@@ -1,0 +1,19 @@
+
+Impurity.png
+format: RGBA8888
+filter: Linear,Linear
+repeat: none
+53
+  rotate: false
+  xy: 41, 2
+  size: 34, 33
+  orig: 39, 33
+  offset: 3, 0
+  index: -1
+54
+  rotate: false
+  xy: 2, 2
+  size: 37, 33
+  orig: 39, 34
+  offset: 1, 0
+  index: -1

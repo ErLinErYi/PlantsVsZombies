@@ -1,0 +1,215 @@
+
+Zombies.png
+format: RGBA8888
+filter: Linear,Linear
+repeat: none
+Zombie_bucket1
+  rotate: true
+  xy: 746, 56
+  size: 70, 71
+  orig: 113, 113
+  offset: 15, 16
+  index: -1
+Zombie_bucket2
+  rotate: true
+  xy: 819, 59
+  size: 67, 71
+  orig: 113, 113
+  offset: 19, 17
+  index: -1
+Zombie_bucket3
+  rotate: false
+  xy: 729, 2
+  size: 58, 52
+  orig: 113, 113
+  offset: 26, 35
+  index: -1
+Zombie_cone1
+  rotate: true
+  xy: 667, 2
+  size: 58, 60
+  orig: 70, 74
+  offset: 6, 3
+  index: -1
+Zombie_cone2
+  rotate: true
+  xy: 953, 69
+  size: 57, 60
+  orig: 70, 74
+  offset: 7, 3
+  index: -1
+Zombie_cone3
+  rotate: false
+  xy: 892, 67
+  size: 59, 59
+  orig: 70, 74
+  offset: 7, 3
+  index: -1
+Zombie_screendoor1
+  rotate: true
+  xy: 321, 51
+  size: 75, 130
+  orig: 79, 142
+  offset: 0, 0
+  index: -1
+Zombie_screendoor2
+  rotate: true
+  xy: 453, 51
+  size: 75, 130
+  orig: 79, 142
+  offset: 0, 0
+  index: -1
+Zombie_screendoor3
+  rotate: true
+  xy: 189, 48
+  size: 78, 130
+  orig: 79, 142
+  offset: 0, 0
+  index: -1
+tt_body
+  rotate: true
+  xy: 585, 59
+  size: 67, 80
+  orig: 67, 85
+  offset: 0, 5
+  index: -1
+tt_flag
+  rotate: true
+  xy: 2, 16
+  size: 110, 185
+  orig: 110, 185
+  offset: 0, 0
+  index: -1
+tt_head
+  rotate: false
+  xy: 667, 62
+  size: 77, 64
+  orig: 77, 64
+  offset: 0, 0
+  index: -1
+tt_innerarm_hand
+  rotate: true
+  xy: 242, 2
+  size: 23, 27
+  orig: 23, 27
+  offset: 0, 0
+  index: -1
+tt_innerarm_lower
+  rotate: true
+  xy: 189, 2
+  size: 17, 34
+  orig: 17, 34
+  offset: 0, 0
+  index: -1
+tt_innerarm_upper
+  rotate: true
+  xy: 892, 49
+  size: 16, 42
+  orig: 16, 42
+  offset: 0, 0
+  index: -1
+tt_innerleg_foot1
+  rotate: false
+  xy: 556, 33
+  size: 25, 16
+  orig: 25, 16
+  offset: 0, 0
+  index: -1
+tt_innerleg_foot2
+  rotate: false
+  xy: 524, 31
+  size: 30, 18
+  orig: 30, 18
+  offset: 0, 0
+  index: -1
+tt_innerleg_foot3
+  rotate: false
+  xy: 189, 21
+  size: 51, 25
+  orig: 51, 25
+  offset: 0, 0
+  index: -1
+tt_innerleg_lower
+  rotate: true
+  xy: 333, 19
+  size: 30, 41
+  orig: 30, 41
+  offset: 0, 0
+  index: -1
+tt_innerleg_upper
+  rotate: true
+  xy: 487, 35
+  size: 14, 35
+  orig: 14, 35
+  offset: 0, 0
+  index: -1
+tt_jaw
+  rotate: true
+  xy: 789, 8
+  size: 46, 26
+  orig: 46, 26
+  offset: 0, 0
+  index: -1
+tt_outerarm_eatinghand
+  rotate: true
+  xy: 376, 19
+  size: 30, 40
+  orig: 30, 40
+  offset: 0, 0
+  index: -1
+tt_outerarm_lower
+  rotate: true
+  xy: 630, 39
+  size: 18, 35
+  orig: 18, 35
+  offset: 0, 0
+  index: -1
+tt_outerarm_upper
+  rotate: true
+  xy: 585, 41
+  size: 16, 43
+  orig: 16, 43
+  offset: 0, 0
+  index: -1
+tt_outerarm_upper2
+  rotate: true
+  xy: 242, 27
+  size: 19, 53
+  orig: 19, 53
+  offset: 0, 0
+  index: -1
+tt_outerarmhand
+  rotate: true
+  xy: 418, 19
+  size: 30, 34
+  orig: 30, 34
+  offset: 0, 0
+  index: -1
+tt_outerleg_foot1
+  rotate: false
+  xy: 454, 23
+  size: 31, 26
+  orig: 31, 26
+  offset: 0, 0
+  index: -1
+tt_outerleg_foot2
+  rotate: false
+  xy: 297, 27
+  size: 34, 19
+  orig: 34, 19
+  offset: 0, 0
+  index: -1
+tt_outerleg_lower
+  rotate: true
+  xy: 2, 5
+  size: 9, 29
+  orig: 9, 29
+  offset: 0, 0
+  index: -1
+tt_outerleg_upper
+  rotate: true
+  xy: 271, 3
+  size: 22, 41
+  orig: 22, 41
+  offset: 0, 0
+  index: -1

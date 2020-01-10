@@ -1,0 +1,40 @@
+
+Spikeweed.png
+format: RGBA8888
+filter: Linear,Linear
+repeat: none
+1
+  rotate: false
+  xy: 330, 23
+  size: 27, 32
+  orig: 27, 32
+  offset: 0, 0
+  index: -1
+10
+  rotate: false
+  xy: 2, 2
+  size: 179, 53
+  orig: 179, 53
+  offset: 0, 0
+  index: -1
+21
+  rotate: false
+  xy: 183, 25
+  size: 51, 30
+  orig: 51, 30
+  offset: 0, 0
+  index: -1
+22
+  rotate: true
+  xy: 288, 23
+  size: 32, 40
+  orig: 32, 40
+  offset: 0, 0
+  index: -1
+24
+  rotate: false
+  xy: 236, 31
+  size: 50, 24
+  orig: 50, 24
+  offset: 0, 0
+  index: -1

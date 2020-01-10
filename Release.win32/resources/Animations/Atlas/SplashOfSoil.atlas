@@ -1,0 +1,68 @@
+
+SplashOfSoil.png
+format: RGBA8888
+filter: Linear,Linear
+repeat: none
+0
+  rotate: true
+  xy: 83, 16
+  size: 14, 15
+  orig: 14, 15
+  offset: 0, 0
+  index: -1
+1
+  rotate: false
+  xy: 2, 13
+  size: 21, 17
+  orig: 21, 17
+  offset: 0, 0
+  index: -1
+2
+  rotate: false
+  xy: 25, 15
+  size: 19, 15
+  orig: 19, 15
+  offset: 0, 0
+  index: -1
+3
+  rotate: true
+  xy: 65, 2
+  size: 12, 13
+  orig: 12, 13
+  offset: 0, 0
+  index: -1
+4
+  rotate: false
+  xy: 80, 2
+  size: 12, 12
+  orig: 12, 12
+  offset: 0, 0
+  index: -1
+6
+  rotate: true
+  xy: 25, 2
+  size: 11, 15
+  orig: 11, 15
+  offset: 0, 0
+  index: -1
+7
+  rotate: false
+  xy: 46, 14
+  size: 17, 16
+  orig: 17, 16
+  offset: 0, 0
+  index: -1
+8
+  rotate: false
+  xy: 65, 16
+  size: 16, 14
+  orig: 16, 14
+  offset: 0, 0
+  index: -1
+9
+  rotate: false
+  xy: 100, 19
+  size: 14, 11
+  orig: 14, 11
+  offset: 0, 0
+  index: -1

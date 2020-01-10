@@ -1,0 +1,26 @@
+
+CherryBomb_Explode.png
+format: RGBA8888
+filter: Linear,Linear
+repeat: none
+CherryBomb_Explosion_Base
+  rotate: false
+  xy: 2, 85
+  size: 204, 136
+  orig: 471, 170
+  offset: 145, 0
+  index: -1
+CherryBomb_Explosion_Stem
+  rotate: true
+  xy: 208, 85
+  size: 136, 200
+  orig: 136, 229
+  offset: 0, 0
+  index: -1
+Doom
+  rotate: false
+  xy: 2, 2
+  size: 172, 81
+  orig: 200, 200
+  offset: 14, 71
+  index: -1

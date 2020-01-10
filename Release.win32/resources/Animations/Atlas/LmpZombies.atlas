@@ -1,0 +1,124 @@
+
+LmpZombies.png
+format: RGBA8888
+filter: Linear,Linear
+repeat: none
+0
+  rotate: false
+  xy: 2, 36
+  size: 85, 87
+  orig: 85, 87
+  offset: 0, 0
+  index: -1
+1
+  rotate: false
+  xy: 263, 53
+  size: 26, 30
+  orig: 26, 30
+  offset: 0, 0
+  index: -1
+10
+  rotate: true
+  xy: 407, 106
+  size: 17, 30
+  orig: 17, 30
+  offset: 0, 0
+  index: -1
+12
+  rotate: true
+  xy: 439, 105
+  size: 18, 25
+  orig: 18, 25
+  offset: 0, 0
+  index: -1
+13
+  rotate: false
+  xy: 316, 57
+  size: 18, 26
+  orig: 18, 26
+  offset: 0, 0
+  index: -1
+14
+  rotate: false
+  xy: 263, 85
+  size: 81, 38
+  orig: 81, 38
+  offset: 0, 0
+  index: -1
+15
+  rotate: false
+  xy: 117, 37
+  size: 19, 13
+  orig: 19, 13
+  offset: 0, 0
+  index: -1
+16
+  rotate: false
+  xy: 492, 111
+  size: 18, 12
+  orig: 18, 12
+  offset: 0, 0
+  index: -1
+17
+  rotate: true
+  xy: 466, 105
+  size: 18, 24
+  orig: 18, 24
+  offset: 0, 0
+  index: -1
+18
+  rotate: true
+  xy: 89, 35
+  size: 15, 26
+  orig: 15, 26
+  offset: 0, 0
+  index: -1
+2
+  rotate: false
+  xy: 346, 94
+  size: 24, 29
+  orig: 24, 29
+  offset: 0, 0
+  index: -1
+3
+  rotate: false
+  xy: 89, 52
+  size: 92, 71
+  orig: 92, 71
+  offset: 0, 0
+  index: -1
+4
+  rotate: false
+  xy: 291, 55
+  size: 23, 28
+  orig: 23, 28
+  offset: 0, 0
+  index: -1
+5
+  rotate: true
+  xy: 372, 105
+  size: 18, 33
+  orig: 18, 33
+  offset: 0, 0
+  index: -1
+7
+  rotate: false
+  xy: 2, 2
+  size: 63, 32
+  orig: 63, 32
+  offset: 0, 0
+  index: -1
+8
+  rotate: false
+  xy: 183, 45
+  size: 78, 78
+  orig: 78, 78
+  offset: 0, 0
+  index: -1
+9
+  rotate: false
+  xy: 67, 3
+  size: 18, 31
+  orig: 18, 31
+  offset: 0, 0
+  index: -1

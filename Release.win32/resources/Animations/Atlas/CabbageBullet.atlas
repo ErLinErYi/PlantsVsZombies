@@ -1,0 +1,166 @@
+
+CabbageBullet.png
+format: RGBA8888
+filter: Linear,Linear
+repeat: none
+11110025
+  rotate: false
+  xy: 788, 157
+  size: 94, 99
+  orig: 390, 390
+  offset: 136, 141
+  index: -1
+11110026
+  rotate: false
+  xy: 3947, 328
+  size: 121, 128
+  orig: 390, 390
+  offset: 126, 128
+  index: -1
+11110027
+  rotate: true
+  xy: 631, 89
+  size: 163, 155
+  orig: 390, 390
+  offset: 123, 128
+  index: -1
+11110028
+  rotate: false
+  xy: 435, 88
+  size: 194, 164
+  orig: 390, 390
+  offset: 100, 126
+  index: -1
+11110029
+  rotate: false
+  xy: 3743, 280
+  size: 202, 176
+  orig: 390, 390
+  offset: 100, 128
+  index: -1
+11110030
+  rotate: false
+  xy: 3531, 275
+  size: 210, 181
+  orig: 390, 390
+  offset: 96, 128
+  index: -1
+11110031
+  rotate: false
+  xy: 2690, 274
+  size: 220, 182
+  orig: 390, 390
+  offset: 90, 127
+  index: -1
+11110032
+  rotate: false
+  xy: 2017, 275
+  size: 222, 181
+  orig: 390, 390
+  offset: 89, 127
+  index: -1
+11110033
+  rotate: false
+  xy: 2466, 277
+  size: 222, 179
+  orig: 390, 390
+  offset: 89, 127
+  index: -1
+11110034
+  rotate: false
+  xy: 2241, 277
+  size: 223, 179
+  orig: 390, 390
+  offset: 88, 126
+  index: -1
+11110035
+  rotate: false
+  xy: 1792, 274
+  size: 223, 182
+  orig: 390, 390
+  offset: 88, 122
+  index: -1
+11110036
+  rotate: false
+  xy: 1567, 270
+  size: 223, 186
+  orig: 390, 390
+  offset: 88, 117
+  index: -1
+11110037
+  rotate: false
+  xy: 1341, 266
+  size: 224, 190
+  orig: 390, 390
+  offset: 87, 112
+  index: -1
+11110038
+  rotate: false
+  xy: 1115, 263
+  size: 224, 193
+  orig: 390, 390
+  offset: 87, 107
+  index: -1
+11110039
+  rotate: false
+  xy: 889, 261
+  size: 224, 195
+  orig: 390, 390
+  offset: 87, 102
+  index: -1
+11110040
+  rotate: false
+  xy: 662, 258
+  size: 225, 198
+  orig: 390, 390
+  offset: 86, 98
+  index: -1
+11110041
+  rotate: false
+  xy: 435, 254
+  size: 225, 202
+  orig: 390, 390
+  offset: 86, 93
+  index: -1
+11110042
+  rotate: true
+  xy: 2, 2
+  size: 226, 205
+  orig: 390, 390
+  offset: 86, 88
+  index: -1
+11110043
+  rotate: false
+  xy: 3333, 258
+  size: 196, 198
+  orig: 390, 390
+  offset: 86, 83
+  index: -1
+11110044
+  rotate: true
+  xy: 3126, 255
+  size: 201, 205
+  orig: 390, 390
+  offset: 85, 79
+  index: -1
+11110045
+  rotate: true
+  xy: 2912, 252
+  size: 204, 212
+  orig: 390, 390
+  offset: 86, 74
+  index: -1
+11110046
+  rotate: false
+  xy: 222, 237
+  size: 211, 219
+  orig: 390, 390
+  offset: 82, 70
+  index: -1
+11110047
+  rotate: false
+  xy: 2, 230
+  size: 218, 226
+  orig: 390, 390
+  offset: 79, 65
+  index: -1

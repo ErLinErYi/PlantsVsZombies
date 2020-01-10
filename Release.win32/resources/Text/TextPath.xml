@@ -1,0 +1,6 @@
+﻿<?xml version="1.0" encoding="UTF-8"?>
+<data>
+  <p PlantsText="resources/Text/PlantsText.xml"/>
+  <p GameText="resources/Text/GameText.xml"/>
+  <p GAMEWORLD_1DATAS="resources/Text/GAMEWORLD_1DATAS.reanim.compiled"/>
+</data>

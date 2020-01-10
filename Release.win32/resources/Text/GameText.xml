@@ -1,0 +1,321 @@
+﻿<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
+<plist version="1.0">
+  <array>
+    <dict>
+      <key>id</key>
+      <string>点击开始</string>
+      <key>info</key>
+      <string>点击开始</string>
+    </dict>
+
+    <dict>
+      <key>id</key>
+      <string>愤怒的小僵尸</string>
+      <key>info</key>
+      <string>愤怒的小僵尸</string>
+    </dict>
+
+    <dict>
+      <key>id</key>
+      <string>的时空冒险之旅</string>
+      <key>info</key>
+      <string>的时空冒险之旅</string>
+    </dict>
+
+    <dict>
+      <key>id</key>
+      <string>开始战斗吧！</string>
+      <key>info</key>
+      <string>开始摇滚吧！</string>
+    </dict>
+
+    <dict>
+      <key>id</key>
+      <string>菜单</string>
+      <key>info</key>
+      <string>菜单</string>
+    </dict>
+
+    <dict>
+      <key>id</key>
+      <string>请选择你出战的植物！</string>
+      <key>info</key>
+      <string>请选择你出战的植物！</string>
+    </dict>
+
+    <dict>
+      <key>id</key>
+      <string>点击输入名称：</string>
+      <key>info</key>
+      <string>点击输入名称：</string>
+    </dict>
+
+    <dict>
+      <key>id</key>
+      <string>确定</string>
+      <key>info</key>
+      <string>确定</string>
+    </dict>
+
+    <dict>
+      <key>id</key>
+      <string>取消</string>
+      <key>info</key>
+      <string>取消</string>
+    </dict>
+
+    <dict>
+      <key>id</key>
+      <string>音乐</string>
+      <key>info</key>
+      <string>音乐</string>
+    </dict>
+
+    <dict>
+      <key>id</key>
+      <string>音效</string>
+      <key>info</key>
+      <string>音效</string>
+    </dict>
+
+    <dict>
+      <key>id</key>
+      <string>信息</string>
+      <key>info</key>
+      <string>显示帧数</string>
+    </dict>
+
+    <dict>
+      <key>id</key>
+      <string>全屏</string>
+      <key>info</key>
+      <string>全屏</string>
+    </dict>
+
+   <dict>
+      <key>id</key>
+      <string>拉伸显示</string>
+      <key>info</key>
+      <string>拉伸显示</string>
+    </dict>
+
+    <dict>
+      <key>id</key>
+      <string>高帧率</string>
+      <key>info</key>
+      <string>高帧率</string>
+    </dict>
+
+    <dict>
+      <key>id</key>
+      <string>返回</string>
+      <key>info</key>
+      <string>返回</string>
+    </dict>
+
+    <dict>
+      <key>id</key>
+      <string>退出游戏</string>
+      <key>info</key>
+      <string>退出游戏</string>
+    </dict>
+
+    <dict>
+      <key>id</key>
+      <string>按键说明</string>
+      <key>info</key>
+      <string>按键说明</string>
+    </dict>
+
+    <dict>
+      <key>id</key>
+      <string>退出</string>
+      <key>info</key>
+      <string>退出</string>
+    </dict>
+
+    <dict>
+      <key>id</key>
+      <string>重命名</string>
+      <key>info</key>
+      <string>重命名</string>
+    </dict>
+
+   <dict>
+      <key>id</key>
+      <string>是</string>
+      <key>info</key>
+      <string>是</string>
+    </dict>
+
+   <dict>
+      <key>id</key>
+      <string>否</string>
+      <key>info</key>
+      <string>否</string>
+    </dict>
+
+   <dict>
+      <key>id</key>
+      <string>存档</string>
+      <key>info</key>
+      <string>存档</string>
+    </dict>
+
+   <dict>
+      <key>id</key>
+      <string>已有先前存档，是否继续？</string>
+      <key>info</key>
+      <string>已有先前存档，是否继续？</string>
+    </dict>
+
+    <dict>
+      <key>id</key>
+      <string>确定要退出游戏吗？</string>
+      <key>info</key>
+      <string>确定要退出游戏吗？</string>
+    </dict>
+
+    <dict>
+      <key>id</key>
+      <string>返回主菜单</string>
+      <key>info</key>
+      <string>返回主菜单</string>
+    </dict>
+
+    <dict>
+      <key>id</key>
+      <string>查看图鉴</string>
+      <key>info</key>
+      <string>下载最新版本</string>
+    </dict>
+
+    <dict>
+      <key>id</key>
+      <string>重新开始</string>
+      <key>info</key>
+      <string>重新开始</string>
+    </dict>
+
+    <dict>
+      <key>id</key>
+      <string>主菜单</string>
+      <key>info</key>
+      <string>主菜单</string>
+    </dict>
+
+    <dict>
+      <key>id</key>
+      <string>继续</string>
+      <key>info</key>
+      <string>继续</string>
+    </dict>
+
+    <dict>
+      <key>id</key>
+      <string>通关要求！</string>
+      <key>info</key>
+      <string>通关要求！</string>
+    </dict>
+
+   <dict>
+      <key>id</key>
+      <string>退出游戏</string>
+      <key>info</key>
+      <string>退出游戏</string>
+    </dict>
+
+   <dict>
+      <key>id</key>
+      <string>返回游戏</string>
+      <key>info</key>
+      <string>返回游戏</string>
+    </dict>
+
+   <dict>
+      <key>id</key>
+      <string>鼠标显示</string>
+      <key>info</key>
+      <string>鼠标显示</string>
+    </dict>
+
+    <dict>
+      <key>id</key>
+      <string>建立你的防线，阻止僵尸的进攻！</string>
+      <key>info</key>
+      <string>建立你的防线，阻止僵尸的进攻！</string>
+    </dict>
+
+    <dict>
+      <key>id</key>
+      <string>阻止隐形的僵尸的进攻！</string>
+      <key>info</key>
+      <string>阻止隐形的僵尸的进攻！</string>
+    </dict>
+
+    <dict>
+      <key>id</key>
+      <string>至少产生 %d 的阳光！</string>
+      <key>info</key>
+      <string>至少产生 %d 的阳光！</string>
+    </dict>
+
+    <dict>
+      <key>id</key>
+      <string>不要让僵尸踩坏你的花坛！</string>
+      <key>info</key>
+      <string>不要让僵尸踩坏你的花坛！</string>
+    </dict>
+
+   <dict>
+      <key>id</key>
+      <string>僵尸踩坏了你的花坛！</string>
+      <key>info</key>
+      <string>僵尸踩坏了你的花坛！</string>
+    </dict>
+    
+    <dict>
+      <key>id</key>
+      <string>僵尸进攻结束后至少存留 %d 辆小车！</string>
+      <key>info</key>
+      <string>僵尸进攻结束后至少存留 %d 辆小车！</string>
+    </dict>
+    
+    <dict>
+      <key>id</key>
+      <string>最多使用 %d 株植物来建立你的防线！</string>
+      <key>info</key>
+      <string>最多使用 %d 株植物来建立你的防线！</string>
+    </dict>
+
+  <dict>
+      <key>id</key>
+      <string>小僵尸大麻烦！</string>
+      <key>info</key>
+      <string>小僵尸大麻烦！</string>
+    </dict>
+
+   <dict>
+      <key>id</key>
+      <string>抵御巨人僵尸的进攻！</string>
+      <key>info</key>
+      <string>抵御巨人僵尸的进攻！</string>
+    </dict>
+
+   <dict>
+      <key>id</key>
+      <string>请把植物种植在合适的地方！</string>
+      <key>info</key>
+      <string>请把植物种植在合适的地方！</string>
+    </dict>
+
+    <dict>
+      <key>id</key>
+      <string>提示信息</string>
+      <key>info</key>
+      <string>请把植物种在合适的地方，否则植物不会存活且阳光也不会返还！</string>
+    </dict>
+
+  </array>
+</plist>

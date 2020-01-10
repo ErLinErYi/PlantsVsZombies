@@ -1,0 +1,47 @@
+
+SelectorScreen_Leaves.png
+format: RGBA8888
+filter: Linear,Linear
+repeat: none
+SelectorScreen_Leaf1
+  rotate: false
+  xy: 303, 33
+  size: 40, 41
+  orig: 40, 41
+  offset: 0, 0
+  index: -1
+SelectorScreen_Leaf2
+  rotate: true
+  xy: 348, 4
+  size: 34, 33
+  orig: 34, 33
+  offset: 0, 0
+  index: -1
+SelectorScreen_Leaf3
+  rotate: false
+  xy: 249, 8
+  size: 49, 66
+  orig: 49, 66
+  offset: 0, 0
+  index: -1
+SelectorScreen_Leaf4
+  rotate: true
+  xy: 348, 42
+  size: 32, 45
+  orig: 32, 45
+  offset: 0, 0
+  index: -1
+SelectorScreen_Leaf5
+  rotate: true
+  xy: 303, 4
+  size: 25, 37
+  orig: 25, 37
+  offset: 0, 0
+  index: -1
+SelectorScreen_Leaves
+  rotate: false
+  xy: 5, 12
+  size: 239, 62
+  orig: 240, 62
+  offset: 1, 0
+  index: -1

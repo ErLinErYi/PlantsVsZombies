@@ -1,0 +1,26 @@
+
+Sun.png
+format: RGBA8888
+filter: Linear,Linear
+repeat: none
+Sun1
+  rotate: false
+  xy: 200, 82
+  size: 36, 36
+  orig: 36, 36
+  offset: 0, 0
+  index: -1
+Sun2
+  rotate: false
+  xy: 121, 39
+  size: 77, 79
+  orig: 77, 79
+  offset: 0, 0
+  index: -1
+Sun3
+  rotate: false
+  xy: 2, 2
+  size: 117, 116
+  orig: 117, 116
+  offset: 0, 0
+  index: -1

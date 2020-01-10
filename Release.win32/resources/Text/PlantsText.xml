@@ -1,0 +1,418 @@
+﻿<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
+<plist version="1.0">
+<array>
+            <dict>
+                        <key>id</key>
+                        <string>SUNFLOWER_1</string>
+                        <key>info</key>
+                        <string>向日葵</string>
+            </dict>
+            <dict>
+                        <key>id</key>
+                        <string>SUNFLOWER_2</string>
+                        <key>info</key>
+                        <string>强度：
+冷却时间：
+阳光产量：
+植物特征：</string>
+            </dict>
+            <dict>
+                        <key>id</key>
+                        <string>SUNFLOWER_3</string>
+                        <key>info</key>
+                        <string>标准
+       短
+       中等
+       黄色植物 无尽阳光</string>
+            </dict>
+            <dict>
+                        <key>id</key>
+                        <string>SUNFLOWER_4</string>
+                        <key>info</key>
+                        <string>向日葵，为你生产更多的阳光
+的基础植物，是出战必备的植
+物，尽可能的多种吧！
+
+出道以来，她的第一首主打歌
+“Zombies On Your Lawn”在
+植物界大红大紫。</string>
+            </dict>
+
+             <dict>
+                        <key>id</key>
+                        <string>PEASHOOTER_1</string>
+                        <key>info</key>
+                        <string>豌豆射手</string>
+            </dict>
+             <dict>
+                        <key>id</key>
+                        <string>PEASHOOTER_2</string>
+                        <key>info</key>
+                        <string>伤害：
+范围：
+冷却时间：
+植物特征：</string>
+            </dict>
+             <dict>
+                        <key>id</key>
+                        <string>PEASHOOTER_3</string>
+                        <key>info</key>
+                        <string>一般
+直线
+        短
+        绿色植物 豌豆家族</string>
+            </dict>
+             <dict>
+                        <key>id</key>
+                        <string>PEASHOOTER_4</string>
+                        <key>info</key>
+                        <string>豌豆射手，你的第一道防线，
+发射豌豆攻击僵尸。
+
+豌豆射手是个兢兢业业的好植
+物，在热火朝天的战斗中他很
+享受。一棵植物，怎么能如此
+快地生长，并发射如此多的豌
+豆呢？豌豆射手：“努力工作
+，奉献自己，再加上一份阳光
+，高纤维和氧化碳均衡搭‘配
+，这种健康早餐让一切成为可
+能。”</string>
+            </dict>
+
+             <dict>
+                        <key>id</key>
+                        <string>WALLNUT_1</string>
+                        <key>info</key>
+                        <string>坚果墙</string>
+            </dict>
+            <dict>
+                        <key>id</key>
+                        <string>WALLNUT_2</string>
+                        <key>info</key>
+                        <string>强度：
+冷却时间：
+植物特征：</string>
+            </dict>
+            <dict>
+                        <key>id</key>
+                        <string>WALLNUT_3</string>
+                        <key>info</key>
+                        <string>高
+        缓慢
+        褐色植物 坚果家族</string>
+            </dict>
+            <dict>
+                        <key>id</key>
+                        <string>WALLNUT_4</string>
+                        <key>info</key>
+                        <string>坚果拥有足以保护其他植物的
+坚硬外壳。
+
+保龄球联赛冠军坚果墙近日退
+役，球迷们认为这是对保龄球
+运动的巨大损失，不过最近坚
+果墙视乎致力于把他的保龄球
+天赋用在前线阵地上。努力！
+加油！</string>
+                        </dict>
+
+             <dict>
+                        <key>id</key>
+                        <string>CHERRYBOMB_1</string>
+                        <key>info</key>
+                        <string>樱桃炸弹</string>
+             </dict>
+             <dict>
+                        <key>id</key>
+                        <string>CHERRYBOMB_2</string>
+                        <key>info</key>
+                        <string>伤害：
+区域：
+
+冷却时间：
+植物特征：
+使用方法：</string>
+             </dict>
+             <dict>
+                        <key>id</key>
+                        <string>CHERRYBOMB_3</string>
+                        <key>info</key>
+                        <string>巨大
+一个中等区域内的所
+有僵尸
+        缓慢
+        红色植物
+        单独使用，立即爆
+        炸</string>
+             </dict>
+             <dict>
+                        <key>id</key>
+                        <string>CHERRYBOMB_4</string>
+                        <key>info</key>
+                        <string>
+
+
+
+樱桃炸弹，能以炸掉一定区域
+内所有僵尸。他们一种下就会
+立刻引爆，所有请把他们种在
+僵尸们的身边。
+
+“我要‘爆’开了，”樱桃一
+号说。“不，我们是要‘炸’
+开了！”它哥哥樱桃二号说。
+经过激烈的商议之后，他们才
+统一“爆炸”这个说法。</string>
+             </dict>
+           
+             <dict>
+                        <key>id</key>
+                        <string>POTATOMINE_1</string>
+                        <key>info</key>
+                        <string>土豆雷</string>
+             </dict>
+             <dict>
+                        <key>id</key>
+                        <string>POTATOMINE_2</string>
+                        <key>info</key>
+                        <string>伤害：
+区域：
+冷却时间：
+用法：
+
+植物特征：</string>
+             </dict>
+             <dict>
+                        <key>id</key>
+                        <string>POTATOMINE_3</string>
+                        <key>info</key>
+                        <string>超大
+单格区域
+        缓慢
+一次性使用，需要一定
+时间准备才能启动
+        褐色植物 武器家族
+        矮个子</string>
+             </dict>
+             <dict>
+                        <key>id</key>
+                        <string>POTATOMINE_4</string>
+                        <key>info</key>
+                        <string>
+
+
+
+土豆雷一触即爆，但是准备时
+间有点长。把他们种在僵尸的
+前方。
+
+一些人说土豆雷很懒，因为他
+总是把所有事情留到最后。土
+豆雷才没空理他们，他正忙着
+考虑他的投资战略呢。什么？
+他只是个小个子？你没有见过
+他们的身体吧？想见吗？</string>
+             </dict>
+
+             <dict>
+                        <key>id</key>
+                        <string>CABBAGE_1</string>
+                        <key>info</key>
+                        <string>卷心菜投手</string>
+             </dict>
+             <dict>
+                        <key>id</key>
+                        <string>CABBAGE_2</string>
+                        <key>info</key>
+                        <string>伤害：
+范围：
+冷却时间：
+植物特征：</string>
+             </dict>
+             <dict>
+                        <key>id</key>
+                        <string>CABBAGE_3</string>
+                        <key>info</key>
+                        <string>中等
+直线
+       短
+       绿色植物 投掷家族</string>
+             </dict>
+             <dict>
+                        <key>id</key>
+                        <string>CABBAGE_4</string>
+                        <key>info</key>
+                        <string>
+      卷心菜投手，卷心菜投手
+可以投掷卷心菜。
+
+      卷心菜投手是力大无穷的
+远投冠军，可以扔出威力巨大
+的卷心菜，投掷能够逾越障碍
+物的卷心菜攻击敌人。</string>
+             </dict>
+
+             <dict>
+                        <key>id</key>
+                        <string>TORCHWOOD_1</string>
+                        <key>info</key>
+                        <string>火炬树桩</string>
+             </dict>
+             <dict>
+                        <key>id</key>
+                        <string>TORCHWOOD_2</string>
+                        <key>info</key>
+                        <string>伤害：
+范围：
+冷却时间：
+植物特征：</string>
+             </dict>
+             <dict>
+                        <key>id</key>
+                        <string>TORCHWOOD_3</string>
+                        <key>info</key>
+                        <string>豌豆伤害加强1. 5倍
+直线
+       短
+       红色植物</string>
+             </dict>
+             <dict>
+                        <key>id</key>
+                        <string>TORCHWOOD_4</string>
+                        <key>info</key>
+                        <string>
+      火炬树桩，将经过自身的
+普通豌豆变为火豌豆。单发伤
+害增加到原来的 1. 5倍，但是
+过火两次以上豌豆将被烧成灰
+烬而不能伤害僵尸。
+
+       火炬树桩乐于助人为乐，
+有人问他为何喜欢帮助他人，
+他回答道，帮助他人就是帮助
+自己，何乐而不为呢？</string>
+             </dict>
+
+             <dict>
+                        <key>id</key>
+                        <string>SPIKEWEED_1</string>
+                        <key>info</key>
+                        <string>地刺</string>
+             </dict>
+             <dict>
+                        <key>id</key>
+                        <string>SPIKEWEED_2</string>
+                        <key>info</key>
+                        <string>伤害：
+范围：
+冷却时间：
+植物特征：</string>
+             </dict>
+             <dict>
+                        <key>id</key>
+                        <string>SPIKEWEED_3</string>
+                        <key>info</key>
+                        <string>普通
+所有踩到他的僵尸
+       短
+       不会被僵尸吃掉</string>
+             </dict>
+             <dict>
+                        <key>id</key>
+                        <string>SPIKEWEED_4</string>
+                        <key>info</key>
+                        <string>
+      地刺，攻击经过自身的僵
+尸。对于行走在自己身上的僵
+尸造成伤害，但不会被僵尸啃
+食。
+      地刺痴迷冰球，他买了包
+厢的季票。他一直关注着他喜
+欢的球员，他也始终如一的在
+赛后清理冰球场。但只有一个
+问题：他害怕冰球。</string>
+             </dict>
+
+             <dict>
+                        <key>id</key>
+                        <string>GARLIC_1</string>
+                        <key>info</key>
+                        <string>大蒜</string>
+             </dict>
+             <dict>
+                        <key>id</key>
+                        <string>GARLIC_2</string>
+                        <key>info</key>
+                        <string>伤害：
+范围：
+冷却时间：
+植物特点：</string>
+             </dict>
+             <dict>
+                        <key>id</key>
+                        <string>GARLIC_3</string>
+                        <key>info</key>
+                        <string>无
+近距离接触
+       短
+       改变僵尸前进路线</string>
+             </dict>
+             <dict>
+                        <key>id</key>
+                        <string>GARLIC_4</string>
+                        <key>info</key>
+                        <string>
+      大蒜可以让僵尸改变前进
+的路线。
+      路线转向，这不仅仅是大
+蒜的专业，更是他的热情所在
+。他在布鲁塞尔大学里，获得
+了转向学的博士学位。他能把
+路线向量和反击阵列，讲上一
+整天。他甚至会把家里的东西
+，推到街上去。不知道为啥，
+他老婆还可以忍受这些。</string>
+             </dict>
+
+             <dict>
+                        <key>id</key>
+                        <string>FIREPEASHOOTER_1</string>
+                        <key>info</key>
+                        <string>火焰豌豆射手</string>
+             </dict>
+             <dict>
+                        <key>id</key>
+                        <string>FIREPEASHOOTER_2</string>
+                        <key>info</key>
+                        <string>伤害：
+范围：
+冷却时间：
+植物特点：</string>
+             </dict>
+             <dict>
+                        <key>id</key>
+                        <string>FIREPEASHOOTER_3</string>
+                        <key>info</key>
+                        <string>较高
+所在的一行
+       短
+       发射带火的豌豆</string>
+             </dict>
+             <dict>
+                        <key>id</key>
+                        <string>FIREPEASHOOTER_4</string>
+                        <key>info</key>
+                        <string>
+      火焰豌豆射手清楚当她激
+动起来会是什么样子。但是和
+“喷火”打交道可不是闹着玩
+的，这是危险的工作。所以她
+闲暇的时候，对着孩子说用火
+安全“我受过专业训练的”她
+解释说“孩子们，别在家里玩
+火”。</string>
+             </dict>
+</array>
+</plist>

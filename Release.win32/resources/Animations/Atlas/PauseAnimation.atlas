@@ -1,0 +1,26 @@
+
+PauseAnimation.png
+format: RGBA8888
+filter: Linear,Linear
+repeat: none
+27
+  rotate: false
+  xy: 2, 2
+  size: 1097, 214
+  orig: 1097, 214
+  offset: 0, 0
+  index: -1
+28
+  rotate: false
+  xy: 1101, 9
+  size: 247, 207
+  orig: 247, 209
+  offset: 0, 0
+  index: -1
+29
+  rotate: false
+  xy: 1350, 79
+  size: 310, 137
+  orig: 310, 137
+  offset: 0, 0
+  index: -1

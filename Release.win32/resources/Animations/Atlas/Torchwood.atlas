@@ -1,0 +1,75 @@
+
+Torchwood.png
+format: RGBA8888
+filter: Linear,Linear
+repeat: none
+11 (1)
+  rotate: true
+  xy: 313, 2
+  size: 120, 72
+  orig: 120, 72
+  offset: 0, 0
+  index: -1
+11 (2)
+  rotate: true
+  xy: 81, 2
+  size: 120, 76
+  orig: 120, 76
+  offset: 0, 0
+  index: -1
+11 (3)
+  rotate: true
+  xy: 237, 2
+  size: 120, 74
+  orig: 120, 74
+  offset: 0, 0
+  index: -1
+11 (4)
+  rotate: true
+  xy: 159, 2
+  size: 120, 76
+  orig: 120, 76
+  offset: 0, 0
+  index: -1
+11 (5)
+  rotate: true
+  xy: 2, 2
+  size: 120, 77
+  orig: 120, 77
+  offset: 0, 0
+  index: -1
+Torchwood_body
+  rotate: false
+  xy: 387, 75
+  size: 69, 47
+  orig: 69, 47
+  offset: 0, 0
+  index: -1
+Torchwood_eyes
+  rotate: true
+  xy: 471, 60
+  size: 40, 13
+  orig: 40, 13
+  offset: 0, 0
+  index: -1
+Torchwood_head
+  rotate: true
+  xy: 458, 43
+  size: 57, 11
+  orig: 57, 11
+  offset: 0, 0
+  index: -1
+Torchwood_mouth2
+  rotate: false
+  xy: 458, 102
+  size: 42, 20
+  orig: 42, 20
+  offset: 0, 0
+  index: -1
+Torchwood_tooth
+  rotate: true
+  xy: 502, 96
+  size: 26, 6
+  orig: 26, 6
+  offset: 0, 0
+  index: -1

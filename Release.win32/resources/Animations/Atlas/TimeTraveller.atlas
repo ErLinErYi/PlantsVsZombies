@@ -1,0 +1,103 @@
+
+TimeTraveller.png
+format: RGBA8888
+filter: Linear,Linear
+repeat: none
+子图_ATLASES_TIMETUNNEL_1536_00_PTX_png/0
+  rotate: false
+  xy: 1924, 946
+  size: 1667, 783
+  orig: 1667, 783
+  offset: 0, 0
+  index: -1
+子图_ATLASES_TIMETUNNEL_1536_00_PTX_png/1
+  rotate: false
+  xy: 559, 18
+  size: 333, 333
+  orig: 333, 333
+  offset: 0, 0
+  index: -1
+子图_ATLASES_TIMETUNNEL_1536_00_PTX_png/10
+  rotate: true
+  xy: 2, 91
+  size: 556, 555
+  orig: 556, 555
+  offset: 0, 0
+  index: -1
+子图_ATLASES_TIMETUNNEL_1536_00_PTX_png/11
+  rotate: false
+  xy: 559, 487
+  size: 1210, 160
+  orig: 1210, 160
+  offset: 0, 0
+  index: -1
+子图_ATLASES_TIMETUNNEL_1536_00_PTX_png/14
+  rotate: false
+  xy: 2865, 919
+  size: 524, 25
+  orig: 524, 25
+  offset: 0, 0
+  index: -1
+子图_ATLASES_TIMETUNNEL_1536_00_PTX_png/15
+  rotate: false
+  xy: 559, 353
+  size: 1218, 132
+  orig: 1218, 132
+  offset: 0, 0
+  index: -1
+子图_ATLASES_TIMETUNNEL_1536_00_PTX_png/16
+  rotate: true
+  xy: 3593, 708
+  size: 1021, 49
+  orig: 1021, 49
+  offset: 0, 0
+  index: -1
+子图_ATLASES_TIMETUNNEL_1536_00_PTX_png/2
+  rotate: false
+  xy: 3479, 749
+  size: 25, 195
+  orig: 25, 195
+  offset: 0, 0
+  index: -1
+子图_ATLASES_TIMETUNNEL_1536_00_PTX_png/3
+  rotate: false
+  xy: 894, 66
+  size: 281, 285
+  orig: 281, 285
+  offset: 0, 0
+  index: -1
+子图_ATLASES_TIMETUNNEL_1536_00_PTX_png/5
+  rotate: false
+  xy: 3391, 859
+  size: 86, 85
+  orig: 86, 85
+  offset: 0, 0
+  index: -1
+子图_ATLASES_TIMETUNNEL_1536_00_PTX_png/6
+  rotate: true
+  xy: 2865, 2
+  size: 704, 702
+  orig: 704, 702
+  offset: 0, 0
+  index: -1
+子图_ATLASES_TIMETUNNEL_1536_00_PTX_png/7
+  rotate: false
+  xy: 1924, 2
+  size: 939, 942
+  orig: 939, 942
+  offset: 0, 0
+  index: -1
+子图_ATLASES_TIMETUNNEL_1536_00_PTX_png/9
+  rotate: true
+  xy: 3569, 70
+  size: 636, 55
+  orig: 636, 55
+  offset: 0, 0
+  index: -1
+子图_ATLASES_TIMETUNNEL_1536_00_PTX_png/ATLASES_UI_PVP_INTROANIMATION_1536_00_PTX
+  rotate: false
+  xy: 2, 649
+  size: 1920, 1080
+  orig: 1920, 1080
+  offset: 0, 0
+  index: -1

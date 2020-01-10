@@ -1,0 +1,82 @@
+
+LmpZombies_Charre.png
+format: RGBA8888
+filter: Linear,Linear
+repeat: none
+Zombie_charred_impblink1
+  rotate: false
+  xy: 109, 7
+  size: 29, 16
+  orig: 30, 16
+  offset: 1, 0
+  index: -1
+Zombie_charred_impblink2
+  rotate: false
+  xy: 140, 7
+  size: 29, 16
+  orig: 30, 16
+  offset: 1, 0
+  index: -1
+Zombie_charred_impbody2
+  rotate: false
+  xy: 62, 2
+  size: 45, 60
+  orig: 45, 61
+  offset: 0, 1
+  index: -1
+Zombie_charred_impbody3
+  rotate: true
+  xy: 190, 137
+  size: 41, 57
+  orig: 45, 61
+  offset: 4, 4
+  index: -1
+Zombie_charred_impbody4
+  rotate: false
+  xy: 182, 4
+  size: 41, 58
+  orig: 45, 61
+  offset: 4, 3
+  index: -1
+Zombie_charred_impbody5
+  rotate: true
+  xy: 190, 95
+  size: 40, 58
+  orig: 45, 61
+  offset: 4, 3
+  index: -1
+Zombie_charred_impbody6
+  rotate: true
+  xy: 190, 180
+  size: 41, 58
+  orig: 45, 61
+  offset: 4, 3
+  index: -1
+Zombie_charred_sand
+  rotate: false
+  xy: 109, 25
+  size: 71, 37
+  orig: 71, 37
+  offset: 0, 0
+  index: -1
+eyes
+  rotate: false
+  xy: 225, 223
+  size: 28, 28
+  orig: 40, 35
+  offset: 4, 3
+  index: -1
+eyes1
+  rotate: true
+  xy: 2, 3
+  size: 59, 58
+  orig: 62, 70
+  offset: 2, 6
+  index: -1
+head
+  rotate: false
+  xy: 2, 64
+  size: 186, 187
+  orig: 191, 189
+  offset: 3, 0
+  index: -1

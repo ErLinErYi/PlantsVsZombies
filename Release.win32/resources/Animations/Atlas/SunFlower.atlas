@@ -1,0 +1,257 @@
+
+SunFlower.png
+format: RGBA8888
+filter: Linear,Linear
+repeat: none
+PeaShooter_frontleaf
+  rotate: false
+  xy: 80, 22
+  size: 67, 40
+  orig: 67, 40
+  offset: 0, 0
+  index: -1
+PeaShooter_frontleaf_lefttip
+  rotate: false
+  xy: 562, 33
+  size: 22, 29
+  orig: 22, 29
+  offset: 0, 0
+  index: -1
+PeaShooter_frontleaf_righttip
+  rotate: true
+  xy: 129, 2
+  size: 15, 30
+  orig: 15, 31
+  offset: 0, 1
+  index: -1
+PeaShooter_headleaf_3rdfarthest
+  rotate: false
+  xy: 80, 2
+  size: 15, 18
+  orig: 15, 18
+  offset: 0, 0
+  index: -1
+PeaShooter_headleaf_nearest
+  rotate: true
+  xy: 618, 45
+  size: 17, 22
+  orig: 17, 22
+  offset: 0, 0
+  index: -1
+PeaShooter_stalk_bottom
+  rotate: true
+  xy: 161, 2
+  size: 15, 19
+  orig: 15, 19
+  offset: 0, 0
+  index: -1
+PeaShooter_stalk_top
+  rotate: false
+  xy: 235, 4
+  size: 16, 13
+  orig: 26, 17
+  offset: 5, 0
+  index: -1
+SunFlower_blink1
+  rotate: false
+  xy: 586, 46
+  size: 30, 16
+  orig: 30, 16
+  offset: 0, 0
+  index: -1
+SunFlower_blink2
+  rotate: false
+  xy: 97, 4
+  size: 30, 16
+  orig: 30, 16
+  offset: 0, 0
+  index: -1
+SunFlower_bottompetals
+  rotate: false
+  xy: 182, 2
+  size: 19, 15
+  orig: 19, 15
+  offset: 0, 0
+  index: -1
+SunFlower_double_petals
+  rotate: false
+  xy: 2, 3
+  size: 76, 59
+  orig: 76, 59
+  offset: 0, 0
+  index: -1
+SunFlower_head
+  rotate: false
+  xy: 149, 19
+  size: 57, 43
+  orig: 57, 43
+  offset: 0, 0
+  index: -1
+SunFlower_head_sing1
+  rotate: false
+  xy: 267, 19
+  size: 57, 43
+  orig: 57, 43
+  offset: 0, 0
+  index: -1
+SunFlower_head_sing2
+  rotate: false
+  xy: 326, 19
+  size: 57, 43
+  orig: 57, 43
+  offset: 0, 0
+  index: -1
+SunFlower_head_sing3
+  rotate: false
+  xy: 385, 19
+  size: 57, 43
+  orig: 57, 43
+  offset: 0, 0
+  index: -1
+SunFlower_head_sing4
+  rotate: false
+  xy: 444, 19
+  size: 57, 43
+  orig: 57, 43
+  offset: 0, 0
+  index: -1
+SunFlower_head_sing5
+  rotate: false
+  xy: 503, 19
+  size: 57, 43
+  orig: 57, 43
+  offset: 0, 0
+  index: -1
+SunFlower_head_wink
+  rotate: false
+  xy: 208, 19
+  size: 57, 43
+  orig: 57, 43
+  offset: 0, 0
+  index: -1
+SunFlower_leftpetal1
+  rotate: true
+  xy: 580, 21
+  size: 10, 13
+  orig: 10, 13
+  offset: 0, 0
+  index: -1
+SunFlower_leftpetal2
+  rotate: true
+  xy: 602, 34
+  size: 10, 13
+  orig: 10, 13
+  offset: 0, 0
+  index: -1
+SunFlower_leftpetal3
+  rotate: true
+  xy: 203, 2
+  size: 15, 14
+  orig: 15, 14
+  offset: 0, 0
+  index: -1
+SunFlower_leftpetal4
+  rotate: true
+  xy: 219, 2
+  size: 15, 14
+  orig: 15, 14
+  offset: 0, 0
+  index: -1
+SunFlower_leftpetal5
+  rotate: false
+  xy: 586, 33
+  size: 14, 11
+  orig: 14, 11
+  offset: 0, 0
+  index: -1
+SunFlower_leftpetal6
+  rotate: false
+  xy: 642, 48
+  size: 14, 14
+  orig: 14, 14
+  offset: 0, 0
+  index: -1
+SunFlower_leftpetal7
+  rotate: false
+  xy: 658, 49
+  size: 12, 13
+  orig: 12, 13
+  offset: 0, 0
+  index: -1
+SunFlower_leftpetal8
+  rotate: true
+  xy: 253, 5
+  size: 12, 14
+  orig: 12, 14
+  offset: 0, 0
+  index: -1
+SunFlower_rightpetal1
+  rotate: true
+  xy: 298, 7
+  size: 10, 11
+  orig: 10, 12
+  offset: 0, 1
+  index: -1
+SunFlower_rightpetal2
+  rotate: false
+  xy: 672, 50
+  size: 11, 12
+  orig: 11, 12
+  offset: 0, 0
+  index: -1
+SunFlower_rightpetal3
+  rotate: false
+  xy: 712, 53
+  size: 10, 9
+  orig: 10, 10
+  offset: 0, 1
+  index: -1
+SunFlower_rightpetal4
+  rotate: false
+  xy: 284, 7
+  size: 12, 10
+  orig: 12, 11
+  offset: 0, 1
+  index: -1
+SunFlower_rightpetal5
+  rotate: false
+  xy: 685, 52
+  size: 12, 10
+  orig: 12, 10
+  offset: 0, 0
+  index: -1
+SunFlower_rightpetal6
+  rotate: false
+  xy: 699, 52
+  size: 11, 10
+  orig: 11, 10
+  offset: 0, 0
+  index: -1
+SunFlower_rightpetal7
+  rotate: false
+  xy: 269, 6
+  size: 13, 11
+  orig: 13, 11
+  offset: 0, 0
+  index: -1
+SunFlower_rightpetal8
+  rotate: false
+  xy: 311, 6
+  size: 11, 11
+  orig: 11, 11
+  offset: 0, 0
+  index: -1
+SunFlower_rightpetal9
+  rotate: false
+  xy: 324, 6
+  size: 11, 11
+  orig: 11, 11
+  offset: 0, 0
+  index: -1
+SunFlower_toppetals
+  rotate: false
+  xy: 562, 21
+  size: 16, 10
+  orig: 16, 10
+  offset: 0, 0
+  index: -1

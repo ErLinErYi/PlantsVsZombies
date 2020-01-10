@@ -1,0 +1,271 @@
+
+Jalapeno_Fire.png
+format: RGBA8888
+filter: Linear,Linear
+repeat: none
+20002
+  rotate: false
+  xy: 282, 168
+  size: 140, 85
+  orig: 390, 390
+  offset: 126, 126
+  index: -1
+20003
+  rotate: false
+  xy: 2, 20
+  size: 138, 104
+  orig: 390, 390
+  offset: 126, 126
+  index: -1
+20004
+  rotate: false
+  xy: 2, 126
+  size: 138, 127
+  orig: 390, 390
+  offset: 126, 126
+  index: -1
+20005
+  rotate: false
+  xy: 142, 127
+  size: 138, 126
+  orig: 390, 390
+  offset: 126, 127
+  index: -1
+20006
+  rotate: false
+  xy: 142, 31
+  size: 138, 94
+  orig: 390, 390
+  offset: 126, 128
+  index: -1
+20007
+  rotate: false
+  xy: 282, 81
+  size: 138, 85
+  orig: 390, 390
+  offset: 126, 127
+  index: -1
+20008
+  rotate: false
+  xy: 424, 176
+  size: 138, 77
+  orig: 390, 390
+  offset: 126, 127
+  index: -1
+20009
+  rotate: false
+  xy: 990, 185
+  size: 138, 68
+  orig: 390, 390
+  offset: 126, 127
+  index: -1
+20010
+  rotate: false
+  xy: 282, 20
+  size: 138, 59
+  orig: 390, 390
+  offset: 126, 127
+  index: -1
+20011
+  rotate: false
+  xy: 424, 115
+  size: 138, 59
+  orig: 390, 390
+  offset: 126, 127
+  index: -1
+20012
+  rotate: false
+  xy: 422, 53
+  size: 138, 60
+  orig: 390, 390
+  offset: 126, 127
+  index: -1
+20013
+  rotate: false
+  xy: 1550, 190
+  size: 138, 63
+  orig: 390, 390
+  offset: 126, 123
+  index: -1
+20014
+  rotate: false
+  xy: 564, 119
+  size: 138, 62
+  orig: 390, 390
+  offset: 126, 125
+  index: -1
+20015
+  rotate: false
+  xy: 1690, 190
+  size: 138, 63
+  orig: 390, 390
+  offset: 126, 126
+  index: -1
+20016
+  rotate: false
+  xy: 1410, 189
+  size: 138, 64
+  orig: 390, 390
+  offset: 126, 126
+  index: -1
+20017
+  rotate: false
+  xy: 1270, 188
+  size: 138, 65
+  orig: 390, 390
+  offset: 126, 127
+  index: -1
+20018
+  rotate: false
+  xy: 985, 127
+  size: 138, 56
+  orig: 390, 390
+  offset: 126, 127
+  index: -1
+20019
+  rotate: false
+  xy: 844, 127
+  size: 139, 57
+  orig: 390, 390
+  offset: 126, 127
+  index: -1
+20020
+  rotate: false
+  xy: 1830, 194
+  size: 142, 59
+  orig: 390, 390
+  offset: 126, 126
+  index: -1
+20021
+  rotate: false
+  xy: 704, 188
+  size: 142, 65
+  orig: 390, 390
+  offset: 126, 126
+  index: -1
+20022
+  rotate: false
+  xy: 848, 186
+  size: 140, 67
+  orig: 390, 390
+  offset: 126, 126
+  index: -1
+20023
+  rotate: false
+  xy: 1130, 185
+  size: 138, 68
+  orig: 390, 390
+  offset: 126, 126
+  index: -1
+20024
+  rotate: false
+  xy: 564, 183
+  size: 138, 70
+  orig: 390, 390
+  offset: 126, 125
+  index: -1
+20025
+  rotate: false
+  xy: 704, 125
+  size: 138, 61
+  orig: 390, 390
+  offset: 126, 126
+  index: -1
+20026
+  rotate: false
+  xy: 1125, 132
+  size: 138, 51
+  orig: 390, 390
+  offset: 126, 126
+  index: -1
+20027
+  rotate: false
+  xy: 422, 2
+  size: 138, 49
+  orig: 390, 390
+  offset: 126, 126
+  index: -1
+20028
+  rotate: false
+  xy: 704, 74
+  size: 138, 49
+  orig: 390, 390
+  offset: 126, 125
+  index: -1
+20029
+  rotate: false
+  xy: 844, 78
+  size: 138, 47
+  orig: 390, 390
+  offset: 126, 126
+  index: -1
+20030
+  rotate: false
+  xy: 564, 70
+  size: 138, 47
+  orig: 390, 390
+  offset: 126, 125
+  index: -1
+20031
+  rotate: false
+  xy: 562, 23
+  size: 138, 45
+  orig: 390, 390
+  offset: 126, 125
+  index: -1
+20032
+  rotate: false
+  xy: 1125, 86
+  size: 138, 44
+  orig: 390, 390
+  offset: 126, 125
+  index: -1
+20033
+  rotate: false
+  xy: 984, 78
+  size: 138, 47
+  orig: 390, 390
+  offset: 126, 120
+  index: -1
+20034
+  rotate: false
+  xy: 1830, 147
+  size: 138, 45
+  orig: 390, 390
+  offset: 126, 121
+  index: -1
+20035
+  rotate: false
+  xy: 844, 33
+  size: 138, 43
+  orig: 390, 390
+  offset: 126, 122
+  index: -1
+20036
+  rotate: false
+  xy: 984, 34
+  size: 138, 42
+  orig: 390, 390
+  offset: 126, 122
+  index: -1
+20037
+  rotate: false
+  xy: 704, 32
+  size: 138, 40
+  orig: 390, 390
+  offset: 126, 122
+  index: -1
+20038
+  rotate: false
+  xy: 1124, 11
+  size: 138, 36
+  orig: 390, 390
+  offset: 126, 121
+  index: -1
+20039
+  rotate: false
+  xy: 1124, 49
+  size: 139, 35
+  orig: 390, 390
+  offset: 125, 121
+  index: -1

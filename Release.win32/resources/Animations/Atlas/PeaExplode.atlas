@@ -1,0 +1,194 @@
+
+PeaExplode.png
+format: RGBA8888
+filter: Linear,Linear
+repeat: none
+0
+  rotate: false
+  xy: 810, 228
+  size: 22, 22
+  orig: 22, 22
+  offset: 0, 0
+  index: -1
+1
+  rotate: false
+  xy: 1974, 233
+  size: 21, 17
+  orig: 21, 17
+  offset: 0, 0
+  index: -1
+10_0000
+  rotate: true
+  xy: 564, 37
+  size: 148, 157
+  orig: 390, 390
+  offset: 94, 134
+  index: -1
+11 (1)
+  rotate: false
+  xy: 1756, 178
+  size: 120, 72
+  orig: 120, 72
+  offset: 0, 0
+  index: -1
+11 (2)
+  rotate: false
+  xy: 1390, 174
+  size: 120, 76
+  orig: 120, 76
+  offset: 0, 0
+  index: -1
+11 (3)
+  rotate: false
+  xy: 1634, 176
+  size: 120, 74
+  orig: 120, 74
+  offset: 0, 0
+  index: -1
+11 (4)
+  rotate: false
+  xy: 1512, 174
+  size: 120, 76
+  orig: 120, 76
+  offset: 0, 0
+  index: -1
+11 (5)
+  rotate: false
+  xy: 88, 2
+  size: 120, 77
+  orig: 120, 77
+  offset: 0, 0
+  index: -1
+11_0000
+  rotate: false
+  xy: 409, 90
+  size: 153, 160
+  orig: 390, 390
+  offset: 90, 133
+  index: -1
+12_0000
+  rotate: false
+  xy: 250, 86
+  size: 157, 164
+  orig: 390, 390
+  offset: 87, 131
+  index: -1
+13_0000
+  rotate: false
+  xy: 88, 81
+  size: 160, 169
+  orig: 390, 390
+  offset: 86, 129
+  index: -1
+14_0000
+  rotate: true
+  xy: 210, 5
+  size: 74, 22
+  orig: 390, 390
+  offset: 86, 139
+  index: -1
+15_0000
+  rotate: true
+  xy: 1278, 115
+  size: 8, 14
+  orig: 390, 390
+  offset: 86, 145
+  index: -1
+1_0000
+  rotate: true
+  xy: 867, 57
+  size: 38, 85
+  orig: 390, 390
+  offset: 178, 163
+  index: -1
+2
+  rotate: false
+  xy: 1390, 155
+  size: 22, 17
+  orig: 22, 17
+  offset: 0, 0
+  index: -1
+2_0000
+  rotate: true
+  xy: 564, 187
+  size: 63, 244
+  orig: 390, 390
+  offset: 164, 71
+  index: -1
+3
+  rotate: false
+  xy: 867, 44
+  size: 21, 11
+  orig: 21, 11
+  offset: 0, 0
+  index: -1
+3_0000
+  rotate: false
+  xy: 2, 2
+  size: 84, 248
+  orig: 390, 390
+  offset: 144, 69
+  index: -1
+4_0000
+  rotate: true
+  xy: 1878, 163
+  size: 87, 94
+  orig: 390, 390
+  offset: 131, 168
+  index: -1
+5_0000
+  rotate: false
+  xy: 1278, 125
+  size: 110, 125
+  orig: 390, 390
+  offset: 120, 149
+  index: -1
+6_0000
+  rotate: false
+  xy: 1151, 113
+  size: 125, 137
+  orig: 390, 390
+  offset: 109, 143
+  index: -1
+7_0000
+  rotate: false
+  xy: 1013, 106
+  size: 136, 144
+  orig: 390, 390
+  offset: 101, 140
+  index: -1
+8_0000
+  rotate: false
+  xy: 723, 36
+  size: 142, 149
+  orig: 390, 390
+  offset: 97, 138
+  index: -1
+9_0000
+  rotate: false
+  xy: 867, 97
+  size: 144, 153
+  orig: 390, 390
+  offset: 96, 136
+  index: -1
+Pea_particles_meitu_1
+  rotate: false
+  xy: 954, 83
+  size: 10, 12
+  orig: 10, 12
+  offset: 0, 0
+  index: -1
+Pea_particles_meitu_2
+  rotate: false
+  xy: 234, 68
+  size: 11, 11
+  orig: 11, 11
+  offset: 0, 0
+  index: -1
+Pea_particles_meitu_3
+  rotate: false
+  xy: 810, 215
+  size: 11, 11
+  orig: 11, 11
+  offset: 0, 0
+  index: -1

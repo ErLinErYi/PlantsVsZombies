@@ -1,0 +1,89 @@
+
+WallNut.png
+format: RGBA8888
+filter: Linear,Linear
+repeat: none
+0
+  rotate: true
+  xy: 505, 31
+  size: 86, 172
+  orig: 86, 172
+  offset: 0, 0
+  index: -1
+11
+  rotate: true
+  xy: 2, 2
+  size: 115, 169
+  orig: 115, 169
+  offset: 0, 0
+  index: -1
+13
+  rotate: true
+  xy: 679, 70
+  size: 47, 138
+  orig: 47, 138
+  offset: 0, 0
+  index: -1
+15
+  rotate: true
+  xy: 173, 2
+  size: 115, 169
+  orig: 115, 169
+  offset: 0, 0
+  index: -1
+18
+  rotate: false
+  xy: 505, 17
+  size: 22, 12
+  orig: 22, 12
+  offset: 0, 0
+  index: -1
+19
+  rotate: true
+  xy: 344, 2
+  size: 115, 159
+  orig: 115, 159
+  offset: 0, 0
+  index: -1
+26
+  rotate: false
+  xy: 819, 79
+  size: 40, 38
+  orig: 40, 38
+  offset: 0, 0
+  index: -1
+27
+  rotate: false
+  xy: 903, 79
+  size: 39, 38
+  orig: 39, 38
+  offset: 0, 0
+  index: -1
+28
+  rotate: true
+  xy: 679, 31
+  size: 37, 40
+  orig: 37, 40
+  offset: 0, 0
+  index: -1
+29
+  rotate: false
+  xy: 861, 79
+  size: 40, 38
+  orig: 40, 38
+  offset: 0, 0
+  index: -1
+5
+  rotate: false
+  xy: 944, 105
+  size: 14, 12
+  orig: 14, 12
+  offset: 0, 0
+  index: -1
+6
+  rotate: false
+  xy: 721, 55
+  size: 13, 13
+  orig: 13, 13
+  offset: 0, 0
+  index: -1

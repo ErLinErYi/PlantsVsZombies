@@ -1,0 +1,103 @@
+
+Zombies_Ash.png
+format: RGBA8888
+filter: Linear,Linear
+repeat: none
+Zombie_charred10
+  rotate: true
+  xy: 411, 84
+  size: 40, 94
+  orig: 40, 94
+  offset: 0, 0
+  index: -1
+Zombie_charred2
+  rotate: false
+  xy: 2, 18
+  size: 66, 106
+  orig: 66, 106
+  offset: 0, 0
+  index: -1
+Zombie_charred3
+  rotate: false
+  xy: 70, 20
+  size: 52, 104
+  orig: 52, 104
+  offset: 0, 0
+  index: -1
+Zombie_charred4
+  rotate: false
+  xy: 124, 25
+  size: 52, 99
+  orig: 52, 99
+  offset: 0, 0
+  index: -1
+Zombie_charred5
+  rotate: false
+  xy: 178, 25
+  size: 49, 99
+  orig: 49, 99
+  offset: 0, 0
+  index: -1
+Zombie_charred6
+  rotate: false
+  xy: 229, 30
+  size: 49, 94
+  orig: 49, 94
+  offset: 0, 0
+  index: -1
+Zombie_charred7
+  rotate: false
+  xy: 280, 30
+  size: 45, 94
+  orig: 45, 94
+  offset: 0, 0
+  index: -1
+Zombie_charred8
+  rotate: false
+  xy: 327, 30
+  size: 40, 94
+  orig: 40, 94
+  offset: 0, 0
+  index: -1
+Zombie_charred9
+  rotate: false
+  xy: 369, 30
+  size: 40, 94
+  orig: 40, 94
+  offset: 0, 0
+  index: -1
+Zombie_charred_eyes1
+  rotate: false
+  xy: 124, 4
+  size: 41, 19
+  orig: 41, 19
+  offset: 0, 0
+  index: -1
+Zombie_charred_eyes2
+  rotate: false
+  xy: 167, 4
+  size: 41, 19
+  orig: 41, 19
+  offset: 0, 0
+  index: -1
+Zombie_charred_head
+  rotate: false
+  xy: 459, 29
+  size: 51, 53
+  orig: 62, 56
+  offset: 5, 0
+  index: -1
+Zombie_charred_pile1
+  rotate: false
+  xy: 229, 2
+  size: 91, 26
+  orig: 91, 26
+  offset: 0, 0
+  index: -1
+Zombie_charred_pile2
+  rotate: true
+  xy: 411, 9
+  size: 73, 46
+  orig: 73, 46
+  offset: 0, 0
+  index: -1

@@ -1,0 +1,47 @@
+
+FirePea.png
+format: RGBA8888
+filter: Linear,Linear
+repeat: none
+ProjectilePea
+  rotate: false
+  xy: 414, 37
+  size: 88, 88
+  orig: 88, 88
+  offset: 0, 0
+  index: -1
+firepea1
+  rotate: false
+  xy: 310, 64
+  size: 102, 61
+  orig: 151, 157
+  offset: 23, 57
+  index: -1
+firepea2
+  rotate: false
+  xy: 2, 2
+  size: 119, 61
+  orig: 151, 157
+  offset: 22, 57
+  index: -1
+firepea3
+  rotate: false
+  xy: 2, 65
+  size: 102, 60
+  orig: 151, 157
+  offset: 23, 57
+  index: -1
+firepea4
+  rotate: false
+  xy: 106, 65
+  size: 101, 60
+  orig: 151, 157
+  offset: 24, 57
+  index: -1
+firepea5
+  rotate: false
+  xy: 209, 65
+  size: 99, 60
+  orig: 151, 157
+  offset: 26, 58
+  index: -1
