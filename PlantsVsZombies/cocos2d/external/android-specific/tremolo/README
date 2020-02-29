@@ -1,0 +1,8 @@
+This version of Tremolo is derived from Tremolo library version
+0.07. It has been patched against publicly known vulnerabilities
+with sample files available here:
+
+ http://static.dataspill.org/releases/ogg/examples/
+
+When syncing with svn, please ensure that these defects are not
+reintroduced.

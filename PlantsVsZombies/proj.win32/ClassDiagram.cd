@@ -1,0 +1,585 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<ClassDiagram MajorVersion="1" MinorVersion="1">
+  <Class Name="AppDelegate" Collapsed="true">
+    <Position X="26.5" Y="0.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAACAAAAAAAAACAAQAAAEAAAAAAAAAAAAk=</HashCode>
+      <FileName>D:\Program\PlantsVsZombies\PlantsVsZombies\Classes\AppDelegate.h</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="BucketDoorZombies" Collapsed="true">
+    <Position X="1" Y="2" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>IAAAQAAAAAAAAAAAAAAAEQAAAABAAAAAAABAAAAAAAA=</HashCode>
+      <FileName>D:\Program\PlantsVsZombies\PlantsVsZombies\Classes\Zombies\BucketDoorZombies.h</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="BucketZombies" Collapsed="true">
+    <Position X="3.25" Y="2" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>IAAAQAAAAAAAAAAAAAAAEQAAAAAAAAAAAABAAAAAAAA=</HashCode>
+      <FileName>D:\Program\PlantsVsZombies\PlantsVsZombies\Classes\Zombies\BucketZombies.h</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="CommonDoorZombies" Collapsed="true">
+    <Position X="5.5" Y="2" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAQAAAAAAAAAAAAAAAEQAAAABAAAAAAABAAAAAAAA=</HashCode>
+      <FileName>D:\Program\PlantsVsZombies\PlantsVsZombies\Classes\Zombies\CommonDoorZombies.h</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="CommonZombies" Collapsed="true">
+    <Position X="7.75" Y="2" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAQAAAAAAAAAAAAAAAEQAAAAAAAAAAAABAAAAAAAA=</HashCode>
+      <FileName>D:\Program\PlantsVsZombies\PlantsVsZombies\Classes\Zombies\CommonZombies.h</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="ConeDoorZombies" Collapsed="true">
+    <Position X="10" Y="2" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>IAAAQAAAAAAAAAAAAAAAEQAAAABAAAAAAABAAAAAAAA=</HashCode>
+      <FileName>D:\Program\PlantsVsZombies\PlantsVsZombies\Classes\Zombies\ConeDoorZombies.h</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="ConeZombies" Collapsed="true">
+    <Position X="12.25" Y="2" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>IAAAQAAAAAAAAAAAAAAAEQAAAAAAAAAAAABAAAAAAAA=</HashCode>
+      <FileName>D:\Program\PlantsVsZombies\PlantsVsZombies\Classes\Zombies\ConeZombies.h</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="LmpZombies" Collapsed="true">
+    <Position X="14.5" Y="2" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAQAAAAAAAAAAAAAAAEQQAAAAAAAQAAABAAAAAAAA=</HashCode>
+      <FileName>D:\Program\PlantsVsZombies\PlantsVsZombies\Classes\Zombies\LmpZombies.h</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="Zombies" Collapsed="true">
+    <Position X="7.75" Y="0.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>oBQC0B9H9y1DqdSlhBAqlYRYRADsoC5ILAkChChAKLA=</HashCode>
+      <FileName>D:\Program\PlantsVsZombies\PlantsVsZombies\Classes\Zombies\Zombies.h</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="SPSBackgroundLayer" Collapsed="true">
+    <Position X="0.5" Y="13.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AEAAQgAAAAAACAQAAABgBKAAAAAAAAIAABGAAIABAAI=</HashCode>
+      <FileName>D:\Program\PlantsVsZombies\PlantsVsZombies\Classes\Scenes\SelectPlantsScene\SPSBackgroundLayer.h</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="SPSControlLayer" Collapsed="true">
+    <Position X="3.5" Y="12.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AEAAAQAAAAAAAAAAAAAAAIgAAEAAAQIAABAAAIAAAAA=</HashCode>
+      <FileName>D:\Program\PlantsVsZombies\PlantsVsZombies\Classes\Scenes\SelectPlantsScene\SPSControlLayer.h</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="SPSQuitLayer" Collapsed="true">
+    <Position X="10.75" Y="13.75" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AEAAAQAAAAAAAAAAAAAAAAAAAAAAAAAAABABAIAAAAA=</HashCode>
+      <FileName>D:\Program\PlantsVsZombies\PlantsVsZombies\Classes\Scenes\SelectPlantsScene\SPSQuitLayer.h</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="SelectPlantsScene" Collapsed="true">
+    <Position X="6.5" Y="12.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAEIAgAAgAEAAAACgACMAIAAIBBAIAIAABAAAAUAAAA=</HashCode>
+      <FileName>D:\Program\PlantsVsZombies\PlantsVsZombies\Classes\Scenes\SelectPlantsScene\SelectPlantsScene.h</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="SPSSpriteLayer" Collapsed="true">
+    <Position X="30" Y="3.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>QGKCIAAABAgiAACAgAwEAIAAAoEQEWIAMBgDAIEAQqA=</HashCode>
+      <FileName>D:\Program\PlantsVsZombies\PlantsVsZombies\Classes\Scenes\SelectPlantsScene\SPSSpriteLayer.h</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="LoadingScene" Collapsed="true">
+    <Position X="31.75" Y="2.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>gBAQAAQQAKQCAAAAABAIAcEAFAIUgiIASRMAgAAEEEg=</HashCode>
+      <FileName>D:\Program\PlantsVsZombies\PlantsVsZombies\Classes\Scenes\LoadingScene\LoadingScene.h</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="GameEasterEggs" Collapsed="true">
+    <Position X="30" Y="0.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>GAgIAAACAAAABAQgAAgADIQACBDAQAKQALEACAAAAAA=</HashCode>
+      <FileName>D:\Program\PlantsVsZombies\PlantsVsZombies\Classes\Scenes\EasterEggsScene\GameEasterEggs.h</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="HelpScene" Collapsed="true">
+    <Position X="28.25" Y="2.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>BEAAACAAAAAAAAAAAIgAAIAAAAAAAAIAAhAAAAAAAAA=</HashCode>
+      <FileName>D:\Program\PlantsVsZombies\PlantsVsZombies\Classes\Scenes\HelpScene\HelpScene.h</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="InputDataMenu" Collapsed="true">
+    <Position X="15.25" Y="11" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AgQAVQCAAAAjAAARCACAEABAAgAAAAIAYBEBg4CAABA=</HashCode>
+      <FileName>D:\Program\PlantsVsZombies\PlantsVsZombies\Classes\Scenes\MainMenuScene\InputDataScene.h</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="MainMenu" Collapsed="true">
+    <Position X="33.5" Y="2.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>BImokgBAIAAmBwIAAIgIQIgBIBQAAIIAABEgACAEQAA=</HashCode>
+      <FileName>D:\Program\PlantsVsZombies\PlantsVsZombies\Classes\Scenes\MainMenuScene\MainMenu.h</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="OptionsMenu" Collapsed="true">
+    <Position X="10.75" Y="11" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AEAAAQACAAABAABAAAAIAAAQAgAAAAIAQBAAAIAAgAQ=</HashCode>
+      <FileName>D:\Program\PlantsVsZombies\PlantsVsZombies\Classes\Scenes\MainMenuScene\OptionsSence.h</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="QuitMenu" Collapsed="true">
+    <Position X="13" Y="11" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAQAAAAACAIAAAgAAAAAAAAAAAAAAQBAIAIAAAAA=</HashCode>
+      <FileName>D:\Program\PlantsVsZombies\PlantsVsZombies\Classes\Scenes\MainMenuScene\QuitScene.h</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="SelectWorldScene" Collapsed="true">
+    <Position X="28.25" Y="3.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAIAAACAAAAAAAgAAgwAIAAAAAgAAIAABAAAAAwAEA=</HashCode>
+      <FileName>D:\Program\PlantsVsZombies\PlantsVsZombies\Classes\Scenes\WorldScene\SelectWorldScene.h</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="World_1" Collapsed="true">
+    <Position X="28.25" Y="4.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AUAIQAAACIAAAAIgAAgIIYAAAAAAAAIRABAAAAA4AAA=</HashCode>
+      <FileName>D:\Program\PlantsVsZombies\PlantsVsZombies\Classes\Scenes\WorldScene\World_1.h</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="GSAnimationLayer" Collapsed="true">
+    <Position X="26.5" Y="1.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AIBACCAUQAEAAAAAMAAgAMBEAAAABAIIABBEAIACAAg=</HashCode>
+      <FileName>D:\Program\PlantsVsZombies\PlantsVsZombies\Classes\Scenes\GameScene\GSAnimationLayer.h</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="GSBackgroundLayer" Collapsed="true">
+    <Position X="0.5" Y="15" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAEAAAAAAAAACAAAAQAAAIAAAAAAAAMAABAAAIAAAAA=</HashCode>
+      <FileName>D:\Program\PlantsVsZombies\PlantsVsZombies\Classes\Scenes\GameScene\GSBackgroundLayer.h</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="GameScene" Collapsed="true">
+    <Position X="6.5" Y="14" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AQAIABAggAAABAAAAAAIBIAAAAAAAAIAgBAAAAAAAAA=</HashCode>
+      <FileName>D:\Program\PlantsVsZombies\PlantsVsZombies\Classes\Scenes\GameScene\GameScene.h</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="GSButtonLayer" Collapsed="true">
+    <Position X="3.5" Y="14" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AECEJAAABiAAAAgAgAAoAKgiAIAAAAIARBAAAIEAAAA=</HashCode>
+      <FileName>D:\Program\PlantsVsZombies\PlantsVsZombies\Classes\Scenes\GameScene\GSButtonLayer.h</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="GSGameEndLayer" Collapsed="true">
+    <Position X="30" Y="1.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>EAABAACAAAAAAAAQAAggAIAAAAEAAAoAABAAAAARUAA=</HashCode>
+      <FileName>D:\Program\PlantsVsZombies\PlantsVsZombies\Classes\Scenes\GameScene\GSGameEndLayer.h</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="GSGameResultJudgement" Collapsed="true">
+    <Position X="31.75" Y="1.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAABAAAAAAAAAAAgAkAAgAAAAAAAABAAAAAAAECAA=</HashCode>
+      <FileName>D:\Program\PlantsVsZombies\PlantsVsZombies\Classes\Scenes\GameScene\GSGameResultJudgement.h</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="GSInformationLayer" Collapsed="true">
+    <Position X="33.5" Y="1.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AIASIAAAQiAAAAAAABAkAIBiADAACAIBADACIIAAAAg=</HashCode>
+      <FileName>D:\Program\PlantsVsZombies\PlantsVsZombies\Classes\Scenes\GameScene\GSInformationLayer.h</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="GSPauseQuitLayer" Collapsed="true">
+    <Position X="10.75" Y="12.25" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AGAAAQAAAAAAAAAAAAAAAAAAAAAAYAIAABQBAIBAAIA=</HashCode>
+      <FileName>D:\Program\PlantsVsZombies\PlantsVsZombies\Classes\Scenes\GameScene\GSPauseQuitLayer.h</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="GSControlLayer" Collapsed="true">
+    <Position X="28.25" Y="1.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAIAAACAAAAIAAI2YAggEIAQALUACAIAAtgIQoAEECM=</HashCode>
+      <FileName>D:\Program\PlantsVsZombies\PlantsVsZombies\Classes\Scenes\GameScene\GSControlLayer.h</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="ZombiesAppearControl" Collapsed="true">
+    <Position X="30" Y="4.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>EBAhAAEAIAEgAAADgAA4AAIAAAIQABAFAAABABEAAAE=</HashCode>
+      <FileName>D:\Program\PlantsVsZombies\PlantsVsZombies\Classes\Scenes\GameScene\GSControlLayer.h</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="GSRequirementLayer" Collapsed="true">
+    <Position X="26.5" Y="2.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAAAAACIAABAAAIAAAAA=</HashCode>
+      <FileName>D:\Program\PlantsVsZombies\PlantsVsZombies\Classes\Scenes\GameScene\GSRequirementLayer.h</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="Plants" Collapsed="true">
+    <Position X="12.75" Y="3.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>RAUglRkFAgKBAAAIBhFIAIiANBACAQgkEWBEgLAINwA=</HashCode>
+      <FileName>D:\Program\PlantsVsZombies\PlantsVsZombies\Classes\Plants\Plants.h</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="Garlic" Collapsed="true">
+    <Position X="10.5" Y="5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAgQABYAAIAAAAAhACAAgAAAAAAAgAAABBAAAABAA=</HashCode>
+      <FileName>D:\Program\PlantsVsZombies\PlantsVsZombies\Classes\Plants\DefensePlants\Garlic.h</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="SunFlower" Collapsed="true">
+    <Position X="19.5" Y="5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAgAAAAEEAQCAAAAAAAgAAAAgAAAgACABAAAAKAAA=</HashCode>
+      <FileName>D:\Program\PlantsVsZombies\PlantsVsZombies\Classes\Plants\DefensePlants\SunFlower.h</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="Sun" Collapsed="true">
+    <Position X="31.75" Y="3.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAABAgAGAAACAACAAAAIECAAAAAiAECAAAgCAAAhA=</HashCode>
+      <FileName>D:\Program\PlantsVsZombies\PlantsVsZombies\Classes\Plants\DefensePlants\SunFlower.h</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="Torchwood" Collapsed="true">
+    <Position X="21.75" Y="5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAgAgAAAAAAAAAAAAgQAAAAAAAAAAAgAAABAAAAIAAA=</HashCode>
+      <FileName>D:\Program\PlantsVsZombies\PlantsVsZombies\Classes\Plants\DefensePlants\Torchwood.h</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="WallNut" Collapsed="true">
+    <Position X="24" Y="5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAQgAAAAAAAAAIAAAAAAAAAAAAAAAgAAABAAAAABAA=</HashCode>
+      <FileName>D:\Program\PlantsVsZombies\PlantsVsZombies\Classes\Plants\DefensePlants\WallNut.h</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="AcidLemonShooter" Collapsed="true">
+    <Position X="8.25" Y="6.25" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAgAAAAAAQAAABAgAAAAAAAEAEBAgAAABAAAAAAAA=</HashCode>
+      <FileName>D:\Program\PlantsVsZombies\PlantsVsZombies\Classes\Plants\EmissionPlants\AcidLemon.h</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="CabbagePult" Collapsed="true">
+    <Position X="1.5" Y="6.25" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAgAAAAAAAAAAAAhAAAAgAAAAWBAgAAEBEAAAAIAA=</HashCode>
+      <FileName>D:\Program\PlantsVsZombies\PlantsVsZombies\Classes\Plants\EmissionPlants\CabbagePult.h</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="FirePeaShooter" Collapsed="true">
+    <Position X="3.75" Y="7.75" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAgAAAAAAAAAAAAgAAAAAAAAAABAgAAAhAAACAAAA=</HashCode>
+      <FileName>D:\Program\PlantsVsZombies\PlantsVsZombies\Classes\Plants\EmissionPlants\FirePeaShooter.h</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="PeaShooter" Collapsed="true">
+    <Position X="3.75" Y="6.25" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAgAAAAAAQIAABAgCAAAAAAAAABAgAAAhEAAAAAAA=</HashCode>
+      <FileName>D:\Program\PlantsVsZombies\PlantsVsZombies\Classes\Plants\EmissionPlants\PeaShooter.h</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="EmissionPlants" Collapsed="true">
+    <Position X="5" Y="5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAIAAAAAAAIEBAAAAAAAAAAAAAA=</HashCode>
+      <FileName>D:\Program\PlantsVsZombies\PlantsVsZombies\Classes\Plants\EmissionPlants\EmissionPlants.h</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="Citron" Collapsed="true">
+    <Position X="6" Y="6.25" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAgAAAQAAQACABAgAAAAAAAgAABggAAABAACBAAAA=</HashCode>
+      <FileName>D:\Program\PlantsVsZombies\PlantsVsZombies\Classes\Plants\EmissionPlants\Citron.h</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="AcidLemonBullet" Collapsed="true">
+    <Position X="5.25" Y="10.75" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAIAAAABAAAACBAAABAAAAAAAAAAAAAAAEAAACAAA=</HashCode>
+      <FileName>D:\Program\PlantsVsZombies\PlantsVsZombies\Classes\Plants\EmissionPlants\Bullet\AcidLemonBullet.h</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="Bullet" Collapsed="true">
+    <Position X="4" Y="9.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>wQAQIBJAABAEEAIFAAIAIICASQAAACAFEIAAiBACAEQ=</HashCode>
+      <FileName>D:\Program\PlantsVsZombies\PlantsVsZombies\Classes\Plants\EmissionPlants\Bullet\Bullet.h</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="Cabbage" Collapsed="true">
+    <Position X="7.5" Y="10.75" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAIAgAABAAAIABAAAAAACAAQAAACAABAAAAAACAIA=</HashCode>
+      <FileName>D:\Program\PlantsVsZombies\PlantsVsZombies\Classes\Plants\EmissionPlants\Bullet\Cabbage.h</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="FirePea" Collapsed="true">
+    <Position X="0.75" Y="12.25" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAIAAAABAAgAABAAAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>D:\Program\PlantsVsZombies\PlantsVsZombies\Classes\Plants\EmissionPlants\Bullet\FirePea.h</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="Pea" Collapsed="true">
+    <Position X="0.75" Y="10.75" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>CAAIIAAQBBAAAAFBAAAAAIAAAAAAAKACIAAAACACAAI=</HashCode>
+      <FileName>D:\Program\PlantsVsZombies\PlantsVsZombies\Classes\Plants\EmissionPlants\Bullet\Pea.h</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="CitronBullet" Collapsed="true">
+    <Position X="3" Y="10.75" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAIAAAQBgAAAIBAAAAAACAAAAAAAAAAAAAAAACAAA=</HashCode>
+      <FileName>D:\Program\PlantsVsZombies\PlantsVsZombies\Classes\Plants\EmissionPlants\Bullet\CitronBullet.h</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="Jalapeno" Collapsed="true">
+    <Position X="15" Y="7.75" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAgAAAAAABAAQAAAAAAAAAAAAAAAgAAIBAAIAAAAA=</HashCode>
+      <FileName>D:\Program\PlantsVsZombies\PlantsVsZombies\Classes\Plants\BattlePlants\Jalapeno.h</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="BattlePlants" Collapsed="true">
+    <Position X="15" Y="5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAQAAAAAAAAAAAAAAAAAAAAAABAAAAAAAAIAAAAA=</HashCode>
+      <FileName>D:\Program\PlantsVsZombies\PlantsVsZombies\Classes\Plants\BattlePlants\BattlePlants.h</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="Spikeweed" Collapsed="true">
+    <Position X="12.75" Y="6.25" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAgAAAAAIAAACCAgAAAAAAACAEBAgEAABAAAAAAAA=</HashCode>
+      <FileName>D:\Program\PlantsVsZombies\PlantsVsZombies\Classes\Plants\BattlePlants\Spikeweed.h</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="CherryBomb" Collapsed="true">
+    <Position X="15" Y="6.25" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAgCAAAAAFgAAAAgAAAAgAAAAIAAgAAIBEAIAAAIA=</HashCode>
+      <FileName>D:\Program\PlantsVsZombies\PlantsVsZombies\Classes\Plants\BattlePlants\CherryBomb.h</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="PotatoMine" Collapsed="true">
+    <Position X="17.25" Y="6.25" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAgWAAAAABgCAAAgAAAAAACAAAAAgAAABACKAAABA=</HashCode>
+      <FileName>D:\Program\PlantsVsZombies\PlantsVsZombies\Classes\Plants\BattlePlants\PotatoMine.h</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="Car" Collapsed="true">
+    <Position X="28.25" Y="0.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAABBAABQAAAAAgAgUEIACAAwACACCAABRgADRACI=</HashCode>
+      <FileName>D:\Program\PlantsVsZombies\PlantsVsZombies\Classes\Based\Car.h</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="Dialog" Collapsed="true">
+    <Position X="13" Y="9.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>BAAAAAAAAABAABAQAAAAQIAQAAAACEAAQAARAACCAAA=</HashCode>
+      <FileName>D:\Program\PlantsVsZombies\PlantsVsZombies\Classes\Based\Dialog.h</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="GameType" Collapsed="true">
+    <Position X="31.75" Y="0.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAEBAQAAAAAQAAAAEgAIAAAAEIAAAABAAAAAQEABA=</HashCode>
+      <FileName>D:\Program\PlantsVsZombies\PlantsVsZombies\Classes\Based\GameType.h</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="Global" Collapsed="true">
+    <Position X="33.5" Y="0.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAEAAAAAAAAAAAAAAAAAAAAAAAAAAQAAABAAAAAAAE=</HashCode>
+      <FileName>D:\Program\PlantsVsZombies\PlantsVsZombies\Classes\Based\GlobalVariable.h</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="OpenLevelData" Collapsed="true">
+    <Position X="26.5" Y="3.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>ABAEAAAAAEgAAQAAAAAAMAAGAAAACAQAAAAAAQAEQAA=</HashCode>
+      <FileName>D:\Program\PlantsVsZombies\PlantsVsZombies\Classes\Based\LevelData.h</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="LevelData" Collapsed="true">
+    <Position X="30" Y="2.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AhAAgBAAwEAAEjBKAAFJATEAgAAECwggAAACAYMSAgI=</HashCode>
+      <FileName>D:\Program\PlantsVsZombies\PlantsVsZombies\Classes\Based\LevelData.h</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="UserInformation" Collapsed="true">
+    <Position X="33.5" Y="3.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>Q2B6kMChyCqtg4I8B+kQDhMRECGBADwqEnoLA4UWgCI=</HashCode>
+      <FileName>D:\Program\PlantsVsZombies\PlantsVsZombies\Classes\Based\UserInformation.h</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="UserWinRequirement" Collapsed="true">
+    <Position X="26.5" Y="4.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AKAAABAAAAQKEiEQAFAAAIIAQABAAAAAQABRAABJAAA=</HashCode>
+      <FileName>D:\Program\PlantsVsZombies\PlantsVsZombies\Classes\Based\UserWinRequirement.h</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Struct Name="MouseSelectImage" Collapsed="true">
+    <Position X="28.25" Y="5.75" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAABgAAAAAAIAAAAAAQAAAAAAAAAAAQA=</HashCode>
+      <FileName>D:\Program\PlantsVsZombies\PlantsVsZombies\Classes\Scenes\GameScene\GSButtonLayer.h</FileName>
+    </TypeIdentifier>
+  </Struct>
+  <Struct Name="PlantsInformation" Collapsed="true">
+    <Position X="31.75" Y="5.75" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAABAAAAAAAAAAAAAAAAABAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>D:\Program\PlantsVsZombies\PlantsVsZombies\Classes\Scenes\GameScene\GSButtonLayer.h</FileName>
+    </TypeIdentifier>
+  </Struct>
+  <Struct Name="GameMapInformation" Collapsed="true">
+    <Position X="26.5" Y="5.75" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>QAAAAAIAAAAAAAAAAAAAAAQEAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>D:\Program\PlantsVsZombies\PlantsVsZombies\Classes\Scenes\GameScene\GSControlLayer.h</FileName>
+    </TypeIdentifier>
+  </Struct>
+  <Struct Name="SunNumberRequriement" Collapsed="true">
+    <Position X="26.5" Y="6.75" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AEAAAAAAAAAQAAAAAAAAEAAAAAAAAAAAAAgAAAAAEQA=</HashCode>
+      <FileName>D:\Program\PlantsVsZombies\PlantsVsZombies\Classes\Based\GameType.h</FileName>
+    </TypeIdentifier>
+  </Struct>
+  <Struct Name="PlantsRequriement" Collapsed="true">
+    <Position X="33.5" Y="5.75" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AEAAAAAAAAAQAAAABCIAAAAAAAAAAEAAAAAAAAAAAAA=</HashCode>
+      <FileName>D:\Program\PlantsVsZombies\PlantsVsZombies\Classes\Based\GameType.h</FileName>
+    </TypeIdentifier>
+  </Struct>
+  <Struct Name="MyPoint" Collapsed="true">
+    <Position X="30" Y="5.75" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>EAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAABgAAAAAAA=</HashCode>
+      <FileName>D:\Program\PlantsVsZombies\PlantsVsZombies\Classes\Based\LevelData.h</FileName>
+    </TypeIdentifier>
+  </Struct>
+  <Struct Name="UserSelectCard" Collapsed="true">
+    <Position X="28.25" Y="6.75" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAIAAAAAAAAAAAAABAAAA=</HashCode>
+      <FileName>D:\Program\PlantsVsZombies\PlantsVsZombies\Classes\Based\UserInformation.h</FileName>
+    </TypeIdentifier>
+  </Struct>
+  <Struct Name="WorldData" Collapsed="true">
+    <Position X="30" Y="6.75" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAACAAAABAAEAAAAAAAAAAAAAAIA=</HashCode>
+      <FileName>D:\Program\PlantsVsZombies\PlantsVsZombies\Classes\Based\UserInformation.h</FileName>
+    </TypeIdentifier>
+  </Struct>
+  <Enum Name="ZombiesType" Collapsed="true">
+    <Position X="33.5" Y="8.75" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAQAAAAAEAAEAAIAAAAAAAAAAAAAABAEABgA=</HashCode>
+      <FileName>D:\Program\PlantsVsZombies\PlantsVsZombies\Classes\Zombies\Zombies.h</FileName>
+    </TypeIdentifier>
+  </Enum>
+  <Enum Name="OptionScene_CheckBox" Collapsed="true">
+    <Position X="31.75" Y="8" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAgAAQAAIAAAAAAAAAAAAAAAAAAAIAAAAAAAAAAAA=</HashCode>
+      <FileName>D:\Program\PlantsVsZombies\PlantsVsZombies\Classes\Scenes\MainMenuScene\OptionsSence.h</FileName>
+    </TypeIdentifier>
+  </Enum>
+  <Enum Name="OptionScene_Slider" Collapsed="true">
+    <Position X="33.5" Y="8" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAACAAAAAAIA=</HashCode>
+      <FileName>D:\Program\PlantsVsZombies\PlantsVsZombies\Classes\Scenes\MainMenuScene\OptionsSence.h</FileName>
+    </TypeIdentifier>
+  </Enum>
+  <Enum Name="GSLayerButton" Collapsed="true">
+    <Position X="30" Y="8" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAgAAAAAAAAAAAAAAAAAAAAAAAAAAgAAABAAAAAAA=</HashCode>
+      <FileName>D:\Program\PlantsVsZombies\PlantsVsZombies\Classes\Scenes\GameScene\GSButtonLayer.h</FileName>
+    </TypeIdentifier>
+  </Enum>
+  <Enum Name="PauseQuitLayer_Button" Collapsed="true">
+    <Position X="26.5" Y="8.75" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>gAAAAGAAAAgAAAAAAAAAAAAAAAAAAIAAAAAAAAAAAAA=</HashCode>
+      <FileName>D:\Program\PlantsVsZombies\PlantsVsZombies\Classes\Scenes\GameScene\GSPauseQuitLayer.h</FileName>
+    </TypeIdentifier>
+  </Enum>
+  <Enum Name="PlantsType" Collapsed="true">
+    <Position X="28.25" Y="8.75" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAACAAAAwAQACABAAAAKAAADAAAAEAAEAAgA=</HashCode>
+      <FileName>D:\Program\PlantsVsZombies\PlantsVsZombies\Classes\Plants\Plants.h</FileName>
+    </TypeIdentifier>
+  </Enum>
+  <Enum Name="BulletType" Collapsed="true">
+    <Position X="26.5" Y="8" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>gAAAAAAAAAAACAAAAAAQAAAACAAAAAAEAAAAAAEAAAA=</HashCode>
+      <FileName>D:\Program\PlantsVsZombies\PlantsVsZombies\Classes\Plants\EmissionPlants\Bullet\Bullet.h</FileName>
+    </TypeIdentifier>
+  </Enum>
+  <Enum Name="SoundEffectType" Collapsed="true">
+    <Position X="30" Y="8.75" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAQAAAAAAAAAAAAAAAAAAAIAAAAAAAAAAAgAAA=</HashCode>
+      <FileName>D:\Program\PlantsVsZombies\PlantsVsZombies\Classes\Plants\EmissionPlants\Bullet\Bullet.h</FileName>
+    </TypeIdentifier>
+  </Enum>
+  <Enum Name="GameTypes" Collapsed="true">
+    <Position X="28.25" Y="8" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAECCAAAAEAAAAAAAAAEAAAABAAAEBAAEAIIA=</HashCode>
+      <FileName>D:\Program\PlantsVsZombies\PlantsVsZombies\Classes\Based\GameType.h</FileName>
+    </TypeIdentifier>
+  </Enum>
+  <Enum Name="WorldName" Collapsed="true">
+    <Position X="31.75" Y="8.75" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAgAAAAAAAAAAAAAACAAAAAAAAACAAAIAAAAAA=</HashCode>
+      <FileName>D:\Program\PlantsVsZombies\PlantsVsZombies\Classes\Based\UserInformation.h</FileName>
+    </TypeIdentifier>
+  </Enum>
+  <Font Name="Microsoft YaHei UI" Size="9" />
+</ClassDiagram>

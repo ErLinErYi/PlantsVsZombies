@@ -1,0 +1,13 @@
+// 提示文件帮助 Visual Studio IDE 解释 Visual C++ 标识符,
+// 如函数和宏的名称。
+// 有关详细信息，请参见 https://go.microsoft.com/fwlink/?linkid=865984
+#define CC_DEPRECATED_ATTRIBUTE __attribute__((deprecated))
+#define CC_DEPRECATED_ATTRIBUTE __declspec(deprecated)
+#define CC_DEPRECATED_ATTRIBUTE
+// 提示文件帮助 Visual Studio IDE 解释 Visual C++ 标识符,
+// 如函数和宏的名称。
+// 有关详细信息，请参见 https://go.microsoft.com/fwlink/?linkid=865984
+#define CC_DLL
+#define CC_DLL __declspec(dllexport)
+#define CC_DLL __declspec(dllimport)
+#define CC_DLL __attribute__ ((visibility("default")))

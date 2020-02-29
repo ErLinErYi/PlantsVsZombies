@@ -1,0 +1,11 @@
+{
+    "prebuilt_libs_version":"v3-deps-136",
+    "freetype":"2.5.5",
+    "curl":"7.52.1",
+    "jpeg":"9.0",
+    "png":"1.6.16",
+    "tiff":"4.0.3",
+    "webp":"0.2.1",
+    "websockets":"v2.1.0",
+    "openssl":"1.1.0c"
+}
