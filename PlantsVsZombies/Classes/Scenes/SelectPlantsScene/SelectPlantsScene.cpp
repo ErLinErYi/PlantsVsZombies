@@ -23,6 +23,7 @@ SelectPlantsScene::SelectPlantsScene() :
 	_director(Director::getInstance()),
 	_global(Global::getInstance())
 {
+	_global->changeBgMusic("mainmusic.mo3.1", true);
 }
 
 SelectPlantsScene::~SelectPlantsScene()

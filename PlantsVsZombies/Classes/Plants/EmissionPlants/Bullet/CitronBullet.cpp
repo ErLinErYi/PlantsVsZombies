@@ -45,6 +45,7 @@ void CitronBullet::bulletAndZombiesCollision()
 					Plants::playSoundEffect("ignite");
 					zombie->getZombieAnimation()->getChildByName("shadow")->setVisible(false);
 					zombie->getZombieAnimation()->stopAllActions();
+					zombie->getZombieAnimation()->setAnimation(1, "Zombies_Stand", false);
 					zombie->getZombieAnimation()->setAnchorPoint(Vec2(1.f, 1.f));
 					zombie->getZombieAnimation()->runAction(Sequence::create(JumpBy::create(1.0f, Vec2(1000, 500 + rand() % 100), 150 + rand() % 100, 1),
 						CallFunc::create([zombie]()
