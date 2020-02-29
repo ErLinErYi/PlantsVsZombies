@@ -25,8 +25,8 @@
 ![ClassDiagram](https://github.com/ErLinErYi/PlantsVsZombies/raw/master/ClassDiagram.png)
 
 ## Run The Example (运行示例）
-![Image(图片)](https://img-blog.csdnimg.cn/20200110151132149.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3FxXzQwNjMwMjQ2,size_16,color_FFFFFF,t_70)
-![Image(图片)](https://img-blog.csdnimg.cn/20191019220825998.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3FxXzQwNjMwMjQ2,size_16,color_FFFFFF,t_70)
+![Image(图片)](https://github.com/ErLinErYi/PlantsVsZombies/raw/master/example1.png)
+![Image(图片)](https://github.com/ErLinErYi/PlantsVsZombies/raw/master/example.png)
 
 ## Run Requirement（运行要求）
 * Install visual studio 2017 or visual studio 2019
