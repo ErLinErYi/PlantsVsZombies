@@ -42,11 +42,11 @@ void GameType::createGameType()
 		{
 		case GameTypes::AtLeastSunNumbers:
 		{
-			auto ShowNumber = Sprite::create(_global->userInformation->getImagePath().find("ShowNumber")->second);
+			auto ShowNumber = Sprite::createWithSpriteFrameName("ShowNumber.png");
 			ShowNumber->setPosition(Vec2(735, 1010));
 			_node->addChild(ShowNumber);
 
-			auto LackSun = Sprite::create(_global->userInformation->getImagePath().find("LackSun")->second);
+			auto LackSun = Sprite::createWithSpriteFrameName("LackSun.png");
 			LackSun->setPosition(Vec2(640, 1010));
 			LackSun->setName("LackSun");
 			_node->addChild(LackSun);
@@ -57,11 +57,11 @@ void GameType::createGameType()
 			break;
 		case GameTypes::UserPlantsNumbers:
 		{
-			auto ShowNumber = Sprite::create(_global->userInformation->getImagePath().find("ShowNumber")->second);
+			auto ShowNumber = Sprite::createWithSpriteFrameName("ShowNumber.png");
 			ShowNumber->setPosition(Vec2(735, 1010));
 			_node->addChild(ShowNumber);
 
-			auto PlantsNumbers = Sprite::create(_global->userInformation->getImagePath().find("MorePlants")->second);
+			auto PlantsNumbers = Sprite::createWithSpriteFrameName("MorePlants.png");
 			PlantsNumbers->setPosition(Vec2(640, 1010));
 			PlantsNumbers->setName("MorePlants");
 			_node->addChild(PlantsNumbers);
@@ -72,11 +72,11 @@ void GameType::createGameType()
 		    break;
 		case GameTypes::FlowerPosition:
 		{
-			auto Flowers = Sprite::create(_global->userInformation->getImagePath().find("Flowers")->second);
+			auto Flowers = Sprite::createWithSpriteFrameName("Flowers.png");
 			Flowers->setPosition(Vec2(_levelData->getFlowerPosition(), 600));
 			Flowers->setScaleY(1.2f);
 			_node->addChild(Flowers);
-			auto Flowers1 = Sprite::create(_global->userInformation->getImagePath().find("Flowers")->second);
+			auto Flowers1 = Sprite::createWithSpriteFrameName("Flowers.png");
 			Flowers1->setPosition(Vec2(_levelData->getFlowerPosition(), 300));
 			Flowers1->setScaleY(1.2f);
 			_node->addChild(Flowers1);
@@ -187,8 +187,8 @@ void GameType::updateNumbers(const int& ID)
 		if (!_sunNumberRequriement->isUpdateImage && _sunNumberRequriement->allSunNumbers >= _openlevelData->readLevelData(_openlevelData->getLevelNumber())->getAtLeastSunNumbers())
 		{
 			auto sprite = static_cast<Sprite*>(_node->getChildByName("LackSun"));
-			sprite->setTexture(_global->userInformation->getImagePath().find("MoreSun")->second);
-
+			sprite->setSpriteFrame(SpriteFrameCache::getInstance()->getSpriteFrameByName("MoreSun.png"));
+			
 			_sunNumberRequriement->isUpdateImage = true;
 		}
 	}
@@ -201,8 +201,8 @@ void GameType::updateNumbers(const int& ID)
 		if (!_plantsRequriement->isUpdateImage && _plantsRequriement->surPlusPlantsNumbers <= 0)
 		{
 			auto sprite = static_cast<Sprite*>(_node->getChildByName("MorePlants"));
-			sprite->setTexture(_global->userInformation->getImagePath().find("LackPlants")->second);
-
+			sprite->setSpriteFrame(SpriteFrameCache::getInstance()->getSpriteFrameByName("LackPlants.png"));
+			
 			_sunNumberRequriement->isUpdateImage = true;
 		}
 	}

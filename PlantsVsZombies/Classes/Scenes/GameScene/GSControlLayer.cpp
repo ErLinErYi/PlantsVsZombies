@@ -414,7 +414,7 @@ void GSControlLayer::removePreviewPlant()
 void GSControlLayer::removeShovel()
 {
 	buttonLayerInformation->mouseSelectImage->isSelectShovel = false;
-	_director->getOpenGLView()->setCursor(_global->userInformation->getImagePath().find("cursor")->second, Point::ANCHOR_TOP_LEFT);
+	_director->getOpenGLView()->setCursor("resources/images/System/cursor.png", Point::ANCHOR_TOP_LEFT);
 }
 
 void GSControlLayer::recoveryPlantsColor()

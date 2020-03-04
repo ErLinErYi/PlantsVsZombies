@@ -26,6 +26,7 @@ void GSPauseQuitLayer::pauseLayer()
 	Director::getInstance()->getRunningScene()->getChildByName("controlLayer")->onExit();
 	Director::getInstance()->getRunningScene()->getChildByName("informationLayer")->onExit();
 	Director::getInstance()->getRunningScene()->getChildByName("sunLayer")->onExit();
+	Global::getInstance()->stopMusic();
 }
 
 void GSPauseQuitLayer::resumeLayer()
@@ -36,6 +37,7 @@ void GSPauseQuitLayer::resumeLayer()
 	Director::getInstance()->getRunningScene()->getChildByName("controlLayer")->onEnter();
 	Director::getInstance()->getRunningScene()->getChildByName("informationLayer")->onEnter();
 	Director::getInstance()->getRunningScene()->getChildByName("sunLayer")->onEnter();
+	Global::getInstance()->resumeMusic();
 }
 
 bool GSPauseQuitLayer::init()
@@ -53,7 +55,7 @@ void GSPauseQuitLayer::createDialog()
 	_grayLayer = LayerColor::create(Color4B(0, 0, 0, 180));
 	this->addChild(_grayLayer);
 
-	_option = Sprite::createWithTexture(_director->getTextureCache()->getTextureForKey(_global->userInformation->getImagePath().find("LevelObjiectivesBg")->second));
+	_option = Sprite::createWithSpriteFrameName("LevelObjiectivesBg.png");
 	_option->setPosition(_director->getWinSize() / 2);
 	_option->setScale(0.9f);
 	_grayLayer->addChild(_option);
@@ -68,14 +70,14 @@ void GSPauseQuitLayer::createDialog()
 
 	/* 创建滑动条 */
 	auto musicslider = createSlider(Vec2(600, 520), Vec2(150, 520), _global->userInformation->getGameText().find("音乐")->second, OptionScene_Slider::音乐,
-		Sprite::create(_global->userInformation->getImagePath().find("bgFile")->second),
-		Sprite::create(_global->userInformation->getImagePath().find("progressFile")->second),
-		Sprite::create(_global->userInformation->getImagePath().find("thumbFile")->second),
+		Sprite::createWithSpriteFrameName("bgFile.png"),
+		Sprite::createWithSpriteFrameName("progressFile.png"),
+		Sprite::createWithSpriteFrameName("thumbFile.png"),
 		true);
 	auto SoundEffectslider = createSlider(Vec2(600, 450), Vec2(150, 450), _global->userInformation->getGameText().find("音效")->second, OptionScene_Slider::音效,
-		Sprite::create(_global->userInformation->getImagePath().find("bgFile")->second),
-		Sprite::create(_global->userInformation->getImagePath().find("progressFile")->second),
-		Sprite::create(_global->userInformation->getImagePath().find("thumbFile")->second),
+		Sprite::createWithSpriteFrameName("bgFile.png"),
+		Sprite::createWithSpriteFrameName("progressFile.png"),
+		Sprite::createWithSpriteFrameName("thumbFile.png"),
 		true);
 
 	musicslider->setScale(1.2f);
@@ -106,8 +108,8 @@ void GSPauseQuitLayer::createDialog()
 void GSPauseQuitLayer::createButton(const Vec2& vec2, const std::string name, PauseQuitLayer_Button button_type)
 {
 	/* 创建返回主菜单按钮 */
-	auto button = ui::Button::create(_global->userInformation->getImagePath().find("ButtonNew2")->second, _global->userInformation->getImagePath().find("ButtonNew")->second);
-	auto label = Label::createWithTTF(name, "resources/fonts/fzse_gbk.ttf", 35);
+	auto button = ui::Button::create("ButtonNew2.png", "ButtonNew.png", "", TextureResType::PLIST);
+	auto label = Label::createWithTTF(name, "resources/fonts/GameFont.ttf", 35);
 	label->enableShadow(Color4B(0, 0, 0, 200));//设置阴影
 	label->setScale(2.0f);
 	button->setTitleLabel(label);
@@ -157,16 +159,16 @@ void GSPauseQuitLayer::showPrompt()
 	createShieldLayer(_promptLayer);
 	this->addChild(_promptLayer);
 
-	auto prompt = Sprite::create(_global->userInformation->getImagePath().find("Prompt")->second);
+	auto prompt = Sprite::createWithSpriteFrameName("Prompt.png");
 	prompt->setPosition(_director->getWinSize() / 2.0f);
-	prompt->setScale(1.2f);
+	prompt->setScale(2.0f);
 	prompt->setOpacity(200);
 	_promptLayer->addChild(prompt);
 
 	this->createTouchtListener(prompt);
 
-	auto Close = ui::Button::create(_global->userInformation->getImagePath().find("CloseDown")->second, _global->userInformation->getImagePath().find("Close")->second);
-	Close->setPosition(Vec2(1150, 520));
+	auto Close = ui::Button::create("CloseDown.png", "Close.png", "", TextureResType::PLIST);
+	Close->setPosition(Vec2(750, 360));
 	Close->setScale(0.6f);
 	prompt->addChild(Close);
 

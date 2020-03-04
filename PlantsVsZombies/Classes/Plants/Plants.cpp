@@ -56,15 +56,11 @@ SkeletonAnimation* Plants::plantInit(const std::string& plantname, const std::st
 
 void Plants::imageInit(const std::string& name, const Vec2& position)
 {
-	auto iter = _global->userInformation->getImagePath().find(name);
-	if (iter != _global->userInformation->getImagePath().end())
-	{
-		_plantImage = Sprite::create(iter->second);
-		_plantImage->setPosition(position);
-		_plantImage->setName("Preview");
-		_plantImage->setOpacity(150);
-		_node->addChild(_plantImage, 99);
-	}
+	_plantImage = Sprite::createWithSpriteFrameName(name + ".png");
+	_plantImage->setPosition(position);
+	_plantImage->setName("Preview");
+	_plantImage->setOpacity(150);
+	_node->addChild(_plantImage, 99);
 }
 
 void Plants::determineRelativePositionPlantsAndZombies()
@@ -79,7 +75,9 @@ void Plants::determineRelativePositionPlantsAndZombies()
 
 void Plants::playSoundEffect(const std::string& MusicName)
 {
-	AudioEngine::setVolume(AudioEngine::play2d(Global::getInstance()->userInformation->getMusicPath().find(MusicName)->second), Global::getInstance()->userInformation->getSoundEffectVolume());
+	AudioEngine::setVolume(AudioEngine::play2d(
+		Global::getInstance()->userInformation->getMusicPath().find(MusicName)->second), 
+		Global::getInstance()->userInformation->getSoundEffectVolume());
 }
 
 void Plants::stopPlantsAllAction()
@@ -108,15 +106,16 @@ void Plants::setPlantSoilSplashAnimation(const float& scale)
 void Plants::setPlantShadow(const float& scale)
 {
 	/* 创建植物影子 */
-	auto iter = _global->userInformation->getImagePath().find("plantshadow");
-	if (iter != _global->userInformation->getImagePath().end())
-	{
-		_plantShadow = Sprite::create(iter->second);
-		_plantShadow->setScale(scale);
-		_plantShadow->setPosition(Vec2(-5, 15));
-		_plantShadow->setName("plantshadow");
-		_plantAnimation->addChild(_plantShadow, -1);
-	}
+	_plantShadow = Sprite::createWithSpriteFrameName("plantshadow.png");
+	_plantShadow->setScale(scale);
+	_plantShadow->setPosition(Vec2(-5, 15));
+	_plantShadow->setName("plantshadow");
+	_plantAnimation->addChild(_plantShadow, -1);
+}
+
+void Plants::setPlantHurtBlink() const
+{
+	_plantAnimation->runAction(Sequence::create(TintTo::create(0.15f, Color3B(70, 70, 70)), TintTo::create(0.15f, Color3B::WHITE), nullptr));
 }
 
 void Plants::setPlantVisible(const bool visible)
@@ -168,7 +167,7 @@ void Plants::zombieEatPlant(Zombies* zombie)
 						{
 							reducePlantHealthPoint(100);
 							playSoundEffect(eateffect[rand() % 3]);
-							_plantAnimation->runAction(Sequence::create(TintTo::create(0.2f, Color3B(100, 100, 100)), TintTo::create(0.2f, Color3B::WHITE), nullptr));
+							setPlantHurtBlink();
 						}
 					}
 				});

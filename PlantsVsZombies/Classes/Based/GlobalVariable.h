@@ -16,6 +16,8 @@ class Global
 public:
 	static Global* getInstance();
 	int changeBgMusic(const std::string& _musicName, bool _loop);
+	void stopMusic();
+	void resumeMusic();
 
 public:
 	UserInformation* userInformation;

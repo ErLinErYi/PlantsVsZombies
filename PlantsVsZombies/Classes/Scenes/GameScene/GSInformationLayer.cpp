@@ -52,14 +52,14 @@ void GSInformationLayer::showUserText()
 
 void GSInformationLayer::showProgressBar()
 {
-	auto progressBarBackgroundImage = Sprite::create(_global->userInformation->getImagePath().find("ProgressBar")->second);
+	auto progressBarBackgroundImage = Sprite::createWithSpriteFrameName("ProgressBar.png");
 	progressBarBackgroundImage->setContentSize(Size(465, 40));
 	progressBarBackgroundImage->setName("ProgressBar");
 	progressBarBackgroundImage->setAnchorPoint(Vec2(1, 0.3f));
 	progressBarBackgroundImage->setPosition(Vec2(1300, 1005));
 	this->addChild(progressBarBackgroundImage);
 
-	_progressBar = ProgressTimer::create(Sprite::create(_global->userInformation->getImagePath().find("ProgressBar1")->second));
+	_progressBar = ProgressTimer::create(Sprite::createWithSpriteFrameName("ProgressBar1.png"));
 	_progressBar->setScaleX(3.0f);
 	_progressBar->setScaleY(2.0f);
 	_progressBar->setPosition(Vec2(240, 20));
@@ -69,7 +69,7 @@ void GSInformationLayer::showProgressBar()
 	//progressbar->setDirection(LoadingBar::Direction::RIGHT);
 	progressBarBackgroundImage->addChild(_progressBar, -1);
 
-	auto zombiesHead = Sprite::create(_global->userInformation->getImagePath().find("CommonZombieHead")->second);
+	auto zombiesHead = Sprite::createWithSpriteFrameName("ZombieHead.png");
 	zombiesHead->setScale(0.9f);
 	zombiesHead->setPosition(Vec2(470, 22));
 	zombiesHead->setName("progressbarhead");
@@ -78,14 +78,14 @@ void GSInformationLayer::showProgressBar()
 	auto& leveldata = _openLevelData->readLevelData(_openLevelData->getLevelNumber())->getMunchZombiesFrequency();
 	for (unsigned int i = 0; i <leveldata.size(); ++i)
 	{
-		auto progressbarflag = Sprite::create(_global->userInformation->getImagePath().find("ProgressBarFlag")->second);
+		auto progressbarflag = Sprite::createWithSpriteFrameName("ProgressBarFlag.png");
 		progressbarflag->setPosition(Vec2(465 - 465 * (_openLevelData->readLevelData(_openLevelData->getLevelNumber())->getMunchZombiesFrequency().at(i) / (double)_openLevelData->readLevelData(_openLevelData->getLevelNumber())->getZombiesFrequency()), 0));
 		progressbarflag->setScale(1.6f);
 		progressbarflag->setAnchorPoint(Vec2(0, 0));
 		progressbarflag->setTag(leveldata.at(i));
 		progressBarBackgroundImage->addChild(progressbarflag);
 	}
-	auto progressbarflag = Sprite::create(_global->userInformation->getImagePath().find("ProgressBarFlag")->second);
+	auto progressbarflag = Sprite::createWithSpriteFrameName("ProgressBarFlag.png");
 	progressbarflag->setPosition(Vec2(0, 0));
 	progressbarflag->setScale(1.6f);
 	progressbarflag->setName("_progressbarflag");
@@ -95,7 +95,7 @@ void GSInformationLayer::showProgressBar()
 
 void GSInformationLayer::showZombiesDieNumbers()
 {
-	auto ZombiesDie = Sprite::create(_global->userInformation->getImagePath().find("ZombiesDie")->second);
+	auto ZombiesDie = Sprite::createWithSpriteFrameName("ZombiesDie.png");
 	ZombiesDie->setPosition(Vec2(1500, 55));
 	this->addChild(ZombiesDie);
 
@@ -118,7 +118,7 @@ void GSInformationLayer::updateZombiesDieNumbers()
 
 void GSInformationLayer::showCoinNumbers()
 {
-	auto coinBank = Sprite::create(_global->userInformation->getImagePath().find("coinbank")->second);
+	auto coinBank = Sprite::createWithSpriteFrameName("coinbank.png");
 	coinBank->setScale(0.8f);
 	coinBank->setPosition(Vec2(1750, 50));
 	this->addChild(coinBank);
@@ -143,7 +143,7 @@ void GSInformationLayer::updateCoinNumbers()
 
 void GSInformationLayer::showSunNumbers()
 {
-	auto sunBank = Sprite::create(_global->userInformation->getImagePath().find("SunBank")->second);
+	auto sunBank = Sprite::createWithSpriteFrameName("SunBank.png");
 	sunBank->setScale(0.8f);
 	sunBank->setAnchorPoint(Vec2(0, 1));
 	sunBank->setName("SunBank");
@@ -166,7 +166,7 @@ void GSInformationLayer::showPromptMuchZombiesText(const string& textName)
 {
 	AudioEngine::setVolume(AudioEngine::play2d(_global->userInformation->getMusicPath().find("finalwave")->second), _global->userInformation->getSoundEffectVolume());
 
-	auto zombiescoming = Sprite::create(_global->userInformation->getImagePath().find(textName)->second);
+	auto zombiescoming = Sprite::createWithSpriteFrameName(textName + ".png");
 	zombiescoming->setPosition(_director->getWinSize() / 2);
 	zombiescoming->setScale(5.0f);
 	zombiescoming->runAction(Sequence::create(ScaleTo::create(0.5f, 1.0f), DelayTime::create(1.5f),
@@ -179,7 +179,7 @@ void GSInformationLayer::showPromptMuchZombiesText(const string& textName)
 
 void GSInformationLayer::createPromptText()
 {
-	auto promptText = Sprite::create(_global->userInformation->getImagePath().find("PromptText")->second);
+	auto promptText = Sprite::createWithSpriteFrameName("PromptText.png");
 	promptText->setColor(Color3B::BLACK);
 	promptText->setOpacity(150);
 	promptText->setScaleX(1.3f);
@@ -204,7 +204,7 @@ void GSInformationLayer::createPromptText()
 
 void GSInformationLayer::updateSunNumbers()
 {
-	auto sun = Sprite::create(_global->userInformation->getImagePath().find("Sun")->second);
+	auto sun = Sprite::createWithSpriteFrameName("Sun.png");
 	sun->setPosition(Vec2(290, 1010));
 	sun->setScale(0.9f);
 	sun->setName("sun");
@@ -228,7 +228,7 @@ bool GSInformationLayer::updateProgressBarFlag()
 	if (_progressBar->getPercentage() >= _levelLastPrecent * 100 - 8)
 	{
 		auto flag = dynamic_cast<Sprite*>(_progressBar->getParent()->getChildByName("_progressbarflag"));
-		flag->setTexture(_global->userInformation->getImagePath().find("ProgressBarFlag1")->second);
+		flag->setSpriteFrame(SpriteFrameCache::getInstance()->getSpriteFrameByName("ProgressBarFlag1.png"));
 		showPromptMuchZombiesText("Final");
 		return true;
 	}
@@ -246,7 +246,7 @@ bool GSInformationLayer::updateProgressBarFlag(const int& id)
 		else
 		{
 			auto flag = dynamic_cast<Sprite*>(_progressBar->getParent()->getChildByTag(id));
-			flag->setTexture(_global->userInformation->getImagePath().find("ProgressBarFlag1")->second);
+			flag->setSpriteFrame(SpriteFrameCache::getInstance()->getSpriteFrameByName("ProgressBarFlag1.png"));
 		}
 		return true;
 	}

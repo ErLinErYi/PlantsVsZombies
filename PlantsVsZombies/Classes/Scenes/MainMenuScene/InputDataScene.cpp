@@ -52,18 +52,18 @@ void InputDataMenu::deleteDialog()
 
 void InputDataMenu::createDialog()
 {
-	_caveFileDialog = Sprite::createWithTexture(Director::getInstance()->getTextureCache()->getTextureForKey(_global->userInformation->getImagePath().find("InputDataDialog")->second));
+	_caveFileDialog = Sprite::createWithSpriteFrameName("InputDataDialog.png");
 	_caveFileDialog->setPosition(Director::getInstance()->getWinSize() / 2);
 	_caveFileDialog->setScale(2.0f);
 	_caveFileDialog->setName("CaveFileDialog");
 	this->addChild(_caveFileDialog);
 
-	auto question = Label::createWithTTF("Ñ¡ÔñÄãµÄ´æµµ", "resources/fonts/fzse_gbk.ttf", 30);
+	auto question = Label::createWithTTF("Ñ¡ÔñÄãµÄ´æµµ", "resources/fonts/GameFont.ttf", 30);
 	question->setTextColor(Color4B::YELLOW);
 	question->setPosition(Vec2(_caveFileDialog->getContentSize().width / 2, _caveFileDialog->getContentSize().height - 110));
 	_caveFileDialog->addChild(question);
 
-	auto SeedPacketSilhouette1 = Sprite::create(_global->userInformation->getImagePath().find("SeedPacketSilhouette1")->second);
+	auto SeedPacketSilhouette1 = Sprite::createWithSpriteFrameName("SeedPacketSilhouette1.png");
 	SeedPacketSilhouette1->setPosition(Vec2(245, 270));
 	SeedPacketSilhouette1->setScale(2.0f);
 	_caveFileDialog->addChild(SeedPacketSilhouette1);
@@ -96,18 +96,18 @@ void InputDataMenu::createDialog()
 
 void InputDataMenu::CreateInputDialog()
 {
-	_inputDataDialog = Sprite::createWithTexture(Director::getInstance()->getTextureCache()->getTextureForKey(_global->userInformation->getImagePath().find("QuitDialog")->second));
+	_inputDataDialog = Sprite::createWithSpriteFrameName("QuitDialog.png");
 	_inputDataDialog->setPosition(Director::getInstance()->getWinSize() / 2);
 	_inputDataDialog->setScale(3.0f);
 	_inputDataDialog->setName("InputDataDialog");
 	_shieldDialogLayer->addChild(_inputDataDialog);
 
-	auto editbox = Sprite::create(_global->userInformation->getImagePath().find("editbox")->second);
+	auto editbox = Sprite::createWithSpriteFrameName("editbox.png");
 	editbox->setPosition(Vec2(155, 140));
 	editbox->setScale(0.7f);
 	_inputDataDialog->addChild(editbox);
 
-	_inputCursor = Sprite::create(_global->userInformation->getImagePath().find("InputCursor")->second);
+	_inputCursor = Sprite::create("resources/images/System/InputCursor.png");
 	_inputCursor->setScale(0.7f);
 	_inputCursor->setPosition(Vec2(155, 140));
 	_inputCursor->setVisible(false);
@@ -176,7 +176,7 @@ void InputDataMenu::CreateInputDialog()
 
 void InputDataMenu::createButtons(Sprite* sprite, const std::string &Label, Vec2 &vec2,const float& scale, const int& ID)
 {
-	auto button = Button::create(_global->userInformation->getImagePath().find("button")->second, _global->userInformation->getImagePath().find("button_down")->second);
+	auto button = Button::create("button.png", "button_down.png", "", TextureResType::PLIST);
 	button->setPosition(vec2);
 	button->setScaleX(scale);
 	button->setTitleLabel(label(Label, 20, Vec2(0, 0), 0, Color3B::GREEN, 1.0f/scale));
@@ -232,7 +232,7 @@ void InputDataMenu::createButtons(Sprite* sprite, const std::string &Label, Vec2
 
 void InputDataMenu::createDataButton(const std::string& Labels, Vec2& vec2, const float& scale, const int& ID)
 {
-	auto button = Button::create(_global->userInformation->getImagePath().find("CaveFileButton")->second, _global->userInformation->getImagePath().find("CaveFileButtonDown")->second);
+	auto button = Button::create("CaveFileButton.png", "CaveFileButtonDown.png", "", TextureResType::PLIST);
 	button->setPosition(vec2);
 	button->setScale9Enabled(true);
 	button->setScaleX(scale);

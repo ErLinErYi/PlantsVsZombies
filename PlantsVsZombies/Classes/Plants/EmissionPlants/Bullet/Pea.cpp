@@ -51,7 +51,7 @@ void Pea::bulletInit()
 void Pea::createShadow()
 {
 	/* 创建影子 */
-	auto shadow = Sprite::create(_global->userInformation->getImagePath().find("plantshadow")->second);
+	auto shadow = Sprite::createWithSpriteFrameName("plantshadow.png");
 	shadow->setScale(1.7f);
 	shadow->setName("shadow");
 	shadow->setPosition(Vec2(0, -155));
@@ -73,7 +73,7 @@ void Pea::bulletAndZombiesCollision()
 			setBulletOpacity();                /* 子弹消失 */
 			bulletAttackHurtZombies(zombie);   /* 僵尸减少生命值 */
 
-			zombie->getZombieAnimation()->runAction(Sequence::create(TintTo::create(0.2f, Color3B(100, 100, 100)), TintTo::create(0.2f, Color3B::WHITE), nullptr));
+			zombie->setZombieHurtBlink();
 
 			createPeaExplode(); /* 创建豌豆爆炸动画 */
 			setBulletAttack(0);

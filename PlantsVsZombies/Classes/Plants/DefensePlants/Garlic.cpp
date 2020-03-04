@@ -83,7 +83,7 @@ void Garlic::zombieEatPlant(Zombies* zombie)
 			--_currentCanEatNumbers;
 
 			playSoundEffect(eateffect[rand() % 3]);
-			_plantAnimation->runAction(Sequence::create(TintTo::create(0.2f, Color3B(100, 100, 100)), TintTo::create(0.2f, Color3B::WHITE), nullptr));
+			setPlantHurtBlink();
 
 			auto zombies = zombie;
 			_node->runAction(Sequence::create(DelayTime::create(1.0f),

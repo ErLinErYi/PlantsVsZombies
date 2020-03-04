@@ -34,7 +34,7 @@ void QuitMenu::deleteDialog()
 
 void QuitMenu::createDiglog()
 {
-	_quitDialog = Sprite::createWithTexture(Director::getInstance()->getTextureCache()->getTextureForKey(_global->userInformation->getImagePath().find("QuitDialog")->second));
+	_quitDialog = Sprite::createWithSpriteFrameName("QuitDialog.png");
 	_quitDialog->setPosition(Director::getInstance()->getWinSize() / 2);
 	_quitDialog->setScale(2.0f);
 	this->addChild(_quitDialog);
@@ -48,7 +48,7 @@ void QuitMenu::createDiglog()
 
 void QuitMenu::createButtons(const std::string &Label, Vec2 &vec2,const int& ID)
 {
-	auto button = Button::create(_global->userInformation->getImagePath().find("button")->second, _global->userInformation->getImagePath().find("button_down")->second);
+	auto button = Button::create("button.png", "button_down.png", "", TextureResType::PLIST);
 	button->setTitleLabel(label(Label, 20));
 	button->setPosition(vec2);
 	_quitDialog->addChild(button);

@@ -39,10 +39,11 @@ private:
 	void createScrollView();
 	void addScrollView();
 	void createButtonListener(ui::Button* button, const int& ID);
-	void createButton(Node* node, const std::string& name, const Vec2& position);
+	ui::Button* createButton(Node* node, const std::string& name, const Vec2& position);
 	Sprite* createSprite(const std::string& name, const Vec2& position, const float& scale, const int& zorder, const float& speed, bool IsFlipped = false);
 	Sprite* createSprite(Node* node, const std::string& name, const Vec2& position, const float& scale, const int& zorder,bool IsFlipped = false);
 	void createMouseListener();
+	void setLevelVisible(Node* node);
 
 private:
 	Global* _global;

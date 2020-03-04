@@ -38,7 +38,7 @@ bool OptionsMenu::init()
 
 void OptionsMenu::createDialog()
 {
-	_option = Sprite::createWithTexture(_director->getTextureCache()->getTextureForKey(_global->userInformation->getImagePath().find("options_menuback")->second));
+	_option = Sprite::createWithSpriteFrameName("options_menuback.png");
 	_option->setPosition(_director->getWinSize() / 2);
 	_option->setScale(1.7f);
 	_option->setName("_option");
@@ -62,7 +62,7 @@ void OptionsMenu::createDialog()
 		(UserDefault::getInstance()->getIntegerForKey(_global->userInformation->getSystemCaveFileName(_global->userInformation->getUserCaveFileNumber()).c_str()) >= 52 ||
 			UserDefault::getInstance()->getIntegerForKey(_global->userInformation->getSystemDifCaveFileName(_global->userInformation->getUserCaveFileNumber()).c_str()) >= 52))
 	{
-		auto button = Button::create(_global->userInformation->getImagePath().find("button")->second, _global->userInformation->getImagePath().find("button_down")->second);
+		auto button = Button::create("button.png", "button_down.png", "", TextureResType::PLIST);
 		button->setTitleLabel(label("制作者", 20, Vec2(0, 0), 0, Color3B::GRAY, 0.5f));
 		button->setPosition(Vec2(210, 140));
 		button->setScaleX(2.0f);
@@ -88,7 +88,11 @@ void OptionsMenu::createDialog()
 ControlSlider* OptionsMenu::createSlider(Vec2 &vec2, Vec2 &vec2_, const std::string &Label, OptionScene_Slider slider_type,const std::string bgFile, const std::string progressFile,const std::string thumbFile,const bool IsNew)
 {
 	/* 创建滑动条 */
-	auto slider = ControlSlider::create((_global->userInformation->getImagePath().find(bgFile)->second).c_str(), (_global->userInformation->getImagePath().find(progressFile)->second).c_str(), (_global->userInformation->getImagePath().find(thumbFile)->second).c_str());
+	auto slider = ControlSlider::create(
+		Sprite::createWithSpriteFrameName(bgFile + ".png"),
+		Sprite::createWithSpriteFrameName(progressFile + ".png"),
+		Sprite::createWithSpriteFrameName(thumbFile + ".png")
+	);
 	slider->setMinimumValue(0);
 	slider->setMaximumValue(100);
 	slider->setPosition(vec2);
@@ -201,8 +205,8 @@ CheckBox* OptionsMenu::createCheckBox(Vec2 &vec2, Vec2 &vec2_, const std::string
 	const std::string NotSelect, const std::string Select, const bool IsNew)
 {
 	auto checkbox = CheckBox::create();
-	checkbox->loadTextureBackGround(_global->userInformation->getImagePath().find(NotSelect)->second);
-	checkbox->loadTextureFrontCross(_global->userInformation->getImagePath().find(Select)->second);
+	checkbox->loadTextureBackGround(NotSelect + ".png", TextureResType::PLIST);
+	checkbox->loadTextureFrontCross(Select + ".png", TextureResType::PLIST);
 	checkbox->setPosition(vec2);
 	_option->addChild(checkbox);
 
@@ -315,7 +319,7 @@ CheckBox* OptionsMenu::createCheckBox(Vec2 &vec2, Vec2 &vec2_, const std::string
 
 void OptionsMenu::createButton()
 {
-	auto button = Button::create(_global->userInformation->getImagePath().find("options_backtogamebutton0")->second, _global->userInformation->getImagePath().find("options_backtogamebutton2")->second);
+	auto button = Button::create("options_backtogamebutton0.png","options_backtogamebutton2.png","",TextureResType::PLIST);
 	button->setTitleLabel(label(_global->userInformation->getGameText().find("返回")->second, 30));
 	button->setPosition(Vec2(210, 55));
 	_option->addChild(button);

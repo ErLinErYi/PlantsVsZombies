@@ -52,7 +52,7 @@ void GSGameEndLayer::successfullEntry()
 	caveLevelNumber();
 	carsTocCoins();
 
-	auto moneybag_hi_res = ui::Button::create(_global->userInformation->getImagePath().find("moneybag_hi_res")->second);
+	auto moneybag_hi_res = ui::Button::create("moneybag_hi_res.png", "", "", TextureResType::PLIST);
 	moneybag_hi_res->setPosition(Vec2(700 + rand() % 1000, 100 + rand() % 700));
 	moneybag_hi_res->runAction(JumpBy::create(0.5f, Vec2(100 - rand() % 200, 0), 100 + rand() % 100, 1));
 	moneybag_hi_res->setGlobalZOrder(20);
@@ -105,13 +105,14 @@ void GSGameEndLayer::showFailDialog(GameTypes gameType)
 	_userWinRequirement->createDialogBox(gameType);
 	_userWinRequirement->setShowDialogAction();
 
-	auto button = Button::create(Global::getInstance()->userInformation->getImagePath().find("Continue1")->second, Global::getInstance()->userInformation->getImagePath().find("Continue")->second);
+	auto button = Button::create("Continue1.png", "Continue.png", "", TextureResType::PLIST);
 	button->setTitleText(Global::getInstance()->userInformation->getGameText().find("¼ÌÐø")->second);
-	button->setTitleFontName("resources/fonts/fzse_gbk.ttf");
+	button->setTitleFontName("resources/fonts/GameFont.ttf");
 	button->setTitleFontSize(30);
 	button->setTitleColor(Color3B::YELLOW);
-	button->setPosition(Vec2(_userWinRequirement->getDialog()->getContentSize().width / 2.0f, 20));
+	button->setPosition(Vec2(_userWinRequirement->getDialog()->getContentSize().width / 2.0f, 10));
 	button->setGlobalZOrder(10);
+	button->setScale(0.5f);
 	button->runAction(FadeIn::create(0.5f));
 	button->addTouchEventListener([=](Ref* sender, ui::Widget::TouchEventType type)
 		{
@@ -132,12 +133,13 @@ void GSGameEndLayer::showFailDialog(GameTypes gameType)
 void GSGameEndLayer::showFailText()
 {
 	auto layer = LayerColor::create(Color4B(0, 0, 0, 180));
-	auto brain = Sprite::create(_global->userInformation->getImagePath().find("Brain")->second);
+	auto brain = Sprite::createWithSpriteFrameName("Brain.png");
 	brain->setPosition(_director->getWinSize() / 2.0f);
+	brain->setScale(2.0f);
 	brain->runAction(RepeatForever::create(Sequence::create(MoveBy::create(0.05f, Vec2(10, 0)), MoveBy::create(0.05f, Vec2(-10, 0)), nullptr)));
 	layer->addChild(brain);
 
-	auto lose = Sprite::create(_global->userInformation->getImagePath().find(rand() % 2 == 0 ? "zombieswon" : "zombieswon1")->second);
+	auto lose = Sprite::createWithSpriteFrameName(rand() % 2 == 0 ? "zombieswon.png" : "zombieswon1.png");
 	lose->setScale(2.0f);
 	lose->setPosition(Vec2(2500, Director::getInstance()->getWinSize().height / 2.0f));
 	lose->runAction(RepeatForever::create(Sequence::create(MoveBy::create(0.05f, Vec2(10, 0)), MoveBy::create(0.05f, Vec2(-10, 0)), nullptr)));
@@ -213,13 +215,13 @@ void GSGameEndLayer::rewardCoin(Button* button)
 								AudioEngine::setVolume(AudioEngine::play2d(_global->userInformation->getMusicPath().find("lightfill")->second), _global->userInformation->getSoundEffectVolume());
 							});
 
-						auto AwardRays = Sprite::create(_global->userInformation->getImagePath().find("AwardRays")->second);
+						auto AwardRays = Sprite::createWithSpriteFrameName("AwardRays.png");
 						AwardRays->setPosition(_director->getWinSize() / 2.0f);
 						AwardRays->runAction(RepeatForever::create(Spawn::create(RotateBy::create(0.5f, 30), ScaleBy::create(0.5f, 1.5f), nullptr)));
 						AwardRays->setGlobalZOrder(20);
 						this->addChild(AwardRays);
 
-						auto White = Sprite::create(_global->userInformation->getImagePath().find("White")->second);
+						auto White = Sprite::createWithSpriteFrameName("White.png");
 						White->setAnchorPoint(Vec2(0, 0));
 						White->setContentSize(_director->getWinSize());
 						White->setOpacity(0);

@@ -269,6 +269,11 @@ void Zombies::setZombieIsStrikeFly(const bool isStrikeFly)
 	_isStrikeFly = isStrikeFly;
 }
 
+void Zombies::setZombieHurtBlink() const
+{
+	_zombiesAnimation->runAction(Sequence::create(TintTo::create(0.15f, Color3B(70, 70, 70)), TintTo::create(0.15f, Color3B::WHITE), nullptr));
+}
+
 SkeletonAnimation* Zombies::getZombieAnimation() const
 {
 	return _zombiesAnimation;
@@ -462,7 +467,7 @@ void Zombies::zombiesWinOrLoseInit()
 void Zombies::createZombieShadow()
 {
 	/* 创建僵尸影子 */
-	auto shadow = Sprite::create(_global->userInformation->getImagePath().find("plantshadow")->second);
+	auto shadow = Sprite::createWithSpriteFrameName("plantshadow.png");
 	shadow->setScale(2.0f);
 	shadow->setName("shadow");
 	shadow->setPosition(Vec2(0, 10));
@@ -492,7 +497,7 @@ void Zombies::setZombieSecondaryInjure()
 		_zombiesAnimation->setAnimation(1, "Zombies_Die", false);
 		_animationId = 10;
 
-		zombieLoseHeadAnimation("CommonZombieHead");
+		zombieLoseHeadAnimation("ZombieHead");
 
 		zombiesFadeOutAnimation();
 	}
@@ -550,7 +555,7 @@ void Zombies::zombieLoseArmAnimation(const std::string& name)
 	{
 		AudioEngine::setVolume(AudioEngine::play2d(_global->userInformation->getMusicPath().find("limbs_pop")->second), _global->userInformation->getSoundEffectVolume());
 		
-		auto arm = Sprite::create(_global->userInformation->getImagePath().find(name)->second);
+		auto arm = Sprite::createWithSpriteFrameName(name +".png");
 		arm->setPosition(_zombiesAnimation->getPosition() + Vec2(-10, 100));
 		arm->setLocalZOrder(_zombiesAnimation->getLocalZOrder() + 1);
 		arm->runAction(Sequence::create(Spawn::create(
@@ -569,7 +574,7 @@ void Zombies::zombieLoseHeadAnimation(const std::string& name)
 	{
 		AudioEngine::setVolume(AudioEngine::play2d(_global->userInformation->getMusicPath().find("limbs_pop")->second), _global->userInformation->getSoundEffectVolume());
 		
-		auto head = Sprite::create(_global->userInformation->getImagePath().find(name)->second);
+		auto head = Sprite::createWithSpriteFrameName(name + ".png");
 		head->setPosition(_zombiesAnimation->getPosition() + Vec2(-40, 150));
 		head->setLocalZOrder(_zombiesAnimation->getLocalZOrder() + 1);
 		head->setScale(1.3f);
@@ -588,7 +593,7 @@ void Zombies::zombieLoseShieldAnimation(const std::string& name)
 	/* 僵尸掉护盾 */
 	AudioEngine::setVolume(AudioEngine::play2d(_global->userInformation->getMusicPath().find("limbs_pop")->second), _global->userInformation->getSoundEffectVolume());
 
-	auto cone = Sprite::create(_global->userInformation->getImagePath().find(name)->second);
+	auto cone = Sprite::createWithSpriteFrameName(name + ".png");
 	cone->setPosition(_zombiesAnimation->getPosition() + Vec2(-40, 200));
 	cone->setLocalZOrder(_zombiesAnimation->getLocalZOrder() + 1);
 	cone->setScale(1.5f);

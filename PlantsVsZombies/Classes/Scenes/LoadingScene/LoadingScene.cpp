@@ -28,6 +28,7 @@ LoadingScene::LoadingScene():
 
 LoadingScene::~LoadingScene()
 {
+	SpriteFrameCache::getInstance()->removeSpriteFramesFromFile("resources/images/LoadingScene/LoadingScene.plist");
 }
 
 Scene* LoadingScene::createLaodingScene()
@@ -51,10 +52,10 @@ bool LoadingScene::init()
 void LoadingScene::setSystem()
 {
 	/* 设置光标 */
-	_director->getOpenGLView()->setCursor(_global->userInformation->getImagePath().find("cursor")->second, Point::ANCHOR_TOP_LEFT);
+	_director->getOpenGLView()->setCursor("resources/images/System/cursor.png", Point::ANCHOR_TOP_LEFT);
 
 	/* 设置图标 */
-	_director->getOpenGLView()->setIcon(_global->userInformation->getImagePath().find("PlantsVsZombies")->second);
+	_director->getOpenGLView()->setIcon("resources/images/System/PlantsVsZombies.png");
 
 }
 
@@ -163,10 +164,11 @@ void LoadingScene::showLoadingBackGround()
 	auto const size = Director::getInstance()->getWinSize();
 
 	/* 创建精灵 */
-	_sprite[0] = Sprite::create(_global->userInformation->getImagePath().find("PopCap_Logo1")->second);
-	_sprite[1] = Sprite::create(_global->userInformation->getImagePath().find("PopCap_Logo")->second);
-	_sprite[7] = Sprite::create("resources/Text/txt/About.txt");
-	_sprite[2] = Sprite::create(_global->userInformation->getImagePath().find("titlescreen")->second);
+	SpriteFrameCache::getInstance()->addSpriteFramesWithFile("resources/images/LoadingScene/LoadingScene.plist");
+	_sprite[0] = Sprite::createWithSpriteFrameName("PopCap_Logo1.png");
+	_sprite[1] = Sprite::createWithSpriteFrameName("PopCap_Logo.png");
+	_sprite[7] = Sprite::create("resources/text/txt/About.txt");
+	_sprite[2] = Sprite::createWithSpriteFrameName("titlescreen.png");
 
 	/* 为精灵设置名字 */
 	_sprite[0]->setName("0");
@@ -240,10 +242,10 @@ void LoadingScene::showTileAndLoadingBar()
     auto const size = _director->getWinSize();
 
 	/* 创建精灵 */
-	_sprite[3] = Sprite::create(_global->userInformation->getImagePath().find("PvZ_Logo")->second);
-	_sprite[4] = Sprite::create(_global->userInformation->getImagePath().find("LoadBar_dirt")->second);
-	_sprite[5] = Sprite::create(_global->userInformation->getImagePath().find("SodRollCap")->second);
-	_sprite[6] = Sprite::create(_global->userInformation->getImagePath().find("spark")->second);
+	_sprite[3] = Sprite::createWithSpriteFrameName("PvZ_Logo.png");
+	_sprite[4] = Sprite::createWithSpriteFrameName("LoadBar_dirt.png");
+	_sprite[5] = Sprite::createWithSpriteFrameName("SodRollCap.png");
+	_sprite[6] = Sprite::createWithSpriteFrameName("spark.png");
 
 	/* 创建裁剪节点 */
 	auto clippingNode = ClippingNode::create();
@@ -281,7 +283,7 @@ void LoadingScene::showTileAndLoadingBar()
 	clippingNode->addChild(_sprite[6]);        //会被裁减
 
 	/* 创建菜单标签 */
-	_label = MenuItemLabel::create(Label::createWithTTF("加载中......", "resources/fonts/fzse_gbk.ttf", 20), CC_CALLBACK_1(LoadingScene::beginGameCallBack, this));
+	_label = MenuItemLabel::create(Label::createWithTTF("加载中......", "resources/fonts/GameFont.ttf", 20), CC_CALLBACK_1(LoadingScene::beginGameCallBack, this));
 	_label->setColor(Color3B::YELLOW);
 	_label->setEnabled(false);
 	
@@ -294,7 +296,8 @@ void LoadingScene::showTileAndLoadingBar()
 void LoadingScene::beginLoadingImageAndMusic()
 {
 	/* 创建进度条 */
-	_loadingBar = LoadingBar::create(_global->userInformation->getImagePath().find("LoadBar_grass")->second);
+	_loadingBar = LoadingBar::create();
+	_loadingBar->loadTexture("LoadBar_grass.png", Widget::TextureResType::PLIST);
 	_loadingBar->setDirection(LoadingBar::Direction::LEFT); /* 设置加载方向 */
 	_loadingBar->setPosition(Vec2(150, 70));
 	_sprite[4]->addChild(_loadingBar);
@@ -302,13 +305,10 @@ void LoadingScene::beginLoadingImageAndMusic()
 	/* 定时器 */
 	scheduleUpdate();
 
-	loadingText(); /* 加载文本 */
-	
-	loadingMusic();/* 加载音乐 */
-	
-	loadingAnimation(); /* 加载动画 */
-
-	loadingImage();/* 加载图片 */	
+	loadingText();         /* 加载文本 */
+	loadingMusic();        /* 加载音乐 */
+	loadingAnimation();    /* 加载动画 */
+	loadingImage();        /* 加载图片 */	
 }
 
 void LoadingScene::update(float Time)
@@ -343,7 +343,7 @@ void LoadingScene::showLoadingBarFlower(const int &ID)
 	if (!_flowerVisible[ID]) /* 如果花的ID是不可见 */
 	{
 		/* 创建花 */
-		auto flower = Sprite::create(_global->userInformation->getImagePath().find("sprout_petal")->second);
+		auto flower = Sprite::createWithSpriteFrameName("sprout_petal.png");
 		flower->setScale(0.1f);
 		flower->setPosition(Vec2(20 + (55 + rand() % 10)* ID, 85 + rand() % 10));
 		flower->runAction(ScaleTo::create(0.2f, 0.5f));
@@ -351,7 +351,7 @@ void LoadingScene::showLoadingBarFlower(const int &ID)
 		if (ID == 4) /* 如果ID==4 创建僵尸头*/
 		{
 			AudioEngine::setVolume(AudioEngine::play2d(_global->userInformation->getMusicPath().find("loadingbar_zombie")->second, false), _global->userInformation->getSoundEffectVolume());
-			flower->setTexture(_global->userInformation->getImagePath().find("ZombieHead")->second);
+			flower->setSpriteFrame(SpriteFrameCache::getInstance()->getSpriteFrameByName("ZombieHead1.png"));
 		}
 		else  /* 否则创建花 */
 		{
@@ -454,7 +454,12 @@ void LoadingScene::loadingImage()
     /* 循环加载图片 */
 	for (auto& i : _global->userInformation->getImagePath())
 	{
-		_director->getTextureCache()->addImageAsync(i.second, CC_CALLBACK_1(LoadingScene::loadingImageCallBack, this));
+		_director->getTextureCache()->addImageAsync(i.second + "pvr.ccz", [=](Texture2D* texture)
+			{
+				SpriteFrameCache::getInstance()->addSpriteFramesWithFile(i.second + "plist", texture);
+				_loadFileNumbers++;     /* 文件数加一 */
+				_loadingPrecent = ((_loadFileNumbers * 1.0f) / _allFileNumbers) * 100;  /* 计算加载的百分比 */
+			});
 	}
 }
 
@@ -463,7 +468,14 @@ void LoadingScene::loadingMusic()
 	/* 循环加载音乐 */
 	for (auto& i : _global->userInformation->getMusicPath())
 	{
-		AudioEngine::preload(i.second, CC_CALLBACK_1(LoadingScene::loadingMusicCallBack, this));
+		AudioEngine::preload(i.second, [=](bool isSucceed)
+			{
+				if (isSucceed)/* 如果加载成功 */
+				{
+					_loadFileNumbers++;     /* 文件数加一 */
+					_loadingPrecent = ((_loadFileNumbers * 1.0f) / _allFileNumbers) * 100;  /* 计算加载的百分比 */
+				}
+			});
 	}
 }
 
@@ -496,21 +508,6 @@ void LoadingScene::loadingTextCallBack()
 {
 	_loadFileNumbers++;     /* 文件数加一 */
 	_loadingPrecent = ((_loadFileNumbers * 1.0f) / _allFileNumbers) * 100;  /* 计算加载的百分比 */
-}
-
-void LoadingScene::loadingImageCallBack(Ref* pSender)
-{
-	_loadFileNumbers++;     /* 文件数加一 */
-	_loadingPrecent = ((_loadFileNumbers * 1.0f) / _allFileNumbers) * 100;  /* 计算加载的百分比 */
-}
-
-void LoadingScene::loadingMusicCallBack(bool isSucceed)
-{
-	if (isSucceed)/* 如果加载成功 */
-	{
-		_loadFileNumbers++;     /* 文件数加一 */
-		_loadingPrecent = ((_loadFileNumbers * 1.0f) / _allFileNumbers) * 100;  /* 计算加载的百分比 */
-	}
 }
 
 void LoadingScene::loadingAnimationCallBack()

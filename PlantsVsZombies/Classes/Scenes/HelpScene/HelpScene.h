@@ -18,7 +18,7 @@ public:
 	CREATE_FUNC(HelpScene);
 
 CC_CONSTRUCTOR_ACCESS:
-	HelpScene():_global(Global::getInstance()), size(Director::getInstance()->getWinSize()){}
+	HelpScene():_global(Global::getInstance()), _size(Director::getInstance()->getWinSize()){}
 	virtual bool init() override;
 
 private:
@@ -29,5 +29,5 @@ private:
 
 private:
 	Global* _global;
-	const Size size;
+	const Size _size;
 };

@@ -48,8 +48,6 @@ private:
 
 	void runLoGoCallBack(Node* node,const int &ID);   /* 展示logo回调 */
 	void loadingTextCallBack();                       /* 加载文字回调 */
-	void loadingImageCallBack(Ref* pSender);          /* 加载图片回调 */
-	void loadingMusicCallBack(bool isSucceed);        /* 加载音乐回调 */
 	void loadingAnimationCallBack();                  /* 加载动画回调 */
 	void beginGameCallBack(Ref* pSender);             /* 开始游戏回调 */
 

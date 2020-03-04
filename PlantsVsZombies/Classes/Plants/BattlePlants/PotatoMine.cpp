@@ -141,7 +141,7 @@ void PotatoMine::zombieEatPlant(Zombies* zombie)
 						{
 							reducePlantHealthPoint(100);
 							playSoundEffect(eateffect[rand() % 3]);
-							_plantAnimation->runAction(Sequence::create(TintTo::create(0.2f, Color3B(100, 100, 100)), TintTo::create(0.2f, Color3B::WHITE), nullptr));
+							setPlantHurtBlink();
 						}
 					}
 				});

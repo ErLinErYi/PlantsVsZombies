@@ -59,7 +59,7 @@ void CitronBullet::bulletAndZombiesCollision()
 			else
 			{
 				Plants::playSoundEffect("cherrybomb");
-				zombie->getZombieAnimation()->runAction(Sequence::create(TintTo::create(0.2f, Color3B(100, 100, 100)), TintTo::create(0.2f, Color3B::WHITE), nullptr));
+				zombie->setZombieHurtBlink();
 
 				setBulletOpacity(); /* 子弹消失 */
 				attackZombies();    /* 爆炸对僵尸造成伤害 */
@@ -92,7 +92,7 @@ void CitronBullet::bulletInit()
 void CitronBullet::createShadow()
 {
 	/* 创建影子 */
-	auto shadow = Sprite::create(_global->userInformation->getImagePath().find("plantshadow")->second);
+	auto shadow = Sprite::createWithSpriteFrameName("plantshadow.png");
 	shadow->setScale(1.7f);
 	shadow->setName("shadow");
 	shadow->setPosition(Vec2(0, -35));

@@ -104,7 +104,7 @@ void SelectPlantsScene::eventUpdate(float Time)
 			/* 取消定时函数 */
 			this->unschedule(schedule_selector(SelectPlantsScene::eventUpdate));
 
-			createReadyText(_global->userInformation->getImagePath().find("StartReady")->second, 1);
+			createReadyText("StartReady", 1);
 		}
 	}
 }
@@ -133,14 +133,15 @@ void SelectPlantsScene::controlShowRequirement()
 		_requirement->createDialogBox(GameTypes::None);
 		_requirement->setShowDialogAction();
 
-		auto button = Button::create(_global->userInformation->getImagePath().find("Continue1")->second, _global->userInformation->getImagePath().find("Continue")->second);
+		auto button = Button::create("Continue1.png", "Continue.png", "", TextureResType::PLIST);
 		button->setTitleText(_global->userInformation->getGameText().find("确定")->second);
-		button->setTitleFontName("resources/fonts/fzse_gbk.ttf");
+		button->setTitleFontName("resources/fonts/GameFont.ttf");
 		button->setTitleFontSize(30);
 		button->setTitleColor(Color3B::YELLOW);
-		button->setPosition(Vec2(_requirement->getDialog()->getContentSize().width / 2.0f, 20));
+		button->setPosition(Vec2(_requirement->getDialog()->getContentSize().width / 2.0f, 10));
 		button->setGlobalZOrder(30);
 		button->setOpacity(0);
+		button->setScale(0.5f);
 		button->runAction(FadeIn::create(0.5f));
 		button->addTouchEventListener([=](Ref* sender, ui::Widget::TouchEventType type)
 			{
@@ -172,7 +173,7 @@ void SelectPlantsScene::selectPlantsCallBack()
 void SelectPlantsScene::createReadyText(const std::string& name, const int& id)
 {
 	static float time[] = { 0,0.2f,0.2f,1.5f };
-	auto text = Sprite::create(name);
+	auto text = Sprite::createWithSpriteFrameName(name + ".png");
 	text->setScale(15.0f);
 	text->setName(name);
 	text->setPosition(Director::getInstance()->getWinSize() / 2.0f);
@@ -186,10 +187,10 @@ void SelectPlantsScene::readyTextCallBack(Node* node, const std::string& name, c
 	switch (id)
 	{
 	case 1:
-		createReadyText(_global->userInformation->getImagePath().find("StartSet")->second, 2);
+		createReadyText("StartSet", 2);
 		break;
 	case 2:
-		createReadyText(_global->userInformation->getImagePath().find("StartPlant")->second, 3);
+		createReadyText("StartPlant", 3);
 		break;
 	default:
 		_scrollLayer->getChildByName("_scrollLayer")->removeChildByName("previewBackgroundImage");

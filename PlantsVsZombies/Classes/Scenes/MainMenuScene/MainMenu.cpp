@@ -78,17 +78,17 @@ void MainMenu::curUpdate(float time)
 
 	/* 鼠标移动到按钮式更换图片 */
 	_menuItem[0]->getBoundingBox().containsPoint(Vec2(_cur.x - 606, _cur.y)) ? 
-		_menuItem[0]->setNormalImage(Sprite::createWithTexture(_director->getTextureCache()->getTextureForKey(_global->userInformation->getImagePath().find("SelectorScreen_Options2")->second))) :
-		_menuItem[0]->setNormalImage(Sprite::createWithTexture(_director->getTextureCache()->getTextureForKey(_global->userInformation->getImagePath().find("SelectorScreen_Options1")->second)));
+		_menuItem[0]->setNormalImage(Sprite::createWithSpriteFrameName("SelectorScreen_Options2.png")) :
+		_menuItem[0]->setNormalImage(Sprite::createWithSpriteFrameName("SelectorScreen_Options1.png"));
 	_menuItem[1]->getBoundingBox().containsPoint(Vec2(_cur.x - 606, _cur.y)) ?
-		_menuItem[1]->setNormalImage(Sprite::createWithTexture(_director->getTextureCache()->getTextureForKey(_global->userInformation->getImagePath().find("SelectorScreen_Help2")->second))) :
-		_menuItem[1]->setNormalImage(Sprite::createWithTexture(_director->getTextureCache()->getTextureForKey(_global->userInformation->getImagePath().find("SelectorScreen_Help1")->second)));
+		_menuItem[1]->setNormalImage(Sprite::createWithSpriteFrameName("SelectorScreen_Help2.png")) :
+		_menuItem[1]->setNormalImage(Sprite::createWithSpriteFrameName("SelectorScreen_Help1.png"));
 	_menuItem[2]->getBoundingBox().containsPoint(Vec2(_cur.x - 606, _cur.y)) ?
-		_menuItem[2]->setNormalImage(Sprite::createWithTexture(_director->getTextureCache()->getTextureForKey(_global->userInformation->getImagePath().find("SelectorScreen_Quit2")->second))) :
-		_menuItem[2]->setNormalImage(Sprite::createWithTexture(_director->getTextureCache()->getTextureForKey(_global->userInformation->getImagePath().find("SelectorScreen_Quit1")->second)));
+		_menuItem[2]->setNormalImage(Sprite::createWithSpriteFrameName("SelectorScreen_Quit2.png")) :
+		_menuItem[2]->setNormalImage(Sprite::createWithSpriteFrameName("SelectorScreen_Quit1.png"));
 	_menuItem[3]->getBoundingBox().containsPoint(_cur) ?
-		_menuItem[3]->setNormalImage(Sprite::createWithTexture(_director->getTextureCache()->getTextureForKey(_global->userInformation->getImagePath().find("SelectorScreen_WoodSign2_press")->second))) :
-		_menuItem[3]->setNormalImage(Sprite::createWithTexture(_director->getTextureCache()->getTextureForKey(_global->userInformation->getImagePath().find("SelectorScreen_WoodSign2")->second)));
+		_menuItem[3]->setNormalImage(Sprite::createWithSpriteFrameName("SelectorScreen_WoodSign2_press.png")) :
+		_menuItem[3]->setNormalImage(Sprite::createWithSpriteFrameName("SelectorScreen_WoodSign2.png"));
 	
 	if (_global->userInformation->getIsUpdate())/* 如果名字更新 */
 	{
@@ -156,7 +156,7 @@ void MainMenu::playMusicBleepInMainBuutons(int ID,const Vec2 &vec2)
 	if (_menuItem[ID]->getBoundingBox().containsPoint(vec2))
 	{
 		/* 判断按钮编号 */
-		_menuItem[ID]->setNormalImage(Sprite::createWithTexture(_director->getTextureCache()->getTextureForKey(_global->userInformation->getImagePath().find(image[0][ID])->second)));
+		_menuItem[ID]->setNormalImage(Sprite::createWithSpriteFrameName(image[0][ID] + ".png"));
 
 		/* 如果没有播放音乐 */
 		if (!_playMusic[ID + 4])
@@ -168,7 +168,7 @@ void MainMenu::playMusicBleepInMainBuutons(int ID,const Vec2 &vec2)
 	else
 	{
 		if (_playMusic[ID + 4]) _playMusic[ID + 4] = false;
-		_menuItem[ID]->setNormalImage(Sprite::createWithTexture(_director->getTextureCache()->getTextureForKey(_global->userInformation->getImagePath().find(image[1][ID])->second)));
+		_menuItem[ID]->setNormalImage(Sprite::createWithSpriteFrameName(image[1][ID] + ".png"));
 	}
 }
 
@@ -247,15 +247,15 @@ void MainMenu::createSmoke(const float &Scale,const Vec2 &vec2)
 
 void MainMenu::createFlowers()
 {
-	this->createFlowers(1.5f, Vec2(1230, 220), _global->userInformation->getImagePath().find("SelectorScreen_Flower3")->second, 3);
-	this->createFlowers(2.0f, Vec2(1064, 260), _global->userInformation->getImagePath().find("SelectorScreen_Flower2")->second, 1);
-	this->createFlowers(1.5f, Vec2(1130, 290), _global->userInformation->getImagePath().find("SelectorScreen_Flower1")->second, 2);
+	this->createFlowers(1.5f, Vec2(1230, 220), "SelectorScreen_Flower3", 3);
+	this->createFlowers(2.0f, Vec2(1064, 260), "SelectorScreen_Flower2", 1);
+	this->createFlowers(1.5f, Vec2(1130, 290), "SelectorScreen_Flower1", 2);
 }
 
 void MainMenu::createFlowers(const float &Scale, const Vec2 &vec2, const std::string &fileName, const int &ID)
 {
 	/* 创建花朵 */
-	auto Flower = Sprite::createWithTexture(_director->getTextureCache()->getTextureForKey(fileName));
+	auto Flower = Sprite::createWithSpriteFrameName(fileName + ".png");
 	Flower->setScale(Scale);
 	Flower->setPosition(vec2);
 	_sprite[3]->addChild(Flower, 1);
@@ -419,10 +419,25 @@ void MainMenu::createMouseListener()
 void MainMenu::createMainButton()
 {
 	/* 创建按钮 */
-	_menuItem[0] = MenuItemImage::create(_global->userInformation->getImagePath().find("SelectorScreen_Options1")->second, _global->userInformation->getImagePath().find("SelectorScreen_Options2")->second, CC_CALLBACK_1(MainMenu::menuOptionCallBack, this));
-	_menuItem[1] = MenuItemImage::create(_global->userInformation->getImagePath().find("SelectorScreen_Help1")->second, _global->userInformation->getImagePath().find("SelectorScreen_Help2")->second, CC_CALLBACK_1(MainMenu::menuHelpCallBack, this));
-	_menuItem[2] = MenuItemImage::create(_global->userInformation->getImagePath().find("SelectorScreen_Quit1")->second, _global->userInformation->getImagePath().find("SelectorScreen_Quit2")->second, CC_CALLBACK_1(MainMenu::menuQuitCallBack, this));
-	_menuItem[3] = MenuItemImage::create(_global->userInformation->getImagePath().find("SelectorScreen_WoodSign2")->second, _global->userInformation->getImagePath().find("SelectorScreen_WoodSign2_press")->second, CC_CALLBACK_1(MainMenu::menuDataCallBack, this));
+	_menuItem[0] = MenuItemImage::create("","", CC_CALLBACK_1(MainMenu::menuOptionCallBack, this));
+	_menuItem[1] = MenuItemImage::create("","", CC_CALLBACK_1(MainMenu::menuHelpCallBack, this));
+	_menuItem[2] = MenuItemImage::create("","", CC_CALLBACK_1(MainMenu::menuQuitCallBack, this));
+	_menuItem[3] = MenuItemImage::create("","", CC_CALLBACK_1(MainMenu::menuDataCallBack, this));
+
+	_menuItem[0]->setNormalSpriteFrame(SpriteFrameCache::getInstance()->getSpriteFrameByName("SelectorScreen_Options1"));
+	_menuItem[1]->setNormalSpriteFrame(SpriteFrameCache::getInstance()->getSpriteFrameByName("SelectorScreen_Help1"));
+	_menuItem[2]->setNormalSpriteFrame(SpriteFrameCache::getInstance()->getSpriteFrameByName("SelectorScreen_Quit1"));
+	_menuItem[3]->setNormalSpriteFrame(SpriteFrameCache::getInstance()->getSpriteFrameByName("SelectorScreen_WoodSign2"));
+
+	_menuItem[0]->setSelectedSpriteFrame(SpriteFrameCache::getInstance()->getSpriteFrameByName("SelectorScreen_Options2"));
+	_menuItem[1]->setSelectedSpriteFrame(SpriteFrameCache::getInstance()->getSpriteFrameByName("SelectorScreen_Help2"));
+	_menuItem[2]->setSelectedSpriteFrame(SpriteFrameCache::getInstance()->getSpriteFrameByName("SelectorScreen_Quit2"));
+	_menuItem[3]->setSelectedSpriteFrame(SpriteFrameCache::getInstance()->getSpriteFrameByName("SelectorScreen_WoodSign2_press"));
+
+	_menuItem[0]->setCallback(CC_CALLBACK_1(MainMenu::menuOptionCallBack, this));
+	_menuItem[1]->setCallback(CC_CALLBACK_1(MainMenu::menuHelpCallBack, this));
+	_menuItem[2]->setCallback(CC_CALLBACK_1(MainMenu::menuQuitCallBack, this));
+	_menuItem[3]->setCallback(CC_CALLBACK_1(MainMenu::menuDataCallBack, this));
 
 	_menuItem[0]->setPosition(Vec2(960, 175));
 	_menuItem[1]->setPosition(Vec2(1080, 130));
@@ -449,25 +464,25 @@ void MainMenu::createMainButton()
 
 void MainMenu::createMainSprite()
 {
-	const char* String[] =
+	const string String[] =
 	{
-		{(_global->userInformation->getImagePath().find("SelectorScreen_BG")->second).c_str()},
-		{(_global->userInformation->getImagePath().find("SelectorScreen_BG1")->second).c_str()},
-		{(_global->userInformation->getImagePath().find("SelectorScreen_BG2")->second).c_str()},
-		{(_global->userInformation->getImagePath().find("SelectorScreen_BG3")->second).c_str()},
-		{(_global->userInformation->getImagePath().find("SelectorScreen_BG4")->second).c_str()},
-		{(_global->userInformation->getImagePath().find("SelectorScreen_BG5")->second).c_str()},
-	    {(_global->userInformation->getImagePath().find("SelectorScreen_BG_Center")->second).c_str()},
-	    {(_global->userInformation->getImagePath().find("SelectorScreen_BG_Left")->second).c_str()},
-		{(_global->userInformation->getImagePath().find("SelectorScreen_BG_Right")->second).c_str()},
-	    {(_global->userInformation->getImagePath().find("SelectorScreen_WoodSign1")->second).c_str()},
-	    {(_global->userInformation->getImagePath().find("SelectorScreen_WoodSign3")->second).c_str()},
+		{"SelectorScreen_BG"},
+		{"SelectorScreen_BG1"},
+		{"SelectorScreen_BG2"},
+		{"SelectorScreen_BG3"},
+		{"SelectorScreen_BG4"},
+		{"SelectorScreen_BG5"},
+	    {"SelectorScreen_BG_Center"},
+	    {"SelectorScreen_BG_Left"},
+		{"SelectorScreen_BG_Right"},
+	    {"SelectorScreen_WoodSign1"},
+	    {"SelectorScreen_WoodSign3"},
 	};
 	srand(time(nullptr));
-	_sprite[0] = Sprite::createWithTexture(_director->getTextureCache()->getTextureForKey(String[rand() % 6]));
+	_sprite[0] = Sprite::createWithSpriteFrameName(String[rand() % 6] + ".png");
 	for (int i = 6; i < 11; i++)
 	{
-		_sprite[i - 5] = Sprite::createWithTexture(_director->getTextureCache()->getTextureForKey(String[i]));
+		_sprite[i - 5] = Sprite::createWithSpriteFrameName(String[i] +".png");
 	}
 
 	Size size[] = { {1920, 1080},{1440, 700},{785, 1140},{1314, 1008},{586, 300},{184, 80} };
@@ -498,7 +513,7 @@ void MainMenu::createMainSprite()
 
 	/* 创建用户名称 */
 	_userText = Text::create();
-	_userText->setFontName("resources/fonts/fzse_gbk.ttf");
+	_userText->setFontName("resources/fonts/GameFont.ttf");
 	_userText->setFontSize(30);
 	_userText->setTextColor(Color4B::YELLOW);
 	_userText->setPosition(Vec2(300, 90));
@@ -509,14 +524,14 @@ void MainMenu::createMainSprite()
 		
 	this->scheduleOnce(schedule_selector(MainMenu::updateUserNameOnce), 0);
 
-	_mainButton[1] = Sprite::createWithTexture(_director->getTextureCache()->getTextureForKey(_global->userInformation->getImagePath().find("SelectorScreen_Adventure_button")->second));
-	_mainButton[2] = Sprite::createWithTexture(_director->getTextureCache()->getTextureForKey(_global->userInformation->getImagePath().find("SelectorScreen_Survival_button")->second));
-	_mainButton[3] = Sprite::createWithTexture(_director->getTextureCache()->getTextureForKey(_global->userInformation->getImagePath().find("SelectorScreen_Challenges_button")->second));
-	_mainButton[4] = Sprite::createWithTexture(_director->getTextureCache()->getTextureForKey(_global->userInformation->getImagePath().find("SelectorScreen_Vasebreaker_button")->second));
-	_mainButton[5] = Sprite::createWithTexture(_director->getTextureCache()->getTextureForKey(_global->userInformation->getImagePath().find("SelectorScreen_Shadow_Adventure")->second));
-	_mainButton[6] = Sprite::createWithTexture(_director->getTextureCache()->getTextureForKey(_global->userInformation->getImagePath().find("SelectorScreen_Shadow_Survival")->second));
-	_mainButton[7] = Sprite::createWithTexture(_director->getTextureCache()->getTextureForKey(_global->userInformation->getImagePath().find("SelectorScreen_Shadow_Challenge")->second));
-	_mainButton[8] = Sprite::createWithTexture(_director->getTextureCache()->getTextureForKey(_global->userInformation->getImagePath().find("SelectorScreen_Shadow_ZenGarden")->second));
+	_mainButton[1] = Sprite::createWithSpriteFrameName("SelectorScreen_Adventure_button.png");
+	_mainButton[2] = Sprite::createWithSpriteFrameName("SelectorScreen_Survival_button.png");
+	_mainButton[3] = Sprite::createWithSpriteFrameName("SelectorScreen_Challenges_button.png");
+	_mainButton[4] = Sprite::createWithSpriteFrameName("SelectorScreen_Vasebreaker_button.png");
+	_mainButton[5] = Sprite::createWithSpriteFrameName("SelectorScreen_Shadow_Adventure.png");
+	_mainButton[6] = Sprite::createWithSpriteFrameName("SelectorScreen_Shadow_Survival.png");
+	_mainButton[7] = Sprite::createWithSpriteFrameName("SelectorScreen_Shadow_Challenge.png");
+	_mainButton[8] = Sprite::createWithSpriteFrameName("SelectorScreen_Shadow_ZenGarden.png");
 
 	Vec2 Point[] = { {0,0},{900,830} ,{880,650},{870,510},{850,385},{910,826} ,{890,644},{880,506},{864,377} };
 	for (int i = 8; i > 0; i--)
@@ -530,21 +545,21 @@ void MainMenu::createMainSprite()
 void MainMenu::createClouds()
 {
 	srand(unsigned(time(NULL)));
-	const char* String[] =
+	const string String[] =
 	{
-		{(_global->userInformation->getImagePath().find("SelectorScreen_Cloud1")->second).c_str()},{(_global->userInformation->getImagePath().find("SelectorScreen_Cloud2")->second).c_str()},
-	    {(_global->userInformation->getImagePath().find("SelectorScreen_Cloud3")->second).c_str()},{(_global->userInformation->getImagePath().find("SelectorScreen_Cloud4")->second).c_str()},
-	    {(_global->userInformation->getImagePath().find("SelectorScreen_Cloud5")->second).c_str()},{(_global->userInformation->getImagePath().find("SelectorScreen_Cloud6")->second).c_str()},
-	    {(_global->userInformation->getImagePath().find("SelectorScreen_Cloud7")->second).c_str()},{(_global->userInformation->getImagePath().find("SelectorScreen_Cloud8")->second).c_str()},
-	    {(_global->userInformation->getImagePath().find("SelectorScreen_Cloud9")->second).c_str()},{(_global->userInformation->getImagePath().find("SelectorScreen_Cloud10")->second).c_str()},
-	    {(_global->userInformation->getImagePath().find("SelectorScreen_Cloud11")->second).c_str()},{(_global->userInformation->getImagePath().find("SelectorScreen_Cloud12")->second).c_str()}
+		{"SelectorScreen_Cloud1"},{"SelectorScreen_Cloud2"},
+	    {"SelectorScreen_Cloud3"},{"SelectorScreen_Cloud4"},
+	    {"SelectorScreen_Cloud5"},{"SelectorScreen_Cloud6"},
+	    {"SelectorScreen_Cloud7"},{"SelectorScreen_Cloud8"},
+	    {"SelectorScreen_Cloud9"},{"SelectorScreen_Cloud10"},
+	    {"SelectorScreen_Cloud11"},{"SelectorScreen_Cloud12"}
 	};
 	Vec2 vec2[] = { {2500,1000},{2800,900},{2200,800},{2100,950},{3000,600},{2700,700},{2600,800},{3000,550},{2000,670},{2480,780},{2150,870},{2341,813} };
 	Vec2 vec2_[] = { {0,1000},{0,900},{0,800},{0,950},{0,600},{0,700},{0,800},{0,550},{0,670},{0,780},{0,870},{0,813} };
 	int Rotation[] = { 20,25,35,35,30,0,0,0,0,0,-20,-20 };
 	for (int i = 6; i < 18; i++)
 	{
-		_sprite[i] = Sprite::createWithTexture(_director->getTextureCache()->getTextureForKey(String[i - 6]));
+		_sprite[i] = Sprite::createWithSpriteFrameName(String[i - 6] + ".png");
 		_sprite[i]->setPosition(300 + rand() % 1800, vec2[i - 6].y);
 		_sprite[i]->setRotation(Rotation[i - 6]);
 		_sprite[i]->setScale(1 + (rand() % 3) / 1.2f);

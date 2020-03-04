@@ -50,7 +50,7 @@ bool GSButtonLayer::init()
 
 Button* GSButtonLayer::createButton(const string& normal, const string& select, const Vec2& position, GSLayerButton buttonName, const bool isFlippedX)
 {
-	auto button = Button::create(_global->userInformation->getImagePath().find(normal)->second, _global->userInformation->getImagePath().find(select)->second);
+	auto button = Button::create(normal + ".png", select + ".png", "", TextureResType::PLIST);
 	button->setPosition(position);
 	button->setScale(0.7f);
 	button->setFlippedX(isFlippedX);
@@ -92,11 +92,11 @@ void GSButtonLayer::createKeyBoardListener()
 		{
 		case cocos2d::EventKeyboard::KeyCode::KEY_SPACE:                     /* 空格键暂停 */
 			//if (KEY_PRESS(pressKeySpace))
-			{
-				AudioEngine::setVolume(AudioEngine::play2d(_global->userInformation->getMusicPath().find("gravebutton")->second), _global->userInformation->getSoundEffectVolume());
-				createRequirementLayer();
-			}
-			break;
+		{
+			AudioEngine::setVolume(AudioEngine::play2d(_global->userInformation->getMusicPath().find("pause")->second), _global->userInformation->getSoundEffectVolume());
+			createRequirementLayer();
+		}
+		break;
 		case cocos2d::EventKeyboard::KeyCode::KEY_CAPITAL_W:                 /* 大小写w或者向上箭头加速 */
 		case cocos2d::EventKeyboard::KeyCode::KEY_W:
 		case cocos2d::EventKeyboard::KeyCode::KEY_UP_ARROW:
@@ -119,7 +119,6 @@ void GSButtonLayer::createKeyBoardListener()
 void GSButtonLayer::createQuitDialog()
 {
 	GSPauseQuitLayer::pauseLayer();
-
 	_director->getRunningScene()->addChild(GSPauseQuitLayer::addLayer(), 10);
 }
 
@@ -128,7 +127,7 @@ void GSButtonLayer::createRequirementButton()
 	/* 如果有要求则显示通过要求 */
 	if (_openLevelData->readLevelData(_openLevelData->getLevelNumber())->getGameType().size())
 	{
-		auto Requirement = ui::Button::create(_global->userInformation->getImagePath().find("Requirement")->second, _global->userInformation->getImagePath().find("RequirementDown")->second);
+		auto Requirement = ui::Button::create("Requirement.png", "RequirementDown.png", "", TextureResType::PLIST);
 		Requirement->setPosition(Vec2(1570, 1030));
 		Requirement->setScale(0.7f);
 		this->addChild(Requirement);
@@ -158,13 +157,13 @@ void GSButtonLayer::controlAccelerateScheduler()
 	if (Director::getInstance()->getScheduler()->getTimeScale() == 1.5f)
 	{
 		Director::getInstance()->getScheduler()->setTimeScale(1.0f);
-		_accelerateButton->loadTextureNormal(_global->userInformation->getImagePath().find("SpeedButton")->second);
+		_accelerateButton->loadTextureNormal("SpeedButton.png", TextureResType::PLIST);
 	}
 	else
 	{
 		Director::getInstance()->getScheduler()->setTimeScale(1.5f);
-		_decelerateButton->loadTextureNormal(_global->userInformation->getImagePath().find("SpeedButton")->second);
-		_accelerateButton->loadTextureNormal(_global->userInformation->getImagePath().find("SpeedButtonDown")->second);
+		_decelerateButton->loadTextureNormal("SpeedButton.png", TextureResType::PLIST);
+		_accelerateButton->loadTextureNormal("SpeedButtonDown.png", TextureResType::PLIST);
 	}
 }
 
@@ -173,19 +172,19 @@ void GSButtonLayer::controlDecelerateScheduler()
 	if (Director::getInstance()->getScheduler()->getTimeScale() == 0.5f)
 	{
 		Director::getInstance()->getScheduler()->setTimeScale(1.0f);
-		_decelerateButton->loadTextureNormal(_global->userInformation->getImagePath().find("SpeedButton")->second);
+		_decelerateButton->loadTextureNormal("SpeedButton.png", TextureResType::PLIST);
 	}
 	else
 	{
 		Director::getInstance()->getScheduler()->setTimeScale(0.5f);
-		_accelerateButton->loadTextureNormal(_global->userInformation->getImagePath().find("SpeedButton")->second);
-		_decelerateButton->loadTextureNormal(_global->userInformation->getImagePath().find("SpeedButtonDown")->second);
+		_accelerateButton->loadTextureNormal("SpeedButton.png", TextureResType::PLIST);
+		_decelerateButton->loadTextureNormal("SpeedButtonDown.png", TextureResType::PLIST);
 	}
 }
 
 void GSButtonLayer::showSeedBank()
 {
-	auto seedBank = Scale9Sprite::create(_global->userInformation->getImagePath().find("SeedBank")->second);
+	auto seedBank = Scale9Sprite::createWithSpriteFrameName("SeedBank.png");
 	seedBank->setPosition(Vec2(0, 1080));
 	seedBank->setAnchorPoint(Vec2(0, 1));
 	seedBank->setCapInsets(Rect(0, 5, 87, 373));
@@ -195,7 +194,7 @@ void GSButtonLayer::showSeedBank()
 
 void GSButtonLayer::showShovelBank()
 {
-	auto shovelBank = Button::create(_global->userInformation->getImagePath().find("ShovelBank")->second);
+	auto shovelBank = Button::create("ShovelBank.png", "", "", TextureResType::PLIST);
 	shovelBank->setPosition(_openLevelData->readLevelData(_openLevelData->getLevelNumber())->getGameType().size() > 0 ? Vec2(1420, 1080) : Vec2(1520, 1080));
 	shovelBank->setScale(0.6f);
 	shovelBank->setAnchorPoint(Vec2(0, 1));
@@ -214,17 +213,17 @@ void GSButtonLayer::showShovelBank()
 				switch (mouseSelectImage->isSelectShovel)
 				{
 				case true:
-					Director::getInstance()->getOpenGLView()->setCursor(_global->userInformation->getImagePath().find("cursor")->second, Point::ANCHOR_TOP_LEFT);
+					Director::getInstance()->getOpenGLView()->setCursor("resources/images/System/cursor.png", Point::ANCHOR_TOP_LEFT);
 					mouseSelectImage->isSelectShovel = false;
 					break;
 				case false:
 					if (_global->userInformation->getIsSelectCursorNotHide() == cocos2d::ui::CheckBox::EventType::UNSELECTED)
 					{
-						Director::getInstance()->getOpenGLView()->setCursor(_global->userInformation->getImagePath().find("Shovel_hi_res")->second, Point::ANCHOR_BOTTOM_LEFT);
+						Director::getInstance()->getOpenGLView()->setCursor("resources/images/System/Shovel_hi_res.png", Point::ANCHOR_BOTTOM_LEFT);
 					}
 					else
 					{
-						Director::getInstance()->getOpenGLView()->setCursor(_global->userInformation->getImagePath().find("Shovel_hi_res_1")->second, Vec2(0.125, 0.2f));
+						Director::getInstance()->getOpenGLView()->setCursor("resources/images/System/Shovel_hi_res1.png", Vec2(0.125, 0.2f));
 					}
 					mouseSelectImage->isSelectShovel = true;
 					break;
@@ -239,7 +238,7 @@ void GSButtonLayer::createPlantsCard()
 	int i = -1;
 	for (auto& card : _global->userInformation->getUserSelectCrads())
 	{
-		auto cardBackgroundImag = Button::create(_global->userInformation->getImagePath().find("SeedPacket_Larger")->second, _global->userInformation->getImagePath().find("SeedPacket_Larger")->second);
+		auto cardBackgroundImag = Button::create("SeedPacket_Larger.png", "SeedPacket_Larger.png", "", TextureResType::PLIST);
 		cardBackgroundImag->setPosition(Vec2(110, 1008 - 103 * ++i));
 		cardBackgroundImag->setEnabled(false);
 		cardBackgroundImag->setColor(Color3B::GRAY);
@@ -264,7 +263,7 @@ void GSButtonLayer::createPlantsCard()
 
 ProgressTimer* GSButtonLayer::createProgressTimer(Button* button, const float _time, const int& id)
 {
-	auto timerBar = ProgressTimer::create(Sprite::create(_global->userInformation->getImagePath().find("SeedPacketSilhouette1")->second));
+	auto timerBar = ProgressTimer::create(Sprite::createWithSpriteFrameName("SeedPacketSilhouette1.png"));
 	timerBar->setType(ProgressTimer::Type::BAR);  //设置条形进度条
 	timerBar->setBarChangeRate(Vec2(1, 0));       //设置横向
 	timerBar->setMidpoint(Vec2(0, 1));            //设置从左往右

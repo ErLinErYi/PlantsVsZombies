@@ -39,3 +39,13 @@ int Global::changeBgMusic(const std::string& _musicName,bool _loop)
 	return AudioID;
 }
 
+void Global::stopMusic()
+{
+	AudioEngine::pause(*userInformation->getBackgroundMusic().begin());
+}
+
+void Global::resumeMusic()
+{
+	AudioEngine::resume(*userInformation->getBackgroundMusic().begin());
+}
+

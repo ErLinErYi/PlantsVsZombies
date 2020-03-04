@@ -34,13 +34,14 @@ void GSRequirementLayer::showRequirement()
 	_requirement->createDialogBox(GameTypes::None);
 	_requirement->setShowDialogAction();
 
-	auto button = Button::create(Global::getInstance()->userInformation->getImagePath().find("Continue1")->second, Global::getInstance()->userInformation->getImagePath().find("Continue")->second);
+	auto button = Button::create("Continue1.png", "Continue.png", "", TextureResType::PLIST);
 	button->setTitleText(Global::getInstance()->userInformation->getGameText().find("È·¶¨")->second);
-	button->setTitleFontName("resources/fonts/fzse_gbk.ttf");
+	button->setTitleFontName("resources/fonts/GameFont.ttf");
 	button->setTitleFontSize(30);
 	button->setTitleColor(Color3B::YELLOW);
-	button->setPosition(Vec2(_requirement->getDialog()->getContentSize().width / 2.0f, 20));
+	button->setPosition(Vec2(_requirement->getDialog()->getContentSize().width / 2.0f, 10));
 	button->setGlobalZOrder(10);
+	button->setScale(0.5f);
 	button->runAction(FadeIn::create(0.5f));
 	button->addTouchEventListener([=](Ref* sender, ui::Widget::TouchEventType type)
 		{

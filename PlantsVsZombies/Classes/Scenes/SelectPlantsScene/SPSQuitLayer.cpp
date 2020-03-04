@@ -30,7 +30,7 @@ bool SPSQuitLayer::init()
 
 void SPSQuitLayer::createDialog()
 {
-	_option = Sprite::createWithTexture(_director->getTextureCache()->getTextureForKey(_global->userInformation->getImagePath().find("LevelObjiectivesBg")->second));
+	_option = Sprite::createWithSpriteFrameName("LevelObjiectivesBg.png");
 	_option->setPosition(_director->getWinSize() / 2);
 	_option->setScale(0.9f);
 	this->addChild(_option);
@@ -45,14 +45,14 @@ void SPSQuitLayer::createDialog()
 
 	/* 创建滑动条 */
 	auto musicslider = createSlider(Vec2(600, 500), Vec2(150, 500), _global->userInformation->getGameText().find("音乐")->second, OptionScene_Slider::音乐,
-		Sprite::create(_global->userInformation->getImagePath().find("bgFile")->second),
-		Sprite::create(_global->userInformation->getImagePath().find("progressFile")->second),
-		Sprite::create(_global->userInformation->getImagePath().find("thumbFile")->second),
+		Sprite::createWithSpriteFrameName("bgFile.png"),
+		Sprite::createWithSpriteFrameName("progressFile.png"),
+		Sprite::createWithSpriteFrameName("thumbFile.png"),
 		true);
 	auto SoundEffectslider = createSlider(Vec2(600, 410), Vec2(150, 410), _global->userInformation->getGameText().find("音效")->second, OptionScene_Slider::音效,
-		Sprite::create(_global->userInformation->getImagePath().find("bgFile")->second),
-		Sprite::create(_global->userInformation->getImagePath().find("progressFile")->second),
-		Sprite::create(_global->userInformation->getImagePath().find("thumbFile")->second),
+		Sprite::createWithSpriteFrameName("bgFile.png"),
+		Sprite::createWithSpriteFrameName("progressFile.png"),
+		Sprite::createWithSpriteFrameName("thumbFile.png"),
 		true);
 
 	musicslider->setScale(1.2f);
@@ -80,8 +80,8 @@ void SPSQuitLayer::createDialog()
 void SPSQuitLayer::createButton(const Vec2& vec2, const std::string name, PauseQuitLayer_Button button_type)
 {
 	/* 创建返回主菜单按钮 */
-	auto button = ui::Button::create(_global->userInformation->getImagePath().find("ButtonNew2")->second, _global->userInformation->getImagePath().find("ButtonNew")->second);
-	auto label = Label::createWithTTF(name, "resources/fonts/fzse_gbk.ttf", 35);
+	auto button = ui::Button::create("ButtonNew2.png", "ButtonNew.png", "", TextureResType::PLIST);
+	auto label = Label::createWithTTF(name, "resources/fonts/GameFont.ttf", 35);
 	label->enableShadow(Color4B(0, 0, 0, 200));//设置阴影
 	label->setScale(2.0f);
 	button->setTitleLabel(label);

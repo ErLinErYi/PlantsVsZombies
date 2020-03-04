@@ -33,7 +33,7 @@ Car* Car::create(Node* node)
 
 void Car::showCar()
 {
-	_carImage= Sprite::create(_global->userInformation->getImagePath().find("Car")->second);
+	_carImage= Sprite::createWithSpriteFrameName("Car.png");
 	_carImage->setPosition(_position);
 	_carImage->setLocalZOrder(getZOrder(_position.y));
 	_carImage->setScale(_scale);
@@ -131,7 +131,7 @@ void Car::deleteCar(list<Car*>::iterator& car)
 
 void Car::createCarShadow()
 {
-	auto shadow = Sprite::create(_global->userInformation->getImagePath().find("plantshadow")->second);
+	auto shadow = Sprite::createWithSpriteFrameName("plantshadow.png");
 	shadow->setScaleX(4.0f);
 	shadow->setScaleY(3.0f);
 	shadow->setPosition(Vec2(120, 30));
@@ -140,7 +140,7 @@ void Car::createCarShadow()
 
 void Car::createAppearSpecialEffect()
 {
-	auto fog = Sprite::create(_global->userInformation->getImagePath().find("AwardPickupGlow")->second);
+	auto fog = Sprite::createWithSpriteFrameName("AwardPickupGlow.png");
 	fog->setScale(4.0f);
 	fog->setName("fog");
 	fog->setPosition(Vec2(90, 30));

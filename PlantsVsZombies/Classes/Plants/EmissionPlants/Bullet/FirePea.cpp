@@ -47,7 +47,7 @@ void FirePea::bulletInit()
 void FirePea::createShadow()
 {
     /* 创建影子 */
-    auto shadow = Sprite::create(_global->userInformation->getImagePath().find("plantshadow")->second);
+    auto shadow = Sprite::createWithSpriteFrameName("plantshadow.png");
     shadow->setScaleY(0.7f);
     shadow->setName("shadow");
     shadow->setPosition(Vec2(0, -52));

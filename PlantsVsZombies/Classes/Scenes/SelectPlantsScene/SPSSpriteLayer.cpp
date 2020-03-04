@@ -13,7 +13,7 @@
 using namespace spine;
 
 SPSSpriteLayer::SPSSpriteLayer() :
-	_seedChooser(Sprite::create())
+	_seedChooser(nullptr)
 ,	_plantCardScrollView(ScrollView::create())
 ,	_plantCardTextScrollView(ScrollView::create())
 ,	_global(Global::getInstance())
@@ -56,7 +56,7 @@ void SPSSpriteLayer::createSelectPlantsDialog()
 
 void SPSSpriteLayer::alreadySelectPlantsDialog()
 {
-	auto SeedBank = Scale9Sprite::create(_global->userInformation->getImagePath().find("SeedBank")->second);
+	auto SeedBank = Scale9Sprite::createWithSpriteFrameName("SeedBank.png");
 	SeedBank->setPosition(Vec2(-200, 1080));
 	SeedBank->setAnchorPoint(Vec2(0, 1));
 	SeedBank->setCapInsets(Rect(0, 5, 87, 373));
@@ -66,7 +66,7 @@ void SPSSpriteLayer::alreadySelectPlantsDialog()
 
 	for (int i = 0; i < 9; ++i)
 	{
-		auto Seed = Sprite::create(_global->userInformation->getImagePath().find("SeedPacketSilhouette")->second);
+		auto Seed = Sprite::createWithSpriteFrameName("SeedPacketSilhouette.png");
 		Seed->setContentSize(Size(180, 100));
 		Seed->setPosition(Vec2(110, 905 - 103 * i));
 		SeedBank->addChild(Seed);
@@ -75,14 +75,14 @@ void SPSSpriteLayer::alreadySelectPlantsDialog()
 
 void SPSSpriteLayer::alreadyHavePlantsDialog()
 {
-	_seedChooser = Sprite::create(_global->userInformation->getImagePath().find("SeedChooser_Background")->second);
+	_seedChooser = Sprite::createWithSpriteFrameName("SeedChooser_Background.png");
 	_seedChooser->setPosition(Vec2(600, -600));
 	_seedChooser->setContentSize(Size(780, 1080));
 	_seedChooser->setName("_seedChooer");
 	_seedChooser->runAction(Sequence::create(MoveTo::create(0.2f, Vec2(600, 540)), CallFunc::create([&]() {createBeginButton(); }), nullptr));
 	this->addChild(_seedChooser);
 
-	auto SelectBackground = Sprite::create(_global->userInformation->getImagePath().find("SelectBackground")->second);
+	auto SelectBackground = Sprite::createWithSpriteFrameName("SelectBackground.png");
 	SelectBackground->setPosition(Vec2(190, 730));
 	SelectBackground->setScaleY(0.96f);
 	SelectBackground->setScaleX(1.14f);
@@ -96,7 +96,7 @@ void SPSSpriteLayer::alreadyHavePlantsDialog()
 	State->setAnimation(0, "Rotate", true);
 	_seedChooser->addChild(State);
 
-	auto SeedChooserText = ui::Text::create(_global->userInformation->getGameText().find("请选择你出战的植物！")->second, "resources/fonts/fzse_gbk.ttf", 50);
+	auto SeedChooserText = ui::Text::create(_global->userInformation->getGameText().find("请选择你出战的植物！")->second, "resources/fonts/GameFont.ttf", 50);
 	SeedChooserText->setColor(Color3B::YELLOW);
 	SeedChooserText->setPosition(Vec2(400, 1000));
 	_seedChooser->addChild(SeedChooserText);
@@ -177,7 +177,7 @@ void SPSSpriteLayer::createPlantsCards()
 
 Button* SPSSpriteLayer::createButtons(const Vec2& vec2, const int& id)
 {
-	auto button = Button::create(_global->userInformation->getImagePath().find("SeedPacket_Larger")->second);
+	auto button = Button::create("SeedPacket_Larger.png", "", "", TextureResType::PLIST);
 	button->setPosition(Vec2(vec2.x, _plantCardScrollView->getInnerContainerSize().height + vec2.y - 540));
 	button->setTitleColor(Color3B::RED);
 	button->setTitleFontSize(25);
@@ -238,7 +238,7 @@ void SPSSpriteLayer::preLoadText()
 {
 	for (int i = 0; i < _plantsNumber; i++)
 	{
-		_animationText[i] = Text::create("", "resources/fonts/fzse_gbk.ttf", 30);
+		_animationText[i] = Text::create("", "resources/fonts/GameFont.ttf", 30);
 		_animationText[i]->setName("AnimationText");
 		_animationText[i]->enableOutline(Color4B(0, 255, 255, 255));
 		_animationText[i]->enableShadow(Color4B::GRAY, Size(4, -4), 1);
@@ -270,24 +270,24 @@ Text* SPSSpriteLayer::showPlantsInformation(Button* button, const int id) const
 	};
 
 	/* 图片 */
-	createPlantsImage(button, _global->userInformation->getImagePath().find(PlantsImageName[id][0])->second);
+	createPlantsImage(button, PlantsImageName[id][0]);
 
-	auto PlantsLevelIamge = Sprite::create(_global->userInformation->getImagePath().find("PlantsLevel_Copper")->second);
+	auto PlantsLevelIamge = Sprite::createWithSpriteFrameName("PlantsLevel_Copper.png");
 	PlantsLevelIamge->setPosition(Vec2(155, 74));
 	PlantsLevelIamge->setScale(0.65f);
 	button->addChild(PlantsLevelIamge);
 
-	auto Background = Sprite::create(_global->userInformation->getImagePath().find("PlantsIconBackground")->second);
+	auto Background = Sprite::createWithSpriteFrameName("PlantsIconBackground.png");
 	Background->setOpacity(0);
 	button->addChild(Background);
 
-	auto PlantsIconBackground = Sprite::create(_global->userInformation->getImagePath().find("PlantsIconBackground")->second);
+	auto PlantsIconBackground = Sprite::createWithSpriteFrameName("PlantsIconBackground.png");
 	PlantsIconBackground->setPosition(Vec2(93, 150));
 	PlantsIconBackground->setScale(0.28f);
 	PlantsIconBackground->setColor(color[id]);
 	Background->addChild(PlantsIconBackground);
 
-	auto PlantsIcon = Sprite::create(_global->userInformation->getImagePath().find(PlantsImageName[id][2])->second);
+	auto PlantsIcon = Sprite::createWithSpriteFrameName(PlantsImageName[id][2] + ".png");
 	PlantsIcon->setPosition(Vec2(73, 75));
 	PlantsIcon->setScale(1.2f);
 	PlantsIconBackground->addChild(PlantsIcon);
@@ -316,7 +316,7 @@ Text* SPSSpriteLayer::showPlantsInformation(Button* button, const int id) const
 
 void SPSSpriteLayer::createPlantsImage(Button* button, const std::string& resource, const float& scale) const
 {
-	auto image = Sprite::create(resource);
+	auto image = Sprite::createWithSpriteFrameName(resource + ".png");
 	image->setScale(scale);
 	image->setPosition(Vec2(55, 50));
 	button->addChild(image);
@@ -325,7 +325,7 @@ void SPSSpriteLayer::createPlantsImage(Button* button, const std::string& resour
 void SPSSpriteLayer::createMoveButton(Button* button, const Vec2& vec2, const int& id)
 {
 	/* 创建移动卡牌 */
-	auto MoveCard = ui::Button::create(_global->userInformation->getImagePath().find("SeedPacket_Larger")->second);
+	auto MoveCard = ui::Button::create("SeedPacket_Larger.png", "", "", TextureResType::PLIST);
 	MoveCard->setPosition(Vec2(vec2.x + 212, vec2.y + _plantCardScrollViewPercent));
 	MoveCard->setTitleColor(Color3B::RED);
 	MoveCard->setTitleFontSize(25);
@@ -402,10 +402,10 @@ void SPSSpriteLayer::removePlantsCardCallBack(Node* node, const int& id, Button*
 
 void SPSSpriteLayer::createBeginButton()
 {
-	auto button = Button::create(_global->userInformation->getImagePath().find("SeedChooser_Button_Disabled")->second, _global->userInformation->getImagePath().find("SeedChooser_Button")->second);
+	auto button = Button::create("SeedChooser_Button_Disabled.png", "SeedChooser_Button.png", "", TextureResType::PLIST);
 	button->setTitleText(_global->userInformation->getGameText().find("开始战斗吧！")->second);
 	button->setTitleColor(Color3B::WHITE);
-	button->setTitleFontName("resources/fonts/fzse_gbk.ttf");
+	button->setTitleFontName("resources/fonts/GameFont.ttf");
 	button->setTitleFontSize(20);
 	button->setPosition(Vec2(390, 70));
 	button->setScale(2.0f);
@@ -479,7 +479,7 @@ void SPSSpriteLayer::controlPlantCanSelect(Button* button, const int id)
 
 void SPSSpriteLayer::createProhibit(Button* button)
 {
-	auto prohibit = Sprite::create(_global->userInformation->getImagePath().find("Prohibit")->second);
+	auto prohibit = Sprite::createWithSpriteFrameName("Prohibit.png");
 	prohibit->setPosition(Vec2(160, 20));
 	prohibit->setScale(0.5f);
 	button->addChild(prohibit);

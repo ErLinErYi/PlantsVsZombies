@@ -189,6 +189,11 @@ protected:
 	virtual void setPlantShadow(const float& scale);
 
 	/**
+	 *设置植物受到伤害闪烁
+	 */
+	virtual void setPlantHurtBlink() const;
+
+	/**
 	 *获取僵尸是否在植物前方
 	 */
 	virtual bool getZombieIsTheFrontOfPlant(Zombies* zombie) const;

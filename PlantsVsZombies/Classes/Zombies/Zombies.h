@@ -202,6 +202,11 @@ public:
 	virtual void setZombieIsStrikeFly(const bool isStrikeFly);
 
 	/**
+	 *…Ë÷√Ω© ¨ ‹…À…¡À∏
+	 */
+	virtual void setZombieHurtBlink() const;
+
+	/**
 	 *ªÒ»°Ω© ¨∂Øª≠
 	 */
 	virtual SkeletonAnimation* getZombieAnimation() const;

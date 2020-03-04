@@ -20,11 +20,6 @@ public:
 
 protected:
 	/**
-	 *¼ÓÔØ±³¾°
-	 */                    
-	virtual void createBackGroundImage();
-
-	/**
 	 *´´½¨´¥Ãþ¼àÌý 
 	 */           
 	virtual EventListenerTouchOneByOne* createTouchtListener(Sprite* sprite);

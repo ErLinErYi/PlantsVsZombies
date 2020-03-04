@@ -66,26 +66,26 @@ void SPSBackgroundLayer::createMordernBackgroundImage()
 	switch (_global->userInformation->getCurrentPlayLevels())
 	{
 	case 35:
-		_global->userInformation->setBackground(Sprite::create(_global->userInformation->getImagePath().find("background6")->second));
+		_global->userInformation->setBackground(Sprite::createWithSpriteFrameName("background6.png"));
 		_global->userInformation->getBackground()->addChild(ParticleSnow::create());
 		break;
 	case 36:
-		_global->userInformation->setBackground(Sprite::create(_global->userInformation->getImagePath().find("background1")->second));
+		_global->userInformation->setBackground(Sprite::createWithSpriteFrameName("background1.png"));
 		break;
 	case 37:
-		_global->userInformation->setBackground(Sprite::create(_global->userInformation->getImagePath().find("background4")->second));
+		_global->userInformation->setBackground(Sprite::createWithSpriteFrameName("background4.png"));
 		break;
 	case 50:
-		_global->userInformation->setBackground(Sprite::create(_global->userInformation->getImagePath().find("background5")->second));
+		_global->userInformation->setBackground(Sprite::createWithSpriteFrameName("background5.png"));
 		break;
 	case 51:
-		_global->userInformation->setBackground(Sprite::create(_global->userInformation->getImagePath().find("background3")->second));
+		_global->userInformation->setBackground(Sprite::createWithSpriteFrameName("background3.png"));
 		break;
 	case 52:
-		_global->userInformation->setBackground(Sprite::create(_global->userInformation->getImagePath().find("background2")->second));
+		_global->userInformation->setBackground(Sprite::createWithSpriteFrameName("background2.png"));
 		break;
 	default:
-		_global->userInformation->setBackground(Sprite::create(_global->userInformation->getImagePath().find("background")->second));
+		_global->userInformation->setBackground(Sprite::createWithSpriteFrameName("background.png"));
 		break;
 	}
 }

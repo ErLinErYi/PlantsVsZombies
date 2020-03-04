@@ -48,17 +48,19 @@ void UserWinRequirement::createDialogBox(GameTypes finishedid)
 {
 	createShieldLayer();
 
-	_levelObjiectives = Scale9Sprite::create(_global->userInformation->getImagePath().find("LevelObjiectives")->second);
+	_levelObjiectives = Scale9Sprite::createWithSpriteFrameName("LevelObjiectives.png");
 	_levelObjiectives->setPosition(Director::getInstance()->getWinSize() / 2.0f);
 	_levelObjiectives->setGlobalZOrder(10);
+	_levelObjiectives->setScale(2.0f);
 	_layer->addChild(_levelObjiectives);
 
 	auto LevelObjiectivesText = Text::create();
 	LevelObjiectivesText->setString(_global->userInformation->getGameText().find("通关要求！")->second);
-	LevelObjiectivesText->setFontName("resources/fonts/fzse_gbk.ttf");
+	LevelObjiectivesText->setFontName("resources/fonts/GameFont.ttf");
 	LevelObjiectivesText->setFontSize(50);
+	LevelObjiectivesText->setScale(0.5f);
 	LevelObjiectivesText->setColor(Color3B(0, 255, 255));
-	LevelObjiectivesText->setPosition(Vec2(_levelObjiectives->getContentSize().width / 2, 490));
+	LevelObjiectivesText->setPosition(Vec2(_levelObjiectives->getContentSize().width / 2, 245));
 	LevelObjiectivesText->setGlobalZOrder(10);
 	_levelObjiectives->addChild(LevelObjiectivesText);
 
@@ -187,6 +189,7 @@ void UserWinRequirement::showText(const string& text, const int& ID, Color3B col
 {
 	auto requiretext = Label::createWithTTF(text, "resources/fonts/GameFont.ttf", 40);
 	requiretext->setColor(Color3B::BLACK);
+	requiretext->setScale(0.5f);
 	requiretext->setLineBreakWithoutSpace(true);
 	requiretext->setWidth(790);
 	requiretext->setPosition(_textPosition[OpenLevelData::getInstance()->readLevelData(OpenLevelData::getInstance()->getLevelNumber())->getGameType().size() - 1][ID]);
@@ -195,9 +198,10 @@ void UserWinRequirement::showText(const string& text, const int& ID, Color3B col
 	requiretext->setColor(color);
 	_levelObjiectives->addChild(requiretext);
 
-	auto LevelObjiectives2 = Sprite::create(_global->userInformation->getImagePath().find("LevelObjiectives2")->second);
-	LevelObjiectives2->setPosition(_textPosition[OpenLevelData::getInstance()->readLevelData(OpenLevelData::getInstance()->getLevelNumber())->getGameType().size() - 1][ID] + Vec2(-90, +13));
+	auto LevelObjiectives2 = Sprite::createWithSpriteFrameName("LevelObjiectives2.png");
+	LevelObjiectives2->setPosition(_textPosition[OpenLevelData::getInstance()->readLevelData(OpenLevelData::getInstance()->getLevelNumber())->getGameType().size() - 1][ID] + Vec2(-40, +6));
 	LevelObjiectives2->setAnchorPoint(Vec2(0, 1));
+	LevelObjiectives2->setScale(0.5f);
 	LevelObjiectives2->setGlobalZOrder(10);
 	_levelObjiectives->addChild(LevelObjiectives2);
 }

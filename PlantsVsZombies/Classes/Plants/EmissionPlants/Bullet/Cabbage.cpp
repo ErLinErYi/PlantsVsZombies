@@ -36,7 +36,7 @@ void Cabbage::bulletAndZombiesCollision()
 			_bulletAnimation->setOpacity(0);
 			bulletAttackHurtZombies(zombie);   /* 僵尸减少生命值 */
 
-			zombie->getZombieAnimation()->runAction(Sequence::create(TintTo::create(0.2f, Color3B(100, 100, 100)), TintTo::create(0.2f, Color3B::WHITE), nullptr));
+			zombie->setZombieHurtBlink();
 
 			createCabbageExplode();
 
@@ -78,7 +78,7 @@ void Cabbage::bulletInit()
 void Cabbage::createShadow()
 {
 	/* 创建影子 */
-	auto shadow = Sprite::create(_global->userInformation->getImagePath().find("plantshadow")->second);
+	auto shadow = Sprite::createWithSpriteFrameName("plantshadow.png");
 	shadow->setPosition(_position + Vec2(70, 10));
 	shadow->setLocalZOrder(getZOrder(_position.y));
 	_node->addChild(shadow);

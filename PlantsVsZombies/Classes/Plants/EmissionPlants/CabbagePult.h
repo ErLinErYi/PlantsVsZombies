@@ -28,9 +28,7 @@ private:
 
 private:
 	bool _isCreateCabbage;    // 是否创建据卷心菜子弹
-	bool _isChanged;          // 是否改变为攻击形态
 	float _distance;          // 植物与最近的僵尸的距离
 	Vec2 _zombiePostion;      // 临时挑选出来的僵尸的位置
 	Zombies* _zombie;         // 存储临时挑选出来的僵尸
-	Bullet* _cabbage;         // 卷心菜
 };

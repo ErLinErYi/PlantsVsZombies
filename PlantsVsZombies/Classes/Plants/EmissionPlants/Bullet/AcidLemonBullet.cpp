@@ -43,7 +43,7 @@ void AcidLemonBullet::bulletAndZombiesCollision()
 			setAttackForShield(zombie);        /* 对僵尸铁质护盾造成额外伤害 */
 			bulletAttackHurtZombies(zombie);   /* 僵尸减少生命值 */
 
-			zombie->getZombieAnimation()->runAction(Sequence::create(TintTo::create(0.2f, Color3B(100, 100, 100)), TintTo::create(0.2f, Color3B::WHITE), nullptr));
+			zombie->setZombieHurtBlink();
 
 			createAcidLemonBulletExplode();   /* 创建爆炸动画 */
 			setBulletAttack(0);
@@ -73,7 +73,7 @@ void AcidLemonBullet::bulletInit()
 void AcidLemonBullet::createShadow()
 {
 	/* 创建影子 */
-	auto shadow = Sprite::create(_global->userInformation->getImagePath().find("plantshadow")->second);
+	auto shadow = Sprite::createWithSpriteFrameName("plantshadow.png");
 	shadow->setScaleX(1.7f);
 	shadow->setName("shadow");
 	shadow->setPosition(Vec2(0, -92));

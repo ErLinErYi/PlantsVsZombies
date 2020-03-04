@@ -102,7 +102,7 @@ void Spikeweed::plantAnimationChange(Zombies* zombie)
 		auto sound = zombie->getZombieHeadAttackSoundEffect() + zombie->getZombieBodyAttackSoundEffect();
 		PeaShooter::playSoundEffect(static_cast<SoundEffectType>(sound > 1 ? 1 : sound));
 
-		zombie->getZombieAnimation()->runAction(Sequence::create(TintTo::create(0.2f, Color3B(100, 100, 100)), TintTo::create(0.2f, Color3B::WHITE), nullptr));
+		zombie->setZombieHurtBlink();
 
 		hurtZombies(zombie);
 	}

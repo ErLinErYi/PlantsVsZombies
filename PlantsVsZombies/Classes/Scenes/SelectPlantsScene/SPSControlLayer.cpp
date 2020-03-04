@@ -35,7 +35,7 @@ bool SPSControlLayer::init()
 void SPSControlLayer::createButton()
 {
 	/* 创建退出按钮 */
-	auto button = ui::Button::create(_global->userInformation->getImagePath().find("StopButton")->second, _global->userInformation->getImagePath().find("StopButtonDown")->second);
+	auto button = ui::Button::create("StopButton.png", "StopButtonDown.png", "", TextureResType::PLIST);
 	button->setPosition(Vec2(1870, 1030));
 	button->setScale(0.7f);
 	this->addChild(button);
@@ -60,7 +60,7 @@ void SPSControlLayer::showUserName()
 
 	auto username = Text::create();
 	username->setString("“" + _global->userInformation->getUserName() + "”" + _global->userInformation->getGameText().find("的时空冒险之旅")->second + _global->userInformation->getCurrentPlayWorldName() + buff);
-	username->setFontName("resources/fonts/fzse_gbk.ttf");
+	username->setFontName("resources/fonts/GameFont.ttf");
 	username->setFontSize(60);
 	username->setColor(Color3B::YELLOW);
 	username->setName("username");

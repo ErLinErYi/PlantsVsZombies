@@ -34,19 +34,17 @@ void HelpScene::createBackground()
 	/* 获取窗口大小 */
 	auto const size = Director::getInstance()->getWinSize();
 
-	/* 创建背景 */
-	auto sprite = Sprite::createWithTexture(Director::getInstance()->getTextureCache()->getTextureForKey(_global->userInformation->getImagePath().find("WorldBackground")->second));
-	sprite->setPosition(size / 2);
-	this->addChild(sprite);
+	auto layerColor = LayerColor::create(Color4B(30, 180, 190, 200));
+	this->addChild(layerColor);
 
-	auto rotate = Sprite::create(_global->userInformation->getImagePath().find("RunBackground")->second);
-	rotate->setScale(3.5f);
+	auto rotate = Sprite::createWithSpriteFrameName("RunBackground.png");
+	rotate->setScale(7.f);
 	rotate->setPosition(size / 2);
 	this->addChild(rotate);
 	rotate->runAction(RepeatForever::create(RotateBy::create(1.0f, -10)));
 
-	auto WorldBackgroundBlack = Sprite::create(_global->userInformation->getImagePath().find("WorldBackgroundBlack")->second);
-	auto WorldBackgroundBlack1 = Sprite::create(_global->userInformation->getImagePath().find("WorldBackgroundBlack")->second);
+	auto WorldBackgroundBlack = Sprite::createWithSpriteFrameName("WorldBackgroundBlack.png");
+	auto WorldBackgroundBlack1 = Sprite::createWithSpriteFrameName("WorldBackgroundBlack.png");
 	WorldBackgroundBlack->setAnchorPoint(Vec2(0, 1));
 	WorldBackgroundBlack->setPosition(Vec2(0, 1140));
 	WorldBackgroundBlack1->setAnchorPoint(Vec2(0, 0));
@@ -59,10 +57,10 @@ void HelpScene::createBackground()
 void HelpScene::createText()
 {
 	/* 创建文字背景 */
-	auto note = Sprite::createWithTexture(Director::getInstance()->getTextureCache()->getTextureForKey(_global->userInformation->getImagePath().find("ZombieNote")->second));
+	auto note = Sprite::createWithSpriteFrameName("ZombieNote.png");
 	note->setScale(1.7f);
 	note->setScaleX(2.2f);
-	note->setPosition(Vec2(size.width / 2 + 60, size.height / 2));
+	note->setPosition(Vec2(_size.width / 2 + 50, _size.height / 2));
 	this->addChild(note);
 
 	auto helptext = Label::createWithTTF("\
@@ -72,21 +70,21 @@ void HelpScene::createText()
 		（！！！重要）此游戏为同人游戏而且仅供学习交流使用，由于游戏资源可能存在侵权的问题，所以请勿用于商业用途，否则后果自负。\n\
 		目前有7种僵尸和13种植物，植物和僵尸的动画都是本人做的，由于做动画的能力有限，有些僵尸和植物动画不能实现，\
 如果可以做动画并且愿意帮助我的人可以私聊我（动画是用spine软件制作的骨骼动画）。如果发现程序有什么问题或者对游戏有\
-什么建议可以发送到我的qq：2117610943\n点击主菜单的下面三个按钮可以跳转到下载网址（百度网盘提取码3vzm)", "resources/fonts/fzse_gbk.ttf", 35);
+什么建议可以发送到我的qq：2117610943\n点击主菜单的下面三个按钮可以跳转到下载网址（百度网盘提取码3vzm)", "resources/fonts/GameFont.ttf", 35);
 
-	helptext->setPosition(size / 2.0f);
+	helptext->setPosition(_size / 2.0f);
 	helptext->setColor(Color3B::BLACK);
-	helptext->setMaxLineWidth(900);
+	helptext->setMaxLineWidth(1100);
 	this->addChild(helptext);
 }
 
 void HelpScene::createGithubUrl()
 {
 	auto github = Button::create();
-	github->setTitleFontName("resources/fonts/fzse_gbk.ttf");
+	github->setTitleFontName("resources/fonts/GameFont.ttf");
 	github->setTitleFontSize(35);
 	github->setTitleText("点击此处打开github项目");
-	github->setPosition(Vec2(835, 740));
+	github->setPosition(Vec2(1220, 740));
 	github->setTitleColor(Color3B(0, 255, 255));
 	github->addTouchEventListener([&](Ref* sender, Widget::TouchEventType type)
 		{
@@ -111,12 +109,12 @@ void HelpScene::createGithubUrl()
 void HelpScene::createButton()
 {
 	/* 创建按钮 */
-	auto button = Button::create(_global->userInformation->getImagePath().find("SeedChooser_Button2")->second, _global->userInformation->getImagePath().find("SeedChooser_Button2_Glow")->second);
+	auto button = Button::create("SeedChooser_Button2.png", "SeedChooser_Button2_Glow.png", "", TextureResType::PLIST);
 	button->setTitleText(_global->userInformation->getGameText().find("主菜单")->second);
 	button->setTitleColor(Color3B(0, 255, 255));
 	button->setTitleFontSize(18);
 	button->setScale(2.0f);
-	button->setPosition(Vec2(size.width / 2, 100));
+	button->setPosition(Vec2(_size.width / 2, 100));
 	this->addChild(button);
 	button->addTouchEventListener([&](Ref* sender, Widget::TouchEventType type)
 		{
