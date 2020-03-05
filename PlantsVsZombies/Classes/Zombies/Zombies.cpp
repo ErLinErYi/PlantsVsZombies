@@ -81,7 +81,7 @@ void Zombies::setZombieAnimationName(const string& name, bool isLoop) const
 
 void Zombies::setZombieMove(float delta)
 {
-	_zombiesAnimation->setPositionX(_zombiesAnimation->getPositionX() - (getZombieIsEnterMap() ? delta * _currentSpeed : delta * _currentSpeed * 1.5f));
+	_zombiesAnimation->setPositionX(_zombiesAnimation->getPositionX() - (getZombieIsEnterMap() ? delta * _currentSpeed : delta * _currentSpeed * 2.f));
 
 	if (getZombieIsEnterMap() && !getZombieIsShow())
 	{

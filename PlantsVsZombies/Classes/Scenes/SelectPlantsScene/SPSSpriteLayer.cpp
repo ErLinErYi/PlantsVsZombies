@@ -526,7 +526,7 @@ void SPSSpriteLayer::createAnimationAndText(const int& id)
 	switch (id)
 	{
 	case 0:
-		_plantCardTextScrollView->setInnerContainerSize(Size(400, 430));
+		_plantCardTextScrollView->setInnerContainerSize(Size(400, 460));
 		this->createPlantsAnimation("SunFlower_2", "SunFlower_Normal", "SunFlower_Normal", Vec2(200, 610), 1.5f);
 		this->createPlantsText(0, _global->userInformation->getGameText().find("SUNFLOWER_1")->second, Vec2(190, 910), 50);
 		this->createPlantsText(1, _global->userInformation->getGameText().find("SUNFLOWER_2")->second, Vec2(360, 1000), 30, Color3B::YELLOW, false);
@@ -534,7 +534,7 @@ void SPSSpriteLayer::createAnimationAndText(const int& id)
 		this->createPlantsText(3, _global->userInformation->getGameText().find("SUNFLOWER_4")->second, Vec2(360, 830), 30, Color3B::YELLOW, false);
 		break;
 	case 1:
-		_plantCardTextScrollView->setInnerContainerSize(Size(400, 610));
+		_plantCardTextScrollView->setInnerContainerSize(Size(400, 640));
 		this->createPlantsAnimation("PeaShooter", "PeaShooter_Normal", "", Vec2(200, 610), 1.8f);
 		this->createPlantsText(0, _global->userInformation->getGameText().find("PEASHOOTER_1")->second, Vec2(190, 910), 50);
 		this->createPlantsText(2, _global->userInformation->getGameText().find("PEASHOOTER_2")->second, Vec2(360, 1000), 30, Color3B::YELLOW, false);
@@ -543,7 +543,7 @@ void SPSSpriteLayer::createAnimationAndText(const int& id)
 
 		break;
 	case 2:
-		_plantCardTextScrollView->setInnerContainerSize(Size(400, 460));
+		_plantCardTextScrollView->setInnerContainerSize(Size(400, 490));
 		this->createPlantsAnimation("WallNut", "WallNut_Nornal", "WallNut_Normal", Vec2(200, 610), 1.5f);
 		this->createPlantsText(0, _global->userInformation->getGameText().find("WALLNUT_1")->second, Vec2(190, 910), 50);
 		this->createPlantsText(2, _global->userInformation->getGameText().find("WALLNUT_2")->second, Vec2(360, 1000), 30, Color3B::YELLOW, false);
@@ -551,7 +551,7 @@ void SPSSpriteLayer::createAnimationAndText(const int& id)
 		this->createPlantsText(1, _global->userInformation->getGameText().find("WALLNUT_4")->second, Vec2(360, 870), 30, Color3B::YELLOW, false);
 		break;
 	case 3:
-		_plantCardTextScrollView->setInnerContainerSize(Size(400, 650));
+		_plantCardTextScrollView->setInnerContainerSize(Size(400, 680));
 		this->createPlantsAnimation("CherryBomb", "CherryBomb_Normal", "", Vec2(200, 610), 1.8f);
 		this->createPlantsText(0, _global->userInformation->getGameText().find("CHERRYBOMB_1")->second, Vec2(190, 910), 50);
 		this->createPlantsText(2, _global->userInformation->getGameText().find("CHERRYBOMB_2")->second, Vec2(360, 1000), 30, Color3B::YELLOW, false);
@@ -559,7 +559,7 @@ void SPSSpriteLayer::createAnimationAndText(const int& id)
 		this->createPlantsText(1, _global->userInformation->getGameText().find("CHERRYBOMB_4")->second, Vec2(360, 870), 30, Color3B::YELLOW, false);
 		break;
 	case 4:
-		_plantCardTextScrollView->setInnerContainerSize(Size(400, 650));
+		_plantCardTextScrollView->setInnerContainerSize(Size(400, 680));
 		this->createPlantsAnimation("PotatoMine", "PotatoMine_Normal", "", Vec2(200, 610), 1.8f);
 		this->createPlantsText(0, _global->userInformation->getGameText().find("POTATOMINE_1")->second, Vec2(190, 910), 50);
 		this->createPlantsText(2, _global->userInformation->getGameText().find("POTATOMINE_2")->second, Vec2(360, 1000), 30, Color3B::YELLOW, false);
@@ -567,7 +567,7 @@ void SPSSpriteLayer::createAnimationAndText(const int& id)
 		this->createPlantsText(1, _global->userInformation->getGameText().find("POTATOMINE_4")->second, Vec2(360, 870), 30, Color3B::YELLOW, false);
 		break;
 	case 5:
-		_plantCardTextScrollView->setInnerContainerSize(Size(400, 430));
+		_plantCardTextScrollView->setInnerContainerSize(Size(400, 460));
 		this->createPlantsAnimation("Cabbage", "Cabbage_Normal", "", Vec2(200, 610), 1.3f);
 		this->createPlantsText(0, _global->userInformation->getGameText().find("CABBAGE_1")->second, Vec2(190, 910), 50);
 		this->createPlantsText(2, _global->userInformation->getGameText().find("CABBAGE_2")->second, Vec2(360, 1000), 30, Color3B::YELLOW, false);
@@ -575,7 +575,7 @@ void SPSSpriteLayer::createAnimationAndText(const int& id)
 		this->createPlantsText(1, _global->userInformation->getGameText().find("CABBAGE_4")->second, Vec2(360, 870), 30, Color3B::YELLOW, false);
 		break;
 	case 6:
-		_plantCardTextScrollView->setInnerContainerSize(Size(400, 540));
+		_plantCardTextScrollView->setInnerContainerSize(Size(400, 570));
 		this->createPlantsAnimation("Torchwood", "animation", "", Vec2(200, 610), 2.3f);
 		this->createPlantsText(0, _global->userInformation->getGameText().find("TORCHWOOD_1")->second, Vec2(190, 910), 50);
 		this->createPlantsText(2, _global->userInformation->getGameText().find("TORCHWOOD_2")->second, Vec2(360, 1000), 30, Color3B::YELLOW, false);
@@ -583,7 +583,7 @@ void SPSSpriteLayer::createAnimationAndText(const int& id)
 		this->createPlantsText(1, _global->userInformation->getGameText().find("TORCHWOOD_4")->second, Vec2(360, 870), 30, Color3B::YELLOW, false);
 		break;
 	case 7:
-		_plantCardTextScrollView->setInnerContainerSize(Size(400, 500));
+		_plantCardTextScrollView->setInnerContainerSize(Size(400, 530));
 		this->createPlantsAnimation("Spikeweed", "Spikeweed_Normal", "", Vec2(200, 610), 1.5f);
 		this->createPlantsText(0, _global->userInformation->getGameText().find("SPIKEWEED_1")->second, Vec2(190, 910), 50);
 		this->createPlantsText(2, _global->userInformation->getGameText().find("SPIKEWEED_2")->second, Vec2(360, 1000), 30, Color3B::YELLOW, false);
@@ -591,7 +591,7 @@ void SPSSpriteLayer::createAnimationAndText(const int& id)
 		this->createPlantsText(1, _global->userInformation->getGameText().find("SPIKEWEED_4")->second, Vec2(360, 870), 30, Color3B::YELLOW, false);
 		break;
 	case 8:
-		_plantCardTextScrollView->setInnerContainerSize(Size(400, 535));
+		_plantCardTextScrollView->setInnerContainerSize(Size(400, 565));
 		this->createPlantsAnimation("Garlic", "Garlic_Normal", "", Vec2(200, 610), 1.5f);
 		this->createPlantsText(0, _global->userInformation->getGameText().find("GARLIC_1")->second, Vec2(190, 910), 50);
 		this->createPlantsText(2, _global->userInformation->getGameText().find("GARLIC_2")->second, Vec2(360, 1000), 30, Color3B::YELLOW, false);
@@ -599,7 +599,7 @@ void SPSSpriteLayer::createAnimationAndText(const int& id)
 		this->createPlantsText(1, _global->userInformation->getGameText().find("GARLIC_4")->second, Vec2(360, 870), 30, Color3B::YELLOW, false);
 		break;
 	case 9:
-		_plantCardTextScrollView->setInnerContainerSize(Size(400, 470));
+		_plantCardTextScrollView->setInnerContainerSize(Size(400, 500));
 		this->createPlantsAnimation("FirePeaShooter", "FirePeaShooter_Normal", "", Vec2(200, 610), 1.8f);
 		this->createPlantsText(0, _global->userInformation->getGameText().find("FIREPEASHOOTER_1")->second, Vec2(190, 910), 50);
 		this->createPlantsText(2, _global->userInformation->getGameText().find("FIREPEASHOOTER_2")->second, Vec2(360, 1000), 30, Color3B::YELLOW, false);
@@ -614,7 +614,7 @@ void SPSSpriteLayer::createAnimationAndText(const int& id)
 		}
 		break;
 	case 10:
-		_plantCardTextScrollView->setInnerContainerSize(Size(400, 500));
+		_plantCardTextScrollView->setInnerContainerSize(Size(400, 530));
 		this->createPlantsAnimation("Jalapeno", "Jalapeno_Normal", "", Vec2(200, 610), 1.5f);
 		this->createPlantsText(0, _global->userInformation->getGameText().find("JALAPENO_1")->second, Vec2(190, 910), 50);
 		this->createPlantsText(2, _global->userInformation->getGameText().find("JALAPENO_2")->second, Vec2(360, 1000), 30, Color3B::YELLOW, false);
@@ -629,7 +629,7 @@ void SPSSpriteLayer::createAnimationAndText(const int& id)
 		}
 		break;
 	case 11:
-		_plantCardTextScrollView->setInnerContainerSize(Size(400, 570));
+		_plantCardTextScrollView->setInnerContainerSize(Size(400, 600));
 		this->createPlantsAnimation("LemonShooter", "LemonNormal", "", Vec2(200, 610), 2.2f);
 		this->createPlantsText(0, _global->userInformation->getGameText().find("ACIDLEMON_1")->second, Vec2(190, 910), 50);
 		this->createPlantsText(2, _global->userInformation->getGameText().find("ACIDLEMON_2")->second, Vec2(360, 1000), 30, Color3B::YELLOW, false);

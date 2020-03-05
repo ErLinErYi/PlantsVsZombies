@@ -119,22 +119,6 @@ void Bullet::bulletAttackHurtZombies(Zombies* zombie)
 	}
 }
 
-void Bullet::bulletExplodeHurtZombies(Zombies* zombie)
-{
-	if (zombie->getZombieCurrentBodyShieldVolume() > 0)
-	{
-		zombie->setZombieCurrentBodyShieldVolume(zombie->getZombieCurrentBodyShieldVolume() - _attack);
-	}
-	else if (zombie->getZombieCurrentHeadShieldVolume() > 0)
-	{
-		zombie->setZombieCurrentHeadShieldVolume(zombie->getZombieCurrentHeadShieldVolume() - _attack);
-	}
-	else
-	{
-		zombie->setZombieCurrentBloodVolume(zombie->getZombieCurrentBloodVolume() - _attack);
-	}
-}
-
 string& Bullet::getBulletName()
 {
 	return _bulletName;

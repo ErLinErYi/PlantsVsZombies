@@ -132,11 +132,6 @@ public:
 	virtual void bulletAttackHurtZombies(Zombies* zombie);
 
 	/**
-	 *Õ¨µ¯±¬Õ¨ÉËº¦
-	 */
-	virtual void bulletExplodeHurtZombies(Zombies* zombie);
-
-	/**
 	 *¾²Ì¬·½·¨É¾³ý×Óµ¯
 	 */
 	static void bulletDeleteUpdate(list<Bullet*>::iterator& bullet);

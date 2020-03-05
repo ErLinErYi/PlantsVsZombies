@@ -126,7 +126,7 @@ void GSAnimationLayer::createZombies()
 	case ZombiesType::LmpZombies:         zombies = new LmpZombies(this);         break;
 	default: break;
 	}
-	zombies->setZombiePosition(Vec2(1780 + rand() % 800, controlLayerInformation->_zombiesAppearControl->getEqualProbabilityForRow()));
+	zombies->setZombiePosition(Vec2(1780 + rand() % 500, controlLayerInformation->_zombiesAppearControl->getEqualProbabilityForRow()));
 	zombies->createZombie();
 	zombies->setZombieAttributeForGameType();
 	ZombiesGroup.push_back(zombies);

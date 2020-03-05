@@ -323,20 +323,20 @@ void GSControlLayer::createZombies()
 
 bool GSControlLayer::controlRefurbishZombies()
 {
-	if ((_zombiesAppearControl->getTime() >= _openLevelData->readLevelData(_openLevelData->getLevelNumber())->getFirstFrequencyTime()&&
-		_zombiesAppearControl->getZombiesAppearFrequency() == 0)                   /* 第一波刷新控制 */
-
-		|| (_zombiesAppearControl->getTime() >= 32 + rand() % 10 &&
-		   (_zombiesAppearControl->getZombiesAppearFrequency() == 1 
-	    || _zombiesAppearControl->getZombiesAppearFrequency() == 2))               /* 第二三波刷新控制 */
-
-		|| _zombiesAppearControl->getTime() >= 45                                  /* 如果大于45秒刷新下一波 */
-
-		|| (Zombies::getZombiesNumbers() <= 4 &&
-			_zombiesAppearControl->getZombiesAppearFrequency() > 3)                /* 如果活着的僵尸数小于规定，刷新下一波 */
+	if ((Zombies::getZombiesNumbers() <= 4 &&
+		_zombiesAppearControl->getZombiesAppearFrequency() > 3)                   /* 如果活着的僵尸数小于规定，刷新下一波 */
 
 		|| (Zombies::getZombiesNumbers() <= 0 &&                                   /* 如果没有存活僵尸则立即刷新僵尸 */
 			_zombiesAppearControl->getZombiesAppearFrequency() != 0)
+
+		|| (_zombiesAppearControl->getTime() >= _openLevelData->readLevelData(_openLevelData->getLevelNumber())->getFirstFrequencyTime()&&
+		_zombiesAppearControl->getZombiesAppearFrequency() == 0)                   /* 第一波刷新控制 */
+
+		|| (_zombiesAppearControl->getTime() >= 32 + rand() % 10 &&
+		   (_zombiesAppearControl->getZombiesAppearFrequency() == 1 || _zombiesAppearControl->getZombiesAppearFrequency() == 2))               
+		                                                                           /* 第二三波刷新控制 */
+
+		|| _zombiesAppearControl->getTime() >= 45                                  /* 如果大于45秒刷新下一波 */
 	   )
 	{
 		return true;

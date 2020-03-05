@@ -31,7 +31,7 @@ private:
     bool getBulletIsSameLineWithZombie(Zombies* zombie) override;
     void createExplode();
     void attackZombies();
-    bool getZombieIsInExplodeRange(Zombies* zombie);
+    float getZombieInExplodeRange(Zombies* zombie);
 
 private:
     int _animationId;

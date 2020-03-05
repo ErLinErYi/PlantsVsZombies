@@ -59,7 +59,6 @@ void CitronBullet::bulletAndZombiesCollision()
 			else
 			{
 				Plants::playSoundEffect("cherrybomb");
-				zombie->setZombieHurtBlink();
 
 				setBulletOpacity(); /* ×Óµ¯ÏûÊ§ */
 				attackZombies();    /* ±¬Õ¨¶Ô½©Ê¬Ôì³ÉÉËº¦ */
@@ -119,18 +118,20 @@ void CitronBullet::attackZombies()
 {
 	for (auto zombie : ZombiesGroup)
 	{
-		if (getZombieIsInExplodeRange(zombie))
-		{
-			bulletAttackHurtZombies(zombie);
-		}
+		_attack = 800;
+		_attack -= static_cast<int>((getZombieInExplodeRange(zombie) / 60 * 400 - 400));
+
+		if (_attack <= 0) continue;
+		bulletAttackHurtZombies(zombie);
+		zombie->setZombieHurtBlink();
 	}
 }
 
-bool CitronBullet::getZombieIsInExplodeRange(Zombies* zombie)
+float CitronBullet::getZombieInExplodeRange(Zombies* zombie)
 {
 	/* ½©Ê¬ÊÇ·ñÔÚ±¬Õ¨·¶Î§ÅÐ¶Ï */
 	return sqrt(pow(zombie->getZombieAnimation()->getPositionX() - _bulletAnimation->getPositionX(), 2) +
-		pow(zombie->getZombieAnimation()->getPositionY() - _bulletAnimation->getPositionY(), 2)) <= 130 ? true : false;
+		pow(zombie->getZombieAnimation()->getPositionY() - _bulletAnimation->getPositionY(), 2));
 }
 
 bool CitronBullet::getBulletIsSameLineWithZombie(Zombies* zombie)
