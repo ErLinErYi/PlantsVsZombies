@@ -103,7 +103,7 @@ void MainMenu::updateUserNameOnce(float Time)
 	/* 如果有孩子 */
 	if (_userNameActionParent)
 	{
-		for (int i = 0; i < 10; i++)
+		for (int i = 0; i < _global->userInformation->getUserName().size(); i++)
 		{
 			_userNameActionParent->removeChildByTag(1000);
 		}

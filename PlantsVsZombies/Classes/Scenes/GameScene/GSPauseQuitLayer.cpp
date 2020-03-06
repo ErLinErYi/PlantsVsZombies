@@ -73,11 +73,13 @@ void GSPauseQuitLayer::createDialog()
 		Sprite::createWithSpriteFrameName("bgFile.png"),
 		Sprite::createWithSpriteFrameName("progressFile.png"),
 		Sprite::createWithSpriteFrameName("thumbFile.png"),
+		nullptr,
 		true);
 	auto SoundEffectslider = createSlider(Vec2(600, 450), Vec2(150, 450), _global->userInformation->getGameText().find("音效")->second, OptionScene_Slider::音效,
 		Sprite::createWithSpriteFrameName("bgFile.png"),
 		Sprite::createWithSpriteFrameName("progressFile.png"),
 		Sprite::createWithSpriteFrameName("thumbFile.png"),
+		nullptr,
 		true);
 
 	musicslider->setScale(1.2f);
@@ -133,10 +135,12 @@ void GSPauseQuitLayer::createButton(const Vec2& vec2, const std::string name, Pa
 					break;
 				case PauseQuitLayer_Button::从新开始:
 					_director->getScheduler()->setTimeScale(1.0f);
+					UserDefault::getInstance()->setIntegerForKey("BREAKTHROUGH", ++_global->userInformation->getBreakThroughnumbers());
 					_director->replaceScene(TransitionFade::create(1.0f, SelectPlantsScene::createScene()));
 					break;
 				case PauseQuitLayer_Button::退出游戏:
 					_director->getScheduler()->setTimeScale(1.0f);
+					UserDefault::getInstance()->setIntegerForKey("BREAKTHROUGH", ++_global->userInformation->getBreakThroughnumbers());
 					_director->replaceScene(TransitionFade::create(1.0f, World_1::createScene()));
 					break;
 				case PauseQuitLayer_Button::按键说明:

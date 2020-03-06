@@ -9,7 +9,7 @@
 #include "InputDataScene.h"
 #include "Based/GlobalVariable.h"
 
-#define FontSize 20
+#define FontSize 14
 
 InputDataMenu::InputDataMenu() :
 	_caveFileDialog(nullptr),
@@ -118,7 +118,7 @@ void InputDataMenu::CreateInputDialog()
 	_inputDataDialog->addChild(_textField);
 	_textField->setPosition(Vec2(155, 137));
 	_textField->setMaxLengthEnabled(true);
-	_textField->setMaxLength(10);
+	_textField->setMaxLength(15);
 	_textField->addEventListener([=](Ref* ref, TextField::EventType type)
 		{
 			switch (type)

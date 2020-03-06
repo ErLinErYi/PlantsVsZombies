@@ -81,11 +81,8 @@ void GSGameEndLayer::successfullEntry()
 void GSGameEndLayer::breakThrough(GameTypes gameType)
 {
 	GSPauseQuitLayer::pauseLayer();
-	_director->getScheduler()->setTimeScale(1.0f);
-
-	/* 记录闯关失败个数 */
-	UserDefault::getInstance()->setIntegerForKey("BREAKTHROUGH", _global->userInformation->getBreakThroughnumbers());
-	UserDefault::getInstance()->flush();
+	Director::getInstance()->getScheduler()->setTimeScale(1.0f); /* 恢复播放倍数 */
+	UserDefault::getInstance()->setIntegerForKey("BREAKTHROUGH", ++_global->userInformation->getBreakThroughnumbers());/* 记录闯关失败个数 */
 
 	AudioEngine::setVolume(AudioEngine::play2d(_global->userInformation->getMusicPath().find("losemusic")->second), _global->userInformation->getSoundEffectVolume());
 
@@ -163,7 +160,7 @@ void GSGameEndLayer::caveLevelNumber()
 			_global->userInformation->getSystemDifCaveFileName(_global->userInformation->getUserCaveFileNumber()).c_str() :
 			_global->userInformation->getSystemCaveFileName(_global->userInformation->getUserCaveFileNumber()).c_str(),
 			++_global->userInformation->getUserSelectWorldData().at(0)->levels);
-		UserDefault::getInstance()->flush();
+		
 	}
 }
 
@@ -232,7 +229,7 @@ void GSGameEndLayer::rewardCoin(Button* button)
 								{
 									/* 保存金币数 */
 									UserDefault::getInstance()->setIntegerForKey("COINNUMBERS", _global->userInformation->getCoinNumbers());
-									UserDefault::getInstance()->flush();
+									
 									_director->replaceScene(TransitionFade::create(1.0f, World_1::createScene()));
 								}), nullptr));
 					}), nullptr));

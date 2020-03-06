@@ -62,12 +62,6 @@ GameTypes GSGameResultJudgement::judgeUserIsLose(list<Zombies*>::iterator& zombi
 
 	if ((*_zombie)->getZombieIsSurvive() && (getZombieIsInHouse() || getZombieIsTrampleFlowers()))/* 僵尸存活 && （僵尸进入房间 || 僵尸踩坏花坛）*/
 	{
-		Director::getInstance()->getScheduler()->setTimeScale(1.0f); /* 恢复播放倍数 */
-		
-		/* 记录闯关失败个数 */
-		UserDefault::getInstance()->setIntegerForKey("BREAKTHROUGH", ++Global::getInstance()->userInformation->getBreakThroughnumbers());
-		UserDefault::getInstance()->flush();
-
 		if (getZombieIsInHouse())
 		{
 			return GameTypes::UserLose;

@@ -52,10 +52,8 @@ protected:
 	virtual void createDialog();                                                                                      /* 创建对话框 */
 	virtual CheckBox* createCheckBox(Vec2&, Vec2&, const std::string&, OptionScene_CheckBox, const std::string,
 		const std::string, const bool IsNew = false);                                                                 /* 创建复选框 */
-	virtual ControlSlider* createSlider(Vec2&, Vec2&, const std::string&, OptionScene_Slider,const std::string,
-		const std::string,const std::string, const bool IsNew = false);                                               /* 创建滑动条 */
 	virtual ControlSlider* createSlider(Vec2&, Vec2&, const std::string&, OptionScene_Slider, Sprite*, Sprite*,
-		Sprite*, const bool IsNew = false);                                                                           /* 创建滑动条 */
+		Sprite*, Sprite* = nullptr, const bool IsNew = false);                                                        /* 创建滑动条 */
 	virtual void deleteDialog() override;                                                                             /* 删除对话框 */
 
 private:

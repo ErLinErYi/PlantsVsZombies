@@ -317,7 +317,7 @@ void GSControlLayer::createZombies()
 		}
 		_zombiesAppearControl->setLastFrequencyZombiesWasDeath(true);
 		_zombiesAppearControl->setIsBegin(false);
-		UserDefault::getInstance()->flush();
+		
 	}
 }
 
@@ -445,7 +445,8 @@ void GSControlLayer::judgeLevelIsFinished()
 		setGameEnd();
 
 		auto judgeUserWin = new GSGameResultJudgement();
-		if (judgeUserWin->judgeUserIsWin() == GameTypes::None)
+		auto winOrLose = judgeUserWin->judgeUserIsWin();
+		if (winOrLose == GameTypes::None)
 		{
 			if (_global->userInformation->getCurrentPlayLevels() >= 52)
 			{
@@ -455,8 +456,9 @@ void GSControlLayer::judgeLevelIsFinished()
 		}
 		else
 		{
-			_gameEndShieldLayer->breakThrough(judgeUserWin->judgeUserIsWin()); /* ´³¹ØÊ§°Ü */
+			_gameEndShieldLayer->breakThrough(winOrLose); /* ´³¹ØÊ§°Ü */
 		}
+		delete judgeUserWin;
 	}
 }
 
@@ -467,8 +469,6 @@ void GSControlLayer::setGameEnd()
 	SunFlower::stopSun();
 	Plants::stopPlantsAllAction();
 	animationLayerInformation->stopRandomSun();
-
-	_director->getScheduler()->setTimeScale(1.0f);
 
 	_gameEndShieldLayer = GSGameEndLayer::create();
 	_director->getRunningScene()->addChild(_gameEndShieldLayer, 10);

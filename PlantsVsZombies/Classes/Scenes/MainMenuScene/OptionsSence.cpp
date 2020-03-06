@@ -48,8 +48,16 @@ void OptionsMenu::createDialog()
 	createTouchtListener(_option);
 
 	/* 创建滑动条 */
-	this->createSlider(Vec2(250, 350), Vec2(140, 350), _global->userInformation->getGameText().find("音乐")->second, OptionScene_Slider::音乐, "options_sliderslot", "options_sliderslot", "options_sliderknob2");
-	this->createSlider(Vec2(250, 310), Vec2(140, 310), _global->userInformation->getGameText().find("音效")->second, OptionScene_Slider::音效, "options_sliderslot", "options_sliderslot", "options_sliderknob2");
+	this->createSlider(Vec2(250, 350), Vec2(140, 350), _global->userInformation->getGameText().find("音乐")->second, OptionScene_Slider::音乐,
+		Sprite::createWithSpriteFrameName("options_sliderslot.png"),
+		Sprite::createWithSpriteFrameName("options_sliderslot.png"),
+		Sprite::createWithSpriteFrameName("options_sliderknob2.png"),
+		Sprite::createWithSpriteFrameName("options_sliderknob2.png"));
+	this->createSlider(Vec2(250, 310), Vec2(140, 310), _global->userInformation->getGameText().find("音效")->second, OptionScene_Slider::音效, 
+		Sprite::createWithSpriteFrameName("options_sliderslot.png"),
+		Sprite::createWithSpriteFrameName("options_sliderslot.png"),
+		Sprite::createWithSpriteFrameName("options_sliderknob2.png"),
+		Sprite::createWithSpriteFrameName("options_sliderknob2.png"));
 
 	/* 创建复选框 */
 	this->createCheckBox(Vec2(300, 280), Vec2(140, 280), _global->userInformation->getGameText().find("信息")->second, OptionScene_CheckBox::显示信息, "options_checkbox0", "options_checkbox1");
@@ -85,14 +93,15 @@ void OptionsMenu::createDialog()
 	this->createButton();
 }
 
-ControlSlider* OptionsMenu::createSlider(Vec2 &vec2, Vec2 &vec2_, const std::string &Label, OptionScene_Slider slider_type,const std::string bgFile, const std::string progressFile,const std::string thumbFile,const bool IsNew)
+ControlSlider* OptionsMenu::createSlider(Vec2& vec2, Vec2& vec2_, const std::string& Label, OptionScene_Slider slider_type,
+	Sprite* BgFile, Sprite* progressFile, Sprite* thumbFile, Sprite* selectthumbFile, const bool IsNew)
 {
 	/* 创建滑动条 */
-	auto slider = ControlSlider::create(
-		Sprite::createWithSpriteFrameName(bgFile + ".png"),
-		Sprite::createWithSpriteFrameName(progressFile + ".png"),
-		Sprite::createWithSpriteFrameName(thumbFile + ".png")
-	);
+	ControlSlider* slider; ;
+	selectthumbFile ? selectthumbFile->setColor(Color3B::GRAY),
+		slider = ControlSlider::create(BgFile, progressFile, thumbFile, selectthumbFile) :
+		slider = ControlSlider::create(BgFile, progressFile, thumbFile);
+
 	slider->setMinimumValue(0);
 	slider->setMaximumValue(100);
 	slider->setPosition(vec2);
@@ -107,43 +116,6 @@ ControlSlider* OptionsMenu::createSlider(Vec2 &vec2, Vec2 &vec2_, const std::str
 	case OptionScene_Slider::音效:
 		slider->setValue(_global->userInformation->getSoundEffectVolume() * 100);
 		slider->addTargetWithActionForControlEvents(this, cccontrol_selector(OptionsMenu::soundEffectMusicVolumeChangeCallBack), Control::EventType::VALUE_CHANGED);
-		break;
-	}
-
-	/* 创建标签 */
-	switch (IsNew)
-	{
-	case true:
-		_option->addChild(label(Label, 30, vec2_, 0, Color3B::WHITE));
-		break;
-	case false:
-		_option->addChild(label(Label, 20, vec2_, 0, Color3B::GRAY));
-		break;
-	}
-
-	return slider;
-}
-
-ControlSlider* OptionsMenu::createSlider(Vec2& vec2, Vec2& vec2_, const std::string& Label, OptionScene_Slider slider_type, Sprite* BgFile, Sprite* progressFile, Sprite* thumbFile, const bool IsNew)
-{
-	/* 创建滑动条 */
-	auto slider = ControlSlider::create(BgFile, progressFile, thumbFile);
-	slider->setMinimumValue(0);
-	slider->setMaximumValue(100);
-	slider->setPosition(vec2);
-	_option->addChild(slider);
-
-	switch (slider_type)
-	{
-	case OptionScene_Slider::音乐:
-		slider->setValue(_global->userInformation->getBackGroundMusicVolume() * 100);
-		slider->addTargetWithActionForControlEvents(this, cccontrol_selector(OptionsMenu::backGroundMusicVolumeChangeCallBack), Control::EventType::VALUE_CHANGED);
-		break;
-	case OptionScene_Slider::音效:
-		slider->setValue(_global->userInformation->getSoundEffectVolume() * 100);
-		slider->addTargetWithActionForControlEvents(this, cccontrol_selector(OptionsMenu::soundEffectMusicVolumeChangeCallBack), Control::EventType::VALUE_CHANGED);
-		break;
-	default:
 		break;
 	}
 
@@ -172,12 +144,12 @@ void OptionsMenu::backGroundMusicVolumeChangeCallBack(Ref* sender, Control::Even
 	_global->userInformation->setBackGroundMusicVolume(slider->getValue() / 100.0f);
 	_userDefault->setFloatForKey("GLOBALMUSIC", _global->userInformation->getBackGroundMusicVolume());
 
-	if (slider->getSelectedThumbSprite()->getContentSize().height == 40)
+	if (slider->getSelectedThumbSprite()->getContentSize().height > 30)
 	{
 		/* 旋转动画 */
 		slider->getThumbSprite()->setRotation(slider->getValue() * 10);
 		slider->getSelectedThumbSprite()->setRotation(slider->getValue() * 10);
-	}	
+	}
 }
 
 void OptionsMenu::soundEffectMusicVolumeChangeCallBack(Ref* sender, Control::EventType type)
@@ -187,7 +159,7 @@ void OptionsMenu::soundEffectMusicVolumeChangeCallBack(Ref* sender, Control::Eve
 	_global->userInformation->setSoundEffectVolume(slider->getValue() / 100.0f);
 	_userDefault->setFloatForKey("SOUNDEFFECT", _global->userInformation->getSoundEffectVolume());
 
-	if (slider->getSelectedThumbSprite()->getContentSize().height == 40)
+	if (slider->getSelectedThumbSprite()->getContentSize().height > 30)
 	{
 		/* 旋转动画 */
 		slider->getThumbSprite()->setRotation(slider->getValue() * 10);
@@ -331,7 +303,6 @@ void OptionsMenu::createButton()
 			AudioEngine::setVolume(AudioEngine::play2d(_global->userInformation->getMusicPath().find("gravebutton")->second), _global->userInformation->getSoundEffectVolume());
 			break;
 		case Widget::TouchEventType::ENDED:
-			_userDefault->flush();
 			deleteDialog();
 			break;
 		}

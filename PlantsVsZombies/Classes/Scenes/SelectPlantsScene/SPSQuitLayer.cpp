@@ -48,11 +48,13 @@ void SPSQuitLayer::createDialog()
 		Sprite::createWithSpriteFrameName("bgFile.png"),
 		Sprite::createWithSpriteFrameName("progressFile.png"),
 		Sprite::createWithSpriteFrameName("thumbFile.png"),
+		nullptr,
 		true);
 	auto SoundEffectslider = createSlider(Vec2(600, 410), Vec2(150, 410), _global->userInformation->getGameText().find("ÒôÐ§")->second, OptionScene_Slider::ÒôÐ§,
 		Sprite::createWithSpriteFrameName("bgFile.png"),
 		Sprite::createWithSpriteFrameName("progressFile.png"),
 		Sprite::createWithSpriteFrameName("thumbFile.png"),
+		nullptr,
 		true);
 
 	musicslider->setScale(1.2f);

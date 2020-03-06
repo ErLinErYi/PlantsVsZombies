@@ -547,7 +547,6 @@ ui::Button* World_1::createButton(Node* node, const std::string& name, const Vec
 	{
 		_global->userInformation->getUserSelectWorldData().at(0)->isBeginShowEggs = true;
 		UserDefault::getInstance()->setBoolForKey("ISBEGINSHOWEGGS", true);
-		UserDefault::getInstance()->flush();
 	}
 
 	createButtonListener(sprite4, _level);
@@ -570,7 +569,6 @@ void World_1::createButtonListener(ui::Button* button, const int& ID)
 			case ui::Widget::TouchEventType::ENDED:
 				
 				UserDefault::getInstance()->setFloatForKey("WORLD_1_POSITION", _scrollView->getScrolledPercentHorizontal()); /* 记录位置 */
-				UserDefault::getInstance()->flush();
 
 				//读取关卡信息
 				OpenLevelData::getInstance()->createLevelData(ID, LevelName);
@@ -626,7 +624,6 @@ void World_1::createGoBack()
 			case ui::Widget::TouchEventType::ENDED:
 
 				UserDefault::getInstance()->setFloatForKey("WORLD_1_POSITION", _scrollView->getScrolledPercentHorizontal()); /* 记录位置 */
-				UserDefault::getInstance()->flush();
 
 				_global->userInformation->setMainToWorld(false);
 				Director::getInstance()->replaceScene(TransitionFade::create(0.5f, SelectWorldScene::createScene()));
