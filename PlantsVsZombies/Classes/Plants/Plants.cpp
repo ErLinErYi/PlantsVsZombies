@@ -6,6 +6,7 @@
  */
 
 #include "Plants.h"
+#include "EmissionPlants/Bullet/Bullet.h"
 
 #include "Zombies/Zombies.h"
 #include "Scenes/GameScene/GSData.h"
@@ -71,13 +72,6 @@ void Plants::determineRelativePositionPlantsAndZombies()
 
 		zombieRecoveryMove(zombie);  /* ½©Ê¬»Ö¸´ÒÆ¶¯ */
 	}
-}
-
-void Plants::playSoundEffect(const std::string& MusicName)
-{
-	AudioEngine::setVolume(AudioEngine::play2d(
-		Global::getInstance()->userInformation->getMusicPath().find(MusicName)->second), 
-		Global::getInstance()->userInformation->getSoundEffectVolume());
 }
 
 void Plants::stopPlantsAllAction()
@@ -166,7 +160,7 @@ void Plants::zombieEatPlant(Zombies* zombie)
 						if (event->intValue == 1)
 						{
 							reducePlantHealthPoint(100);
-							playSoundEffect(eateffect[rand() % 3]);
+							Bullet::playSoundEffect(eateffect[rand() % 3]);
 							setPlantHurtBlink();
 						}
 					}

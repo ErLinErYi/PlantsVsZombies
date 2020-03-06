@@ -18,6 +18,7 @@ Bullet::Bullet() :
 ,   _position(Vec2::ZERO)
 ,   _global(Global::getInstance())
 {
+	srand(time(nullptr));
 }
 
 Bullet::~Bullet()
@@ -175,4 +176,44 @@ bool Bullet::getBulletIsEncounterWithZombie(Zombies* zombie)
 bool Bullet::getBulletVisible() const
 {
 	return _bulletAnimation->isVisible();
+}
+
+void Bullet::selectSoundEffect(const int body, const int head)
+{
+	if (body)
+	{
+		playSoundEffect(SoundEffectType::shieldhit);
+	}
+	else
+	{
+		selectSoundEffect(head);
+	}
+}
+
+void Bullet::selectSoundEffect(const int head)
+{
+	switch (head)
+	{
+	case 0: playSoundEffect(SoundEffectType::kernelpult); break;
+	case 1: playSoundEffect(SoundEffectType::shieldhit);  break;
+	case 2: playSoundEffect(SoundEffectType::plastichit); break;
+	}
+}
+
+void Bullet::playSoundEffect(SoundEffectType soundEffect)
+{
+	switch (soundEffect)
+	{
+	case SoundEffectType::kernelpult: rand() % 2 ? playSoundEffect("kernelpult") : playSoundEffect("kernelpult2");  break;
+	case SoundEffectType::shieldhit:  rand() % 2 ? playSoundEffect("shieldhit") :  playSoundEffect("shieldhit2");   break;
+	case SoundEffectType::plastichit: rand() % 2 ? playSoundEffect("plastichit") : playSoundEffect("plastichit2");  break;
+	case SoundEffectType::firepea:    playSoundEffect("firepea"); break;
+	}
+}
+
+void Bullet::playSoundEffect(const std::string& MusicName)
+{
+	AudioEngine::setVolume(AudioEngine::play2d(
+		Global::getInstance()->userInformation->getMusicPath().find(MusicName)->second),
+		Global::getInstance()->userInformation->getSoundEffectVolume());
 }

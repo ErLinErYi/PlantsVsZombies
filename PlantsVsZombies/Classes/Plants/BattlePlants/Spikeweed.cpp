@@ -7,7 +7,7 @@
 
 #include "Spikeweed.h"
 
-#include "../EmissionPlants/PeaShooter.h"
+#include "../EmissionPlants/Bullet/Bullet.h"
 #include "Zombies/Zombies.h"
 #include "Scenes/GameScene/GSData.h"
 
@@ -99,8 +99,7 @@ void Spikeweed::plantAnimationChange(Zombies* zombie)
 
 	if (!_isAttack)
 	{
-		auto sound = zombie->getZombieHeadAttackSoundEffect() + zombie->getZombieBodyAttackSoundEffect();
-		PeaShooter::playSoundEffect(static_cast<SoundEffectType>(sound > 1 ? 1 : sound));
+		Bullet::selectSoundEffect(zombie->getZombieBodyAttackSoundEffect(), zombie->getZombieHeadAttackSoundEffect());
 
 		zombie->setZombieHurtBlink();
 

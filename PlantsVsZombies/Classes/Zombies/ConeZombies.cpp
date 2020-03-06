@@ -10,7 +10,7 @@
 ConeZombies::ConeZombies(Node* node)
 {
 	_node = node;
-	_attackHeadSoundEffectType = 0;
+	_attackHeadSoundEffectType = 2;
 	_attackBodySoundEffectType = 0;
 	_animationId = 4;
 	_bloodVolume = 200;
@@ -97,6 +97,7 @@ void ConeZombies::setZombieHeadShieldThirdInjure(const string& oldName, const st
 		_zombiesAnimation->setAttachment("Zombie_bucket", "tt_innerleg_foot3");
 		_animationId = 7;
 		_isHaveShield = false;
+		_attackHeadSoundEffectType = 0;
 
 		/* ½©Ê¬µô»¤¶Ü */
 		zombieLoseShieldAnimation("Zombie_cone");

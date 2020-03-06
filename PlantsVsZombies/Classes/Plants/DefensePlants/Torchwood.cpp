@@ -90,7 +90,7 @@ void Torchwood::judgeTorchwoodAndPeaPosition()
 			}
 			if (dynamic_cast<Pea*>(bullet)->getTorchwoodTag() != _plantAnimation->getTag())
 			{
-				playSoundEffect("firepea");
+				Bullet::playSoundEffect("firepea");
 				dynamic_cast<Pea*>(bullet)->setTorchwoodTag(_plantAnimation->getTag());
 				dynamic_cast<Pea*>(bullet)->addPeaFireNumbers();
 			}

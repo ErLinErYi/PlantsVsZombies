@@ -98,7 +98,7 @@ void PeaShooter::plantEmission(const string& plantAnimation)
 		{
 			if (strcmp(event->data->name, "shoot") == 0)
 			{
-				rand() % 2 == 0 ? Plants::playSoundEffect("throw") : Plants::playSoundEffect("throw2");
+				rand() % 2 == 0 ? Bullet::playSoundEffect("throw") : Bullet::playSoundEffect("throw2");
 				createPea();
 			}
 		});
@@ -116,16 +116,6 @@ void PeaShooter::plantRecovery(const string& plantAnimation)
 	}
 
 	_isCreatePea = false; /* 每循环一次就初始化 */
-}
-
-void PeaShooter::playSoundEffect(SoundEffectType soundEffect)
-{
-	switch (soundEffect)
-	{
-	case SoundEffectType::kernelpult: rand() % 2 == 0 ? Plants::playSoundEffect("kernelpult") : Plants::playSoundEffect("kernelpult2"); break;
-	case SoundEffectType::shieldhit:  rand() % 2 == 0 ? Plants::playSoundEffect("shieldhit") : Plants::playSoundEffect("shieldhit2");   break;
-	case SoundEffectType::firepea:    Plants::playSoundEffect("firepea"); break;
-	}
 }
 
 void PeaShooter::createPea()

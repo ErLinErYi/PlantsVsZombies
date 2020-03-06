@@ -6,6 +6,7 @@
  */
 
 #include "CherryBomb.h"
+#include "../EmissionPlants/Bullet/Bullet.h"
 
 #include "Scenes/GameScene/GSData.h"
 #include "Zombies/Zombies.h"
@@ -73,7 +74,7 @@ void CherryBomb::setEventListener()
 				_plantAnimation->setVisible(false);
 			}
 		});
-	playSoundEffect("wakeup");
+	Bullet::playSoundEffect("wakeup");
 }
 
 bool CherryBomb::getPlantIsReadyExplode() const
@@ -140,7 +141,7 @@ void CherryBomb::explodeHurtZombies()
 
 void CherryBomb::showExplodeAnimation()
 {
-	playSoundEffect("cherrybomb");
+	Bullet::playSoundEffect("cherrybomb");
 
 	/* ±¬Õ¨¶¯»­ */
 	auto cherryBomb_Explode = SkeletonAnimation::createWithData(_global->userInformation->getAnimationData().find("CherryBomb_Explode")->second);

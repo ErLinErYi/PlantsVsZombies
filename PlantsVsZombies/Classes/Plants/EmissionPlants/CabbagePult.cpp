@@ -84,7 +84,7 @@ void CabbagePult::determineRelativePositionPlantsAndZombies()
 			{
 				if (strcmp(event->data->name, "Shoot") == 0)
 				{
-					rand() % 2 == 0 ? playSoundEffect("throw") : playSoundEffect("throw2");
+					rand() % 2 == 0 ? Bullet::playSoundEffect("throw") : Bullet::playSoundEffect("throw2");
 					createCabbage();
 				}
 			});

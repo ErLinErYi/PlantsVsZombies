@@ -28,8 +28,9 @@ enum class BulletType
 enum class SoundEffectType
 {
 	kernelpult = 0,
+	plastichit,
 	shieldhit,
-	firepea,
+	firepea
 };
 
 class Bullet
@@ -135,6 +136,18 @@ public:
 	 *静态方法删除子弹
 	 */
 	static void bulletDeleteUpdate(list<Bullet*>::iterator& bullet);
+
+	/**
+	 *播放子弹碰撞声音
+	 */
+	static void playSoundEffect(SoundEffectType soundEffect);
+	static void playSoundEffect(const std::string& MusicName);
+
+	/**
+	 *选择播放音效
+	 */
+	static void selectSoundEffect(const int body, const int head);
+	static void selectSoundEffect(const int head);
 
 CC_CONSTRUCTOR_ACCESS:
 	Bullet();

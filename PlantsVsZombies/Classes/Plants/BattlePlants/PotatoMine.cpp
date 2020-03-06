@@ -6,6 +6,7 @@
  */
 
 #include "PotatoMine.h"
+#include "../EmissionPlants/Bullet/Bullet.h"
 
 #include "Zombies/Zombies.h"
 #include "Scenes/GameScene/GSData.h"
@@ -140,7 +141,7 @@ void PotatoMine::zombieEatPlant(Zombies* zombie)
 						if (event->intValue == 1)
 						{
 							reducePlantHealthPoint(100);
-							playSoundEffect(eateffect[rand() % 3]);
+							Bullet::playSoundEffect(eateffect[rand() % 3]);
 							setPlantHurtBlink();
 						}
 					}

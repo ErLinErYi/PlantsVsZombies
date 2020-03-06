@@ -9,14 +9,12 @@
 #include "EmissionPlants.h"
 
 class Zombies;
-class Bullet;
 enum class SoundEffectType;
 
 class PeaShooter :public EmissionPlants
 {
 public:
 	static PeaShooter* create(Node* node = nullptr);
-	static void playSoundEffect(SoundEffectType effect);
 	Sprite* createPlantImage() override;
 	void createPlantAnimation() override;
 	void determineRelativePositionPlantsAndZombies() override;

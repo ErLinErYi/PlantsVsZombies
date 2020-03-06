@@ -102,7 +102,7 @@ void Citron::plantEmission()
 			{
 				if (strcmp(event->data->name, "shoot") == 0)
 				{
-					rand() % 2 == 0 ? Plants::playSoundEffect("throw") : Plants::playSoundEffect("throw2");
+					rand() % 2 == 0 ? Bullet::playSoundEffect("throw") : Bullet::playSoundEffect("throw2");
 					createBullet();
 					plantRecovery("normal");
 				}

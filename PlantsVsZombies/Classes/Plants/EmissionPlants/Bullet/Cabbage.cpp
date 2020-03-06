@@ -32,7 +32,7 @@ void Cabbage::bulletAndZombiesCollision()
 		if (!_isUsed && zombie->getZombieIsSurvive() &&                                           /* 卷心菜没有使用 && 僵尸没有死亡 */
 			getBulletIsSameLineWithZombie(zombie) && getBulletIsEncounterWithZombie(zombie))      /* 子弹与僵尸同一行 && 子弹与僵尸碰撞 */
 		{
-			PeaShooter::playSoundEffect(static_cast<SoundEffectType>(zombie->getZombieHeadAttackSoundEffect()));
+			selectSoundEffect(zombie->getZombieHeadAttackSoundEffect());
 			_bulletAnimation->setOpacity(0);
 			bulletAttackHurtZombies(zombie);   /* 僵尸减少生命值 */
 
@@ -61,7 +61,7 @@ void Cabbage::bulletInit()
 			{
 				if (_bulletAnimation->getOpacity()) /* 如果没有隐藏说明没有击中僵尸 */
 				{
-					PeaShooter::playSoundEffect(static_cast <SoundEffectType>(0));
+					playSoundEffect(SoundEffectType::kernelpult);
 				}
 				_bulletAnimation->setAnimation(0, "Cabbage_Crush", false);
 			}), DelayTime::create(1.4f),

@@ -6,6 +6,7 @@
  */
 
 #include "Jalapeno.h"
+#include "../EmissionPlants/Bullet/Bullet.h"
 
 #include "Zombies/Zombies.h"
 #include "Scenes/GameScene/GSData.h"
@@ -75,7 +76,7 @@ void Jalapeno::plantExplode()
 
 void Jalapeno::showExplodeAnimation()
 {
-	playSoundEffect("cherrybomb");
+	Bullet::playSoundEffect("cherrybomb");
 
 	for (int i = 0; i < 9; i++)
 	{

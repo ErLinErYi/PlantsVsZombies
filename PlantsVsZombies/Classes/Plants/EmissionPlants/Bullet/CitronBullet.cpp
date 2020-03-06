@@ -42,7 +42,7 @@ void CitronBullet::bulletAndZombiesCollision()
 			{
 				if (!zombie->getZombieIsStrikeFly())
 				{
-					Plants::playSoundEffect("ignite");
+					playSoundEffect("ignite");
 					zombie->getZombieAnimation()->getChildByName("shadow")->setVisible(false);
 					zombie->getZombieAnimation()->stopAllActions();
 					zombie->getZombieAnimation()->setAnimation(1, "Zombies_Stand", false);
@@ -58,7 +58,7 @@ void CitronBullet::bulletAndZombiesCollision()
 			}
 			else
 			{
-				Plants::playSoundEffect("cherrybomb");
+				playSoundEffect("cherrybomb");
 
 				setBulletOpacity(); /* 子弹消失 */
 				attackZombies();    /* 爆炸对僵尸造成伤害 */

@@ -36,8 +36,7 @@ void AcidLemonBullet::bulletAndZombiesCollision()
 			getBulletIsEncounterWithZombie(zombie) &&             /* 柠檬酸与僵尸碰撞 */
 			zombie->getZombieIsSurvive() && zombie->getZombieIsEnterMap()) /* 僵尸没有死亡 && 僵尸进入地图内 */
 		{
-			auto sound = zombie->getZombieHeadAttackSoundEffect() + zombie->getZombieBodyAttackSoundEffect();
-			PeaShooter::playSoundEffect(static_cast<SoundEffectType>(sound > 1 ? 1 : sound));  /* 播放指定音乐 */
+			selectSoundEffect(zombie->getZombieBodyAttackSoundEffect(), zombie->getZombieHeadAttackSoundEffect());  /* 播放指定音乐 */
 
 			setBulletOpacity();                /* 子弹消失 */
 			setAttackForShield(zombie);        /* 对僵尸铁质护盾造成额外伤害 */

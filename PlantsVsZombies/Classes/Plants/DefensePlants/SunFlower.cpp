@@ -6,6 +6,7 @@
  */
 
 #include "SunFlower.h"
+#include "../EmissionPlants/Bullet/Bullet.h"
 
 #include "Based/GameType.h"
 #include "Scenes/GameScene/GSData.h"
@@ -141,7 +142,7 @@ void SunFlower::goodsRecovery()
 		{
 			if ( sun->getSun()->getBoundingBox().containsPoint(p) && sun->getEnable())
 			{
-				playSoundEffect("points");
+				Bullet::playSoundEffect("points");
 				sunRecovery(sun);
 			}
 		}
@@ -152,7 +153,7 @@ void SunFlower::goodsRecovery()
 
 void SunFlower::createSuns()
 {
-	playSoundEffect(rand() % 2 == 0 ? "throw" : "throw2");
+	Bullet::playSoundEffect(rand() % 2 == 0 ? "throw" : "throw2");
 	_plantAnimation->setSkin("SunFlower_ProduceSun"); /* …Ë÷√∆§∑Ù */
 
 	_sun = new Sun(_sunLayer);

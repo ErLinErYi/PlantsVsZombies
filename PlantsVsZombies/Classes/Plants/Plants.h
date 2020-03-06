@@ -44,11 +44,6 @@ class  Plants :public Node
 {
 public:
 	/**
-	 *播放音效
-	 */
-	static void playSoundEffect(const std::string& MusicName);
-
-	/**
 	 *暂停植物所有动作
 	 */
 	static void stopPlantsAllAction();

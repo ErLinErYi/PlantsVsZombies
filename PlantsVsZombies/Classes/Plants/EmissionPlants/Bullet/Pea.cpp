@@ -67,8 +67,9 @@ void Pea::bulletAndZombiesCollision()
 			getBulletIsEncounterWithZombie(zombie) &&             /* 豌豆与僵尸碰撞 */
 			zombie->getZombieIsSurvive() && zombie->getZombieIsEnterMap()) /* 僵尸没有死亡 && 僵尸进入地图内 */
 		{
-			auto sound = zombie->getZombieHeadAttackSoundEffect() + zombie->getZombieBodyAttackSoundEffect();
-			_isFire ? PeaShooter::playSoundEffect(SoundEffectType::firepea) : PeaShooter::playSoundEffect(static_cast<SoundEffectType>(sound > 1 ? 1 : sound));  /* 播放指定音乐 */
+			_isFire ? playSoundEffect(SoundEffectType::firepea) :
+				selectSoundEffect(zombie->getZombieBodyAttackSoundEffect(),
+					zombie->getZombieHeadAttackSoundEffect());  /* 播放指定音乐 */
 
 			setBulletOpacity();                /* 子弹消失 */
 			bulletAttackHurtZombies(zombie);   /* 僵尸减少生命值 */

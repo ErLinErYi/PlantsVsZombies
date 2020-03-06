@@ -6,6 +6,7 @@
  */
 
 #include "Garlic.h"
+#include "../EmissionPlants/Bullet/Bullet.h"
 
 #include "Zombies/Zombies.h"
 #include "Scenes/GameScene/GSData.h"
@@ -82,14 +83,14 @@ void Garlic::zombieEatPlant(Zombies* zombie)
 
 			--_currentCanEatNumbers;
 
-			playSoundEffect(eateffect[rand() % 3]);
+			Bullet::playSoundEffect(eateffect[rand() % 3]);
 			setPlantHurtBlink();
 
 			auto zombies = zombie;
 			_node->runAction(Sequence::create(DelayTime::create(1.0f),
 				CallFunc::create([&, zombies]()
 					{
-						rand() % 2 == 0 ? playSoundEffect("squash_hmm") : playSoundEffect("squash_hmm2");
+						rand() % 2 == 0 ? Bullet::playSoundEffect("squash_hmm") : Bullet::playSoundEffect("squash_hmm2");
 						changeZombiePositionY(zombies);
 
 						_node->runAction(Sequence::create(DelayTime::create(0.5f),
