@@ -487,7 +487,7 @@ void GSControlLayer::mouseMoveControl()
 		{
 			_plantPreviewImage->setPosition(Vec2(GRASS_POSITION_LEFT + 122 * _plantsPosition.x + 60, 110 + 138 * (_plantsPosition.y + 1) - 60));
 		}
-		_plantCurImage->setPosition(_cur);
+		_plantCurImage->setPosition(_cur + Vec2(0, 30));
 	}
 
 	/* 鼠标上有铲子 */
@@ -589,6 +589,7 @@ void GSControlLayer::mouseDownControl(EventMouse* eventmouse)
 				animationLayerInformation->deletePlants();/* 铲除植物 */
 			}
 			removeShovel();
+			recoveryPlantsColor();
 		}
 	}
 }

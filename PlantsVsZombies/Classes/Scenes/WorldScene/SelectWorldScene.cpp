@@ -157,13 +157,18 @@ void SelectWorldScene::showBackground()
 {
 	_backgroundSize = Director::getInstance()->getWinSize();
 
+	createGalaxy(this);
+}
+
+void SelectWorldScene::createGalaxy(Node* node)
+{
 	auto layerColor = LayerColor::create(Color4B(30, 180, 190, 200));
-	this->addChild(layerColor);
+	node->addChild(layerColor);
 
 	auto rotate = Sprite::createWithSpriteFrameName("RunBackground.png");
 	rotate->setScale(7.f);
-	rotate->setPosition(_backgroundSize / 2.0f);
-	this->addChild(rotate);
+	rotate->setPosition(Director::getInstance()->getWinSize() / 2.0f);
+	node->addChild(rotate);
 	rotate->runAction(RepeatForever::create(RotateBy::create(1.0f, -10)));
 
 	auto _worldBackgroundBlack = Sprite::createWithSpriteFrameName("WorldBackgroundBlack.png");
@@ -173,8 +178,8 @@ void SelectWorldScene::showBackground()
 	_worldBackgroundBlack1->setAnchorPoint(Vec2(0, 0));
 	_worldBackgroundBlack1->setPosition(Vec2(0, -60));
 	_worldBackgroundBlack1->setFlippedY(true);
-	this->addChild(_worldBackgroundBlack);
-	this->addChild(_worldBackgroundBlack1);
+	node->addChild(_worldBackgroundBlack);
+	node->addChild(_worldBackgroundBlack1);
 }
 
 void SelectWorldScene::createScrollView()

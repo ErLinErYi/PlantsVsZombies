@@ -20,6 +20,7 @@ class SelectWorldScene :public Scene
 public:
 	CREATE_FUNC(SelectWorldScene);
 	static Scene* createScene();             /* ´´½¨³¡¾° */
+	static void createGalaxy(Node* node);
 
 CC_CONSTRUCTOR_ACCESS:
 	SelectWorldScene(): _scrollView(nullptr),_global(Global::getInstance()) {}

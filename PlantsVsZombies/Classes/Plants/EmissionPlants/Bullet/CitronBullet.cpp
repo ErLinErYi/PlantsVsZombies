@@ -11,6 +11,7 @@
 #include "../../Plants.h"
 #include "Zombies/Zombies.h"
 #include "Scenes/GameScene/GSData.h"
+#include "Scenes/GameScene/GSBackgroundLayer.h"
 
 CitronBullet::CitronBullet(Node* node, int id):
 	_animationId(id)
@@ -101,6 +102,7 @@ void CitronBullet::createShadow()
 
 void CitronBullet::createExplode()
 {
+	GSBackgroundLayer::backgroundRunAction();
 	auto explode = SkeletonAnimation::createWithData(_global->userInformation->getAnimationData().find("CitronBulletExplode")->second);
 	explode->setPosition(getBulletPosition() + Vec2(0, 100));
 	explode->setAnimation(0, "animation", false);

@@ -177,8 +177,6 @@ void Sun::createSuns()
 {
 	_sun = SkeletonAnimation::createWithData(_global->userInformation->getAnimationData().find("Sun")->second);
 	_sun->addAnimation(0, "Sun_rotate", true);
-	_sun->setAnchorPoint(Vec2(0.5f, 0.5f));
-	_sun->setScale(0.5f);
 	_sun->setPosition(_position);
 	_sun->runAction(Sequence::create(
 		Spawn::create(ScaleTo::create(0.5f, 1.2f), JumpBy::create(0.6f, Vec2(rand() % 120 - 60, 0), rand() % 100 + 100, 1), nullptr), 

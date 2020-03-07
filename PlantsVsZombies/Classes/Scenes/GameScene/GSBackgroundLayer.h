@@ -17,10 +17,7 @@ class GSBackgroundLayer :public SPSBackgroundLayer
 {
 public:
 	CREATE_FUNC(GSBackgroundLayer);
-
-	/**
-	 *添加到主场景中
-	 */
+	static void backgroundRunAction();
 	void addLayer(Node* node, const int order, const string& name) { node->addChild(this, order, name); }
 
 CC_CONSTRUCTOR_ACCESS:

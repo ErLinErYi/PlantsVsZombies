@@ -9,6 +9,7 @@
 #include "Scenes/MainMenuScene/MainMenu.h"
 #include "ui/CocosGUI.h"
 #include "Scenes/EasterEggsScene/GameEasterEggs.h"
+#include "Scenes/WorldScene/SelectWorldScene.h"
 
 Scene* HelpScene::createHelpScene()
 {
@@ -31,27 +32,7 @@ bool HelpScene::init()
 
 void HelpScene::createBackground()
 {
-	/* 获取窗口大小 */
-	auto const size = Director::getInstance()->getWinSize();
-
-	auto layerColor = LayerColor::create(Color4B(30, 180, 190, 200));
-	this->addChild(layerColor);
-
-	auto rotate = Sprite::createWithSpriteFrameName("RunBackground.png");
-	rotate->setScale(7.f);
-	rotate->setPosition(size / 2);
-	this->addChild(rotate);
-	rotate->runAction(RepeatForever::create(RotateBy::create(1.0f, -10)));
-
-	auto WorldBackgroundBlack = Sprite::createWithSpriteFrameName("WorldBackgroundBlack.png");
-	auto WorldBackgroundBlack1 = Sprite::createWithSpriteFrameName("WorldBackgroundBlack.png");
-	WorldBackgroundBlack->setAnchorPoint(Vec2(0, 1));
-	WorldBackgroundBlack->setPosition(Vec2(0, 1140));
-	WorldBackgroundBlack1->setAnchorPoint(Vec2(0, 0));
-	WorldBackgroundBlack1->setPosition(Vec2(0, -60));
-	WorldBackgroundBlack1->setFlippedY(true);
-	this->addChild(WorldBackgroundBlack);
-	this->addChild(WorldBackgroundBlack1);
+	SelectWorldScene::createGalaxy(this);
 }
 
 void HelpScene::createText()

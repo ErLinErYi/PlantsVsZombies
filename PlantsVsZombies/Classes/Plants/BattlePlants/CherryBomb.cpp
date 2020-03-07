@@ -10,6 +10,7 @@
 
 #include "Scenes/GameScene/GSData.h"
 #include "Zombies/Zombies.h"
+#include "Scenes/GameScene/GSBackgroundLayer.h"
 
 CherryBomb::CherryBomb(Node* node):
 	_isReadyExplode(false)
@@ -142,6 +143,7 @@ void CherryBomb::explodeHurtZombies()
 void CherryBomb::showExplodeAnimation()
 {
 	Bullet::playSoundEffect("cherrybomb");
+	GSBackgroundLayer::backgroundRunAction();
 
 	/* ±¬Õ¨¶¯»­ */
 	auto cherryBomb_Explode = SkeletonAnimation::createWithData(_global->userInformation->getAnimationData().find("CherryBomb_Explode")->second);

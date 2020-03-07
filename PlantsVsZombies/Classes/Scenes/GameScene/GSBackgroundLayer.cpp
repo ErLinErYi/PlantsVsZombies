@@ -1,4 +1,5 @@
 #include "GSBackgroundLayer.h"
+#include "GSData.h"
 
 #include "Based/GameType.h"
 #include "Zombies/CommonZombies.h"
@@ -8,6 +9,13 @@ GSBackgroundLayer::GSBackgroundLayer():
 	_global(Global::getInstance()),
 	gameType(nullptr)
 {
+}
+
+void GSBackgroundLayer::backgroundRunAction()
+{
+	Vec2 begin[4] = { Vec2(2,2),Vec2(-2,2),Vec2(2,-2),Vec2(-2,-2) };
+	auto move = MoveBy::create(0.1f, begin[rand() % 4]);
+	backgroundLayerInformation->runAction(Sequence::create(move, move->reverse(), move, move->reverse(), nullptr));
 }
 
 GSBackgroundLayer::~GSBackgroundLayer()

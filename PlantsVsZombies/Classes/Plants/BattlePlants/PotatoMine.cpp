@@ -10,6 +10,7 @@
 
 #include "Zombies/Zombies.h"
 #include "Scenes/GameScene/GSData.h"
+#include "Scenes/GameScene/GSBackgroundLayer.h"
 
 PotatoMine::PotatoMine(Node* node):
 	_isReady(false)
@@ -102,6 +103,7 @@ void PotatoMine::plantExplode()
 				if (strcmp(event->data->name, "BlastBegin") == 0)
 				{
 					_isCanKillZombies = true;
+					GSBackgroundLayer::backgroundRunAction();
 				}
 			});
 		_plantAnimation->runAction(Sequence::create(DelayTime::create(2.f),

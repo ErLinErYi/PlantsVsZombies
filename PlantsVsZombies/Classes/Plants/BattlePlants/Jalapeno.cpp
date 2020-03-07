@@ -10,6 +10,7 @@
 
 #include "Zombies/Zombies.h"
 #include "Scenes/GameScene/GSData.h"
+#include "Scenes/GameScene/GSBackgroundLayer.h"
 
 Jalapeno::Jalapeno(Node* node)
 {
@@ -77,6 +78,7 @@ void Jalapeno::plantExplode()
 void Jalapeno::showExplodeAnimation()
 {
 	Bullet::playSoundEffect("cherrybomb");
+	GSBackgroundLayer::backgroundRunAction();
 
 	for (int i = 0; i < 9; i++)
 	{
