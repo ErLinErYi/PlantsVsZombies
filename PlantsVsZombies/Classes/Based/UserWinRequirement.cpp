@@ -1,8 +1,10 @@
 #include "Based/LevelData.h"
-#include "AudioEngine.h"
 #include "Based/UserWinRequirement.h"
-#include "Scenes/WorldScene/World_1.h"
 #include "Based/GameType.h"
+#include "Based/Dialog.h"
+
+#include "AudioEngine.h"
+#include "Scenes/WorldScene/World_1.h"
 
 UserWinRequirement::UserWinRequirement(Node* node):
 	_node(node),
@@ -67,7 +69,7 @@ void UserWinRequirement::createDialogBox(GameTypes finishedid)
 	/* 显示要求 */
 	showRequirement(finishedid);
 
-	createListener();
+	Dialog::createTouchtListener(_levelObjiectives);
 }
 
 void UserWinRequirement::setParent(Node* node)
@@ -204,25 +206,4 @@ void UserWinRequirement::showText(const string& text, const int& ID, Color3B col
 	LevelObjiectives2->setScale(0.5f);
 	LevelObjiectives2->setGlobalZOrder(10);
 	_levelObjiectives->addChild(LevelObjiectives2);
-}
-
-void UserWinRequirement::createListener()
-{
-	/* 创建触摸监听 */
-	_listener = EventListenerTouchOneByOne::create();
-	_listener->onTouchBegan = [=](Touch* t, Event* e)
-	{
-		if (_levelObjiectives->getBoundingBox().containsPoint(t->getLocation()))
-		{
-			_phasePosition = t->getLocation() - _levelObjiectives->getPosition();
-			return true;
-		}
-		else return false;
-	};
-	_listener->onTouchMoved = [=](Touch* t, Event* e)
-	{
-		_levelObjiectives->setPosition(t->getLocation() - _phasePosition);
-	};
-
-	Director::getInstance()->getEventDispatcher()->addEventListenerWithSceneGraphPriority(_listener, _levelObjiectives);
 }

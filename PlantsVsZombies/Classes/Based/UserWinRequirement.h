@@ -34,7 +34,6 @@ CC_CONSTRUCTOR_ACCESS:
 private:
 	void showRequirement(GameTypes finishedid);                         /* ÏÔÊ¾ÒªÇó */
 	void showText(const string& text, const int& ID, Color3B color = Color3B::BLACK);
-	void createListener();
 	void createShieldLayer();
 
 private:

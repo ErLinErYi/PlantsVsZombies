@@ -7,6 +7,8 @@
 
 #include "GSRequirementLayer.h"
 #include "GSPauseQuitLayer.h"
+#include "GameScene.h"
+
 #include "Based/GameType.h"
 
 int pressKeySpace = 0;
@@ -22,7 +24,6 @@ bool GSRequirementLayer::init()
 	if (!Layer::init())return false;
 
 	showRequirement();
-
 	keyboardControl();
 
 	return true;

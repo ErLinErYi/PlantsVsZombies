@@ -12,6 +12,10 @@ using namespace cocos2d::experimental;
 class Dialog :public Layer
 {
 public:
+	/**
+	 *创建触摸监听
+	 */
+	static EventListenerTouchOneByOne* createTouchtListener(Sprite* sprite);
 
 	/**
 	 *设置鼠标监听
@@ -19,11 +23,6 @@ public:
 	virtual void setMouseListener(EventListenerMouse* listener);
 
 protected:
-	/**
-	 *创建触摸监听 
-	 */           
-	virtual EventListenerTouchOneByOne* createTouchtListener(Sprite* sprite);
-
 	/**
 	 *创建标签
 	 */

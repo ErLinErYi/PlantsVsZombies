@@ -11,12 +11,16 @@
 #include "GSInformationLayer.h"
 #include "GSControlLayer.h"
 #include "GSAnimationLayer.h"
+#include "GSPauseQuitLayer.h"
+#include "GSPauseLayer.h"
 #include "GSDefine.h"
 #include "GSData.h"
 
 #include "Plants/DefensePlants/SunFlower.h"
 #include "Plants/EmissionPlants/Bullet/Bullet.h"
 #include "Based/Car.h"
+
+bool GameScene::_wetherPausegame = false;
 
 GameScene::GameScene() :
   _global(Global::getInstance())
@@ -51,6 +55,12 @@ bool GameScene::init()
 	buttonLayer();       // °´Å¥²ã
 	controlLayer();      // ¿ØÖÆ²ã
 	animationLayer();    // ¶¯»­²ã
+
+#if CC_TARGET_PLATFORM ==CC_PLATFORM_WIN32
+	schedule([&](float) {
+		pauseGame();
+		}, 1.0f, "pauseGame");
+#endif
 
 	return true;
 }
@@ -97,4 +107,25 @@ void GameScene::buttonLayer()
 {
 	buttonLayerInformation = GSButtonLayer::create();
 	buttonLayerInformation->addLayer(this, 4, "buttonLayer");
+}
+
+void GameScene::pauseGame()
+{
+	if (!_wetherPausegame)
+	{
+		if (::GetForegroundWindow() != _director->getOpenGLView()->getWin32Window())
+		{
+			AudioEngine::setVolume(AudioEngine::play2d(_global->userInformation->getMusicPath().find("pause")->second), _global->userInformation->getSoundEffectVolume());
+			GSPauseQuitLayer::pauseLayer();
+			_director->getRunningScene()->addChild(GSPauseLayer::addLayer(), 10);
+			_wetherPausegame = true;
+		}
+	}
+}
+
+void GameScene::setPauseGame(const bool pauseGame)
+{
+#if CC_TARGET_PLATFORM == CC_PLATFORM_WIN32
+	_wetherPausegame = pauseGame;
+#endif 
 }

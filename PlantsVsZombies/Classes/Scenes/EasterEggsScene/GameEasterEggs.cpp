@@ -9,6 +9,7 @@
 
 #include "Scenes/MainMenuScene/QuitScene.h"
 
+
 GameEasterEggs::GameEasterEggs():
 	_eggstext(nullptr)
 ,   _global(Global::getInstance())

@@ -18,8 +18,10 @@ using namespace spine;
 class GameScene :public SelectPlantsScene
 {
 public:
-	static Scene* createScene();
 	CREATE_FUNC(GameScene);
+	static Scene* createScene();
+	static void setPauseGame(const bool pauseGame);
+
 
 CC_CONSTRUCTOR_ACCESS:
 	GameScene();
@@ -33,8 +35,10 @@ private:
 	void informationLayer();
 	void controlLayer();
 	void animationLayer();
+	void pauseGame();
 
 private:
 	Global* _global;
 	Director* _director;
+	static bool _wetherPausegame;
 };

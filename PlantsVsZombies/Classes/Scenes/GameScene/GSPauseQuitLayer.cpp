@@ -8,8 +8,8 @@
 
 #include "GSPauseQuitLayer.h"
 
-#include "Scenes/SelectPlantsScene/SelectPlantsScene.h"
-#include "Scenes/WorldScene/World_1.h"
+#include "../SelectPlantsScene/SelectPlantsScene.h"
+#include "../WorldScene/World_1.h"
 
 using namespace spine;
 
@@ -104,7 +104,6 @@ void GSPauseQuitLayer::createDialog()
 	createButton(Vec2(830, 170), _global->userInformation->getGameText().find("返回游戏")->second, PauseQuitLayer_Button::返回游戏);
 	createButton(Vec2(365, 70), _global->userInformation->getGameText().find("按键说明")->second, PauseQuitLayer_Button::按键说明);
 	createButton(Vec2(665, 70), _global->userInformation->getGameText().find("退出游戏")->second, PauseQuitLayer_Button::退出游戏);
-
 }
 
 void GSPauseQuitLayer::createButton(const Vec2& vec2, const std::string name, PauseQuitLayer_Button button_type)

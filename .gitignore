@@ -30,6 +30,7 @@ bld/
 [Dd]ebug.win32/
 Release.win32/
 [Rr]esources/
+libGif/
 
 # Visual Studio 2015/2017 cache/options directory
 .vs/

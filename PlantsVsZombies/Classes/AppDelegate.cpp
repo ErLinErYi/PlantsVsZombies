@@ -54,7 +54,8 @@ static int register_all_packages()
     return 0; //flag for packages manager
 }
 
-bool AppDelegate::applicationDidFinishLaunching() {
+bool AppDelegate::applicationDidFinishLaunching() 
+{
     // initialize director
 	
     auto director = Director::getInstance();
@@ -63,9 +64,9 @@ bool AppDelegate::applicationDidFinishLaunching() {
 		
     if(!glview) {
 #if (CC_TARGET_PLATFORM == CC_PLATFORM_WIN32) || (CC_TARGET_PLATFORM == CC_PLATFORM_MAC) || (CC_TARGET_PLATFORM == CC_PLATFORM_LINUX)
-        glview = GLViewImpl::createWithRect("PlantsVsZombies_1.1.2.200304_alpha", cocos2d::Rect(0, 0, designResolutionSize.width, designResolutionSize.height));
+        glview = GLViewImpl::createWithRect("PlantsVsZombies_1.1.2.200307_alpha", cocos2d::Rect(0, 0, designResolutionSize.width, designResolutionSize.height));
 #else
-        glview = GLViewImpl::create("PlantsVsZombies_1.1.2.200304_alpha");
+        glview = GLViewImpl::create("PlantsVsZombies_1.1.2.200307_alpha");
 #endif
         director->setOpenGLView(glview);
     }
@@ -91,7 +92,8 @@ bool AppDelegate::applicationDidFinishLaunching() {
 }
 
 // This function will be called when the app is inactive. Note, when receiving a phone call it is invoked.
-void AppDelegate::applicationDidEnterBackground() {
+void AppDelegate::applicationDidEnterBackground() 
+{
     Director::getInstance()->stopAnimation();
 
 #if USE_AUDIO_ENGINE
@@ -103,7 +105,8 @@ void AppDelegate::applicationDidEnterBackground() {
 }
 
 // this function will be called when the app is active again
-void AppDelegate::applicationWillEnterForeground() {
+void AppDelegate::applicationWillEnterForeground() 
+{
     Director::getInstance()->startAnimation();
 
 #if USE_AUDIO_ENGINE

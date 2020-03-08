@@ -27,17 +27,18 @@ void Dialog::setMouseListenerEnable(bool isEnable)
 EventListenerTouchOneByOne* Dialog::createTouchtListener(Sprite* sprite)
 {
 	/* ´´½¨´¥Ãþ¼àÌý */
+	static Vec2 phasePosition = Vec2(Vec2::ZERO);
 	auto listener = EventListenerTouchOneByOne::create();
-	listener->onTouchBegan = [=](Touch *t, Event *e) {
+	listener->onTouchBegan = [&,sprite](Touch *t, Event *e) {
 		if (sprite->getBoundingBox().containsPoint(t->getLocation()))
 		{
-			_phasePosition = t->getLocation() - sprite->getPosition();
+			phasePosition = t->getLocation() - sprite->getPosition();
 			return true;
 		}
 		else return false;
 	};
 	listener->onTouchMoved = [=](Touch *t, Event *e) {
-		sprite->setPosition(t->getLocation() - _phasePosition);
+		sprite->setPosition(t->getLocation() - phasePosition);
 	};
 
 	Director::getInstance()->getEventDispatcher()->addEventListenerWithSceneGraphPriority(listener, sprite);

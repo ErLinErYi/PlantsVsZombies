@@ -119,7 +119,7 @@ void GSButtonLayer::createKeyBoardListener()
 void GSButtonLayer::createQuitDialog()
 {
 	GSPauseQuitLayer::pauseLayer();
-	_director->getRunningScene()->addChild(GSPauseQuitLayer::addLayer(), 10);
+	_director->getRunningScene()->addChild(GSPauseQuitLayer::addLayer(), 10, "pauseLayer");
 }
 
 void GSButtonLayer::createRequirementButton()
