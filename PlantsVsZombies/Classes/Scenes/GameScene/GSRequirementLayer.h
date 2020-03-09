@@ -11,7 +11,7 @@
 
 using namespace cocos2d;
 
-class GSRequirementLayer :public Layer
+class GSRequirementLayer :public LayerColor
 {
 public:
     CREATE_FUNC(GSRequirementLayer);
@@ -21,7 +21,7 @@ public:
 
 CC_CONSTRUCTOR_ACCESS:
     GSRequirementLayer() : _requirement(nullptr) {}
-    ~GSRequirementLayer() { delete _requirement; }
+    ~GSRequirementLayer() { if(_requirement)delete _requirement; }
 
 private:
     void showRequirement();

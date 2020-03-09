@@ -136,7 +136,7 @@ void GSButtonLayer::createRequirementButton()
 				switch (type)
 				{
 				case ui::Widget::TouchEventType::BEGAN:
-					AudioEngine::setVolume(AudioEngine::play2d(_global->userInformation->getMusicPath().find("gravebutton")->second), _global->userInformation->getSoundEffectVolume());
+					AudioEngine::setVolume(AudioEngine::play2d(_global->userInformation->getMusicPath().find("pause")->second), _global->userInformation->getSoundEffectVolume());
 					break;
 				case ui::Widget::TouchEventType::ENDED:
 					createRequirementLayer();
@@ -149,7 +149,7 @@ void GSButtonLayer::createRequirementButton()
 void GSButtonLayer::createRequirementLayer()
 {
 	GSPauseQuitLayer::pauseLayer();
-	_director->getRunningScene()->addChild(GSRequirementLayer::addLayer());
+	_director->getRunningScene()->addChild(GSRequirementLayer::addLayer(), 10);
 }
 
 void GSButtonLayer::controlAccelerateScheduler()

@@ -311,6 +311,9 @@
     <ClCompile Include="..\Classes\Based\libGif\gif_lib\quantize.c">
       <Filter>Class\Based\libGif\gif_lib</Filter>
     </ClCompile>
+    <ClCompile Include="..\Classes\Scenes\SelectPlantsScene\SPSRequriementLayer.cpp">
+      <Filter>Class\Scenes\SelectPlantsScene</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="..\Classes\Zombies\BucketZombies.h">
@@ -561,6 +564,9 @@
     </ClInclude>
     <ClInclude Include="..\Classes\Based\libGif\gif_lib\gif_lib_private.h">
       <Filter>Class\Based\libGif\gif_lib</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Classes\Scenes\SelectPlantsScene\SPSRequriementLayer.h">
+      <Filter>Class\Scenes\SelectPlantsScene</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>

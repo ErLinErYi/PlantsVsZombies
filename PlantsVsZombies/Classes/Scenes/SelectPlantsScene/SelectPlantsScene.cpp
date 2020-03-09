@@ -8,6 +8,9 @@
 
 #include "SPSControlLayer.h"
 #include "SPSBackgroundLayer.h"
+#include "SPSRequriementLayer.h"
+#include "SPSSpriteLayer.h"
+#include "SPSControlLayer.h"
 #include "SelectPlantsScene.h"
 #include "Scenes/GameScene/GameScene.h"
 
@@ -17,8 +20,6 @@ SelectPlantsScene::SelectPlantsScene() :
 	_controlLayer(nullptr),
 	_scrollLayer(nullptr),
 	_spriteLayer(nullptr),
-	_spriteLayer_(nullptr),
-	_requirement(nullptr),
 	_scrollView(nullptr),
 	_director(Director::getInstance()),
 	_global(Global::getInstance())
@@ -28,7 +29,6 @@ SelectPlantsScene::SelectPlantsScene() :
 
 SelectPlantsScene::~SelectPlantsScene()
 {
-	if (_requirement) delete _requirement;
 }
 
 Scene* SelectPlantsScene::createScene()
@@ -54,7 +54,7 @@ void SelectPlantsScene::createBackgroundLayer()
 	_scrollLayer->setContentSize(Size(2930, 1080));
 
 	/* 创建容器中的东西（精灵）*/
-	SPSBackgroundLayer::create()->addLayer(_scrollLayer);
+	_scrollLayer->addChild(SPSBackgroundLayer::create());
 	
 	//创建滚动视图
 	_scrollView = extension::ScrollView::create();
@@ -73,14 +73,13 @@ void SelectPlantsScene::createBackgroundLayer()
 
 void SelectPlantsScene::createControlLayer()
 {
-	_controlLayer = Layer::create();
-	SPSControlLayer::create()->addLayer(_controlLayer);
-	this->addChild(_controlLayer,1000);
+	_controlLayer = SPSControlLayer::create();
+	this->addChild(_controlLayer, 1);
 }
 
 void SelectPlantsScene::eventUpdate(float Time)
 {
-	if (Time == 0.22f && _spriteLayer_->_selectFinished)
+	if (Time == 0.22f && _spriteLayer->_selectFinished)
 	{
 		unschedule(schedule_selector(SelectPlantsScene::eventUpdate));
 		selectPlantsCallBack();
@@ -112,12 +111,9 @@ void SelectPlantsScene::eventUpdate(float Time)
 void SelectPlantsScene::createSelectPlantsDialog()
 {
 	/* 删除名字 */
-	_controlLayer->getChildByName("ControlLayer")->removeChildByName("username");
+	_controlLayer->removeChildByName("username");
 
-	_spriteLayer_ = SPSSpriteLayer::create();
-	_spriteLayer = Layer::create();
-	_spriteLayer_->addLayer(_spriteLayer);
-	_spriteLayer->setGlobalZOrder(1);
+	_spriteLayer = SPSSpriteLayer::create();
 	this->addChild(_spriteLayer);
 
 	schedule(schedule_selector(SelectPlantsScene::eventUpdate), 0.22f);
@@ -129,39 +125,9 @@ void SelectPlantsScene::controlShowRequirement()
 	auto _levelData = OpenLevelData::getInstance()->readLevelData(OpenLevelData::getInstance()->getLevelNumber());
 	if (_levelData->getGameType().size())
 	{
-		_requirement = new UserWinRequirement(this);
-		_requirement->createDialogBox(GameTypes::None);
-		_requirement->setShowDialogAction();
-
-		auto button = Button::create("Continue1.png", "Continue.png", "", TextureResType::PLIST);
-		button->setTitleText(_global->userInformation->getGameText().find("确定")->second);
-		button->setTitleFontName("resources/fonts/GameFont.ttf");
-		button->setTitleFontSize(30);
-		button->setTitleColor(Color3B::YELLOW);
-		button->setPosition(Vec2(_requirement->getDialog()->getContentSize().width / 2.0f, 10));
-		button->setGlobalZOrder(30);
-		button->setOpacity(0);
-		button->setScale(0.5f);
-		button->runAction(FadeIn::create(0.5f));
-		button->addTouchEventListener([=](Ref* sender, ui::Widget::TouchEventType type)
-			{
-				switch (type)
-				{
-				case ui::Widget::TouchEventType::BEGAN:
-					AudioEngine::setVolume(AudioEngine::play2d(_global->userInformation->getMusicPath().find("tap")->second), _global->userInformation->getSoundEffectVolume());
-					break;
-				case ui::Widget::TouchEventType::ENDED:
-					_requirement->setDelectDialogAction();
-					runAction(Sequence::create(DelayTime::create(0.5f), CallFunc::create([&]() { createSelectPlantsDialog();/* 创建对话框 */}), nullptr));
-					break;
-				}
-			});
-		_requirement->getDialog()->addChild(button);
+		this->addChild(SPSRequriementLayer::create(), 2);
 	}
-	else
-	{
-		createSelectPlantsDialog();
-	}
+	createSelectPlantsDialog();
 }
 
 void SelectPlantsScene::selectPlantsCallBack()
@@ -193,9 +159,9 @@ void SelectPlantsScene::readyTextCallBack(Node* node, const std::string& name, c
 		createReadyText("StartPlant", 3);
 		break;
 	default:
-		_scrollLayer->getChildByName("_scrollLayer")->removeChildByName("previewBackgroundImage");
+		_scrollLayer->removeChildByName("previewBackgroundImage");
 
-		_global->userInformation->setUserSelectCrads(_spriteLayer_->seedBankButton);
+		_global->userInformation->setUserSelectCrads(_spriteLayer->seedBankButton);
 		_global->userInformation->setSunNumbers(100); //设定初始阳光数 
 
 		Director::getInstance()->replaceScene(GameScene::createScene());

@@ -19,6 +19,7 @@
 #include "Plants/DefensePlants/SunFlower.h"
 #include "Plants/EmissionPlants/Bullet/Bullet.h"
 #include "Based/Car.h"
+#include "Zombies/Zombies.h"
 
 bool GameScene::_wetherPausegame = false;
 

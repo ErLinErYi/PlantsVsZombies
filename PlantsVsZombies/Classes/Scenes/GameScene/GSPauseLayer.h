@@ -16,7 +16,7 @@ using namespace cocos2d;
 using namespace spine;
 using namespace cocos2d::ui;
 
-class GSPauseLayer :public Layer
+class GSPauseLayer :public LayerColor
 {
 public:
     CREATE_FUNC(GSPauseLayer);

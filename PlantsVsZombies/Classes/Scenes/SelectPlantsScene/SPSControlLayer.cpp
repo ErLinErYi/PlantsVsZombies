@@ -10,7 +10,6 @@
 #include "Scenes/SelectPlantsScene/SPSQuitLayer.h"
 
 SPSControlLayer::SPSControlLayer():
-	_quitLayer(nullptr),
 	_global(Global::getInstance())
 {
 }
@@ -70,9 +69,5 @@ void SPSControlLayer::showUserName()
 
 void SPSControlLayer::createDialog()
 {
-	_quitLayer = LayerColor::create(Color4B(0, 0, 0, 180));
-	_quitLayer->setLocalZOrder(30);
-	auto shield = SPSQuitLayer::create();
-	shield->addLayer(_quitLayer);
-	this->addChild(_quitLayer, 1, "_quitLayer");
+	this->addChild(SPSQuitLayer::create(), 1, "_quitLayer");
 }

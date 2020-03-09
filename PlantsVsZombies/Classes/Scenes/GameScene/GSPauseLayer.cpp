@@ -26,7 +26,7 @@ Layer* GSPauseLayer::addLayer()
 
 bool GSPauseLayer::init()
 {
-    if(!Layer::init()) return false;
+    if(!LayerColor::initWithColor(Color4B(0,0,0,180))) return false;
 
     createShieldLayer();
     createDialog();
@@ -37,15 +37,11 @@ bool GSPauseLayer::init()
 
 void GSPauseLayer::createShieldLayer()
 {
-    auto layer = LayerColor::create(Color4B(0, 0, 0, 180));
-    layer->setGlobalZOrder(10);
-    this->addChild(layer);
-
     // set shieldLayer
     auto shieldListener = EventListenerTouchOneByOne::create();
     shieldListener->onTouchBegan = [](Touch* touch, Event* event)-> bool { return true; };
     shieldListener->setSwallowTouches(true);
-    _eventDispatcher->addEventListenerWithSceneGraphPriority(shieldListener, layer);
+    _eventDispatcher->addEventListenerWithSceneGraphPriority(shieldListener, this);
 }
 
 void GSPauseLayer::createDialog()

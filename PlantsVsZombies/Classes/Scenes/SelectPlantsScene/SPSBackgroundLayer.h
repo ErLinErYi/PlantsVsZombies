@@ -10,21 +10,18 @@
 #include "cocos2d.h"
 #include "spine/spine.h"
 #include "Based/GlobalVariable.h"
-#include "spine\spine-cocos2dx.h"
-#include "Zombies/Zombies.h"
+#include "spine/spine-cocos2dx.h"
 
 using namespace spine;
 using namespace cocos2d;
+
+class Zombies;
+class OpenLevelData;
 
 class SPSBackgroundLayer :public Layer
 {
 public:
 	CREATE_FUNC(SPSBackgroundLayer);
-
-	/**
-	 *添加到主场景中
-	 */
-	void addLayer(Node* node) { node->addChild(this, 0, "_scrollLayer"); }
 
 CC_CONSTRUCTOR_ACCESS:
 	SPSBackgroundLayer();

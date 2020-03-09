@@ -16,7 +16,6 @@ class SPSQuitLayer :public GSPauseQuitLayer
 {
 public:
 	CREATE_FUNC(SPSQuitLayer);
-	void addLayer(Node* node);
 	
 CC_CONSTRUCTOR_ACCESS:
 	SPSQuitLayer() : _shieldListener(nullptr){}

@@ -42,7 +42,7 @@ void GSPauseQuitLayer::resumeLayer()
 
 bool GSPauseQuitLayer::init()
 {
-	if (!Layer::init())return false;
+	if (!LayerColor::initWithColor(Color4B(0, 0, 0, 180)))return false;
 
 	/* 创建对话框 */
 	createDialog();
@@ -52,13 +52,10 @@ bool GSPauseQuitLayer::init()
 
 void GSPauseQuitLayer::createDialog()
 {
-	_grayLayer = LayerColor::create(Color4B(0, 0, 0, 180));
-	this->addChild(_grayLayer);
-
 	_option = Sprite::createWithSpriteFrameName("LevelObjiectivesBg.png");
 	_option->setPosition(_director->getWinSize() / 2);
 	_option->setScale(0.9f);
-	_grayLayer->addChild(_option);
+	this->addChild(_option);
 
 	auto PauseAnimation= SkeletonAnimation::createWithData(_global->userInformation->getAnimationData().find("PauseAnimation")->second);
 	PauseAnimation->setAnimation(0, "animation", true);

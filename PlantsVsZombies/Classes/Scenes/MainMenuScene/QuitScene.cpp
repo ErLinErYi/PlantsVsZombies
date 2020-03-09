@@ -9,15 +9,9 @@
 #include "QuitScene.h"
 #include "Based/GlobalVariable.h"
 
-void QuitMenu::addLayer(Node* node)
-{
-	_dialogNode = node;
-	_dialogNode->addChild(this, 1);
-}
-
 bool QuitMenu::init()
 {
-	if (!Layer::init())return false;
+	if (!LayerColor::initWithColor(Color4B(0, 0, 0, 180)))return false;
 
 	createShieldLayer(this);
 
@@ -29,7 +23,7 @@ bool QuitMenu::init()
 void QuitMenu::deleteDialog()
 {
 	setMouseListenerEnable();
-	_dialogNode->removeFromParent();
+	this->removeFromParent();
 }
 
 void QuitMenu::createDiglog()

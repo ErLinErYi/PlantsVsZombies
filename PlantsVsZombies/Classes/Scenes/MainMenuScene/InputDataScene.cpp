@@ -27,15 +27,9 @@ InputDataMenu::~InputDataMenu()
 {
 }
 
-void InputDataMenu::addLayer(Node* node)
-{
-	_dialogNode = node;
-	_dialogNode->addChild(this, 1);
-}
-
 bool InputDataMenu::init()
 {
-	if (!Layer::init())return false;
+	if (!LayerColor::initWithColor(Color4B(0, 0, 0, 180)))return false;
 
 	Dialog::createShieldLayer(this);
 
@@ -47,7 +41,7 @@ bool InputDataMenu::init()
 void InputDataMenu::deleteDialog()
 {
 	setMouseListenerEnable();
-	_dialogNode->removeFromParent();
+	this->removeFromParent();
 }
 
 void InputDataMenu::createDialog()

@@ -21,11 +21,6 @@ class SPSControlLayer :public Layer
 public:
 	CREATE_FUNC(SPSControlLayer);
 
-	/**
-	 *添加到主场景中
-	 */
-	void addLayer(Node* node) { node->addChild(this, 0, "ControlLayer"); }
-
 CC_CONSTRUCTOR_ACCESS:
 	SPSControlLayer();
 	~SPSControlLayer();
@@ -38,5 +33,4 @@ private:
 	
 private:
 	Global* _global;
-	LayerColor* _quitLayer;
 };

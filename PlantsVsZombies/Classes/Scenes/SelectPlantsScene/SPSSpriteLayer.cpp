@@ -42,15 +42,10 @@ void SPSSpriteLayer::createSelectPlantsDialog()
 	AudioEngine::setVolume(AudioEngine::play2d(_global->userInformation->getMusicPath().find("swing")->second), _global->userInformation->getSoundEffectVolume());
 
 	alreadySelectPlantsDialog();
-
 	alreadyHavePlantsDialog();
-
 	createScrollview();
-
 	createPlantsCards();
-
 	showRandPlantsInformation();
-
 	createMouseListener();
 }
 

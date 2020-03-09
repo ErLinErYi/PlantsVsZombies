@@ -1,7 +1,6 @@
 #include "Based/Dialog.h"
 
 Dialog::Dialog():
-	_dialogNode(nullptr),
 	_shieldListener(nullptr),
 	_mouseListener(nullptr),
 	_phasePosition(Vec2::ZERO),
@@ -17,7 +16,6 @@ void Dialog::setMouseListener(EventListenerMouse* listener)
 {
 	_mouseListener = listener;
 }
-
 
 void Dialog::setMouseListenerEnable(bool isEnable)
 {

@@ -9,15 +9,17 @@
 #pragma once
 #include "cocos2d.h"
 #include "cocos-ext.h"
-#include "SPSSpriteLayer.h"
+
 #include "Based/GlobalVariable.h" 
-#include "Based/UserWinRequirement.h"
 
 #define SCROLLRIGHTFINISHED -1010
 #define SCROLLLEFTFINISHED  -220
 
 using namespace cocos2d;
 using namespace cocos2d::extension;
+
+class SPSSpriteLayer;
+class SPSControlLayer;
 
 class SelectPlantsScene :public Scene
 {
@@ -72,12 +74,10 @@ private:
 	void readyTextCallBack(Node* node, const std::string& name, const int& id);
 
 private:
-	Layer* _controlLayer;
 	Layer* _scrollLayer;
-	Layer* _spriteLayer;
 	Director* _director;
 	Global* _global;
-	SPSSpriteLayer* _spriteLayer_;
+	SPSControlLayer* _controlLayer;
+	SPSSpriteLayer* _spriteLayer;
 	extension::ScrollView* _scrollView;
-	UserWinRequirement* _requirement;
 };

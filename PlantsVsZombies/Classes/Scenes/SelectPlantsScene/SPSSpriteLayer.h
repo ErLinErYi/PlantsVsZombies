@@ -15,15 +15,10 @@ using namespace cocos2d;
 using namespace cocos2d::ui;
 using namespace spine;
 
-class SPSSpriteLayer :Layer
+class SPSSpriteLayer : public Layer
 {
 public:
 	CREATE_FUNC(SPSSpriteLayer);
-
-	/**
-	 *添加到主场景中
-	 */
-	void addLayer(Node* node) { node->addChild(this, 0, "SPSSpriteLayer"); }
 	Text* showPlantsInformation(Button* button, const int id) const;
 
 private:

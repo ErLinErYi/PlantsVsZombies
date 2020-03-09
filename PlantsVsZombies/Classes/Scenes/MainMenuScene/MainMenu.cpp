@@ -103,7 +103,7 @@ void MainMenu::updateUserNameOnce(float Time)
 	/* 如果有孩子 */
 	if (_userNameActionParent)
 	{
-		for (int i = 0; i < _global->userInformation->getUserName().size(); i++)
+		for (unsigned int i = 0; i < _global->userInformation->getUserName().size(); i++)
 		{
 			_userNameActionParent->removeChildByTag(1000);
 		}
@@ -580,13 +580,11 @@ void MainMenu::menuDataCallBack(Ref* pSender)
 	AudioEngine::setVolume(AudioEngine::play2d(_global->userInformation->getMusicPath().find("tap")->second), _global->userInformation->getSoundEffectVolume());
 
 	setMouseListenerEnable(false);
-	_inputLayer = LayerColor::create(Color4B(0, 0, 0, 180));
 	auto input = InputDataMenu::create();
 	if (input)
 	{
-		input->addLayer(_inputLayer);
 		input->setMouseListener(_mouse);
-		this->addChild(_inputLayer, 1, "_inputLayer");
+		this->addChild(input, 1, "_inputLayer");
 	}
 }
 
@@ -595,13 +593,11 @@ void MainMenu::menuOptionCallBack(Ref* pSender)
 	AudioEngine::setVolume(AudioEngine::play2d(_global->userInformation->getMusicPath().find("tap")->second), _global->userInformation->getSoundEffectVolume());
 	
 	setMouseListenerEnable(false);
-	_optionLayer = LayerColor::create(Color4B(0, 0, 0, 180));
 	auto option = OptionsMenu::create();
 	if (option)
 	{
-		option->addLayer(_optionLayer);
 		option->setMouseListener(_mouse);
-		this->addChild(_optionLayer, 1, "_optionLayer");
+		this->addChild(option, 1, "_optionLayer");
 	}
 }
 
@@ -610,14 +606,11 @@ void MainMenu::menuQuitCallBack(Ref* pSender)
 	AudioEngine::setVolume(AudioEngine::play2d(_global->userInformation->getMusicPath().find("tap2")->second), _global->userInformation->getSoundEffectVolume());
 
 	setMouseListenerEnable(false);
-
-	_quitLayer = LayerColor::create(Color4B(0, 0, 0, 180));
 	auto quit = QuitMenu::create();
 	if (quit)
 	{
-		quit->addLayer(_quitLayer);
 		quit->setMouseListener(_mouse);
-		this->addChild(_quitLayer, 1, "_quitLayer");
+		this->addChild(quit, 1, "_quitLayer");
 	}
 }
 

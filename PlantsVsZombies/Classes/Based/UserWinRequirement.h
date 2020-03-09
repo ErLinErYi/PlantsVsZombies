@@ -23,8 +23,6 @@ public:
 	void setListenerEnable(bool enable);
 	void setShowDialogAction();
 	void setDelectDialogAction();
-	void setLayerColorOpacity(Color3B& color, GLubyte& opacity);
-	void deleteDialog();
 	Sprite* getDialog() const;
 
 CC_CONSTRUCTOR_ACCESS:
@@ -38,7 +36,6 @@ private:
 
 private:
 	Node* _node;
-	Layer* _layer;
 	Global* _global;
 	Button* _continuesGame;
 	Scale9Sprite* _levelObjiectives;

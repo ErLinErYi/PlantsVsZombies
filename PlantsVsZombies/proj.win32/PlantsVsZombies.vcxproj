@@ -243,6 +243,7 @@ xcopy "$(ProjectDir)..\Resources" "$(OutDir)" /D /E /I /F /Y
     <ClCompile Include="..\Classes\Scenes\SelectPlantsScene\SPSControlLayer.cpp" />
     <ClCompile Include="..\Classes\Scenes\SelectPlantsScene\SPSQuitLayer.cpp" />
     <ClCompile Include="..\Classes\Scenes\SelectPlantsScene\SelectPlantsScene.cpp" />
+    <ClCompile Include="..\Classes\Scenes\SelectPlantsScene\SPSRequriementLayer.cpp" />
     <ClCompile Include="..\Classes\Scenes\SelectPlantsScene\SPSSpriteLayer.cpp" />
     <ClCompile Include="..\Classes\Scenes\WorldScene\SelectWorldScene.cpp" />
     <ClCompile Include="..\Classes\Scenes\WorldScene\World_1.cpp" />
@@ -327,6 +328,7 @@ xcopy "$(ProjectDir)..\Resources" "$(OutDir)" /D /E /I /F /Y
     <ClInclude Include="..\Classes\Scenes\SelectPlantsScene\SPSControlLayer.h" />
     <ClInclude Include="..\Classes\Scenes\SelectPlantsScene\SPSQuitLayer.h" />
     <ClInclude Include="..\Classes\Scenes\SelectPlantsScene\SelectPlantsScene.h" />
+    <ClInclude Include="..\Classes\Scenes\SelectPlantsScene\SPSRequriementLayer.h" />
     <ClInclude Include="..\Classes\Scenes\SelectPlantsScene\SPSSpriteLayer.h" />
     <ClInclude Include="..\Classes\Scenes\WorldScene\SelectWorldScene.h" />
     <ClInclude Include="..\Classes\Scenes\WorldScene\World_1.h" />

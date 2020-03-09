@@ -25,7 +25,6 @@ class InputDataMenu :public Dialog
 {
 public:
 	CREATE_FUNC(InputDataMenu);
-	void addLayer(Node* node);
 
 CC_CONSTRUCTOR_ACCESS:
 	InputDataMenu();

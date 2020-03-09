@@ -19,15 +19,9 @@ OptionsMenu::~OptionsMenu()
 {
 }
 
-void OptionsMenu::addLayer(Node* node)
-{
-	_dialogNode = node;
-	_dialogNode->addChild(this, 1);
-}
-
 bool OptionsMenu::init()
 {
-	if (!Layer::init())return false;
+	if (!LayerColor::initWithColor(Color4B(0, 0, 0, 180)))return false;
 
 	createShieldLayer(this);
 
@@ -170,7 +164,7 @@ void OptionsMenu::soundEffectMusicVolumeChangeCallBack(Ref* sender, Control::Eve
 void OptionsMenu::deleteDialog()
 {
 	setMouseListenerEnable();
-	_dialogNode->removeFromParent();
+	this->removeFromParent();
 }
 
 CheckBox* OptionsMenu::createCheckBox(Vec2 &vec2, Vec2 &vec2_, const std::string &Label, OptionScene_CheckBox button_type,

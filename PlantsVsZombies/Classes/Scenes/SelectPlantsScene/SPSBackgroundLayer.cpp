@@ -7,13 +7,9 @@
  */
 
 #include "SPSBackgroundLayer.h"
-#include "Zombies/CommonZombies.h"
-#include "Zombies/ConeZombies.h"
-#include "Zombies/BucketZombies.h"
-#include "Zombies/CommonDoorZombies.h"
-#include "Zombies/ConeDoorZombies.h"
-#include "Zombies/BucketDoorZombies.h"
-#include "Zombies/LmpZombies.h"
+
+#include "Zombies/Zombies-Files.h"
+#include "Zombies/Zombies.h"
 #include "Based/LevelData.h"
 
 SPSBackgroundLayer::SPSBackgroundLayer() :

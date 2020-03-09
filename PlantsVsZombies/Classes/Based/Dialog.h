@@ -9,7 +9,7 @@
 using namespace cocos2d;
 using namespace cocos2d::experimental;
 
-class Dialog :public Layer
+class Dialog :public LayerColor
 {
 public:
 	/**
@@ -43,7 +43,7 @@ protected:
 	/**
 	 *删除层
 	 */
-	virtual void deleteDialog() { _dialogNode->removeFromParent(); }
+	virtual void deleteDialog(){}
 
 	/**
 	 *设置鼠标监听是否可用
@@ -56,7 +56,6 @@ CC_CONSTRUCTOR_ACCESS:
 
 protected:
 	Global* _global;
-	Node* _dialogNode;
 	EventListenerMouse* _mouseListener;
 
 private:

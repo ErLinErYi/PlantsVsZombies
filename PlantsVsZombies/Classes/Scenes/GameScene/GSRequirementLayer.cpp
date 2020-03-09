@@ -21,7 +21,7 @@ Layer* GSRequirementLayer::addLayer()
 
 bool GSRequirementLayer::init()
 {
-	if (!Layer::init())return false;
+	if (!LayerColor::initWithColor(Color4B(0, 0, 0, 180)))return false;
 
 	showRequirement();
 	keyboardControl();
@@ -49,11 +49,14 @@ void GSRequirementLayer::showRequirement()
 			switch (type)
 			{
 			case ui::Widget::TouchEventType::BEGAN:
-				AudioEngine::setVolume(AudioEngine::play2d(Global::getInstance()->userInformation->getMusicPath().find("gravebutton")->second), Global::getInstance()->userInformation->getSoundEffectVolume());
+				AudioEngine::setVolume(AudioEngine::play2d(
+					Global::getInstance()->userInformation->getMusicPath().find("gravebutton")->second), 
+					Global::getInstance()->userInformation->getSoundEffectVolume());
 				break;
 			case ui::Widget::TouchEventType::ENDED:
 				_requirement->setDelectDialogAction();
-				this->runAction(Sequence::create(DelayTime::create(0.5f), CallFunc::create([&]()
+				this->runAction(Sequence::create(Spawn::create(DelayTime::create(0.2f), FadeOut::create(0.2f), nullptr),
+					CallFunc::create([&]()
 					{
 						this->removeFromParent();
 						GSPauseQuitLayer::resumeLayer();
@@ -73,9 +76,12 @@ void GSRequirementLayer::keyboardControl()
 		{
 		case cocos2d::EventKeyboard::KeyCode::KEY_SPACE:                     /* ¿Õ¸ñ¼ü»Ö¸´ */
 			KeyBoard->setEnabled(false);
-			AudioEngine::setVolume(AudioEngine::play2d(Global::getInstance()->userInformation->getMusicPath().find("tap")->second), Global::getInstance()->userInformation->getSoundEffectVolume());
+			AudioEngine::setVolume(AudioEngine::play2d(
+				Global::getInstance()->userInformation->getMusicPath().find("tap")->second), 
+				Global::getInstance()->userInformation->getSoundEffectVolume());
 			_requirement->setDelectDialogAction();
-			this->runAction(Sequence::create(DelayTime::create(0.5f), CallFunc::create([&, KeyBoard]()
+			this->runAction(Sequence::create(Spawn::create(DelayTime::create(0.2f), FadeOut::create(0.2f), nullptr),
+				CallFunc::create([&, KeyBoard]()
 				{
 					this->removeFromParent();
 					GSPauseQuitLayer::resumeLayer();

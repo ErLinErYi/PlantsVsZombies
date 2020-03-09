@@ -29,7 +29,7 @@ public:
 	static void resumeLayer();
 	
 CC_CONSTRUCTOR_ACCESS:
-	GSPauseQuitLayer() : _promptLayer(nullptr), _grayLayer(nullptr){}
+	GSPauseQuitLayer() : _promptLayer(nullptr){}
 	~GSPauseQuitLayer() {}
 	virtual bool init();
 
@@ -45,5 +45,4 @@ protected:
 
 private:
 	LayerColor* _promptLayer;
-	LayerColor* _grayLayer;
 };

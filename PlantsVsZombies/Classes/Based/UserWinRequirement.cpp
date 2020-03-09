@@ -8,7 +8,6 @@
 
 UserWinRequirement::UserWinRequirement(Node* node):
 	_node(node),
-	_layer(nullptr),
 	_listener(nullptr),
 	_shieldListener(nullptr),
 	_levelObjiectives(nullptr),
@@ -34,16 +33,11 @@ UserWinRequirement* UserWinRequirement::create(Node* node)
 
 void UserWinRequirement::createShieldLayer()
 {
-	_layer = LayerColor::create(Color4B(0, 0, 0, 180));
-	_layer->setGlobalZOrder(10);
-	_layer->setName("_layer");
-	_node->addChild(_layer);
-
 	// set shieldLayer
 	_shieldListener = EventListenerTouchOneByOne::create();
 	_shieldListener->onTouchBegan = [](Touch* touch, Event* event)-> bool { return true; };
 	_shieldListener->setSwallowTouches(true);
-	_eventDispatcher->addEventListenerWithSceneGraphPriority(_shieldListener, _layer);
+	_eventDispatcher->addEventListenerWithSceneGraphPriority(_shieldListener, _node);
 }
 
 void UserWinRequirement::createDialogBox(GameTypes finishedid)
@@ -52,9 +46,8 @@ void UserWinRequirement::createDialogBox(GameTypes finishedid)
 
 	_levelObjiectives = Scale9Sprite::createWithSpriteFrameName("LevelObjiectives.png");
 	_levelObjiectives->setPosition(Director::getInstance()->getWinSize() / 2.0f);
-	_levelObjiectives->setGlobalZOrder(10);
 	_levelObjiectives->setScale(2.0f);
-	_layer->addChild(_levelObjiectives);
+	_node->addChild(_levelObjiectives);
 
 	auto LevelObjiectivesText = Text::create();
 	LevelObjiectivesText->setString(_global->userInformation->getGameText().find("通关要求！")->second);
@@ -63,7 +56,6 @@ void UserWinRequirement::createDialogBox(GameTypes finishedid)
 	LevelObjiectivesText->setScale(0.5f);
 	LevelObjiectivesText->setColor(Color3B(0, 255, 255));
 	LevelObjiectivesText->setPosition(Vec2(_levelObjiectives->getContentSize().width / 2, 245));
-	LevelObjiectivesText->setGlobalZOrder(10);
 	_levelObjiectives->addChild(LevelObjiectivesText);
 
 	/* 显示要求 */
@@ -99,34 +91,14 @@ void UserWinRequirement::setShowDialogAction()
 		_levelObjiectives->setPosition(Vec2(Director::getInstance()->getWinSize().width / 2.0f, 3000));
 		_levelObjiectives->runAction(EaseBounceOut::create(MoveTo::create(0.5f, Director::getInstance()->getWinSize() / 2.0f)));
 	}
-	if (_layer)
-	{
-		_layer->setOpacity(0);
-		_layer->runAction(FadeTo::create(0.5f, 180));
-	}
 }
 
 void UserWinRequirement::setDelectDialogAction()
 {
 	if (_levelObjiectives)
 	{
-		_levelObjiectives->runAction(MoveBy::create(0.2f, Vec2(0, -500)));
+		_levelObjiectives->runAction(MoveBy::create(0.2f, Vec2(0, -1000)));
 	}
-	if (_layer)
-	{
-		_layer->runAction(Sequence::create(FadeOut::create(0.2f), CallFunc::create([&]() {deleteDialog(); }), nullptr));
-	}
-}
-
-void UserWinRequirement::setLayerColorOpacity(Color3B& color, GLubyte& opacity)
-{
-	_layer->setColor(color);
-	_layer->setOpacity(opacity);
-}
-
-void UserWinRequirement::deleteDialog()
-{
-	_layer->removeFromParent();
 }
 
 Sprite* UserWinRequirement::getDialog() const
@@ -196,7 +168,6 @@ void UserWinRequirement::showText(const string& text, const int& ID, Color3B col
 	requiretext->setWidth(790);
 	requiretext->setPosition(_textPosition[OpenLevelData::getInstance()->readLevelData(OpenLevelData::getInstance()->getLevelNumber())->getGameType().size() - 1][ID]);
 	requiretext->setAnchorPoint(Vec2(0, 1));
-	requiretext->setGlobalZOrder(10);
 	requiretext->setColor(color);
 	_levelObjiectives->addChild(requiretext);
 
@@ -204,6 +175,5 @@ void UserWinRequirement::showText(const string& text, const int& ID, Color3B col
 	LevelObjiectives2->setPosition(_textPosition[OpenLevelData::getInstance()->readLevelData(OpenLevelData::getInstance()->getLevelNumber())->getGameType().size() - 1][ID] + Vec2(-40, +6));
 	LevelObjiectives2->setAnchorPoint(Vec2(0, 1));
 	LevelObjiectives2->setScale(0.5f);
-	LevelObjiectives2->setGlobalZOrder(10);
 	_levelObjiectives->addChild(LevelObjiectives2);
 }

@@ -11,18 +11,11 @@
 
 using namespace spine;
 
-void SPSQuitLayer::addLayer(Node* node)
-{
-	_dialogNode = node;
-	_dialogNode->addChild(this, 1);
-}
-
 bool SPSQuitLayer::init()
 {
-	if (!Layer::init())return false;
+	if (!LayerColor::initWithColor(Color4B(0, 0, 0, 180)))return false;
 
 	createShieldLayer(this);
-
 	createDialog();
 
 	return true;
@@ -103,7 +96,7 @@ void SPSQuitLayer::createButton(const Vec2& vec2, const std::string name, PauseQ
 				switch (button_type)
 				{
 				case PauseQuitLayer_Button::·µ»ØÓÎÏ·:
-					Dialog::deleteDialog();
+					this->removeFromParent();
 					break;
 				default:
 					break;

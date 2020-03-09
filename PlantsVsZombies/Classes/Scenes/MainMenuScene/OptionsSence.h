@@ -41,12 +41,11 @@ class OptionsMenu :public Dialog
 {
 public:
 	CREATE_FUNC(OptionsMenu);
-	virtual bool init() override;
-	void addLayer(Node* node);
-
+	
 CC_CONSTRUCTOR_ACCESS:
 	OptionsMenu();
 	~OptionsMenu();
+	virtual bool init() override;
 	
 protected:
 	virtual void createDialog();                                                                                      /* 创建对话框 */
