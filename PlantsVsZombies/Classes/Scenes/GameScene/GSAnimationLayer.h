@@ -50,4 +50,6 @@ private:
 	Layer* _sunLayer;
 	SunFlower* _randomSuns;
 	OpenLevelData* _openLevelData;
+	default_random_engine _random; 
+	random_device _device;
 };

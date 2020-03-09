@@ -43,7 +43,6 @@ CC_CONSTRUCTOR_ACCESS:
 
 private:
 	void createSchedule();                                                              /* 创建定时器 */
-	void createZombiesHowlSoundEffect();                                                /* 创建僵尸嚎叫音效 */
 	void controlCardEnabled();                                                          /* 控制卡牌是否可用 */
 	void calculatePlantPosition();                                                      /* 计算植物种植位置 */
 	void createMouseListener();                                                         /* 创建鼠标 */
@@ -79,7 +78,6 @@ private:
 	Node* _animationLayer;                               // 游戏层
 	GSGameEndLayer* _gameEndShieldLayer;                 // 游戏结束屏蔽层
 	OpenLevelData* _openLevelData;                       // 关卡数据单例
-	default_random_engine _random;                       // 随机数引擎
 	vector<int> _levelData;                              // 临时关卡数据
 };
 

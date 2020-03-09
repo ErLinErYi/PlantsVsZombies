@@ -64,6 +64,11 @@ void CommonZombies::createPreviewZombie()
 	_zombiesAnimation->setAttachment("Zombie_bucket", "tt_innerleg_foot3");
 }
 
+void CommonZombies::playZombieSoundEffect()
+{
+	Zombies::playZombieSoundEffect(rand() % 2 ? "groan6" : "sukhbir6");
+}
+
 void CommonZombies::zombieInjuredEventUpdate()
 {
 	if (_currentBloodVolume < _bloodVolume / 2.0f) /* 僵尸血量小于一定值，僵尸掉胳膊 */

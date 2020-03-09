@@ -33,10 +33,12 @@ Zombies::Zombies() :
 ,   _isShowLoseLimbsAnimation(true)
 ,   _isCanDelete{false,false}
 ,   _zombieEatPlantNumber(-1)
+,   _zombieHowlNumbers(0)
 ,	_openLevelData(OpenLevelData::getInstance())
 ,	_global(Global::getInstance())
 ,   _animationName{"Zombies_Stand","Zombies_Stand1","Zombies_Walk","Zombies_Walk2"}
 {
+	_random.seed(_device());
 }
 
 Zombies::~Zombies()
@@ -45,10 +47,11 @@ Zombies::~Zombies()
 
 void Zombies::zombieInit(const string& animation_name)
 {
+	uniform_real_distribution<float>number(0.f, 0.45f);
 	_zombiesAnimation = SkeletonAnimation::createWithData(_global->userInformation->getAnimationData().find(animation_name)->second);
 	_zombiesAnimation->setPosition(_position);
 	_zombiesAnimation->setAnchorPoint(Vec2(0, 0));
-	_zombiesAnimation->setTimeScale(0.6f + rand() % 4567 / 10000.0f);
+	_zombiesAnimation->setTimeScale(0.6f + number(_random));
 	_zombiesAnimation->setLocalZOrder(getLocalZOrder(_position.y));
 	_zombiesAnimation->setOpacity(0);   /* !!! 创建的僵尸自动隐身 */
 	_node->addChild(_zombiesAnimation);
@@ -81,7 +84,7 @@ void Zombies::setZombieAnimationName(const string& name, bool isLoop) const
 
 void Zombies::setZombieMove(float delta)
 {
-	_zombiesAnimation->setPositionX(_zombiesAnimation->getPositionX() - (getZombieIsEnterMap() ? delta * _currentSpeed : delta * _currentSpeed * 2.f));
+	_zombiesAnimation->setPositionX(_zombiesAnimation->getPositionX() - delta * _currentSpeed);
 
 	if (getZombieIsEnterMap() && !getZombieIsShow())
 	{
@@ -171,7 +174,7 @@ void Zombies::zombiesDeleteUpdate(list<Zombies*>::iterator& zombie)
 			UserDefault::getInstance()->setIntegerForKey("KILLALLZOMBIES", ++Global::getInstance()->userInformation->getKillZombiesNumbers());/* 杀死僵尸数加一 */
 			informationLayerInformation->updateZombiesDieNumbers(); /* 更新显示 */
 
-			setZombiesNumbers(getZombiesNumbers() - 1);  /* 僵尸总数更新 */
+			zombiesNumbersChange("--");  /* 僵尸总数更新 */
 
 			auto zombies = zombie;
 			(*zombies)->getZombieAnimation()->runAction(Sequence::create(DelayTime::create(2.0f),
@@ -440,6 +443,18 @@ float Zombies::getLocalZOrder(const int& positiionY) const
 	return 0;
 }
 
+void Zombies::zombiesNumbersChange(const string& name)
+{
+	if (name == "++")
+	{
+		++_zombiesNumbers;
+	}
+	else
+	{
+		--_zombiesNumbers;
+	}
+}
+
 void Zombies::judgeZombieWin(list<Zombies*>::iterator zombie)
 {
 	if (!_gameResultJudgement)
@@ -499,7 +514,7 @@ void Zombies::setZombieSecondaryInjure()
 
 		zombieLoseHeadAnimation("ZombieHead");
 
-		zombiesFadeOutAnimation();
+		zombieFadeOutAnimation();
 	}
 }
 
@@ -606,17 +621,18 @@ void Zombies::zombieLoseShieldAnimation(const std::string& name)
 	setZombieAttributeForGameType(cone);
 }
 
-void Zombies::zombiesFadeOutAnimation()
+void Zombies::zombieFadeOutAnimation()
 {
-	_zombiesAnimation->setTimeScale(0.6f + rand() % 4567 / 10000.0f);
+	uniform_real_distribution<float>number(0.f, 0.45f);
+	_zombiesAnimation->setTimeScale(0.6f + number(_random));
 	_zombiesAnimation->setEventListener([&](spTrackEntry* entry, spEvent* event)
 		{
 			if (!strcmp(event->data->name, "filldown"))
 			{
 				_currentSpeed = 0; /* 停止运动 */
-				rand() % 2 == 0 ?
-					AudioEngine::setVolume(AudioEngine::play2d(_global->userInformation->getMusicPath().find("zombie_falling_1")->second), _global->userInformation->getSoundEffectVolume()) :
-					AudioEngine::setVolume(AudioEngine::play2d(_global->userInformation->getMusicPath().find("zombie_falling_2")->second), _global->userInformation->getSoundEffectVolume());
+				AudioEngine::setVolume(AudioEngine::play2d(
+					_global->userInformation->getMusicPath().find(rand() % 2 ? "zombie_falling_1" : "zombie_falling_2")->second), 
+					_global->userInformation->getSoundEffectVolume());
 			}
 			if (!strcmp(event->data->name, "die"))
 			{
@@ -628,6 +644,24 @@ void Zombies::zombiesFadeOutAnimation()
 						}), nullptr));
 			}
 		});
+}
+
+void Zombies::playZombieSoundEffect()
+{
+	const string music[6] = { "groan","groan2","groan3","groan4","groan5","groan6" };
+	playZombieSoundEffect(music[rand() % 6]);
+}
+
+void Zombies::playZombieSoundEffect(const string& name)
+{
+	uniform_int_distribution<unsigned>number(0, 10000); 
+	if (number(_random) < 5 && _zombieHowlNumbers< 3)
+	{
+		AudioEngine::setVolume(AudioEngine::play2d(
+			_global->userInformation->getMusicPath().find(name)->second), 
+			_global->userInformation->getSoundEffectVolume());
+		++_zombieHowlNumbers;
+	}
 }
 
 void Zombies::setSmallZombieAttribute()

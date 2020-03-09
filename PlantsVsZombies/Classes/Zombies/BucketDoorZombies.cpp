@@ -67,6 +67,11 @@ void BucketDoorZombies::createPreviewZombie()
 	_zombiesAnimation->setAttachment("Zombie_screendoor", "Zombie_screendoor1");
 }
 
+void BucketDoorZombies::playZombieSoundEffect()
+{
+	Zombies::playZombieSoundEffect(rand() % 2 ? "groan" : "sukhbir");
+}
+
 void BucketDoorZombies::zombieInjuredEventUpdate()
 {
 	if (_isHaveShield) /* 如果有护盾 */

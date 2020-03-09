@@ -4,6 +4,7 @@
  *Date: 2020.2.4
  *Email: 2117610943@qq.com
  */
+#include <random>
 
 #include "GSAnimationLayer.h"
 #include "GSDefine.h"
@@ -24,7 +25,7 @@ GSAnimationLayer::GSAnimationLayer(Node* node) :
 ,   _randomSuns(nullptr)
 ,   _sunLayer(nullptr)
 {
-	srand(time(nullptr));
+	_random.seed(_device());
 }
 
 GSAnimationLayer::~GSAnimationLayer()
@@ -126,11 +127,12 @@ void GSAnimationLayer::createZombies()
 	case ZombiesType::LmpZombies:         zombies = new LmpZombies(this);         break;
 	default: break;
 	}
-	zombies->setZombiePosition(Vec2(1780 + rand() % 500, controlLayerInformation->_zombiesAppearControl->getEqualProbabilityForRow()));
+	uniform_int_distribution<unsigned>number(0, 500);
+	zombies->setZombiePosition(Vec2(1780 + number(_random), controlLayerInformation->_zombiesAppearControl->getEqualProbabilityForRow()));
 	zombies->createZombie();
 	zombies->setZombieAttributeForGameType();
 	ZombiesGroup.push_back(zombies);
-	Zombies::setZombiesNumbers(ZombiesGroup.size());
+	Zombies::zombiesNumbersChange("++");
 }
 
 void GSAnimationLayer::createSunLayer()
@@ -182,6 +184,7 @@ void GSAnimationLayer::zombiesEventUpdate(float delta)
 	{
 		(*zombie)->setZombieMove(delta);
 		(*zombie)->zombieInjuredEventUpdate();
+		(*zombie)->playZombieSoundEffect();
 		Zombies::judgeZombieWin(zombie);
 		Zombies::zombiesDeleteUpdate(zombie);
 	}

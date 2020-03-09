@@ -6,12 +6,14 @@
  */
 
 #pragma once
+#include <random>
+
 #include "cocos2d.h"
 #include "Based/LevelData.h"
 #include "spine/spine.h"
 #include "AudioEngine.h"
 #include "Based/GlobalVariable.h"
-#include "spine\spine-cocos2dx.h"
+#include "spine/spine-cocos2dx.h"
 
 using namespace spine;
 using namespace cocos2d;
@@ -56,6 +58,13 @@ public:
 	 *设置僵尸数量
 	 */
 	static void setZombiesNumbers(const unsigned int numbers);
+
+	/**
+	 *僵尸数量自增/自减一
+	 *@ ++ 自增1
+	 *@ -- 自减1
+	 */
+	static void zombiesNumbersChange(const string&);
 
 	/**
 	 *判断僵尸赢
@@ -336,6 +345,11 @@ public:
 	 */
 	virtual void playZombiesDieAnimation(const string& animationName);
 
+	/**
+	 *播放僵尸音效
+	 */
+	virtual void playZombieSoundEffect();
+
 protected:
 	/*
 	 *初始化僵尸
@@ -380,7 +394,12 @@ protected:
 	/**
 	 *僵尸消失动画
 	 */
-	virtual void zombiesFadeOutAnimation();
+	virtual void zombieFadeOutAnimation();
+
+	/**
+	 *僵尸音效
+	 */
+	virtual void playZombieSoundEffect(const string& name);
 
 	/**
 	 *设置头部护盾一级损伤
@@ -452,8 +471,8 @@ protected:
 	float _currentBloodVolume;                // 当前血量
 	float _currentHeadShieldVolume;           // 当前护盾血量
 	float _currentBodyShieldVolume;           // 当前护盾1血量
-	float _speed;                             // 移动速度
-	float _currentSpeed;                      // 存储移动速度
+	float _speed;                             // 存储移动速度
+	float _currentSpeed;                      // 移动速度
 	bool _isHaveShield;                       // 是否有护盾
 	bool _isUseForGameType;                   // 是否被使用在游戏类型
 	bool _isEat;                              // 是否在吃植物
@@ -474,7 +493,10 @@ protected:
 
 private:
 	int _zombieEatPlantNumber;
+	int _zombieHowlNumbers;
 	OpenLevelData* _openLevelData;
+	default_random_engine _random;
+	random_device _device;
 
 	static bool _zombieIsWin;
 	static GSGameEndLayer* _gameEndLayer;

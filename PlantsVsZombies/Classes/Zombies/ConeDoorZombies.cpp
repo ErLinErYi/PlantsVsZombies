@@ -67,6 +67,11 @@ void ConeDoorZombies::createPreviewZombie()
 	_zombiesAnimation->setAttachment("Zombie_screendoor", "Zombie_screendoor1");
 }
 
+void ConeDoorZombies::playZombieSoundEffect()
+{
+	Zombies::playZombieSoundEffect(rand() % 2 ? "groan2" : "sukhbir2");
+}
+
 void ConeDoorZombies::zombieInjuredEventUpdate()
 {
 	if (_isHaveShield) /* 如果有护盾 */

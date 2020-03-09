@@ -23,6 +23,7 @@ LmpZombies::LmpZombies(Node* node)
 	_currentSpeed = 40;
 	_isHaveShield = false;
 	_zombiesType = ZombiesType::LmpZombies;
+	srand(time(nullptr));
 }
 
 LmpZombies* LmpZombies::create(Node* node)
@@ -58,6 +59,11 @@ void LmpZombies::createPreviewZombie()
 	createZombieShadow();
 
 	_zombiesAnimation->setScale(0.8f);
+}
+
+void LmpZombies::playZombieSoundEffect()
+{
+	Zombies::playZombieSoundEffect(rand() % 2 ? "imp" : "imp2");
 }
 
 void LmpZombies::zombieInjuredEventUpdate()
@@ -96,6 +102,6 @@ void LmpZombies::setZombieSecondaryInjure()
 
 		zombieLoseHeadAnimation("ZombieImpHead");
 
-		zombiesFadeOutAnimation();
+		zombieFadeOutAnimation();
 	}
 }

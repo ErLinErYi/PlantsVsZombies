@@ -63,6 +63,11 @@ void BucketZombies::createPreviewZombie()
 	_zombiesAnimation->setAttachment("Zombie_bucket", "Zombie_bucket1");
 }
 
+void BucketZombies::playZombieSoundEffect()
+{
+	Zombies::playZombieSoundEffect(rand() % 2 ? "groan4" : "sukhbir4");
+}
+
 void BucketZombies::zombieInjuredEventUpdate()
 {
 	if (_isHaveShield)/* 如果有头部护盾 */

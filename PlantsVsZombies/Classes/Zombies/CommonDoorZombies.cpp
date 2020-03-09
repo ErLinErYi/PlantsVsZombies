@@ -67,6 +67,11 @@ void CommonDoorZombies::createPreviewZombie()
 	_zombiesAnimation->setAttachment("Zombie_screendoor", "Zombie_screendoor1");
 }
 
+void CommonDoorZombies::playZombieSoundEffect()
+{
+	Zombies::playZombieSoundEffect(rand() % 2 ? "groan3" : "sukhbir3");
+}
+
 void CommonDoorZombies::zombieInjuredEventUpdate()
 {
 	if (_isHaveShield)/* 如果有身体护盾 */

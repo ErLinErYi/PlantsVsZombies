@@ -17,6 +17,7 @@ public:
 	static BucketZombies* create(Node* node = nullptr);
 	virtual void createZombie() override;
 	virtual void createPreviewZombie() override;
+    virtual void playZombieSoundEffect() override;
 
 CC_CONSTRUCTOR_ACCESS:
 	BucketZombies(Node* node = nullptr);

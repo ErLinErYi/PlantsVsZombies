@@ -57,7 +57,6 @@ bool GSControlLayer::init()
 	if(!Layer::init())return false;
 
 	createSchedule();
-	createZombiesHowlSoundEffect();
 	createPlantsCardListener();
 	createMouseListener();
 
@@ -77,19 +76,6 @@ void GSControlLayer::createSchedule()
 	schedule([&](float) {
 		zombiesComeTiming();
 		}, 1.0f, "zombiesComing");
-}
-
-void GSControlLayer::createZombiesHowlSoundEffect()
-{
-	this->runAction(RepeatForever::create(Sequence::create(DelayTime::create(1.0f),
-		CallFunc::create([=]()
-			{
-				if (rand() % 10000 <= 700)
-				{
-					const string music[6] = { "groan","groan2","groan3","groan4","groan5","groan6" };
-					AudioEngine::setVolume(AudioEngine::play2d(_global->userInformation->getMusicPath().find(music[rand() % 6])->second), _global->userInformation->getSoundEffectVolume());
-				}
-			}), nullptr)));
 }
 
 void GSControlLayer::controlCardEnabled()

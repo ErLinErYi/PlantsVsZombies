@@ -154,14 +154,14 @@ void GSButtonLayer::createRequirementLayer()
 
 void GSButtonLayer::controlAccelerateScheduler()
 {
-	if (Director::getInstance()->getScheduler()->getTimeScale() == 1.5f)
+	if (Director::getInstance()->getScheduler()->getTimeScale() == 2.0f)
 	{
 		Director::getInstance()->getScheduler()->setTimeScale(1.0f);
 		_accelerateButton->loadTextureNormal("SpeedButton.png", TextureResType::PLIST);
 	}
 	else
 	{
-		Director::getInstance()->getScheduler()->setTimeScale(1.5f);
+		Director::getInstance()->getScheduler()->setTimeScale(2.0f);
 		_decelerateButton->loadTextureNormal("SpeedButton.png", TextureResType::PLIST);
 		_accelerateButton->loadTextureNormal("SpeedButtonDown.png", TextureResType::PLIST);
 	}

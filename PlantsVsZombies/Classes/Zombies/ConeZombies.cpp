@@ -63,6 +63,11 @@ void ConeZombies::createPreviewZombie()
 	_zombiesAnimation->setAttachment("Zombie_bucket", "Zombie_cone1");
 }
 
+void ConeZombies::playZombieSoundEffect()
+{
+	Zombies::playZombieSoundEffect(rand() % 2 ? "groan5" : "sukhbir5");
+}
+
 void ConeZombies::zombieInjuredEventUpdate()
 {
 	if (_isHaveShield)/* 如果头部有护盾 */
