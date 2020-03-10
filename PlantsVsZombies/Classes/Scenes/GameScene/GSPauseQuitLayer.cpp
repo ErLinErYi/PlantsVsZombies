@@ -7,6 +7,7 @@
 #include "spine/spine-cocos2dx.h"
 
 #include "GSPauseQuitLayer.h"
+#include "GameScene.h"
 
 #include "../SelectPlantsScene/SelectPlantsScene.h"
 #include "../WorldScene/World_1.h"
@@ -44,6 +45,7 @@ bool GSPauseQuitLayer::init()
 {
 	if (!LayerColor::initWithColor(Color4B(0, 0, 0, 180)))return false;
 
+	GameScene::setPauseGame(true);
 	/* 创建对话框 */
 	createDialog();
 
@@ -144,6 +146,7 @@ void GSPauseQuitLayer::createButton(const Vec2& vec2, const std::string name, Pa
 					break;
 				case PauseQuitLayer_Button::返回游戏:
 					resumeLayer();
+					GameScene::setPauseGame(false);
 					this->removeFromParent();
 					break;
 				default:

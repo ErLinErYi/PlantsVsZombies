@@ -49,6 +49,7 @@ void GSGameEndLayer::createShieldLayer()
 
 void GSGameEndLayer::successfullEntry()
 {
+	Director::getInstance()->getScheduler()->setTimeScale(1.0f); /* »Ö¸´²¥·Å±¶Êý */
 	caveLevelNumber();
 	carsTocCoins();
 

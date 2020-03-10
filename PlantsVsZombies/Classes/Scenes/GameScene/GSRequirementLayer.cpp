@@ -15,14 +15,14 @@ int pressKeySpace = 0;
 
 Layer* GSRequirementLayer::addLayer()
 {
-	auto layer = GSRequirementLayer::create();
-	return layer;
+	return GSRequirementLayer::create();
 }
 
 bool GSRequirementLayer::init()
 {
 	if (!LayerColor::initWithColor(Color4B(0, 0, 0, 180)))return false;
 
+	GameScene::setPauseGame(true);
 	showRequirement();
 	keyboardControl();
 
@@ -60,6 +60,7 @@ void GSRequirementLayer::showRequirement()
 					{
 						this->removeFromParent();
 						GSPauseQuitLayer::resumeLayer();
+						GameScene::setPauseGame(false);
 					}), nullptr));
 				break;
 			}
@@ -85,6 +86,7 @@ void GSRequirementLayer::keyboardControl()
 				{
 					this->removeFromParent();
 					GSPauseQuitLayer::resumeLayer();
+					GameScene::setPauseGame(false);
 					KeyBoard->setEnabled(true);
 				}), nullptr));
 			break;

@@ -7,12 +7,12 @@
 
 #include "GSButtonLayer.h"
 #include "GSPauseQuitLayer.h"
-#include "Based/UserWinRequirement.h"
-#include "Scenes/SelectPlantsScene/SPSSpriteLayer.h"
 #include "GSRequirementLayer.h"
 #include "GSInformationLayer.h"
-
 #include "GSDefine.h"
+
+#include "Based/UserWinRequirement.h"
+#include "Scenes/SelectPlantsScene/SPSSpriteLayer.h"
 
 GSButtonLayer::GSButtonLayer():
 	_global(Global::getInstance()),
