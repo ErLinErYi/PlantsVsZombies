@@ -1,10 +1,10 @@
 # PlantsVsZombies
-* **game engine based on version cocos2d-x V3.16**
-* **all games are developed in C++**
-* **if you just contacted cocos2d-x, this is a good entry project**
-* **if you are a beginner of C++ or a game developer of other languages, this project is a good learning project without complex syntax**
-* **if you are a game developer and want to do some similar games, this project may help you or give you some inspiration** 
-* *!!! important*   **This game mimics the original plant vs. Zombies. Do not use it for commercial purposes or you will be responsible for the consequences**
+* **Game engine based on version cocos2d-x V3.16**
+* **All games are developed in C++**
+* **If you just contacted cocos2d-x, this is a good entry project**
+* **If you are a beginner of C++ or a game developer of other languages, this project is a good learning project without complex syntax**
+* **If you are a game developer and want to do some similar games, this project may help you or give you some inspiration** 
+* *!!! Important*   **This game mimics the original plant vs. Zombies. Do not use it for commercial purposes or you will be responsible for the consequences**
 
 * **游戏引擎基于版本 Cocos2d-X v3.16**
 * **游戏全部使用c++开发**
