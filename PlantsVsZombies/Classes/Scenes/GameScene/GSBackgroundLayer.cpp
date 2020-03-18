@@ -38,6 +38,13 @@ bool GSBackgroundLayer::init()
 
 void GSBackgroundLayer::setBackgroundImagePosition()
 {
+#if VIRTUAL3D
+	auto bg = Sprite::create("resources/timg.png");
+	bg->setContentSize(Size(3325, 1080));
+	bg->setAnchorPoint(Point(0, 0));
+	bg->setPosition(Vec2(-455, 0));
+	this->addChild(bg);
+#else
 	auto background = _global->userInformation->getBackground();
 	if (background != nullptr)
 	{
@@ -45,7 +52,8 @@ void GSBackgroundLayer::setBackgroundImagePosition()
 		background->setContentSize(Size(2930, 1081));
 		background->setPosition(Vec2(-220, 0));
 		this->addChild(background);
-	}
+    }
+#endif
 }
 
 void GSBackgroundLayer::showGameType()

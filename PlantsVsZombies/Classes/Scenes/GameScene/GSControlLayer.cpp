@@ -114,11 +114,60 @@ void GSControlLayer::calculatePlantPosition()
 	{
 		for (int j = 0; j < _gameMapInformation->columnNumbers; j++)
 		{
+#if VIRTUAL3D
+			if (i == 0)
+			{
+				if (_cur.x > 490 + 130 * j && _cur.x < 490 + 130 * (j + 1) && _cur.y>90 && _cur.y < 265)
+				{
+					_plantsPosition.x = j;
+					_plantsPosition.y = i; CCLOG("%d %d", i, j);
+				}
+			}
+			if (i == 1)
+			{
+				if (_cur.x > 510 + 125 * j && _cur.x < 510 + 125 * (j + 1) && _cur.y>265 && _cur.y < 425)
+				{
+					_plantsPosition.x = j;
+					_plantsPosition.y = i; CCLOG("%d %d", i, j);
+				}
+			}
+			if (i == 2)
+			{
+				if (_cur.x > 530 + 120 * j && _cur.x < 530 + 120 * (j + 1) && _cur.y>425 && _cur.y < 570)
+				{
+					_plantsPosition.x = j;
+					_plantsPosition.y = i; CCLOG("%d %d", i, j);
+				}
+			}
+			if (i == 3)
+			{
+				if (_cur.x > 550 + 115 * j && _cur.x < 550 + 115 * (j + 1) && _cur.y>570 && _cur.y < 710)
+				{
+					_plantsPosition.x = j;
+					_plantsPosition.y = i; CCLOG("%d %d", i, j);
+				}
+			}
+			if (i == 4)
+			{
+				if (_cur.x > 570 + 110 * j && _cur.x < 570 + 110 * (j + 1) && _cur.y>710 && _cur.y < 840)
+				{
+					_plantsPosition.x = j;
+					_plantsPosition.y = i; CCLOG("%d %d", i, j);
+				}
+			}
+			/*if (_cur.x > 490 + i * 20 + (130 - 5 * i) * j && _cur.x < 490 + i * 20 + (130 - 5 * i) * (j + 1) &&
+				_cur.y > 90 + (175 - 15 * j) * i && _cur.y < 90 + (175 - 15 * j) * (i + 1))
+			{
+				_plantsPosition.x = j;
+				_plantsPosition.y = i;
+			}*/ 
+#else
 			if (GRASS_INSIDE(_cur, i, j))
 			{
 				_plantsPosition.x = j;
 				_plantsPosition.y = i;
 			}
+#endif
 		}
 	}
 
@@ -140,7 +189,6 @@ void GSControlLayer::createMouseListener()
 	{
 		/* 获取鼠标位置 */
 		_cur = ((EventMouse*)event)->getLocationInView();
-
 		mouseMoveControl();
 	};
 
@@ -471,7 +519,31 @@ void GSControlLayer::mouseMoveControl()
 		}
 		else
 		{
+#if VIRTUAL3D
+			if (_plantsPosition.y == 0)
+			{
+				_plantPreviewImage->setPosition(Vec2(490 + 130 * _plantsPosition.x + 60, 180));
+			}
+			if (_plantsPosition.y == 1)
+			{
+				_plantPreviewImage->setPosition(Vec2(510 + 125 * _plantsPosition.x + 60, 345));
+		    }
+			if (_plantsPosition.y == 2)
+			{
+				_plantPreviewImage->setPosition(Vec2(530 + 120 * _plantsPosition.x + 60, 500));
+			}
+			if (_plantsPosition.y == 3)
+			{
+				_plantPreviewImage->setPosition(Vec2(550 + 115 * _plantsPosition.x + 60, 640));
+			}
+			if (_plantsPosition.y == 4)
+			{
+				_plantPreviewImage->setPosition(Vec2(570 + 110 * _plantsPosition.x + 60, 775));
+			}
+			//_plantPreviewImage->setPosition(Vec2(490 + 20 * _plantsPosition.y + (130 - 5 * _plantsPosition.y) * _plantsPosition.x + 60, 90 + (175 - 15 * _plantsPosition.x) * _plantsPosition.y + 60));
+#else
 			_plantPreviewImage->setPosition(Vec2(GRASS_POSITION_LEFT + 122 * _plantsPosition.x + 60, 110 + 138 * (_plantsPosition.y + 1) - 60));
+#endif
 		}
 		_plantCurImage->setPosition(_cur + Vec2(0, 30));
 	}

@@ -7,6 +7,8 @@
 #pragma execution_character_set("utf-8")
 #endif
 
+#define VIRTUAL3D 0
+
 using namespace std;
 using namespace cocos2d;
 using namespace cocos2d::experimental;

@@ -109,6 +109,11 @@ public:
 	virtual void setPlantHealthPoint(int healthPoint) { _healthPoint = healthPoint; }
 
 	/**
+	 *设置植物大小
+	 */
+	virtual void setPlantScale();
+
+	/**
 	 *获取植物标记
 	 */
 	virtual int getPlantTag() const { return _plantTag; }

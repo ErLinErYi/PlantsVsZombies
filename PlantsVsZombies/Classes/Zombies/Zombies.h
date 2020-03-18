@@ -216,6 +216,11 @@ public:
 	virtual void setZombieHurtBlink() const;
 
 	/**
+	 *设置僵尸大小
+	 */
+	virtual void setZombieScale();
+
+	/**
 	 *获取僵尸动画
 	 */
 	virtual SkeletonAnimation* getZombieAnimation() const;

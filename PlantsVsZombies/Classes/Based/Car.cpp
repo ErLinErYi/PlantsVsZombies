@@ -37,7 +37,11 @@ void Car::showCar()
 	_carImage->setPosition(_position);
 	_carImage->setLocalZOrder(getZOrder(_position.y));
 	_carImage->setScale(_scale);
+#if VIRTUAL3D
+	_carImage->runAction(ScaleTo::create(0.2f, 0.8f + (getZOrder(_position.y) + 9) / 20 / 20.0f));
+#else
 	_carImage->runAction(ScaleTo::create(0.2f, 0.8f));
+#endif
 	_node->addChild(_carImage);
 
 	createCarShadow();
@@ -160,7 +164,11 @@ bool Car::getzombieIsEncounterCar(Zombies* zombie) const
 
 int Car::getZOrder(const float& pos_y) const
 {
+#if VIRTUAL3D
+	int const pos[5] = { 782,634,486,338,190 };
+#else
 	int const pos[5] = { 732,594,456,318,180 };
+#endif
 	for (int i = 0; i < 5; ++i)
 	{
 		if (pos[i] == pos_y)
@@ -170,3 +178,4 @@ int Car::getZOrder(const float& pos_y) const
 	}
 	return 0;
 }
+

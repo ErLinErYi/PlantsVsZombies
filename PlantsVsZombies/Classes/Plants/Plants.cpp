@@ -117,6 +117,11 @@ void Plants::setPlantVisible(const bool visible)
 	_plantAnimation->setVisible(visible);
 }
 
+void Plants::setPlantScale()
+{
+	_plantAnimation->setScale(_plantAnimation->getScale() + (4 - _plantTag / 10) / 20.f);
+}
+
 bool Plants::getPlantVisible()
 {
 	return _plantAnimation->isVisible();

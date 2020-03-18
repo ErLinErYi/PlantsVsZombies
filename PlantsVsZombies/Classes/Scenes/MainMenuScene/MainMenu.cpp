@@ -41,7 +41,7 @@ bool MainMenu::init()
 	_global->changeBgMusic("mainmusic", true);
 
 	AudioEngine::setVolume(AudioEngine::play2d(_global->userInformation->getMusicPath().find("roll_in")->second), _global->userInformation->getSoundEffectVolume());
-	
+
 	/* 创建主要精灵 */
 	this->createMainSprite();
 
@@ -371,6 +371,10 @@ void MainMenu::createMouseListener()
 	/* 鼠标按下监听 */
 	_mouse->onMouseDown = [&](Event *event) 
 	{
+		if (checkCurInButtons())
+		{
+			AudioEngine::setVolume(AudioEngine::play2d(_global->userInformation->getMusicPath().find("gravebutton")->second), _global->userInformation->getSoundEffectVolume());
+		}
 		switch (this->checkCurInButtons())
 		{
 		case 1: 
@@ -386,7 +390,6 @@ void MainMenu::createMouseListener()
 			_mainButton[4]->setPosition(Vec2(852, 383)); /* 生存模式 */
 			break;
 		}
-		AudioEngine::setVolume(AudioEngine::play2d(_global->userInformation->getMusicPath().find("gravebutton")->second), _global->userInformation->getSoundEffectVolume());
 	};
 
 	/* 鼠标松开监听 */

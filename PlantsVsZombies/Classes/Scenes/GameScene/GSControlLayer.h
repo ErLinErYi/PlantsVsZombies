@@ -9,7 +9,6 @@
 #include <random>
 
 #include "cocos2d.h"
-
 #include "Based/GlobalVariable.h"
 
 using namespace cocos2d;

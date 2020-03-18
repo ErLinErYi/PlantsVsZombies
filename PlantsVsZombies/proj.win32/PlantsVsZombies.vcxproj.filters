@@ -52,12 +52,6 @@
     <Filter Include="Class\Based">
       <UniqueIdentifier>{2f5f84c2-26a2-4a6f-ac7e-3dca217d7207}</UniqueIdentifier>
     </Filter>
-    <Filter Include="Class\Based\libGif">
-      <UniqueIdentifier>{248f85af-5f68-48b9-b851-39c802aa1b4c}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="Class\Based\libGif\gif_lib">
-      <UniqueIdentifier>{a650ef9a-3f17-4728-87c8-e0946a0add26}</UniqueIdentifier>
-    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ResourceCompile Include="game.rc">
@@ -262,54 +256,6 @@
     </ClCompile>
     <ClCompile Include="..\Classes\Scenes\GameScene\GSPauseLayer.cpp">
       <Filter>Class\Scenes\GameScene</Filter>
-    </ClCompile>
-    <ClCompile Include="..\Classes\Based\libGif\Bitmap.cpp">
-      <Filter>Class\Based\libGif</Filter>
-    </ClCompile>
-    <ClCompile Include="..\Classes\Based\libGif\CacheGif.cpp">
-      <Filter>Class\Based\libGif</Filter>
-    </ClCompile>
-    <ClCompile Include="..\Classes\Based\libGif\CacheGifData.cpp">
-      <Filter>Class\Based\libGif</Filter>
-    </ClCompile>
-    <ClCompile Include="..\Classes\Based\libGif\FileData.cpp">
-      <Filter>Class\Based\libGif</Filter>
-    </ClCompile>
-    <ClCompile Include="..\Classes\Based\libGif\GifBase.cpp">
-      <Filter>Class\Based\libGif</Filter>
-    </ClCompile>
-    <ClCompile Include="..\Classes\Based\libGif\GifMovie.cpp">
-      <Filter>Class\Based\libGif</Filter>
-    </ClCompile>
-    <ClCompile Include="..\Classes\Based\libGif\GifMovieData.cpp">
-      <Filter>Class\Based\libGif</Filter>
-    </ClCompile>
-    <ClCompile Include="..\Classes\Based\libGif\InstantGif.cpp">
-      <Filter>Class\Based\libGif</Filter>
-    </ClCompile>
-    <ClCompile Include="..\Classes\Based\libGif\InstantGifData.cpp">
-      <Filter>Class\Based\libGif</Filter>
-    </ClCompile>
-    <ClCompile Include="..\Classes\Based\libGif\Movie.cpp">
-      <Filter>Class\Based\libGif</Filter>
-    </ClCompile>
-    <ClCompile Include="..\Classes\Based\libGif\gif_lib\dgif_lib.c">
-      <Filter>Class\Based\libGif\gif_lib</Filter>
-    </ClCompile>
-    <ClCompile Include="..\Classes\Based\libGif\gif_lib\gif_err.c">
-      <Filter>Class\Based\libGif\gif_lib</Filter>
-    </ClCompile>
-    <ClCompile Include="..\Classes\Based\libGif\gif_lib\gif_font.c">
-      <Filter>Class\Based\libGif\gif_lib</Filter>
-    </ClCompile>
-    <ClCompile Include="..\Classes\Based\libGif\gif_lib\gif_hash.c">
-      <Filter>Class\Based\libGif\gif_lib</Filter>
-    </ClCompile>
-    <ClCompile Include="..\Classes\Based\libGif\gif_lib\gifalloc.c">
-      <Filter>Class\Based\libGif\gif_lib</Filter>
-    </ClCompile>
-    <ClCompile Include="..\Classes\Based\libGif\gif_lib\quantize.c">
-      <Filter>Class\Based\libGif\gif_lib</Filter>
     </ClCompile>
     <ClCompile Include="..\Classes\Scenes\SelectPlantsScene\SPSRequriementLayer.cpp">
       <Filter>Class\Scenes\SelectPlantsScene</Filter>
@@ -519,51 +465,6 @@
     </ClInclude>
     <ClInclude Include="..\Classes\Scenes\GameScene\GSPauseLayer.h">
       <Filter>Class\Scenes\GameScene</Filter>
-    </ClInclude>
-    <ClInclude Include="..\Classes\Based\libGif\Bitmap.h">
-      <Filter>Class\Based\libGif</Filter>
-    </ClInclude>
-    <ClInclude Include="..\Classes\Based\libGif\CacheGif.h">
-      <Filter>Class\Based\libGif</Filter>
-    </ClInclude>
-    <ClInclude Include="..\Classes\Based\libGif\CacheGifData.h">
-      <Filter>Class\Based\libGif</Filter>
-    </ClInclude>
-    <ClInclude Include="..\Classes\Based\libGif\FileData.h">
-      <Filter>Class\Based\libGif</Filter>
-    </ClInclude>
-    <ClInclude Include="..\Classes\Based\libGif\GifBase.h">
-      <Filter>Class\Based\libGif</Filter>
-    </ClInclude>
-    <ClInclude Include="..\Classes\Based\libGif\GifMacros.h">
-      <Filter>Class\Based\libGif</Filter>
-    </ClInclude>
-    <ClInclude Include="..\Classes\Based\libGif\GIFMovie.h">
-      <Filter>Class\Based\libGif</Filter>
-    </ClInclude>
-    <ClInclude Include="..\Classes\Based\libGif\GIFMovieData.h">
-      <Filter>Class\Based\libGif</Filter>
-    </ClInclude>
-    <ClInclude Include="..\Classes\Based\libGif\GifUtils.h">
-      <Filter>Class\Based\libGif</Filter>
-    </ClInclude>
-    <ClInclude Include="..\Classes\Based\libGif\InstantGif.h">
-      <Filter>Class\Based\libGif</Filter>
-    </ClInclude>
-    <ClInclude Include="..\Classes\Based\libGif\InstantGifData.h">
-      <Filter>Class\Based\libGif</Filter>
-    </ClInclude>
-    <ClInclude Include="..\Classes\Based\libGif\Movie.h">
-      <Filter>Class\Based\libGif</Filter>
-    </ClInclude>
-    <ClInclude Include="..\Classes\Based\libGif\gif_lib\gif_hash.h">
-      <Filter>Class\Based\libGif\gif_lib</Filter>
-    </ClInclude>
-    <ClInclude Include="..\Classes\Based\libGif\gif_lib\gif_lib.h">
-      <Filter>Class\Based\libGif\gif_lib</Filter>
-    </ClInclude>
-    <ClInclude Include="..\Classes\Based\libGif\gif_lib\gif_lib_private.h">
-      <Filter>Class\Based\libGif\gif_lib</Filter>
     </ClInclude>
     <ClInclude Include="..\Classes\Scenes\SelectPlantsScene\SPSRequriementLayer.h">
       <Filter>Class\Scenes\SelectPlantsScene</Filter>

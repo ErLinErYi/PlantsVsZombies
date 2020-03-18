@@ -17,7 +17,7 @@ class UserWinRequirement;
 class OpenLevelData;
 enum class GameTypes;
 
-class GSGameEndLayer :public Layer
+class GSGameEndLayer :public LayerColor
 {
 public:
     CREATE_FUNC(GSGameEndLayer);

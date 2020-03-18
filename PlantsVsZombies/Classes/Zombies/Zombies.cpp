@@ -277,6 +277,11 @@ void Zombies::setZombieHurtBlink() const
 	_zombiesAnimation->runAction(Sequence::create(TintTo::create(0.15f, Color3B(70, 70, 70)), TintTo::create(0.15f, Color3B::WHITE), nullptr));
 }
 
+void Zombies::setZombieScale()
+{
+	_zombiesAnimation->setScale(_zombiesAnimation->getScale() + (getLocalZOrder(_position.y) + 10) / 20 / 40.f);
+}
+
 SkeletonAnimation* Zombies::getZombieAnimation() const
 {
 	return _zombiesAnimation;

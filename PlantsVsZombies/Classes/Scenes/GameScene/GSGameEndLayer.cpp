@@ -32,7 +32,7 @@ GSGameEndLayer::~GSGameEndLayer()
 
 bool GSGameEndLayer::init()
 {
-    if (!Layer::init())return false;
+    if (!LayerColor::initWithColor(Color4B(0,0,0,180)))return false;
 
     createShieldLayer();
 
