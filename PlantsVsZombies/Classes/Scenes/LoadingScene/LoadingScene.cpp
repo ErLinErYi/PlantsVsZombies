@@ -283,7 +283,7 @@ void LoadingScene::showTileAndLoadingBar()
 	clippingNode->addChild(_sprite[6]);        //会被裁减
 
 	/* 创建菜单标签 */
-	_label = MenuItemLabel::create(Label::createWithTTF("加载中......", "resources/fonts/GameFont.ttf", 20), CC_CALLBACK_1(LoadingScene::beginGameCallBack, this));
+	_label = MenuItemLabel::create(Label::createWithTTF("加载中......", GAME_FONT_NAME_1, 20), CC_CALLBACK_1(LoadingScene::beginGameCallBack, this));
 	_label->setColor(Color3B::YELLOW);
 	_label->setEnabled(false);
 	
@@ -488,8 +488,8 @@ void LoadingScene::loadingAnimation()
 		char JsonName[100], AtlasName[100];
 
 		/* 转换 */
-		sprintf(JsonName, "resources/Animations/Json/%s.json", (i.second).c_str());
-		sprintf(AtlasName, "resources/Animations/Atlas/%s.atlas", (i.second).c_str());
+		snprintf(JsonName, 100, "resources/Animations/Json/%s.json", (i.second).c_str());
+		snprintf(AtlasName, 100, "resources/Animations/Atlas/%s.atlas", (i.second).c_str());
 
 		/* 加载 */
 		spSkeletonJson* json = spSkeletonJson_createWithLoader((spAttachmentLoader*)Cocos2dAttachmentLoader_create(spAtlas_createFromFile(AtlasName, nullptr)));

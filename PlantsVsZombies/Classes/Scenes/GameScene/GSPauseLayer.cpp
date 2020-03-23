@@ -54,7 +54,7 @@ void GSPauseLayer::createDialog()
 
     auto LevelObjiectivesText = Text::create();
     LevelObjiectivesText->setString("休息一会吧！");
-    LevelObjiectivesText->setFontName("resources/fonts/GameFont.ttf");
+    LevelObjiectivesText->setFontName(GAME_FONT_NAME_1);
     LevelObjiectivesText->setFontSize(50);
     LevelObjiectivesText->setScale(0.5f);
     LevelObjiectivesText->setColor(Color3B(0, 255, 255));
@@ -79,7 +79,7 @@ void GSPauseLayer::showButton()
 {
     auto button = Button::create("Continue1.png", "Continue.png", "", TextureResType::PLIST);
     button->setTitleText(Global::getInstance()->userInformation->getGameText().find("确定")->second);
-    button->setTitleFontName("resources/fonts/GameFont.ttf");
+    button->setTitleFontName(GAME_FONT_NAME_1);
     button->setTitleFontSize(30);
     button->setTitleColor(Color3B::YELLOW);
     button->setPosition(Vec2(_levelObjiectives->getContentSize().width / 2.0f, 10));

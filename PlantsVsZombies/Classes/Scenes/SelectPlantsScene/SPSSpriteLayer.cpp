@@ -91,7 +91,7 @@ void SPSSpriteLayer::alreadyHavePlantsDialog()
 	State->setAnimation(0, "Rotate", true);
 	_seedChooser->addChild(State);
 
-	auto SeedChooserText = ui::Text::create(_global->userInformation->getGameText().find("请选择你出战的植物！")->second, "resources/fonts/GameFont.ttf", 50);
+	auto SeedChooserText = ui::Text::create(_global->userInformation->getGameText().find("请选择你出战的植物！")->second, GAME_FONT_NAME_1, 50);
 	SeedChooserText->setColor(Color3B::YELLOW);
 	SeedChooserText->setPosition(Vec2(400, 1000));
 	_seedChooser->addChild(SeedChooserText);
@@ -233,7 +233,7 @@ void SPSSpriteLayer::preLoadText()
 {
 	for (int i = 0; i < _plantsNumber; i++)
 	{
-		_animationText[i] = Text::create("", "resources/fonts/GameFont.ttf", 30);
+		_animationText[i] = Text::create("", GAME_FONT_NAME_1, 30);
 		_animationText[i]->setName("AnimationText");
 		_animationText[i]->enableOutline(Color4B(0, 255, 255, 255));
 		_animationText[i]->enableShadow(Color4B::GRAY, Size(4, -4), 1);
@@ -289,7 +289,7 @@ Text* SPSSpriteLayer::showPlantsInformation(Button* button, const int id) const
 
 	/* 文本 */
 	auto PlantsNeedSuns = ui::Text::create();
-	PlantsNeedSuns->setFontName("resources/fonts/arial.ttf");
+	PlantsNeedSuns->setFontName(GAME_FONT_NAME_2);
 	PlantsNeedSuns->setColor(Color3B::BLACK);
 	PlantsNeedSuns->setAnchorPoint(Vec2(1, 0.5f));
 	PlantsNeedSuns->setPosition(Vec2(175, 20));
@@ -298,7 +298,7 @@ Text* SPSSpriteLayer::showPlantsInformation(Button* button, const int id) const
 	button->addChild(PlantsNeedSuns);
 
 	auto PlantsLevelText = ui::Text::create();
-	PlantsLevelText->setFontName("resources/fonts/GameFont.ttf");
+	PlantsLevelText->setFontName(GAME_FONT_NAME_1);
 	PlantsLevelText->setColor(Color3B::BLACK);
 	PlantsLevelText->setAnchorPoint(Vec2(1, 0.5f));
 	PlantsLevelText->setPosition(Vec2(177, 77));
@@ -400,7 +400,7 @@ void SPSSpriteLayer::createBeginButton()
 	auto button = Button::create("SeedChooser_Button_Disabled.png", "SeedChooser_Button.png", "", TextureResType::PLIST);
 	button->setTitleText(_global->userInformation->getGameText().find("开始战斗吧！")->second);
 	button->setTitleColor(Color3B::WHITE);
-	button->setTitleFontName("resources/fonts/GameFont.ttf");
+	button->setTitleFontName(GAME_FONT_NAME_1);
 	button->setTitleFontSize(20);
 	button->setPosition(Vec2(390, 70));
 	button->setScale(2.0f);

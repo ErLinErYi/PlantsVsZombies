@@ -516,7 +516,7 @@ void MainMenu::createMainSprite()
 
 	/* 创建用户名称 */
 	_userText = Text::create();
-	_userText->setFontName("resources/fonts/GameFont.ttf");
+	_userText->setFontName(GAME_FONT_NAME_1);
 	_userText->setFontSize(30);
 	_userText->setTextColor(Color4B::YELLOW);
 	_userText->setPosition(Vec2(300, 90));

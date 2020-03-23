@@ -109,7 +109,7 @@ void GSPauseQuitLayer::createButton(const Vec2& vec2, const std::string name, Pa
 {
 	/* 创建返回主菜单按钮 */
 	auto button = ui::Button::create("ButtonNew2.png", "ButtonNew.png", "", TextureResType::PLIST);
-	auto label = Label::createWithTTF(name, "resources/fonts/GameFont.ttf", 35);
+	auto label = Label::createWithTTF(name, GAME_FONT_NAME_1, 35);
 	label->enableShadow(Color4B(0, 0, 0, 200));//设置阴影
 	label->setScale(2.0f);
 	button->setTitleLabel(label);

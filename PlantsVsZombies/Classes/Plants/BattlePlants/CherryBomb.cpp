@@ -127,14 +127,7 @@ void CherryBomb::explodeHurtZombies()
 			if (!zombie->getZombieIsSurvive())
 			{
 				zombie->setZombieOpacity(0);
-				if (zombie->getZombieType() == ZombiesType::LmpZombies)
-				{
-					zombie->playZombiesDieAnimation("LmpZombies_Charre");
-				}
-				else
-				{
-					zombie->playZombiesDieAnimation("Zombies_Ash");
-				}
+				zombie->playZombiesDieAnimation(zombie->getZombieType() == ZombiesType::LmpZombies ? "LmpZombies_Charre" : "Zombies_Ash");
 			}
 		}
 	}

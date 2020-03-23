@@ -211,7 +211,7 @@ void GameEasterEggs::createEggText()
       目前有7种僵尸和11种植物，植物和僵尸的动画都是本人做的，由于做动画的能力有限，有些僵尸和植物动画不能实现，\
 如果可以做动画并且愿意帮助我的人可以私聊我（动画是用spine软件制作的骨骼动画）。今后的更新是不定时的，可能会很慢。本人qq：2117610943\n\n" };
 
-	auto Eggstext = Label::createWithTTF("", "resources/fonts/GameFont.ttf", 36);
+	auto Eggstext = Label::createWithTTF("", GAME_FONT_NAME_1, 36);
 	Eggstext->setString(buff + "游戏过程中经历 " + std::to_string(_global->userInformation->getBreakThroughnumbers()) +
 		" 次闯关失败！\n游戏过程中使用 " + std::to_string(_global->userInformation->getUsePlantsNumbers()) +
 		" 株植物进行防御！\n游戏过程中共有 " + std::to_string(_global->userInformation->getKillZombiesNumbers()) + " 个僵尸牺牲了！\n" +
@@ -225,7 +225,7 @@ void GameEasterEggs::createEggText()
 	Eggstext->runAction(Sequence::create(MoveTo::create(25.0f, Director::getInstance()->getWinSize() / 2.0f),
 		CallFunc::create([=]()
 			{
-				auto text = Label::createWithTTF("静静的享受音乐播放完毕", "resources/fonts/GameFont.ttf", 36);
+				auto text = Label::createWithTTF("静静的享受音乐播放完毕", GAME_FONT_NAME_1, 36);
 				text->setPosition(Vec2(Director::getInstance()->getWinSize().width / 2.0f, 70));
 				text->setColor(Color3B::WHITE);
 				text->setName("Text");

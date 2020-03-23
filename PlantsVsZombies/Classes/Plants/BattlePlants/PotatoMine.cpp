@@ -98,6 +98,7 @@ void PotatoMine::plantExplode()
 		_isExplodeFinished = true;
 		_plantAnimation->setScale(1.2f);
 		_plantAnimation->setAnimation(0, "PotatoMine_Blast", false);
+		_plantAnimation->getChildByName("plantshadow")->setVisible(false);
 		_plantAnimation->setEventListener([&](spTrackEntry* entry, spEvent* event)
 			{
 				if (strcmp(event->data->name, "BlastBegin") == 0)

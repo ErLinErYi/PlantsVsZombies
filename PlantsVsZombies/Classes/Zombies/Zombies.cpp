@@ -177,7 +177,7 @@ void Zombies::zombiesDeleteUpdate(list<Zombies*>::iterator& zombie)
 			zombiesNumbersChange("--");  /* 僵尸总数更新 */
 
 			auto zombies = zombie;
-			(*zombies)->getZombieAnimation()->runAction(Sequence::create(DelayTime::create(2.0f),
+			(*zombies)->getZombieAnimation()->runAction(Sequence::create(DelayTime::create(5.0f),
 				CallFunc::create([zombies]()
 					{
 						(*zombies)->getIsCanDelete()[1] = true;
@@ -379,10 +379,12 @@ bool Zombies::getZombieIsStrikeFly() const
 
 void Zombies::playZombiesDieAnimation(const string& animationName)
 {
+	uniform_real_distribution<float>number(0.f, 0.4f);
 	auto ashes = SkeletonAnimation::createWithData(_global->userInformation->getAnimationData().find(animationName)->second);
 	ashes->setPosition(_zombiesAnimation->getPosition() + Vec2(0, -15));
 	ashes->setLocalZOrder(_zombiesAnimation->getLocalZOrder());
 	ashes->setScale(1.3f);
+	ashes->setTimeScale(0.8f + number(_random));
 	ashes->setAnimation(0, "animation", false);
 	_node->addChild(ashes);
 
@@ -734,7 +736,7 @@ void Zombies::setOpacityZombieAttribute()
 string& Zombies::createZombieName()
 {
 	char str[36]{""};
-	sprintf(str, "zombieName_%d", _zombieTag);
+	snprintf(str, 36, "zombieName_%d", _zombieTag);
 	_zombieName = str;
 	return _zombieName;
 }

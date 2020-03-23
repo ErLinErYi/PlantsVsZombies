@@ -36,7 +36,7 @@ void SPSRequriementLayer::createDialog()
 
 	auto button = Button::create("Continue1.png", "Continue.png", "", TextureResType::PLIST);
 	button->setTitleText(Global::getInstance()->userInformation->getGameText().find("È·¶¨")->second);
-	button->setTitleFontName("resources/fonts/GameFont.ttf");
+	button->setTitleFontName(GAME_FONT_NAME_1);
 	button->setTitleFontSize(30);
 	button->setTitleColor(Color3B::YELLOW);
 	button->setPosition(Vec2(_requirement->getDialog()->getContentSize().width / 2.0f, 10));

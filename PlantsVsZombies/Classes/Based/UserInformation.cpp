@@ -309,7 +309,14 @@ void UserInformation::setBreakThroughnumbers(const int number)
 
 void UserInformation::setSunNumbers(const int number)
 {
-    _sunNumbers = number;
+    if (_sunNumbers <= 100000)
+    {
+        _sunNumbers = number;
+    }
+    else
+    {
+        _sunNumbers = 100000;
+    }
 }
 
 void UserInformation::setCoinNumbers(const int number)

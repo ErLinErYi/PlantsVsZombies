@@ -247,7 +247,7 @@ void GSAnimationLayer::plantsDeleteUpdate(map<int, Plants*>::iterator& plant)
 			controlLayerInformation->_gameMapInformation->plantsMap[plant->second->getPlantColumn()][plant->second->getPlantRow()] = NO_PLANTS;
 
 			auto plants = plant;
-			plant->second->getPlantAnimation()->runAction(Sequence::create(DelayTime::create(2.0f),
+			plant->second->getPlantAnimation()->runAction(Sequence::create(DelayTime::create(4.0f),
 				CallFunc::create([plants]()
 					{
 						plants->second->getPlantIsCanDelete()[1] = true;

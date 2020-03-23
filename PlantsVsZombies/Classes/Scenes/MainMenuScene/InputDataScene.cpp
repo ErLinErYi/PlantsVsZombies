@@ -52,7 +52,7 @@ void InputDataMenu::createDialog()
 	_caveFileDialog->setName("CaveFileDialog");
 	this->addChild(_caveFileDialog);
 
-	auto question = Label::createWithTTF("选择你的存档", "resources/fonts/GameFont.ttf", 30);
+	auto question = Label::createWithTTF("选择你的存档", GAME_FONT_NAME_1, 30);
 	question->setTextColor(Color4B::YELLOW);
 	question->setPosition(Vec2(_caveFileDialog->getContentSize().width / 2, _caveFileDialog->getContentSize().height - 110));
 	_caveFileDialog->addChild(question);
@@ -108,7 +108,7 @@ void InputDataMenu::CreateInputDialog()
 	_inputDataDialog->addChild(_inputCursor);
 	_inputCursor->runAction(RepeatForever::create(Sequence::create(FadeOut::create(0.25f), FadeIn::create(0.25f), nullptr)));
 
-	_textField = TextField::create("点击此处进行输入","resources/fonts/GameFont.ttf", FontSize);
+	_textField = TextField::create("点击此处进行输入",GAME_FONT_NAME_1, FontSize);
 	_inputDataDialog->addChild(_textField);
 	_textField->setPosition(Vec2(155, 137));
 	_textField->setMaxLengthEnabled(true);
@@ -282,7 +282,7 @@ void InputDataMenu::setButtonColor(Button* button)
 
 void InputDataMenu::setButtonText(Button* button, const string& text, const float& scale)
 {
-	auto label = Label::createWithTTF(text, "resources/fonts/GameFont.ttf", 17);
+	auto label = Label::createWithTTF(text, GAME_FONT_NAME_1, 17);
 	label->setColor(Color3B::BLACK);
 	label->setScaleX(1.0f / scale);
 	button->setTitleText("");
@@ -311,7 +311,7 @@ void InputDataMenu::updateButtonText()
 
 Label* InputDataMenu::onTextFieldInsertText()
 {
-	auto textLabel = Label::createWithTTF(_newInputstring, "resources/fonts/GameFont.ttf", FontSize);
+	auto textLabel = Label::createWithTTF(_newInputstring, GAME_FONT_NAME_1, FontSize);
 	textLabel->setColor(Color3B(0, 255, 255));
 	textLabel->setName("label");
 	_inputDataDialog->addChild(textLabel);
@@ -337,7 +337,7 @@ Label* InputDataMenu::onTextFieldInsertText()
 Label* InputDataMenu::onTextFieldDeleteBackward()
 {
 	// create a delete text sprite and do some action
-	auto label = Label::createWithTTF(_newInputstring, "resources/fonts/GameFont.ttf", FontSize);
+	auto label = Label::createWithTTF(_newInputstring, GAME_FONT_NAME_1, FontSize);
 	label->setName("label");
 	label->setColor(Color3B::YELLOW);
 	_inputDataDialog->addChild(label);

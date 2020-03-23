@@ -51,7 +51,7 @@ void UserWinRequirement::createDialogBox(GameTypes finishedid)
 
 	auto LevelObjiectivesText = Text::create();
 	LevelObjiectivesText->setString(_global->userInformation->getGameText().find("通关要求！")->second);
-	LevelObjiectivesText->setFontName("resources/fonts/GameFont.ttf");
+	LevelObjiectivesText->setFontName(GAME_FONT_NAME_1);
 	LevelObjiectivesText->setFontSize(50);
 	LevelObjiectivesText->setScale(0.5f);
 	LevelObjiectivesText->setColor(Color3B(0, 255, 255));
@@ -119,7 +119,7 @@ void UserWinRequirement::showRequirement(GameTypes finishedid)
 		case GameTypes::AtLeastSunNumbers:
 		{
 			char buff[128];
-			sprintf(buff, _global->userInformation->getGameText().find("至少产生 %d 的阳光！")->second.c_str(), leveldata->getAtLeastSunNumbers());
+			snprintf(buff, 128,_global->userInformation->getGameText().find("至少产生 %d 的阳光！")->second.c_str(), leveldata->getAtLeastSunNumbers());
 			finishedid == GameTypes::AtLeastSunNumbers ? showText(buff, i, Color3B::RED) : showText(buff, i);
 		}
 			break;
@@ -130,14 +130,14 @@ void UserWinRequirement::showRequirement(GameTypes finishedid)
 		case GameTypes::CarNumbers:
 		{
 			char buff[128];
-			sprintf(buff, _global->userInformation->getGameText().find("僵尸进攻结束后至少存留 %d 辆小车！")->second.c_str(), leveldata->getCarNumbers());
+			snprintf(buff, 128, _global->userInformation->getGameText().find("僵尸进攻结束后至少存留 %d 辆小车！")->second.c_str(), leveldata->getCarNumbers());
 			finishedid == GameTypes::CarNumbers ? showText(buff, i, Color3B::RED) : showText(buff, i);
 		}
 			break;
 		case GameTypes::UserPlantsNumbers:
 		{
 			char buff[128];
-			sprintf(buff, _global->userInformation->getGameText().find("最多使用 %d 株植物来建立你的防线！")->second.c_str(), leveldata->getUsePlantsNumbers());
+			snprintf(buff, 128, _global->userInformation->getGameText().find("最多使用 %d 株植物来建立你的防线！")->second.c_str(), leveldata->getUsePlantsNumbers());
 			showText(buff, i);
 		}
 			break;
@@ -161,7 +161,7 @@ void UserWinRequirement::showRequirement(GameTypes finishedid)
 
 void UserWinRequirement::showText(const string& text, const int& ID, Color3B color)
 {
-	auto requiretext = Label::createWithTTF(text, "resources/fonts/GameFont.ttf", 40);
+	auto requiretext = Label::createWithTTF(text, GAME_FONT_NAME_1, 40);
 	requiretext->setColor(Color3B::BLACK);
 	requiretext->setScale(0.5f);
 	requiretext->setLineBreakWithoutSpace(true);

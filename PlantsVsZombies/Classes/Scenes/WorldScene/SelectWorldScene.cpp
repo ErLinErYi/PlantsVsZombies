@@ -11,6 +11,8 @@
 #include "AudioEngine.h"
 #include "SelectWorldScene.h"
 
+#include "Based/GlobalVariable.h"
+
 Scene* SelectWorldScene::createScene()
 {
 	return SelectWorldScene::create();
@@ -100,7 +102,7 @@ void SelectWorldScene::createSelectDifficulty()
 	auto text = Text::create();
 	text->setPosition(Vec2(47, -20));
 	text->setTextColor(Color4B(0, 255, 255, 200));
-	text->setFontName("resources/fonts/GameFont.ttf");
+	text->setFontName(GAME_FONT_NAME_1);
 	text->setFontSize(30);
 	text->setString(_global->userInformation->getGameDifficulty() ? "噩梦模式" : "简单模式");
 	checkbox->addChild(text);
@@ -207,7 +209,7 @@ void SelectWorldScene::showDifferentWorlds()
 
 		auto worldname = Text::create();
 		worldname->setPosition((Vec2)(_world[i]->getContentSize() / 2.0f) - Vec2(0, 100));
-		worldname->setFontName("resources/fonts/GameFont.ttf");
+		worldname->setFontName(GAME_FONT_NAME_1);
 		worldname->setFontSize(50);
 		worldname->setColor(Color3B(0, 255, 255));
 		worldname->setString(worldName[i]);

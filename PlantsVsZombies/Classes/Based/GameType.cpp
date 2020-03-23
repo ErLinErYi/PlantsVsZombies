@@ -145,7 +145,7 @@ void GameType::showNumbers(const int& ID)
 	{
 		_sunNumberRequriement->allSunNumbersText = Text::create();
 		_sunNumberRequriement->allSunNumbersText->setFontSize(30);
-		_sunNumberRequriement->allSunNumbersText->setFontName("resources/fonts/arial.ttf");
+		_sunNumberRequriement->allSunNumbersText->setFontName(GAME_FONT_NAME_2);
 		_sunNumberRequriement->allSunNumbersText->setPosition(Vec2(737, 1012));
 		_sunNumberRequriement->allSunNumbersText->setAnchorPoint(Vec2(0.5f, 0.5f));
 		_sunNumberRequriement->allSunNumbersText->setColor(Color3B::YELLOW);
@@ -158,7 +158,7 @@ void GameType::showNumbers(const int& ID)
 	{
 		_plantsRequriement->palntsNumbersText= Text::create();
 		_plantsRequriement->palntsNumbersText->setFontSize(30);
-		_plantsRequriement->palntsNumbersText->setFontName("resources/fonts/arial.ttf");
+		_plantsRequriement->palntsNumbersText->setFontName(GAME_FONT_NAME_2);
 		_plantsRequriement->palntsNumbersText->setPosition(Vec2(737, 1012));
 		_plantsRequriement->palntsNumbersText->setAnchorPoint(Vec2(0.5f, 0.5f));
 		_plantsRequriement->palntsNumbersText->setColor(Color3B::YELLOW);
@@ -176,13 +176,11 @@ void GameType::showNumbers(const int& ID)
 
 void GameType::updateNumbers(const int& ID)
 {
-	char numbers[40];
 	switch (ID)
 	{
 	case 1:
 	{
-		sprintf(numbers, "%d/%d", _sunNumberRequriement->atLeastSunNumbers, _sunNumberRequriement->allSunNumbers);
-		_sunNumberRequriement->allSunNumbersText->setString(numbers);
+		_sunNumberRequriement->allSunNumbersText->setString(to_string(_sunNumberRequriement->atLeastSunNumbers) + "/" + to_string(_sunNumberRequriement->allSunNumbers));
 
 		if (!_sunNumberRequriement->isUpdateImage && _sunNumberRequriement->allSunNumbers >= _openlevelData->readLevelData(_openlevelData->getLevelNumber())->getAtLeastSunNumbers())
 		{
@@ -195,8 +193,7 @@ void GameType::updateNumbers(const int& ID)
 		break;
 	case 2:
 	{
-		sprintf(numbers, "%d / %d", _plantsRequriement->userPlantsNumbers, _plantsRequriement->surPlusPlantsNumbers);
-		_plantsRequriement->palntsNumbersText->setString(numbers);
+		_plantsRequriement->palntsNumbersText->setString(to_string(_plantsRequriement->userPlantsNumbers) + " / " + to_string(_plantsRequriement->surPlusPlantsNumbers));
 
 		if (!_plantsRequriement->isUpdateImage && _plantsRequriement->surPlusPlantsNumbers <= 0)
 		{

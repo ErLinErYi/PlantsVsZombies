@@ -51,7 +51,7 @@ void HelpScene::createText()
 		（！！！重要）此游戏为同人游戏而且仅供学习交流使用，由于游戏资源可能存在侵权的问题，所以请勿用于商业用途，否则后果自负。\n\
 		目前有7种僵尸和13种植物，植物和僵尸的动画都是本人做的，由于做动画的能力有限，有些僵尸和植物动画不能实现，\
 如果可以做动画并且愿意帮助我的人可以私聊我（动画是用spine软件制作的骨骼动画）。如果发现程序有什么问题或者对游戏有\
-什么建议可以发送到我的qq：2117610943\n点击主菜单的下面三个按钮可以跳转到下载网址（百度网盘提取码3vzm)", "resources/fonts/GameFont.ttf", 35);
+什么建议可以发送到我的qq：2117610943\n点击主菜单的下面三个按钮可以跳转到下载网址（百度网盘提取码3vzm)", GAME_FONT_NAME_1, 35);
 
 	helptext->setPosition(_size / 2.0f);
 	helptext->setColor(Color3B::BLACK);
@@ -62,7 +62,7 @@ void HelpScene::createText()
 void HelpScene::createGithubUrl()
 {
 	auto github = Button::create();
-	github->setTitleFontName("resources/fonts/GameFont.ttf");
+	github->setTitleFontName(GAME_FONT_NAME_1);
 	github->setTitleFontSize(35);
 	github->setTitleText("点击此处打开github项目");
 	github->setPosition(Vec2(1220, 740));

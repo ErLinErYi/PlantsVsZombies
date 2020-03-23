@@ -55,11 +55,11 @@ void SPSControlLayer::createButton()
 void SPSControlLayer::showUserName()
 {
 	char buff[128];
-	sprintf(buff, "第 %d 天", _global->userInformation->getCurrentPlayLevels());
+	snprintf(buff, 128, "第 %d 天", _global->userInformation->getCurrentPlayLevels());
 
 	auto username = Text::create();
 	username->setString("“" + _global->userInformation->getUserName() + "”" + _global->userInformation->getGameText().find("的时空冒险之旅")->second + _global->userInformation->getCurrentPlayWorldName() + buff);
-	username->setFontName("resources/fonts/GameFont.ttf");
+	username->setFontName(GAME_FONT_NAME_1);
 	username->setFontSize(60);
 	username->setColor(Color3B::YELLOW);
 	username->setName("username");

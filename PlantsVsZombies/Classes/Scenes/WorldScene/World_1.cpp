@@ -509,7 +509,7 @@ ui::Button* World_1::createButton(Node* node, const std::string& name, const Vec
 	node->addChild(sprite4);
 
 	auto text = ui::Text::create();
-	text->setFontName("resources/fonts/arial.ttf");
+	text->setFontName(GAME_FONT_NAME_2);
 	text->setFontSize(30);
 	text->setString(to_string(++_level));
 	text->setGlobalZOrder(1);
@@ -557,8 +557,8 @@ ui::Button* World_1::createButton(Node* node, const std::string& name, const Vec
 
 void World_1::createButtonListener(ui::Button* button, const int& ID)
 {
-	char LevelName[15] = {};
-	sprintf(LevelName, "Level_%d", ID);
+	char LevelName[20] = {};
+	snprintf(LevelName, 20, "Level_%d", ID);
 
 	button->addTouchEventListener([=](Ref* sender, ui::Widget::TouchEventType type)
 		{

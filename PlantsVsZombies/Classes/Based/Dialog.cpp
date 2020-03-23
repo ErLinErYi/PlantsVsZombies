@@ -46,7 +46,7 @@ EventListenerTouchOneByOne* Dialog::createTouchtListener(Sprite* sprite)
 
 Label* Dialog::label(const std::string &name, const float& fontsize, Vec2 &vec2, const float& space, const Color3B& color, const float& scale)
 {
-	auto label = Label::createWithTTF(name, "resources/fonts/GameFont.ttf", fontsize);
+	auto label = Label::createWithTTF(name, GAME_FONT_NAME_1, fontsize);
 	label->setScaleX(scale);
 	label->setColor(color);
 	label->setAdditionalKerning(space);//设置列间距
@@ -57,7 +57,7 @@ Label* Dialog::label(const std::string &name, const float& fontsize, Vec2 &vec2,
 
 void Dialog::createLabel(Sprite* sprite, MenuItemImage* MenuItem, const std::string &name, Vec2 &vec2, float& fontsize, const float& space, const Color3B& color)
 {
-	auto label = Label::createWithTTF(name, "resources/fonts/GameFont.ttf", fontsize);
+	auto label = Label::createWithTTF(name, GAME_FONT_NAME_1, fontsize);
 	label->setPosition(vec2);
 	label->setColor(color);
 	label->enableShadow(Color4B(100, 25, 100, 255));//设置阴影

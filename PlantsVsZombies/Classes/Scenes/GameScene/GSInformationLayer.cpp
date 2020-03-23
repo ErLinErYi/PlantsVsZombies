@@ -39,11 +39,11 @@ bool GSInformationLayer::init()
 void GSInformationLayer::showUserText()
 {
 	char buff[128];
-	sprintf(buff, "第 %d 天", _global->userInformation->getCurrentPlayLevels());
+	snprintf(buff, 128, "第 %d 天", _global->userInformation->getCurrentPlayLevels());
 
 	auto username = ui::Text::create();
 	username->setString("“" + _global->userInformation->getUserName() + "”" + "的时空冒险之旅" + _global->userInformation->getCurrentPlayWorldName() + buff);
-	username->setFontName("resources/fonts/GameFont.ttf");
+	username->setFontName(GAME_FONT_NAME_1);
 	username->setFontSize(30);
 	username->setColor(Color3B(0, 255, 255));
 	username->setPosition(Vec2(Director::getInstance()->getWinSize().width / 2.0f, 850));
@@ -101,7 +101,7 @@ void GSInformationLayer::showZombiesDieNumbers()
 
 	_zombiesDieText = Text::create();
 	_zombiesDieText->setPosition(Vec2(130, 30));
-	_zombiesDieText->setFontName("resources/fonts/GameFont.ttf");
+	_zombiesDieText->setFontName(GAME_FONT_NAME_1);
 	_zombiesDieText->setFontSize(30);
 	_zombiesDieText->setColor(Color3B(190, 0, 190));
 	ZombiesDie->addChild(_zombiesDieText);
@@ -111,9 +111,7 @@ void GSInformationLayer::showZombiesDieNumbers()
 
 void GSInformationLayer::updateZombiesDieNumbers()
 {
-	char buff[128];
-	sprintf(buff, "%d", _global->userInformation->getKillZombiesNumbers());
-	_zombiesDieText->setString(buff);
+	_zombiesDieText->setString(to_string(_global->userInformation->getKillZombiesNumbers()));
 }
 
 void GSInformationLayer::showCoinNumbers()
@@ -125,7 +123,7 @@ void GSInformationLayer::showCoinNumbers()
 
 	_coinNumbersText = ui::Text::create();
 	_coinNumbersText->setFontSize(40);
-	_coinNumbersText->setFontName("resources/fonts/arial.ttf");
+	_coinNumbersText->setFontName(GAME_FONT_NAME_2);
 	_coinNumbersText->setPosition(Vec2(180, 40));
 	_coinNumbersText->setAnchorPoint(Vec2(0.5f, 0.5f));
 	_coinNumbersText->setColor(Color3B::YELLOW);
@@ -136,9 +134,7 @@ void GSInformationLayer::showCoinNumbers()
 
 void GSInformationLayer::updateCoinNumbers()
 {
-	char coinnumbers[20];
-	sprintf(coinnumbers, "%d", _global->userInformation->getCoinNumbers());
-	_coinNumbersText->setString(coinnumbers);
+	_coinNumbersText->setString(to_string(_global->userInformation->getCoinNumbers()));
 }
 
 void GSInformationLayer::showSunNumbers()
@@ -152,7 +148,7 @@ void GSInformationLayer::showSunNumbers()
 
 	_sunNumbersText = ui::Text::create();
 	_sunNumbersText->setFontSize(50);
-	_sunNumbersText->setFontName("resources/fonts/arial.ttf");
+	_sunNumbersText->setFontName(GAME_FONT_NAME_2);
 	_sunNumbersText->setPosition(Vec2(215, 70));
 	_sunNumbersText->setAnchorPoint(Vec2(0.5f, 0.5f));
 	_sunNumbersText->setColor(Color3B(255, 127, 39));
@@ -187,7 +183,7 @@ void GSInformationLayer::createPromptText()
 	promptText->setName("PromptText");
 	this->addChild(promptText);
 
-	auto requiretext = Label::createWithTTF(_global->userInformation->getGameText().find("提示信息")->second, "resources/fonts/GameFont.ttf", 40);
+	auto requiretext = Label::createWithTTF(_global->userInformation->getGameText().find("提示信息")->second, GAME_FONT_NAME_1, 40);
 	requiretext->setColor(Color3B::WHITE);
 	requiretext->setPosition(Vec2(Director::getInstance()->getWinSize().width / 2.0f, 300));
 	requiretext->setName("requiretext");
@@ -211,9 +207,7 @@ void GSInformationLayer::updateSunNumbers()
 	this->addChild(sun);
 	sun->runAction(Sequence::create(DelayTime::create(0.15f), CallFunc::create([=]() {this->removeChildByName("sun"); }), nullptr));
 
-	char sunnumbers[20];
-	sprintf(sunnumbers, "%d", _global->userInformation->getSunNumbers());
-	_sunNumbersText->setString(sunnumbers);
+	_sunNumbersText->setString(to_string(_global->userInformation->getSunNumbers()));
 }
 
 void GSInformationLayer::updateProgressBar(const int& zombiesAppearFrequency)
