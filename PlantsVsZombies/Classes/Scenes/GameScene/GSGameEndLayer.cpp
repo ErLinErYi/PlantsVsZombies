@@ -51,13 +51,13 @@ void GSGameEndLayer::successfullEntry()
 {
 	Director::getInstance()->getScheduler()->setTimeScale(1.0f); /* »Ö¸´²¥·Å±¶Êý */
 	caveLevelNumber();
-	carsTocCoins();
+	carsToCoins();
 
 	auto moneybag_hi_res = ui::Button::create("moneybag_hi_res.png", "", "", TextureResType::PLIST);
 	moneybag_hi_res->setPosition(Vec2(700 + rand() % 1000, 100 + rand() % 700));
 	moneybag_hi_res->runAction(JumpBy::create(0.5f, Vec2(100 - rand() % 200, 0), 100 + rand() % 100, 1));
-	moneybag_hi_res->setGlobalZOrder(20);
 	moneybag_hi_res->setName("moneybag_hi_res");
+	moneybag_hi_res->setLocalZOrder(2);
 	this->addChild(moneybag_hi_res);
 
 	moneybag_hi_res->runAction(RepeatForever::create(Sequence::create(TintTo::create(0.3f, 150, 150, 150), TintTo::create(0.3f, 255, 255, 255), nullptr)));
@@ -165,7 +165,7 @@ void GSGameEndLayer::caveLevelNumber()
 	}
 }
 
-void GSGameEndLayer::carsTocCoins()
+void GSGameEndLayer::carsToCoins()
 {
 	int i = -1;
 	for (auto car : CarsGroup)
@@ -173,12 +173,12 @@ void GSGameEndLayer::carsTocCoins()
 		if (!car->getLive())
 		{
 			auto cars = car;
-			runAction(Sequence::create(DelayTime::create(0.2f * ++i), CallFunc::create([this, cars]()
+			runAction(Sequence::create(DelayTime::create(0.4f * ++i), CallFunc::create([this, cars]()
 				{
 					AudioEngine::setVolume(AudioEngine::play2d(_global->userInformation->getMusicPath().find("plastichit2")->second), _global->userInformation->getSoundEffectVolume());
 					cars->getCar()->runAction(Sequence::create( Spawn::create(ScaleTo::create(0.2f, 0), FadeOut::create(0.2f), nullptr), nullptr));
 					cars->getCar()->setVisible(false);
-					coinAction(cars->getCar()->getPosition(), 0);
+					coinAction(cars->getCar()->getPosition(), 0, true);
 				}), nullptr));
 		}
 	}
@@ -238,25 +238,24 @@ void GSGameEndLayer::rewardCoin(Button* button)
 	}
 }
 
-void GSGameEndLayer::coinAction(const Vec2& position, const int id)
+void GSGameEndLayer::coinAction(const Vec2& position, const int id, const bool big)
 {
 	auto coin = SkeletonAnimation::createWithData(_global->userInformation->getAnimationData().find("coin")->second);
-	coin->setScale(0.05f);
 	coin->setPosition(position);
-	coin->setGlobalZOrder(20);
-	coin->setOpacity(0);
-	coin->setName("coin");
+	coin->setScale(0.05f);
 	this->addChild(coin);
 
-	coin->runAction(Sequence::create(DelayTime::create(id * 0.05f),Spawn::create(FadeIn::create(0.5f),ScaleTo::create(0.5f, 0.3f),
-		JumpBy::create(0.5f, Vec2(150 - rand() % 300, 100 - rand() % 100), rand() % 100 + 200, 1), nullptr),
-		DelayTime::create(0.05f),MoveTo::create(0.5f, Vec2(1650, -40)),Spawn::create(ScaleTo::create(0.2f, 0.5f), FadeOut::create(0.2f),
-			CallFunc::create([&]()
-				{
-					AudioEngine::setVolume(AudioEngine::play2d(_global->userInformation->getMusicPath().find("moneyfalls")->second), _global->userInformation->getSoundEffectVolume());
-					this->removeChildByName("coin");
-					_global->userInformation->setCoinNumbers(_global->userInformation->getCoinNumbers() + 2);
-					informationLayerInformation->updateCoinNumbers();
-				}), nullptr),
-		nullptr));
+	auto callFunc = CallFunc::create([=]()
+		{
+			AudioEngine::setVolume(AudioEngine::play2d(_global->userInformation->getMusicPath().find("moneyfalls")->second), _global->userInformation->getSoundEffectVolume());
+			coin->removeFromParent();
+			big ? _global->userInformation->setCoinNumbers(_global->userInformation->getCoinNumbers() + 10) : _global->userInformation->setCoinNumbers(_global->userInformation->getCoinNumbers() + 1);
+			informationLayerInformation->updateCoinNumbers();
+		});
+
+	auto action = Spawn::create(FadeIn::create(0.5f), ScaleTo::create(0.5f, 0.3f), JumpBy::create(0.5f, Vec2(150 - rand() % 300, 100 - rand() % 100), rand() % 100 + 200, 1),
+		Sequence::create(DelayTime::create(0.25f), CallFunc::create([coin]() {coin->setLocalZOrder(3); }), nullptr), nullptr);
+	auto action1 = Spawn::create(ScaleTo::create(0.2f, 0.5f), FadeOut::create(0.2f), callFunc, nullptr);
+
+	coin->runAction(Sequence::create(DelayTime::create(id * 0.05f), action, DelayTime::create(0.05f), MoveTo::create(0.5f, Vec2(1650, -40)), action1, nullptr));
 }

@@ -34,9 +34,9 @@ private:
     void showFailDialog(GameTypes gameType);
     void showFailText();
     void caveLevelNumber();
-    void carsTocCoins();
+    void carsToCoins();
     void rewardCoin(Button* button);
-    void coinAction(const Vec2& position, const int id);
+    void coinAction(const Vec2& position, const int id, const bool big = false);
 
 private:
     Global* _global;

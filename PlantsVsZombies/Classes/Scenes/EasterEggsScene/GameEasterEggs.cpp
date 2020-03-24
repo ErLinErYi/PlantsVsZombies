@@ -276,7 +276,7 @@ void GameEasterEggs::musicCallBack()
 			_global->changeBgMusic("mainmusic", true);
 			
 			/* 创建按钮 */
-			auto button = ui::Button::create("SeedChooser_Button2.png", "SeedChooser_Button2_Glow.png", "", TextureResType::LOCAL);
+			auto button = ui::Button::create("SeedChooser_Button2.png", "SeedChooser_Button2_Glow.png", "", TextureResType::PLIST);
 			button->setTitleText(_global->userInformation->getGameText().find("退出")->second);
 			button->setTitleColor(Color3B(0, 255, 255));
 			button->setTitleFontSize(18);

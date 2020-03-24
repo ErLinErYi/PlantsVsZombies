@@ -155,12 +155,6 @@ void GSControlLayer::calculatePlantPosition()
 					_plantsPosition.y = i; CCLOG("%d %d", i, j);
 				}
 			}
-			/*if (_cur.x > 490 + i * 20 + (130 - 5 * i) * j && _cur.x < 490 + i * 20 + (130 - 5 * i) * (j + 1) &&
-				_cur.y > 90 + (175 - 15 * j) * i && _cur.y < 90 + (175 - 15 * j) * (i + 1))
-			{
-				_plantsPosition.x = j;
-				_plantsPosition.y = i;
-			}*/ 
 #else
 			if (GRASS_INSIDE(_cur, i, j))
 			{
@@ -472,7 +466,8 @@ void GSControlLayer::recoveryPlantsColor()
 void GSControlLayer::judgeLevelIsFinished()
 {
 	/* 关卡结束 */
-	if (ZombiesGroup.size() <= 0 && _zombiesAppearControl->getZombiesAppearFrequency() >= _openLevelData->readLevelData(_openLevelData->getLevelNumber())->getZombiesFrequency())
+	if (Zombies::getZombiesNumbers() <= 0 && _zombiesAppearControl->getZombiesAppearFrequency() >=
+		_openLevelData->readLevelData(_openLevelData->getLevelNumber())->getZombiesFrequency())
 	{
 		CURSOR_VISIBLE(true)
 
@@ -540,7 +535,6 @@ void GSControlLayer::mouseMoveControl()
 			{
 				_plantPreviewImage->setPosition(Vec2(570 + 110 * _plantsPosition.x + 60, 775));
 			}
-			//_plantPreviewImage->setPosition(Vec2(490 + 20 * _plantsPosition.y + (130 - 5 * _plantsPosition.y) * _plantsPosition.x + 60, 90 + (175 - 15 * _plantsPosition.x) * _plantsPosition.y + 60));
 #else
 			_plantPreviewImage->setPosition(Vec2(GRASS_POSITION_LEFT + 122 * _plantsPosition.x + 60, 110 + 138 * (_plantsPosition.y + 1) - 60));
 #endif
@@ -581,7 +575,8 @@ void GSControlLayer::mouseDownControl(EventMouse* eventmouse)
 			buttonLayerInformation->plantsCards[static_cast<int>(buttonLayerInformation->mouseSelectImage->selectPlantsId)].plantsCards->setColor(Color3B::WHITE);
 
 			/* 加上所需的阳光数并更新 */
-			_global->userInformation->setSunNumbers(_global->userInformation->getSunNumbers() + buttonLayerInformation->plantsInformation->PlantsNeedSunNumbers[static_cast<int>(buttonLayerInformation->mouseSelectImage->selectPlantsId)]);
+			_global->userInformation->setSunNumbers(_global->userInformation->getSunNumbers() +
+				buttonLayerInformation->plantsInformation->PlantsNeedSunNumbers[static_cast<int>(buttonLayerInformation->mouseSelectImage->selectPlantsId)]);
 			informationLayerInformation->updateSunNumbers();
 
 			/* 植物要求更新 */

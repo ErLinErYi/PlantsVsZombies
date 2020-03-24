@@ -59,7 +59,7 @@ void PotatoMine::createPlantAnimation()
 	_node->addChild(_plantAnimation);
 
 	// 影子
-	setPlantShadow(1.8f);
+	setPlantShadow(1.4f);
 
 	// 泥土飞溅动画
 	setPlantSoilSplashAnimation(0.8f);
