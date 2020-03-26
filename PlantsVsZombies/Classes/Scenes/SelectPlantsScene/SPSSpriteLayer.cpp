@@ -349,7 +349,8 @@ void SPSSpriteLayer::createMoveButton(Button* button, const Vec2& vec2, const in
 				sortPlantsCard(id);          //对植物卡牌重新排序
 				_plantCardScrollView->scrollToPercentVertical(PlantCardScrollViewPercentLast / 25.0f, 0.5f, true);//滚动到初始位置
 				_plantCardRollingDistance = PlantCardScrollViewPercentLast / 25.0f;
-				MoveCard->runAction(Sequence::create(MoveTo::create(0.2f, Vec2(vec2.x + 212, vec2.y + PlantCardScrollViewPercentLast)), CallFuncN::create(CC_CALLBACK_1(SPSSpriteLayer::removePlantsCardCallBack, this, id, button)), nullptr));//植物卡牌取消选择
+				MoveCard->runAction(Sequence::create(MoveTo::create(0.2f, Vec2(vec2.x + 212, vec2.y + PlantCardScrollViewPercentLast)), 
+					CallFuncN::create(CC_CALLBACK_1(SPSSpriteLayer::removePlantsCardCallBack, this, id, button)), nullptr));//植物卡牌取消选择
 				break;
 			}
 		});
@@ -605,7 +606,7 @@ void SPSSpriteLayer::createAnimationAndText(const int& id)
 		}
 		else
 		{
-			this->createPlantsText(1, "金币数达到 1000 或者\n死亡僵尸数到达 500 时解\n锁该植物", Vec2(360, 800), 30, Color3B::RED, false);
+			this->createPlantsText(1, "金币数达到 1000 并且\n死亡僵尸数到达 500 时解\n锁该植物", Vec2(360, 800), 30, Color3B::RED, false);
 		}
 		break;
 	case 10:
@@ -620,7 +621,7 @@ void SPSSpriteLayer::createAnimationAndText(const int& id)
 		}
 		else
 		{
-			this->createPlantsText(1, "金币数达到 2000 或者\n死亡僵尸数到达 1000 时解\n锁该植物", Vec2(360, 800), 30, Color3B::RED, false);
+			this->createPlantsText(1, "金币数达到 2000 并且\n死亡僵尸数到达 1000 时解\n锁该植物", Vec2(360, 800), 30, Color3B::RED, false);
 		}
 		break;
 	case 11:
@@ -635,7 +636,7 @@ void SPSSpriteLayer::createAnimationAndText(const int& id)
 		}
 		else
 		{
-			this->createPlantsText(1, "金币数达到 5000 或者\n死亡僵尸数到达 5000 时解\n锁该植物", Vec2(360, 800), 30, Color3B::RED, false);
+			this->createPlantsText(1, "金币数达到 5000 并且\n死亡僵尸数到达 5000 时解\n锁该植物", Vec2(360, 800), 30, Color3B::RED, false);
 		}
 		break;
 	case 12:
@@ -650,7 +651,7 @@ void SPSSpriteLayer::createAnimationAndText(const int& id)
 		}
 		else
 		{
-			this->createPlantsText(1,"金币数达到 10000 或者\n死亡僵尸数到达 10000 时解\n锁该植物", Vec2(360, 800), 30, Color3B::RED, false);
+			this->createPlantsText(1,"金币数达到 10000 并且\n死亡僵尸数到达 10000 时解\n锁该植物", Vec2(360, 800), 30, Color3B::RED, false);
 		}
 		break;
 	default:

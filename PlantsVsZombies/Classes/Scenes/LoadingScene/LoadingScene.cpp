@@ -309,6 +309,7 @@ void LoadingScene::beginLoadingImageAndMusic()
 	loadingMusic();        /* 加载音乐 */
 	loadingAnimation();    /* 加载动画 */
 	loadingImage();        /* 加载图片 */	
+	throwException();      /* 抛出异常 */
 }
 
 void LoadingScene::update(float Time)
@@ -320,10 +321,10 @@ void LoadingScene::update(float Time)
 		_sprite[5]->setRotation(9 * _loadingPrecent);          /* 设置精旋转度数 */
 		_sprite[5]->setPosition(Vec2(10 + 290 / 100.0 * _loadingPrecent, 100 - _sprite[5]->getContentSize().height / 400 * _loadingPrecent));
 
-		if (_loadingPrecent >= 20) showLoadingBarFlower(0);
-		if (_loadingPrecent >= 40) showLoadingBarFlower(1);
-		if (_loadingPrecent >= 60) showLoadingBarFlower(2);
-		if (_loadingPrecent >= 80) showLoadingBarFlower(3);
+		if (_loadingPrecent >= 20)  showLoadingBarFlower(0);
+		if (_loadingPrecent >= 40)  showLoadingBarFlower(1);
+		if (_loadingPrecent >= 60)  showLoadingBarFlower(2);
+		if (_loadingPrecent >= 80)  showLoadingBarFlower(3);
 		if (_loadingPrecent >= 100) showLoadingBarFlower(4);
 
 	}
@@ -431,6 +432,31 @@ int LoadingScene::openResourcesPath(map<string, string>& Path, const std::string
 	}
 	delete doc;
 	return Path.size();
+}
+
+void LoadingScene::throwException()
+{
+#if CC_TARGET_PLATFORM ==CC_PLATFORM_WIN32
+	this->runAction(Sequence::create(DelayTime::create(10.f), CallFunc::create([=]()
+		{
+			try
+			{
+				if (_loadFileNumbers < _allFileNumbers)
+				{
+					wstring str = L"糟糕！发生了一些错误，部分资源文件加载失败！请重试！";
+					AudioEngine::play2d(_global->userInformation->getMusicPath().find("buzzer")->second);
+					throw str;
+				}
+			}
+			catch (wstring str)
+			{
+				if (MessageBoxW(_director->getOpenGLView()->getWin32Window(), str.c_str(), L"资源加载异常", MB_OK) == IDOK)
+				{
+					Director::getInstance()->end();
+				}
+			}
+		}), nullptr));
+#endif
 }
 
 void LoadingScene::loadingText()

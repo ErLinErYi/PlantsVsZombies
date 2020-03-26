@@ -53,6 +53,8 @@ private:
 
 	int openResourcesPath(map<string, string>& Path, const std::string& xml, bool IsEncryption = false);  /* 打开资源路径 */
 
+	void throwException();
+
 private:
 	int _textNumbers;                               // 文本数
 	int _loadFileNumbers;                           // 文件加载数

@@ -44,6 +44,7 @@ private:
 	Sprite* createSprite(Node* node, const std::string& name, const Vec2& position, const float& scale, const int& zorder,bool IsFlipped = false);
 	void createMouseListener();
 	void setLevelVisible(Node* node);
+	void playProhibitMusic(Button* button);
 
 private:
 	Global* _global;

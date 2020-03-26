@@ -35,10 +35,7 @@ Scene* World_1::createScene()
 
 bool World_1::init()
 {
-	if (!Scene::init())
-	{
-		return false;
-	}
+	if (!Scene::init())return false;
 
 	readWorldLevel();
 	createBackground();
@@ -179,10 +176,25 @@ void World_1::addScrollView()
 
 	/* ´´½¨¹Ø¿¨ */
 	auto World1_38 = createSprite("World1_38", Vec2(10, _backgroundSize.height / 2.0f), 1.7f, 2, 0.5f, false);
-	auto sprite = createSprite(World1_38, "begingame", Vec2(250, 230), 1.0f, 0);
+	auto sprite = Button::create("begingame.png", "", "", TextureResType::PLIST);
+	sprite->setPosition(Vec2(250, 230));
+	sprite->setAnchorPoint(Vec2(0, 0.5f));
+	World1_38->addChild(sprite);
+
+	if (_global->userInformation->getUserSelectWorldData().at(0)->levels <= 10)
+	{
+		auto prohibit = Sprite::createWithSpriteFrameName("Prohibit.png");
+		prohibit->setPosition(Vec2(40, 30));
+		prohibit->setScale(0.5f);
+		sprite->addChild(prohibit);
+	}
+	else 
+	{
+		_global->prohibitId == -1 ? playProhibitMusic(sprite) : nullptr;
+	}
 	auto wgfd = Sprite::createWithSpriteFrameName("wgfd.png");
 	wgfd->setPosition(Vec2(40, 15));
-	wgfd->setScale(0.4f);
+	wgfd->setScale(0.8f);
 	sprite->addChild(wgfd, -1);
 
 	auto Level_1 = createSprite("World1_26", Vec2(900, 500), 0.6f, 2, 0.5f, true);
@@ -500,6 +512,23 @@ void World_1::setLevelVisible(Node* node)
 	}
 }
 
+void World_1::playProhibitMusic(Button* button)
+{
+	button->addTouchEventListener([=](Ref* sender, ui::Widget::TouchEventType type)
+		{
+			switch (type)
+			{
+			case ui::Widget::TouchEventType::BEGAN:
+				AudioEngine::setVolume(AudioEngine::play2d(_global->userInformation->getMusicPath().find("tap")->second), _global->userInformation->getSoundEffectVolume());
+				break;
+			case ui::Widget::TouchEventType::ENDED:
+				_global->prohibitId = AudioEngine::play2d("resources/Music/prohibit.ogg");
+				button->setEnabled(false);
+				break;
+			}
+		});
+}
+
 ui::Button* World_1::createButton(Node* node, const std::string& name, const Vec2& position)
 {
 	auto sprite4 = ui::Button::create(name + ".png", "", "", TextureResType::PLIST);
@@ -526,7 +555,7 @@ ui::Button* World_1::createButton(Node* node, const std::string& name, const Vec
 	{
 		auto wgfd = Sprite::createWithSpriteFrameName("wgfd.png");
 		wgfd->setPosition(Vec2(40, 15));
-		wgfd->setScale(0.4f);
+		wgfd->setScale(0.8f);
 		wgfd->setGlobalZOrder(1);
 		sprite4->addChild(wgfd, -1);
 
@@ -537,7 +566,7 @@ ui::Button* World_1::createButton(Node* node, const std::string& name, const Vec
 	{
 		auto wgfd = Sprite::createWithSpriteFrameName("wgfd.png");
 		wgfd->setPosition(Vec2(40, 15));
-		wgfd->setScale(0.4f);
+		wgfd->setScale(0.8f);
 		wgfd->setGlobalZOrder(1);
 		sprite4->addChild(wgfd, -1);
 

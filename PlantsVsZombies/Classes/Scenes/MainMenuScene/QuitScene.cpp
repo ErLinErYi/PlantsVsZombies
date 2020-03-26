@@ -62,7 +62,11 @@ void QuitMenu::createButtons(const std::string &Label, Vec2 &vec2,const int& ID)
 			{
 			case 1:
 				caveTime(getSumRunTime());
-				Director::getInstance()->end();
+				_global->resumeProhibit();
+				if (_global->prohibitId == -1) 
+				{
+					Director::getInstance()->end();
+				}
 				break;
 			case 2:
 				deleteDialog();

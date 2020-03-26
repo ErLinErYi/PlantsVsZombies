@@ -12,7 +12,8 @@ Global* Global::getInstance()
 }
 
 Global::Global():
-	userInformation(new UserInformation())
+	prohibitId(-1)
+,	userInformation(new UserInformation())
 {
 }
 
@@ -47,5 +48,13 @@ void Global::stopMusic()
 void Global::resumeMusic()
 {
 	AudioEngine::resume(*userInformation->getBackgroundMusic().begin());
+}
+
+void Global::resumeProhibit()
+{
+	AudioEngine::setFinishCallback(prohibitId, [=](int i, string name)
+		{
+			prohibitId = -1;
+		});
 }
 

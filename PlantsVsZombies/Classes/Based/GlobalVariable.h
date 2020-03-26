@@ -22,8 +22,10 @@ public:
 	int changeBgMusic(const std::string& _musicName, bool _loop);
 	void stopMusic();
 	void resumeMusic();
+	void resumeProhibit();
 
 public:
+	int prohibitId;
 	UserInformation* userInformation;
 
 CC_CONSTRUCTOR_ACCESS:

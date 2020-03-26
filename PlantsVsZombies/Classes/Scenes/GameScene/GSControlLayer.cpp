@@ -352,7 +352,7 @@ void GSControlLayer::createZombies()
 bool GSControlLayer::controlRefurbishZombies()
 {
 	if ((Zombies::getZombiesNumbers() <= 4 &&
-		_zombiesAppearControl->getZombiesAppearFrequency() > 3)                   /* 如果活着的僵尸数小于规定，刷新下一波 */
+		_zombiesAppearControl->getZombiesAppearFrequency() > 3)                    /* 如果活着的僵尸数小于规定，刷新下一波 */
 
 		|| (Zombies::getZombiesNumbers() <= 0 &&                                   /* 如果没有存活僵尸则立即刷新僵尸 */
 			_zombiesAppearControl->getZombiesAppearFrequency() != 0)
@@ -508,36 +508,45 @@ void GSControlLayer::mouseMoveControl()
 	/* 如果鼠标选择了植物 */
 	if (buttonLayerInformation->mouseSelectImage->isSelectPlants)
 	{
-		if (_gameMapInformation->plantsMap[static_cast<int>(_plantsPosition.y)][static_cast<int>(_plantsPosition.x)] != NO_PLANTS)
+		int posX = static_cast<int>(_plantsPosition.x);
+		int posY = static_cast<int>(_plantsPosition.y);
+		if (posX >= 0 && posY >= 0)
 		{
-			_plantPreviewImage->setPosition(Vec2(-1000, -1000));
+			if (_gameMapInformation->plantsMap[posY][posX] != NO_PLANTS)
+			{
+				_plantPreviewImage->setPosition(Vec2(-1000, -1000));
+			}
+			else
+			{
+#if VIRTUAL3D
+				if (_plantsPosition.y == 0)
+				{
+					_plantPreviewImage->setPosition(Vec2(490 + 130 * _plantsPosition.x + 60, 180));
+				}
+				if (_plantsPosition.y == 1)
+				{
+					_plantPreviewImage->setPosition(Vec2(510 + 125 * _plantsPosition.x + 60, 345));
+				}
+				if (_plantsPosition.y == 2)
+				{
+					_plantPreviewImage->setPosition(Vec2(530 + 120 * _plantsPosition.x + 60, 500));
+				}
+				if (_plantsPosition.y == 3)
+				{
+					_plantPreviewImage->setPosition(Vec2(550 + 115 * _plantsPosition.x + 60, 640));
+				}
+				if (_plantsPosition.y == 4)
+				{
+					_plantPreviewImage->setPosition(Vec2(570 + 110 * _plantsPosition.x + 60, 775));
+				}
+#else
+				_plantPreviewImage->setPosition(Vec2(GRASS_POSITION_LEFT + 122 * _plantsPosition.x + 60, 110 + 138 * (_plantsPosition.y + 1) - 60));
+#endif
+			}
 		}
 		else
 		{
-#if VIRTUAL3D
-			if (_plantsPosition.y == 0)
-			{
-				_plantPreviewImage->setPosition(Vec2(490 + 130 * _plantsPosition.x + 60, 180));
-			}
-			if (_plantsPosition.y == 1)
-			{
-				_plantPreviewImage->setPosition(Vec2(510 + 125 * _plantsPosition.x + 60, 345));
-		    }
-			if (_plantsPosition.y == 2)
-			{
-				_plantPreviewImage->setPosition(Vec2(530 + 120 * _plantsPosition.x + 60, 500));
-			}
-			if (_plantsPosition.y == 3)
-			{
-				_plantPreviewImage->setPosition(Vec2(550 + 115 * _plantsPosition.x + 60, 640));
-			}
-			if (_plantsPosition.y == 4)
-			{
-				_plantPreviewImage->setPosition(Vec2(570 + 110 * _plantsPosition.x + 60, 775));
-			}
-#else
-			_plantPreviewImage->setPosition(Vec2(GRASS_POSITION_LEFT + 122 * _plantsPosition.x + 60, 110 + 138 * (_plantsPosition.y + 1) - 60));
-#endif
+			_plantPreviewImage->setPosition(Vec2(-1000, -1000));
 		}
 		_plantCurImage->setPosition(_cur + Vec2(0, 30));
 	}
@@ -624,13 +633,13 @@ void GSControlLayer::mouseDownControl(EventMouse* eventmouse)
 				{
 					AudioEngine::setVolume(AudioEngine::play2d(_global->userInformation->getMusicPath().find("buzzer")->second), _global->userInformation->getSoundEffectVolume());
 					/* 卡牌颜色恢复 */
-					buttonLayerInformation->plantsCards[static_cast<int>(buttonLayerInformation->mouseSelectImage->selectPlantsId)].progressTimer->setPercentage(0);
-					buttonLayerInformation->plantsCards[static_cast<int>(buttonLayerInformation->mouseSelectImage->selectPlantsId)].plantsCards->setColor(Color3B::WHITE);
+					//buttonLayerInformation->plantsCards[static_cast<int>(buttonLayerInformation->mouseSelectImage->selectPlantsId)].progressTimer->setPercentage(0);
+					//buttonLayerInformation->plantsCards[static_cast<int>(buttonLayerInformation->mouseSelectImage->selectPlantsId)].plantsCards->setColor(Color3B::WHITE);
 
 					/* 提示信息 */
 					informationLayerInformation->createPromptText();
 
-					removePreviewPlant();
+					//removePreviewPlant();
 				}
 			}
 		}

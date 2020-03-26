@@ -173,15 +173,15 @@ void SelectWorldScene::createGalaxy(Node* node)
 	node->addChild(rotate);
 	rotate->runAction(RepeatForever::create(RotateBy::create(1.0f, -10)));
 
-	auto _worldBackgroundBlack = Sprite::createWithSpriteFrameName("WorldBackgroundBlack.png");
-	auto _worldBackgroundBlack1 = Sprite::createWithSpriteFrameName("WorldBackgroundBlack.png");
-	_worldBackgroundBlack->setAnchorPoint(Vec2(0, 1));
-	_worldBackgroundBlack->setPosition(Vec2(0, 1140));
-	_worldBackgroundBlack1->setAnchorPoint(Vec2(0, 0));
-	_worldBackgroundBlack1->setPosition(Vec2(0, -60));
-	_worldBackgroundBlack1->setFlippedY(true);
-	node->addChild(_worldBackgroundBlack);
-	node->addChild(_worldBackgroundBlack1);
+	auto worldBackgroundBlack = Sprite::createWithSpriteFrameName("WorldBackgroundBlack.png");
+	auto worldBackgroundBlack1 = Sprite::createWithSpriteFrameName("WorldBackgroundBlack.png");
+	worldBackgroundBlack->setAnchorPoint(Vec2(0, 1));
+	worldBackgroundBlack->setPosition(Vec2(0, 1140));
+	worldBackgroundBlack1->setAnchorPoint(Vec2(0, 0));
+	worldBackgroundBlack1->setPosition(Vec2(0, -60));
+	worldBackgroundBlack1->setFlippedY(true);
+	node->addChild(worldBackgroundBlack);
+	node->addChild(worldBackgroundBlack1);
 }
 
 void SelectWorldScene::createScrollView()
