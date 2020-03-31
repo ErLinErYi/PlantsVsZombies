@@ -38,7 +38,7 @@ private:
 	void updateUserNameOnce(float time);
 	void setCloudPosition(Node* node, int ID, const Vec2& vec2);  /* 设置云的位置 */
 	void playMusicBleepInGameButtons(int ID);                     /* 播放音乐 */
-	void playMusicBleepInMainBuutons(int ID, const Vec2& vec2);
+	void playMusicBleepInMainButtons(int ID, const Vec2& vec2);
 
 	/*游戏选择函数*/
 	void beginAdventureGame();                                    /* 冒险模式 */

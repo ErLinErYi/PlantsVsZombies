@@ -187,8 +187,7 @@ void GSButtonLayer::showSeedBank()
 	auto seedBank = Scale9Sprite::createWithSpriteFrameName("SeedBank.png");
 	seedBank->setPosition(Vec2(0, 1080));
 	seedBank->setAnchorPoint(Vec2(0, 1));
-	seedBank->setCapInsets(Rect(0, 5, 87, 373));
-	seedBank->setContentSize(Size(217.5f, 980));
+	seedBank->setContentSize(Size(210, 967));
 	this->addChild(seedBank);
 }
 
@@ -239,7 +238,7 @@ void GSButtonLayer::createPlantsCard()
 	for (auto& card : _global->userInformation->getUserSelectCrads())
 	{
 		auto cardBackgroundImag = Button::create("SeedPacket_Larger.png", "SeedPacket_Larger.png", "", TextureResType::PLIST);
-		cardBackgroundImag->setPosition(Vec2(110, 1008 - 103 * ++i));
+		cardBackgroundImag->setPosition(Vec2(105, 1008 - 103 * ++i));
 		cardBackgroundImag->setEnabled(false);
 		cardBackgroundImag->setColor(Color3B::GRAY);
 		cardBackgroundImag->setCascadeColorEnabled(true);

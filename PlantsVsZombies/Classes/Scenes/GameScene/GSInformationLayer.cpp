@@ -79,7 +79,8 @@ void GSInformationLayer::showProgressBar()
 	for (unsigned int i = 0; i <leveldata.size(); ++i)
 	{
 		auto progressbarflag = Sprite::createWithSpriteFrameName("ProgressBarFlag.png");
-		progressbarflag->setPosition(Vec2(465 - 465 * (_openLevelData->readLevelData(_openLevelData->getLevelNumber())->getMunchZombiesFrequency().at(i) / (double)_openLevelData->readLevelData(_openLevelData->getLevelNumber())->getZombiesFrequency()), 0));
+		progressbarflag->setPosition(Vec2(465 - 465 * (_openLevelData->readLevelData(
+			_openLevelData->getLevelNumber())->getMunchZombiesFrequency().at(i) / (double)_openLevelData->readLevelData(_openLevelData->getLevelNumber())->getZombiesFrequency()), 0));
 		progressbarflag->setScale(1.6f);
 		progressbarflag->setAnchorPoint(Vec2(0, 0));
 		progressbarflag->setTag(leveldata.at(i));

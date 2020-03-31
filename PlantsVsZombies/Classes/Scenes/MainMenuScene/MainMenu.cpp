@@ -66,10 +66,10 @@ bool MainMenu::init()
 void MainMenu::curUpdate(float time)
 {
 	/* 鼠标移动到按钮上播放音乐 */
-	this->playMusicBleepInMainBuutons(0, Vec2(_cur.x - 606, _cur.y));
-	this->playMusicBleepInMainBuutons(1, Vec2(_cur.x - 606, _cur.y));
-	this->playMusicBleepInMainBuutons(2, Vec2(_cur.x - 606, _cur.y));
-	this->playMusicBleepInMainBuutons(3, _cur);
+	this->playMusicBleepInMainButtons(0, Vec2(_cur.x - 606, _cur.y));
+	this->playMusicBleepInMainButtons(1, Vec2(_cur.x - 606, _cur.y));
+	this->playMusicBleepInMainButtons(2, Vec2(_cur.x - 606, _cur.y));
+	this->playMusicBleepInMainButtons(3, _cur);
 	
 	this->playMusicBleepInGameButtons(1);
 	this->playMusicBleepInGameButtons(2);
@@ -77,15 +77,12 @@ void MainMenu::curUpdate(float time)
 	this->playMusicBleepInGameButtons(4);
 
 	/* 鼠标移动到按钮式更换图片 */
-	_menuItem[0]->getBoundingBox().containsPoint(Vec2(_cur.x - 606, _cur.y)) ? 
-		_menuItem[0]->setNormalImage(Sprite::createWithSpriteFrameName("SelectorScreen_Options2.png")) :
-		_menuItem[0]->setNormalImage(Sprite::createWithSpriteFrameName("SelectorScreen_Options1.png"));
+	_menuItem[0]->getBoundingBox().containsPoint(Vec2(_cur.x - 606, _cur.y)) ?
+		_menuItem[0]->setColor(Color3B::WHITE) : _menuItem[0]->setColor(Color3B::BLACK);
 	_menuItem[1]->getBoundingBox().containsPoint(Vec2(_cur.x - 606, _cur.y)) ?
-		_menuItem[1]->setNormalImage(Sprite::createWithSpriteFrameName("SelectorScreen_Help2.png")) :
-		_menuItem[1]->setNormalImage(Sprite::createWithSpriteFrameName("SelectorScreen_Help1.png"));
+		_menuItem[1]->setColor(Color3B::WHITE) : _menuItem[1]->setColor(Color3B::BLACK);
 	_menuItem[2]->getBoundingBox().containsPoint(Vec2(_cur.x - 606, _cur.y)) ?
-		_menuItem[2]->setNormalImage(Sprite::createWithSpriteFrameName("SelectorScreen_Quit2.png")) :
-		_menuItem[2]->setNormalImage(Sprite::createWithSpriteFrameName("SelectorScreen_Quit1.png"));
+		_menuItem[2]->setColor(Color3B::WHITE) : _menuItem[2]->setColor(Color3B::BLACK);
 	_menuItem[3]->getBoundingBox().containsPoint(_cur) ?
 		_menuItem[3]->setNormalImage(Sprite::createWithSpriteFrameName("SelectorScreen_WoodSign2_press.png")) :
 		_menuItem[3]->setNormalImage(Sprite::createWithSpriteFrameName("SelectorScreen_WoodSign2.png"));
@@ -120,7 +117,8 @@ void MainMenu::updateUserNameOnce(float Time)
 			userNameAction->setTag(1000);
 			_userNameActionParent = userNameAction->getParent();
 			userNameAction->setColor(Color3B(rand() % 256, rand() % 256, rand() % 256));
-			userNameAction->runAction(RepeatForever::create(Sequence::create(DelayTime::create(1 * ((i + 1) % (len - 3))), Spawn::create(RotateBy::create(1.0f, 360), JumpBy::create(1.0f, Vec2(0, 0), 30, 1), NULL), DelayTime::create(1.5f), NULL)));
+			userNameAction->runAction(RepeatForever::create(Sequence::create(DelayTime::create(1 * ((i + 1) % (len - 3))), 
+				Spawn::create(RotateBy::create(1.0f, 360), JumpBy::create(1.0f, Vec2(0, 0), 30, 1), NULL), DelayTime::create(1.5f), NULL)));
 		}
 	}
 }
@@ -145,19 +143,10 @@ void MainMenu::playMusicBleepInGameButtons(int ID)
 	}
 }
 
-void MainMenu::playMusicBleepInMainBuutons(int ID,const Vec2 &vec2)
+void MainMenu::playMusicBleepInMainButtons(int ID,const Vec2 &vec2)
 {
-	const string image[][4]
-	{
-		{"SelectorScreen_Options2","SelectorScreen_Help2","SelectorScreen_Quit2","SelectorScreen_WoodSign2_press"},
-		{"SelectorScreen_Options1","SelectorScreen_Help1","SelectorScreen_Quit1","SelectorScreen_WoodSign2"}
-	};
-
 	if (_menuItem[ID]->getBoundingBox().containsPoint(vec2))
 	{
-		/* 判断按钮编号 */
-		_menuItem[ID]->setNormalImage(Sprite::createWithSpriteFrameName(image[0][ID] + ".png"));
-
 		/* 如果没有播放音乐 */
 		if (!_playMusic[ID + 4])
 		{
@@ -168,7 +157,6 @@ void MainMenu::playMusicBleepInMainBuutons(int ID,const Vec2 &vec2)
 	else
 	{
 		if (_playMusic[ID + 4]) _playMusic[ID + 4] = false;
-		_menuItem[ID]->setNormalImage(Sprite::createWithSpriteFrameName(image[1][ID] + ".png"));
 	}
 }
 
@@ -320,9 +308,9 @@ void MainMenu::createAnimation()
 	{
 		auto Leaves = SkeletonAnimation::createWithData(iter->second);
 		Leaves->setAnimation(0, "Leaves_action", 1);
-		Leaves->setPosition(Vec2(-270, -110));
+		Leaves->setPosition(Vec2(-270, -20));
 		Leaves->setAnchorPoint(Vec2(0, 0));
-		Leaves->setScale(2.7f);
+		Leaves->setScale(1.5f);
 		Leaves->setTimeScale(0.5f);
 		_sprite[3]->addChild(Leaves);
 	}
@@ -427,15 +415,10 @@ void MainMenu::createMainButton()
 	_menuItem[2] = MenuItemImage::create("","", CC_CALLBACK_1(MainMenu::menuQuitCallBack, this));
 	_menuItem[3] = MenuItemImage::create("","", CC_CALLBACK_1(MainMenu::menuDataCallBack, this));
 
-	_menuItem[0]->setNormalSpriteFrame(SpriteFrameCache::getInstance()->getSpriteFrameByName("SelectorScreen_Options1"));
-	_menuItem[1]->setNormalSpriteFrame(SpriteFrameCache::getInstance()->getSpriteFrameByName("SelectorScreen_Help1"));
-	_menuItem[2]->setNormalSpriteFrame(SpriteFrameCache::getInstance()->getSpriteFrameByName("SelectorScreen_Quit1"));
-	_menuItem[3]->setNormalSpriteFrame(SpriteFrameCache::getInstance()->getSpriteFrameByName("SelectorScreen_WoodSign2"));
-
-	_menuItem[0]->setSelectedSpriteFrame(SpriteFrameCache::getInstance()->getSpriteFrameByName("SelectorScreen_Options2"));
-	_menuItem[1]->setSelectedSpriteFrame(SpriteFrameCache::getInstance()->getSpriteFrameByName("SelectorScreen_Help2"));
-	_menuItem[2]->setSelectedSpriteFrame(SpriteFrameCache::getInstance()->getSpriteFrameByName("SelectorScreen_Quit2"));
-	_menuItem[3]->setSelectedSpriteFrame(SpriteFrameCache::getInstance()->getSpriteFrameByName("SelectorScreen_WoodSign2_press"));
+	_menuItem[0]->setNormalSpriteFrame(SpriteFrameCache::getInstance()->getSpriteFrameByName("SelectorScreen_Options2.png"));
+	_menuItem[1]->setNormalSpriteFrame(SpriteFrameCache::getInstance()->getSpriteFrameByName("SelectorScreen_Help2.png"));
+	_menuItem[2]->setNormalSpriteFrame(SpriteFrameCache::getInstance()->getSpriteFrameByName("SelectorScreen_Quit2.png"));
+	_menuItem[3]->setNormalSpriteFrame(SpriteFrameCache::getInstance()->getSpriteFrameByName("SelectorScreen_WoodSign2.png"));
 
 	_menuItem[0]->setCallback(CC_CALLBACK_1(MainMenu::menuOptionCallBack, this));
 	_menuItem[1]->setCallback(CC_CALLBACK_1(MainMenu::menuHelpCallBack, this));
@@ -446,11 +429,6 @@ void MainMenu::createMainButton()
 	_menuItem[1]->setPosition(Vec2(1080, 130));
 	_menuItem[2]->setPosition(Vec2(1210, 140));
 	_menuItem[3]->setPosition(Vec2(145, 1080));
-
-	_menuItem[0]->setScale(1.5f);
-	_menuItem[1]->setScale(1.5f);
-	_menuItem[2]->setScale(1.5f);
-	_menuItem[3]->setScale(2.0f);
 
 	_menuItem[3]->setAnchorPoint(Vec2(0, 0));
 	_menuItem[3]->runAction(Sequence::create(DelayTime::create(0.8f), EaseElasticOut::create(MoveBy::create(1.1f, Vec2(0, -400))), NULL));
@@ -537,10 +515,12 @@ void MainMenu::createMainSprite()
 	_mainButton[8] = Sprite::createWithSpriteFrameName("SelectorScreen_Shadow_ZenGarden.png");
 
 	Vec2 Point[] = { {0,0},{900,830} ,{880,650},{870,510},{850,385},{910,826} ,{890,644},{880,506},{864,377} };
+	Size buttonSize[] = { {0,0,},{594,216},{563.4f,239.4f},{514.8f,219.6f},{478.8f,221.4f},{606.6f,226.8f},{572.4f,244.8f},{520.2f,228.6f},{484.2f,228.6f} };
 	for (int i = 8; i > 0; i--)
 	{
 		_mainButton[i]->setPosition(Point[i]);
-		_mainButton[i]->setScale(1.8f);
+		_mainButton[i]->setContentSize(buttonSize[i]);
+		//_mainButton[i]->setScale(1.8f); CCLOG("%lf %lf", _mainButton[i]->getContentSize().width, _mainButton[i]->getContentSize().height);
 		_sprite[3]->addChild(_mainButton[i]);
 	}
 }

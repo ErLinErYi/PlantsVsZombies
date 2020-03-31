@@ -58,7 +58,7 @@ void SunFlower::createRandomSuns()
 			{
 				auto sun = new Sun(_sunLayer);
 				sun->setSunTag(++_sunTag);
-				sun->setPosition(Vec2(rand() % 1100 + 800, 1150));
+				sun->setPosition(Vec2(rand() % 1100 + 500, 1150));
 				sun->createSuns();
 
 				auto temporary = sun->getSunTag();

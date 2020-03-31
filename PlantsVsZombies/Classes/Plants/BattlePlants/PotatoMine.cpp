@@ -11,6 +11,7 @@
 #include "Zombies/Zombies.h"
 #include "Scenes/GameScene/GSData.h"
 #include "Scenes/GameScene/GSBackgroundLayer.h"
+#include "Scenes/GameScene/GSControlLayer.h"
 
 PotatoMine::PotatoMine(Node* node):
 	_isReady(false)
@@ -95,6 +96,7 @@ void PotatoMine::plantExplode()
 {
 	if (_isBeginExplode && !_isExplodeFinished)/* ÍÁ¶¹À×±¬Õ¨ */
 	{
+		GSControlLayer::setPlantMapCanPlant(getPlantColumn(), getPlantRow());
 		_isExplodeFinished = true;
 		_plantAnimation->setScale(1.2f);
 		_plantAnimation->setAnimation(0, "PotatoMine_Blast", false);

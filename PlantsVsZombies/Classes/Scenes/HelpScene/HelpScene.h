@@ -26,8 +26,12 @@ private:
 	void createText();
 	void createGithubUrl();
 	void createButton();
+	void addScrollView();
+	void addMouseEvent();
 
 private:
 	Global* _global;
 	const Size _size;
+	ui::ScrollView* _textScrollView;
+	float _plantCardRollingDistance;           /* º∆À„ Û±Íπˆ∂Øæ‡¿Î */
 };

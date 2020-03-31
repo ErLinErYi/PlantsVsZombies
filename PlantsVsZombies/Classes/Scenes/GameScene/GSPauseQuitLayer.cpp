@@ -27,6 +27,8 @@ void GSPauseQuitLayer::pauseLayer()
 	Director::getInstance()->getRunningScene()->getChildByName("controlLayer")->onExit();
 	Director::getInstance()->getRunningScene()->getChildByName("informationLayer")->onExit();
 	Director::getInstance()->getRunningScene()->getChildByName("sunLayer")->onExit();
+	auto layer = Director::getInstance()->getRunningScene()->getChildByName("gameEndShieldLayer");
+	if (layer)layer->onExit();
 	Global::getInstance()->stopMusic();
 }
 
@@ -38,6 +40,8 @@ void GSPauseQuitLayer::resumeLayer()
 	Director::getInstance()->getRunningScene()->getChildByName("controlLayer")->onEnter();
 	Director::getInstance()->getRunningScene()->getChildByName("informationLayer")->onEnter();
 	Director::getInstance()->getRunningScene()->getChildByName("sunLayer")->onEnter();
+	auto layer = Director::getInstance()->getRunningScene()->getChildByName("gameEndShieldLayer");
+	if (layer)layer->onEnter();
 	Global::getInstance()->resumeMusic();
 }
 

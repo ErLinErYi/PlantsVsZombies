@@ -599,7 +599,7 @@ void Zombies::zombieLoseHeadAnimation(const std::string& name)
 		auto head = Sprite::createWithSpriteFrameName(name + ".png");
 		head->setPosition(_zombiesAnimation->getPosition() + Vec2(-40, 150));
 		head->setLocalZOrder(_zombiesAnimation->getLocalZOrder() + 1);
-		head->setScale(1.3f);
+		head->setScale(1.5f);
 		head->runAction(Sequence::create(Spawn::create(
 			Sequence::create(JumpBy::create(0.5f, Vec2(-150 + rand() % 300, -120), rand() % 100 + 66, 1), JumpBy::create(0.2f, Vec2(-20 + rand() % 40, 0), rand() % 10 + 10, 1), nullptr),
 			RotateBy::create(0.5f, -180 + rand() % 360), nullptr),

@@ -63,6 +63,11 @@ bool GSControlLayer::init()
 	return true;
 }
 
+void GSControlLayer::setPlantMapCanPlant(const int colum, const int row)
+{
+	controlLayerInformation->_gameMapInformation->plantsMap[colum][row] = NO_PLANTS;
+}
+
 void GSControlLayer::createSchedule()
 {
 	schedule([&](float){
@@ -110,9 +115,9 @@ void GSControlLayer::controlCardEnabled()
 
 void GSControlLayer::calculatePlantPosition()
 {
-	for (int i = 0; i < _gameMapInformation->rowNumbers; i++)
+	for (int i = 0; i < _gameMapInformation->rowNumbers; ++i)
 	{
-		for (int j = 0; j < _gameMapInformation->columnNumbers; j++)
+		for (int j = 0; j < _gameMapInformation->columnNumbers; ++j)
 		{
 #if VIRTUAL3D
 			if (i == 0)
@@ -168,8 +173,8 @@ void GSControlLayer::calculatePlantPosition()
 	/* 如果不在范围内，移除到画面外 */
 	if (GRASS_OUTSIDE(_cur))
 	{
-		_plantsPosition.x = -100;
-		_plantsPosition.y = -100;
+		_plantsPosition.x = 100;
+		_plantsPosition.y = 100;
 	}
 }
 
@@ -225,7 +230,8 @@ void GSControlLayer::selectPlantsPreviewImage()
 		buttonLayerInformation->plantsCards[static_cast<int>(_selectPlantsTag)].plantsCards->setColor(Color3B::WHITE);
 
 		/* 加上所需的阳光数并更新 */
-		_global->userInformation->setSunNumbers(_global->userInformation->getSunNumbers() + buttonLayerInformation->plantsCards[static_cast<int>(buttonLayerInformation->mouseSelectImage->selectPlantsId)].plantsNeedSunNumbers);
+		_global->userInformation->setSunNumbers(_global->userInformation->getSunNumbers() + 
+			buttonLayerInformation->plantsCards[static_cast<int>(buttonLayerInformation->mouseSelectImage->selectPlantsId)].plantsNeedSunNumbers);
 		informationLayerInformation->updateSunNumbers();
 
 		removePreviewPlant();
@@ -447,9 +453,9 @@ void GSControlLayer::removeShovel()
 
 void GSControlLayer::recoveryPlantsColor()
 {
-	for (int i = 0; i < _gameMapInformation->rowNumbers; i++)
+	for (int i = 0; i < _gameMapInformation->rowNumbers; ++i)
 	{
-		for (int j = 0; j < _gameMapInformation->columnNumbers; j++)
+		for (int j = 0; j < _gameMapInformation->columnNumbers; ++j)
 		{
 			if (_gameMapInformation->plantsMap[i][j] != CAN_NOT_PLANT && _gameMapInformation->plantsMap[i][j] != NO_PLANTS)
 			{
@@ -500,7 +506,7 @@ void GSControlLayer::setGameEnd()
 	animationLayerInformation->stopRandomSun();
 
 	_gameEndShieldLayer = GSGameEndLayer::create();
-	_director->getRunningScene()->addChild(_gameEndShieldLayer, 10);
+	_director->getRunningScene()->addChild(_gameEndShieldLayer, 10, "gameEndShieldLayer");
 }
 
 void GSControlLayer::mouseMoveControl()
@@ -510,7 +516,7 @@ void GSControlLayer::mouseMoveControl()
 	{
 		int posX = static_cast<int>(_plantsPosition.x);
 		int posY = static_cast<int>(_plantsPosition.y);
-		if (posX >= 0 && posY >= 0)
+		if (posX >= 0 && posY >= 0 && posX < 9 && posY < 5)
 		{
 			if (_gameMapInformation->plantsMap[posY][posX] != NO_PLANTS)
 			{
@@ -633,13 +639,21 @@ void GSControlLayer::mouseDownControl(EventMouse* eventmouse)
 				{
 					AudioEngine::setVolume(AudioEngine::play2d(_global->userInformation->getMusicPath().find("buzzer")->second), _global->userInformation->getSoundEffectVolume());
 					/* 卡牌颜色恢复 */
-					//buttonLayerInformation->plantsCards[static_cast<int>(buttonLayerInformation->mouseSelectImage->selectPlantsId)].progressTimer->setPercentage(0);
-					//buttonLayerInformation->plantsCards[static_cast<int>(buttonLayerInformation->mouseSelectImage->selectPlantsId)].plantsCards->setColor(Color3B::WHITE);
+					buttonLayerInformation->plantsCards[static_cast<int>(buttonLayerInformation->mouseSelectImage->selectPlantsId)].progressTimer->setPercentage(0);
+					buttonLayerInformation->plantsCards[static_cast<int>(buttonLayerInformation->mouseSelectImage->selectPlantsId)].plantsCards->setColor(Color3B::WHITE);
 
 					/* 提示信息 */
 					informationLayerInformation->createPromptText();
 
-					//removePreviewPlant();
+					removePreviewPlant();
+
+					/* 加上所需的阳光数并更新 */
+					_global->userInformation->setSunNumbers(_global->userInformation->getSunNumbers() +
+						buttonLayerInformation->plantsInformation->PlantsNeedSunNumbers[static_cast<int>(buttonLayerInformation->mouseSelectImage->selectPlantsId)]);
+					informationLayerInformation->updateSunNumbers();
+
+					/* 植物要求更新 */
+					backgroundLayerInformation->gameType->updateRequirementNumbers("植物数量增加");
 				}
 			}
 		}

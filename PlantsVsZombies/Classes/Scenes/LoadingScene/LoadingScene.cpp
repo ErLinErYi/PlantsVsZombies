@@ -165,7 +165,7 @@ void LoadingScene::showLoadingBackGround()
 
 	/* 创建精灵 */
 	SpriteFrameCache::getInstance()->addSpriteFramesWithFile("resources/images/LoadingScene/LoadingScene.plist");
-	_sprite[0] = Sprite::createWithSpriteFrameName("PopCap_Logo1.png");
+	_sprite[0] = Sprite::createWithSpriteFrameName("cocos2dx_Logo.png");
 	_sprite[1] = Sprite::createWithSpriteFrameName("PopCap_Logo.png");
 	_sprite[7] = Sprite::create("resources/text/txt/About.txt");
 	_sprite[2] = Sprite::createWithSpriteFrameName("titlescreen.png");
@@ -260,14 +260,17 @@ void LoadingScene::showTileAndLoadingBar()
 	clippingNode->setPosition(Vec2(size.width / 2 + 10, 1100));
 
 	/* 为精灵设置大小 */
-	_sprite[3]->setScale(2.0f);
-	_sprite[3]->setScaleX(2.5f);
+	_sprite[3]->setScaleX(1.25f);
 	_sprite[4]->setScale(2.0f);
 	_sprite[6]->setScale(2.0f);
 
 	/* 让精灵运动起来 */
 	_sprite[4]->runAction(Sequence::create(MoveTo::create(0.5f, Vec2(size.width / 2, 150)),CallFuncN::create(CC_CALLBACK_1(LoadingScene::runLoGoCallBack, this, 4)), NULL));
-	_sprite[6]->runAction(RepeatForever::create(Sequence::create(MoveTo::create(1.0f, Vec2(SpriteSize.width, 0)), DelayTime::create(2.0f), CallFunc::create([=]() {_sprite[6]->setPosition(Vec2(-SpriteSize.width, 0)); }), NULL)));
+	_sprite[6]->runAction(RepeatForever::create(Sequence::create(MoveTo::create(1.0f, Vec2(SpriteSize.width, 0)), DelayTime::create(2.0f),
+		CallFunc::create([=]()
+			{
+				_sprite[6]->setPosition(Vec2(-SpriteSize.width, 0));
+			}), nullptr)));
     clippingNode->runAction(MoveTo::create(0.5f, Vec2(size.width / 2, 900)));
 
 	/* 加到场景中 */

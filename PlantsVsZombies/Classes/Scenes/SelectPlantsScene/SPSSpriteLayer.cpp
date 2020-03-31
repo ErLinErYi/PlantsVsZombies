@@ -51,20 +51,20 @@ void SPSSpriteLayer::createSelectPlantsDialog()
 
 void SPSSpriteLayer::alreadySelectPlantsDialog()
 {
-	auto SeedBank = Scale9Sprite::createWithSpriteFrameName("SeedBank.png");
-	SeedBank->setPosition(Vec2(-200, 1080));
-	SeedBank->setAnchorPoint(Vec2(0, 1));
-	SeedBank->setCapInsets(Rect(0, 5, 87, 373));
-	SeedBank->setContentSize(Size(217.5f, 980));
-	SeedBank->runAction(MoveTo::create(0.2f, Vec2(0, 1080)));
-	this->addChild(SeedBank);
+	auto seedBank = Scale9Sprite::createWithSpriteFrameName("SeedBank.png");
+	seedBank->setPosition(Vec2(-200, 1080));
+	seedBank->setAnchorPoint(Vec2(0, 1));
+	//SeedBank->setCapInsets(Rect(0, 6, 87, 373));
+	seedBank->setContentSize(Size(210, 967));
+	seedBank->runAction(MoveTo::create(0.2f, Vec2(0, 1080)));
+	this->addChild(seedBank);
 
 	for (int i = 0; i < 9; ++i)
 	{
 		auto Seed = Sprite::createWithSpriteFrameName("SeedPacketSilhouette.png");
 		Seed->setContentSize(Size(180, 100));
-		Seed->setPosition(Vec2(110, 905 - 103 * i));
-		SeedBank->addChild(Seed);
+		Seed->setPosition(Vec2(105, 897 - 103 * i));
+		seedBank->addChild(Seed);
 	}
 }
 
@@ -325,7 +325,7 @@ void SPSSpriteLayer::createMoveButton(Button* button, const Vec2& vec2, const in
 	MoveCard->setTitleColor(Color3B::RED);
 	MoveCard->setTitleFontSize(25);
 	MoveCard->setTag(id);
-	MoveCard->runAction(MoveTo::create(0.2f, Vec2(110, 1008 - 103 * seedBankButton.size())));
+	MoveCard->runAction(MoveTo::create(0.2f, Vec2(105, 1008 - 103 * seedBankButton.size())));
 	this->addChild(MoveCard);
 
 	showPlantsInformation(MoveCard, id); //ÏÔÊ¾ÐÅÏ¢
@@ -375,7 +375,7 @@ void SPSSpriteLayer::sortPlantsCard(const int& id)
 	int i = -1;
 	for (auto& card : seedBankButton)
 	{
-		card.cardbutton->runAction(MoveTo::create(0.2f, Vec2(110, 1008 - 103 * ++i)));
+		card.cardbutton->runAction(MoveTo::create(0.2f, Vec2(105, 1008 - 103 * ++i)));
 	}
 
 	if (seedBankButton.size() <= 4)

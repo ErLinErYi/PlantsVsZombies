@@ -34,6 +34,7 @@ class GSControlLayer :public Layer
 public:
 	CREATE_FUNC(GSControlLayer);
 	void addLayer(Node* node, const int order, const string& name) { node->addChild(this, order, name); }
+	static void setPlantMapCanPlant(const int colum, const int row);
 
 CC_CONSTRUCTOR_ACCESS:
 	GSControlLayer();
