@@ -244,10 +244,7 @@ void GSAnimationLayer::plantsDeleteUpdate(map<int, Plants*>::iterator& plant)
 		if (!plant->second->getPlantIsCanDelete()[0])
 		{
 			plant->second->getPlantIsCanDelete()[0] = true;
-			if (plant->second->getPlantType() != PlantsType::PotatoMine) /* 如果不是土豆雷 */
-			{
-				GSControlLayer::setPlantMapCanPlant(plant->second->getPlantColumn(), plant->second->getPlantRow());
-			}
+			GSControlLayer::setPlantMapCanPlant(plant->second->getPlantColumn(), plant->second->getPlantRow());
 
 			auto plants = plant;
 			plant->second->getPlantAnimation()->runAction(Sequence::create(DelayTime::create(4.0f),

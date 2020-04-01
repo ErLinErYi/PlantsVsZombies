@@ -96,12 +96,15 @@ void PotatoMine::plantExplode()
 {
 	if (_isBeginExplode && !_isExplodeFinished)/* ÍÁ¶¹À×±¬Õ¨ */
 	{
-		GSControlLayer::setPlantMapCanPlant(getPlantColumn(), getPlantRow());
 		_isExplodeFinished = true;
-		_plantAnimation->setScale(1.2f);
-		_plantAnimation->setAnimation(0, "PotatoMine_Blast", false);
-		_plantAnimation->getChildByName("plantshadow")->setVisible(false);
-		_plantAnimation->setEventListener([&](spTrackEntry* entry, spEvent* event)
+		_plantAnimation->setVisible(false);
+
+		auto plantAnimation = SkeletonAnimation::createWithData(_global->userInformation->getAnimationData().find("PotatoMine")->second);
+		plantAnimation->setAnchorPoint(Vec2::ANCHOR_MIDDLE);
+		plantAnimation->setScale(1.2f);
+		plantAnimation->setPosition(_plantAnimation->getPosition());
+		plantAnimation->setAnimation(0, "PotatoMine_Blast", false);
+		plantAnimation->setEventListener([=](spTrackEntry* entry, spEvent* event)
 			{
 				if (strcmp(event->data->name, "BlastBegin") == 0)
 				{
@@ -109,11 +112,12 @@ void PotatoMine::plantExplode()
 					GSBackgroundLayer::backgroundRunAction();
 				}
 			});
-		_plantAnimation->runAction(Sequence::create(DelayTime::create(2.f),
-			CallFunc::create([&]()
+		plantAnimation->runAction(Sequence::create(DelayTime::create(2.f),
+			CallFunc::create([plantAnimation]()
 				{
-					_plantAnimation->setVisible(false);
+					plantAnimation->setVisible(false);
 				}), nullptr));
+		_node->addChild(plantAnimation);
 	}
 
 	if (_isCanKillZombies&& !_isKillZombiesFinished)

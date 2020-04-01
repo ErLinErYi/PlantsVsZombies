@@ -446,14 +446,26 @@ void LoadingScene::throwException()
 			{
 				if (_loadFileNumbers < _allFileNumbers)
 				{
-					wstring str = L"糟糕！发生了一些错误，部分资源文件加载失败！请重试！";
+					wstring str = L"糟糕！发生了一些错误，部分资源文件加载失败！\n选择“重试”重新启动游戏，选择“取消”关闭游戏。";
 					AudioEngine::play2d(_global->userInformation->getMusicPath().find("buzzer")->second);
 					throw str;
 				}
 			}
 			catch (wstring str)
 			{
-				if (MessageBoxW(_director->getOpenGLView()->getWin32Window(), str.c_str(), L"资源加载异常", MB_OK) == IDOK)
+				auto yon = MessageBoxW(_director->getOpenGLView()->getWin32Window(), str.c_str(), L"资源加载异常", MB_RETRYCANCEL);
+				if ( yon== IDRETRY)
+				{
+					TCHAR szPath[MAX_PATH];
+					GetModuleFileName(NULL, szPath, MAX_PATH);
+					STARTUPINFO StartInfo;
+					PROCESS_INFORMATION procStruct;
+					memset(&StartInfo, 0, sizeof(STARTUPINFO));
+					StartInfo.cb = sizeof(STARTUPINFO);
+					if (!::CreateProcess((LPCTSTR)szPath,NULL,NULL,NULL,FALSE,NORMAL_PRIORITY_CLASS,NULL,NULL,&StartInfo,&procStruct))return;
+					Director::getInstance()->end();
+				}
+				else
 				{
 					Director::getInstance()->end();
 				}
