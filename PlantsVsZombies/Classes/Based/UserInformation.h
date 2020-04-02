@@ -112,6 +112,10 @@ public:
     void setIsSelectHighFPS(CheckBox::EventType isSelect);
     void setIsShowInformation(CheckBox::EventType isShow);
 
+    static string getClientEdition();
+    static bool getUpdateRequired();
+    static void setUpdateRequired(const bool update);
+
 CC_CONSTRUCTOR_ACCESS:
     UserInformation();
     ~UserInformation();
@@ -164,4 +168,7 @@ private:
     int _currentPlayWorldTag;                            // 当前世界编号 
     Sprite* _background;                                 // 当前世界地图 
     string _currentPlayWorldName;                        // 当前世界名字
+
+    static string _clientEdition;                        // 当前客户端版本
+    static bool _updateRequired;                         // 是否需要更新
 };

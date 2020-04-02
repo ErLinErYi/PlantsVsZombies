@@ -7,9 +7,10 @@
 
 #include "MainMenu.h"
 #include "InputDataScene.h"
-#include "Scenes/HelpScene/HelpScene.h"
+#include "UpdateClient.h"
 #include "QuitScene.h"
 #include "OptionsSence.h"
+#include "Scenes/HelpScene/HelpScene.h"
 #include "Scenes/WorldScene/SelectWorldScene.h"
 
 MainMenu::MainMenu():
@@ -42,24 +43,20 @@ bool MainMenu::init()
 
 	AudioEngine::setVolume(AudioEngine::play2d(_global->userInformation->getMusicPath().find("roll_in")->second), _global->userInformation->getSoundEffectVolume());
 
-	/* 创建主要精灵 */
-	this->createMainSprite();
+	this->createMainSprite();     /* 创建主要精灵 */
+	this->createFlowers();        /* 创建花朵 */
+	this->createAnimation();      /* 创建动画 */
+	this->createMouseListener();  /* 创建鼠标监听 */
+	this->createMainButton();     /* 创建按钮 */
+	this->schedule(schedule_selector(MainMenu::curUpdate), 0.05f);/* 定时器 */
 
-	/* 创建花朵 */
-	this->createFlowers();
-
-	/* 创建动画 */
-	this->createAnimation();
-
-	/* 创建鼠标监听 */
-	this->createMouseListener();
-
-	/* 创建按钮 */
-	this->createMainButton();
-
-	/* 定时器 */
-	this->schedule(schedule_selector(MainMenu::curUpdate), 0.05f);
-
+#if CC_TARGET_PLATFORM ==CC_PLATFORM_WIN32
+	if (UserInformation::getUpdateRequired())
+	{
+		setMouseListenerEnable(false);
+		this->addChild(UpdateClient::create());
+	}
+#endif
 	return true;
 }
 

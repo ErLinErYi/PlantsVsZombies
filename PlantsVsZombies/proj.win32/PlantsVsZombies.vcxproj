@@ -223,6 +223,7 @@ xcopy "$(ProjectDir)..\Resources" "$(OutDir)" /D /E /I /F /Y
     <ClCompile Include="..\Classes\Scenes\MainMenuScene\MainMenu.cpp" />
     <ClCompile Include="..\Classes\Scenes\MainMenuScene\OptionsSence.cpp" />
     <ClCompile Include="..\Classes\Scenes\MainMenuScene\QuitScene.cpp" />
+    <ClCompile Include="..\Classes\Scenes\MainMenuScene\UpdateClient.cpp" />
     <ClCompile Include="..\Classes\Scenes\SelectPlantsScene\SPSBackgroundLayer.cpp" />
     <ClCompile Include="..\Classes\Scenes\SelectPlantsScene\SPSControlLayer.cpp" />
     <ClCompile Include="..\Classes\Scenes\SelectPlantsScene\SPSQuitLayer.cpp" />
@@ -293,6 +294,7 @@ xcopy "$(ProjectDir)..\Resources" "$(OutDir)" /D /E /I /F /Y
     <ClInclude Include="..\Classes\Scenes\MainMenuScene\MainMenu.h" />
     <ClInclude Include="..\Classes\Scenes\MainMenuScene\OptionsSence.h" />
     <ClInclude Include="..\Classes\Scenes\MainMenuScene\QuitScene.h" />
+    <ClInclude Include="..\Classes\Scenes\MainMenuScene\UpdateClient.h" />
     <ClInclude Include="..\Classes\Scenes\SelectPlantsScene\SPSBackgroundLayer.h" />
     <ClInclude Include="..\Classes\Scenes\SelectPlantsScene\SPSControlLayer.h" />
     <ClInclude Include="..\Classes\Scenes\SelectPlantsScene\SPSQuitLayer.h" />

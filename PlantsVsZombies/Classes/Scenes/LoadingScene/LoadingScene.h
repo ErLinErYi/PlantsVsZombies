@@ -9,10 +9,7 @@
 #include "Scenes/MainMenuScene/MainMenu.h"
 #include "ui/CocosGUI.h"
 #include "Based/GlobalVariable.h"
-
-#ifdef WIN32
-#pragma execution_character_set("utf-8")
-#endif
+#include "network/CCDownloader.h"
 
 using namespace cocos2d;
 using namespace cocos2d::ui;
@@ -54,6 +51,7 @@ private:
 	int openResourcesPath(map<string, string>& Path, const std::string& xml, bool IsEncryption = false);  /* 打开资源路径 */
 
 	void throwException();
+	void checkEdition();
 
 private:
 	int _textNumbers;                               // 文本数
@@ -68,4 +66,5 @@ private:
 	Global* _global;                                // 全局变量单例
 	Director* _director;                            // 导演单例 
 	FileUtils* _files;                              // 文件单例 
+	std::unique_ptr<network::Downloader> _downloader;
 };

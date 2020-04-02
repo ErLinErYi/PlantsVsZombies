@@ -9,6 +9,7 @@
 #include "Based/LevelData.h"
 #include "LoadingScene.h"
 #include "tinyxml2/tinyxml2.h"
+#include "Based/UserInformation.h"
 
 #define MYDEBUG 1
 
@@ -24,6 +25,7 @@ LoadingScene::LoadingScene():
 	_director(Director::getInstance()),
 	_files(FileUtils::getInstance())
 {
+	_downloader.reset(new network::Downloader());
 }
 
 LoadingScene::~LoadingScene()
@@ -40,6 +42,9 @@ bool LoadingScene::init()
 {
 	if (!Scene::init())return false;
 	
+#if CC_TARGET_PLATFORM ==CC_PLATFORM_WIN32
+	checkEdition();          /* 检查版本 */
+#endif
 	setRunFirstTime();       /* 获取第一次运行时间 */
 	calculateFileNumbers();  /* 计算文件总数 */
 	setSystem();             /* 设置系统参数 */
@@ -472,6 +477,28 @@ void LoadingScene::throwException()
 			}
 		}), nullptr));
 #endif
+}
+
+void LoadingScene::checkEdition()
+{
+	static const string sURLList = "https://gitee.com/GITLZ/PVZDownLoader/raw/master/edition.txt";
+	static const string sNameList = "edition.txt";
+
+	_downloader->createDownloadDataTask(sURLList, sNameList);
+	_downloader->onDataTaskSuccess = [this](const cocos2d::network::DownloadTask& task,
+		std::vector<unsigned char>& data)
+	{
+		string editionNetWork;
+		for (auto p : data) 
+		{
+			editionNetWork += p;
+		}
+		
+		if (UserInformation::getClientEdition() < editionNetWork)
+		{
+			UserInformation::setUpdateRequired(true);
+		}
+	};
 }
 
 void LoadingScene::loadingText()

@@ -260,6 +260,9 @@
     <ClCompile Include="..\Classes\Scenes\SelectPlantsScene\SPSRequriementLayer.cpp">
       <Filter>Class\Scenes\SelectPlantsScene</Filter>
     </ClCompile>
+    <ClCompile Include="..\Classes\Scenes\MainMenuScene\UpdateClient.cpp">
+      <Filter>Class\Scenes\MainMenuScene</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="..\Classes\Zombies\BucketZombies.h">
@@ -468,6 +471,9 @@
     </ClInclude>
     <ClInclude Include="..\Classes\Scenes\SelectPlantsScene\SPSRequriementLayer.h">
       <Filter>Class\Scenes\SelectPlantsScene</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Classes\Scenes\MainMenuScene\UpdateClient.h">
+      <Filter>Class\Scenes\MainMenuScene</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>

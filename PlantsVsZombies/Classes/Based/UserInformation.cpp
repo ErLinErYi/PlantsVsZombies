@@ -7,6 +7,9 @@
 
 #include "UserInformation.h"
 
+string UserInformation::_clientEdition = "1.1.6.0";
+bool UserInformation::_updateRequired = false;
+
 UserInformation::UserInformation():
   _isUpdate(false)
 , _userName("·ßÅ­µÄÐ¡½©Ê¬")
@@ -235,6 +238,21 @@ string& UserInformation::getCurrentPlayWorldName()
 int UserInformation::getGameDifficulty() const
 {
     return _gameDifficulty;
+}
+
+string UserInformation::getClientEdition()
+{
+    return _clientEdition;
+}
+
+bool UserInformation::getUpdateRequired()
+{
+    return _updateRequired;
+}
+
+void UserInformation::setUpdateRequired(const bool updateRequired)
+{
+    _updateRequired = updateRequired;
 }
 
 void UserInformation::setGameDifficulty(const int difficulty)
