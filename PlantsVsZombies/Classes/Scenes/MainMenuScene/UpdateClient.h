@@ -29,6 +29,7 @@ private:
         百度网盘下载,
         腾讯微云下载,
         直接下载,
+		退出游戏,
         确定
     };
     void createDiglog();	                                                       /* 创建对话框 */
@@ -42,4 +43,6 @@ private:
     Label* _remindText;
     Label* _progressText;
     Label* _explanText;
+    Sprite* _loadBarBackground;
+    ui::LoadingBar* _loadingBar;
 };

@@ -7,7 +7,8 @@
 
 #include "UserInformation.h"
 
-string UserInformation::_clientEdition = "1.1.6.0";
+const string UserInformation::_clientEdition = "1.1.6.1";
+string UserInformation::_editionName = "";
 bool UserInformation::_updateRequired = false;
 
 UserInformation::UserInformation():
@@ -243,6 +244,16 @@ int UserInformation::getGameDifficulty() const
 string UserInformation::getClientEdition()
 {
     return _clientEdition;
+}
+
+void UserInformation::setNewEditionName(const string& editionName)
+{
+    _editionName = editionName;
+}
+
+string UserInformation::getNewEditionName()
+{
+    return _editionName;
 }
 
 bool UserInformation::getUpdateRequired()

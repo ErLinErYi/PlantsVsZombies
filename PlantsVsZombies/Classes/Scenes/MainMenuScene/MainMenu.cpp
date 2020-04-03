@@ -13,7 +13,7 @@
 #include "Scenes/HelpScene/HelpScene.h"
 #include "Scenes/WorldScene/SelectWorldScene.h"
 
-MainMenu::MainMenu():
+MainMenu::MainMenu() :
 	_global(Global::getInstance()),
 	_director(Director::getInstance()),
 	_mouse(nullptr),
@@ -50,12 +50,14 @@ bool MainMenu::init()
 	this->createMainButton();     /* 创建按钮 */
 	this->schedule(schedule_selector(MainMenu::curUpdate), 0.05f);/* 定时器 */
 
-#if CC_TARGET_PLATFORM ==CC_PLATFORM_WIN32
+#if MYRELEASE
+#   if CC_TARGET_PLATFORM == CC_PLATFORM_WIN32
 	if (UserInformation::getUpdateRequired())
 	{
 		setMouseListenerEnable(false);
-		this->addChild(UpdateClient::create());
+		this->addChild(UpdateClient::create(), 10);
 	}
+#   endif
 #endif
 	return true;
 }
@@ -67,7 +69,7 @@ void MainMenu::curUpdate(float time)
 	this->playMusicBleepInMainButtons(1, Vec2(_cur.x - 606, _cur.y));
 	this->playMusicBleepInMainButtons(2, Vec2(_cur.x - 606, _cur.y));
 	this->playMusicBleepInMainButtons(3, _cur);
-	
+
 	this->playMusicBleepInGameButtons(1);
 	this->playMusicBleepInGameButtons(2);
 	this->playMusicBleepInGameButtons(3);
@@ -83,7 +85,7 @@ void MainMenu::curUpdate(float time)
 	_menuItem[3]->getBoundingBox().containsPoint(_cur) ?
 		_menuItem[3]->setNormalImage(Sprite::createWithSpriteFrameName("SelectorScreen_WoodSign2_press.png")) :
 		_menuItem[3]->setNormalImage(Sprite::createWithSpriteFrameName("SelectorScreen_WoodSign2.png"));
-	
+
 	if (_global->userInformation->getIsUpdate())/* 如果名字更新 */
 	{
 		_userText->setString(_global->userInformation->getUserName());
@@ -114,7 +116,7 @@ void MainMenu::updateUserNameOnce(float Time)
 			userNameAction->setTag(1000);
 			_userNameActionParent = userNameAction->getParent();
 			userNameAction->setColor(Color3B(rand() % 256, rand() % 256, rand() % 256));
-			userNameAction->runAction(RepeatForever::create(Sequence::create(DelayTime::create(1 * ((i + 1) % (len - 3))), 
+			userNameAction->runAction(RepeatForever::create(Sequence::create(DelayTime::create(1 * ((i + 1) % (len - 3))),
 				Spawn::create(RotateBy::create(1.0f, 360), JumpBy::create(1.0f, Vec2(0, 0), 30, 1), NULL), DelayTime::create(1.5f), NULL)));
 		}
 	}
@@ -140,7 +142,7 @@ void MainMenu::playMusicBleepInGameButtons(int ID)
 	}
 }
 
-void MainMenu::playMusicBleepInMainButtons(int ID,const Vec2 &vec2)
+void MainMenu::playMusicBleepInMainButtons(int ID, const Vec2& vec2)
 {
 	if (_menuItem[ID]->getBoundingBox().containsPoint(vec2))
 	{
@@ -195,7 +197,7 @@ short MainMenu::checkCurInButtons()
 		_mainButton[4]->setPosition(Vec2(850, 385));
 		return 0;
 	}
-		
+
 }
 
 void MainMenu::createParticle()
@@ -204,7 +206,7 @@ void MainMenu::createParticle()
 	this->createSmoke(0.3f, Vec2(87, 450));
 	this->createSmoke(0.8f, Vec2(350, 690));
 	this->createSmoke(0.1f, Vec2(15, 340));
-	
+
 	/* 创建雨 */
 	auto Rain = ParticleRain::create();
 	Rain->setEmissionRate(100);
@@ -213,15 +215,15 @@ void MainMenu::createParticle()
 	Rain->setLifeVar(20);
 	Rain->setStartColorVar(Color4F(1, 1, 1, 1));
 	Rain->setEndColor(Color4F::YELLOW);
-    this->addChild(Rain, 1);
+	this->addChild(Rain, 1);
 
-	
+
 	/*auto my = ParticleSystemQuad::create("particle_texture.plist");
 	my->setPosition(Vec2(300, 400));
 	this->addChild(my, 10);*/
 }
 
-void MainMenu::createSmoke(const float &Scale,const Vec2 &vec2)
+void MainMenu::createSmoke(const float& Scale, const Vec2& vec2)
 {
 	/* 创建烟雾粒子特效 */
 	auto Smoke = ParticleSmoke::create();
@@ -237,7 +239,7 @@ void MainMenu::createFlowers()
 	this->createFlowers(1.5f, Vec2(1130, 290), "SelectorScreen_Flower1", 2);
 }
 
-void MainMenu::createFlowers(const float &Scale, const Vec2 &vec2, const std::string &fileName, const int &ID)
+void MainMenu::createFlowers(const float& Scale, const Vec2& vec2, const std::string& fileName, const int& ID)
 {
 	/* 创建花朵 */
 	auto Flower = Sprite::createWithSpriteFrameName(fileName + ".png");
@@ -248,7 +250,7 @@ void MainMenu::createFlowers(const float &Scale, const Vec2 &vec2, const std::st
 	/* 创建监听 */
 	auto listener = EventListenerTouchOneByOne::create();
 	/* 触摸函数 */
-	listener->onTouchBegan = [=](Touch *t, Event *e)
+	listener->onTouchBegan = [=](Touch* t, Event* e)
 	{
 		auto points = t->getLocation();
 		points.x -= 606;// x轴减去父图的相对坐标
@@ -277,7 +279,7 @@ void MainMenu::createFlowers(const float &Scale, const Vec2 &vec2, const std::st
 				Flower->runAction(Spawn::create(RotateBy::create(5.0f, 360), JumpBy::create(5.0f, Vec2(-1200, 400), 300, 1), ScaleTo::create(5.0f, 0), NULL));
 				break;
 			}
-			
+
 			listener->setEnabled(false);
 		}
 		return false;
@@ -298,7 +300,7 @@ void MainMenu::createAnimation()
 		Littlesprite->setAnimation(0, "animation", true);
 		this->addChild(Littlesprite);
 	}
-	
+
 	/* 创建叶子动画 */
 	iter = _global->userInformation->getAnimationData().find("SelectorScreen_Leaves");
 	if (iter != _global->userInformation->getAnimationData().end())
@@ -348,13 +350,13 @@ void MainMenu::createMouseListener()
 	_mouse = EventListenerMouse::create();
 
 	/* 移动监听 */
-	_mouse->onMouseMove = [=](Event *event) 
+	_mouse->onMouseMove = [=](Event* event)
 	{
-		_cur = ((EventMouse*)event)->getLocationInView(); 
+		_cur = ((EventMouse*)event)->getLocationInView();
 	};
 
 	/* 鼠标按下监听 */
-	_mouse->onMouseDown = [&](Event *event) 
+	_mouse->onMouseDown = [&](Event* event)
 	{
 		if (checkCurInButtons())
 		{
@@ -362,10 +364,10 @@ void MainMenu::createMouseListener()
 		}
 		switch (this->checkCurInButtons())
 		{
-		case 1: 
+		case 1:
 			_mainButton[1]->setPosition(Vec2(902, 828)); /* 冒险模式 */
 			break;
-		case 2: 
+		case 2:
 			_mainButton[2]->setPosition(Vec2(882, 648)); /* 解迷模式 */
 			break;
 		case 3:
@@ -407,10 +409,10 @@ void MainMenu::createMouseListener()
 void MainMenu::createMainButton()
 {
 	/* 创建按钮 */
-	_menuItem[0] = MenuItemImage::create("","", CC_CALLBACK_1(MainMenu::menuOptionCallBack, this));
-	_menuItem[1] = MenuItemImage::create("","", CC_CALLBACK_1(MainMenu::menuHelpCallBack, this));
-	_menuItem[2] = MenuItemImage::create("","", CC_CALLBACK_1(MainMenu::menuQuitCallBack, this));
-	_menuItem[3] = MenuItemImage::create("","", CC_CALLBACK_1(MainMenu::menuDataCallBack, this));
+	_menuItem[0] = MenuItemImage::create("", "", CC_CALLBACK_1(MainMenu::menuOptionCallBack, this));
+	_menuItem[1] = MenuItemImage::create("", "", CC_CALLBACK_1(MainMenu::menuHelpCallBack, this));
+	_menuItem[2] = MenuItemImage::create("", "", CC_CALLBACK_1(MainMenu::menuQuitCallBack, this));
+	_menuItem[3] = MenuItemImage::create("", "", CC_CALLBACK_1(MainMenu::menuDataCallBack, this));
 
 	_menuItem[0]->setNormalSpriteFrame(SpriteFrameCache::getInstance()->getSpriteFrameByName("SelectorScreen_Options2.png"));
 	_menuItem[1]->setNormalSpriteFrame(SpriteFrameCache::getInstance()->getSpriteFrameByName("SelectorScreen_Help2.png"));
@@ -432,7 +434,7 @@ void MainMenu::createMainButton()
 
 	_menu[0] = Menu::create(_menuItem[0], _menuItem[1], _menuItem[2], NULL);
 	_menu[1] = Menu::create(_menuItem[3], NULL);
-	
+
 	_menu[0]->setPosition(Vec2(0, 0));
 	_menu[1]->setPosition(Vec2(0, 0));
 
@@ -450,17 +452,17 @@ void MainMenu::createMainSprite()
 		{"SelectorScreen_BG3"},
 		{"SelectorScreen_BG4"},
 		{"SelectorScreen_BG5"},
-	    {"SelectorScreen_BG_Center"},
-	    {"SelectorScreen_BG_Left"},
+		{"SelectorScreen_BG_Center"},
+		{"SelectorScreen_BG_Left"},
 		{"SelectorScreen_BG_Right"},
-	    {"SelectorScreen_WoodSign1"},
-	    {"SelectorScreen_WoodSign3"},
+		{"SelectorScreen_WoodSign1"},
+		{"SelectorScreen_WoodSign3"},
 	};
 	srand(time(nullptr));
 	_sprite[0] = Sprite::createWithSpriteFrameName(String[rand() % 6] + ".png");
 	for (int i = 6; i < 11; i++)
 	{
-		_sprite[i - 5] = Sprite::createWithSpriteFrameName(String[i] +".png");
+		_sprite[i - 5] = Sprite::createWithSpriteFrameName(String[i] + ".png");
 	}
 
 	Size size[] = { {1920, 1080},{1440, 700},{785, 1140},{1314, 1008},{586, 300},{184, 80} };
@@ -469,8 +471,8 @@ void MainMenu::createMainSprite()
 		_sprite[i]->setContentSize(size[i]);
 		_sprite[i]->setAnchorPoint(Vec2(0, 0));
 	}
-    this->addChild(_sprite[0], -1); //天空
-	
+	this->addChild(_sprite[0], -1); //天空
+
 	this->createClouds();
 
 	this->createParticle();
@@ -498,8 +500,8 @@ void MainMenu::createMainSprite()
 	_sprite[4]->addChild(_userText);
 
 	/* 如果用户名为空的话 */
-	_global->userInformation->getUserName().empty()? _userText->setString(_global->userInformation->getGameText().find("愤怒的小僵尸")->second) : _userText->setString(_global->userInformation->getUserName());
-		
+	_global->userInformation->getUserName().empty() ? _userText->setString(_global->userInformation->getGameText().find("愤怒的小僵尸")->second) : _userText->setString(_global->userInformation->getUserName());
+
 	this->scheduleOnce(schedule_selector(MainMenu::updateUserNameOnce), 0);
 
 	_mainButton[1] = Sprite::createWithSpriteFrameName("SelectorScreen_Adventure_button.png");
@@ -528,11 +530,11 @@ void MainMenu::createClouds()
 	const string String[] =
 	{
 		{"SelectorScreen_Cloud1"},{"SelectorScreen_Cloud2"},
-	    {"SelectorScreen_Cloud3"},{"SelectorScreen_Cloud4"},
-	    {"SelectorScreen_Cloud5"},{"SelectorScreen_Cloud6"},
-	    {"SelectorScreen_Cloud7"},{"SelectorScreen_Cloud8"},
-	    {"SelectorScreen_Cloud9"},{"SelectorScreen_Cloud10"},
-	    {"SelectorScreen_Cloud11"},{"SelectorScreen_Cloud12"}
+		{"SelectorScreen_Cloud3"},{"SelectorScreen_Cloud4"},
+		{"SelectorScreen_Cloud5"},{"SelectorScreen_Cloud6"},
+		{"SelectorScreen_Cloud7"},{"SelectorScreen_Cloud8"},
+		{"SelectorScreen_Cloud9"},{"SelectorScreen_Cloud10"},
+		{"SelectorScreen_Cloud11"},{"SelectorScreen_Cloud12"}
 	};
 	Vec2 vec2[] = { {2500,1000},{2800,900},{2200,800},{2100,950},{3000,600},{2700,700},{2600,800},{3000,550},{2000,670},{2480,780},{2150,870},{2341,813} };
 	Vec2 vec2_[] = { {0,1000},{0,900},{0,800},{0,950},{0,600},{0,700},{0,800},{0,550},{0,670},{0,780},{0,870},{0,813} };
@@ -548,7 +550,7 @@ void MainMenu::createClouds()
 	}
 }
 
-void MainMenu::setCloudPosition(Node *node,int ID,const Vec2 &vec2)
+void MainMenu::setCloudPosition(Node* node, int ID, const Vec2& vec2)
 {
 	/* 初始化云 */
 	_sprite[ID]->setPosition(vec2);
@@ -571,7 +573,7 @@ void MainMenu::menuDataCallBack(Ref* pSender)
 void MainMenu::menuOptionCallBack(Ref* pSender)
 {
 	AudioEngine::setVolume(AudioEngine::play2d(_global->userInformation->getMusicPath().find("tap")->second), _global->userInformation->getSoundEffectVolume());
-	
+
 	setMouseListenerEnable(false);
 	auto option = OptionsMenu::create();
 	if (option)
@@ -603,7 +605,7 @@ void MainMenu::menuHelpCallBack(Ref* pSender)
 void MainMenu::beginAdventureGame()
 {
 	_global->userInformation->setMainToWorld(true);
-	Director::getInstance()->replaceScene(TransitionCrossFade::create(0.5f,SelectWorldScene::createScene()));
+	Director::getInstance()->replaceScene(TransitionCrossFade::create(0.5f, SelectWorldScene::createScene()));
 }
 
 void MainMenu::beginSurvivalGame()

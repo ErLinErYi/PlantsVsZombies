@@ -13,7 +13,7 @@
 
 #define MYDEBUG 1
 
-LoadingScene::LoadingScene():
+LoadingScene::LoadingScene() :
 	_loadFileNumbers(0),
 	_textNumbers(0),
 	_allFileNumbers(0),
@@ -41,16 +41,18 @@ Scene* LoadingScene::createLaodingScene()
 bool LoadingScene::init()
 {
 	if (!Scene::init())return false;
-	
-#if CC_TARGET_PLATFORM ==CC_PLATFORM_WIN32
+
+#if MYRELEASE
+#   if CC_TARGET_PLATFORM == CC_PLATFORM_WIN32
 	checkEdition();          /* 检查版本 */
+#   endif
 #endif
 	setRunFirstTime();       /* 获取第一次运行时间 */
 	calculateFileNumbers();  /* 计算文件总数 */
 	setSystem();             /* 设置系统参数 */
 	loadUserData();          /* 加载用户信息 */
 	showLoadingBackGround(); /* 展示加载界面 */
-	
+
 	return true;
 }
 
@@ -119,7 +121,7 @@ void LoadingScene::loadUserData()
 		_global->userInformation->setIsSelectFullScreen(cocos2d::ui::CheckBox::EventType::UNSELECTED);
 		break;
 	}
-	
+
 	/* 是否高帧率 */
 	switch (userdefault->getBoolForKey("SHOWHIGHFPS"))
 	{
@@ -164,7 +166,7 @@ void LoadingScene::showLoadingBackGround()
 {
 	/* 播放音乐 */
 	_global->changeBgMusic("mainmusic", true);
-	
+
 	/* 获取窗口大小 */
 	auto const size = Director::getInstance()->getWinSize();
 
@@ -179,7 +181,7 @@ void LoadingScene::showLoadingBackGround()
 	_sprite[0]->setName("0");
 	_sprite[1]->setName("1");
 	_sprite[7]->setName("7");
-	
+
 	/* 设置精灵大小 */
 	_sprite[0]->setScale(1.5f);
 	_sprite[1]->setScale(1.5f);
@@ -213,7 +215,7 @@ void LoadingScene::showLoadingBackGround()
 	_sprite[0]->runAction(Sequence::create(FadeIn::create(2.0f), FadeOut::create(2.0f), CallFuncN::create(CC_CALLBACK_1(LoadingScene::runLoGoCallBack, this, 1)), NULL));
 }
 
-void LoadingScene::runLoGoCallBack(Node* node, const int &ID)
+void LoadingScene::runLoGoCallBack(Node* node, const int& ID)
 {
 	switch (ID)
 	{
@@ -225,7 +227,7 @@ void LoadingScene::runLoGoCallBack(Node* node, const int &ID)
 	case 2:
 		this->removeChildByName("7"); /* 从场景中移除名字为7的孩子 */
 		_sprite[2]->setVisible(true);  /* 设置精灵2可见 */
-		_sprite[2]->runAction(Sequence::create(FadeIn::create(2.0f),CallFuncN::create(CC_CALLBACK_1(LoadingScene::runLoGoCallBack, this, 3)), NULL));
+		_sprite[2]->runAction(Sequence::create(FadeIn::create(2.0f), CallFuncN::create(CC_CALLBACK_1(LoadingScene::runLoGoCallBack, this, 3)), NULL));
 		break;
 	case 3:
 		this->showTileAndLoadingBar(); /* 展示标题和进度条 */
@@ -244,7 +246,7 @@ void LoadingScene::runLoGoCallBack(Node* node, const int &ID)
 void LoadingScene::showTileAndLoadingBar()
 {
 	/* 获取窗口大小 */
-    auto const size = _director->getWinSize();
+	auto const size = _director->getWinSize();
 
 	/* 创建精灵 */
 	_sprite[3] = Sprite::createWithSpriteFrameName("PvZ_Logo.png");
@@ -270,19 +272,19 @@ void LoadingScene::showTileAndLoadingBar()
 	_sprite[6]->setScale(2.0f);
 
 	/* 让精灵运动起来 */
-	_sprite[4]->runAction(Sequence::create(MoveTo::create(0.5f, Vec2(size.width / 2, 150)),CallFuncN::create(CC_CALLBACK_1(LoadingScene::runLoGoCallBack, this, 4)), NULL));
+	_sprite[4]->runAction(Sequence::create(MoveTo::create(0.5f, Vec2(size.width / 2, 150)), CallFuncN::create(CC_CALLBACK_1(LoadingScene::runLoGoCallBack, this, 4)), NULL));
 	_sprite[6]->runAction(RepeatForever::create(Sequence::create(MoveTo::create(1.0f, Vec2(SpriteSize.width, 0)), DelayTime::create(2.0f),
 		CallFunc::create([=]()
 			{
 				_sprite[6]->setPosition(Vec2(-SpriteSize.width, 0));
 			}), nullptr)));
-    clippingNode->runAction(MoveTo::create(0.5f, Vec2(size.width / 2, 900)));
+	clippingNode->runAction(MoveTo::create(0.5f, Vec2(size.width / 2, 900)));
 
 	/* 加到场景中 */
 	this->addChild(_sprite[4]);
 	this->addChild(clippingNode);
-	_sprite[4]->addChild(_sprite[5],1);
-	
+	_sprite[4]->addChild(_sprite[5], 1);
+
 	/* 设置裁剪节点的基本属性 */
 	clippingNode->setAlphaThreshold(0.01f);    //设置alpha闸值
 	clippingNode->setContentSize(SpriteSize);  //设置尺寸大小
@@ -294,7 +296,7 @@ void LoadingScene::showTileAndLoadingBar()
 	_label = MenuItemLabel::create(Label::createWithTTF("加载中......", GAME_FONT_NAME_1, 20), CC_CALLBACK_1(LoadingScene::beginGameCallBack, this));
 	_label->setColor(Color3B::YELLOW);
 	_label->setEnabled(false);
-	
+
 	/* 创建菜单 */
 	auto menu = Menu::create(_label, NULL);
 	menu->setPosition(150, 55);
@@ -316,13 +318,13 @@ void LoadingScene::beginLoadingImageAndMusic()
 	loadingText();         /* 加载文本 */
 	loadingMusic();        /* 加载音乐 */
 	loadingAnimation();    /* 加载动画 */
-	loadingImage();        /* 加载图片 */	
+	loadingImage();        /* 加载图片 */
 	throwException();      /* 抛出异常 */
 }
 
 void LoadingScene::update(float Time)
 {
-	if (_loadingPrecent <= 100) 
+	if (_loadingPrecent <= 100)
 	{
 		_loadingBar->setPercent(_loadingPrecent);              /* 设置加载进度 */
 		_sprite[5]->setScale(1 - _loadingPrecent / 170);       /* 设置精灵大小 */
@@ -336,17 +338,17 @@ void LoadingScene::update(float Time)
 		if (_loadingPrecent >= 100) showLoadingBarFlower(4);
 
 	}
-	if(_loadingPrecent >= 100) /* 如果加载完成 */
+	if (_loadingPrecent >= 100) /* 如果加载完成 */
 	{
 		_label->setString(_global->userInformation->getGameText().find("点击开始")->second);  /* 重新设置标签文字内容 */
 		auto action = TintBy::create(0.5f, 0, 255, 255);
-		_label->runAction(RepeatForever::create(Sequence::create(action,action->reverse(), nullptr)));
+		_label->runAction(RepeatForever::create(Sequence::create(action, action->reverse(), nullptr)));
 		_sprite[5]->setVisible(false);  /* 设置精灵5为不可见 */
 		_label->setEnabled(true);       /* 设置触摸可行 */
 	}
 }
 
-void LoadingScene::showLoadingBarFlower(const int &ID)
+void LoadingScene::showLoadingBarFlower(const int& ID)
 {
 	srand(unsigned(time(nullptr)));
 	if (!_flowerVisible[ID]) /* 如果花的ID是不可见 */
@@ -354,7 +356,7 @@ void LoadingScene::showLoadingBarFlower(const int &ID)
 		/* 创建花 */
 		auto flower = Sprite::createWithSpriteFrameName("sprout_petal.png");
 		flower->setScale(0.1f);
-		flower->setPosition(Vec2(20 + (55 + rand() % 10)* ID, 85 + rand() % 10));
+		flower->setPosition(Vec2(20 + (55 + rand() % 10) * ID, 85 + rand() % 10));
 		flower->runAction(ScaleTo::create(0.2f, 0.5f));
 		_sprite[4]->addChild(flower);
 		if (ID == 4) /* 如果ID==4 创建僵尸头*/
@@ -367,7 +369,7 @@ void LoadingScene::showLoadingBarFlower(const int &ID)
 			AudioEngine::setVolume(AudioEngine::play2d(_global->userInformation->getMusicPath().find("loadingbar_flower")->second, false), _global->userInformation->getSoundEffectVolume());
 			flower->setRotation(rand() % 180);
 		}
-		
+
 		_flowerVisible[ID] = true; /* 花ID设置为可见 */
 	}
 }
@@ -418,7 +420,7 @@ int LoadingScene::openResourcesPath(map<string, string>& Path, const std::string
 	{
 		std::string textpath = _files->getStringFromFile(xml);
 		char* passWords = (char*)malloc(sizeof(char) * textpath.size());
-		
+
 		OpenLevelData::getInstance()->decrypt(textpath, passWords);
 
 		/* 打开资源路径 */
@@ -459,7 +461,7 @@ void LoadingScene::throwException()
 			catch (wstring str)
 			{
 				auto yon = MessageBoxW(_director->getOpenGLView()->getWin32Window(), str.c_str(), L"资源加载异常", MB_RETRYCANCEL);
-				if ( yon== IDRETRY)
+				if (yon == IDRETRY)
 				{
 					TCHAR szPath[MAX_PATH];
 					GetModuleFileName(NULL, szPath, MAX_PATH);
@@ -467,7 +469,7 @@ void LoadingScene::throwException()
 					PROCESS_INFORMATION procStruct;
 					memset(&StartInfo, 0, sizeof(STARTUPINFO));
 					StartInfo.cb = sizeof(STARTUPINFO);
-					if (!::CreateProcess((LPCTSTR)szPath,NULL,NULL,NULL,FALSE,NORMAL_PRIORITY_CLASS,NULL,NULL,&StartInfo,&procStruct))return;
+					if (!::CreateProcess((LPCTSTR)szPath, NULL, NULL, NULL, FALSE, NORMAL_PRIORITY_CLASS, NULL, NULL, &StartInfo, &procStruct))return;
 					Director::getInstance()->end();
 				}
 				else
@@ -481,24 +483,25 @@ void LoadingScene::throwException()
 
 void LoadingScene::checkEdition()
 {
-	static const string sURLList = "https://gitee.com/GITLZ/PVZDownLoader/raw/master/edition.txt";
-	static const string sNameList = "edition.txt";
-
-	_downloader->createDownloadDataTask(sURLList, sNameList);
+#if MYRELEASE
+	const string sURLList = "https://gitee.com/GITLZ/PVZDownLoader/raw/master/edition.txt";
+	_downloader->createDownloadDataTask(sURLList);
 	_downloader->onDataTaskSuccess = [this](const cocos2d::network::DownloadTask& task,
 		std::vector<unsigned char>& data)
 	{
 		string editionNetWork;
-		for (auto p : data) 
+		for (auto p : data)
 		{
 			editionNetWork += p;
 		}
-		
+
 		if (UserInformation::getClientEdition() < editionNetWork)
 		{
 			UserInformation::setUpdateRequired(true);
+			UserInformation::setNewEditionName(editionNetWork);
 		}
 	};
+#endif
 }
 
 void LoadingScene::loadingText()
@@ -519,7 +522,7 @@ void LoadingScene::loadingText()
 
 void LoadingScene::loadingImage()
 {
-    /* 循环加载图片 */
+	/* 循环加载图片 */
 	for (auto& i : _global->userInformation->getImagePath())
 	{
 		_director->getTextureCache()->addImageAsync(i.second + "pvr.ccz", [=](Texture2D* texture)

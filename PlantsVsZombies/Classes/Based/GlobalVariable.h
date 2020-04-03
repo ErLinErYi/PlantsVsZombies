@@ -10,6 +10,7 @@
 #define VIRTUAL3D 0
 #define GAME_FONT_NAME_1 "resources/fonts/GameFont.ttf"
 #define GAME_FONT_NAME_2 "resources/fonts/arial.ttf"
+#define MYRELEASE 0
 
 using namespace std;
 using namespace cocos2d;
