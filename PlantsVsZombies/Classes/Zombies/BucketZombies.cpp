@@ -22,7 +22,7 @@ BucketZombies::BucketZombies(Node* node)
 	_speed = 30;
 	_currentSpeed = 30;
 	_isHaveShield = true;
-	_zombiesType = ZombiesType::ConeZombies;
+	_zombiesType = ZombiesType::BucketZombies;
 }
 
 BucketZombies* BucketZombies::create(Node* node)

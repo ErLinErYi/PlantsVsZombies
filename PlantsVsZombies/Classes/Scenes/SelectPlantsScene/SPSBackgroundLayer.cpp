@@ -17,6 +17,7 @@ SPSBackgroundLayer::SPSBackgroundLayer() :
 	_openLevelData(OpenLevelData::getInstance()),
 	_previewZombiesTag(0)
 {
+	_random.seed(_device());
 }
 
 SPSBackgroundLayer::~SPSBackgroundLayer()
@@ -120,19 +121,27 @@ void SPSBackgroundLayer::createPreviewZombie()
 
 void SPSBackgroundLayer::createMordernPreviewZombies()
 {
+	uniform_int_distribution<unsigned>n(0, 2);
+	uniform_int_distribution<unsigned>n1(0, 450);
+	uniform_int_distribution<unsigned>n2(0, 600);
 	int number = _openLevelData->readLevelData(_openLevelData->getLevelNumber())->getZombiesType().size();
-	for (int i = 0; i < number; i++)
+	for (int i = 0; i < number; ++i)
 	{
-		auto zombies = createDifferentZombies(i);
-		zombies->setZombiePosition(Vec2(2050 + rand() % 450, rand() % 600 + 80));
-		zombies->setZombieTag(_previewZombiesTag++);
-		zombies->createPreviewZombie();
-		zombies->setZombieAttributeForGameType();
+		int k;
+		_previewZombies.size() < 15 ? k = n(_random) + 1 : k = 1;
+		for (int j = 0; j < k; ++j)
+		{
+			auto zombies = createDifferentZombies(i);
+			zombies->setZombiePosition(Vec2(2050 + n1(_random), n2(_random) + 80));
+			zombies->setZombieTag(_previewZombiesTag++);
+			zombies->createPreviewZombie();
+			zombies->setZombieAttributeForGameType();
 
-		PreviewZombies previewzombies;
-		previewzombies.animation = zombies->getZombieAnimation();
-		previewzombies.position_y = previewzombies.animation->getPositionY();
-		_previewZombies.push_back(previewzombies);
+			PreviewZombies previewzombies;
+			previewzombies.animation = zombies->getZombieAnimation();
+			previewzombies.position_y = previewzombies.animation->getPositionY();
+			_previewZombies.push_back(previewzombies);
+		}
 	}
 }
 
@@ -169,13 +178,19 @@ Zombies* SPSBackgroundLayer::createDifferentZombies(const int& id)
 	Zombies* zombies;
 	switch (static_cast<ZombiesType>(_openLevelData->readLevelData(_openLevelData->getLevelNumber())->getZombiesType().at(id)))
 	{
-	case ZombiesType::CommonZombies:      zombies = CommonZombies::create(this);      break;
-	case ZombiesType::ConeZombies:        zombies = ConeZombies::create(this);        break;
-	case ZombiesType::BucketZombies:      zombies = BucketZombies::create(this);      break;
-	case ZombiesType::CommonDoorZombies:  zombies = CommonDoorZombies::create(this);  break;
-	case ZombiesType::ConeDoorZombies:    zombies = ConeDoorZombies::create(this);    break;
-	case ZombiesType::BucketDoorZombies:  zombies = BucketDoorZombies::create(this);  break;
-	case ZombiesType::LmpZombies:         zombies = LmpZombies::create(this);         break;
+	case ZombiesType::CommonZombies:          zombies = CommonZombies::create(this);            break;
+	case ZombiesType::ConeZombies:            zombies = ConeZombies::create(this);              break;
+	case ZombiesType::BucketZombies:          zombies = BucketZombies::create(this);            break;
+	case ZombiesType::CommonDoorZombies:      zombies = CommonDoorZombies::create(this);        break;
+	case ZombiesType::ConeDoorZombies:        zombies = ConeDoorZombies::create(this);          break;
+	case ZombiesType::BucketDoorZombies:      zombies = BucketDoorZombies::create(this);        break;
+	case ZombiesType::LmpZombies:             zombies = LmpZombies::create(this);               break;
+	case ZombiesType::CommonFlagZombies:      zombies = CommonFlagZombies::create(this);        break;
+	case ZombiesType::ConeFlagZombies:        zombies = ConeFlagZombies::create(this);          break;
+	case ZombiesType::BucketFlagZombies:      zombies = BucketFlagZombies::create(this);        break;
+	case ZombiesType::CommonDoorFlagZombies:  zombies = CommonDoorFlagZombies::create(this);    break;
+	case ZombiesType::ConeDoorFlagZombies:    zombies = ConeDoorFlagZombies::create(this);      break;
+	case ZombiesType::BucketDoorFlagZombies:  zombies = BucketDoorFlagZombies::create(this);    break;
 	default: break;
 	}
 	return zombies;

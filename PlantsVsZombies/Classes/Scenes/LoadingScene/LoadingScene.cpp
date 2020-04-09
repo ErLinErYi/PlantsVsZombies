@@ -70,14 +70,23 @@ void LoadingScene::loadUserData()
 {
 	auto userdefault = UserDefault::getInstance();
 
-	_global->userInformation->setKillZombiesNumbers(userdefault->getIntegerForKey("KILLALLZOMBIES")); /* 杀死僵尸数 */
-	_global->userInformation->setUsePlantsNumbers(userdefault->getIntegerForKey("USEPLANTSNUMBERS")); /* 使用植物数量 */
-	_global->userInformation->setBreakThroughnumbers(userdefault->getIntegerForKey("BREAKTHROUGH"));  /* 闯关失败个数 */
-	_global->userInformation->setUserCaveFileNumber(userdefault->getIntegerForKey("USERDATANUMBER")); /* 存档编号 */
-	_global->userInformation->setIsShowEggs(userdefault->getBoolForKey("ISBEGINSHOWEGGS"));           /* 显示彩蛋 */
-	_global->userInformation->setCoinNumbers(userdefault->getIntegerForKey("COINNUMBERS"));           /* 金币数 */
-	_global->userInformation->setSoundEffectVolume(userdefault->getFloatForKey("SOUNDEFFECT"));       /* 音效 */
-	_global->userInformation->setBackGroundMusicVolume(userdefault->getFloatForKey("GLOBALMUSIC"));   /* 音乐 */
+	if (!userdefault->getBoolForKey("UPDATEENCRYPTION"))
+	{
+		_global->userInformation->setCoinNumbers(userdefault->getIntegerForKey("COINNUMBERS"));
+		_global->userInformation->setKillZombiesNumbers(userdefault->getIntegerForKey("KILLALLZOMBIES"));
+		userdefault->setIntegerForKey("COINNUMBERS", _global->userInformation->getCoinNumbers() << 10);
+		userdefault->setIntegerForKey("KILLALLZOMBIES", _global->userInformation->getKillZombiesNumbers() - 654321);
+		userdefault->setBoolForKey("UPDATEENCRYPTION", true);
+	}
+	
+	_global->userInformation->setKillZombiesNumbers(userdefault->getIntegerForKey("KILLALLZOMBIES") + 654321); /* 杀死僵尸数 */
+	_global->userInformation->setUsePlantsNumbers(userdefault->getIntegerForKey("USEPLANTSNUMBERS"));          /* 使用植物数量 */
+	_global->userInformation->setBreakThroughnumbers(userdefault->getIntegerForKey("BREAKTHROUGH"));           /* 闯关失败个数 */
+	_global->userInformation->setUserCaveFileNumber(userdefault->getIntegerForKey("USERDATANUMBER"));          /* 存档编号 */
+	_global->userInformation->setIsShowEggs(userdefault->getBoolForKey("ISBEGINSHOWEGGS"));                    /* 显示彩蛋 */
+	_global->userInformation->setCoinNumbers(userdefault->getIntegerForKey("COINNUMBERS") >> 10);              /* 金币数 */
+	_global->userInformation->setSoundEffectVolume(userdefault->getFloatForKey("SOUNDEFFECT"));                /* 音效 */
+	_global->userInformation->setBackGroundMusicVolume(userdefault->getFloatForKey("GLOBALMUSIC"));            /* 音乐 */
 
 	/* 读取用户存档名称 */
 	for (int i = 0; i < 8; i++)
@@ -499,8 +508,16 @@ void LoadingScene::checkEdition()
 		{
 			UserInformation::setUpdateRequired(true);
 			UserInformation::setNewEditionName(editionNetWork);
+			return;
 		}
 	};
+
+	auto editionName = UserDefault::getInstance()->getStringForKey("EDITION");
+	if (UserInformation::getClientEdition() < editionName)
+	{
+		UserInformation::setUpdateRequired(true);
+		UserInformation::setNewEditionName(editionName);
+	}
 #endif
 }
 

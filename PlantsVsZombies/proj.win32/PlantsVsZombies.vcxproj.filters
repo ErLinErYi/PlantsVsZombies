@@ -263,6 +263,24 @@
     <ClCompile Include="..\Classes\Scenes\MainMenuScene\UpdateClient.cpp">
       <Filter>Class\Scenes\MainMenuScene</Filter>
     </ClCompile>
+    <ClCompile Include="..\Classes\Zombies\CommonFlagZombies.cpp">
+      <Filter>Class\Zombies</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Classes\Zombies\ConeFlagZombies.cpp">
+      <Filter>Class\Zombies</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Classes\Zombies\BucketFlagZombies.cpp">
+      <Filter>Class\Zombies</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Classes\Zombies\CommonDoorFlagZombies.cpp">
+      <Filter>Class\Zombies</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Classes\Zombies\ConeDoorFlagZombies.cpp">
+      <Filter>Class\Zombies</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Classes\Zombies\BucketDoorFlagZombies.cpp">
+      <Filter>Class\Zombies</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="..\Classes\Zombies\BucketZombies.h">
@@ -474,6 +492,24 @@
     </ClInclude>
     <ClInclude Include="..\Classes\Scenes\MainMenuScene\UpdateClient.h">
       <Filter>Class\Scenes\MainMenuScene</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Classes\Zombies\CommonFlagZombies.h">
+      <Filter>Class\Zombies</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Classes\Zombies\ConeFlagZombies.h">
+      <Filter>Class\Zombies</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Classes\Zombies\BucketFlagZombies.h">
+      <Filter>Class\Zombies</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Classes\Zombies\CommonDoorFlagZombies.h">
+      <Filter>Class\Zombies</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Classes\Zombies\ConeDoorFlagZombies.h">
+      <Filter>Class\Zombies</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Classes\Zombies\BucketDoorFlagZombies.h">
+      <Filter>Class\Zombies</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>

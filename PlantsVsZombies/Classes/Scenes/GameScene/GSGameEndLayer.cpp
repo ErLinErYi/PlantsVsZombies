@@ -130,12 +130,11 @@ void GSGameEndLayer::showFailDialog(GameTypes gameType)
 
 void GSGameEndLayer::showFailText()
 {
-	auto layer = LayerColor::create(Color4B(0, 0, 0, 180));
 	auto brain = Sprite::createWithSpriteFrameName("Brain.png");
 	brain->setPosition(_director->getWinSize() / 2.0f);
 	brain->setScale(2.0f);
 	brain->runAction(RepeatForever::create(Sequence::create(MoveBy::create(0.05f, Vec2(10, 0)), MoveBy::create(0.05f, Vec2(-10, 0)), nullptr)));
-	layer->addChild(brain);
+	this->addChild(brain);
 
 	auto lose = Sprite::createWithSpriteFrameName(rand() % 2 == 0 ? "zombieswon.png" : "zombieswon1.png");
 	lose->setScale(2.0f);
@@ -147,8 +146,7 @@ void GSGameEndLayer::showFailText()
 				_director->replaceScene(TransitionFade::create(1.0f, World_1::createScene()));
 			}),
 		nullptr));
-	layer->addChild(lose);
-	this->addChild(layer);
+	this->addChild(lose);
 }
 
 void GSGameEndLayer::caveLevelNumber()
@@ -229,7 +227,7 @@ void GSGameEndLayer::rewardCoin(Button* button)
 							CallFunc::create([=]()
 								{
 									/* ±£´æ½ð±ÒÊý */
-									UserDefault::getInstance()->setIntegerForKey("COINNUMBERS", _global->userInformation->getCoinNumbers());
+									UserDefault::getInstance()->setIntegerForKey("COINNUMBERS", _global->userInformation->getCoinNumbers() << 10);
 									
 									_director->replaceScene(TransitionFade::create(1.0f, World_1::createScene()));
 								}), nullptr));

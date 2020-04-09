@@ -35,7 +35,13 @@ private:
     void createDiglog();	                                                       /* 创建对话框 */
     void createButton(const std::string& name, Vec2& vec2, Update_Button button);  /* 创建按钮 */
     void showText();
+    void addScrollView();
+    void addMouseEvent();
+    void downloadHistoryText();
     void downloadData();
+    void downloadProgress();
+    void downloadSuccess();
+    void downloadError();
 
 private:
     Sprite* _dialog;    /* 对话框 */
@@ -43,6 +49,9 @@ private:
     Label* _remindText;
     Label* _progressText;
     Label* _explanText;
+    Label* _historyText;
     Sprite* _loadBarBackground;
     ui::LoadingBar* _loadingBar;
+    ui::ScrollView* _textScrollView;
+    bool _isNewDowndload;
 };

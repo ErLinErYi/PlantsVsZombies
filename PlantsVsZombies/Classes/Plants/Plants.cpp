@@ -157,7 +157,8 @@ void Plants::zombieEatPlant(Zombies* zombie)
 			zombie->setZombieEatPlantNumber(_plantNumber);
 			zombie->setZombieStop();
 			zombie->setZombieIsEat(true);
-			zombie->getZombieAnimation()->setAnimation(1, "Zombies_Eat", true);
+			zombie->getZombieAnimation()->setAnimation(1,
+				zombie->getZombieType() == ZombiesType::LmpZombies ? "Zombies_Eat" : rand() % 2 ? "Zombies_Eat" : "Zombies_Eat1", true);
 			zombie->getZombieAnimation()->setEventListener([this, eateffect](spTrackEntry* entry, spEvent* event)
 				{
 					if (!strcmp(event->data->name, "eat"))

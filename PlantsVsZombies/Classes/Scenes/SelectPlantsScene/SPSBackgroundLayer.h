@@ -54,4 +54,6 @@ private:
 	int _previewZombiesTag;      // ‘§¿¿Ω© ¨±‡∫≈
 	Global* _global;
 	OpenLevelData* _openLevelData;
+	default_random_engine _random;
+	random_device _device;
 };

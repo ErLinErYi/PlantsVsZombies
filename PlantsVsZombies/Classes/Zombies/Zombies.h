@@ -33,7 +33,13 @@ enum class ZombiesType
 	CommonDoorZombies,
 	ConeDoorZombies,
 	BucketDoorZombies,
-	LmpZombies
+	LmpZombies,
+	CommonFlagZombies,
+	ConeFlagZombies,
+	BucketFlagZombies,
+	CommonDoorFlagZombies,
+	ConeDoorFlagZombies,
+	BucketDoorFlagZombies
 };
 
 class Zombies :public Node
@@ -493,7 +499,7 @@ protected:
 	Global* _global;                          // 全局变量
 	SkeletonAnimation* _zombiesAnimation;     // 僵尸动画
 	ZombiesType _zombiesType;                 // 僵尸类型
-	string _animationName[4];                 // 动画名称
+	string _animationName[7];                 // 动画名称
 	static unsigned int _zombiesNumbers;      // 僵尸数量
 
 private:

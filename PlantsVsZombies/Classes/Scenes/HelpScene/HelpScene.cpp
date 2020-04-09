@@ -127,7 +127,7 @@ void HelpScene::addScrollView()
 	_textScrollView->setDirection(ui::ScrollView::Direction::VERTICAL);
 	_textScrollView->setAnchorPoint(Vec2::ANCHOR_MIDDLE);
 	_textScrollView->setContentSize(Size(1280.0f, 640.0f));
-	_textScrollView->setInnerContainerSize(Size(1280, 5500));
+	_textScrollView->setInnerContainerSize(Size(1280, 6500));
 	_textScrollView->setPosition(_size / 2.0f);
 	_textScrollView->setBounceEnabled(true);
 	_textScrollView->setScrollBarPositionFromCorner(Vec2(20, 0));

@@ -71,10 +71,10 @@ void SPSSpriteLayer::alreadySelectPlantsDialog()
 void SPSSpriteLayer::alreadyHavePlantsDialog()
 {
 	_seedChooser = Sprite::createWithSpriteFrameName("SeedChooser_Background.png");
-	_seedChooser->setPosition(Vec2(600, -600));
+	_seedChooser->setPosition(Vec2(595, -600));
 	_seedChooser->setContentSize(Size(780, 1080));
 	_seedChooser->setName("_seedChooer");
-	_seedChooser->runAction(Sequence::create(MoveTo::create(0.2f, Vec2(600, 540)), CallFunc::create([&]() {createBeginButton(); }), nullptr));
+	_seedChooser->runAction(Sequence::create(MoveTo::create(0.2f, Vec2(595, 540)), CallFunc::create([&]() {createBeginButton(); }), nullptr));
 	this->addChild(_seedChooser);
 
 	auto SelectBackground = Sprite::createWithSpriteFrameName("SelectBackground.png");

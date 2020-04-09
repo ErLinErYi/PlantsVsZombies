@@ -144,13 +144,19 @@ void GSAnimationLayer::createZombies()
 	Zombies* zombies;
 	switch (static_cast<ZombiesType>(controlLayerInformation->_zombiesAppearControl->createDifferentTypeZombies(controlLayerInformation->_zombiesAppearControl->getZombiesAppearFrequency())))
 	{
-	case ZombiesType::CommonZombies:      zombies = new CommonZombies(this);      break;
-	case ZombiesType::ConeZombies:        zombies = new ConeZombies(this);        break;
-	case ZombiesType::BucketZombies:      zombies = new BucketZombies(this);      break;
-	case ZombiesType::CommonDoorZombies:  zombies = new CommonDoorZombies(this);  break;
-	case ZombiesType::ConeDoorZombies:    zombies = new ConeDoorZombies(this);    break;
-	case ZombiesType::BucketDoorZombies:  zombies = new BucketDoorZombies(this);  break;
-	case ZombiesType::LmpZombies:         zombies = new LmpZombies(this);         break;
+	case ZombiesType::CommonZombies:          zombies = new CommonZombies(this);          break;
+	case ZombiesType::ConeZombies:            zombies = new ConeZombies(this);            break;
+	case ZombiesType::BucketZombies:          zombies = new BucketZombies(this);          break;
+	case ZombiesType::CommonDoorZombies:      zombies = new CommonDoorZombies(this);      break;
+	case ZombiesType::ConeDoorZombies:        zombies = new ConeDoorZombies(this);        break;
+	case ZombiesType::BucketDoorZombies:      zombies = new BucketDoorZombies(this);      break;
+	case ZombiesType::LmpZombies:             zombies = new LmpZombies(this);             break;
+	case ZombiesType::CommonFlagZombies:      zombies = new CommonFlagZombies(this);      break;
+	case ZombiesType::ConeFlagZombies:        zombies = new ConeFlagZombies(this);        break;
+	case ZombiesType::BucketFlagZombies:      zombies = new BucketFlagZombies(this);      break;
+	case ZombiesType::CommonDoorFlagZombies:  zombies = new CommonDoorFlagZombies(this);  break;
+	case ZombiesType::ConeDoorFlagZombies:    zombies = new ConeDoorFlagZombies(this);    break;
+	case ZombiesType::BucketDoorFlagZombies:  zombies = new BucketDoorFlagZombies(this);  break;
 	default: break;
 	}
 	uniform_int_distribution<unsigned>number(0, 500);

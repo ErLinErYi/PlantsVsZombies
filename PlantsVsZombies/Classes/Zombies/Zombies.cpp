@@ -171,7 +171,7 @@ void Zombies::zombiesDeleteUpdate(list<Zombies*>::iterator& zombie)
 		if (!(*zombie)->getIsCanDelete()[0])
 		{
 			(*zombie)->getIsCanDelete()[0] = true;
-			UserDefault::getInstance()->setIntegerForKey("KILLALLZOMBIES", ++Global::getInstance()->userInformation->getKillZombiesNumbers());/* 杀死僵尸数加一 */
+			UserDefault::getInstance()->setIntegerForKey("KILLALLZOMBIES", ++Global::getInstance()->userInformation->getKillZombiesNumbers() - 654321);/* 杀死僵尸数加一 */
 			informationLayerInformation->updateZombiesDieNumbers(); /* 更新显示 */
 
 			zombiesNumbersChange("--");  /* 僵尸总数更新 */

@@ -22,7 +22,7 @@ BucketDoorZombies::BucketDoorZombies(Node* node)
 	_speed = 30;
 	_currentSpeed = 30;
 	_isHaveShield = true;
-	_zombiesType = ZombiesType::ConeDoorZombies;
+	_zombiesType = ZombiesType::BucketDoorZombies;
 }
 
 BucketDoorZombies* BucketDoorZombies::create(Node* node)
