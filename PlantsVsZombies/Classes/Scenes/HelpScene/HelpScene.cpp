@@ -16,7 +16,7 @@ string INFORMATION_TEXT = { "\
 该项目的源码开源发到GitHub。\n\
 		游戏大部分的素材来源于原版游戏素材，少部分搜集于网络，以及自己制作。\n\
 		（！！！重要）此游戏为同人游戏而且仅供学习交流使用，由于游戏资源可能存在侵权的问题，所以请勿用于商业用途，否则后果自负。\n\
-		目前有7种僵尸和13种植物，植物和僵尸的动画都是本人做的，由于做动画的能力有限，有些僵尸和植物动画不能实现，\
+		目前有13种僵尸和13种植物，植物和僵尸的动画都是本人做的，由于做动画的能力有限，有些僵尸和植物动画不能实现，\
 如果可以做动画并且愿意帮助我的人可以私聊我（动画是用spine软件制作的骨骼动画）。如果发现程序有什么问题或者对游戏有\
 什么建议可以发送到我的qq：2117610943\n\
        点击主菜单的下面三个按钮可以跳转到下载网址（百度网盘提取码3vzm)\n" };
@@ -59,10 +59,11 @@ void HelpScene::createText()
 		{
 			auto helptext = Label::createWithTTF(INFORMATION_TEXT + (history.empty() ? "\t\t\t\t\t\t\t\t\t\t\t\t\t文本加载失败！" : history), GAME_FONT_NAME_1, 35);
 			helptext->setAnchorPoint(Vec2::ANCHOR_MIDDLE_TOP);
-			helptext->setPosition(Vec2(600, _textScrollView->getInnerContainerSize().height));
 			helptext->setColor(Color3B::BLACK);
 			helptext->setMaxLineWidth(1100);
+			_textScrollView->setInnerContainerSize(helptext->getContentSize());
 			_textScrollView->addChild(helptext);
+			helptext->setPosition(Vec2(600, _textScrollView->getInnerContainerSize().height));
 		});
 
 	addMouseEvent();
@@ -127,7 +128,6 @@ void HelpScene::addScrollView()
 	_textScrollView->setDirection(ui::ScrollView::Direction::VERTICAL);
 	_textScrollView->setAnchorPoint(Vec2::ANCHOR_MIDDLE);
 	_textScrollView->setContentSize(Size(1280.0f, 640.0f));
-	_textScrollView->setInnerContainerSize(Size(1280, 6500));
 	_textScrollView->setPosition(_size / 2.0f);
 	_textScrollView->setBounceEnabled(true);
 	_textScrollView->setScrollBarPositionFromCorner(Vec2(20, 0));

@@ -192,6 +192,7 @@ protected:
 	 *设置植物受到伤害闪烁
 	 */
 	virtual void setPlantHurtBlink() const;
+	virtual void setPlantHurtBlink(PlantsType type) const;
 
 	/**
 	 *获取僵尸是否在植物前方
@@ -218,6 +219,9 @@ protected:
 	 */
 	virtual void zombieRecoveryMove(Zombies* zombie);
 
+private:
+	void setPlantGLProgram();
+
 protected:
 	int _sunNeed;                               // 阳光需求
 	int _costGold;                              // 花费金币
@@ -241,4 +245,8 @@ protected:
 	PlantsType _plantsType;                     // 植物类型
 	SkeletonAnimation* _soilSplashAnimation;    // 泥土飞溅动画
 	static int plantNumber;                     // 植物编号（唯一性）
+
+private:
+	static GLProgram* _normalGLProgram;
+	static GLProgram* _highLightGLProgram;
 };

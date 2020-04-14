@@ -66,7 +66,9 @@ bool GSAnimationLayer::init()
 
 void GSAnimationLayer::plantPlants()
 {
-	AudioEngine::setVolume(AudioEngine::play2d(_global->userInformation->getMusicPath().find(rand() % 2 == 0 ? "plant2" : "plant")->second), _global->userInformation->getSoundEffectVolume());
+	AudioEngine::setVolume(AudioEngine::play2d(
+		_global->userInformation->getMusicPath().find(rand() % 2 == 0 ? "plant2" : "plant")->second), 
+		_global->userInformation->getSoundEffectVolume());
 
 	auto plants = createDifferentPlants();
 #if VIRTUAL3D
@@ -198,7 +200,9 @@ void GSAnimationLayer::showCars()
 	{
 		this->runAction(Sequence::create(DelayTime::create(0.5f + 0.1 * i), CallFunc::create([=]()
 			{
-				AudioEngine::setVolume(AudioEngine::play2d(_global->userInformation->getMusicPath().find("plastichit2")->second), _global->userInformation->getSoundEffectVolume());
+				AudioEngine::setVolume(AudioEngine::play2d(
+					_global->userInformation->getMusicPath().find("plastichit2")->second),
+					_global->userInformation->getSoundEffectVolume());
 				auto car = new Car(this);
 #if VIRTUAL3D
 				car->setPosition(Vec2(350 + i * 30, carpositions[i]));

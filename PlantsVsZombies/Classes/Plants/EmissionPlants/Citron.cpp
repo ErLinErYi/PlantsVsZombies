@@ -140,7 +140,7 @@ void Citron::createListener()
 int Citron::calculateGreatEvocationProbability()
 {
 	int number = rand() % 100;
-	if (number < 10)
+	if (number < 5)
 	{
 		_animationId = 1;
 	}

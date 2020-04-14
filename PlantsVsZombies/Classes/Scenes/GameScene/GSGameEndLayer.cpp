@@ -66,7 +66,7 @@ void GSGameEndLayer::successfullEntry()
 			switch (type)
 			{
 			case cocos2d::ui::Widget::TouchEventType::BEGAN:
-				AudioEngine::setVolume(AudioEngine::play2d(_global->userInformation->getMusicPath().find("moneyfalls")->second), _global->userInformation->getSoundEffectVolume());
+				AudioEngine::setVolume(AudioEngine::play2d(_global->userInformation->getMusicPath().find("coin")->second), _global->userInformation->getSoundEffectVolume());
 				break;
 			case cocos2d::ui::Widget::TouchEventType::ENDED:
 				moneybag_hi_res->setEnabled(false);
@@ -152,7 +152,8 @@ void GSGameEndLayer::showFailText()
 void GSGameEndLayer::caveLevelNumber()
 {
 	/* ¼ÇÂ¼¹ØÊý */
-	if (_global->userInformation->getUserSelectWorldData().at(_global->userInformation->getCurrentPlayWorldTag())->levels == _global->userInformation->getCurrentPlayLevels())
+	if (_global->userInformation->getUserSelectWorldData().at(
+		_global->userInformation->getCurrentPlayWorldTag())->levels == _global->userInformation->getCurrentPlayLevels())
 	{
 		UserDefault::getInstance()->setIntegerForKey(
 			_global->userInformation->getGameDifficulty() ?
@@ -173,7 +174,7 @@ void GSGameEndLayer::carsToCoins()
 			auto cars = car;
 			runAction(Sequence::create(DelayTime::create(0.4f * ++i), CallFunc::create([this, cars]()
 				{
-					AudioEngine::setVolume(AudioEngine::play2d(_global->userInformation->getMusicPath().find("plastichit2")->second), _global->userInformation->getSoundEffectVolume());
+					AudioEngine::setVolume(AudioEngine::play2d(_global->userInformation->getMusicPath().find("coin")->second), _global->userInformation->getSoundEffectVolume());
 					cars->getCar()->runAction(Sequence::create( Spawn::create(ScaleTo::create(0.2f, 0), FadeOut::create(0.2f), nullptr), nullptr));
 					cars->getCar()->setVisible(false);
 					coinAction(cars->getCar()->getPosition(), 0, true);
@@ -245,12 +246,15 @@ void GSGameEndLayer::coinAction(const Vec2& position, const int id, const bool b
 
 	auto callFunc = CallFunc::create([=]()
 		{
-			AudioEngine::setVolume(AudioEngine::play2d(_global->userInformation->getMusicPath().find("moneyfalls")->second), _global->userInformation->getSoundEffectVolume());
+			AudioEngine::setVolume(AudioEngine::play2d(
+				_global->userInformation->getMusicPath().find("moneyfalls")->second),
+				_global->userInformation->getSoundEffectVolume());
 			coin->removeFromParent();
-			big ? _global->userInformation->setCoinNumbers(_global->userInformation->getCoinNumbers() + 10) : _global->userInformation->setCoinNumbers(_global->userInformation->getCoinNumbers() + 1);
+			big ? _global->userInformation->setCoinNumbers(_global->userInformation->getCoinNumbers() + 10) :
+				_global->userInformation->setCoinNumbers(_global->userInformation->getCoinNumbers() + 1);
 			informationLayerInformation->updateCoinNumbers();
 		});
-
+	
 	auto action = Spawn::create(FadeIn::create(0.5f), ScaleTo::create(0.5f, 0.3f), JumpBy::create(0.5f, Vec2(150 - rand() % 300, 100 - rand() % 100), rand() % 100 + 200, 1),
 		Sequence::create(DelayTime::create(0.25f), CallFunc::create([coin]() {coin->setLocalZOrder(3); }), nullptr), nullptr);
 	auto action1 = Spawn::create(ScaleTo::create(0.2f, 0.5f), FadeOut::create(0.2f), callFunc, nullptr);

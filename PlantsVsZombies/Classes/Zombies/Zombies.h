@@ -83,6 +83,11 @@ public:
 	static void zombiesWinOrLoseInit();
 
 	/**
+	 *获取高亮
+	 */
+	static GLProgram* getHighLight();
+
+	/**
 	 *创建僵尸
 	 */
 	virtual void createZombie() = 0;
@@ -469,6 +474,7 @@ private:
 	void setBigZombieAttribute();
 	void setZombieAttributeForGameType(Node* sprite);
 	void setOpacityZombieAttribute();
+	void setZombieGLProgram();
 	string& createZombieName();
 
 protected:
@@ -510,6 +516,8 @@ private:
 	random_device _device;
 
 	static bool _zombieIsWin;
+	static GLProgram* _normalGLProgram;
+	static GLProgram* _highLightGLProgram;
 	static GSGameEndLayer* _gameEndLayer;
 	static GSGameResultJudgement* _gameResultJudgement;
 };

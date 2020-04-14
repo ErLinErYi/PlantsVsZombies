@@ -19,8 +19,8 @@ ConeFlagZombies::ConeFlagZombies(Node* node)
 	_currentBloodVolume = 200;
 	_currentHeadShieldVolume = 500;
 	_currentBodyShieldVolume = 0;
-	_speed = 35;
-	_currentSpeed = 35;
+	_speed = 40;
+	_currentSpeed = 40;
 	_isHaveShield = true;
 	_zombiesType = ZombiesType::ConeFlagZombies;
 }

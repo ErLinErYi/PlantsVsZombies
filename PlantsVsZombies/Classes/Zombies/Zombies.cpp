@@ -15,6 +15,8 @@
 
 unsigned int Zombies::_zombiesNumbers = 0;
 bool Zombies::_zombieIsWin = false;
+GLProgram* Zombies::_normalGLProgram = nullptr;
+GLProgram* Zombies::_highLightGLProgram = nullptr;
 GSGameEndLayer* Zombies::_gameEndLayer = nullptr;
 GSGameResultJudgement* Zombies::_gameResultJudgement = nullptr;
 
@@ -55,6 +57,8 @@ void Zombies::zombieInit(const string& animation_name)
 	_zombiesAnimation->setLocalZOrder(getLocalZOrder(_position.y));
 	_zombiesAnimation->setOpacity(0);   /* !!! 创建的僵尸自动隐身 */
 	_node->addChild(_zombiesAnimation);
+
+	setZombieGLProgram();
 }
 
 void Zombies::setZombieScale(const int& scale) const
@@ -157,7 +161,8 @@ string Zombies::getZombieAniamtionName(ZombiesType zombiestype)
 	{
 	case ZombiesType::CommonDoorZombies:
 	case ZombiesType::ConeDoorZombies:
-	case ZombiesType::BucketDoorZombies: name = "Zombies_Door_Walk"; break;
+	case ZombiesType::BucketDoorZombies: 
+		     name = "Zombies_Door_Walk"; break;
 	default: name = "Zombies_Walk"; break;
 	}
 	return name;
@@ -274,7 +279,15 @@ void Zombies::setZombieIsStrikeFly(const bool isStrikeFly)
 
 void Zombies::setZombieHurtBlink() const
 {
-	_zombiesAnimation->runAction(Sequence::create(TintTo::create(0.15f, Color3B(70, 70, 70)), TintTo::create(0.15f, Color3B::WHITE), nullptr));
+	_zombiesAnimation->runAction(Sequence::create(
+		CallFunc::create([=]()
+			{
+				_zombiesAnimation->setGLProgram(_highLightGLProgram);
+			}), DelayTime::create(0.15f), 
+		CallFunc::create([=]() 
+			{
+				_zombiesAnimation->setGLProgram(_normalGLProgram);
+			}), nullptr));
 }
 
 void Zombies::setZombieScale()
@@ -304,7 +317,7 @@ float Zombies::getZombiePositionY() const
 
 bool Zombies::getZombieIsEnterMap() const
 {
-	return _zombiesAnimation->getPositionX() < 1730 ? true : false;
+	return _zombiesAnimation->getPositionX() < 1720 ? true : false;
 }
 
 float Zombies::getZombieCurrentBodyShieldVolume() const
@@ -482,8 +495,11 @@ void Zombies::judgeZombieWin(list<Zombies*>::iterator zombie)
 void Zombies::zombiesWinOrLoseInit()
 {
 	_zombieIsWin = false;
-	delete _gameResultJudgement;
-	_gameResultJudgement = nullptr;
+	if (_gameResultJudgement)
+	{
+		delete _gameResultJudgement;
+		_gameResultJudgement = nullptr;
+	}
 }
 
 void Zombies::createZombieShadow()
@@ -731,6 +747,30 @@ void Zombies::setOpacityZombieAttribute()
 	_zombiesAnimation->setOpacity(0);
 	_isShow = true;
 	_zombiesAnimation->getChildByName("shadow")->setOpacity(0);
+}
+
+void Zombies::setZombieGLProgram()
+{
+	_normalGLProgram = _zombiesAnimation->getGLProgram();
+	_highLightGLProgram = getHighLight();
+}
+
+GLProgram* Zombies::getHighLight()
+{
+	auto program = GLProgramCache::getInstance()->getGLProgram("MyHighLightShader");
+	if (!program)
+	{
+		program = GLProgram::createWithByteArrays(ccPositionTextureColor_noMVP_vert,
+			FileUtils::getInstance()->getStringFromFile("resources/Text/Bloom.fsh").c_str());
+		program->bindAttribLocation(GLProgram::ATTRIBUTE_NAME_POSITION, GLProgram::VERTEX_ATTRIB_POSITION);
+		program->bindAttribLocation(GLProgram::ATTRIBUTE_NAME_COLOR, GLProgram::VERTEX_ATTRIB_COLOR);
+		program->bindAttribLocation(GLProgram::ATTRIBUTE_NAME_TEX_COORD, GLProgram::VERTEX_ATTRIB_TEX_COORD);
+		program->link();
+		program->updateUniforms();
+
+		GLProgramCache::getInstance()->addGLProgram(program, "MyHighLightShader");
+	}
+	return program;
 }
 
 string& Zombies::createZombieName()

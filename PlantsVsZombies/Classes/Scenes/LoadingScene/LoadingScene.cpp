@@ -508,15 +508,17 @@ void LoadingScene::checkEdition()
 		{
 			UserInformation::setUpdateRequired(true);
 			UserInformation::setNewEditionName(editionNetWork);
-			return;
 		}
 	};
 
 	auto editionName = UserDefault::getInstance()->getStringForKey("EDITION");
-	if (UserInformation::getClientEdition() < editionName)
+	if (!editionName.empty())
 	{
-		UserInformation::setUpdateRequired(true);
-		UserInformation::setNewEditionName(editionName);
+		if (UserInformation::getClientEdition() < editionName)
+		{
+			UserInformation::setUpdateRequired(true);
+			UserInformation::setNewEditionName(editionName);
+		}
 	}
 #endif
 }
@@ -573,11 +575,11 @@ void LoadingScene::loadingAnimation()
 	for (auto& i : _global->userInformation->getAnimationPath())
 	{
 		/* 临时存储文件名字 */
-		char JsonName[100], AtlasName[100];
+		char JsonName[128], AtlasName[128];
 
 		/* 转换 */
-		snprintf(JsonName, 100, "resources/Animations/Json/%s.json", (i.second).c_str());
-		snprintf(AtlasName, 100, "resources/Animations/Atlas/%s.atlas", (i.second).c_str());
+		snprintf(JsonName, 128, "resources/Animations/compiled/%s.compiled", (i.second).c_str());
+		snprintf(AtlasName, 128, "resources/Animations/reanim/%s.reanim", (i.second).c_str());
 
 		/* 加载 */
 		spSkeletonJson* json = spSkeletonJson_createWithLoader((spAttachmentLoader*)Cocos2dAttachmentLoader_create(spAtlas_createFromFile(AtlasName, nullptr)));

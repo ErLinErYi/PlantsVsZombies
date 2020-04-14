@@ -212,9 +212,6 @@
     <ClCompile Include="..\Classes\Plants\BattlePlants\Jalapeno.cpp">
       <Filter>Class\Plants\BattlePlants</Filter>
     </ClCompile>
-    <ClCompile Include="..\Classes\AppDelegate.cpp">
-      <Filter>Class</Filter>
-    </ClCompile>
     <ClCompile Include="..\Classes\Based\Car.cpp">
       <Filter>Class\Based</Filter>
     </ClCompile>
@@ -232,9 +229,6 @@
     </ClCompile>
     <ClCompile Include="..\Classes\Based\UserWinRequirement.cpp">
       <Filter>Class\Based</Filter>
-    </ClCompile>
-    <ClCompile Include="PlantsVsZombies.cpp">
-      <Filter>Class</Filter>
     </ClCompile>
     <ClCompile Include="..\Classes\Scenes\GameScene\GSRequirementLayer.cpp">
       <Filter>Class\Scenes\GameScene</Filter>
@@ -280,6 +274,12 @@
     </ClCompile>
     <ClCompile Include="..\Classes\Zombies\BucketDoorFlagZombies.cpp">
       <Filter>Class\Zombies</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Classes\Based\AppDelegate.cpp">
+      <Filter>Class\Based</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Classes\PlantsVsZombies.cpp">
+      <Filter>Class</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -442,9 +442,6 @@
     <ClInclude Include="..\Classes\Plants\BattlePlants\Jalapeno.h">
       <Filter>Class\Plants\BattlePlants</Filter>
     </ClInclude>
-    <ClInclude Include="..\Classes\AppDelegate.h">
-      <Filter>Class</Filter>
-    </ClInclude>
     <ClInclude Include="..\Classes\Based\Car.h">
       <Filter>Class\Based</Filter>
     </ClInclude>
@@ -462,9 +459,6 @@
     </ClInclude>
     <ClInclude Include="..\Classes\Based\UserWinRequirement.h">
       <Filter>Class\Based</Filter>
-    </ClInclude>
-    <ClInclude Include="PlantsVsZombies.h">
-      <Filter>Class</Filter>
     </ClInclude>
     <ClInclude Include="..\Classes\Scenes\GameScene\GSRequirementLayer.h">
       <Filter>Class\Scenes\GameScene</Filter>
@@ -510,6 +504,12 @@
     </ClInclude>
     <ClInclude Include="..\Classes\Zombies\BucketDoorFlagZombies.h">
       <Filter>Class\Zombies</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Classes\Based\AppDelegate.h">
+      <Filter>Class\Based</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Classes\PlantsVsZombies.h">
+      <Filter>Class</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>

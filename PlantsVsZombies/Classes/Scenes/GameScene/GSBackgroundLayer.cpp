@@ -20,7 +20,7 @@ void GSBackgroundLayer::backgroundRunAction()
 
 GSBackgroundLayer::~GSBackgroundLayer()
 {
-	delete gameType;
+	if (gameType)delete gameType;
 }
 
 bool GSBackgroundLayer::init()

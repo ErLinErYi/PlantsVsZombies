@@ -19,8 +19,8 @@ LmpZombies::LmpZombies(Node* node)
 	_currentBloodVolume = 200;
 	_currentHeadShieldVolume = 0;
 	_currentBodyShieldVolume = 0;
-	_speed = 40;
-	_currentSpeed = 40;
+	_speed = 45;
+	_currentSpeed = 45;
 	_isHaveShield = false;
 	_zombiesType = ZombiesType::LmpZombies;
 	srand(time(nullptr));

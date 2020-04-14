@@ -24,8 +24,8 @@ using namespace cocos2d::experimental;
 class MainMenu :public Scene
 {
 public:
-	static Scene* createScene();            /* 创建场景 */
 	CREATE_FUNC(MainMenu);
+	static Scene* createScene();
 
 CC_CONSTRUCTOR_ACCESS:
 	MainMenu();
@@ -33,11 +33,20 @@ CC_CONSTRUCTOR_ACCESS:
 	virtual bool init();
 
 private:
-	short checkCurInButtons();                                    /* 判断鼠标光标位置*/
+	enum class MainMenuButton
+	{
+		NullButton = 0,
+		AdventureButton,
+		SurvivalButton,
+		ChallengesButton,
+		VasebreakerButton
+	};
+
+	MainMenuButton checkCurInButtons();                           /* 判断鼠标光标位置*/
 	void curUpdate(float time);                                   /* 鼠标光标定时器 */
 	void updateUserNameOnce(float time);
 	void setCloudPosition(Node* node, int ID, const Vec2& vec2);  /* 设置云的位置 */
-	void playMusicBleepInGameButtons(int ID);                     /* 播放音乐 */
+	void playMusicBleepInGameButtons(MainMenuButton ID);          /* 播放音乐 */
 	void playMusicBleepInMainButtons(int ID, const Vec2& vec2);
 
 	/*游戏选择函数*/

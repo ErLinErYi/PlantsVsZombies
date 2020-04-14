@@ -8,7 +8,7 @@
 #pragma once
 #include "Pea.h"
 
-class FirePea:public Pea
+class FirePea :public Pea
 {
 public:
     void createBullet() override;
@@ -17,7 +17,12 @@ CC_CONSTRUCTOR_ACCESS:
     FirePea(Node* node);
     ~FirePea();
 
+protected:
+    virtual void bulletInit() override;
+    virtual void createShadow() override;
+    virtual void bulletAndZombiesCollision() override;
+
 private:
-    void bulletInit() override;
-    void createShadow() override;
+    void attackZombies();
+    float getZombieInExplodeRange(Zombies* zombie);
 };

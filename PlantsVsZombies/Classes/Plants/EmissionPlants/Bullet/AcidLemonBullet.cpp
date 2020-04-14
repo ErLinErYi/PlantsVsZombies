@@ -14,7 +14,7 @@
 AcidLemonBullet::AcidLemonBullet(Node* node)
 {
     _node = node;
-    _attack = 20;
+    _attack = 15;
     _bulletType = BulletType::AcidLemonBullet;
 }
 
@@ -100,7 +100,7 @@ void AcidLemonBullet::setAttackForShield(Zombies* zombie)
 	{
 		if (zombie->getZombieBodyAttackSoundEffect() || zombie->getZombieHeadAttackSoundEffect()) /* ½©Ê¬ÊÇÌúÖÊ»¤¶Ü */
 		{
-			_attack = 100;
+			_attack = 80;
 		}
 	}
 	else

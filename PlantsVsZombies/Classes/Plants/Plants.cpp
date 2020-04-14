@@ -12,6 +12,8 @@
 #include "Scenes/GameScene/GSData.h"
 
 int Plants::plantNumber = -1;
+GLProgram* Plants::_normalGLProgram = nullptr;
+GLProgram* Plants::_highLightGLProgram = nullptr;
 
 Plants::Plants(Node* node, const Vec2& position) :
 	_node(node)
@@ -50,6 +52,7 @@ SkeletonAnimation* Plants::plantInit(const std::string& plantname, const std::st
 		_plantAnimation->setAnimation(0, animaionname, _isLoop);
 		_plantAnimation->setLocalZOrder(_zOrder);
 		_plantAnimation->setTag(_plantTag);
+		setPlantGLProgram();
 		return _plantAnimation;
 	}
 	return nullptr;
@@ -108,6 +111,19 @@ void Plants::setPlantShadow(const float& scale)
 }
 
 void Plants::setPlantHurtBlink() const
+{
+	_plantAnimation->runAction(Sequence::create(
+		CallFunc::create([=]()
+			{
+				_plantAnimation->setGLProgram(_highLightGLProgram);
+			}), DelayTime::create(0.15f),
+		CallFunc::create([=]()
+			{
+				_plantAnimation->setGLProgram(_normalGLProgram);
+			}), nullptr));
+}
+
+void Plants::setPlantHurtBlink(PlantsType type) const
 {
 	_plantAnimation->runAction(Sequence::create(TintTo::create(0.15f, Color3B(70, 70, 70)), TintTo::create(0.15f, Color3B::WHITE), nullptr));
 }
@@ -190,4 +206,10 @@ void Plants::zombieRecoveryMove(Zombies* zombie)
 			zombie->setZombieCurrentSpeed(zombie->getZombieSpeed());
 		}
 	}
+}
+
+void Plants::setPlantGLProgram()
+{
+	_normalGLProgram = _plantAnimation->getGLProgram();
+	_highLightGLProgram = Zombies::getHighLight();
 }

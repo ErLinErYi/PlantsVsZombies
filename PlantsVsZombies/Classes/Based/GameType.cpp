@@ -29,8 +29,8 @@ GameType::GameType(Node* node):
 
 GameType::~GameType()
 {
-	delete _sunNumberRequriement;
-	delete _plantsRequriement;
+	if(_sunNumberRequriement) delete _sunNumberRequriement;
+	if( _plantsRequriement)   delete _plantsRequriement;
 }
 
 void GameType::createGameType()
@@ -43,11 +43,12 @@ void GameType::createGameType()
 		case GameTypes::AtLeastSunNumbers:
 		{
 			auto ShowNumber = Sprite::createWithSpriteFrameName("ShowNumber.png");
-			ShowNumber->setPosition(Vec2(735, 1010));
+			ShowNumber->setPosition(Vec2(690, 1010));
+			ShowNumber->setScaleX(1.2f);
 			_node->addChild(ShowNumber);
 
 			auto LackSun = Sprite::createWithSpriteFrameName("LackSun.png");
-			LackSun->setPosition(Vec2(640, 1010));
+			LackSun->setPosition(Vec2(590, 1010));
 			LackSun->setName("LackSun");
 			_node->addChild(LackSun);
 
@@ -146,7 +147,7 @@ void GameType::showNumbers(const int& ID)
 		_sunNumberRequriement->allSunNumbersText = Text::create();
 		_sunNumberRequriement->allSunNumbersText->setFontSize(30);
 		_sunNumberRequriement->allSunNumbersText->setFontName(GAME_FONT_NAME_2);
-		_sunNumberRequriement->allSunNumbersText->setPosition(Vec2(737, 1012));
+		_sunNumberRequriement->allSunNumbersText->setPosition(Vec2(700, 1012));
 		_sunNumberRequriement->allSunNumbersText->setAnchorPoint(Vec2(0.5f, 0.5f));
 		_sunNumberRequriement->allSunNumbersText->setColor(Color3B::YELLOW);
 		_sunNumberRequriement->atLeastSunNumbers = _openlevelData->readLevelData(_openlevelData->getLevelNumber())->getAtLeastSunNumbers();
@@ -171,7 +172,6 @@ void GameType::showNumbers(const int& ID)
 	default:
 		break;
 	}
-	
 }
 
 void GameType::updateNumbers(const int& ID)

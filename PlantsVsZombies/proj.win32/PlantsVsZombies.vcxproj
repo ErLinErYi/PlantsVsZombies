@@ -39,6 +39,7 @@
     <PlatformToolset Condition="'$(VisualStudioVersion)' == '15.0'">v141</PlatformToolset>
     <PlatformToolset Condition="'$(VisualStudioVersion)' == '15.0' and exists('$(MSBuildProgramFiles32)\Microsoft SDKs\Windows\v7.1A')">v141_xp</PlatformToolset>
     <PlatformToolset>v142</PlatformToolset>
+    <WholeProgramOptimization>false</WholeProgramOptimization>
   </PropertyGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.props" />
   <ImportGroup Label="ExtensionSettings">
@@ -174,7 +175,7 @@ xcopy "$(ProjectDir)..\Resources" "$(OutDir)" /D /E /I /F /Y
     <Image Include="res\PlantsVsZombies.ico" />
   </ItemGroup>
   <ItemGroup>
-    <ClCompile Include="..\Classes\AppDelegate.cpp" />
+    <ClCompile Include="..\Classes\Based\AppDelegate.cpp" />
     <ClCompile Include="..\Classes\Based\Car.cpp" />
     <ClCompile Include="..\Classes\Based\Dialog.cpp" />
     <ClCompile Include="..\Classes\Based\GameType.cpp" />
@@ -182,6 +183,7 @@ xcopy "$(ProjectDir)..\Resources" "$(OutDir)" /D /E /I /F /Y
     <ClCompile Include="..\Classes\Based\LevelData.cpp" />
     <ClCompile Include="..\Classes\Based\UserInformation.cpp" />
     <ClCompile Include="..\Classes\Based\UserWinRequirement.cpp" />
+    <ClCompile Include="..\Classes\PlantsVsZombies.cpp" />
     <ClCompile Include="..\Classes\Plants\BattlePlants\Jalapeno.cpp" />
     <ClCompile Include="..\Classes\Plants\DefensePlants\Garlic.cpp" />
     <ClCompile Include="..\Classes\Plants\EmissionPlants\AcidLemon.cpp" />
@@ -246,10 +248,9 @@ xcopy "$(ProjectDir)..\Resources" "$(OutDir)" /D /E /I /F /Y
     <ClCompile Include="..\Classes\Zombies\ConeZombies.cpp" />
     <ClCompile Include="..\Classes\Zombies\LmpZombies.cpp" />
     <ClCompile Include="..\Classes\Zombies\Zombies.cpp" />
-    <ClCompile Include="PlantsVsZombies.cpp" />
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="..\Classes\AppDelegate.h" />
+    <ClInclude Include="..\Classes\Based\AppDelegate.h" />
     <ClInclude Include="..\Classes\Based\Car.h" />
     <ClInclude Include="..\Classes\Based\Dialog.h" />
     <ClInclude Include="..\Classes\Based\GameType.h" />
@@ -257,6 +258,7 @@ xcopy "$(ProjectDir)..\Resources" "$(OutDir)" /D /E /I /F /Y
     <ClInclude Include="..\Classes\Based\LevelData.h" />
     <ClInclude Include="..\Classes\Based\UserInformation.h" />
     <ClInclude Include="..\Classes\Based\UserWinRequirement.h" />
+    <ClInclude Include="..\Classes\PlantsVsZombies.h" />
     <ClInclude Include="..\Classes\Plants\BattlePlants\Jalapeno.h" />
     <ClInclude Include="..\Classes\Plants\DefensePlants\Garlic.h" />
     <ClInclude Include="..\Classes\Plants\EmissionPlants\AcidLemon.h" />
@@ -324,7 +326,6 @@ xcopy "$(ProjectDir)..\Resources" "$(OutDir)" /D /E /I /F /Y
     <ClInclude Include="..\Classes\Zombies\LmpZombies.h" />
     <ClInclude Include="..\Classes\Zombies\Zombies-Files.h" />
     <ClInclude Include="..\Classes\Zombies\Zombies.h" />
-    <ClInclude Include="PlantsVsZombies.h" />
   </ItemGroup>
   <ItemGroup>
     <None Include="ClassDiagram.cd" />

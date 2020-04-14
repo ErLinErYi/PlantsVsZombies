@@ -14,13 +14,13 @@ BucketDoorFlagZombies::BucketDoorFlagZombies(Node* node)
 	_attackBodySoundEffectType = 1;
 	_animationId = 1;
 	_bloodVolume = 200;
-	_headShieldVolume = 1200;
-	_bodyShieldVolume = 1200;
+	_headShieldVolume = 1000;
+	_bodyShieldVolume = 1000;
 	_currentBloodVolume = 200;
-	_currentHeadShieldVolume = 1200;
-	_currentBodyShieldVolume = 1200;
-	_speed = 30;
-	_currentSpeed = 30;
+	_currentHeadShieldVolume = 1000;
+	_currentBodyShieldVolume = 1000;
+	_speed = 35;
+	_currentSpeed = 35;
 	_isHaveShield = true;
 	_zombiesType = ZombiesType::BucketDoorFlagZombies;
 }

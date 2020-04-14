@@ -116,7 +116,6 @@ void SPSSpriteLayer::createScrollview()
 	_plantCardTextScrollView = ui::ScrollView::create();
 	_plantCardTextScrollView->setDirection(ui::ScrollView::Direction::VERTICAL);
 	_plantCardTextScrollView->setContentSize(Size(400.0f, 360.0f));
-	_plantCardTextScrollView->setInnerContainerSize(Size(400, 620));
 	_plantCardTextScrollView->setPosition(Vec2(360, 580));
 	_plantCardTextScrollView->setBounceEnabled(true);
 	_plantCardTextScrollView->setScrollBarPositionFromCorner(Vec2(10, 0));

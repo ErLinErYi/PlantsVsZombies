@@ -102,6 +102,7 @@ void PotatoMine::plantExplode()
 		auto plantAnimation = SkeletonAnimation::createWithData(_global->userInformation->getAnimationData().find("PotatoMine")->second);
 		plantAnimation->setAnchorPoint(Vec2::ANCHOR_MIDDLE);
 		plantAnimation->setScale(1.2f);
+		plantAnimation->setLocalZOrder(_plantAnimation->getLocalZOrder() + 1);
 		plantAnimation->setPosition(_plantAnimation->getPosition());
 		plantAnimation->setAnimation(0, "PotatoMine_Blast", false);
 		plantAnimation->setEventListener([=](spTrackEntry* entry, spEvent* event)
@@ -151,7 +152,7 @@ void PotatoMine::zombieEatPlant(Zombies* zombie)
 						{
 							reducePlantHealthPoint(100);
 							Bullet::playSoundEffect(eateffect[rand() % 3]);
-							setPlantHurtBlink();
+							setPlantHurtBlink(PlantsType::PotatoMine);
 						}
 					}
 				});

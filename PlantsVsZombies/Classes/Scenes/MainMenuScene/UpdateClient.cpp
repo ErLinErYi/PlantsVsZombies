@@ -1,4 +1,4 @@
-/**
+ï»¿/**
  *Copyright (c) 2020 LZ.All Right Reserved
  *Author : LZ
  *Date: 2020.4.2
@@ -48,13 +48,13 @@ void UpdateClient::createDiglog()
 
 	showText();
 
-	createButton(_global->userInformation->getGameText().find("°Ù¶ÈÍøÅÌÏÂÔØ")->second, Vec2(165, 100), Update_Button::°Ù¶ÈÍøÅÌÏÂÔØ);
-	createButton(_global->userInformation->getGameText().find("ÌÚÑ¶Î¢ÔÆÏÂÔØ")->second, Vec2(405, 100), Update_Button::ÌÚÑ¶Î¢ÔÆÏÂÔØ);
-	createButton(_global->userInformation->getGameText().find("Ö±½ÓÏÂÔØ")->second, Vec2(645, 100), Update_Button::Ö±½ÓÏÂÔØ);
-	createButton(_global->userInformation->getGameText().find("¹Ø±ÕÓÎÏ·")->second, Vec2(885, 100), Update_Button::ÍË³öÓÎÏ·);
-	createButton(_global->userInformation->getGameText().find("È·¶¨")->second, Vec2(520, 100), Update_Button::È·¶¨);
+	createButton(_global->userInformation->getGameText().find("ç™¾åº¦ç½‘ç›˜ä¸‹è½½")->second, Vec2(165, 100), Update_Button::ç™¾åº¦ç½‘ç›˜ä¸‹è½½);
+	createButton(_global->userInformation->getGameText().find("è…¾è®¯å¾®äº‘ä¸‹è½½")->second, Vec2(405, 100), Update_Button::è…¾è®¯å¾®äº‘ä¸‹è½½);
+	createButton(_global->userInformation->getGameText().find("ç›´æ¥ä¸‹è½½")->second, Vec2(645, 100), Update_Button::ç›´æ¥ä¸‹è½½);
+	createButton(_global->userInformation->getGameText().find("å…³é—­æ¸¸æˆ")->second, Vec2(885, 100), Update_Button::é€€å‡ºæ¸¸æˆ);
+	createButton(_global->userInformation->getGameText().find("ç¡®å®š")->second, Vec2(520, 100), Update_Button::ç¡®å®š);
 
-	/* ´´½¨´¥Ãş¼àÌı */
+	/* åˆ›å»ºè§¦æ‘¸ç›‘å¬ */
 	createTouchtListener(_dialog);
 
 	UserDefault::getInstance()->setStringForKey("EDITION", UserInformation::getNewEditionName());
@@ -62,10 +62,10 @@ void UpdateClient::createDiglog()
 
 void UpdateClient::createButton(const std::string& name, Vec2& vec2, Update_Button buttonType)
 {
-	/* ´´½¨·µ»ØÖ÷²Ëµ¥°´Å¥ */
+	/* åˆ›å»ºè¿”å›ä¸»èœå•æŒ‰é’® */
 	auto button = ui::Button::create("ButtonNew2.png", "ButtonNew.png", "", TextureResType::PLIST);
 	auto label = Label::createWithTTF(name, GAME_FONT_NAME_1, 35);
-	label->enableShadow(Color4B(0, 0, 0, 200));//ÉèÖÃÒõÓ°
+	label->enableShadow(Color4B(0, 0, 0, 200));//è®¾ç½®é˜´å½±
 	label->setScale(2.0f);
 	button->setTitleLabel(label);
 	button->setTitleColor(Color3B::WHITE);
@@ -74,7 +74,7 @@ void UpdateClient::createButton(const std::string& name, Vec2& vec2, Update_Butt
 	button->setName(to_string(static_cast<int>(buttonType)));
 	_dialog->addChild(button);
 
-	if (buttonType == Update_Button::È·¶¨)
+	if (buttonType == Update_Button::ç¡®å®š)
 	{
 		button->setVisible(false);
 	}
@@ -89,14 +89,14 @@ void UpdateClient::createButton(const std::string& name, Vec2& vec2, Update_Butt
 			case ui::Widget::TouchEventType::ENDED:
 				switch (buttonType)
 				{
-				case Update_Button::°Ù¶ÈÍøÅÌÏÂÔØ:
-					Application::getInstance()->openURL(_global->userInformation->getGameText().find("°Ù¶ÈÍøÅÌÍøÖ·")->second);
+				case Update_Button::ç™¾åº¦ç½‘ç›˜ä¸‹è½½:
+					Application::getInstance()->openURL(_global->userInformation->getGameText().find("ç™¾åº¦ç½‘ç›˜ç½‘å€")->second);
 					break;
-				case Update_Button::ÌÚÑ¶Î¢ÔÆÏÂÔØ:
-					Application::getInstance()->openURL(_global->userInformation->getGameText().find("ÌÚÑ¶Î¢ÔÆÍøÖ·")->second);
+				case Update_Button::è…¾è®¯å¾®äº‘ä¸‹è½½:
+					Application::getInstance()->openURL(_global->userInformation->getGameText().find("è…¾è®¯å¾®äº‘ç½‘å€")->second);
 					break;
-				case Update_Button::Ö±½ÓÏÂÔØ:
-					_remindText->setString(_global->userInformation->getGameText().find("ÕıÔÚÁ¬½ÓÖĞ£¬ÇëÉÔµÈ£¡")->second);
+				case Update_Button::ç›´æ¥ä¸‹è½½:
+					_remindText->setString(_global->userInformation->getGameText().find("æ­£åœ¨è¿æ¥ä¸­ï¼Œè¯·ç¨ç­‰ï¼")->second);
 					button->setEnabled(false);
 					((Button*)_dialog->getChildByName("3"))->setEnabled(false);
 					if (_textScrollView) 
@@ -106,11 +106,11 @@ void UpdateClient::createButton(const std::string& name, Vec2& vec2, Update_Butt
 					}
 					downloadData();
 					break;
-				case Update_Button::ÍË³öÓÎÏ·:
+				case Update_Button::é€€å‡ºæ¸¸æˆ:
 					Director::getInstance()->end();
 					break;
-				case Update_Button::È·¶¨:
-					const static string path = _global->userInformation->getGameText().find("´æ·ÅÂ·¾¶")->second;
+				case Update_Button::ç¡®å®š:
+					const static string path = _global->userInformation->getGameText().find("å­˜æ”¾è·¯å¾„")->second;
 					auto str = "start " + path;
 					system(str.c_str());
 					Director::getInstance()->end();
@@ -123,30 +123,30 @@ void UpdateClient::createButton(const std::string& name, Vec2& vec2, Update_Butt
 void UpdateClient::showText()
 {
 	addScrollView();
-
-	_historyText = Label::createWithTTF(_global->userInformation->getGameText().find("¸üĞÂĞÅÏ¢¼ÓÔØÖĞ£¡")->second, GAME_FONT_NAME_1, 50);
+	_historyText = Label::createWithTTF(_global->userInformation->getGameText().find("æ›´æ–°ä¿¡æ¯åŠ è½½ä¸­ï¼")->second, GAME_FONT_NAME_1, 50);
 	_historyText->setAnchorPoint(Vec2::ANCHOR_MIDDLE_TOP);
-	_historyText->setPosition(Vec2(_dialog->getContentSize().width / 2.f - 150, _textScrollView->getInnerContainerSize().height - 150));
 	_historyText->setColor(Color3B::BLACK);
-	_historyText->setMaxLineWidth(650);
+	_historyText->setMaxLineWidth(650); 
 	_textScrollView->addChild(_historyText);
+	_textScrollView->setInnerContainerSize(_historyText->getContentSize());
+	_historyText->setPosition(Vec2(_dialog->getContentSize().width / 2.f - 150, _textScrollView->getInnerContainerSize().height - 150));
 	downloadHistoryText();
 
-	/* ±êÌâ */
-	_remindText = Label::createWithTTF(_global->userInformation->getGameText().find("¼ì²âµ½ÓĞĞÂ°æ±¾£¬ÇëÑ¡Ôñ¸üĞÂ·½Ê½£¡")->second, GAME_FONT_NAME_1, 50);
+	/* æ ‡é¢˜ */
+	_remindText = Label::createWithTTF(_global->userInformation->getGameText().find("æ£€æµ‹åˆ°æœ‰æ–°ç‰ˆæœ¬ï¼Œè¯·é€‰æ‹©æ›´æ–°æ–¹å¼ï¼")->second, GAME_FONT_NAME_1, 50);
 	_remindText->setPosition(Vec2(_dialog->getContentSize().width / 2.f, _dialog->getContentSize().height / 2.f + 200));
 	_remindText->setColor(Color3B::BLACK);
 	_remindText->setMaxLineWidth(900);
 	_remindText->setName("Update");
 	_dialog->addChild(_remindText);
 
-	/* ½ø¶ÈÎÄ×Ö */
-	_progressText = Label::createWithTTF("", GAME_FONT_NAME_1, 30);
+	/* è¿›åº¦æ–‡å­— */
+	_progressText = Label::createWithTTF("", GAME_FONT_NAME_1, 25);
 	_progressText->setMaxLineWidth(900);
 	_progressText->setPosition(Vec2(_dialog->getContentSize().width / 2.f, _dialog->getContentSize().height / 2.f));
 	_dialog->addChild(_progressText);
 
-	/* ËµÃ÷ÎÄ×Ö */
+	/* è¯´æ˜æ–‡å­— */
     _explanText = Label::createWithTTF("", GAME_FONT_NAME_1, 30);
 	_explanText->setPosition(Vec2(_dialog->getContentSize().width / 2.f, _dialog->getContentSize().height / 2.f + 100));
 	_explanText->setColor(Color3B::BLACK);
@@ -160,7 +160,6 @@ void UpdateClient::addScrollView()
 	_textScrollView->setDirection(ui::ScrollView::Direction::VERTICAL);
 	_textScrollView->setAnchorPoint(Vec2::ANCHOR_MIDDLE);
 	_textScrollView->setContentSize(Size(720.0f, 320.0f));
-	_textScrollView->setInnerContainerSize(Size(720, 4000));
 	_textScrollView->setPosition(_dialog->getContentSize() / 2.0f);
 	_textScrollView->setBounceEnabled(true);
 	_textScrollView->setScrollBarPositionFromCorner(Vec2(20, 0));
@@ -172,7 +171,7 @@ void UpdateClient::addScrollView()
 
 void UpdateClient::addMouseEvent()
 {
-	/* Êó±ê»¬¶¯¼àÌı */
+	/* é¼ æ ‡æ»‘åŠ¨ç›‘å¬ */
 	auto mouse = EventListenerMouse::create();
 	mouse->onMouseScroll = [=](Event* event)
 	{
@@ -200,7 +199,7 @@ void UpdateClient::addMouseEvent()
 
 void UpdateClient::downloadHistoryText()
 {
-	const string sURLList = _global->userInformation->getGameText().find("¸üĞÂĞÅÏ¢ÍøÖ·")->second;
+	const string sURLList = _global->userInformation->getGameText().find("æ›´æ–°ä¿¡æ¯ç½‘å€")->second;
 	_downloader->createDownloadDataTask(sURLList);
 	_downloader->onDataTaskSuccess = [this](const cocos2d::network::DownloadTask& task,
 		std::vector<unsigned char>& data)
@@ -211,17 +210,19 @@ void UpdateClient::downloadHistoryText()
 			historyNetWork += p;
 		}
 
-		_historyText->setPosition(Vec2(350, _textScrollView->getInnerContainerSize().height));
 		TTFConfig ttfConfig(GAME_FONT_NAME_1, 25, GlyphCollection::DYNAMIC);
 		_historyText->setTTFConfig(ttfConfig);
 		_historyText->setString(historyNetWork);
+		_textScrollView->setInnerContainerSize(_historyText->getContentSize());
+		_historyText->setPosition(Vec2(350, _textScrollView->getInnerContainerSize().height));
 	};
 	_downloader->onTaskError = [this](const cocos2d::network::DownloadTask& task,
 		int errorCode,
 		int errorCodeInternal,
 		const std::string& errorStr)
 	{
-		_historyText->setString(_global->userInformation->getGameText().find("¸üĞÂĞÅÏ¢¼ÓÔØÊ§°Ü£¡")->second);
+		_historyText->setString(_global->userInformation->getGameText().find("æ›´æ–°ä¿¡æ¯åŠ è½½å¤±è´¥ï¼")->second);
+		_textScrollView->setInnerContainerSize(_historyText->getContentSize());
 	};
 }
 
@@ -240,7 +241,7 @@ void UpdateClient::downloadData()
 	{
 		_loadingBar = ui::LoadingBar::create();
 		_loadingBar->loadTexture("progressFile.png", TextureResType::PLIST);
-		_loadingBar->setDirection(LoadingBar::Direction::LEFT); /* ÉèÖÃ¼ÓÔØ·½Ïò */
+		_loadingBar->setDirection(LoadingBar::Direction::LEFT); /* è®¾ç½®åŠ è½½æ–¹å‘ */
 		_loadingBar->setPercent(0);
 		_loadingBar->setScale(1.5f);
 		_loadingBar->setPosition(Vec2(_dialog->getContentSize().width / 2.f, _dialog->getContentSize().height / 2.f - 100));
@@ -248,11 +249,12 @@ void UpdateClient::downloadData()
 	}
 
 	_explanText->setColor(Color3B::BLACK);
+	_explanText->setString("");
 
-	const static string sNameList = _global->userInformation->getGameText().find("×ÊÔ´Ãû³Æ")->second + UserInformation::getNewEditionName() + ".rar";
-	const static string path = _global->userInformation->getGameText().find("´æ·ÅÂ·¾¶")->second + sNameList;
+	const static string sNameList = _global->userInformation->getGameText().find("èµ„æºåç§°")->second + UserInformation::getNewEditionName() + ".rar";
+	const static string path = _global->userInformation->getGameText().find("å­˜æ”¾è·¯å¾„")->second + sNameList;
 
-	_downloader->createDownloadFileTask(_global->userInformation->getGameText().find("×ÊÔ´ÍøÖ·")->second, path, sNameList);
+	_downloader->createDownloadFileTask(_global->userInformation->getGameText().find("èµ„æºç½‘å€")->second, path, sNameList);
 	
 	downloadProgress();
 	downloadSuccess();
@@ -269,15 +271,23 @@ void UpdateClient::downloadProgress()
 		if (totalBytesExpected <= 0)
 		{
 			_loadingBar->setPercent(100);
-			_explanText->setString(_global->userInformation->getGameText().find("½âÊÍËµÃ÷_¿ì")->second);
+			_explanText->setString(_global->userInformation->getGameText().find("è§£é‡Šè¯´æ˜_å¿«")->second);
 
 			char buf[128];
-			snprintf(buf, 128, "%.1fKB/s  [ÒÑÏÂÔØ : %dKB]", float(bytesReceived / 1024.f) * 10, int(totalBytesReceived / 1024));
-			_progressText->setString(buf);
+			if (bytesReceived / 1024.f * 10 >= 1000)
+			{
+				std::snprintf(buf, 128, "%.1fMB/s  [å·²ä¸‹è½½ : %dKB]", float(bytesReceived / 1024.f / 1024.f) * 10, int(totalBytesReceived / 1024));
+				_progressText->setString(buf);
+			}
+			else
+			{
+				std::snprintf(buf, 128, "%.1fKB/s  [å·²ä¸‹è½½ : %dKB]", float(bytesReceived / 1024.f) * 10, int(totalBytesReceived / 1024));
+				_progressText->setString(buf);
+			}
 		}
 		else
 		{
-			_explanText->setString(_global->userInformation->getGameText().find("½âÊÍËµÃ÷_Âı")->second);
+			_explanText->setString(_global->userInformation->getGameText().find("è§£é‡Šè¯´æ˜_æ…¢")->second);
 
 			float percent = float(totalBytesReceived * 100) / totalBytesExpected;
 			_loadingBar->setPercent(percent);
@@ -287,11 +297,21 @@ void UpdateClient::downloadProgress()
 			int second = (totalBytesExpected - totalBytesReceived) / (bytesReceived * 10) - hour * 3600 - min * 60;
 
 			char buf[128];
-			snprintf(buf, 128, "%.1fKB/s  %dKB/%dKB  %.2f%%  time:%02d:%02d:%02d", bytesReceived / 1024.f * 10, int(totalBytesReceived / 1024), int(totalBytesExpected / 1024), percent, hour, min, second);
-			_progressText->setString(buf);
+			if (bytesReceived / 1024.f * 10 >= 1000)
+			{
+				std::snprintf(buf, 128, "%.1fMB/s  %dKB/%dKB  %.2f%%  time:%02d:%02d:%02d",
+					bytesReceived / 1024.f / 1024.f * 10, int(totalBytesReceived / 1024), int(totalBytesExpected / 1024), percent, hour, min, second);
+				_progressText->setString(buf);
+			}
+			else
+			{
+				std::snprintf(buf, 128, "%.1fKB/s  %dKB/%dKB  %.2f%%  time:%02d:%02d:%02d",
+					bytesReceived / 1024.f * 10, int(totalBytesReceived / 1024), int(totalBytesExpected / 1024), percent, hour, min, second);
+				_progressText->setString(buf);
+			}
 		}
 
-		_remindText->setString(_global->userInformation->getGameText().find("ÎÄ¼şÕıÔÚÏÂÔØÖĞ£¡ÇëÉÔµÈ£¡")->second);
+		_remindText->setString(_global->userInformation->getGameText().find("æ–‡ä»¶æ­£åœ¨ä¸‹è½½ä¸­ï¼è¯·ç¨ç­‰ï¼")->second);
 };
 }
 
@@ -299,12 +319,10 @@ void UpdateClient::downloadSuccess()
 {
 	_downloader->onFileTaskSuccess = [this](const cocos2d::network::DownloadTask& task)
 	{
-		char buf[128];
-		snprintf(buf, 128, _global->userInformation->getGameText().find("ÏÂÔØ³É¹¦")->second.c_str(),
-			task.identifier.c_str(), _global->userInformation->getGameText().find("´æ·ÅÂ·¾¶")->second);
-		_progressText->setString(buf);
-		_remindText->setString(_global->userInformation->getGameText().find("µã»÷È·¶¨ÍË³öÓÎÏ·£¡")->second);
-		_explanText->setString(_global->userInformation->getGameText().find("ÏÂÔØ³É¹¦ËµÃ÷")->second);
+		_progressText->setString(_global->userInformation->getGameText().find("ä¸‹è½½æˆåŠŸ")->second +
+			_global->userInformation->getGameText().find("å­˜æ”¾è·¯å¾„")->second + task.identifier + " ]");
+		_remindText->setString(_global->userInformation->getGameText().find("ç‚¹å‡»ç¡®å®šé€€å‡ºæ¸¸æˆï¼")->second);
+		_explanText->setString(_global->userInformation->getGameText().find("ä¸‹è½½æˆåŠŸè¯´æ˜")->second);
 
 		((Button*)_dialog->getChildByName("0"))->setVisible(false);
 		((Button*)_dialog->getChildByName("1"))->setVisible(false);
@@ -321,12 +339,12 @@ void UpdateClient::downloadError()
 		int errorCodeInternal,
 		const std::string& errorStr)
 	{
-		_remindText->setString(_global->userInformation->getGameText().find("ÏÂÔØÊ§°Ü")->second);
+		_remindText->setString(_global->userInformation->getGameText().find("ä¸‹è½½å¤±è´¥")->second);
 		((Button*)_dialog->getChildByName("2"))->setEnabled(true);
 		((Button*)_dialog->getChildByName("3"))->setEnabled(true);
 
 		char str[256];
-		snprintf(str, 256, "Failed to download : ×ÊÔ´ÎÄ¼ş, identifier(%s) error code(%d), internal error code(%d) desc(%s) Çë¼ì²éÍøÂçÁ¬½ÓÊÇ·ñÕı³£!Èç¹ûÍøÂçÁ¬½ÓÕı³£Çë¶àÊÔ¼¸´Î!»ò¸ü»»ÆäËû·½Ê½ÏÂÔØ!"
+		snprintf(str, 256, "Failed to download : èµ„æºæ–‡ä»¶, identifier(%s) error code(%d), internal error code(%d) desc(%s) è¯·æ£€æŸ¥ç½‘ç»œè¿æ¥æ˜¯å¦æ­£å¸¸!å¦‚æœç½‘ç»œè¿æ¥æ­£å¸¸è¯·å¤šè¯•å‡ æ¬¡!æˆ–æ›´æ¢å…¶ä»–æ–¹å¼ä¸‹è½½!"
 			, task.identifier.c_str()
 			, errorCode
 			, errorCodeInternal

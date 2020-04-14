@@ -12,24 +12,9 @@ class Pea :public Bullet
 {
 public:
 	/**
-	 *创建豌豆
-	 */
-	virtual void createBullet() override;
-
-	/**
-	 *豌豆与僵尸碰撞和检测
-	 */
-	virtual void bulletAndZombiesCollision() override;
-
-	/**
-	 *创建豌豆爆炸动画
-	 */
-	virtual void  createPeaExplode();
-
-	/**
 	 *设置是否燃烧
 	 */
-	 virtual void setIsFire(const bool isFire);
+	virtual void setIsFire(const bool isFire);
 
 	/**
 	 *设置燃烧次数
@@ -60,6 +45,22 @@ public:
 	 *获取火炬树桩编号
 	 */
 	virtual int getTorchwoodTag() const;
+
+protected:
+	/**
+	 *创建豌豆
+	 */
+	virtual void createBullet() override;
+
+	/**
+	 *豌豆与僵尸碰撞和检测
+	 */
+	virtual void bulletAndZombiesCollision() override;
+
+	/**
+	 *创建豌豆爆炸动画
+	 */
+	virtual void  createPeaExplode();
 
 	/**
 	 *子弹初始化

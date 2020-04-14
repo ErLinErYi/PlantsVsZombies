@@ -17,7 +17,7 @@ CitronBullet::CitronBullet(Node* node, int id):
 	_animationId(id)
 {
 	_node = node;
-	_attack = 800;
+	_attack = 700;
 	_bulletType = BulletType::CitronBullet;
 }
 
@@ -67,7 +67,7 @@ void CitronBullet::bulletAndZombiesCollision()
 				setBulletAttack(0);
 				setBulletIsUsed(true);
 
-				break; /* 一个豌豆只能击中一个僵尸 */
+				break;
 			}
 		}
 	}
@@ -120,12 +120,16 @@ void CitronBullet::attackZombies()
 {
 	for (auto zombie : ZombiesGroup)
 	{
-		_attack = 800;
-		_attack -= static_cast<int>((getZombieInExplodeRange(zombie) / 60 * 400 - 400));
+		if (zombie->getZombieIsSurvive() && zombie->getZombieIsEnterMap())
+		{
+			auto at = static_cast<int>((getZombieInExplodeRange(zombie) / 60 * 350 - 350));
+			_attack = 700;
 
-		if (_attack <= 0) continue;
-		bulletAttackHurtZombies(zombie);
-		zombie->setZombieHurtBlink();
+			if (at > 0)_attack -= at;
+			if (_attack <= 0) continue;
+			bulletAttackHurtZombies(zombie);
+			zombie->setZombieHurtBlink();
+		}
 	}
 }
 

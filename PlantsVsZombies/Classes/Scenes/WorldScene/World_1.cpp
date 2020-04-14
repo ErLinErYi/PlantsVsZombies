@@ -136,7 +136,7 @@ void World_1::addScrollView()
 			world_32->runAction(RepeatForever::create(RotateBy::create(25, 30)));
 		}
 	}
-
+	
 	/* 创建线条 */
 	auto draw = DrawNode::create();
 	Vec2 BeginPoint[53] =
