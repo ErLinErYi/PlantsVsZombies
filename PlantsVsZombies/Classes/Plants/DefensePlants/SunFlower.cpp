@@ -13,6 +13,8 @@
 #include "Scenes/GameScene/GSBackgroundLayer.h"
 #include "Scenes/GameScene/GSInformationLayer.h"
 
+#include "Based/Coin.h"
+
 int SunFlower::_sunTag = -1;
 
 SunFlower::SunFlower(Node* node, Node* sunLayer) :
@@ -126,24 +128,37 @@ void SunFlower::sunRecovery(Sun* sun)
 				informationLayerInformation->updateSunNumbers();
 				backgroundLayerInformation->gameType->updateRequirementNumbers("阳光数量增加");
 			}), DelayTime::create(5.0f),
-				CallFunc::create([temporary]()
-					{
-						temporary->getSun()->setVisible(false);
-					}), nullptr));
+		CallFunc::create([temporary]()
+			{
+				temporary->getSun()->setVisible(false);
+			}), nullptr));
 }
 
 void SunFlower::goodsRecovery()
 {
 	auto linster = EventListenerTouchOneByOne::create();
-	linster->onTouchBegan = [this](Touch* t, Event* e)
+	linster->onTouchBegan = [=](Touch* t, Event* e)
 	{
 		Point p = t->getLocation();
+		if (Global::getInstance()->userInformation->getIsMirrorScene())
+		{	
+			p.x = 1920 - p.x;
+		}
 		for (auto sun : SunsGroup)
 		{
 			if ( sun->getSun()->getBoundingBox().containsPoint(p) && sun->getEnable())
 			{
 				Bullet::playSoundEffect("points");
 				sunRecovery(sun);
+			}
+		}
+
+		for (auto coin : CoinsGroup)
+		{
+			if (coin->getCoin()->getBoundingBox().containsPoint(p) && coin->getEnable())
+			{
+				Bullet::playSoundEffect("coin");
+				Coin::coinRecoveryAction(coin);
 			}
 		}
 		return true;

@@ -32,6 +32,17 @@ CC_CONSTRUCTOR_ACCESS:
 	~SelectPlantsScene();
 	virtual bool init();
 
+protected:
+	/**
+	 *创建文字
+	 */
+	void createReadyText(const std::string& name, const int& id);
+
+	/**
+	 *文字回调
+	 */
+	virtual void readyTextCallBack(Node* node, const std::string& name, const int& id);
+
 private:
 	/**
 	 *创建背景层
@@ -63,17 +74,7 @@ private:
 	 */
 	void selectPlantsCallBack();
 
-	/**
-	 *创建文字
-	 */
-	void createReadyText(const std::string& name, const int& id);
-
-	/**
-	 *文字回调
-	 */
-	void readyTextCallBack(Node* node, const std::string& name, const int& id);
-
-private:
+protected:
 	Layer* _scrollLayer;
 	Director* _director;
 	Global* _global;

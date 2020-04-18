@@ -21,6 +21,7 @@ class Plants;
 class Zombies;
 class Bullet;
 class Sun;
+class Coin;
 class Car;
 
 extern GSBackgroundLayer* backgroundLayerInformation;
@@ -48,6 +49,11 @@ extern list<Bullet*> BulletGroup;
  *存储阳光的集合
  */
 extern list<Sun*> SunsGroup;
+
+/**使用list：遍历满足条件删除
+ *存储金币的集合
+ */
+extern list<Coin*> CoinsGroup;
 
 /**使用list：遍历满足条件删除
  *存储汽车的集合

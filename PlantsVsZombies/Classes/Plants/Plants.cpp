@@ -22,6 +22,7 @@ Plants::Plants(Node* node, const Vec2& position) :
 ,	_plantImage(nullptr)
 ,	_plantAnimation(nullptr)
 ,	_soilSplashAnimation(nullptr)
+,   _highLightGLProgramState(nullptr)
 ,	_sunNeed(NOINITIALIZATION)
 ,	_coolDownTime(NOINITIALIZATION)
 ,	_costGold(NOINITIALIZATION)
@@ -31,6 +32,7 @@ Plants::Plants(Node* node, const Vec2& position) :
 ,	_isLoop(true)
 ,   _isCanDelete{ false,false }
 ,   _zOrder(0)
+,   _highLightIntensity(0.6f)
 ,   _plantNumber(++plantNumber)
 ,   _combatEffecttiveness(0)
 ,   _plantsType(PlantsType::None)
@@ -110,16 +112,26 @@ void Plants::setPlantShadow(const float& scale)
 	_plantAnimation->addChild(_plantShadow, -1);
 }
 
-void Plants::setPlantHurtBlink() const
+void Plants::setPlantHurtBlink()
 {
+	auto action = Repeat::create(Sequence::create(
+		CallFunc::create([this]()
+			{
+				_highLightIntensity -= 0.01f;
+				_highLightGLProgramState->setUniformFloat("intensity", _highLightIntensity);
+			}), DelayTime::create(0.005f), nullptr), 50);
+
 	_plantAnimation->runAction(Sequence::create(
-		CallFunc::create([=]()
+		CallFunc::create([this]()
 			{
 				_plantAnimation->setGLProgram(_highLightGLProgram);
+				_highLightGLProgramState = _plantAnimation->getGLProgramState();
+				_highLightGLProgramState->setUniformFloat("intensity", 0.6f);
 			}), DelayTime::create(0.15f),
-		CallFunc::create([=]()
+		CallFunc::create([this]()
 			{
 				_plantAnimation->setGLProgram(_normalGLProgram);
+				_highLightIntensity = 0.6f;
 			}), nullptr));
 }
 
@@ -210,6 +222,9 @@ void Plants::zombieRecoveryMove(Zombies* zombie)
 
 void Plants::setPlantGLProgram()
 {
-	_normalGLProgram = _plantAnimation->getGLProgram();
-	_highLightGLProgram = Zombies::getHighLight();
+	if (!_normalGLProgram || !_highLightGLProgram)
+	{
+		_normalGLProgram = _plantAnimation->getGLProgram();
+		_highLightGLProgram = Zombies::getHighLight();
+	}
 }

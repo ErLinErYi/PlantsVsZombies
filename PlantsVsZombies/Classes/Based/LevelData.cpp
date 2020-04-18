@@ -100,10 +100,6 @@ int OpenLevelData::getLevelNumber() const
 
 void OpenLevelData::documentInit()
 {
-	/*if (!_document->Empty())
-	{
-		_document->Clear();
-	}*/
 	for (auto data : _levelData)
 	{
 		delete data.second; 

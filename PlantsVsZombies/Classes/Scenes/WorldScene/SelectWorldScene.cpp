@@ -7,10 +7,11 @@
  */
 
 #include "World_1.h"
-#include "Scenes/MainMenuScene/MainMenu.h"
-#include "AudioEngine.h"
+#include "MirrorWorld_1.h"
 #include "SelectWorldScene.h"
+#include "../MainMenuScene/MainMenu.h"
 
+#include "AudioEngine.h"
 #include "Based/GlobalVariable.h"
 
 Scene* SelectWorldScene::createScene()
@@ -78,7 +79,9 @@ void SelectWorldScene::createGoBack()
 			switch (type)
 			{
 			case ui::Widget::TouchEventType::BEGAN:
-				AudioEngine::setVolume(AudioEngine::play2d(_global->userInformation->getMusicPath().find("gravebutton")->second), _global->userInformation->getSoundEffectVolume());
+				AudioEngine::setVolume(AudioEngine::play2d(
+					_global->userInformation->getMusicPath().find("gravebutton")->second), 
+					_global->userInformation->getSoundEffectVolume());
 				break;
 			case ui::Widget::TouchEventType::ENDED:
 				Director::getInstance()->replaceScene(MainMenu::createScene());
@@ -120,7 +123,8 @@ void SelectWorldScene::createSelectDifficulty()
 				text->setString("简单模式");
 				break;
 			}
-			_global->userInformation->getUserSelectWorldData().at(0)->isReadWoldInformation = false;
+			_global->userInformation->getUserSelectWorldData().at(
+				_global->userInformation->getIsMirrorScene() ? 1 : 0)->isReadWoldInformation = false;
 			UserDefault::getInstance()->setIntegerForKey("DIFFICULTY", _global->userInformation->getGameDifficulty());
 		});
 }
@@ -152,6 +156,7 @@ void SelectWorldScene::showTimeTravelAnimation()
 				AudioEngine::stop(Clocks);
 				TimeTraveller->removeFromParent();
 				_world[0]->setEnabled(true);
+				_world[1]->setEnabled(true);
 			}), nullptr));
 }
 
@@ -198,8 +203,8 @@ void SelectWorldScene::createScrollView()
 void SelectWorldScene::showDifferentWorlds()
 {
 	const string worldImageName[] = { {"World1"},{"World12"} ,{"World3"} ,{"World4"} ,{"World5"} ,{"World6"} ,{"World7"} ,{"World8"} ,{"World9"} ,{"World10"} ,{"World11"},{"World12"} };
-	const string worldName[] = { {"现代世界"},{"尽情期待"} ,{"黑暗时代"} ,{"海盗港湾"} ,{"狂野西部"} ,{"冰河世纪"} ,{"未来世界"} ,{"侏罗纪世界"} ,{"大浪沙滩"} ,{"魔音时代"} ,{"失落之城"},{"尽情期待"} };
-	for (int i = 0; i < 2; i++)
+	const string worldName[] = { {"现代世界"},{"镜像世界"} ,{"黑暗时代"} ,{"海盗港湾"} ,{"狂野西部"} ,{"冰河世纪"} ,{"未来世界"} ,{"侏罗纪世界"} ,{"大浪沙滩"} ,{"魔音时代"} ,{"失落之城"},{"尽情期待"} };
+	for (int i = 0; i < 2; ++i)
 	{
 		_world[i] = ui::Button::create(worldImageName[i] + ".png", "", "", TextureResType::PLIST);
 		_world[i]->setPosition(Vec2(1000 + 800 * i, _backgroundSize.height / 2.0f));
@@ -210,12 +215,12 @@ void SelectWorldScene::showDifferentWorlds()
 		auto worldname = Text::create();
 		worldname->setPosition((Vec2)(_world[i]->getContentSize() / 2.0f) - Vec2(0, 100));
 		worldname->setFontName(GAME_FONT_NAME_1);
-		worldname->setFontSize(50);
+		i == 1 ? worldname->setFontSize(15) : worldname->setFontSize(50);
 		worldname->setColor(Color3B(0, 255, 255));
 		worldname->setString(worldName[i]);
 		_world[i]->addChild(worldname);
 
-		if (i > 0)
+		if (i > 1)
 		{
 			_world[i]->setEnabled(false);
 			worldname->setString("尽请期待");
@@ -226,14 +231,22 @@ void SelectWorldScene::showDifferentWorlds()
 				switch (type)
 				{
 				case ui::Widget::TouchEventType::BEGAN:
-					AudioEngine::setVolume(AudioEngine::play2d(_global->userInformation->getMusicPath().find("tap")->second), _global->userInformation->getSoundEffectVolume());
+					AudioEngine::setVolume(AudioEngine::play2d(
+						_global->userInformation->getMusicPath().find("tap")->second), 
+						_global->userInformation->getSoundEffectVolume());
 					break;
 				case ui::Widget::TouchEventType::ENDED:
 					switch (i)
 					{
 					case 0:
+						_global->userInformation->setIsMirrorScene(false);
 						_global->userInformation->setSelectWorldName(WorldName::Mordern); /* 初始化背景 */
-						Director::getInstance()->replaceScene(TransitionFade::create(0.5f, World_1::createScene()));
+						Director::getInstance()->replaceScene(TransitionFade::create(1.f, World_1::createScene()));
+						break;
+					case 1:
+						_global->userInformation->setIsMirrorScene(true);
+						_global->userInformation->setSelectWorldName(WorldName::Mordern); /* 初始化背景 */
+						Director::getInstance()->replaceScene(TransitionFade::create(1.0f, MirrorWorld_1::createScene()));
 						break;
 					default:
 						break;

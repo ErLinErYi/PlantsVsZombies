@@ -13,6 +13,8 @@
 #include "Scenes/GameScene/GSGameEndLayer.h"
 #include "Scenes/GameScene/GSData.h"
 
+#include "Based/Coin.h"
+
 unsigned int Zombies::_zombiesNumbers = 0;
 bool Zombies::_zombieIsWin = false;
 GLProgram* Zombies::_normalGLProgram = nullptr;
@@ -36,6 +38,9 @@ Zombies::Zombies() :
 ,   _isCanDelete{false,false}
 ,   _zombieEatPlantNumber(-1)
 ,   _zombieHowlNumbers(0)
+,   _highLightIntensity(0.5f)
+,   _highLightGLProgramState(nullptr)
+,   _highLightFinished(false)
 ,	_openLevelData(OpenLevelData::getInstance())
 ,	_global(Global::getInstance())
 ,   _animationName{"Zombies_Stand","Zombies_Stand1","Zombies_Walk","Zombies_Walk2"}
@@ -54,7 +59,7 @@ void Zombies::zombieInit(const string& animation_name)
 	_zombiesAnimation->setPosition(_position);
 	_zombiesAnimation->setAnchorPoint(Vec2(0, 0));
 	_zombiesAnimation->setTimeScale(0.6f + number(_random));
-	_zombiesAnimation->setLocalZOrder(getLocalZOrder(_position.y));
+	_zombiesAnimation->setLocalZOrder(getZombieLocalZOrder(_position.y));
 	_zombiesAnimation->setOpacity(0);   /* !!! 创建的僵尸自动隐身 */
 	_node->addChild(_zombiesAnimation);
 
@@ -176,10 +181,12 @@ void Zombies::zombiesDeleteUpdate(list<Zombies*>::iterator& zombie)
 		if (!(*zombie)->getIsCanDelete()[0])
 		{
 			(*zombie)->getIsCanDelete()[0] = true;
-			UserDefault::getInstance()->setIntegerForKey("KILLALLZOMBIES", ++Global::getInstance()->userInformation->getKillZombiesNumbers() - 654321);/* 杀死僵尸数加一 */
+			UserDefault::getInstance()->setIntegerForKey("KILLALLZOMBIES", 
+				++Global::getInstance()->userInformation->getKillZombiesNumbers() - 654321);/* 杀死僵尸数加一 */
 			informationLayerInformation->updateZombiesDieNumbers(); /* 更新显示 */
 
 			zombiesNumbersChange("--");  /* 僵尸总数更新 */
+			rewardCoin((*zombie)->getZombieAnimation());
 
 			auto zombies = zombie;
 			(*zombies)->getZombieAnimation()->runAction(Sequence::create(DelayTime::create(5.0f),
@@ -206,6 +213,19 @@ void Zombies::zombiesDeleteUpdate(list<Zombies*>::iterator& zombie)
 	else
 	{
 		++zombie;
+	}
+}
+
+void Zombies::rewardCoin(SkeletonAnimation* zombies)
+{
+	if (rand() % 100 < 5)
+	{
+		auto coin = new Coin(zombies->getParent());
+		coin->setPosition(zombies->getPosition());
+		coin->setCoinLocalZOrder(zombies->getLocalZOrder() + 100);
+		coin->createCoin();
+
+		CoinsGroup.push_back(coin);
 	}
 }
 
@@ -277,22 +297,37 @@ void Zombies::setZombieIsStrikeFly(const bool isStrikeFly)
 	_isStrikeFly = isStrikeFly;
 }
 
-void Zombies::setZombieHurtBlink() const
+void Zombies::setZombieHurtBlink()
 {
-	_zombiesAnimation->runAction(Sequence::create(
-		CallFunc::create([=]()
-			{
-				_zombiesAnimation->setGLProgram(_highLightGLProgram);
-			}), DelayTime::create(0.15f), 
-		CallFunc::create([=]() 
-			{
-				_zombiesAnimation->setGLProgram(_normalGLProgram);
-			}), nullptr));
+	if (!_highLightFinished)
+	{
+		_highLightFinished = true;
+		auto action = Repeat::create(Sequence::create(
+			CallFunc::create([this]()
+				{
+					_highLightIntensity -= 0.02f;
+					_highLightGLProgramState->setUniformFloat("intensity", _highLightIntensity);
+				}), DelayTime::create(0.008f), nullptr), 25);
+
+		_zombiesAnimation->runAction(Sequence::create(
+			CallFunc::create([this]()
+				{
+					_zombiesAnimation->setGLProgram(_highLightGLProgram);
+					_highLightGLProgramState = _zombiesAnimation->getGLProgramState();
+					_highLightGLProgramState->setUniformFloat("intensity", 0.5f);
+				}), action,
+			CallFunc::create([=]()
+				{
+					_zombiesAnimation->setGLProgram(_normalGLProgram);
+					_highLightIntensity = 0.5f;
+					_highLightFinished = false;
+				}), nullptr));
+	}
 }
 
 void Zombies::setZombieScale()
 {
-	_zombiesAnimation->setScale(_zombiesAnimation->getScale() + (getLocalZOrder(_position.y) + 10) / 20 / 40.f);
+	_zombiesAnimation->setScale(_zombiesAnimation->getScale() + (getZombieLocalZOrder(_position.y) + 10) / 20 / 40.f);
 }
 
 SkeletonAnimation* Zombies::getZombieAnimation() const
@@ -450,7 +485,7 @@ void Zombies::setZombieEatPlantNumber(const int& number)
 	_zombieEatPlantNumber = number;
 }
 
-float Zombies::getLocalZOrder(const int& positiionY) const
+float Zombies::getZombieLocalZOrder(const int& positiionY) const
 {
 	const int pos[] = { 682,544,406,268,130 };
 	for (int i = 0; i < 5; i++)
@@ -751,8 +786,11 @@ void Zombies::setOpacityZombieAttribute()
 
 void Zombies::setZombieGLProgram()
 {
-	_normalGLProgram = _zombiesAnimation->getGLProgram();
-	_highLightGLProgram = getHighLight();
+	if (!_normalGLProgram || !_highLightGLProgram)
+	{
+		_normalGLProgram = _zombiesAnimation->getGLProgram();
+		_highLightGLProgram = getHighLight();
+	}
 }
 
 GLProgram* Zombies::getHighLight()

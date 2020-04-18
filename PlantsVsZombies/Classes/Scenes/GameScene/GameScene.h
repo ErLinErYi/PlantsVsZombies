@@ -28,7 +28,7 @@ CC_CONSTRUCTOR_ACCESS:
 	~GameScene();
 	virtual bool init();
 
-private:
+protected:
 	void controlPlayMusic();
 	void backgroundLayer();
 	void buttonLayer();

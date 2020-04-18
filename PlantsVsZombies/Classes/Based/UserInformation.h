@@ -85,6 +85,7 @@ public:
 	Sprite* getBackground() const;
 	string& getCurrentPlayWorldName();
 	int getGameDifficulty() const;
+	bool getIsMirrorScene() const;
 	void setGameDifficulty(const int difficulty);
 	void setCurrentPlayWorldName(const string& worldName);
 	void setUserSelectCrads(vector<UserSelectCard>& card);
@@ -111,6 +112,7 @@ public:
 	void setIsSelectFullScreen(CheckBox::EventType isSelect);
 	void setIsSelectHighFPS(CheckBox::EventType isSelect);
 	void setIsShowInformation(CheckBox::EventType isShow);
+	void setIsMirrorScene(const bool isMirror);
 
 	static string getClientEdition();
 	static void setNewEditionName(const string& editionName);
@@ -163,6 +165,7 @@ private:
 	int _nowFps;                                         // 当前fps
 	bool _mainToWorld;                                   // 标记主菜单到世界
 	bool _isShowEggs;                                    // 是否显示彩蛋
+	bool _isMirrorScene;                                 // 是否镜像世界
 
 	int _currentPlayLevels;                              // 当前关数
 	int _gameDifficulty;                                 // 游戏难度

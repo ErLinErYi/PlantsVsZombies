@@ -10,7 +10,8 @@
 #include "GSInformationLayer.h"
 #include "GSPauseQuitLayer.h"
 
-#include "Scenes/WorldScene/World_1.h"
+#include "../WorldScene/World_1.h"
+#include "../WorldScene/MirrorWorld_1.h"
 #include "Based/GlobalVariable.h"
 #include "Based/UserWinRequirement.h"
 #include "Based/GameType.h"
@@ -83,9 +84,12 @@ void GSGameEndLayer::breakThrough(GameTypes gameType)
 {
 	GSPauseQuitLayer::pauseLayer();
 	Director::getInstance()->getScheduler()->setTimeScale(1.0f); /* 恢复播放倍数 */
-	UserDefault::getInstance()->setIntegerForKey("BREAKTHROUGH", ++_global->userInformation->getBreakThroughnumbers());/* 记录闯关失败个数 */
+	UserDefault::getInstance()->setIntegerForKey("BREAKTHROUGH",
+		++_global->userInformation->getBreakThroughnumbers());/* 记录闯关失败个数 */
 
-	AudioEngine::setVolume(AudioEngine::play2d(_global->userInformation->getMusicPath().find("losemusic")->second), _global->userInformation->getSoundEffectVolume());
+	AudioEngine::setVolume(AudioEngine::play2d(
+		_global->userInformation->getMusicPath().find("losemusic")->second),
+		_global->userInformation->getSoundEffectVolume());
 
 	if (gameType == GameTypes::UserLose)
 	{
@@ -121,7 +125,14 @@ void GSGameEndLayer::showFailDialog(GameTypes gameType)
 				break;
 			case ui::Widget::TouchEventType::ENDED:
 				_userWinRequirement->setDelectDialogAction();
-				_director->replaceScene(TransitionFade::create(1.0f, World_1::createScene()));
+				if (_global->userInformation->getIsMirrorScene())
+				{
+					_director->replaceScene(TransitionFade::create(1.0f, MirrorWorld_1::createScene()));
+				}
+				else
+				{
+					_director->replaceScene(TransitionFade::create(1.0f, World_1::createScene()));
+				}
 				break;
 			}
 		});
@@ -143,7 +154,14 @@ void GSGameEndLayer::showFailText()
 	lose->runAction(Sequence::create(JumpTo::create(1.0f, Director::getInstance()->getWinSize() / 2.0f, 250, 3),
 		DelayTime::create(5),CallFunc::create([this]()
 			{
-				_director->replaceScene(TransitionFade::create(1.0f, World_1::createScene()));
+				if (_global->userInformation->getIsMirrorScene())
+				{
+					_director->replaceScene(TransitionFade::create(1.0f, MirrorWorld_1::createScene()));
+				}
+				else
+				{
+					_director->replaceScene(TransitionFade::create(1.0f, World_1::createScene()));
+				}
 			}),
 		nullptr));
 	this->addChild(lose);
@@ -155,12 +173,28 @@ void GSGameEndLayer::caveLevelNumber()
 	if (_global->userInformation->getUserSelectWorldData().at(
 		_global->userInformation->getCurrentPlayWorldTag())->levels == _global->userInformation->getCurrentPlayLevels())
 	{
-		UserDefault::getInstance()->setIntegerForKey(
-			_global->userInformation->getGameDifficulty() ?
-			_global->userInformation->getSystemDifCaveFileName(_global->userInformation->getUserCaveFileNumber()).c_str() :
-			_global->userInformation->getSystemCaveFileName(_global->userInformation->getUserCaveFileNumber()).c_str(),
-			++_global->userInformation->getUserSelectWorldData().at(0)->levels);
-		
+		char worldFile[128];
+		if (_global->userInformation->getGameDifficulty())
+		{
+			snprintf(worldFile, 128, _global->userInformation->getSystemDifCaveFileName(
+				_global->userInformation->getUserCaveFileNumber()).c_str(), _global->userInformation->getCurrentPlayWorldTag() + 1);
+		}
+		else
+		{
+			snprintf(worldFile, 128, _global->userInformation->getSystemCaveFileName(
+				_global->userInformation->getUserCaveFileNumber()).c_str(), _global->userInformation->getCurrentPlayWorldTag() + 1);
+		}
+
+		if (_global->userInformation->getIsMirrorScene())
+		{
+			UserDefault::getInstance()->setIntegerForKey(worldFile,
+				++_global->userInformation->getUserSelectWorldData().at(1)->levels);
+		}
+		else
+		{
+			UserDefault::getInstance()->setIntegerForKey(worldFile,
+				++_global->userInformation->getUserSelectWorldData().at(0)->levels);
+		}
 	}
 }
 
@@ -209,7 +243,9 @@ void GSGameEndLayer::rewardCoin(Button* button)
 						AudioEngine::setVolume(audio, _global->userInformation->getSoundEffectVolume());
 						AudioEngine::setFinishCallback(audio, [=](int i, string name)
 							{
-								AudioEngine::setVolume(AudioEngine::play2d(_global->userInformation->getMusicPath().find("lightfill")->second), _global->userInformation->getSoundEffectVolume());
+								AudioEngine::setVolume(AudioEngine::play2d(
+									_global->userInformation->getMusicPath().find("lightfill")->second), 
+									_global->userInformation->getSoundEffectVolume());
 							});
 
 						auto AwardRays = Sprite::createWithSpriteFrameName("AwardRays.png");
@@ -230,7 +266,14 @@ void GSGameEndLayer::rewardCoin(Button* button)
 									/* 保存金币数 */
 									UserDefault::getInstance()->setIntegerForKey("COINNUMBERS", _global->userInformation->getCoinNumbers() << 10);
 									
-									_director->replaceScene(TransitionFade::create(1.0f, World_1::createScene()));
+									if (_global->userInformation->getIsMirrorScene())
+									{
+										_director->replaceScene(TransitionFade::create(1.0f, MirrorWorld_1::createScene()));
+									}
+									else
+									{
+										_director->replaceScene(TransitionFade::create(1.0f, World_1::createScene()));
+									}
 								}), nullptr));
 					}), nullptr));
 		}
@@ -255,7 +298,8 @@ void GSGameEndLayer::coinAction(const Vec2& position, const int id, const bool b
 			informationLayerInformation->updateCoinNumbers();
 		});
 	
-	auto action = Spawn::create(FadeIn::create(0.5f), ScaleTo::create(0.5f, 0.3f), JumpBy::create(0.5f, Vec2(150 - rand() % 300, 100 - rand() % 100), rand() % 100 + 200, 1),
+	auto action = Spawn::create(FadeIn::create(0.5f), ScaleTo::create(0.5f, 0.3f), 
+		JumpBy::create(0.5f, Vec2(150 - rand() % 300, 100 - rand() % 100), rand() % 100 + 200, 1),
 		Sequence::create(DelayTime::create(0.25f), CallFunc::create([coin]() {coin->setLocalZOrder(3); }), nullptr), nullptr);
 	auto action1 = Spawn::create(ScaleTo::create(0.2f, 0.5f), FadeOut::create(0.2f), callFunc, nullptr);
 

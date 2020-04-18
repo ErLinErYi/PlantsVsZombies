@@ -20,9 +20,4 @@ CC_CONSTRUCTOR_ACCESS:
 protected:
     virtual void bulletInit() override;
     virtual void createShadow() override;
-    virtual void bulletAndZombiesCollision() override;
-
-private:
-    void attackZombies();
-    float getZombieInExplodeRange(Zombies* zombie);
 };

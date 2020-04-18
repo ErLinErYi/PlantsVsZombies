@@ -221,7 +221,7 @@ void LoadingScene::showLoadingBackGround()
 	_sprite[2]->setVisible(false);
 
 	/* 设置精灵动作 */
-	_sprite[0]->runAction(Sequence::create(FadeIn::create(2.0f), FadeOut::create(2.0f), CallFuncN::create(CC_CALLBACK_1(LoadingScene::runLoGoCallBack, this, 1)), NULL));
+	_sprite[0]->runAction(Sequence::create(FadeIn::create(1.f), FadeOut::create(1.f), CallFuncN::create(CC_CALLBACK_1(LoadingScene::runLoGoCallBack, this, 1)), NULL));
 }
 
 void LoadingScene::runLoGoCallBack(Node* node, const int& ID)
@@ -231,12 +231,12 @@ void LoadingScene::runLoGoCallBack(Node* node, const int& ID)
 	case 1:
 		this->removeChildByName("0"); /* 从场景中移除名字为0的孩子 */
 		_sprite[1]->setVisible(true);  /* 设置精灵1可见 */
-		_sprite[1]->runAction(Sequence::create(FadeIn::create(2.0f), FadeOut::create(2.0f), CallFuncN::create(CC_CALLBACK_1(LoadingScene::runLoGoCallBack, this, 5)), NULL));
+		_sprite[1]->runAction(Sequence::create(FadeIn::create(1.f), FadeOut::create(1.f), CallFuncN::create(CC_CALLBACK_1(LoadingScene::runLoGoCallBack, this, 5)), NULL));
 		break;
 	case 2:
 		this->removeChildByName("7"); /* 从场景中移除名字为7的孩子 */
 		_sprite[2]->setVisible(true);  /* 设置精灵2可见 */
-		_sprite[2]->runAction(Sequence::create(FadeIn::create(2.0f), CallFuncN::create(CC_CALLBACK_1(LoadingScene::runLoGoCallBack, this, 3)), NULL));
+		_sprite[2]->runAction(Sequence::create(FadeIn::create(1.f), CallFuncN::create(CC_CALLBACK_1(LoadingScene::runLoGoCallBack, this, 3)), NULL));
 		break;
 	case 3:
 		this->showTileAndLoadingBar(); /* 展示标题和进度条 */
@@ -247,7 +247,7 @@ void LoadingScene::runLoGoCallBack(Node* node, const int& ID)
 	case 5:
 		this->removeChildByName("1"); /* 从场景中移除名字为1的孩子 */
 		_sprite[7]->setVisible(true);  /* 设置精灵7可见 */
-		_sprite[7]->runAction(Sequence::create(FadeIn::create(2.0f), FadeOut::create(4.0f), CallFuncN::create(CC_CALLBACK_1(LoadingScene::runLoGoCallBack, this, 2)), NULL));
+		_sprite[7]->runAction(Sequence::create(FadeIn::create(1.f), FadeOut::create(1.f), CallFuncN::create(CC_CALLBACK_1(LoadingScene::runLoGoCallBack, this, 2)), NULL));
 		break;
 	}
 }
@@ -501,7 +501,10 @@ void LoadingScene::checkEdition()
 		string editionNetWork;
 		for (auto p : data)
 		{
-			editionNetWork += p;
+			if (p != '.')
+			{
+				editionNetWork += p;
+			}
 		}
 
 		if (UserInformation::getClientEdition() < editionNetWork)

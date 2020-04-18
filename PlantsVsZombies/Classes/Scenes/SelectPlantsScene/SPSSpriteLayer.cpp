@@ -571,7 +571,7 @@ void SPSSpriteLayer::createAnimationAndText(const int& id)
 		break;
 	case 6:
 		_plantCardTextScrollView->setInnerContainerSize(Size(400, 570));
-		this->createPlantsAnimation("Torchwood", "animation", "", Vec2(200, 610), 2.3f);
+		this->createPlantsAnimation("Torchwood", "animation", "", Vec2(200, 610), 1.8f);
 		this->createPlantsText(0, _global->userInformation->getGameText().find("TORCHWOOD_1")->second, Vec2(190, 910), 50);
 		this->createPlantsText(2, _global->userInformation->getGameText().find("TORCHWOOD_2")->second, Vec2(360, 1000), 30, Color3B::YELLOW, false);
 		this->createPlantsText(3, _global->userInformation->getGameText().find("TORCHWOOD_3")->second, Vec2(440, 1000), 30, Color3B::RED, false);

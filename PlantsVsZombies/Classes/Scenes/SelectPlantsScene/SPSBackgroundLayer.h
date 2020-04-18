@@ -37,8 +37,11 @@ private:
 	{
 		SkeletonAnimation* animation;
 		float position_y;
+		float position_x;
 	}PreviewZombies;
 	std::vector<PreviewZombies> _previewZombies;
+
+	using UID = uniform_int_distribution<unsigned>;
 
 private:
 	void createMordernBackgroundImage();
@@ -47,6 +50,7 @@ private:
 	void createMordernPreviewZombies();
 	void setBackgroundImagePosition();
 	void sortZombiesPosition();
+	Vec2 getPreviewZombiesPosition(UID& n1, UID& n2);
 	Zombies* createDifferentZombies(const int& id);
 	static bool cmp(PreviewZombies& a, PreviewZombies& b);
 

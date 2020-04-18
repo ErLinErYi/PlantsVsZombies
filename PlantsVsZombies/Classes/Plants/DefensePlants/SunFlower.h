@@ -25,8 +25,8 @@ CC_CONSTRUCTOR_ACCESS:
 
 private:
 	static void sunRecovery(Sun* sun);
-	void createSuns();
 	void goodsRecovery();
+	void createSuns();
 	void createListener();
 
 private:

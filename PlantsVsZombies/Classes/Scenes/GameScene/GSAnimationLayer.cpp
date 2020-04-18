@@ -17,6 +17,7 @@
 #include "Plants/EmissionPlants/Bullet/Bullet.h"
 
 #include "Based/Car.h"
+#include "Based/Coin.h"
 
 GSAnimationLayer::GSAnimationLayer(Node* node) :
 	_gameScene(node)
@@ -59,7 +60,7 @@ bool GSAnimationLayer::init()
 	showCars();
 
 	schedule([&](float delta) { gameMainLoop(delta); }, "gameMainLoop");
-	schedule([&](float) {sunsDeleteUpdate();}, 2.0f, "sunDeleteUpdate");
+	schedule([&](float) {sunsDeleteUpdate(); coinDeleteUpdate(); }, 2.0f, "sunDeleteUpdate");
 	
 	return true;
 }
@@ -71,38 +72,12 @@ void GSAnimationLayer::plantPlants()
 		_global->userInformation->getSoundEffectVolume());
 
 	auto plants = createDifferentPlants();
-#if VIRTUAL3D
-	if (controlLayerInformation->_plantsPosition.y == 0)
-	{
-		plants->setPlantPosition(Vec2(490 + 130 * controlLayerInformation->_plantsPosition.x + 60, 180));
-    }
-	if (controlLayerInformation->_plantsPosition.y == 1)
-	{
-		plants->setPlantPosition(Vec2(510 + 125 * controlLayerInformation->_plantsPosition.x + 60, 345));
-	}
-	if (controlLayerInformation->_plantsPosition.y == 2)
-	{
-		plants->setPlantPosition(Vec2(530 + 120 * controlLayerInformation->_plantsPosition.x + 60, 500));
-	}
-	if (controlLayerInformation->_plantsPosition.y == 3)
-	{
-		plants->setPlantPosition(Vec2(550 + 115 * controlLayerInformation->_plantsPosition.x + 60, 640));
-	}
-	if (controlLayerInformation->_plantsPosition.y == 4)
-	{
-		plants->setPlantPosition(Vec2(570 + 110 * controlLayerInformation->_plantsPosition.x + 60, 775));
-	}
-#else
 	plants->setPlantPosition(ROW_COLUMN_TO_POSITION(controlLayerInformation->_plantsPosition));
-#endif
 	plants->setPlantLocalZOrder(SET_ANIMATION_Z_ORDER(controlLayerInformation->_plantsPosition));
 	plants->setPlantRowAndColumn(controlLayerInformation->_plantsPosition);
 	plants->setPlantTag(SET_TAG(controlLayerInformation->_plantsPosition));
 	plants->createPlantAnimation();
-#if VIRTUAL3D
-	plants->setPlantScale();
-#endif
-	
+
 	PlantsGroup.insert(pair<int, Plants*>(SET_TAG(controlLayerInformation->_plantsPosition), plants));
 }
 
@@ -165,9 +140,6 @@ void GSAnimationLayer::createZombies()
 	zombies->setZombiePosition(Vec2(1780 + number(_random), controlLayerInformation->_zombiesAppearControl->getEqualProbabilityForRow()));
 	zombies->createZombie();
 	zombies->setZombieAttributeForGameType();
-#if VIRTUAL3D
-	zombies->setZombieScale();
-#endif
 	ZombiesGroup.push_back(zombies);
 	Zombies::zombiesNumbersChange("++");
 }
@@ -191,11 +163,7 @@ void GSAnimationLayer::createRandomSuns()
 
 void GSAnimationLayer::showCars()
 {
-#if VIRTUAL3D
-	const int carpositions[5] = { 190,338,486,634,782 };
-#else
 	const int carpositions[5] = { 180,318,456,594,732 };
-#endif
 	for (int i = 0; i < 5; i++)
 	{
 		this->runAction(Sequence::create(DelayTime::create(0.5f + 0.1 * i), CallFunc::create([=]()
@@ -204,11 +172,7 @@ void GSAnimationLayer::showCars()
 					_global->userInformation->getMusicPath().find("plastichit2")->second),
 					_global->userInformation->getSoundEffectVolume());
 				auto car = new Car(this);
-#if VIRTUAL3D
-				car->setPosition(Vec2(350 + i * 30, carpositions[i]));
-#else
 				car->setPosition(Vec2(455, carpositions[i]));
-#endif
 				car->showCar();
 				
 				CarsGroup.push_back(car);
@@ -298,6 +262,15 @@ void GSAnimationLayer::sunsDeleteUpdate()
 		Sun::deleteSun(sun);
 	}
 }
+
+void GSAnimationLayer::coinDeleteUpdate()
+{
+	for (auto coin = CoinsGroup.begin(); coin != CoinsGroup.end();)
+	{
+		Coin::deleteCoin(coin);
+	}
+}
+
 void GSAnimationLayer::carsEventUpdate()
 {
 	for (auto car = CarsGroup.begin(); car != CarsGroup.end();)

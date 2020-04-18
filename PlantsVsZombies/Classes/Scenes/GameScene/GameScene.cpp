@@ -19,6 +19,7 @@
 #include "Plants/DefensePlants/SunFlower.h"
 #include "Plants/EmissionPlants/Bullet/Bullet.h"
 #include "Based/Car.h"
+#include "Based/Coin.h"
 #include "Zombies/Zombies.h"
 
 bool GameScene::_wetherPausegame = false;
@@ -36,9 +37,11 @@ GameScene::~GameScene()
 	DELETE_LIST_GROUP(SunsGroup);
 	DELETE_LIST_GROUP(BulletGroup);
 	DELETE_LIST_GROUP(CarsGroup);
+	DELETE_LIST_GROUP(CoinsGroup);
 
 	Zombies::setZombiesNumbers(0);
 	Zombies::zombiesWinOrLoseInit();
+	_wetherPausegame = false;
 }
 
 Scene* GameScene::createScene()
@@ -60,7 +63,7 @@ bool GameScene::init()
 #if CC_TARGET_PLATFORM ==CC_PLATFORM_WIN32
 	schedule([&](float) {
 		pauseGame();
-		}, 1.0f, "pauseGame");
+		}, 1.0f, CC_REPEAT_FOREVER, 2.f, "pauseGame");
 #endif
 
 	return true;
@@ -116,7 +119,9 @@ void GameScene::pauseGame()
 	{
 		if (::GetForegroundWindow() != _director->getOpenGLView()->getWin32Window())
 		{
-			AudioEngine::setVolume(AudioEngine::play2d(_global->userInformation->getMusicPath().find("pause")->second), _global->userInformation->getSoundEffectVolume());
+			AudioEngine::setVolume(AudioEngine::play2d(
+				_global->userInformation->getMusicPath().find("pause")->second),
+				_global->userInformation->getSoundEffectVolume());
 			GSPauseQuitLayer::pauseLayer();
 			_director->getRunningScene()->addChild(GSPauseLayer::addLayer(), 10);
 			_wetherPausegame = true;

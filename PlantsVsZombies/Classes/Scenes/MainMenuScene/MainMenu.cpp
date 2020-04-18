@@ -138,7 +138,9 @@ void MainMenu::playMusicBleepInGameButtons(MainMenuButton button)
 		/* 如果没有播放音乐 */
 		if (!_playMusic[ID - 1])
 		{
-			AudioEngine::setVolume(AudioEngine::play2d(_global->userInformation->getMusicPath().find("bleep")->second), _global->userInformation->getSoundEffectVolume());
+			AudioEngine::setVolume(AudioEngine::play2d(
+				_global->userInformation->getMusicPath().find("bleep")->second), 
+				_global->userInformation->getSoundEffectVolume());
 			_playMusic[ID - 1] = true;
 		}
 	}
@@ -161,7 +163,9 @@ void MainMenu::playMusicBleepInMainButtons(int ID, const Vec2& vec2)
 		/* 如果没有播放音乐 */
 		if (!_playMusic[ID + 4])
 		{
-			AudioEngine::setVolume(AudioEngine::play2d(_global->userInformation->getMusicPath().find("bleep")->second), _global->userInformation->getSoundEffectVolume());
+			AudioEngine::setVolume(AudioEngine::play2d(
+				_global->userInformation->getMusicPath().find("bleep")->second),
+				_global->userInformation->getSoundEffectVolume());
 			_playMusic[ID + 4] = true;
 		}
 	}
@@ -268,7 +272,9 @@ void MainMenu::createFlowers(const float& Scale, const Vec2& vec2, const std::st
 		points.x -= 606;// x轴减去父图的相对坐标
 		if (Flower->getBoundingBox().containsPoint(points))
 		{
-			AudioEngine::setVolume(AudioEngine::play2d(_global->userInformation->getMusicPath().find("shoop")->second), _global->userInformation->getSoundEffectVolume());
+			AudioEngine::setVolume(AudioEngine::play2d(
+				_global->userInformation->getMusicPath().find("shoop")->second), 
+				_global->userInformation->getSoundEffectVolume());
 			switch (ID)
 			{
 			case 1:
@@ -372,7 +378,9 @@ void MainMenu::createMouseListener()
 	{
 		if (static_cast<bool>(checkCurInButtons()))
 		{
-			AudioEngine::setVolume(AudioEngine::play2d(_global->userInformation->getMusicPath().find("gravebutton")->second), _global->userInformation->getSoundEffectVolume());
+			AudioEngine::setVolume(AudioEngine::play2d(
+				_global->userInformation->getMusicPath().find("gravebutton")->second), 
+				_global->userInformation->getSoundEffectVolume());
 		}
 		switch (checkCurInButtons())
 		{
@@ -486,7 +494,9 @@ void MainMenu::createMainSprite()
 	_sprite[4]->addChild(_userText);
 
 	/* 如果用户名为空的话 */
-	_global->userInformation->getUserName().empty() ? _userText->setString(_global->userInformation->getGameText().find("愤怒的小僵尸")->second) : _userText->setString(_global->userInformation->getUserName());
+	_global->userInformation->getUserName().empty() ? 
+		_userText->setString(_global->userInformation->getGameText().find("愤怒的小僵尸")->second) :
+		_userText->setString(_global->userInformation->getUserName());
 
 	this->scheduleOnce(schedule_selector(MainMenu::updateUserNameOnce), 0);
 
@@ -545,7 +555,9 @@ void MainMenu::setCloudPosition(Node* node, int ID, const Vec2& vec2)
 
 void MainMenu::menuDataCallBack(Ref* pSender)
 {
-	AudioEngine::setVolume(AudioEngine::play2d(_global->userInformation->getMusicPath().find("tap")->second), _global->userInformation->getSoundEffectVolume());
+	AudioEngine::setVolume(AudioEngine::play2d(
+		_global->userInformation->getMusicPath().find("tap")->second),
+		_global->userInformation->getSoundEffectVolume());
 
 	setMouseListenerEnable(false);
 	auto input = InputDataMenu::create();
@@ -558,7 +570,9 @@ void MainMenu::menuDataCallBack(Ref* pSender)
 
 void MainMenu::menuOptionCallBack(Ref* pSender)
 {
-	AudioEngine::setVolume(AudioEngine::play2d(_global->userInformation->getMusicPath().find("tap")->second), _global->userInformation->getSoundEffectVolume());
+	AudioEngine::setVolume(AudioEngine::play2d(
+		_global->userInformation->getMusicPath().find("tap")->second), 
+		_global->userInformation->getSoundEffectVolume());
 
 	setMouseListenerEnable(false);
 	auto option = OptionsMenu::create();
@@ -571,7 +585,9 @@ void MainMenu::menuOptionCallBack(Ref* pSender)
 
 void MainMenu::menuQuitCallBack(Ref* pSender)
 {
-	AudioEngine::setVolume(AudioEngine::play2d(_global->userInformation->getMusicPath().find("tap2")->second), _global->userInformation->getSoundEffectVolume());
+	AudioEngine::setVolume(AudioEngine::play2d(
+		_global->userInformation->getMusicPath().find("tap2")->second), 
+		_global->userInformation->getSoundEffectVolume());
 
 	setMouseListenerEnable(false);
 	auto quit = QuitMenu::create();
@@ -584,7 +600,9 @@ void MainMenu::menuQuitCallBack(Ref* pSender)
 
 void MainMenu::menuHelpCallBack(Ref* pSender)
 {
-	AudioEngine::setVolume(AudioEngine::play2d(_global->userInformation->getMusicPath().find("tap2")->second), _global->userInformation->getSoundEffectVolume());
+	AudioEngine::setVolume(AudioEngine::play2d(
+		_global->userInformation->getMusicPath().find("tap2")->second), 
+		_global->userInformation->getSoundEffectVolume());
 	Director::getInstance()->replaceScene(TransitionCrossFade::create(0.5f, HelpScene::createHelpScene()));
 }
 

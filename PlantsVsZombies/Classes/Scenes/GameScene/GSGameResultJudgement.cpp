@@ -49,8 +49,6 @@ GameTypes GSGameResultJudgement::judgeUserIsWin()
 				return GameTypes::CarNumbers;
 			}
 			break;
-		default:
-			break;
 		}
 	}
 	return GameTypes::None;

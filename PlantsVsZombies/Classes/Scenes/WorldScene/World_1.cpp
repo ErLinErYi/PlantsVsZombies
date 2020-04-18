@@ -159,7 +159,7 @@ void World_1::addScrollView()
 		Vec2(13600, 730) ,Vec2(13900, 660) ,Vec2(14200, 570) ,Vec2(14500, 470) ,Vec2(14800, 370) ,Vec2(15130, 540) ,Vec2(15500, 680) ,Vec2(15800, 730),
 		Vec2(16200, 680) ,Vec2(16520, 480) ,Vec2(16700, 400) ,Vec2(16900, 480),Vec2(16950,490)
 	};
-	for (int i = 0; i < _global->userInformation->getUserSelectWorldData().at(0)->levels; i++)
+	for (int i = 0; i < _global->userInformation->getUserSelectWorldData().at(0)->levels; ++i)
 	{
 		draw->drawSegment(BeginPoint[i], EndPoint[i], 2, Color4F(0, 1, 1, 0.6f));
 		draw->runAction(RepeatForever::create(Sequence::create(MoveBy::create(0.05f, Vec2(0.1f, 0.1f)), MoveBy::create(0.05f, Vec2(-0.1f, -0.1f)), nullptr)));
@@ -174,6 +174,11 @@ void World_1::addScrollView()
 	}
 	_parallax->addChild(draw, 3, Vec2(0.5f, 0), Vec2(0, 0));
 
+	showLevels();
+}
+
+void World_1::showLevels()
+{
 	/* 创建关卡 */
 	auto World1_38 = createSprite("World1_38", Vec2(10, _backgroundSize.height / 2.0f), 1.7f, 2, 0.5f, false);
 	auto sprite = Button::create("begingame.png", "", "", TextureResType::PLIST);
@@ -188,7 +193,7 @@ void World_1::addScrollView()
 		prohibit->setScale(0.5f);
 		sprite->addChild(prohibit);
 	}
-	else 
+	else
 	{
 		_global->prohibitId == -1 ? playProhibitMusic(sprite) : nullptr;
 	}
@@ -519,7 +524,9 @@ void World_1::playProhibitMusic(Button* button)
 			switch (type)
 			{
 			case ui::Widget::TouchEventType::BEGAN:
-				AudioEngine::setVolume(AudioEngine::play2d(_global->userInformation->getMusicPath().find("tap")->second), _global->userInformation->getSoundEffectVolume());
+				AudioEngine::setVolume(AudioEngine::play2d(
+					_global->userInformation->getMusicPath().find("tap")->second), 
+					_global->userInformation->getSoundEffectVolume());
 				break;
 			case ui::Widget::TouchEventType::ENDED:
 				_global->prohibitId = AudioEngine::play2d("resources/Music/prohibit.ogg");
@@ -573,7 +580,8 @@ ui::Button* World_1::createButton(Node* node, const std::string& name, const Vec
 		sprite4->setColor(Color3B(0, 255, 255));
 	}
 
-	if (_global->userInformation->getUserSelectWorldData().at(0)->levels >= 52 && !_global->userInformation->getUserSelectWorldData().at(0)->isBeginShowEggs)
+	if (_global->userInformation->getUserSelectWorldData().at(0)->levels >= 52 && 
+		!_global->userInformation->getUserSelectWorldData().at(0)->isBeginShowEggs)
 	{
 		_global->userInformation->getUserSelectWorldData().at(0)->isBeginShowEggs = true;
 		UserDefault::getInstance()->setBoolForKey("ISBEGINSHOWEGGS", true);
@@ -594,7 +602,9 @@ void World_1::createButtonListener(ui::Button* button, const int& ID)
 			switch (type)
 			{
 			case ui::Widget::TouchEventType::BEGAN:
-				AudioEngine::setVolume(AudioEngine::play2d(_global->userInformation->getMusicPath().find("tap")->second), _global->userInformation->getSoundEffectVolume());
+				AudioEngine::setVolume(AudioEngine::play2d(
+					_global->userInformation->getMusicPath().find("tap")->second),
+					_global->userInformation->getSoundEffectVolume());
 				break;
 			case ui::Widget::TouchEventType::ENDED:
 				
@@ -620,15 +630,27 @@ void World_1::readWorldLevel()
 	/* 读取该世界关卡数据 */
 	if (!_global->userInformation->getUserSelectWorldData().at(0)->isReadWoldInformation)
 	{
-		OpenLevelData::getInstance()->openLevelsData(_global->userInformation->getTextPath().find(_global->userInformation->getGameDifficulty() ? "GAMEWORLD_1DATAS_DIF" : "GAMEWORLD_1DATAS")->second);
+		OpenLevelData::getInstance()->openLevelsData(
+			_global->userInformation->getTextPath().find(
+				_global->userInformation->getGameDifficulty() ?
+				"GAMEWORLD_1DATAS_DIF" : "GAMEWORLD_1DATAS")->second);
 		_global->userInformation->getUserSelectWorldData().at(0)->isReadWoldInformation = true;
 	}
 
+	char worldFile[128];
+	if (_global->userInformation->getGameDifficulty())
+	{
+		snprintf(worldFile, 128, _global->userInformation->getSystemDifCaveFileName(
+			_global->userInformation->getUserCaveFileNumber()).c_str(), 1);
+	}
+	else
+	{
+		snprintf(worldFile, 128, _global->userInformation->getSystemCaveFileName(
+			_global->userInformation->getUserCaveFileNumber()).c_str(), 1);
+	}
 	_global->userInformation->getUserSelectWorldData().at(0)->levels =
-		UserDefault::getInstance()->getIntegerForKey(
-			_global->userInformation->getGameDifficulty() ?
-			_global->userInformation->getSystemDifCaveFileName(_global->userInformation->getUserCaveFileNumber()).c_str() :
-			_global->userInformation->getSystemCaveFileName(_global->userInformation->getUserCaveFileNumber()).c_str());
+		UserDefault::getInstance()->getIntegerForKey(worldFile);
+	
 	
 	if (_global->userInformation->getUserSelectWorldData().at(0)->levels == 0)
 	{
@@ -649,7 +671,9 @@ void World_1::createGoBack()
 			switch (type)
 			{
 			case ui::Widget::TouchEventType::BEGAN:
-				AudioEngine::setVolume(AudioEngine::play2d(_global->userInformation->getMusicPath().find("gravebutton")->second), _global->userInformation->getSoundEffectVolume());
+				AudioEngine::setVolume(AudioEngine::play2d(
+					_global->userInformation->getMusicPath().find("gravebutton")->second),
+					_global->userInformation->getSoundEffectVolume());
 				break;
 			case ui::Widget::TouchEventType::ENDED:
 

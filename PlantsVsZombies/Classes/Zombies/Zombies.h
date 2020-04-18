@@ -87,6 +87,8 @@ public:
 	 */
 	static GLProgram* getHighLight();
 
+	static void rewardCoin(SkeletonAnimation* zombies);
+
 	/**
 	 *创建僵尸
 	 */
@@ -224,7 +226,7 @@ public:
 	/**
 	 *设置僵尸受伤闪烁
 	 */
-	virtual void setZombieHurtBlink() const;
+	virtual void setZombieHurtBlink();
 
 	/**
 	 *设置僵尸大小
@@ -375,7 +377,7 @@ protected:
 	/**
      *获取僵尸绘制图层
      */
-	virtual float getLocalZOrder(const int& positiionY) const;
+	virtual float getZombieLocalZOrder(const int& positiionY) const;
 
 	/**
 	 *设置节点
@@ -514,6 +516,9 @@ private:
 	OpenLevelData* _openLevelData;
 	default_random_engine _random;
 	random_device _device;
+	GLProgramState* _highLightGLProgramState;
+	float _highLightIntensity;
+	bool _highLightFinished;
 
 	static bool _zombieIsWin;
 	static GLProgram* _normalGLProgram;

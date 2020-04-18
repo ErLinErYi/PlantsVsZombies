@@ -72,9 +72,23 @@ protected:
 	 */
 	virtual void createShadow() override;
 
+	/**
+	 *×Óµ¯¹¥»÷½©Ê¬
+	 */
+	virtual void bulletAttackZombies();
+
+	/**
+	 *»ð×Óµ¯¹¥»÷½©Ê¬
+	 */
+	virtual void fireBulletAttackZombies();
+
 CC_CONSTRUCTOR_ACCESS:
 	Pea(Node* node = nullptr);
 	~Pea();
+
+private:
+	void attackZombies();
+	float getZombieInExplodeRange(Zombies* zombie);
 
 protected:
 	bool _isFire;                         // ÊÇ·ñÈ¼ÉÕ 

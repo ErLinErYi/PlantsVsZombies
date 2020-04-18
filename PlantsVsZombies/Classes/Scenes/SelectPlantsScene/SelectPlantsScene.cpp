@@ -164,7 +164,7 @@ void SelectPlantsScene::readyTextCallBack(Node* node, const std::string& name, c
 		_global->userInformation->setUserSelectCrads(_spriteLayer->seedBankButton);
 		_global->userInformation->setSunNumbers(100); //设定初始阳光数 
 
-		Director::getInstance()->replaceScene(GameScene::createScene());
+		Director::getInstance()->replaceScene(TransitionFade::create(1.f, GameScene::createScene()));
 		break;
 	}
 }

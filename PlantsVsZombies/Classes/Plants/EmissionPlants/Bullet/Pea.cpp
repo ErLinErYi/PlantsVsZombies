@@ -61,15 +61,19 @@ void Pea::createShadow()
 
 void Pea::bulletAndZombiesCollision()
 {
+	_isFire ? fireBulletAttackZombies() : bulletAttackZombies();
+}
+
+void Pea::bulletAttackZombies()
+{
 	for (auto zombie : ZombiesGroup)
 	{
 		if (!_isUsed && getBulletIsSameLineWithZombie(zombie) &&  /* 豌豆没有被使用 && 豌豆与僵尸在同一行 */
 			getBulletIsEncounterWithZombie(zombie) &&             /* 豌豆与僵尸碰撞 */
 			zombie->getZombieIsSurvive() && zombie->getZombieIsEnterMap()) /* 僵尸没有死亡 && 僵尸进入地图内 */
 		{
-			_isFire ? playSoundEffect(SoundEffectType::firepea) :
-				selectSoundEffect(zombie->getZombieBodyAttackSoundEffect(),
-					zombie->getZombieHeadAttackSoundEffect());  /* 播放指定音乐 */
+			selectSoundEffect(zombie->getZombieBodyAttackSoundEffect(),
+				zombie->getZombieHeadAttackSoundEffect());  /* 播放指定音乐 */
 
 			setBulletOpacity();                /* 子弹消失 */
 			bulletAttackHurtZombies(zombie);   /* 僵尸减少生命值 */
@@ -85,9 +89,55 @@ void Pea::bulletAndZombiesCollision()
 	}
 }
 
+void Pea::fireBulletAttackZombies()
+{
+	for (auto zombie : ZombiesGroup)
+	{
+		if (!_isUsed && getBulletIsSameLineWithZombie(zombie) &&           /* 豌豆没有被使用 && 豌豆与僵尸在同一行 */
+			getBulletIsEncounterWithZombie(zombie) &&                      /* 豌豆与僵尸碰撞 */
+			zombie->getZombieIsSurvive() && zombie->getZombieIsEnterMap()) /* 僵尸没有死亡 && 僵尸进入地图内 */
+		{
+			playSoundEffect(SoundEffectType::firepea); /* 播放指定音乐 */
+
+			setBulletOpacity();                /* 子弹消失 */
+			attackZombies();                   /* 攻击僵尸 */
+			createPeaExplode();                /* 创建豌豆爆炸动画 */
+			setBulletAttack(0);
+			setBulletIsUsed(true);
+
+			break;
+		}
+	}
+}
+
+void Pea::attackZombies()
+{
+	for (auto zombie : ZombiesGroup)
+	{
+		if (getBulletIsSameLineWithZombie(zombie) &&
+			zombie->getZombieIsSurvive() &&
+			zombie->getZombieIsEnterMap())
+		{
+			auto attack = static_cast<int>(getZombieInExplodeRange(zombie) / 50 * 20);
+			_attack = 40;
+
+			if (attack > 0) _attack -= attack;
+			if (_attack <= 0) continue;
+			bulletAttackHurtZombies(zombie);
+			zombie->setZombieHurtBlink();
+		}
+	}
+}
+
+float Pea::getZombieInExplodeRange(Zombies* zombie)
+{
+	/* 僵尸是否在爆炸范围判断 */
+	return zombie->getZombieAnimation()->getPositionX() - _bulletAnimation->getPositionX();
+}
+
 void Pea::createPeaExplode()
 {
-	static string Skin[] = { {"skin"},{"skin1"},{"skin2"},{"skin3"} };// !!!没有使用
+	static string Skin[] = { {"skin"},{"skin1"},{"skin2"},{"skin3"} };// !!!not use
 	static string Animation[] = { {"Explode"},{"Explode1"},{"Explode2"},{"Explode3"},{"Explode4"} };
 
 	auto peaExplode = SkeletonAnimation::createWithData(_global->userInformation->getAnimationData().find("PeaExplode")->second);

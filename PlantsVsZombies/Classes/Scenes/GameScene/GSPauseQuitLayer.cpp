@@ -10,9 +10,22 @@
 #include "GameScene.h"
 
 #include "../SelectPlantsScene/SelectPlantsScene.h"
+#include "../SelectPlantsScene/MirrorSelectPlantsScene.h"
 #include "../WorldScene/World_1.h"
+#include "../WorldScene/MirrorWorld_1.h"
 
 using namespace spine;
+
+string GSPauseQuitLayer::_layerName[] = 
+{ 
+	"backgroundLayer","buttonLayer","animationLayer",
+	"controlLayer","informationLayer","sunLayer" 
+};
+
+GSPauseQuitLayer::GSPauseQuitLayer() :
+  _promptLayer(nullptr)
+{
+}
 
 Layer* GSPauseQuitLayer::addLayer()
 {
@@ -21,27 +34,35 @@ Layer* GSPauseQuitLayer::addLayer()
 
 void GSPauseQuitLayer::pauseLayer()
 {
-	Director::getInstance()->getRunningScene()->getChildByName("backgroundLayer")->onExit();/* 暂停层 */
-	Director::getInstance()->getRunningScene()->getChildByName("buttonLayer")->onExit();
-	Director::getInstance()->getRunningScene()->getChildByName("animationLayer")->onExit();
-	Director::getInstance()->getRunningScene()->getChildByName("controlLayer")->onExit();
-	Director::getInstance()->getRunningScene()->getChildByName("informationLayer")->onExit();
-	Director::getInstance()->getRunningScene()->getChildByName("sunLayer")->onExit();
-	auto layer = Director::getInstance()->getRunningScene()->getChildByName("gameEndShieldLayer");
-	if (layer)layer->onExit();
+	auto director = Director::getInstance()->getRunningScene();
+	for (auto name : _layerName)
+	{
+		if (director->getChildByName(name))
+		{
+			director->getChildByName(name)->onExit();
+		}
+		else
+		{
+			return;
+		}
+	}
 	Global::getInstance()->stopMusic();
 }
 
 void GSPauseQuitLayer::resumeLayer()
 {
-	Director::getInstance()->getRunningScene()->getChildByName("backgroundLayer")->onEnter();/* 恢复层 */
-	Director::getInstance()->getRunningScene()->getChildByName("buttonLayer")->onEnter();
-	Director::getInstance()->getRunningScene()->getChildByName("animationLayer")->onEnter();
-	Director::getInstance()->getRunningScene()->getChildByName("controlLayer")->onEnter();
-	Director::getInstance()->getRunningScene()->getChildByName("informationLayer")->onEnter();
-	Director::getInstance()->getRunningScene()->getChildByName("sunLayer")->onEnter();
-	auto layer = Director::getInstance()->getRunningScene()->getChildByName("gameEndShieldLayer");
-	if (layer)layer->onEnter();
+	auto director = Director::getInstance()->getRunningScene();
+	for (auto name : _layerName)
+	{
+		if (director->getChildByName(name))
+		{
+			director->getChildByName(name)->onEnter();
+		}
+		else
+		{
+			return;
+		}
+	}
 	Global::getInstance()->resumeMusic();
 }
 
@@ -49,8 +70,6 @@ bool GSPauseQuitLayer::init()
 {
 	if (!LayerColor::initWithColor(Color4B(0, 0, 0, 180)))return false;
 
-	GameScene::setPauseGame(true);
-	/* 创建对话框 */
 	createDialog();
 
 	return true;
@@ -138,19 +157,32 @@ void GSPauseQuitLayer::createButton(const Vec2& vec2, const std::string name, Pa
 				case PauseQuitLayer_Button::从新开始:
 					_director->getScheduler()->setTimeScale(1.0f);
 					UserDefault::getInstance()->setIntegerForKey("BREAKTHROUGH", ++_global->userInformation->getBreakThroughnumbers());
-					_director->replaceScene(TransitionFade::create(1.0f, SelectPlantsScene::createScene()));
+					if (_global->userInformation->getIsMirrorScene())
+					{
+						_director->replaceScene(TransitionFade::create(1.0f, MirrorSelectPlantsScene::createScene()));
+					}
+					else
+					{
+						_director->replaceScene(TransitionFade::create(1.0f, SelectPlantsScene::createScene()));
+					}
 					break;
 				case PauseQuitLayer_Button::退出游戏:
 					_director->getScheduler()->setTimeScale(1.0f);
 					UserDefault::getInstance()->setIntegerForKey("BREAKTHROUGH", ++_global->userInformation->getBreakThroughnumbers());
-					_director->replaceScene(TransitionFade::create(1.0f, World_1::createScene()));
+					if (_global->userInformation->getIsMirrorScene())
+					{
+						_director->replaceScene(TransitionFade::create(1.0f, MirrorWorld_1::createScene()));
+					}
+					else
+					{
+						_director->replaceScene(TransitionFade::create(1.0f, World_1::createScene()));
+					}
 					break;
 				case PauseQuitLayer_Button::按键说明:
 					showPrompt();
 					break;
 				case PauseQuitLayer_Button::返回游戏:
 					resumeLayer();
-					GameScene::setPauseGame(false);
 					this->removeFromParent();
 					break;
 				default:

@@ -42,6 +42,7 @@ private:
 	void plantsDeleteUpdate(map<int,Plants*>::iterator& plant);
 	void bulletEventUpdate();
 	void sunsDeleteUpdate();
+	void coinDeleteUpdate();
 	void carsEventUpdate();
 	
 private:

@@ -7,7 +7,7 @@
 
 #include "UserInformation.h"
 
-const string UserInformation::_clientEdition = "0.0.0.0";
+const string UserInformation::_clientEdition = "9.9.9.9";
 string UserInformation::_editionName = "";
 bool UserInformation::_updateRequired = false;
 
@@ -15,8 +15,8 @@ UserInformation::UserInformation():
   _isUpdate(false)
 , _userName("·ßÅ­µÄÐ¡½©Ê¬")
 , _userCaveFileNameKey{ "USERNAMEDATA","USERNAMEDATA_2","USERNAMEDATA_3","USERNAMEDATA_4","USERNAMEDATA_5","USERNAMEDATA_6","USERNAMEDATA_7","USERNAMEDATA_8" }
-, _systemCaveFileName_difficult{ "WORLD_1_LEVELS","WORLD_1_LEVELS_2","WORLD_1_LEVELS_3","WORLD_1_LEVELS_4","WORLD_1_LEVELS_5","WORLD_1_LEVELS_6","WORLD_1_LEVELS_7","WORLD_1_LEVELS_8" }
-, _systemCaveFileName{ "WORLD_1_LEVELS_DIF","WORLD_1_LEVELS_2_DIF","WORLD_1_LEVELS_3_DIF","WORLD_1_LEVELS_4_DIF","WORLD_1_LEVELS_5_DIF","WORLD_1_LEVELS_6_DIF","WORLD_1_LEVELS_7_DIF","WORLD_1_LEVELS_8_DIF" }
+, _systemCaveFileName_difficult{ "WORLD_%d_LEVELS","WORLD_%d_LEVELS_2","WORLD_%d_LEVELS_3","WORLD_%d_LEVELS_4","WORLD_%d_LEVELS_5","WORLD_%d_LEVELS_6","WORLD_%d_LEVELS_7","WORLD_%d_LEVELS_8" }
+, _systemCaveFileName{ "WORLD_%d_LEVELS_DIF","WORLD_%d_LEVELS_2_DIF","WORLD_%d_LEVELS_3_DIF","WORLD_%d_LEVELS_4_DIF","WORLD_%d_LEVELS_5_DIF","WORLD_%d_LEVELS_6_DIF","WORLD_%d_LEVELS_7_DIF","WORLD_%d_LEVELS_8_DIF" }
 , _soundEffectVolume(0.5f)
 , _backGroundMusicVolume(0.2f)
 , _userCaveFileNumber(-1)
@@ -28,6 +28,7 @@ UserInformation::UserInformation():
 , _nowFps(60)
 , _gameDifficulty(0)
 , _mainToWorld(false)
+, _isMirrorScene(false)
 , _background(nullptr)
 , _currentPlayLevels(1)
 , _currentPlayWorldTag(0)
@@ -241,9 +242,22 @@ int UserInformation::getGameDifficulty() const
     return _gameDifficulty;
 }
 
+bool UserInformation::getIsMirrorScene() const
+{
+    return _isMirrorScene;
+}
+
 string UserInformation::getClientEdition()
 {
-    return _clientEdition;
+    string str;
+    for (auto s : _clientEdition)
+    {
+        if ('.' != s)
+        {
+            str += s;
+        }
+    }
+    return str;
 }
 
 void UserInformation::setNewEditionName(const string& editionName)
@@ -401,4 +415,9 @@ void UserInformation::setIsSelectHighFPS(CheckBox::EventType isSelect)
 void UserInformation::setIsShowInformation(CheckBox::EventType isShow)
 {
     _showInformation = isShow;
+}
+
+void UserInformation::setIsMirrorScene(const bool isMirror)
+{
+    _isMirrorScene = isMirror;
 }

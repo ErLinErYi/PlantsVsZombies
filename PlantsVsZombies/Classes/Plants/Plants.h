@@ -191,7 +191,7 @@ protected:
 	/**
 	 *设置植物受到伤害闪烁
 	 */
-	virtual void setPlantHurtBlink() const;
+	virtual void setPlantHurtBlink();
 	virtual void setPlantHurtBlink(PlantsType type) const;
 
 	/**
@@ -249,4 +249,6 @@ protected:
 private:
 	static GLProgram* _normalGLProgram;
 	static GLProgram* _highLightGLProgram;
+	GLProgramState* _highLightGLProgramState;
+	float _highLightIntensity;
 };

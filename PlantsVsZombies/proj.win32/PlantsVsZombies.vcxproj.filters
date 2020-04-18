@@ -281,6 +281,18 @@
     <ClCompile Include="..\Classes\PlantsVsZombies.cpp">
       <Filter>Class</Filter>
     </ClCompile>
+    <ClCompile Include="..\Classes\Based\Coin.cpp">
+      <Filter>Class\Based</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Classes\Scenes\WorldScene\MirrorWorld_1.cpp">
+      <Filter>Class\Scenes\WorldScene</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Classes\Scenes\SelectPlantsScene\MirrorSelectPlantsScene.cpp">
+      <Filter>Class\Scenes\SelectPlantsScene</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Classes\Scenes\GameScene\MirrorGameScene.cpp">
+      <Filter>Class\Scenes\GameScene</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="..\Classes\Zombies\BucketZombies.h">
@@ -510,6 +522,18 @@
     </ClInclude>
     <ClInclude Include="..\Classes\PlantsVsZombies.h">
       <Filter>Class</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Classes\Based\Coin.h">
+      <Filter>Class\Based</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Classes\Scenes\WorldScene\MirrorWorld_1.h">
+      <Filter>Class\Scenes\WorldScene</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Classes\Scenes\SelectPlantsScene\MirrorSelectPlantsScene.h">
+      <Filter>Class\Scenes\SelectPlantsScene</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Classes\Scenes\GameScene\MirrorGameScene.h">
+      <Filter>Class\Scenes\GameScene</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>

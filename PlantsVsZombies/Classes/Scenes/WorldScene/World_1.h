@@ -32,21 +32,22 @@ CC_CONSTRUCTOR_ACCESS:
 	~World_1(){}
 	virtual bool init(); 
 
-private:
-	void readWorldLevel();
-	void createGoBack();
+protected:
+	virtual void readWorldLevel();
+	virtual void setLevelVisible(Node* node);
+	virtual void createButtonListener(ui::Button* button, const int& ID);
+	virtual ui::Button* createButton(Node* node, const std::string& name, const Vec2& position);
+	virtual void addScrollView();
+	virtual void createGoBack();
+	void showLevels();
 	void createBackground();
 	void createScrollView();
-	void addScrollView();
-	void createButtonListener(ui::Button* button, const int& ID);
-	ui::Button* createButton(Node* node, const std::string& name, const Vec2& position);
 	Sprite* createSprite(const std::string& name, const Vec2& position, const float& scale, const int& zorder, const float& speed, bool IsFlipped = false);
 	Sprite* createSprite(Node* node, const std::string& name, const Vec2& position, const float& scale, const int& zorder,bool IsFlipped = false);
 	void createMouseListener();
-	void setLevelVisible(Node* node);
 	void playProhibitMusic(Button* button);
 
-private:
+protected:
 	Global* _global;
 	Director* _director;
 	ParallaxNode* _parallax;

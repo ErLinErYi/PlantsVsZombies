@@ -48,7 +48,7 @@ void Torchwood::createPlantAnimation()
 {
 	_plantAnimation = plantInit("Torchwood", "animation");
 	_plantAnimation->setAnchorPoint(Vec2::ANCHOR_MIDDLE);
-	_plantAnimation->setScale(1.6f);
+	_plantAnimation->setScale(1.0f);
 	_node->addChild(_plantAnimation);
 
 	// с╟вс

@@ -6,14 +6,11 @@
  */
 
 #include "GSData.h"
- #include "GSBackgroundLayer.h"
- #include "GSInformationLayer.h"
- #include "GSButtonLayer.h"
- #include "GSControlLayer.h"
- #include "GSAnimationLayer.h"
- 
- //#include "Plants/Bullet.h"
-// #include "Based/Car.h"
+#include "GSBackgroundLayer.h"
+#include "GSInformationLayer.h"
+#include "GSButtonLayer.h"
+#include "GSControlLayer.h"
+#include "GSAnimationLayer.h"
 
 GSBackgroundLayer* backgroundLayerInformation;   // 背景层实例化
 GSInformationLayer* informationLayerInformation; // 信息层实例化
@@ -26,3 +23,4 @@ list<Zombies*> ZombiesGroup;
 list<Bullet*> BulletGroup;
 list<Sun*> SunsGroup;
 list<Car*> CarsGroup;
+list<Coin*> CoinsGroup;

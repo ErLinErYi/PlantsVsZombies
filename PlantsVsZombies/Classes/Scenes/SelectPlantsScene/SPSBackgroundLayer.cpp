@@ -122,8 +122,8 @@ void SPSBackgroundLayer::createPreviewZombie()
 void SPSBackgroundLayer::createMordernPreviewZombies()
 {
 	uniform_int_distribution<unsigned>n(0, 2);
-	uniform_int_distribution<unsigned>n1(0, 450);
-	uniform_int_distribution<unsigned>n2(0, 600);
+	uniform_int_distribution<unsigned>n1(0, 550);
+	uniform_int_distribution<unsigned>n2(0, 650);
 	int number = _openLevelData->readLevelData(_openLevelData->getLevelNumber())->getZombiesType().size();
 	for (int i = 0; i < number; ++i)
 	{
@@ -132,7 +132,7 @@ void SPSBackgroundLayer::createMordernPreviewZombies()
 		for (int j = 0; j < k; ++j)
 		{
 			auto zombies = createDifferentZombies(i);
-			zombies->setZombiePosition(Vec2(2050 + n1(_random), n2(_random) + 80));
+			zombies->setZombiePosition(getPreviewZombiesPosition(n1, n2));
 			zombies->setZombieTag(_previewZombiesTag++);
 			zombies->createPreviewZombie();
 			zombies->setZombieAttributeForGameType();
@@ -140,6 +140,7 @@ void SPSBackgroundLayer::createMordernPreviewZombies()
 			PreviewZombies previewzombies;
 			previewzombies.animation = zombies->getZombieAnimation();
 			previewzombies.position_y = previewzombies.animation->getPositionY();
+			previewzombies.position_x = previewzombies.animation->getPositionX();
 			_previewZombies.push_back(previewzombies);
 		}
 	}
@@ -166,6 +167,32 @@ void SPSBackgroundLayer::sortZombiesPosition()
 		pre.animation->setOpacity(255);
 		pre.animation->getChildByName("shadow")->setOpacity(255);
 	}
+}
+
+Vec2 SPSBackgroundLayer::getPreviewZombiesPosition(UID& n1, UID& n2)
+{
+	Vec2 vec2;
+	bool can;
+	int x, y;
+	do
+	{
+		can = false;
+		x = 2050 + n1(_random);
+		y = n2(_random) + 80;
+		for (auto p : _previewZombies)
+		{
+			if (sqrt(pow(p.position_x - x, 2) + pow(p.position_y - y, 2)) < 100)
+			{
+				can = true;
+				break;
+			}
+		}
+	} while (can);
+
+	vec2.x = x;
+	vec2.y = y;
+
+	return vec2;
 }
 
 bool SPSBackgroundLayer::cmp(PreviewZombies& a, PreviewZombies& b)

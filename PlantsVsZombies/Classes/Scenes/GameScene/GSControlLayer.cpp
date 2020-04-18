@@ -472,7 +472,7 @@ void GSControlLayer::recoveryPlantsColor()
 void GSControlLayer::judgeLevelIsFinished()
 {
 	/* ¹Ø¿¨½áÊø */
-	if (Zombies::getZombiesNumbers() <= 0 && _zombiesAppearControl->getZombiesAppearFrequency() >=
+	if (ZombiesGroup.size() <= 0 && _zombiesAppearControl->getZombiesAppearFrequency() >=
 		_openLevelData->readLevelData(_openLevelData->getLevelNumber())->getZombiesFrequency())
 	{
 		CURSOR_VISIBLE(true)
@@ -524,30 +524,7 @@ void GSControlLayer::mouseMoveControl()
 			}
 			else
 			{
-#if VIRTUAL3D
-				if (_plantsPosition.y == 0)
-				{
-					_plantPreviewImage->setPosition(Vec2(490 + 130 * _plantsPosition.x + 60, 180));
-				}
-				if (_plantsPosition.y == 1)
-				{
-					_plantPreviewImage->setPosition(Vec2(510 + 125 * _plantsPosition.x + 60, 345));
-				}
-				if (_plantsPosition.y == 2)
-				{
-					_plantPreviewImage->setPosition(Vec2(530 + 120 * _plantsPosition.x + 60, 500));
-				}
-				if (_plantsPosition.y == 3)
-				{
-					_plantPreviewImage->setPosition(Vec2(550 + 115 * _plantsPosition.x + 60, 640));
-				}
-				if (_plantsPosition.y == 4)
-				{
-					_plantPreviewImage->setPosition(Vec2(570 + 110 * _plantsPosition.x + 60, 775));
-				}
-#else
 				_plantPreviewImage->setPosition(Vec2(GRASS_POSITION_LEFT + 122 * _plantsPosition.x + 60, 110 + 138 * (_plantsPosition.y + 1) - 60));
-#endif
 			}
 		}
 		else
