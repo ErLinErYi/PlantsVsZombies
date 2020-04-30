@@ -47,9 +47,10 @@
 **Author: LZ** <br>
 **QQ: 2117610943** <br>
 **Email: 2117610943@qq.com** <br>
-**Programming capacity is limited, please understand**<br>
-[如果你想要下载可运行文件请点击此处](https://blog.csdn.net/qq_40630246/article/details/102643196)<br>
-[观看视频演示点击此处](https://www.bilibili.com/video/av83295018/)<br>
+**Website: https://lzpvz.rthe.net** <br>
+
+[可运行文件下载](https://blog.csdn.net/qq_40630246/article/details/102643196)<br>
+[观看视频演示](https://www.bilibili.com/video/av83295018/)<br>
 
 ### License
 **Copyright (c) LZ. All rights reserved.**
