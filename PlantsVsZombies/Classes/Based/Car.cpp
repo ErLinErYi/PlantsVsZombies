@@ -2,6 +2,7 @@
 
 #include "Zombies/Zombies.h"
 #include "Scenes/GameScene/GSData.h"
+#include "Based/PlayMusic.h"
 
 Car::Car(Node* node) :
 	_carImage(nullptr),
@@ -108,7 +109,7 @@ void Car::carStartUp()
 		if (_carState == 1)
 		{
 			_carState = 2;
-			AudioEngine::setVolume(AudioEngine::play2d(_global->userInformation->getMusicPath().find("lawnmower")->second), _global->userInformation->getSoundEffectVolume());
+			PlayMusic::playMusic("lawnmower");
 			_carImage->runAction(MoveBy::create(2.5f, Vec2(1900, 0)));
 		}
 	}

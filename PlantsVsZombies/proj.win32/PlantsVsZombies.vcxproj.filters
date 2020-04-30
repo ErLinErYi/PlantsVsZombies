@@ -293,6 +293,15 @@
     <ClCompile Include="..\Classes\Scenes\GameScene\MirrorGameScene.cpp">
       <Filter>Class\Scenes\GameScene</Filter>
     </ClCompile>
+    <ClCompile Include="..\Classes\Based\UserData.cpp">
+      <Filter>Class\Based</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Classes\Zombies\SnowZombies.cpp">
+      <Filter>Class\Zombies</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Classes\Based\PlayMusic.cpp">
+      <Filter>Class\Based</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="..\Classes\Zombies\BucketZombies.h">
@@ -534,6 +543,15 @@
     </ClInclude>
     <ClInclude Include="..\Classes\Scenes\GameScene\MirrorGameScene.h">
       <Filter>Class\Scenes\GameScene</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Classes\Based\UserData.h">
+      <Filter>Class\Based</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Classes\Zombies\SnowZombies.h">
+      <Filter>Class\Zombies</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Classes\Based\PlayMusic.h">
+      <Filter>Class\Based</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>

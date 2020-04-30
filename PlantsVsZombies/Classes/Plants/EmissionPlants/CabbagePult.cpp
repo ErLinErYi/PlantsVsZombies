@@ -80,6 +80,7 @@ void CabbagePult::determineRelativePositionPlantsAndZombies()
 	if (_isCreateCabbage)  /* 如果有僵尸与卷心菜投手在同一行 */
 	{
 		_zombiePostion = _zombie->getZombieAnimation()->getPosition();
+		_zombieSpeed = _zombie->getZombieSpeed();
 		_plantAnimation->setEventListener([&](spTrackEntry* entry, spEvent* event)
 			{
 				if (strcmp(event->data->name, "Shoot") == 0)
@@ -128,6 +129,7 @@ void CabbagePult::createCabbage()
 	_bulletAnimation = new Cabbage(_node);
 	_bulletAnimation->setBulletPosition(_position);
 	dynamic_cast<Cabbage*>(_bulletAnimation)->setZombiePosition(_zombiePostion);
+	dynamic_cast<Cabbage*>(_bulletAnimation)->setZombieSpeed(_zombieSpeed);
 	_bulletAnimation->createBullet();
 
 	BulletGroup.push_back(_bulletAnimation);

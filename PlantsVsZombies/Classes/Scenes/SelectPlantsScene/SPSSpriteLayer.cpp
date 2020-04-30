@@ -6,9 +6,9 @@
  *Email: 2117610943@qq.com
  */
 
-#include "AudioEngine.h"
 #include "SPSSpriteLayer.h"
 #include "spine/spine-cocos2dx.h"
+#include "Based/PlayMusic.h"
 
 using namespace spine;
 
@@ -39,8 +39,8 @@ bool SPSSpriteLayer::init()
 
 void SPSSpriteLayer::createSelectPlantsDialog()
 {
-	AudioEngine::setVolume(AudioEngine::play2d(_global->userInformation->getMusicPath().find("swing")->second), _global->userInformation->getSoundEffectVolume());
-
+	PlayMusic::playMusic("swing");
+	
 	alreadySelectPlantsDialog();
 	alreadyHavePlantsDialog();
 	createScrollview();
@@ -59,7 +59,7 @@ void SPSSpriteLayer::alreadySelectPlantsDialog()
 	seedBank->runAction(MoveTo::create(0.2f, Vec2(0, 1080)));
 	this->addChild(seedBank);
 
-	for (int i = 0; i < 9; ++i)
+	for (unsigned int i = 0; i < 9; ++i)
 	{
 		auto Seed = Sprite::createWithSpriteFrameName("SeedPacketSilhouette.png");
 		Seed->setContentSize(Size(180, 100));
@@ -157,9 +157,9 @@ void SPSSpriteLayer::createMouseListener()
 
 void SPSSpriteLayer::createPlantsCards()
 {
-	for (int i = 0; i < 4; i++)
+	for (unsigned int i = 0; i < 4; i++)
 	{
-		for (int j = 0; j < 4; j++)
+		for (unsigned int j = 0; j < 4; j++)
 		{
 			if (4 * i + j < _plantsNumber)
 			{
@@ -169,7 +169,7 @@ void SPSSpriteLayer::createPlantsCards()
 	}
 }
 
-Button* SPSSpriteLayer::createButtons(const Vec2& vec2, const int& id)
+Button* SPSSpriteLayer::createButtons(const Vec2& vec2, const unsigned int& id)
 {
 	auto button = Button::create("SeedPacket_Larger.png", "", "", TextureResType::PLIST);
 	button->setPosition(Vec2(vec2.x, _plantCardScrollView->getInnerContainerSize().height + vec2.y - 540));
@@ -180,7 +180,7 @@ Button* SPSSpriteLayer::createButtons(const Vec2& vec2, const int& id)
 			switch (type)
 			{
 			case ui::Widget::TouchEventType::BEGAN:
-				AudioEngine::setVolume(AudioEngine::play2d(_global->userInformation->getMusicPath().find("tap")->second), _global->userInformation->getSoundEffectVolume());
+				PlayMusic::playMusic("tap");
 				break;
 			case ui::Widget::TouchEventType::ENDED:
 				if (_isPlantIsCanSelect[id])
@@ -230,7 +230,7 @@ void SPSSpriteLayer::showRandPlantsInformation()
 
 void SPSSpriteLayer::preLoadText()
 {
-	for (int i = 0; i < _plantsNumber; i++)
+	for (unsigned int i = 0; i < _plantsNumber; i++)
 	{
 		_animationText[i] = Text::create("", GAME_FONT_NAME_1, 30);
 		_animationText[i]->setName("AnimationText");
@@ -248,7 +248,7 @@ void SPSSpriteLayer::preLoadText()
 	}
 }
 
-Text* SPSSpriteLayer::showPlantsInformation(Button* button, const int id) const
+Text* SPSSpriteLayer::showPlantsInformation(Button* button, const unsigned int id) const
 {
 	const string PlantsImageName[][5] =
 	{
@@ -316,7 +316,7 @@ void SPSSpriteLayer::createPlantsImage(Button* button, const std::string& resour
 	button->addChild(image);
 }
 
-void SPSSpriteLayer::createMoveButton(Button* button, const Vec2& vec2, const int& id)
+void SPSSpriteLayer::createMoveButton(Button* button, const Vec2& vec2, const unsigned int& id)
 {
 	/* 创建移动卡牌 */
 	auto MoveCard = ui::Button::create("SeedPacket_Larger.png", "", "", TextureResType::PLIST);
@@ -341,7 +341,7 @@ void SPSSpriteLayer::createMoveButton(Button* button, const Vec2& vec2, const in
 			switch (type)
 			{
 			case ui::Widget::TouchEventType::BEGAN:
-				AudioEngine::setVolume(AudioEngine::play2d(_global->userInformation->getMusicPath().find("tap2")->second), _global->userInformation->getSoundEffectVolume());
+				PlayMusic::playMusic("tap2");
 				break;
 			case ui::Widget::TouchEventType::ENDED:
 				createAnimationAndText(id);  //创建植物动画
@@ -355,7 +355,7 @@ void SPSSpriteLayer::createMoveButton(Button* button, const Vec2& vec2, const in
 		});
 }
 
-void SPSSpriteLayer::sortPlantsCard(const int& id)
+void SPSSpriteLayer::sortPlantsCard(const unsigned int& id)
 {
 	/* 删除取消选择的卡牌 */
 	for (auto& card = seedBankButton.begin(); card != seedBankButton.end();)
@@ -385,7 +385,7 @@ void SPSSpriteLayer::sortPlantsCard(const int& id)
 }
 
 
-void SPSSpriteLayer::removePlantsCardCallBack(Node* node, const int& id, Button* button)
+void SPSSpriteLayer::removePlantsCardCallBack(Node* node, const unsigned int& id, Button* button)
 {
 	/* 删除移动卡牌精灵 */
 	this->removeChildByTag(id);
@@ -411,10 +411,10 @@ void SPSSpriteLayer::createBeginButton()
 			switch (type)
 			{
 			case ui::Widget::TouchEventType::BEGAN:
-				AudioEngine::setVolume(AudioEngine::play2d(_global->userInformation->getMusicPath().find("tap")->second), _global->userInformation->getSoundEffectVolume());
+				PlayMusic::playMusic("tap");
 				break;
 			case ui::Widget::TouchEventType::ENDED:
-				AudioEngine::setVolume(AudioEngine::play2d(_global->userInformation->getMusicPath().find("swing")->second), _global->userInformation->getSoundEffectVolume());
+				PlayMusic::playMusic("swing");
 				/* 设置按钮不可用 */
 				for (auto& card : seedBankButton)
 				{
@@ -424,7 +424,8 @@ void SPSSpriteLayer::createBeginButton()
 				}
 				if (seedBankButton.size() > 4)
 				{
-					_seedChooser->runAction(Sequence::create(MoveTo::create(0.35f, Vec2(605, -600)), CallFuncN::create(CC_CALLBACK_1(SPSSpriteLayer::selectPlantsCallBack, this)), nullptr));
+					_seedChooser->runAction(Sequence::create(MoveTo::create(0.35f, Vec2(605, -600)), 
+						CallFuncN::create(CC_CALLBACK_1(SPSSpriteLayer::selectPlantsCallBack, this)), nullptr));
 				}
 				break;
 			}
@@ -432,38 +433,15 @@ void SPSSpriteLayer::createBeginButton()
 	_seedChooser->addChild(button);
 }
 
-void SPSSpriteLayer::controlPlantCanSelect(Button* button, const int id)
+void SPSSpriteLayer::controlPlantCanSelect(Button* button, const unsigned int id)
 {
-	if (id == 12)
+	auto coinNumber = _global->userInformation->getCoinNumbers();
+	auto killZombiesNumber = _global->userInformation->getKillZombiesNumbers();
+	Vec2 vec[4] = { {1000,500},{2000,1000},{5000,5000},{10000,10000} };
+
+	if (id >= 9)
 	{
-		if (_global->userInformation->getCoinNumbers() < 10000 && _global->userInformation->getKillZombiesNumbers() < 10000)
-		{
-			button->setColor(Color3B(70, 70, 70));
-			button->setCascadeColorEnabled(true);  /* 设置父节点影响子节点 */
-			_isPlantIsCanSelect[id] = false;
-		}
-	}
-	if (id == 11)
-	{
-		if (_global->userInformation->getCoinNumbers() < 5000 && _global->userInformation->getKillZombiesNumbers() < 5000)
-		{
-			button->setColor(Color3B(70, 70, 70));
-			button->setCascadeColorEnabled(true);  /* 设置父节点影响子节点 */
-			_isPlantIsCanSelect[id] = false;
-		}
-	}
-	if (id == 10)
-	{
-		if (_global->userInformation->getCoinNumbers() < 2000 && _global->userInformation->getKillZombiesNumbers() < 1000)
-		{
-			button->setColor(Color3B(70, 70, 70));
-			button->setCascadeColorEnabled(true);  /* 设置父节点影响子节点 */
-			_isPlantIsCanSelect[id] = false;
-		}
-	}
-	if (id == 9)
-	{
-		if (_global->userInformation->getCoinNumbers() < 1000 && _global->userInformation->getKillZombiesNumbers() < 500)
+		if (coinNumber < vec[id - 9].x && killZombiesNumber < vec[id - 9].y)
 		{
 			button->setColor(Color3B(70, 70, 70));
 			button->setCascadeColorEnabled(true);  /* 设置父节点影响子节点 */
@@ -495,7 +473,7 @@ void SPSSpriteLayer::createPlantsAnimation(const std::string& filepath, const st
 	}
 }
 
-void SPSSpriteLayer::createPlantsText(const int& ID, const std::string& name, const Vec2& vec2, const float& fontsize, Color3B color, bool AnchorPoint)
+void SPSSpriteLayer::createPlantsText(const unsigned int& ID, const std::string& name, const Vec2& vec2, const float& fontsize, Color3B color, bool AnchorPoint)
 {
 	_animationText[ID]->setString(name);
 	_animationText[ID]->setFontSize(fontsize);;
@@ -513,10 +491,10 @@ void SPSSpriteLayer::createPlantsText(const int& ID, const std::string& name, co
 	}
 }
 
-void SPSSpriteLayer::createAnimationAndText(const int& id)
+void SPSSpriteLayer::createAnimationAndText(const unsigned int& id)
 {
 	_seedChooser->removeChildByName("PlantsAnimation");
-	for (int i = 0; i < _plantsNumber; i++)_animationText[i]->setString("");
+	for (unsigned int i = 0; i < _plantsNumber; i++)_animationText[i]->setString("");
 
 	switch (id)
 	{
@@ -599,14 +577,9 @@ void SPSSpriteLayer::createAnimationAndText(const int& id)
 		this->createPlantsText(0, _global->userInformation->getGameText().find("FIREPEASHOOTER_1")->second, Vec2(190, 910), 50);
 		this->createPlantsText(2, _global->userInformation->getGameText().find("FIREPEASHOOTER_2")->second, Vec2(360, 1000), 30, Color3B::YELLOW, false);
 		this->createPlantsText(3, _global->userInformation->getGameText().find("FIREPEASHOOTER_3")->second, Vec2(440, 1000), 30, Color3B::RED, false);
-		if (_isPlantIsCanSelect[9])
-		{
-			this->createPlantsText(1, _global->userInformation->getGameText().find("FIREPEASHOOTER_4")->second, Vec2(360, 870), 30, Color3B::YELLOW, false);
-		}
-		else
-		{
-			this->createPlantsText(1, "金币数达到 1000 并且\n死亡僵尸数到达 500 时解\n锁该植物", Vec2(360, 800), 30, Color3B::RED, false);
-		}
+		this->createPlantsText(1, _global->userInformation->getGameText().find(
+			_isPlantIsCanSelect[9] ? "FIREPEASHOOTER_4" : "FIREPEASHOOTER_5")->second, Vec2(360, 870), 30,
+			_isPlantIsCanSelect[9] ? Color3B::YELLOW : Color3B(255, 70, 0), false);
 		break;
 	case 10:
 		_plantCardTextScrollView->setInnerContainerSize(Size(400, 530));
@@ -614,14 +587,9 @@ void SPSSpriteLayer::createAnimationAndText(const int& id)
 		this->createPlantsText(0, _global->userInformation->getGameText().find("JALAPENO_1")->second, Vec2(190, 910), 50);
 		this->createPlantsText(2, _global->userInformation->getGameText().find("JALAPENO_2")->second, Vec2(360, 1000), 30, Color3B::YELLOW, false);
 		this->createPlantsText(3, _global->userInformation->getGameText().find("JALAPENO_3")->second, Vec2(440, 1000), 30, Color3B::RED, false);
-		if (_isPlantIsCanSelect[10])
-		{
-			this->createPlantsText(1, _global->userInformation->getGameText().find("JALAPENO_4")->second, Vec2(360, 870), 30, Color3B::YELLOW, false);
-		}
-		else
-		{
-			this->createPlantsText(1, "金币数达到 2000 并且\n死亡僵尸数到达 1000 时解\n锁该植物", Vec2(360, 800), 30, Color3B::RED, false);
-		}
+		this->createPlantsText(1, _global->userInformation->getGameText().find(
+			_isPlantIsCanSelect[10] ? "JALAPENO_4" : "JALAPENO_5")->second, Vec2(360, 870), 30,
+			_isPlantIsCanSelect[10] ? Color3B::YELLOW : Color3B(255, 70, 0), false);
 		break;
 	case 11:
 		_plantCardTextScrollView->setInnerContainerSize(Size(400, 600));
@@ -629,14 +597,9 @@ void SPSSpriteLayer::createAnimationAndText(const int& id)
 		this->createPlantsText(0, _global->userInformation->getGameText().find("ACIDLEMON_1")->second, Vec2(190, 910), 50);
 		this->createPlantsText(2, _global->userInformation->getGameText().find("ACIDLEMON_2")->second, Vec2(360, 1000), 30, Color3B::YELLOW, false);
 		this->createPlantsText(3, _global->userInformation->getGameText().find("ACIDLEMON_3")->second, Vec2(440, 1000), 30, Color3B::RED, false);
-		if (_isPlantIsCanSelect[11])
-		{
-			this->createPlantsText(1, _global->userInformation->getGameText().find("ACIDLEMON_4")->second, Vec2(360, 870), 30, Color3B::YELLOW, false);
-		}
-		else
-		{
-			this->createPlantsText(1, "金币数达到 5000 并且\n死亡僵尸数到达 5000 时解\n锁该植物", Vec2(360, 800), 30, Color3B::RED, false);
-		}
+		this->createPlantsText(1, _global->userInformation->getGameText().find(
+			_isPlantIsCanSelect[11] ? "ACIDLEMON_4" : "ACIDLEMON_5")->second, Vec2(360, 870), 30, 
+			_isPlantIsCanSelect[11] ? Color3B::YELLOW : Color3B(255, 70, 0), false);
 		break;
 	case 12:
 		_plantCardTextScrollView->setInnerContainerSize(Size(400, 470));
@@ -644,14 +607,9 @@ void SPSSpriteLayer::createAnimationAndText(const int& id)
 		this->createPlantsText(0, _global->userInformation->getGameText().find("CITRON_1")->second, Vec2(190, 910), 50);
 		this->createPlantsText(2, _global->userInformation->getGameText().find("CITRON_2")->second, Vec2(360, 1000), 30, Color3B::YELLOW, false);
 		this->createPlantsText(3, _global->userInformation->getGameText().find("CITRON_3")->second, Vec2(440, 1000), 30, Color3B::RED, false);
-		if (_isPlantIsCanSelect[12])
-		{
-			this->createPlantsText(1, _global->userInformation->getGameText().find("CITRON_4")->second, Vec2(360, 870), 30, Color3B::YELLOW, false);
-		}
-		else
-		{
-			this->createPlantsText(1,"金币数达到 10000 并且\n死亡僵尸数到达 10000 时解\n锁该植物", Vec2(360, 800), 30, Color3B::RED, false);
-		}
+		this->createPlantsText(1, _global->userInformation->getGameText().find(
+			_isPlantIsCanSelect[12] ? "CITRON_4" : "CITRON_5")->second, Vec2(360, 870), 30, 
+			_isPlantIsCanSelect[12] ? Color3B::YELLOW : Color3B(255, 70, 0), false);
 		break;
 	default:
 		break;

@@ -4,7 +4,6 @@
  *Date: 2020.1.28
  *Email: 2117610943@qq.com
  */
-#include "spine/spine-cocos2dx.h"
 
 #include "GSPauseQuitLayer.h"
 #include "GameScene.h"
@@ -14,6 +13,10 @@
 #include "../WorldScene/World_1.h"
 #include "../WorldScene/MirrorWorld_1.h"
 
+#include "spine/spine-cocos2dx.h"
+#include "Based/UserData.h"
+#include "Based/PlayMusic.h"
+
 using namespace spine;
 
 string GSPauseQuitLayer::_layerName[] = 
@@ -22,9 +25,16 @@ string GSPauseQuitLayer::_layerName[] =
 	"controlLayer","informationLayer","sunLayer" 
 };
 
+int GSPauseQuitLayer::_pauseNumbers = 0;
+
 GSPauseQuitLayer::GSPauseQuitLayer() :
   _promptLayer(nullptr)
 {
+}
+
+GSPauseQuitLayer::~GSPauseQuitLayer()
+{
+	_pauseNumbers = 0;
 }
 
 Layer* GSPauseQuitLayer::addLayer()
@@ -38,32 +48,33 @@ void GSPauseQuitLayer::pauseLayer()
 	for (auto name : _layerName)
 	{
 		if (director->getChildByName(name))
-		{
 			director->getChildByName(name)->onExit();
-		}
 		else
-		{
 			return;
-		}
 	}
-	Global::getInstance()->stopMusic();
+	PlayMusic::stopMusic();
+	++_pauseNumbers;
 }
 
 void GSPauseQuitLayer::resumeLayer()
 {
-	auto director = Director::getInstance()->getRunningScene();
-	for (auto name : _layerName)
+	if (!--_pauseNumbers)
 	{
-		if (director->getChildByName(name))
+		auto director = Director::getInstance()->getRunningScene();
+		for (auto name : _layerName)
 		{
-			director->getChildByName(name)->onEnter();
+			if (director->getChildByName(name))
+				director->getChildByName(name)->onEnter();
+			else
+				return;
 		}
-		else
-		{
-			return;
-		}
+		PlayMusic::resumeMusic();
 	}
-	Global::getInstance()->resumeMusic();
+}
+
+int GSPauseQuitLayer::getPauseNumbers()
+{
+	return _pauseNumbers;
 }
 
 bool GSPauseQuitLayer::init()
@@ -82,7 +93,8 @@ void GSPauseQuitLayer::createDialog()
 	_option->setScale(0.9f);
 	this->addChild(_option);
 
-	auto PauseAnimation= SkeletonAnimation::createWithData(_global->userInformation->getAnimationData().find("PauseAnimation")->second);
+	auto PauseAnimation= SkeletonAnimation::createWithData(
+		_global->userInformation->getAnimationData().find("PauseAnimation")->second);
 	PauseAnimation->setAnimation(0, "animation", true);
 	PauseAnimation->setPosition(Vec2(530, 650));
 	_option->addChild(PauseAnimation);
@@ -91,13 +103,15 @@ void GSPauseQuitLayer::createDialog()
 	_touchListener = createTouchtListener(_option);
 
 	/* 创建滑动条 */
-	auto musicslider = createSlider(Vec2(600, 520), Vec2(150, 520), _global->userInformation->getGameText().find("音乐")->second, OptionScene_Slider::音乐,
+	auto musicslider = createSlider(Vec2(600, 520), Vec2(150, 520), 
+		_global->userInformation->getGameText().find("音乐")->second, OptionScene_Slider::音乐,
 		Sprite::createWithSpriteFrameName("bgFile.png"),
 		Sprite::createWithSpriteFrameName("progressFile.png"),
 		Sprite::createWithSpriteFrameName("thumbFile.png"),
 		nullptr,
 		true);
-	auto SoundEffectslider = createSlider(Vec2(600, 450), Vec2(150, 450), _global->userInformation->getGameText().find("音效")->second, OptionScene_Slider::音效,
+	auto SoundEffectslider = createSlider(Vec2(600, 450), Vec2(150, 450), 
+		_global->userInformation->getGameText().find("音效")->second, OptionScene_Slider::音效,
 		Sprite::createWithSpriteFrameName("bgFile.png"),
 		Sprite::createWithSpriteFrameName("progressFile.png"),
 		Sprite::createWithSpriteFrameName("thumbFile.png"),
@@ -113,12 +127,14 @@ void GSPauseQuitLayer::createDialog()
 	auto check2   = createCheckBox(Vec2(350, 310), Vec2(150, 310), _global->userInformation->getGameText().find("高帧率")->second, OptionScene_CheckBox::高帧率, "CheckBox2", "CheckBox", true);
 	auto check3   = createCheckBox(Vec2(800, 310), Vec2(600, 310), _global->userInformation->getGameText().find("鼠标显示")->second, OptionScene_CheckBox::鼠标隐藏, "CheckBox2", "CheckBox", true);
 	auto check4   = createCheckBox(Vec2(350, 240), Vec2(150, 240), _global->userInformation->getGameText().find("拉伸显示")->second, OptionScene_CheckBox::拉伸显示, "CheckBox2", "CheckBox", true);
+	auto check5   = createCheckBox(Vec2(800, 240), Vec2(600, 240), _global->userInformation->getGameText().find("缓入动画")->second, OptionScene_CheckBox::缓入动画, "CheckBox2", "CheckBox", true);
 
 	check->setScale(0.6f);
 	check1->setScale(0.6f);
 	check2->setScale(0.6f);
 	check3->setScale(0.6f);
 	check4->setScale(0.6f);
+	check5->setScale(0.6f);
 
 	/* 创建按钮 */
 	createButton(Vec2(210, 170), _global->userInformation->getGameText().find("查看图鉴")->second, PauseQuitLayer_Button::查看图鉴);
@@ -146,7 +162,7 @@ void GSPauseQuitLayer::createButton(const Vec2& vec2, const std::string name, Pa
 			switch (type)
 			{
 			case ui::Widget::TouchEventType::BEGAN:
-				AudioEngine::setVolume(AudioEngine::play2d(_global->userInformation->getMusicPath().find("gravebutton")->second), _global->userInformation->getSoundEffectVolume());
+				PlayMusic::playMusic("gravebutton");
 				break;
 			case ui::Widget::TouchEventType::ENDED:
 				switch (button_type)
@@ -156,7 +172,7 @@ void GSPauseQuitLayer::createButton(const Vec2& vec2, const std::string name, Pa
 					break;
 				case PauseQuitLayer_Button::从新开始:
 					_director->getScheduler()->setTimeScale(1.0f);
-					UserDefault::getInstance()->setIntegerForKey("BREAKTHROUGH", ++_global->userInformation->getBreakThroughnumbers());
+					UserData::getInstance()->caveUserData("BREAKTHROUGH", ++_global->userInformation->getBreakThroughNumbers());
 					if (_global->userInformation->getIsMirrorScene())
 					{
 						_director->replaceScene(TransitionFade::create(1.0f, MirrorSelectPlantsScene::createScene()));
@@ -168,7 +184,7 @@ void GSPauseQuitLayer::createButton(const Vec2& vec2, const std::string name, Pa
 					break;
 				case PauseQuitLayer_Button::退出游戏:
 					_director->getScheduler()->setTimeScale(1.0f);
-					UserDefault::getInstance()->setIntegerForKey("BREAKTHROUGH", ++_global->userInformation->getBreakThroughnumbers());
+					UserData::getInstance()->caveUserData("BREAKTHROUGH", ++_global->userInformation->getBreakThroughNumbers());
 					if (_global->userInformation->getIsMirrorScene())
 					{
 						_director->replaceScene(TransitionFade::create(1.0f, MirrorWorld_1::createScene()));
@@ -216,7 +232,7 @@ void GSPauseQuitLayer::showPrompt()
 			switch (type)
 			{
 			case ui::Widget::TouchEventType::BEGAN:
-				AudioEngine::setVolume(AudioEngine::play2d(_global->userInformation->getMusicPath().find("tap")->second), _global->userInformation->getSoundEffectVolume());
+				PlayMusic::playMusic("tap");
 				break;
 			case ui::Widget::TouchEventType::ENDED:
 				_promptLayer->removeFromParent();

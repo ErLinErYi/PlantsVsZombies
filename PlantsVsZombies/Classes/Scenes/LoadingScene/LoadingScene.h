@@ -10,6 +10,7 @@
 #include "ui/CocosGUI.h"
 #include "Based/GlobalVariable.h"
 #include "network/CCDownloader.h"
+#include "Based/UserData.h"
 
 using namespace cocos2d;
 using namespace cocos2d::ui;
@@ -18,8 +19,10 @@ using namespace cocos2d::experimental;
 class LoadingScene :public Scene
 {
 public:
-	static Scene* createLaodingScene();
 	CREATE_FUNC(LoadingScene); 
+	static Scene* createLaodingScene();
+	static void loadUserFileData();
+	static void caveUserFileData();
 
 CC_CONSTRUCTOR_ACCESS:
 	LoadingScene();
@@ -54,17 +57,18 @@ private:
 	void checkEdition();
 
 private:
-	int _textNumbers;                               // 文本数
-	int _loadFileNumbers;                           // 文件加载数
-	int _allFileNumbers;                            // 文件总数(图片，音乐，动画，文本)
-	bool _flowerVisible[5] = { false };             // 加载花朵是否可见 
-	float _loadingPrecent;                          // 加载进度 
-	Sprite* _sprite[8];                             // 精灵图片 
-	MenuItemLabel* _label;                          // 文字标签 
-	LoadingBar* _loadingBar;                        // 进度条 
-	EventListenerTouchOneByOne* _listener;          // 加载监听 
-	Global* _global;                                // 全局变量单例
-	Director* _director;                            // 导演单例 
-	FileUtils* _files;                              // 文件单例 
+	int _textNumbers;                                 // 文本数
+	int _loadFileNumbers;                             // 文件加载数
+	int _allFileNumbers;                              // 文件总数(图片，音乐，动画，文本)
+	bool _flowerVisible[5] = { false };               // 加载花朵是否可见 
+	float _loadingPrecent;                            // 加载进度 
+	Sprite* _sprite[8];                               // 精灵图片 
+	MenuItemLabel* _label;                            // 文字标签 
+	LoadingBar* _loadingBar;                          // 进度条 
+	EventListenerTouchOneByOne* _listener;            // 加载监听 
+	Global* _global;                                  // 全局变量单例
+	Director* _director;                              // 导演单例 
+	FileUtils* _files;                                // 文件单例 
+	UserData* _userData;
 	std::unique_ptr<network::Downloader> _downloader;
 };

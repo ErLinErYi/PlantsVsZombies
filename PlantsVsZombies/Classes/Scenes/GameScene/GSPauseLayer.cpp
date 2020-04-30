@@ -8,6 +8,7 @@
 #include "GSPauseLayer.h"
 #include "GSPauseQuitLayer.h"
 #include "GameScene.h"
+#include "Based/PlayMusic.h"
 
 GSPauseLayer::GSPauseLayer():
    _levelObjiectives(nullptr)
@@ -91,11 +92,10 @@ void GSPauseLayer::showButton()
             switch (type)
             {
             case ui::Widget::TouchEventType::BEGAN:
-                AudioEngine::setVolume(AudioEngine::play2d(_global->userInformation->getMusicPath().find("gravebutton")->second), _global->userInformation->getSoundEffectVolume());
+                PlayMusic::playMusic("gravebutton");
                 break;
             case ui::Widget::TouchEventType::ENDED:
                 GSPauseQuitLayer::resumeLayer();
-                GameScene::setPauseGame(false);
                 this->removeFromParent();
                 break;
             }

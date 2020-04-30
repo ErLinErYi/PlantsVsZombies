@@ -12,7 +12,6 @@ BucketDoorFlagZombies::BucketDoorFlagZombies(Node* node)
 	_node = node;
 	_attackHeadSoundEffectType = 1;
 	_attackBodySoundEffectType = 1;
-	_animationId = 1;
 	_bloodVolume = 200;
 	_headShieldVolume = 1000;
 	_bodyShieldVolume = 1000;

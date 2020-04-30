@@ -12,7 +12,6 @@ CommonZombies::CommonZombies(Node* node)
 	_node = node;
 	_attackHeadSoundEffectType = 0;
 	_attackBodySoundEffectType = 0;
-	_animationId = 7;
 	_bloodVolume = 200;
 	_headShieldVolume = 0;
 	_bodyShieldVolume = 0;

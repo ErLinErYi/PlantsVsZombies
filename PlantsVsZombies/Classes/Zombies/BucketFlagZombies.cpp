@@ -12,7 +12,6 @@ BucketFlagZombies::BucketFlagZombies(Node* node)
 	_node = node;
 	_attackHeadSoundEffectType = 1;
 	_attackBodySoundEffectType = 0;
-	_animationId = 4;
 	_bloodVolume = 200;
 	_headShieldVolume = 1000;
 	_bodyShieldVolume = 0;

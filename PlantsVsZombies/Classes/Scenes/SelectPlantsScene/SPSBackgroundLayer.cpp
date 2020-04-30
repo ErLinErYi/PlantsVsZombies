@@ -63,8 +63,11 @@ void SPSBackgroundLayer::createMordernBackgroundImage()
 	switch (_global->userInformation->getCurrentPlayLevels())
 	{
 	case 35:
+	{
 		_global->userInformation->setBackground(Sprite::createWithSpriteFrameName("background6.png"));
-		_global->userInformation->getBackground()->addChild(ParticleSnow::create());
+		auto snow = ParticleSnow::create();
+		_global->userInformation->getBackground()->addChild(snow);
+	}
 		break;
 	case 36:
 		_global->userInformation->setBackground(Sprite::createWithSpriteFrameName("background1.png"));
@@ -218,6 +221,7 @@ Zombies* SPSBackgroundLayer::createDifferentZombies(const int& id)
 	case ZombiesType::CommonDoorFlagZombies:  zombies = CommonDoorFlagZombies::create(this);    break;
 	case ZombiesType::ConeDoorFlagZombies:    zombies = ConeDoorFlagZombies::create(this);      break;
 	case ZombiesType::BucketDoorFlagZombies:  zombies = BucketDoorFlagZombies::create(this);    break;
+	case ZombiesType::SnowZombies:            zombies = SnowZombies::create(this);              break;
 	default: break;
 	}
 	return zombies;

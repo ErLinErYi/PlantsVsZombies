@@ -1,5 +1,4 @@
 #pragma once
-#include "AudioEngine.h"
 #include "ui/CocosGUI.h"
 #include "UserInformation.h"
 
@@ -13,15 +12,11 @@
 
 using namespace std;
 using namespace cocos2d;
-using namespace cocos2d::experimental;
 
 class Global
 {
 public:
 	static Global* getInstance();
-	int changeBgMusic(const std::string& _musicName, bool _loop);
-	void stopMusic();
-	void resumeMusic();
 	void resumeProhibit();
 
 public:

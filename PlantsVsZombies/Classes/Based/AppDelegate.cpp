@@ -63,9 +63,9 @@ bool AppDelegate::applicationDidFinishLaunching()
 		
     if(!glview) {
 #if (CC_TARGET_PLATFORM == CC_PLATFORM_WIN32) || (CC_TARGET_PLATFORM == CC_PLATFORM_MAC) || (CC_TARGET_PLATFORM == CC_PLATFORM_LINUX)
-        glview = GLViewImpl::createWithRect("PlantsVsZombies_1.1.7.4.200418_alpha", cocos2d::Rect(0, 0, designResolutionSize.width, designResolutionSize.height));
+        glview = GLViewImpl::createWithRect("PlantsVsZombies_1.1.8.0 (2020.05.01)", cocos2d::Rect(0, 0, designResolutionSize.width, designResolutionSize.height));
 #else
-        glview = GLViewImpl::create("PlantsVsZombies_1.1.7.4.200418_alpha");
+        glview = GLViewImpl::create("PlantsVsZombies_1.1.8.0 (2020.05.01)");
 #endif
         director->setOpenGLView(glview);
     }

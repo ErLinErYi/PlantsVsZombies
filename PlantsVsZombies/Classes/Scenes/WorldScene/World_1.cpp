@@ -11,6 +11,9 @@
 #include "SelectWorldScene.h"
 #include "Scenes/SelectPlantsScene/SelectPlantsScene.h"
 #include "Based/LevelData.h"
+#include "Based/UserData.h"
+#include "Based/PlayMusic.h"
+#include "AudioEngine.h"
 
 World_1::World_1():
 	_global(Global::getInstance()),
@@ -18,14 +21,15 @@ World_1::World_1():
 	_backgroundSize(_director->getWinSize()),
 	_parallax(nullptr),
 	_scrollView(nullptr),
-	_level(0),
-	_worldPosition(UserDefault::getInstance()->getIntegerForKey("WORLD_1_POSITION")),
-	_worldRollingDistance(_worldPosition)
+	_level(0)
 {
 	srand(time(nullptr));
 
+	_worldPosition = UserData::getInstance()->openDoubleUserData(
+		_global->userInformation->getGameDifficulty() ? "WORLD_1_POSITION_DIF" : "WORLD_1_POSITION");
+
 	/* 播放音乐 */
-	_global->changeBgMusic("mainmusic2", true);
+	PlayMusic::changeBgMusic("mainmusic2", true);
 }
 
 Scene* World_1::createScene()
@@ -101,21 +105,22 @@ void  World_1::createBackground()
 
 void World_1::createScrollView()
 {
+	auto size = Director::getInstance()->getVisibleSize();
 	_scrollView = ui::ScrollView::create();
 	_scrollView->setBounceEnabled(true);
 	_scrollView->setDirection(ui::ScrollView::Direction::HORIZONTAL);
-	_scrollView->setContentSize(Director::getInstance()->getWinSize());
-	_scrollView->setInnerContainerSize(Size(33100, 1080));
+	_scrollView->setContentSize(size);
+	_scrollView->setInnerContainerSize(Size(33100, size.height));
 	_scrollView->setPosition(Vec2(0, 0));
 	_scrollView->jumpToPercentHorizontal(_worldPosition);
 	this->addChild(_scrollView);
 
 	_scrollView->addChild(_parallax);
 
-	this->addScrollView();
+	addScrollView(0);
 }
 
-void World_1::addScrollView()
+void World_1::addScrollView(const int id)
 {
 	/* 创建背景物品 */
 	const string name[5] = { {"World1_32"},{"World1_31"},{"World1_36"},{"World1_30"},{"World1_27"} };
@@ -147,7 +152,7 @@ void World_1::addScrollView()
 		Vec2(8400, 725) ,Vec2(8700, 600) ,Vec2(9000, 510) ,Vec2(9300, 450) ,Vec2(9580, 540) ,Vec2(9950, 670) ,Vec2(10300, 750) ,Vec2(10590, 690),
 		Vec2(10900, 620) ,Vec2(11200, 510) ,Vec2(11500, 400) ,Vec2(11900, 500) ,Vec2(12100, 410) ,Vec2(12300, 500) ,Vec2(12700, 430) ,Vec2(13000, 520),
 		Vec2(13300, 620) ,Vec2(13600, 730) ,Vec2(13900, 660) ,Vec2(14200, 570) ,Vec2(14500, 470) ,Vec2(14800, 370) ,Vec2(15130, 540) ,Vec2(15500, 680),
-		Vec2(15800, 730) ,Vec2(16200, 680) ,Vec2(16520, 480) ,Vec2(16700, 390),Vec2(16900,480)
+		Vec2(15800, 730) ,Vec2(16200, 680) ,Vec2(16520, 480) ,Vec2(16780, 390),Vec2(16900,480)
 	};
 	Vec2 EndPoint[53] =
 	{
@@ -157,11 +162,11 @@ void World_1::addScrollView()
 		Vec2(8700, 600) ,Vec2(9000, 510) ,Vec2(9300, 450) ,Vec2(9580, 540) ,Vec2(9950, 670) ,Vec2(10300, 750) ,Vec2(10590, 690) ,Vec2(10900, 620),
 		Vec2(11200, 510) ,Vec2(11500, 400) ,Vec2(11900, 500) ,Vec2(12100, 410) ,Vec2(12300, 500) ,Vec2(12700, 430) ,Vec2(13000, 520) ,Vec2(13300, 620),
 		Vec2(13600, 730) ,Vec2(13900, 660) ,Vec2(14200, 570) ,Vec2(14500, 470) ,Vec2(14800, 370) ,Vec2(15130, 540) ,Vec2(15500, 680) ,Vec2(15800, 730),
-		Vec2(16200, 680) ,Vec2(16520, 480) ,Vec2(16700, 400) ,Vec2(16900, 480),Vec2(16950,490)
+		Vec2(16200, 680) ,Vec2(16520, 480) ,Vec2(16700, 380) ,Vec2(16900, 450),Vec2(16950,480)
 	};
-	for (int i = 0; i < _global->userInformation->getUserSelectWorldData().at(0)->levels; ++i)
+	for (int i = 0; i < _global->userInformation->getUserSelectWorldData().at(id)->levels; ++i)
 	{
-		draw->drawSegment(BeginPoint[i], EndPoint[i], 2, Color4F(0, 1, 1, 0.6f));
+		draw->drawSegment(BeginPoint[i], EndPoint[i], 4, Color4F(0, 1, 1, 0.6f));
 		draw->runAction(RepeatForever::create(Sequence::create(MoveBy::create(0.05f, Vec2(0.1f, 0.1f)), MoveBy::create(0.05f, Vec2(-0.1f, -0.1f)), nullptr)));
 		auto LineAction = Sprite::createWithSpriteFrameName("LineAction.png");
 		LineAction->setPosition(EndPoint[i]);
@@ -524,9 +529,7 @@ void World_1::playProhibitMusic(Button* button)
 			switch (type)
 			{
 			case ui::Widget::TouchEventType::BEGAN:
-				AudioEngine::setVolume(AudioEngine::play2d(
-					_global->userInformation->getMusicPath().find("tap")->second), 
-					_global->userInformation->getSoundEffectVolume());
+				PlayMusic::playMusic("tap");
 				break;
 			case ui::Widget::TouchEventType::ENDED:
 				_global->prohibitId = AudioEngine::play2d("resources/Music/prohibit.ogg");
@@ -584,7 +587,7 @@ ui::Button* World_1::createButton(Node* node, const std::string& name, const Vec
 		!_global->userInformation->getUserSelectWorldData().at(0)->isBeginShowEggs)
 	{
 		_global->userInformation->getUserSelectWorldData().at(0)->isBeginShowEggs = true;
-		UserDefault::getInstance()->setBoolForKey("ISBEGINSHOWEGGS", true);
+		UserData::getInstance()->caveUserData("ISBEGINSHOWEGGS", true);
 	}
 
 	createButtonListener(sprite4, _level);
@@ -602,13 +605,13 @@ void World_1::createButtonListener(ui::Button* button, const int& ID)
 			switch (type)
 			{
 			case ui::Widget::TouchEventType::BEGAN:
-				AudioEngine::setVolume(AudioEngine::play2d(
-					_global->userInformation->getMusicPath().find("tap")->second),
-					_global->userInformation->getSoundEffectVolume());
+				PlayMusic::playMusic("tap");
 				break;
 			case ui::Widget::TouchEventType::ENDED:
 				
-				UserDefault::getInstance()->setFloatForKey("WORLD_1_POSITION", _scrollView->getScrolledPercentHorizontal()); /* 记录位置 */
+				UserData::getInstance()->caveUserData(
+					_global->userInformation->getGameDifficulty() ? "WORLD_1_POSITION_DIF" : "WORLD_1_POSITION",
+					_scrollView->getScrolledPercentHorizontal()); /* 记录位置 */
 
 				//读取关卡信息
 				OpenLevelData::getInstance()->createLevelData(ID, LevelName);
@@ -649,8 +652,7 @@ void World_1::readWorldLevel()
 			_global->userInformation->getUserCaveFileNumber()).c_str(), 1);
 	}
 	_global->userInformation->getUserSelectWorldData().at(0)->levels =
-		UserDefault::getInstance()->getIntegerForKey(worldFile);
-	
+		UserData::getInstance()->openIntUserData(worldFile);
 	
 	if (_global->userInformation->getUserSelectWorldData().at(0)->levels == 0)
 	{
@@ -671,13 +673,13 @@ void World_1::createGoBack()
 			switch (type)
 			{
 			case ui::Widget::TouchEventType::BEGAN:
-				AudioEngine::setVolume(AudioEngine::play2d(
-					_global->userInformation->getMusicPath().find("gravebutton")->second),
-					_global->userInformation->getSoundEffectVolume());
+				PlayMusic::playMusic("gravebutton");
 				break;
 			case ui::Widget::TouchEventType::ENDED:
 
-				UserDefault::getInstance()->setFloatForKey("WORLD_1_POSITION", _scrollView->getScrolledPercentHorizontal()); /* 记录位置 */
+				UserData::getInstance()->caveUserData(
+					_global->userInformation->getGameDifficulty() ? "WORLD_1_POSITION_DIF" : "WORLD_1_POSITION",
+					_scrollView->getScrolledPercentHorizontal()); /* 记录位置 */
 
 				_global->userInformation->setMainToWorld(false);
 				Director::getInstance()->replaceScene(TransitionFade::create(0.5f, SelectWorldScene::createScene()));

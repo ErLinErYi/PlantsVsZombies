@@ -9,6 +9,7 @@
 
 #include "Zombies/Zombies.h"
 #include "Scenes/GameScene/GSData.h"
+#include "Based/PlayMusic.h"
 
 Bullet::Bullet() :
 	_node(nullptr)
@@ -95,9 +96,7 @@ void Bullet::bulletAttackHurtZombies(Zombies* zombie)
 		{
 			if (zombie->getZombieCurrentBodyShieldVolume() + zombie->getZombieCurrentHeadShieldVolume() + zombie->getZombieCurrentBloodVolume() <= _attack) /* Èç¹û½©Ê¬ËùÓÐÑªÁ¿Ð¡ÓÚ±¬Õ¨ÉËº¦£¨½©Ê¬ËÀÍö£© */
 			{
-				zombie->setZombieCurrentBloodVolume(0);
-				zombie->setZombieCurrentHeadShieldVolume(0);
-				zombie->setZombieCurrentBodyShieldVolume(0);
+				zombie->setZombieDeath(true);
 			}
 			else
 			{
@@ -213,7 +212,5 @@ void Bullet::playSoundEffect(SoundEffectType soundEffect)
 
 void Bullet::playSoundEffect(const std::string& MusicName)
 {
-	AudioEngine::setVolume(AudioEngine::play2d(
-		Global::getInstance()->userInformation->getMusicPath().find(MusicName)->second),
-		Global::getInstance()->userInformation->getSoundEffectVolume());
+	PlayMusic::playMusic(MusicName);
 }

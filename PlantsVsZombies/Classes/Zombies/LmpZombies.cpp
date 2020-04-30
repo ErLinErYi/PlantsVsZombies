@@ -12,7 +12,6 @@ LmpZombies::LmpZombies(Node* node)
 	_node = node;
 	_attackHeadSoundEffectType = 0;
 	_attackBodySoundEffectType = 0;
-	_animationId = 7;
 	_bloodVolume = 200;
 	_headShieldVolume = 0;
 	_bodyShieldVolume = 0;
@@ -80,12 +79,12 @@ void LmpZombies::zombieInjuredEventUpdate()
 
 void LmpZombies::setZombiePrimaryInjure()
 {
-	if (_animationId <= 7 && _animationId >= 1) /* ½©Ê¬¿ªÊ¼µô¸ì²² */
+	if (_bodyAnimationId == 1) /* ½©Ê¬¿ªÊ¼µô¸ì²² */
 	{
 		_zombiesAnimation->setAttachment("13", "0");
 		_zombiesAnimation->setAttachment("4", "0");
 		_zombiesAnimation->setAttachment("18", "9");
-		_animationId = 8;
+		_bodyAnimationId = 2;
 
 		zombieLoseArmAnimation("LmpZombiesArm");
 	}
@@ -93,12 +92,12 @@ void LmpZombies::setZombiePrimaryInjure()
 
 void LmpZombies::setZombieSecondaryInjure()
 {
-	if (_animationId == 8)
+	if (_bodyAnimationId == 2)
 	{
 		_zombiesAnimation->setAttachment("3", "0");
 		_zombiesAnimation->setAttachment("14", "0");
 		_zombiesAnimation->setAnimation(1, "Zombies_Die", false);
-		_animationId = 10;
+		_bodyAnimationId = 10;
 
 		zombieLoseHeadAnimation("ZombieImpHead");
 

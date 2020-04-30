@@ -28,7 +28,8 @@ enum class OptionScene_CheckBox
 	全屏,
 	高帧率,
 	鼠标隐藏,
-	拉伸显示
+	拉伸显示,
+	缓入动画
 };
 
 enum class OptionScene_Slider

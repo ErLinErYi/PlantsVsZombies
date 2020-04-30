@@ -10,16 +10,16 @@
 #include "ui/CocosGUI.h"
 #include "Scenes/EasterEggsScene/GameEasterEggs.h"
 #include "Scenes/WorldScene/SelectWorldScene.h"
+#include "Based/PlayMusic.h"
 
 string INFORMATION_TEXT = { "\
-		此游戏全部由本人自己制作完成。此版本为测试版(具有一定的可玩性)，今后会不定时更新（不断完善）。目前我己经把\
-该项目的源码开源发到GitHub。\n\
-		游戏大部分的素材来源于原版游戏素材，少部分搜集于网络，以及自己制作。\n\
-		（！！！重要）此游戏为同人游戏而且仅供学习交流使用，由于游戏资源可能存在侵权的问题，所以请勿用于商业用途，否则后果自负。\n\
-		目前有13种僵尸和13种植物，植物和僵尸的动画都是本人做的，由于做动画的能力有限，有些僵尸和植物动画不能实现，\
-如果可以做动画并且愿意帮助我的人可以私聊我（动画是用spine软件制作的骨骼动画）。如果发现程序有什么问题或者对游戏有\
-什么建议可以发送到我的qq：2117610943\n\
-       点击主菜单的下面三个按钮可以跳转到下载网址（百度网盘提取码3vzm)\n" };
+		此游戏全部由本人自己制作完成。此版本为测试版(具有一定的可玩性)。今后会不定时更新（不断完善）。目前我己经把该项目的源码开源发到GitHub。\n\
+		游戏大部分的素材来源于原版游戏素材，少部分搜集于网络，以及自己制作。\
+（！！！重要）此游戏为同人游戏而且仅供学习交流使用。该程序与原版游戏程序没有任何关系，程序不是基于原版的二次开发，\
+而是从零开始制作的。由于游戏资源可能存在侵权的问题，所以请勿用于商业用途，否则后果自负。\n\
+		目前有14种僵尸和13种植物，由于做动画的能力有限，有些僵尸和植物动画不能实现或动画与原版存在很大偏差。\
+（使用spine或者DragonBones制作的2D动画）。\nQQ:2117610943 QQ群:926707238 网址:https://lzpvz.rthe.net\n"
+};
 
 Scene* HelpScene::createHelpScene()
 {
@@ -30,8 +30,8 @@ bool HelpScene::init()
 {
 	if (!Scene::init()) return false;
 
-	AudioEngine::setVolume(AudioEngine::play2d(_global->userInformation->getMusicPath().find("paper")->second), _global->userInformation->getSoundEffectVolume());
-
+	PlayMusic::playMusic("paper");
+	
 	createBackground();
 	createText();
 	createButton();
@@ -82,7 +82,7 @@ void HelpScene::createGithubUrl()
 			switch (type)
 			{
 			case Widget::TouchEventType::BEGAN:
-				AudioEngine::setVolume(AudioEngine::play2d(_global->userInformation->getMusicPath().find("tap2")->second), _global->userInformation->getSoundEffectVolume());
+				PlayMusic::playMusic("tap2");
 				break;
 			case Widget::TouchEventType::ENDED:
 				Application::getInstance()->openURL("https://github.com/ErLinErYi/PlantsVsZombies");
@@ -112,7 +112,7 @@ void HelpScene::createButton()
 			switch (type)
 			{
 			case Widget::TouchEventType::BEGAN:
-				AudioEngine::setVolume(AudioEngine::play2d(_global->userInformation->getMusicPath().find("tap2")->second), _global->userInformation->getSoundEffectVolume());
+				PlayMusic::playMusic("tap2");
 				break;
 			case Widget::TouchEventType::ENDED:
 				Director::getInstance()->replaceScene(MainMenu::createScene());
@@ -127,7 +127,7 @@ void HelpScene::addScrollView()
 	_textScrollView = ui::ScrollView::create();
 	_textScrollView->setDirection(ui::ScrollView::Direction::VERTICAL);
 	_textScrollView->setAnchorPoint(Vec2::ANCHOR_MIDDLE);
-	_textScrollView->setContentSize(Size(1280.0f, 640.0f));
+	_textScrollView->setContentSize(Size(1280.f, 570.f));
 	_textScrollView->setPosition(_size / 2.0f);
 	_textScrollView->setBounceEnabled(true);
 	_textScrollView->setScrollBarPositionFromCorner(Vec2(20, 0));

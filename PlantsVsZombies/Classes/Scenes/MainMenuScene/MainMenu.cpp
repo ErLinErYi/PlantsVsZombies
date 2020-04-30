@@ -14,6 +14,8 @@
 #include "../WorldScene/SelectWorldScene.h"
 #include "../LoadingScene/LoadingScene.h"
 
+#include "Based/PlayMusic.h"
+
 MainMenu::MainMenu() :
 	_global(Global::getInstance()),
 	_director(Director::getInstance()),
@@ -40,9 +42,9 @@ bool MainMenu::init()
 	if (!Scene::init())return false;
 
 	/* 播放音乐 */
-	_global->changeBgMusic("mainmusic", true);
+	PlayMusic::changeBgMusic("mainmusic", true);
 
-	AudioEngine::setVolume(AudioEngine::play2d(_global->userInformation->getMusicPath().find("roll_in")->second), _global->userInformation->getSoundEffectVolume());
+	PlayMusic::playMusic("roll_in");
 
 	this->createMainSprite();     /* 创建主要精灵 */
 	this->createFlowers();        /* 创建花朵 */
@@ -138,9 +140,7 @@ void MainMenu::playMusicBleepInGameButtons(MainMenuButton button)
 		/* 如果没有播放音乐 */
 		if (!_playMusic[ID - 1])
 		{
-			AudioEngine::setVolume(AudioEngine::play2d(
-				_global->userInformation->getMusicPath().find("bleep")->second), 
-				_global->userInformation->getSoundEffectVolume());
+			PlayMusic::playMusic("bleep");
 			_playMusic[ID - 1] = true;
 		}
 	}
@@ -163,9 +163,7 @@ void MainMenu::playMusicBleepInMainButtons(int ID, const Vec2& vec2)
 		/* 如果没有播放音乐 */
 		if (!_playMusic[ID + 4])
 		{
-			AudioEngine::setVolume(AudioEngine::play2d(
-				_global->userInformation->getMusicPath().find("bleep")->second),
-				_global->userInformation->getSoundEffectVolume());
+			PlayMusic::playMusic("bleep");
 			_playMusic[ID + 4] = true;
 		}
 	}
@@ -272,9 +270,7 @@ void MainMenu::createFlowers(const float& Scale, const Vec2& vec2, const std::st
 		points.x -= 606;// x轴减去父图的相对坐标
 		if (Flower->getBoundingBox().containsPoint(points))
 		{
-			AudioEngine::setVolume(AudioEngine::play2d(
-				_global->userInformation->getMusicPath().find("shoop")->second), 
-				_global->userInformation->getSoundEffectVolume());
+			PlayMusic::playMusic("shoop");
 			switch (ID)
 			{
 			case 1:
@@ -313,10 +309,11 @@ void MainMenu::createAnimation()
 	auto iter = _global->userInformation->getAnimationData().find("powerup");
 	if (iter != _global->userInformation->getAnimationData().end())/* 如果可以找到 */
 	{
-		auto Littlesprite = SkeletonAnimation::createWithData(iter->second);
-		Littlesprite->setPosition(Vec2(300, 270));
-		Littlesprite->setAnimation(0, "animation", true);
-		this->addChild(Littlesprite);
+		auto littlesprite = SkeletonAnimation::createWithData(iter->second);
+		littlesprite->setPosition(Vec2(600, 300));
+		littlesprite->setAnimation(0, "animation", true);
+		littlesprite->setScale(0.5f);
+		this->addChild(littlesprite);
 	}
 
 	/* 创建叶子动画 */
@@ -378,9 +375,7 @@ void MainMenu::createMouseListener()
 	{
 		if (static_cast<bool>(checkCurInButtons()))
 		{
-			AudioEngine::setVolume(AudioEngine::play2d(
-				_global->userInformation->getMusicPath().find("gravebutton")->second), 
-				_global->userInformation->getSoundEffectVolume());
+			PlayMusic::playMusic("gravebutton");
 		}
 		switch (checkCurInButtons())
 		{
@@ -459,7 +454,7 @@ void MainMenu::createMainSprite()
 		_sprite[i - 5] = Sprite::createWithSpriteFrameName(String[i] + ".png");
 	}
 
-	Size size[] = { {1920, 1080},{1440, 700},{785, 1140},{1314, 1008},{586, 300},{184, 80} };
+	Size size[] = { {1930, 1090},{1440, 700},{785, 1140},{1314, 1008},{586, 300},{184, 80} };
 	for (int i = 0; i < 6; i++)
 	{
 		_sprite[i]->setContentSize(size[i]);
@@ -517,11 +512,33 @@ void MainMenu::createMainSprite()
 		_mainButton[i]->setContentSize(buttonSize[i]);
 		_sprite[3]->addChild(_mainButton[i]);
 	}
+
+
+	char worldFile[128], worldFile1[128];
+	snprintf(worldFile, 128, _global->userInformation->getSystemCaveFileName(_global->userInformation->getUserCaveFileNumber()).c_str(), 1);
+	snprintf(worldFile1, 128, _global->userInformation->getSystemDifCaveFileName(_global->userInformation->getUserCaveFileNumber()).c_str(), 1);
+	if (_global->userInformation->getIsShowEggs() &&
+		(UserData::getInstance()->openIntUserData(worldFile) >= 52 || UserData::getInstance()->openIntUserData(worldFile1) >= 52))
+	{
+		auto trophy = ui::Button::create("trophy.png", "", "", TextureResType::PLIST);
+		trophy->setPosition(Vec2(-350, 310));
+		_sprite[3]->addChild(trophy);
+
+		trophy->addTouchEventListener([this, trophy](Ref* sender, ui::Widget::TouchEventType type)
+			{
+				switch (type)
+				{
+				case cocos2d::ui::Widget::TouchEventType::ENDED:
+					PlayMusic::playMusic(rand() % 2 ? "trophy" : rand() % 2 ? "trophy1" : "trophy2");
+					break;
+				}
+			});
+	}
 }
 
 void MainMenu::createClouds()
 {
-	srand(unsigned(time(NULL)));
+	srand(unsigned(time(nullptr)));
 	const string String[] =
 	{
 		{"SelectorScreen_Cloud1"},{"SelectorScreen_Cloud2"},
@@ -555,9 +572,7 @@ void MainMenu::setCloudPosition(Node* node, int ID, const Vec2& vec2)
 
 void MainMenu::menuDataCallBack(Ref* pSender)
 {
-	AudioEngine::setVolume(AudioEngine::play2d(
-		_global->userInformation->getMusicPath().find("tap")->second),
-		_global->userInformation->getSoundEffectVolume());
+	PlayMusic::playMusic("tap");
 
 	setMouseListenerEnable(false);
 	auto input = InputDataMenu::create();
@@ -570,10 +585,8 @@ void MainMenu::menuDataCallBack(Ref* pSender)
 
 void MainMenu::menuOptionCallBack(Ref* pSender)
 {
-	AudioEngine::setVolume(AudioEngine::play2d(
-		_global->userInformation->getMusicPath().find("tap")->second), 
-		_global->userInformation->getSoundEffectVolume());
-
+	PlayMusic::playMusic("tap");
+	
 	setMouseListenerEnable(false);
 	auto option = OptionsMenu::create();
 	if (option)
@@ -585,10 +598,8 @@ void MainMenu::menuOptionCallBack(Ref* pSender)
 
 void MainMenu::menuQuitCallBack(Ref* pSender)
 {
-	AudioEngine::setVolume(AudioEngine::play2d(
-		_global->userInformation->getMusicPath().find("tap2")->second), 
-		_global->userInformation->getSoundEffectVolume());
-
+	PlayMusic::playMusic("tap2");
+	
 	setMouseListenerEnable(false);
 	auto quit = QuitMenu::create();
 	if (quit)
@@ -600,9 +611,8 @@ void MainMenu::menuQuitCallBack(Ref* pSender)
 
 void MainMenu::menuHelpCallBack(Ref* pSender)
 {
-	AudioEngine::setVolume(AudioEngine::play2d(
-		_global->userInformation->getMusicPath().find("tap2")->second), 
-		_global->userInformation->getSoundEffectVolume());
+	PlayMusic::playMusic("tap2");
+	
 	Director::getInstance()->replaceScene(TransitionCrossFade::create(0.5f, HelpScene::createHelpScene()));
 }
 

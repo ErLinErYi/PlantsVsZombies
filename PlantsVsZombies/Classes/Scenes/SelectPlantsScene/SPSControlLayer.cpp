@@ -8,6 +8,7 @@
 
 #include "SPSControlLayer.h"
 #include "Scenes/SelectPlantsScene/SPSQuitLayer.h"
+#include "Based/PlayMusic.h"
 
 SPSControlLayer::SPSControlLayer():
 	_global(Global::getInstance())
@@ -43,7 +44,7 @@ void SPSControlLayer::createButton()
 			switch (type)
 			{
 			case cocos2d::ui::Widget::TouchEventType::BEGAN:
-				AudioEngine::setVolume(AudioEngine::play2d(_global->userInformation->getMusicPath().find("gravebutton")->second), _global->userInformation->getSoundEffectVolume());
+				PlayMusic::playMusic("gravebutton");
 				break;
 			case cocos2d::ui::Widget::TouchEventType::ENDED:
 				createDialog();

@@ -20,3 +20,4 @@
 #include "Zombies/CommonDoorFlagZombies.h"
 #include "Zombies/ConeDoorFlagZombies.h"
 #include "Zombies/BucketDoorFlagZombies.h"
+#include "Zombies/SnowZombies.h"

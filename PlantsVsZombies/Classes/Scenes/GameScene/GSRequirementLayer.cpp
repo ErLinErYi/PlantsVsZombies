@@ -10,6 +10,7 @@
 #include "GameScene.h"
 
 #include "Based/GameType.h"
+#include "Based/PlayMusic.h"
 
 int pressKeySpace = 0;
 
@@ -48,9 +49,7 @@ void GSRequirementLayer::showRequirement()
 			switch (type)
 			{
 			case ui::Widget::TouchEventType::BEGAN:
-				AudioEngine::setVolume(AudioEngine::play2d(
-					Global::getInstance()->userInformation->getMusicPath().find("gravebutton")->second), 
-					Global::getInstance()->userInformation->getSoundEffectVolume());
+				PlayMusic::playMusic("gravebutton");
 				break;
 			case ui::Widget::TouchEventType::ENDED:
 				_requirement->setDelectDialogAction();
@@ -75,9 +74,7 @@ void GSRequirementLayer::keyboardControl()
 		{
 		case cocos2d::EventKeyboard::KeyCode::KEY_SPACE:                     /* ¿Õ¸ñ¼ü»Ö¸´ */
 			KeyBoard->setEnabled(false);
-			AudioEngine::setVolume(AudioEngine::play2d(
-				Global::getInstance()->userInformation->getMusicPath().find("tap")->second), 
-				Global::getInstance()->userInformation->getSoundEffectVolume());
+			PlayMusic::playMusic("tap");
 			_requirement->setDelectDialogAction();
 			this->runAction(Sequence::create(Spawn::create(DelayTime::create(0.2f), FadeOut::create(0.2f), nullptr),
 				CallFunc::create([&, KeyBoard]()

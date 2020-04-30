@@ -20,8 +20,6 @@ class GameScene :public SelectPlantsScene
 public:
 	CREATE_FUNC(GameScene);
 	static Scene* createScene();
-	static void setPauseGame(const bool pauseGame);
-
 
 CC_CONSTRUCTOR_ACCESS:
 	GameScene();
@@ -40,5 +38,4 @@ protected:
 private:
 	Global* _global;
 	Director* _director;
-	static bool _wetherPausegame;
 };

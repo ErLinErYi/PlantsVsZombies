@@ -12,7 +12,6 @@ ConeDoorZombies::ConeDoorZombies(Node* node)
 	_node = node;
 	_attackHeadSoundEffectType = 2;
 	_attackBodySoundEffectType = 1;
-	_animationId = 1;
 	_bloodVolume = 200;
 	_headShieldVolume = 600;
 	_bodyShieldVolume = 1200;
@@ -114,11 +113,11 @@ void ConeDoorZombies::zombieInjuredEventUpdate()
 
 void ConeDoorZombies::setZombieBodyShieldThirdInjure(const string& oldName, const string& newName)
 {
-	if (_animationId == 3) /* 身体护盾三级伤害 */
+	if (_bodyShieldAnimationId == 3) /* 身体护盾三级伤害 */
 	{
 		_zombiesAnimation->setAttachment("Zombie_screendoor", "tt_innerleg_foot3");
 		_attackBodySoundEffectType = 0;
-		_animationId = 4;
+		_bodyShieldAnimationId = 4;
 
 		_zombiesAnimation->addAnimation(0, "Zombies_Walk", true);
 	}
@@ -126,10 +125,10 @@ void ConeDoorZombies::setZombieBodyShieldThirdInjure(const string& oldName, cons
 
 void ConeDoorZombies::setZombieHeadShieldThirdInjure(const string& oldName, const string& newName)
 {
-	if (_animationId == 6) /* 头部护盾三级伤害 */
+	if (_headShieldAnimationId == 3) /* 头部护盾三级伤害 */
 	{
 		_zombiesAnimation->setAttachment("Zombie_bucket", "tt_innerleg_foot3");
-		_animationId = 7;
+		_headShieldAnimationId = 4;
 		_isHaveShield = false;
 		_attackHeadSoundEffectType = 0;
 

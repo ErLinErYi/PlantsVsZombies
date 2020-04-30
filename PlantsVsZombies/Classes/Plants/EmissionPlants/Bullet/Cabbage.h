@@ -17,6 +17,7 @@ public:
 	void createShadow() override;
 	void createCabbageExplode();
 	void setZombiePosition(const Vec2& position);
+	void setZombieSpeed(const float speed);
 
 CC_CONSTRUCTOR_ACCESS:
 	Cabbage(Node* node);
@@ -26,7 +27,9 @@ private:
 	bool getBulletIsSameLineWithZombie(Zombies* zombie);
 	bool getBulletIsEncounterWithZombie(Zombies* zombie);
 	void bulletAttackHurtZombies(Zombies* zombie) override;
+	Vec2 calculateZombiePosition();
 
 private:
 	Vec2 _zombiePosition;
+	float _zombieSpeed;
 };

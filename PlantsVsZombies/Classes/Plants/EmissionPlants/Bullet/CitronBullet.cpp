@@ -96,6 +96,7 @@ void CitronBullet::createShadow()
 	shadow->setScale(1.7f);
 	shadow->setName("shadow");
 	shadow->setPosition(Vec2(0, -35));
+	shadow->setOpacity(200);
 	shadow->setLocalZOrder(_bulletAnimation->getLocalZOrder());
 	_bulletAnimation->addChild(shadow, -1);
 }

@@ -18,6 +18,7 @@
 
 #include "Based/Car.h"
 #include "Based/Coin.h"
+#include "Based/PlayMusic.h"
 
 GSAnimationLayer::GSAnimationLayer(Node* node) :
 	_gameScene(node)
@@ -67,9 +68,7 @@ bool GSAnimationLayer::init()
 
 void GSAnimationLayer::plantPlants()
 {
-	AudioEngine::setVolume(AudioEngine::play2d(
-		_global->userInformation->getMusicPath().find(rand() % 2 == 0 ? "plant2" : "plant")->second), 
-		_global->userInformation->getSoundEffectVolume());
+	PlayMusic::playMusic(rand() % 2 == 0 ? "plant2" : "plant");
 
 	auto plants = createDifferentPlants();
 	plants->setPlantPosition(ROW_COLUMN_TO_POSITION(controlLayerInformation->_plantsPosition));
@@ -134,6 +133,7 @@ void GSAnimationLayer::createZombies()
 	case ZombiesType::CommonDoorFlagZombies:  zombies = new CommonDoorFlagZombies(this);  break;
 	case ZombiesType::ConeDoorFlagZombies:    zombies = new ConeDoorFlagZombies(this);    break;
 	case ZombiesType::BucketDoorFlagZombies:  zombies = new BucketDoorFlagZombies(this);  break;
+	case ZombiesType::SnowZombies:            zombies = new SnowZombies(this);            break;
 	default: break;
 	}
 	uniform_int_distribution<unsigned>number(0, 500);
@@ -168,9 +168,8 @@ void GSAnimationLayer::showCars()
 	{
 		this->runAction(Sequence::create(DelayTime::create(0.5f + 0.1 * i), CallFunc::create([=]()
 			{
-				AudioEngine::setVolume(AudioEngine::play2d(
-					_global->userInformation->getMusicPath().find("plastichit2")->second),
-					_global->userInformation->getSoundEffectVolume());
+				PlayMusic::playMusic("plastichit2");
+
 				auto car = new Car(this);
 				car->setPosition(Vec2(455, carpositions[i]));
 				car->showCar();

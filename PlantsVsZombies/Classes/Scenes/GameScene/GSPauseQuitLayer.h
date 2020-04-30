@@ -27,10 +27,11 @@ public:
 	static Layer* addLayer();
 	static void pauseLayer();
 	static void resumeLayer();
+	static int getPauseNumbers();
 	
 CC_CONSTRUCTOR_ACCESS:
 	GSPauseQuitLayer();
-	~GSPauseQuitLayer() {}
+	~GSPauseQuitLayer();
 	virtual bool init();
 
 protected:
@@ -45,5 +46,6 @@ protected:
 
 private:
 	LayerColor* _promptLayer;
+	static int _pauseNumbers;
 	static string _layerName[6];
 };

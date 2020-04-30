@@ -12,7 +12,6 @@ ConeZombies::ConeZombies(Node* node)
 	_node = node;
 	_attackHeadSoundEffectType = 2;
 	_attackBodySoundEffectType = 0;
-	_animationId = 4;
 	_bloodVolume = 200;
 	_headShieldVolume = 600;
 	_bodyShieldVolume = 0;
@@ -97,10 +96,10 @@ void ConeZombies::zombieInjuredEventUpdate()
 
 void ConeZombies::setZombieHeadShieldThirdInjure(const string& oldName, const string& newName)
 {
-	if (_animationId == 6) /* 护盾三级伤害 */
+	if (_headShieldAnimationId == 3) /* 护盾三级伤害 */
 	{
 		_zombiesAnimation->setAttachment("Zombie_bucket", "tt_innerleg_foot3");
-		_animationId = 7;
+		_headShieldAnimationId = 4;
 		_isHaveShield = false;
 		_attackHeadSoundEffectType = 0;
 

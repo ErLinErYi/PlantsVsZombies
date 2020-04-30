@@ -7,6 +7,7 @@
 
 #include "UpdateClient.h"
 #include "spine/spine-cocos2dx.h"
+#include "Based/PlayMusic.h"
 
 #include <stdio.h>
 
@@ -84,7 +85,7 @@ void UpdateClient::createButton(const std::string& name, Vec2& vec2, Update_Butt
 			switch (type)
 			{
 			case ui::Widget::TouchEventType::BEGAN:
-				AudioEngine::setVolume(AudioEngine::play2d(_global->userInformation->getMusicPath().find("gravebutton")->second), _global->userInformation->getSoundEffectVolume());
+				PlayMusic::playMusic("gravebutton");
 				break;
 			case ui::Widget::TouchEventType::ENDED:
 				switch (buttonType)
@@ -251,7 +252,7 @@ void UpdateClient::downloadData()
 	_explanText->setColor(Color3B::BLACK);
 	_explanText->setString("");
 
-	const static string sNameList = _global->userInformation->getGameText().find("资源名称")->second + UserInformation::getNewEditionName() + ".rar";
+	const static string sNameList = _global->userInformation->getGameText().find("资源名称")->second + UserInformation::getNewEditionName(true) + ".rar";
 	const static string path = _global->userInformation->getGameText().find("存放路径")->second + sNameList;
 
 	_downloader->createDownloadFileTask(_global->userInformation->getGameText().find("资源网址")->second, path, sNameList);

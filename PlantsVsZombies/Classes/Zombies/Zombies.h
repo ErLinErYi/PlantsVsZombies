@@ -11,7 +11,6 @@
 #include "cocos2d.h"
 #include "Based/LevelData.h"
 #include "spine/spine.h"
-#include "AudioEngine.h"
 #include "Based/GlobalVariable.h"
 #include "spine/spine-cocos2dx.h"
 
@@ -39,7 +38,8 @@ enum class ZombiesType
 	BucketFlagZombies,
 	CommonDoorFlagZombies,
 	ConeDoorFlagZombies,
-	BucketDoorFlagZombies
+	BucketDoorFlagZombies,
+	SnowZombies
 };
 
 class Zombies :public Node
@@ -420,6 +420,11 @@ protected:
 	virtual void playZombieSoundEffect(const string& name);
 
 	/**
+	 *显示僵尸肢体与护盾影子
+	 */
+	virtual void showZombieShadow(Node* node, const int posy);
+
+	/**
 	 *设置头部护盾一级损伤
 	 *参数：更换之前名字
 	 *参数：要更换的名字
@@ -477,12 +482,15 @@ private:
 	void setZombieAttributeForGameType(Node* sprite);
 	void setOpacityZombieAttribute();
 	void setZombieGLProgram();
+	bool getZombieWarning();
 	string& createZombieName();
 
 protected:
 	int _attackHeadSoundEffectType;           // 攻击头部音效   
 	int _attackBodySoundEffectType;           // 攻击身体音效     
-	int _animationId;                         // 动画编号
+	int _bodyAnimationId;                     // 身体动画编号
+	int _bodyShieldAnimationId;               // 身体护盾动画编号
+	int _headShieldAnimationId;               // 头部护盾动画编号
 	int _zombieTag;                           // 僵尸编号(暂未使用)
 	float _bloodVolume;                       // 血量
 	float _headShieldVolume;                  // 护盾血量
@@ -519,8 +527,10 @@ private:
 	GLProgramState* _highLightGLProgramState;
 	float _highLightIntensity;
 	bool _highLightFinished;
+	bool _redWarning;
 
 	static bool _zombieIsWin;
+	static int _zombiesNewDieNumbers;
 	static GLProgram* _normalGLProgram;
 	static GLProgram* _highLightGLProgram;
 	static GSGameEndLayer* _gameEndLayer;

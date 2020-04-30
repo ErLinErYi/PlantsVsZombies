@@ -89,7 +89,7 @@ private:
 	void showSeedBank();
 	void showShovelBank();
 	void createPlantsCard();
-	ProgressTimer* createProgressTimer(Button* button, const float _time, const int& id);
+	ProgressTimer* createProgressTimer(Button* button, const float _time, const unsigned int& id);
 	
 public:
 	MouseSelectImage* mouseSelectImage;                 //  Û±Í—°‘Ò

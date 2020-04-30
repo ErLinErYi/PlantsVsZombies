@@ -8,6 +8,7 @@
 #include "Coin.h"
 #include "Scenes/GameScene/GSData.h"
 #include "Scenes/GameScene/GSInformationLayer.h"
+#include "Based/PlayMusic.h"
 
 Coin::Coin(Node* node):
     _node(node)
@@ -69,18 +70,14 @@ void Coin::coinRecoveryAction(Coin* coin)
                 Global::getInstance()->userInformation->setCoinNumbers(
                     Global::getInstance()->userInformation->getCoinNumbers() + 1);
                 informationLayerInformation->updateCoinNumbers();
-                AudioEngine::setVolume(AudioEngine::play2d(
-                    Global::getInstance()->userInformation->getMusicPath().find("moneyfalls")->second),
-                    Global::getInstance()->userInformation->getSoundEffectVolume());
+                PlayMusic::playMusic("moneyfalls");
             }), DelayTime::create(5.0f),
         CallFunc::create([temporary]()
             {
                 temporary->getCoin()->setVisible(false);
             }), nullptr));
 
-    AudioEngine::setVolume(AudioEngine::play2d(
-        Global::getInstance()->userInformation->getMusicPath().find("coin")->second),
-        Global::getInstance()->userInformation->getSoundEffectVolume());
+    PlayMusic::playMusic("coin");
 }
 
 void Coin::deleteCoin(list<Coin*>::iterator& coin)
@@ -112,7 +109,5 @@ void Coin::coinInit()
         Sequence::create(DelayTime::create(0.25f), nullptr), nullptr));
     _coin->runAction(Sequence::create(DelayTime::create(15.f), CallFunc::create([=]() {_coin->setVisible(false); }), nullptr));
 
-    AudioEngine::setVolume(AudioEngine::play2d(
-        _global->userInformation->getMusicPath().find("moneyfalls")->second),
-        _global->userInformation->getSoundEffectVolume());
+    PlayMusic::playMusic("moneyfalls");
 }

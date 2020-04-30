@@ -24,9 +24,9 @@ enum class PlantsType;
 struct GameMapInformation
 {
 	GameMapInformation();
-	int plantsMap[5][9];      /* 植物种植地图 */
-	int rowNumbers;           /* 行数 */
-	int columnNumbers;        /* 列数 */
+	int plantsMap[5][9];               /* 植物种植地图 */
+	unsigned int rowNumbers;           /* 行数 */
+	unsigned int columnNumbers;        /* 列数 */
 };
 
 class GSControlLayer :public Layer
@@ -34,7 +34,7 @@ class GSControlLayer :public Layer
 public:
 	CREATE_FUNC(GSControlLayer);
 	void addLayer(Node* node, const int order, const string& name) { node->addChild(this, order, name); }
-	static void setPlantMapCanPlant(const int colum, const int row);
+	static void setPlantMapCanPlant(const unsigned int colum, const unsigned int row);
 
 CC_CONSTRUCTOR_ACCESS:
 	GSControlLayer();
@@ -89,7 +89,7 @@ public:
 	/**
 	 *对于进攻的不同波数创建不同数量僵尸
 	 */
-	int getZombiesNumbersForAppearFrequency(const int& ZombiesAppearFrequency);
+	int getZombiesNumbersForAppearFrequency(const unsigned int& ZombiesAppearFrequency);
 
 	/**
 	 *获取僵尸波数
@@ -126,7 +126,7 @@ public:
 	 * 1.传递参数设置
 	 * 2.自增加一
 	 */
-	void setZombiesAppearFrequency(const int zombiesAppearFrequency) { _zombiesAppearFrequency = zombiesAppearFrequency; }
+	void setZombiesAppearFrequency(const unsigned int zombiesAppearFrequency) { _zombiesAppearFrequency = zombiesAppearFrequency; }
 	void setZombiesAppearFrequency() { ++_zombiesAppearFrequency; }
 
 	/**
@@ -157,7 +157,7 @@ public:
 	/**
 	 *创建不同种类的僵尸
 	 */
-	ZombiesType createDifferentTypeZombies(const int& ZombiesAppearFrequency);
+	ZombiesType createDifferentTypeZombies(const unsigned int& ZombiesAppearFrequency);
 
 CC_CONSTRUCTOR_ACCESS:
 	ZombiesAppearControl();
@@ -172,7 +172,7 @@ private:
 	OpenLevelData* _openLevelData;
 	default_random_engine _random;             // 随机数引擎
 	set<int> _judgeZombieRow;                  // 判断僵尸所在行
-	int _zombiesPosition[5] =                  // 僵尸位置
+	unsigned int _zombiesPosition[5] =         // 僵尸位置
 	{
 		130,268,406,544,682
 	};

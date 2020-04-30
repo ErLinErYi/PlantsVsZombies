@@ -8,6 +8,7 @@
 
 #include "SPSQuitLayer.h"
 #include "spine/spine-cocos2dx.h"
+#include "Based/PlayMusic.h"
 
 using namespace spine;
 
@@ -59,12 +60,14 @@ void SPSQuitLayer::createDialog()
 	auto check2 = createCheckBox(Vec2(350, 265), Vec2(150, 265), _global->userInformation->getGameText().find("高帧率")->second, OptionScene_CheckBox::高帧率, "CheckBox2", "CheckBox", true);
 	auto check3 = createCheckBox(Vec2(800, 265), Vec2(600, 265), _global->userInformation->getGameText().find("鼠标显示")->second, OptionScene_CheckBox::鼠标隐藏, "CheckBox2", "CheckBox", true);
 	auto check4 = createCheckBox(Vec2(350, 190), Vec2(150, 190), _global->userInformation->getGameText().find("拉伸显示")->second, OptionScene_CheckBox::拉伸显示, "CheckBox2", "CheckBox", true);
+	auto check5 = createCheckBox(Vec2(800, 190), Vec2(600, 190), _global->userInformation->getGameText().find("缓入动画")->second, OptionScene_CheckBox::缓入动画, "CheckBox2", "CheckBox", true);
 
 	check->setScale(0.6f);
 	check1->setScale(0.6f);
 	check2->setScale(0.6f);
 	check3->setScale(0.6f);
 	check4->setScale(0.6f);
+	check5->setScale(0.6f);
 
 	/* 创建按钮 */
 	GSPauseQuitLayer::createButton(Vec2(210, 100), _global->userInformation->getGameText().find("查看图鉴")->second, PauseQuitLayer_Button::查看图鉴);
@@ -90,7 +93,7 @@ void SPSQuitLayer::createButton(const Vec2& vec2, const std::string name, PauseQ
 			switch (type)
 			{
 			case ui::Widget::TouchEventType::BEGAN:
-				AudioEngine::setVolume(AudioEngine::play2d(_global->userInformation->getMusicPath().find("gravebutton")->second), _global->userInformation->getSoundEffectVolume());
+				PlayMusic::playMusic("gravebutton");
 				break;
 			case ui::Widget::TouchEventType::ENDED:
 				switch (button_type)

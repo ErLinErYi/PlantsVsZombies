@@ -182,6 +182,8 @@ xcopy "$(ProjectDir)..\Resources" "$(OutDir)" /D /E /I /F /Y
     <ClCompile Include="..\Classes\Based\GameType.cpp" />
     <ClCompile Include="..\Classes\Based\GlobalVariable.cpp" />
     <ClCompile Include="..\Classes\Based\LevelData.cpp" />
+    <ClCompile Include="..\Classes\Based\PlayMusic.cpp" />
+    <ClCompile Include="..\Classes\Based\UserData.cpp" />
     <ClCompile Include="..\Classes\Based\UserInformation.cpp" />
     <ClCompile Include="..\Classes\Based\UserWinRequirement.cpp" />
     <ClCompile Include="..\Classes\PlantsVsZombies.cpp" />
@@ -251,6 +253,7 @@ xcopy "$(ProjectDir)..\Resources" "$(OutDir)" /D /E /I /F /Y
     <ClCompile Include="..\Classes\Zombies\ConeFlagZombies.cpp" />
     <ClCompile Include="..\Classes\Zombies\ConeZombies.cpp" />
     <ClCompile Include="..\Classes\Zombies\LmpZombies.cpp" />
+    <ClCompile Include="..\Classes\Zombies\SnowZombies.cpp" />
     <ClCompile Include="..\Classes\Zombies\Zombies.cpp" />
   </ItemGroup>
   <ItemGroup>
@@ -261,6 +264,8 @@ xcopy "$(ProjectDir)..\Resources" "$(OutDir)" /D /E /I /F /Y
     <ClInclude Include="..\Classes\Based\GameType.h" />
     <ClInclude Include="..\Classes\Based\GlobalVariable.h" />
     <ClInclude Include="..\Classes\Based\LevelData.h" />
+    <ClInclude Include="..\Classes\Based\PlayMusic.h" />
+    <ClInclude Include="..\Classes\Based\UserData.h" />
     <ClInclude Include="..\Classes\Based\UserInformation.h" />
     <ClInclude Include="..\Classes\Based\UserWinRequirement.h" />
     <ClInclude Include="..\Classes\PlantsVsZombies.h" />
@@ -332,6 +337,7 @@ xcopy "$(ProjectDir)..\Resources" "$(OutDir)" /D /E /I /F /Y
     <ClInclude Include="..\Classes\Zombies\ConeFlagZombies.h" />
     <ClInclude Include="..\Classes\Zombies\ConeZombies.h" />
     <ClInclude Include="..\Classes\Zombies\LmpZombies.h" />
+    <ClInclude Include="..\Classes\Zombies\SnowZombies.h" />
     <ClInclude Include="..\Classes\Zombies\Zombies-Files.h" />
     <ClInclude Include="..\Classes\Zombies\Zombies.h" />
   </ItemGroup>

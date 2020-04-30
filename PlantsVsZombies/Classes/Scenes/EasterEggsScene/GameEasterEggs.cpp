@@ -8,6 +8,7 @@
 #include "GameEasterEggs.h"
 
 #include "Scenes/MainMenuScene/QuitScene.h"
+#include "Based/PlayMusic.h"
 
 
 GameEasterEggs::GameEasterEggs():
@@ -192,7 +193,7 @@ void GameEasterEggs::renewCallBack()
 
 void GameEasterEggs::createEggText()
 {
-	_audioId = _global->changeBgMusic("ZombiesWinEggs", false);
+	_audioId = PlayMusic::changeBgMusic("ZombiesWinEggs", false);
 	AudioEngine::setVolume(_audioId, 1.0f);
 
 	auto sumTime = QuitMenu::getSumRunTime();
@@ -207,12 +208,11 @@ void GameEasterEggs::createEggText()
 直到去年暑假（2018年）我开始制作，暑假做了大约一个多月。但是由于能力有限，制作出的游戏根本没有可玩性。最后不得不放弃了制作。\
 但是我并没有真正的放弃，时隔一年（2019年）的暑假我从新开始制作植物大战僵尸。经过两三个月的学习与开发，终于制作出了一个具有\
 可玩性的测试版。游戏制作是一个困难而且艰辛的过程，期间遇到过无数问题，有过放弃，也有过兴奋。最终我坚持了下来！\n\
-      下次可能的更新有增加植物以及僵尸种类，增加商店系统以及图鉴系统，开一个新的世界，增加游戏种类，新增小游戏等等。\n \
-      目前有7种僵尸和11种植物，植物和僵尸的动画都是本人做的，由于做动画的能力有限，有些僵尸和植物动画不能实现，\
-如果可以做动画并且愿意帮助我的人可以私聊我（动画是用spine软件制作的骨骼动画）。今后的更新是不定时的，可能会很慢。本人qq：2117610943\n\n" };
+      目前有14种僵尸和13种植物，植物和僵尸的动画都是本人做的，由于做动画的能力有限，有些僵尸和植物动画不能实现。\
+（使用spine或者DragonBones制作的2D动画）。今后的更新是不定时的，可能会很慢。本人qq：2117610943 QQ群：926707238\n\n" };
 
 	auto Eggstext = Label::createWithTTF("", GAME_FONT_NAME_1, 36);
-	Eggstext->setString(buff + "游戏过程中经历 " + std::to_string(_global->userInformation->getBreakThroughnumbers()) +
+	Eggstext->setString(buff + "游戏过程中经历 " + std::to_string(_global->userInformation->getBreakThroughNumbers()) +
 		" 次闯关失败！\n游戏过程中使用 " + std::to_string(_global->userInformation->getUsePlantsNumbers()) +
 		" 株植物进行防御！\n游戏过程中共有 " + std::to_string(_global->userInformation->getKillZombiesNumbers()) + " 个僵尸牺牲了！\n" +
 		UserDefault::getInstance()->getStringForKey("FIRSTRUNTIME") + " 是你第一次运行此游戏的时间！\n" +
@@ -273,7 +273,7 @@ void GameEasterEggs::musicCallBack()
 		{
 			this->getChildByName("Text")->setVisible(false);
 
-			_global->changeBgMusic("mainmusic", true);
+			PlayMusic::changeBgMusic("mainmusic", true);
 			
 			/* 创建按钮 */
 			auto button = ui::Button::create("SeedChooser_Button2.png", "SeedChooser_Button2_Glow.png", "", TextureResType::PLIST);
@@ -288,7 +288,7 @@ void GameEasterEggs::musicCallBack()
 					switch (type)
 					{
 					case ui::Widget::TouchEventType::BEGAN:
-						AudioEngine::setVolume(AudioEngine::play2d(_global->userInformation->getMusicPath().find("tap2")->second), _global->userInformation->getSoundEffectVolume());
+						PlayMusic::playMusic("tap2");
 						break;
 					case ui::Widget::TouchEventType::ENDED:
 						Director::getInstance()->popScene();

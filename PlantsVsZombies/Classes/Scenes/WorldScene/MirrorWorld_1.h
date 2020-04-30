@@ -18,7 +18,7 @@ CC_CONSTRUCTOR_ACCESS:
     MirrorWorld_1();
 
 protected:
-    virtual void addScrollView() override;
+    virtual void createScrollView() override;
     virtual void readWorldLevel() override;
     virtual ui::Button* createButton(Node* node, const std::string& name, const Vec2& position) override;
     virtual void createButtonListener(ui::Button* button, const int& ID) override;

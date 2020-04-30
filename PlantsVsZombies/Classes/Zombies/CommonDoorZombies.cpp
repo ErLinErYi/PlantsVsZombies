@@ -12,7 +12,6 @@ CommonDoorZombies::CommonDoorZombies(Node* node)
 	_node = node;
 	_attackHeadSoundEffectType = 0;
 	_attackBodySoundEffectType = 1;
-	_animationId = 1;
 	_bloodVolume = 200;
 	_headShieldVolume = 0;
 	_bodyShieldVolume = 1200;
@@ -101,10 +100,10 @@ void CommonDoorZombies::zombieInjuredEventUpdate()
 
 void CommonDoorZombies::setZombieBodyShieldThirdInjure(const string& oldName, const string& newName)
 {
-	if (_animationId == 3) /* 护盾三级伤害 */
+	if (_bodyShieldAnimationId == 3) /* 护盾三级伤害 */
 	{
 		_zombiesAnimation->setAttachment("Zombie_screendoor", "tt_innerleg_foot3");
-		_animationId = 5;
+		_bodyShieldAnimationId = 4;
 		_isHaveShield = false;
 		_attackBodySoundEffectType = 0;
 	}

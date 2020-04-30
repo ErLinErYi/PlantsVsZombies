@@ -7,7 +7,10 @@
  */
 
 #include "InputDataScene.h"
+#include "../LoadingScene/LoadingScene.h"
 #include "Based/GlobalVariable.h"
+#include "Based/UserData.h"
+#include "Based/PlayMusic.h"
 
 #define FontSize 14
 
@@ -70,7 +73,7 @@ void InputDataMenu::createDialog()
 	/* if not read data, read it */
 	if (_global->userInformation->getUserCaveFileNumber() == -1)
 	{
-		_caveFileNumber = UserDefault::getInstance()->getIntegerForKey("USERDATANUMBER");
+		_caveFileNumber = UserData::getInstance()->openIntUserData("USERDATANUMBER");
 		_dataButton.find(_caveFileNumber)->second->setColor(Color3B::YELLOW);
 	}
 	else
@@ -81,8 +84,8 @@ void InputDataMenu::createDialog()
 
 	/* 创建按钮 */
 	this->createButtons(_caveFileDialog, _global->userInformation->getGameText().find("确定")->second, Vec2(110, 70), 1.0f, 3);
-	this->createButtons(_caveFileDialog, _global->userInformation->getGameText().find("取消")->second, Vec2(245, 70), 1.0f, 4);
-	this->createButtons(_caveFileDialog, _global->userInformation->getGameText().find("重命名")->second, Vec2(380, 70), 1.0f, 5);
+	this->createButtons(_caveFileDialog, _global->userInformation->getGameText().find("取消")->second, Vec2(380, 70), 1.0f, 4);
+	this->createButtons(_caveFileDialog, _global->userInformation->getGameText().find("重命名")->second, Vec2(245, 70), 1.0f, 5);
 
 	/* 创建监听 */
 	this->createTouchtListener(_caveFileDialog);
@@ -167,7 +170,6 @@ void InputDataMenu::CreateInputDialog()
 	this->createTouchtListener(_inputDataDialog);
 }
 
-
 void InputDataMenu::createButtons(Sprite* sprite, const std::string &Label, Vec2 &vec2,const float& scale, const int& ID)
 {
 	auto button = Button::create("button.png", "button_down.png", "", TextureResType::PLIST);
@@ -181,7 +183,7 @@ void InputDataMenu::createButtons(Sprite* sprite, const std::string &Label, Vec2
 		switch (type)
 		{
 		case Widget::TouchEventType::BEGAN:
-			AudioEngine::setVolume(AudioEngine::play2d(_global->userInformation->getMusicPath().find("gravebutton")->second), _global->userInformation->getSoundEffectVolume());
+			PlayMusic::playMusic("gravebutton");
 			break;
 		case Widget::TouchEventType::ENDED:
 			switch (ID)
@@ -199,11 +201,18 @@ void InputDataMenu::createButtons(Sprite* sprite, const std::string &Label, Vec2
 			case 3:
 				UserDefault::getInstance()->setIntegerForKey("USERDATANUMBER", _caveFileNumber); /* 记录所选存档 */
 				_global->userInformation->setUserCaveFileNumber(_caveFileNumber);
+				UserData::getInstance()->createNewDocument();
+				LoadingScene::loadUserFileData();
 
 				/* 读取所选存档的名字并更新 */
-				if (UserDefault::getInstance()->getStringForKey(_global->userInformation->getUserCaveFileNameKey(_global->userInformation->getUserCaveFileNumber()).c_str()) != "")
+				if (UserDefault::getInstance()->getStringForKey(
+					_global->userInformation->getUserCaveFileNameKey(
+						_global->userInformation->getUserCaveFileNumber()).c_str()) != "")
 				{
-					_global->userInformation->setUserName(UserDefault::getInstance()->getStringForKey(_global->userInformation->getUserCaveFileNameKey(_global->userInformation->getUserCaveFileNumber()).c_str()));
+					_global->userInformation->setUserName(
+						UserDefault::getInstance()->getStringForKey(
+							_global->userInformation->getUserCaveFileNameKey(
+								_global->userInformation->getUserCaveFileNumber()).c_str()));
 				}
 				else
 				{
@@ -212,6 +221,8 @@ void InputDataMenu::createButtons(Sprite* sprite, const std::string &Label, Vec2
 				_global->userInformation->setIsUpdate(true);
 
 				deleteDialog();
+
+				Director::getInstance()->replaceScene(MainMenu::createScene());
 				break;
 			case 4:
 				deleteDialog();
@@ -241,7 +252,7 @@ void InputDataMenu::createDataButton(const std::string& Labels, Vec2& vec2, cons
 			switch (type)
 			{
 			case Widget::TouchEventType::BEGAN:
-				AudioEngine::setVolume(AudioEngine::play2d(_global->userInformation->getMusicPath().find("gravebutton")->second), _global->userInformation->getSoundEffectVolume());
+				PlayMusic::playMusic("gravebutton");
 				break;
 			case Widget::TouchEventType::ENDED:
 				_caveFileNumber = ID;
@@ -294,7 +305,9 @@ void InputDataMenu::caveData()
 	if (strlen(_textField->getString().c_str()))
 	{
 		_global->userInformation->setUserName(_textField->getString());
-		UserDefault::getInstance()->setStringForKey(_global->userInformation->getUserCaveFileNameKey(_caveFileNumber).c_str(), _global->userInformation->getUserName());
+		UserDefault::getInstance()->setStringForKey(
+			_global->userInformation->getUserCaveFileNameKey(
+				_caveFileNumber).c_str(), _global->userInformation->getUserName());
 		_global->userInformation->setIsUpdate(true);
 		_global->userInformation->setUserCaveFileName(_caveFileNumber, _global->userInformation->getUserName());
 	}
@@ -356,7 +369,9 @@ Label* InputDataMenu::onTextFieldDeleteBackward()
 	int repeatTime = 5;
 	label->setPosition(beginPos);
 
-	auto seq = Sequence::create(Spawn::create(MoveTo::create(duration, endPos),Repeat::create(RotateBy::create(rotateDuration, (rand() % 2) ? 360 : -360),repeatTime),FadeOut::create(duration),nullptr),
+	auto seq = Sequence::create(Spawn::create(MoveTo::create(duration, endPos)
+		,Repeat::create(RotateBy::create(rotateDuration, (rand() % 2) ? 360 : -360),repeatTime),
+		FadeOut::create(duration),nullptr),
 		CallFunc::create([=]() 
 			{
 				_inputDataDialog->removeChildByName("label");

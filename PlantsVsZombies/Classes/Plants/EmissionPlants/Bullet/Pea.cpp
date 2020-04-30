@@ -55,6 +55,7 @@ void Pea::createShadow()
 	shadow->setScale(1.7f);
 	shadow->setName("shadow");
 	shadow->setPosition(Vec2(0, -155));
+	shadow->setOpacity(200);
 	shadow->setLocalZOrder(_bulletAnimation->getLocalZOrder());
 	_bulletAnimation->addChild(shadow, -1);
 }
@@ -132,7 +133,7 @@ void Pea::attackZombies()
 float Pea::getZombieInExplodeRange(Zombies* zombie)
 {
 	/* ½©Ê¬ÊÇ·ñÔÚ±¬Õ¨·¶Î§ÅÐ¶Ï */
-	return zombie->getZombieAnimation()->getPositionX() - _bulletAnimation->getPositionX();
+	return fabs(zombie->getZombieAnimation()->getPositionX() - _bulletAnimation->getPositionX());
 }
 
 void Pea::createPeaExplode()

@@ -8,6 +8,8 @@
 
 #include "OptionsSence.h"
 #include "Based/GlobalVariable.h"
+#include "Based/UserData.h"
+#include "Based/PlayMusic.h"
 
 OptionsMenu::OptionsMenu():
 	_userDefault(UserDefault::getInstance()),
@@ -60,9 +62,12 @@ void OptionsMenu::createDialog()
 	this->createCheckBox(Vec2(300, 175), Vec2(140, 175), _global->userInformation->getGameText().find("拉伸显示")->second, OptionScene_CheckBox::拉伸显示, "options_checkbox0", "options_checkbox1");
 
 	/* 创建彩蛋 */
+	char worldFile[128], worldFile1[128];
+	snprintf(worldFile, 128, _global->userInformation->getSystemCaveFileName(_global->userInformation->getUserCaveFileNumber()).c_str(), 1);
+	snprintf(worldFile1, 128, _global->userInformation->getSystemDifCaveFileName(_global->userInformation->getUserCaveFileNumber()).c_str(), 1);
+
 	if (_global->userInformation->getIsShowEggs() &&
-		(UserDefault::getInstance()->getIntegerForKey(_global->userInformation->getSystemCaveFileName(_global->userInformation->getUserCaveFileNumber()).c_str()) >= 52 ||
-			UserDefault::getInstance()->getIntegerForKey(_global->userInformation->getSystemDifCaveFileName(_global->userInformation->getUserCaveFileNumber()).c_str()) >= 52))
+		(UserData::getInstance()->openIntUserData(worldFile) >= 52 || UserData::getInstance()->openIntUserData(worldFile1) >= 52))
 	{
 		auto button = Button::create("button.png", "button_down.png", "", TextureResType::PLIST);
 		button->setTitleLabel(label("制作者", 20, Vec2(0, 0), 0, Color3B::GRAY, 0.5f));
@@ -74,7 +79,7 @@ void OptionsMenu::createDialog()
 				switch (type)
 				{
 				case Widget::TouchEventType::BEGAN:
-					AudioEngine::setVolume(AudioEngine::play2d(_global->userInformation->getMusicPath().find("gravebutton")->second), _global->userInformation->getSoundEffectVolume());
+					PlayMusic::playMusic("gravebutton");
 					break;
 				case Widget::TouchEventType::ENDED:
 					Director::getInstance()->pushScene(TransitionFade::create(0.5f, GameEasterEggs::createScene()));
@@ -193,6 +198,9 @@ CheckBox* OptionsMenu::createCheckBox(Vec2 &vec2, Vec2 &vec2_, const std::string
 	case OptionScene_CheckBox::拉伸显示:
 		checkbox->setSelected(_global->userInformation->getIsSelectStretchingShow() == cocos2d::ui::CheckBox::EventType::SELECTED ? true : false);
 		break;
+	case OptionScene_CheckBox::缓入动画:
+		checkbox->setSelected(_global->userInformation->getIsEaseAnimation() == cocos2d::ui::CheckBox::EventType::SELECTED ? true : false);
+		break;
 	default:
 		break;
 	}
@@ -221,13 +229,17 @@ CheckBox* OptionsMenu::createCheckBox(Vec2 &vec2, Vec2 &vec2_, const std::string
 				_global->userInformation->setFps(60);
 				break;
 			case OptionScene_CheckBox::鼠标隐藏: /* 鼠标隐藏 */
-				_userDefault->setBoolForKey("CURSORHIDE", true);
+				UserData::getInstance()->caveUserData("CURSORHIDE", true);
 				_global->userInformation->setIsSelectCursorNotHide(CheckBox::EventType::SELECTED);
 				break;
 			case OptionScene_CheckBox::拉伸显示: /* 拉伸显示 */
 				_userDefault->setBoolForKey("STRETCHINGSHOW", true);
 				_director->getOpenGLView()->setDesignResolutionSize(_director->getWinSize().width, _director->getWinSize().height, ResolutionPolicy::EXACT_FIT);
 				_global->userInformation->setIsSelectStretchingShow(CheckBox::EventType::SELECTED);
+				break;
+			case OptionScene_CheckBox::缓入动画: 
+				UserData::getInstance()->caveUserData("EASEANIMATION", true);
+				_global->userInformation->setIsEaseAnimation(CheckBox::EventType::SELECTED);
 				break;
 			default:
 				break;
@@ -253,13 +265,17 @@ CheckBox* OptionsMenu::createCheckBox(Vec2 &vec2, Vec2 &vec2_, const std::string
 				_global->userInformation->setFps(45);
 				break;
 			case OptionScene_CheckBox::鼠标隐藏:
-				_userDefault->setBoolForKey("CURSORHIDE", false);
+				UserData::getInstance()->caveUserData("CURSORHIDE", false);
 				_global->userInformation->setIsSelectCursorNotHide(CheckBox::EventType::UNSELECTED);
 				break;
 			case OptionScene_CheckBox::拉伸显示:
 				_userDefault->setBoolForKey("STRETCHINGSHOW", false);
 				_director->getOpenGLView()->setDesignResolutionSize(_director->getWinSize().width, _director->getWinSize().height, ResolutionPolicy::SHOW_ALL);
 				_global->userInformation->setIsSelectStretchingShow(CheckBox::EventType::UNSELECTED);
+				break;
+			case OptionScene_CheckBox::缓入动画:
+				UserData::getInstance()->caveUserData("EASEANIMATION", false);
+				_global->userInformation->setIsEaseAnimation(CheckBox::EventType::UNSELECTED);
 				break;
 			default:
 				break;
@@ -294,7 +310,7 @@ void OptionsMenu::createButton()
 		switch (type)
 		{
 		case Widget::TouchEventType::BEGAN:
-			AudioEngine::setVolume(AudioEngine::play2d(_global->userInformation->getMusicPath().find("gravebutton")->second), _global->userInformation->getSoundEffectVolume());
+			PlayMusic::playMusic("gravebutton");
 			break;
 		case Widget::TouchEventType::ENDED:
 			deleteDialog();

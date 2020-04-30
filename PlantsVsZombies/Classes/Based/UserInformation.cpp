@@ -19,10 +19,10 @@ UserInformation::UserInformation():
 , _systemCaveFileName{ "WORLD_%d_LEVELS_DIF","WORLD_%d_LEVELS_2_DIF","WORLD_%d_LEVELS_3_DIF","WORLD_%d_LEVELS_4_DIF","WORLD_%d_LEVELS_5_DIF","WORLD_%d_LEVELS_6_DIF","WORLD_%d_LEVELS_7_DIF","WORLD_%d_LEVELS_8_DIF" }
 , _soundEffectVolume(0.5f)
 , _backGroundMusicVolume(0.2f)
-, _userCaveFileNumber(-1)
+, _userCaveFileNumber(0)
 , _killZombiesNumbers(0)
 , _usePlantsNumbers(0)
-, _breakThroughnumbers(0)
+, _breakThroughNumbers(0)
 , _sunNumbers(100)
 , _coinNumbers(0)
 , _nowFps(60)
@@ -39,22 +39,11 @@ UserInformation::UserInformation():
 , _stretchingShow(CheckBox::EventType::SELECTED)
 , _selectWorldName(WorldName::Mordern)
 {
-    for (int i = 0; i < 5; ++i)
-    {
-        WorldData* worldData = new WorldData();
-
-        _userSelectWorldData.push_back(worldData);
-    }
 }
 
 UserInformation::~UserInformation()
 {
-    for (auto worldName :_userSelectWorldData)
-    {
-        delete worldName;
-        worldName = nullptr;
-    }
-    _userSelectWorldData.clear();
+    deleteUserSelectWorldData();
 }
 
 vector<UserSelectCard>& UserInformation::getUserSelectCrads()
@@ -90,6 +79,11 @@ CheckBox::EventType UserInformation::getIsSelectCursorNotHide() const
 CheckBox::EventType UserInformation::getIsSelectStretchingShow() const
 {
     return _stretchingShow;
+}
+
+CheckBox::EventType UserInformation::getIsEaseAnimation() const
+{
+    return _easeAnimation;
 }
 
 map<string, spSkeletonData*>& UserInformation::getAnimationData()
@@ -182,9 +176,9 @@ int& UserInformation::getUsePlantsNumbers()
     return _usePlantsNumbers;
 }
 
-int& UserInformation::getBreakThroughnumbers()
+int& UserInformation::getBreakThroughNumbers()
 {
-    return _breakThroughnumbers;
+    return _breakThroughNumbers;
 }
 
 int UserInformation::getSunNumbers() const
@@ -251,12 +245,8 @@ string UserInformation::getClientEdition()
 {
     string str;
     for (auto s : _clientEdition)
-    {
         if ('.' != s)
-        {
             str += s;
-        }
-    }
     return str;
 }
 
@@ -265,9 +255,18 @@ void UserInformation::setNewEditionName(const string& editionName)
     _editionName = editionName;
 }
 
-string UserInformation::getNewEditionName()
+string UserInformation::getNewEditionName(bool dot)
 {
-    return _editionName;
+    if (!dot)
+    {
+        string str;
+        for (auto s : _editionName)
+            if (s != '.')
+                str += s;
+        return str;
+    }
+    else
+        return _editionName;
 }
 
 bool UserInformation::getUpdateRequired()
@@ -345,9 +344,9 @@ void UserInformation::setUsePlantsNumbers(const int number)
     _usePlantsNumbers = number;
 }
 
-void UserInformation::setBreakThroughnumbers(const int number)
+void UserInformation::setBreakThroughNumbers(const int number)
 {
-    _breakThroughnumbers = number;
+    _breakThroughNumbers = number;
 }
 
 void UserInformation::setSunNumbers(const int number)
@@ -417,7 +416,33 @@ void UserInformation::setIsShowInformation(CheckBox::EventType isShow)
     _showInformation = isShow;
 }
 
+void UserInformation::setIsEaseAnimation(CheckBox::EventType easeAnimation)
+{
+    _easeAnimation = easeAnimation;
+}
+
 void UserInformation::setIsMirrorScene(const bool isMirror)
 {
     _isMirrorScene = isMirror;
+}
+
+void UserInformation::newUserSelectWorldData()
+{
+    deleteUserSelectWorldData();
+    for (int i = 0; i < 3; ++i)
+    {
+        WorldData* worldData = new WorldData();
+
+        _userSelectWorldData.push_back(worldData);
+    }
+}
+
+void UserInformation::deleteUserSelectWorldData()
+{
+    for (auto worldName : _userSelectWorldData)
+    {
+        delete worldName;
+        worldName = nullptr;
+    }
+    _userSelectWorldData.clear();
 }

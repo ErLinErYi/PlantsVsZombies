@@ -15,6 +15,7 @@
 #include "Scenes/GameScene/GameScene.h"
 
 #include "Based/GameType.h"
+#include "Based/PlayMusic.h"
 
 SelectPlantsScene::SelectPlantsScene() :
 	_controlLayer(nullptr),
@@ -24,7 +25,7 @@ SelectPlantsScene::SelectPlantsScene() :
 	_director(Director::getInstance()),
 	_global(Global::getInstance())
 {
-	_global->changeBgMusic("mainmusic.mo3.1", true);
+	PlayMusic::changeBgMusic("mainmusic.mo3.1", true);
 }
 
 SelectPlantsScene::~SelectPlantsScene()
@@ -99,7 +100,7 @@ void SelectPlantsScene::eventUpdate(float Time)
 		if (_scrollView->getContentOffset().x >= SCROLLLEFTFINISHED)
 		{
 			/* 播放音乐 */
-			AudioEngine::setVolume(AudioEngine::play2d(_global->userInformation->getMusicPath().find("readysetplant")->second), _global->userInformation->getSoundEffectVolume());
+			PlayMusic::playMusic("readysetplant");
 			/* 取消定时函数 */
 			this->unschedule(schedule_selector(SelectPlantsScene::eventUpdate));
 
@@ -164,7 +165,10 @@ void SelectPlantsScene::readyTextCallBack(Node* node, const std::string& name, c
 		_global->userInformation->setUserSelectCrads(_spriteLayer->seedBankButton);
 		_global->userInformation->setSunNumbers(100); //设定初始阳光数 
 
-		Director::getInstance()->replaceScene(TransitionFade::create(1.f, GameScene::createScene()));
+		if (_global->userInformation->getIsEaseAnimation() == ui::CheckBox::EventType::SELECTED)
+			Director::getInstance()->replaceScene(TransitionFade::create(1.f, GameScene::createScene()));
+		else
+			Director::getInstance()->replaceScene(GameScene::createScene());
 		break;
 	}
 }

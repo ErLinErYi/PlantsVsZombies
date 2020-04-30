@@ -11,8 +11,10 @@
 #include "SelectWorldScene.h"
 #include "../MainMenuScene/MainMenu.h"
 
-#include "AudioEngine.h"
 #include "Based/GlobalVariable.h"
+#include "Based/UserData.h"
+#include "Based/PlayMusic.h"
+#include "AudioEngine.h"
 
 Scene* SelectWorldScene::createScene()
 {
@@ -79,9 +81,7 @@ void SelectWorldScene::createGoBack()
 			switch (type)
 			{
 			case ui::Widget::TouchEventType::BEGAN:
-				AudioEngine::setVolume(AudioEngine::play2d(
-					_global->userInformation->getMusicPath().find("gravebutton")->second), 
-					_global->userInformation->getSoundEffectVolume());
+				PlayMusic::playMusic("gravebutton");
 				break;
 			case ui::Widget::TouchEventType::ENDED:
 				Director::getInstance()->replaceScene(MainMenu::createScene());
@@ -92,8 +92,8 @@ void SelectWorldScene::createGoBack()
 
 void SelectWorldScene::createSelectDifficulty()
 {
-	_global->userInformation->setGameDifficulty(UserDefault::getInstance()->getIntegerForKey("DIFFICULTY"));
-
+	_global->userInformation->setGameDifficulty(UserData::getInstance()->openIntUserData("DIFFICULTY"));
+		
 	auto checkbox = CheckBox::create();
 	checkbox->loadTextureBackGround("CheckBox2.png", TextureResType::PLIST);
 	checkbox->loadTextureFrontCross("CheckBox.png", TextureResType::PLIST);
@@ -125,22 +125,22 @@ void SelectWorldScene::createSelectDifficulty()
 			}
 			_global->userInformation->getUserSelectWorldData().at(
 				_global->userInformation->getIsMirrorScene() ? 1 : 0)->isReadWoldInformation = false;
-			UserDefault::getInstance()->setIntegerForKey("DIFFICULTY", _global->userInformation->getGameDifficulty());
+			UserData::getInstance()->caveUserData("DIFFICULTY", _global->userInformation->getGameDifficulty());
 		});
 }
 
 void SelectWorldScene::showTimeTravelAnimation()
 {
 	/* 播放音乐 */
-	_global->changeBgMusic("mainmusic2", true);
-
+	PlayMusic::changeBgMusic("mainmusic2", true);
+	
 	auto layer = LayerColor::create(Color4B::BLACK);
 	layer->setLocalZOrder(10);
 	this->addChild(layer);
 
-	auto Clocks = AudioEngine::play2d(_global->userInformation->getMusicPath().find("Clocks")->second);
-	AudioEngine::setVolume(Clocks, _global->userInformation->getSoundEffectVolume());
-
+	auto clocks = PlayMusic::playMusic("Clocks",0);
+	PlayMusic::setMusicVolume(clocks);
+	
 	auto TimeTraveller = SkeletonAnimation::createWithData(_global->userInformation->getAnimationData().find("TimeTraveller")->second);
 	TimeTraveller->setAnimation(0, "animation", true);
 	TimeTraveller->setContentSize(Size(1920, 1080));
@@ -153,7 +153,7 @@ void SelectWorldScene::showTimeTravelAnimation()
 		CallFunc::create([layer]() {layer->removeFromParent(); }),FadeOut::create(1.0f),
 		CallFunc::create([=]()
 			{
-				AudioEngine::stop(Clocks);
+				AudioEngine::stop(clocks);
 				TimeTraveller->removeFromParent();
 				_world[0]->setEnabled(true);
 				_world[1]->setEnabled(true);
@@ -191,11 +191,12 @@ void SelectWorldScene::createGalaxy(Node* node)
 
 void SelectWorldScene::createScrollView()
 {
+	auto size = Director::getInstance()->getVisibleSize();
 	_scrollView = ui::ScrollView::create();
 	_scrollView->setBounceEnabled(true);
 	_scrollView->setDirection(ui::ScrollView::Direction::HORIZONTAL);
-	_scrollView->setContentSize(Director::getInstance()->getWinSize());
-	_scrollView->setInnerContainerSize(Size(2500, 1080));
+	_scrollView->setContentSize(size);
+	_scrollView->setInnerContainerSize(Size(2700, size.height));
 	_scrollView->setPosition(Vec2(0, 0));
 	this->addChild(_scrollView);
 }
@@ -203,7 +204,7 @@ void SelectWorldScene::createScrollView()
 void SelectWorldScene::showDifferentWorlds()
 {
 	const string worldImageName[] = { {"World1"},{"World12"} ,{"World3"} ,{"World4"} ,{"World5"} ,{"World6"} ,{"World7"} ,{"World8"} ,{"World9"} ,{"World10"} ,{"World11"},{"World12"} };
-	const string worldName[] = { {"现代世界"},{"镜像世界"} ,{"黑暗时代"} ,{"海盗港湾"} ,{"狂野西部"} ,{"冰河世纪"} ,{"未来世界"} ,{"侏罗纪世界"} ,{"大浪沙滩"} ,{"魔音时代"} ,{"失落之城"},{"尽情期待"} };
+	const string worldName[] = { {"现代世界"},{"尽请期待"} ,{"黑暗时代"} ,{"海盗港湾"} ,{"狂野西部"} ,{"冰河世纪"} ,{"未来世界"} ,{"侏罗纪世界"} ,{"大浪沙滩"} ,{"魔音时代"} ,{"失落之城"},{"尽情期待"} };
 	for (int i = 0; i < 2; ++i)
 	{
 		_world[i] = ui::Button::create(worldImageName[i] + ".png", "", "", TextureResType::PLIST);
@@ -215,7 +216,7 @@ void SelectWorldScene::showDifferentWorlds()
 		auto worldname = Text::create();
 		worldname->setPosition((Vec2)(_world[i]->getContentSize() / 2.0f) - Vec2(0, 100));
 		worldname->setFontName(GAME_FONT_NAME_1);
-		i == 1 ? worldname->setFontSize(15) : worldname->setFontSize(50);
+		worldname->setFontSize(50);
 		worldname->setColor(Color3B(0, 255, 255));
 		worldname->setString(worldName[i]);
 		_world[i]->addChild(worldname);
@@ -231,9 +232,7 @@ void SelectWorldScene::showDifferentWorlds()
 				switch (type)
 				{
 				case ui::Widget::TouchEventType::BEGAN:
-					AudioEngine::setVolume(AudioEngine::play2d(
-						_global->userInformation->getMusicPath().find("tap")->second), 
-						_global->userInformation->getSoundEffectVolume());
+					PlayMusic::playMusic("tap");
 					break;
 				case ui::Widget::TouchEventType::ENDED:
 					switch (i)

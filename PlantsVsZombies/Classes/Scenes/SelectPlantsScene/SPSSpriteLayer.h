@@ -19,7 +19,7 @@ class SPSSpriteLayer : public Layer
 {
 public:
 	CREATE_FUNC(SPSSpriteLayer);
-	Text* showPlantsInformation(Button* button, const int id) const;
+	Text* showPlantsInformation(Button* button, const unsigned int id) const;
 
 private:
 	void createSelectPlantsDialog();
@@ -30,17 +30,17 @@ private:
 	void createMouseListener();
 	void createPlantsCards();
 	void showRandPlantsInformation();
-	Button* createButtons(const Vec2& vec2, const int& ID);
+	Button* createButtons(const Vec2& vec2, const unsigned int& ID);
 	void preLoadText();
 	void createPlantsImage(Button* button, const std::string& resource, const float& scale = 0.8f) const;
-	void createMoveButton(Button* button, const Vec2& vec2, const int& id);
-	void createAnimationAndText(const int& id);
+	void createMoveButton(Button* button, const Vec2& vec2, const unsigned int& id);
+	void createAnimationAndText(const unsigned int& id);
 	void createPlantsAnimation(const std::string& filepath, const std::string& AnimationName, const std::string& skin, Vec2& vec2, const float& scale = 1.0f);
-	void createPlantsText(const int& ID, const std::string& name, const Vec2& vec2, const float& fontsize, Color3B color = Color3B::WHITE, bool AnchorPoint = true);
-	void sortPlantsCard(const int& id);
-	void removePlantsCardCallBack(Node* node, const int& ID, Button* button);
+	void createPlantsText(const unsigned int& ID, const std::string& name, const Vec2& vec2, const float& fontsize, Color3B color = Color3B::WHITE, bool AnchorPoint = true);
+	void sortPlantsCard(const unsigned int& id);
+	void removePlantsCardCallBack(Node* node, const unsigned int& ID, Button* button);
 	void createBeginButton();
-	void controlPlantCanSelect(Button* button, const int id);
+	void controlPlantCanSelect(Button* button, const unsigned int id);
 	void createProhibit(Button* button);
 	void selectPlantsCallBack(Node* node) { _selectFinished = true; }
 
@@ -62,7 +62,7 @@ private:
 	ui::ScrollView* _plantCardTextScrollView;  /* 植物卡牌滚动视图 */
 	float _plantCardScrollViewPercent;         /* 植物卡牌滚动视图滚动距离 */
 	float _plantCardRollingDistance;           /* 计算鼠标滚动距离 */
-	int _plantsNumber;                         /* 植物数量 */
+	unsigned int _plantsNumber;                /* 植物数量 */
 	bool _isPlantIsCanSelect[13];              /* 是否可以选择该植物 */
 };
 

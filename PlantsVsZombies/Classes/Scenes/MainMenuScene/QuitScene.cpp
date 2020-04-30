@@ -7,7 +7,9 @@
  */
 
 #include "QuitScene.h"
+#include "../LoadingScene/LoadingScene.h"
 #include "Based/GlobalVariable.h"
+#include "Based/PlayMusic.h"
 
 bool QuitMenu::init()
 {
@@ -55,18 +57,17 @@ void QuitMenu::createButtons(const std::string &Label, Vec2 &vec2,const int& ID)
 		switch (type)
 		{
 		case Widget::TouchEventType::BEGAN:
-			AudioEngine::setVolume(AudioEngine::play2d(_global->userInformation->getMusicPath().find("gravebutton")->second), _global->userInformation->getSoundEffectVolume());
+			PlayMusic::playMusic("gravebutton");
 			break;
 		case Widget::TouchEventType::ENDED:
 			switch (ID)
 			{
 			case 1:
 				caveTime(getSumRunTime());
+				LoadingScene::caveUserFileData();
 				_global->resumeProhibit();
 				if (_global->prohibitId == -1) 
-				{
 					Director::getInstance()->end();
-				}
 				break;
 			case 2:
 				deleteDialog();

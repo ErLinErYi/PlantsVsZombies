@@ -5,11 +5,12 @@
  *Emal: 2117610943@qq.com
  */
 
-#include "AudioEngine.h"
 #include "Based/LevelData.h"
 #include "LoadingScene.h"
 #include "tinyxml2/tinyxml2.h"
 #include "Based/UserInformation.h"
+#include "Based/PlayMusic.h"
+#include "AudioEngine.h"
 
 #define MYDEBUG 1
 
@@ -23,7 +24,8 @@ LoadingScene::LoadingScene() :
 	_listener(nullptr),
 	_global(Global::getInstance()),
 	_director(Director::getInstance()),
-	_files(FileUtils::getInstance())
+	_files(FileUtils::getInstance()),
+	_userData(UserData::getInstance())
 {
 	_downloader.reset(new network::Downloader());
 }
@@ -70,24 +72,42 @@ void LoadingScene::loadUserData()
 {
 	auto userdefault = UserDefault::getInstance();
 
-	if (!userdefault->getBoolForKey("UPDATEENCRYPTION"))
+	if (!userdefault->getBoolForKey("UPDATE"))
 	{
-		_global->userInformation->setCoinNumbers(userdefault->getIntegerForKey("COINNUMBERS"));
-		_global->userInformation->setKillZombiesNumbers(userdefault->getIntegerForKey("KILLALLZOMBIES"));
-		userdefault->setIntegerForKey("COINNUMBERS", _global->userInformation->getCoinNumbers() << 10);
-		userdefault->setIntegerForKey("KILLALLZOMBIES", _global->userInformation->getKillZombiesNumbers() - 654321);
-		userdefault->setBoolForKey("UPDATEENCRYPTION", true);
+		_userData->createNewDocument();
+		_global->userInformation->setUserCaveFileNumber(userdefault->getIntegerForKey("USERDATANUMBER"));          /* 存档编号 */
+		_global->userInformation->setSoundEffectVolume(userdefault->getFloatForKey("SOUNDEFFECT"));                /* 音效 */
+		_global->userInformation->setBackGroundMusicVolume(userdefault->getFloatForKey("GLOBALMUSIC"));            /* 音乐 */
+		_global->userInformation->setKillZombiesNumbers(userdefault->getIntegerForKey("KILLALLZOMBIES") + 654321); /* 杀死僵尸数 */
+		_global->userInformation->setUsePlantsNumbers(userdefault->getIntegerForKey("USEPLANTSNUMBERS"));          /* 使用植物数量 */
+		_global->userInformation->setIsShowEggs(userdefault->getBoolForKey("ISBEGINSHOWEGGS"));                    /* 显示彩蛋 */
+		_global->userInformation->setCoinNumbers(userdefault->getIntegerForKey("COINNUMBERS") >> 10);              /* 金币数 */
+		_global->userInformation->setBreakThroughNumbers(userdefault->getIntegerForKey("BREAKTHROUGH"));           /* 闯关失败个数 */
+		_global->userInformation->newUserSelectWorldData();
+
+		char worldFile[128];
+		snprintf(worldFile, 128, _global->userInformation->getSystemDifCaveFileName(
+			_global->userInformation->getUserCaveFileNumber()).c_str(), 1);
+		_userData->caveUserData(worldFile, UserDefault::getInstance()->getIntegerForKey(worldFile));
+
+		snprintf(worldFile, 128, _global->userInformation->getSystemCaveFileName(
+			_global->userInformation->getUserCaveFileNumber()).c_str(), 1);
+		_userData->caveUserData(worldFile, UserDefault::getInstance()->getIntegerForKey(worldFile));
+
+		_userData->caveUserData("KILLALLZOMBIES", _global->userInformation->getKillZombiesNumbers());
+		_userData->caveUserData("USEPLANTSNUMBERS", _global->userInformation->getUsePlantsNumbers());
+		_userData->caveUserData("BREAKTHROUGH", _global->userInformation->getBreakThroughNumbers());
+		_userData->caveUserData("ISBEGINSHOWEGGS", _global->userInformation->getIsShowEggs());
+		_userData->caveUserData("COINNUMBERS", _global->userInformation->getCoinNumbers());
+		userdefault->setBoolForKey("UPDATE",true);
+		
+	}
+	else
+	{
+		_userData->createNewDocument();
+		loadUserFileData();
 	}
 	
-	_global->userInformation->setKillZombiesNumbers(userdefault->getIntegerForKey("KILLALLZOMBIES") + 654321); /* 杀死僵尸数 */
-	_global->userInformation->setUsePlantsNumbers(userdefault->getIntegerForKey("USEPLANTSNUMBERS"));          /* 使用植物数量 */
-	_global->userInformation->setBreakThroughnumbers(userdefault->getIntegerForKey("BREAKTHROUGH"));           /* 闯关失败个数 */
-	_global->userInformation->setUserCaveFileNumber(userdefault->getIntegerForKey("USERDATANUMBER"));          /* 存档编号 */
-	_global->userInformation->setIsShowEggs(userdefault->getBoolForKey("ISBEGINSHOWEGGS"));                    /* 显示彩蛋 */
-	_global->userInformation->setCoinNumbers(userdefault->getIntegerForKey("COINNUMBERS") >> 10);              /* 金币数 */
-	_global->userInformation->setSoundEffectVolume(userdefault->getFloatForKey("SOUNDEFFECT"));                /* 音效 */
-	_global->userInformation->setBackGroundMusicVolume(userdefault->getFloatForKey("GLOBALMUSIC"));            /* 音乐 */
-
 	/* 读取用户存档名称 */
 	for (int i = 0; i < 8; i++)
 	{
@@ -160,21 +180,42 @@ void LoadingScene::loadUserData()
 	}
 
 	/* 是否隐藏鼠标 */
-	switch (userdefault->getBoolForKey("CURSORHIDE"))
-	{
-	case true:
-		_global->userInformation->setIsSelectCursorNotHide(cocos2d::ui::CheckBox::EventType::SELECTED);
-		break;
-	case false:
-		_global->userInformation->setIsSelectCursorNotHide(cocos2d::ui::CheckBox::EventType::UNSELECTED);
-		break;
-	}
+	_global->userInformation->setIsSelectCursorNotHide(_userData->openBoolUserData("CURSORHIDE") ?
+		cocos2d::ui::CheckBox::EventType::SELECTED : cocos2d::ui::CheckBox::EventType::UNSELECTED);
+
+	/* 是否显示缓入动画 */
+	_global->userInformation->setIsEaseAnimation(_userData->openBoolUserData("EASEANIMATION") ?
+		cocos2d::ui::CheckBox::EventType::SELECTED : cocos2d::ui::CheckBox::EventType::UNSELECTED);
+}
+
+void LoadingScene::loadUserFileData()
+{
+	Global::getInstance()->userInformation->setUserCaveFileNumber(UserDefault::getInstance()->getIntegerForKey("USERDATANUMBER"));      /* 存档编号 */
+	Global::getInstance()->userInformation->setSoundEffectVolume(UserDefault::getInstance()->getFloatForKey("SOUNDEFFECT"));            /* 音效 */
+	Global::getInstance()->userInformation->setBackGroundMusicVolume(UserDefault::getInstance()->getFloatForKey("GLOBALMUSIC"));        /* 音乐 */
+
+	Global::getInstance()->userInformation->setKillZombiesNumbers(UserData::getInstance()->openIntUserData("KILLALLZOMBIES"));          /* 杀死僵尸数 */
+	Global::getInstance()->userInformation->setUsePlantsNumbers(UserData::getInstance()->openIntUserData("USEPLANTSNUMBERS"));          /* 使用植物数量 */
+	Global::getInstance()->userInformation->setIsShowEggs(UserData::getInstance()->openBoolUserData("ISBEGINSHOWEGGS"));                /* 显示彩蛋 */
+	Global::getInstance()->userInformation->setCoinNumbers(UserData::getInstance()->openIntUserData("COINNUMBERS"));                    /* 金币数 */
+	Global::getInstance()->userInformation->setBreakThroughNumbers(UserData::getInstance()->openIntUserData("BREAKTHROUGH"));           /* 闯关失败个数 */
+
+	Global::getInstance()->userInformation->newUserSelectWorldData();
+}
+
+void LoadingScene::caveUserFileData()
+{
+	UserData::getInstance()->caveUserData("KILLALLZOMBIES", Global::getInstance()->userInformation->getKillZombiesNumbers());
+	UserData::getInstance()->caveUserData("USEPLANTSNUMBERS", Global::getInstance()->userInformation->getUsePlantsNumbers());
+	UserData::getInstance()->caveUserData("BREAKTHROUGH", Global::getInstance()->userInformation->getBreakThroughNumbers());
+	UserData::getInstance()->caveUserData("ISBEGINSHOWEGGS", Global::getInstance()->userInformation->getIsShowEggs());
+	UserData::getInstance()->caveUserData("COINNUMBERS", Global::getInstance()->userInformation->getCoinNumbers());
 }
 
 void LoadingScene::showLoadingBackGround()
 {
 	/* 播放音乐 */
-	_global->changeBgMusic("mainmusic", true);
+	PlayMusic::changeBgMusic("mainmusic", true);
 
 	/* 获取窗口大小 */
 	auto const size = Director::getInstance()->getWinSize();
@@ -221,7 +262,8 @@ void LoadingScene::showLoadingBackGround()
 	_sprite[2]->setVisible(false);
 
 	/* 设置精灵动作 */
-	_sprite[0]->runAction(Sequence::create(FadeIn::create(1.f), FadeOut::create(1.f), CallFuncN::create(CC_CALLBACK_1(LoadingScene::runLoGoCallBack, this, 1)), NULL));
+	_sprite[0]->runAction(Sequence::create(FadeIn::create(1.f), 
+		FadeOut::create(1.f), CallFuncN::create(CC_CALLBACK_1(LoadingScene::runLoGoCallBack, this, 1)), NULL));
 }
 
 void LoadingScene::runLoGoCallBack(Node* node, const int& ID)
@@ -231,12 +273,14 @@ void LoadingScene::runLoGoCallBack(Node* node, const int& ID)
 	case 1:
 		this->removeChildByName("0"); /* 从场景中移除名字为0的孩子 */
 		_sprite[1]->setVisible(true);  /* 设置精灵1可见 */
-		_sprite[1]->runAction(Sequence::create(FadeIn::create(1.f), FadeOut::create(1.f), CallFuncN::create(CC_CALLBACK_1(LoadingScene::runLoGoCallBack, this, 5)), NULL));
+		_sprite[1]->runAction(Sequence::create(FadeIn::create(1.f), 
+			FadeOut::create(1.f), CallFuncN::create(CC_CALLBACK_1(LoadingScene::runLoGoCallBack, this, 5)), NULL));
 		break;
 	case 2:
 		this->removeChildByName("7"); /* 从场景中移除名字为7的孩子 */
 		_sprite[2]->setVisible(true);  /* 设置精灵2可见 */
-		_sprite[2]->runAction(Sequence::create(FadeIn::create(1.f), CallFuncN::create(CC_CALLBACK_1(LoadingScene::runLoGoCallBack, this, 3)), NULL));
+		_sprite[2]->runAction(Sequence::create(FadeIn::create(1.f), 
+			CallFuncN::create(CC_CALLBACK_1(LoadingScene::runLoGoCallBack, this, 3)), NULL));
 		break;
 	case 3:
 		this->showTileAndLoadingBar(); /* 展示标题和进度条 */
@@ -247,7 +291,8 @@ void LoadingScene::runLoGoCallBack(Node* node, const int& ID)
 	case 5:
 		this->removeChildByName("1"); /* 从场景中移除名字为1的孩子 */
 		_sprite[7]->setVisible(true);  /* 设置精灵7可见 */
-		_sprite[7]->runAction(Sequence::create(FadeIn::create(1.f), FadeOut::create(1.f), CallFuncN::create(CC_CALLBACK_1(LoadingScene::runLoGoCallBack, this, 2)), NULL));
+		_sprite[7]->runAction(Sequence::create(FadeIn::create(1.f), 
+			FadeOut::create(1.f), CallFuncN::create(CC_CALLBACK_1(LoadingScene::runLoGoCallBack, this, 2)), NULL));
 		break;
 	}
 }
@@ -281,8 +326,11 @@ void LoadingScene::showTileAndLoadingBar()
 	_sprite[6]->setScale(2.0f);
 
 	/* 让精灵运动起来 */
-	_sprite[4]->runAction(Sequence::create(MoveTo::create(0.5f, Vec2(size.width / 2, 150)), CallFuncN::create(CC_CALLBACK_1(LoadingScene::runLoGoCallBack, this, 4)), NULL));
-	_sprite[6]->runAction(RepeatForever::create(Sequence::create(MoveTo::create(1.0f, Vec2(SpriteSize.width, 0)), DelayTime::create(2.0f),
+	_sprite[4]->runAction(Sequence::create(
+		MoveTo::create(0.5f, Vec2(size.width / 2, 150)), 
+		CallFuncN::create(CC_CALLBACK_1(LoadingScene::runLoGoCallBack, this, 4)), NULL));
+	_sprite[6]->runAction(RepeatForever::create(
+		Sequence::create(MoveTo::create(1.0f, Vec2(SpriteSize.width, 0)), DelayTime::create(2.0f),
 		CallFunc::create([=]()
 			{
 				_sprite[6]->setPosition(Vec2(-SpriteSize.width, 0));
@@ -302,7 +350,9 @@ void LoadingScene::showTileAndLoadingBar()
 	clippingNode->addChild(_sprite[6]);        //会被裁减
 
 	/* 创建菜单标签 */
-	_label = MenuItemLabel::create(Label::createWithTTF("加载中......", GAME_FONT_NAME_1, 20), CC_CALLBACK_1(LoadingScene::beginGameCallBack, this));
+	_label = MenuItemLabel::create(
+		Label::createWithTTF("加载中......", GAME_FONT_NAME_1, 20), 
+		CC_CALLBACK_1(LoadingScene::beginGameCallBack, this));
 	_label->setColor(Color3B::YELLOW);
 	_label->setEnabled(false);
 
@@ -326,8 +376,8 @@ void LoadingScene::beginLoadingImageAndMusic()
 
 	loadingText();         /* 加载文本 */
 	loadingMusic();        /* 加载音乐 */
-	loadingAnimation();    /* 加载动画 */
 	loadingImage();        /* 加载图片 */
+	loadingAnimation();    /* 加载动画 */
 	throwException();      /* 抛出异常 */
 }
 
@@ -370,12 +420,14 @@ void LoadingScene::showLoadingBarFlower(const int& ID)
 		_sprite[4]->addChild(flower);
 		if (ID == 4) /* 如果ID==4 创建僵尸头*/
 		{
-			AudioEngine::setVolume(AudioEngine::play2d(_global->userInformation->getMusicPath().find("loadingbar_zombie")->second, false), _global->userInformation->getSoundEffectVolume());
+			PlayMusic::playMusic("loadingbar_zombie");
+			
 			flower->setSpriteFrame(SpriteFrameCache::getInstance()->getSpriteFrameByName("ZombieHead1.png"));
 		}
 		else  /* 否则创建花 */
 		{
-			AudioEngine::setVolume(AudioEngine::play2d(_global->userInformation->getMusicPath().find("loadingbar_flower")->second, false), _global->userInformation->getSoundEffectVolume());
+			PlayMusic::playMusic("loadingbar_flower");
+			
 			flower->setRotation(rand() % 180);
 		}
 
@@ -455,15 +507,15 @@ int LoadingScene::openResourcesPath(map<string, string>& Path, const std::string
 
 void LoadingScene::throwException()
 {
-#if CC_TARGET_PLATFORM ==CC_PLATFORM_WIN32
-	this->runAction(Sequence::create(DelayTime::create(10.f), CallFunc::create([=]()
+#if CC_TARGET_PLATFORM == CC_PLATFORM_WIN32
+	this->runAction(Sequence::create(DelayTime::create(15.f), CallFunc::create([=]()
 		{
 			try
 			{
-				if (_loadFileNumbers < _allFileNumbers)
+				if (_loadFileNumbers > 10 && _loadFileNumbers < _allFileNumbers)
 				{
 					wstring str = L"糟糕！发生了一些错误，部分资源文件加载失败！\n选择“重试”重新启动游戏，选择“取消”关闭游戏。";
-					AudioEngine::play2d(_global->userInformation->getMusicPath().find("buzzer")->second);
+					PlayMusic::playMusic("buzzer", false);
 					throw str;
 				}
 			}
@@ -498,19 +550,18 @@ void LoadingScene::checkEdition()
 	_downloader->onDataTaskSuccess = [this](const cocos2d::network::DownloadTask& task,
 		std::vector<unsigned char>& data)
 	{
-		string editionNetWork;
+		string editionNetWork, editionNet;
 		for (auto p : data)
 		{
+			editionNet += p;
 			if (p != '.')
-			{
 				editionNetWork += p;
-			}
 		}
 
 		if (UserInformation::getClientEdition() < editionNetWork)
 		{
 			UserInformation::setUpdateRequired(true);
-			UserInformation::setNewEditionName(editionNetWork);
+			UserInformation::setNewEditionName(editionNet);
 		}
 	};
 
@@ -611,6 +662,6 @@ void LoadingScene::loadingAnimationCallBack()
 
 void LoadingScene::beginGameCallBack(Ref* pSender)
 {
-	AudioEngine::setVolume(AudioEngine::play2d(_global->userInformation->getMusicPath().find("buttonclick")->second), _global->userInformation->getSoundEffectVolume());
+	PlayMusic::playMusic("buttonclick");
 	_director->replaceScene(MainMenu::createScene()); /* 切换场景 */
 }

@@ -12,7 +12,8 @@
 #include "Scenes/GameScene/GSData.h"
 
 Cabbage::Cabbage(Node* node) :
-	_zombiePosition(Vec2::ZERO)
+  _zombiePosition(Vec2::ZERO)
+, _zombieSpeed(0)
 {
 	_node = node;
 	_attack = 60;
@@ -56,7 +57,7 @@ void Cabbage::bulletInit()
 	_bulletAnimation->setAnchorPoint(Vec2(0, 0));
 	_node->addChild(_bulletAnimation);
 
-	_bulletAnimation->runAction(Sequence::create(JumpTo::create(1.0f, _zombiePosition + Vec2(5, 20), 300, 1),
+	_bulletAnimation->runAction(Sequence::create(JumpTo::create(1.0f, calculateZombiePosition(), 300, 1),
 		CallFunc::create([this]()
 			{
 				if (_bulletAnimation->getOpacity()) /* 如果没有隐藏说明没有击中僵尸 */
@@ -65,14 +66,24 @@ void Cabbage::bulletInit()
 				}
 				_bulletAnimation->setAnimation(0, "Cabbage_Crush", false);
 			}), DelayTime::create(1.4f),
-				CallFunc::create([this]()
-					{
-						_bulletAnimation->runAction(Sequence::create(FadeOut::create(0.2f),
-							CallFunc::create([this]()
-								{
-									_bulletAnimation->setVisible(false);
-								}), nullptr));
-					}), nullptr));
+		CallFunc::create([this]()
+			{
+				_bulletAnimation->runAction(Sequence::create(FadeOut::create(0.2f),
+					CallFunc::create([this]()
+						{
+							_bulletAnimation->setVisible(false);
+						}), nullptr));
+			}), nullptr));
+}
+
+Vec2 Cabbage::calculateZombiePosition()
+{
+	if (fabs(_position.x + 70 - _zombiePosition.x) >= 662)
+		return _zombiePosition + Vec2(_zombieSpeed + 10, 20);
+	else if (fabs(_position.x + 70 - _zombiePosition.x) >= 300)
+		return _zombiePosition + Vec2(_zombieSpeed / 2.f, 20);
+	else 
+		return _zombiePosition + Vec2(-_zombieSpeed, 20);
 }
 
 void Cabbage::createShadow()
@@ -81,8 +92,21 @@ void Cabbage::createShadow()
 	auto shadow = Sprite::createWithSpriteFrameName("plantshadow.png");
 	shadow->setPosition(_position + Vec2(70, 10));
 	shadow->setLocalZOrder(getZOrder(_position.y));
+	shadow->setOpacity(200);
 	_node->addChild(shadow);
-	shadow->runAction(Sequence::create(MoveTo::create(0.9f, Vec2(_zombiePosition.x - 100, _position.y + 15)),
+	shadow->runAction(RepeatForever::create(Sequence::create(
+		CallFunc::create([=]()
+			{
+				shadow->setPositionX(_bulletAnimation->getPositionX());
+			}), DelayTime::create(0.01f),
+		CallFunc::create([=]() 
+			{
+				if (!_bulletAnimation->getOpacity())
+				{
+					shadow->removeFromParent();
+				}
+			}), nullptr)));
+	shadow->runAction(Sequence::create(DelayTime::create(1.0f),
 		CallFunc::create([shadow]()
 			{
 				shadow->removeFromParent();
@@ -114,6 +138,11 @@ void Cabbage::setZombiePosition(const Vec2& position)
 	_zombiePosition = position; /* 记录僵尸位置*/
 }
 
+void Cabbage::setZombieSpeed(const float speed)
+{
+	_zombieSpeed = speed;
+}
+
 bool Cabbage::getBulletIsSameLineWithZombie(Zombies* zombie)
 {
 	return (fabs(zombie->getZombieAnimation()->getPositionY() - _position.y) <= 10 &&
@@ -127,9 +156,9 @@ bool Cabbage::getBulletIsEncounterWithZombie(Zombies* zombie)
 
 void Cabbage::bulletAttackHurtZombies(Zombies* zombie)
 {
-	if (zombie->getZombieCurrentHeadShieldVolume() < _attack) /* 如果当前身体护盾加头部护盾血量小于爆炸伤害 */
+	if (zombie->getZombieCurrentHeadShieldVolume() < _attack) /* 如果当前头部护盾血量小于攻击伤害 */
 	{
-		if (zombie->getZombieCurrentHeadShieldVolume() + zombie->getZombieCurrentBloodVolume() <= _attack) /* 如果僵尸所有血量小于爆炸伤害（僵尸死亡） */
+		if (zombie->getZombieCurrentHeadShieldVolume() + zombie->getZombieCurrentBloodVolume() <= _attack) /* 如果僵尸所有血量小于伤害（僵尸死亡） */
 		{
 			/* 僵尸死亡 */
 			zombie->setZombieCurrentBloodVolume(0);

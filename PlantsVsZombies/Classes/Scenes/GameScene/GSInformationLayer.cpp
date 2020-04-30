@@ -7,6 +7,7 @@
 
 #include "GSInformationLayer.h"
 #include "Based/GameType.h"
+#include "Based/PlayMusic.h"
 
 GSInformationLayer::GSInformationLayer():
 	_levelLastPrecent(0.0f)
@@ -161,8 +162,8 @@ void GSInformationLayer::showSunNumbers()
 
 void GSInformationLayer::showPromptMuchZombiesText(const string& textName)
 {
-	AudioEngine::setVolume(AudioEngine::play2d(_global->userInformation->getMusicPath().find("finalwave")->second), _global->userInformation->getSoundEffectVolume());
-
+	PlayMusic::playMusic("finalwave");
+	
 	auto zombiescoming = Sprite::createWithSpriteFrameName(textName + ".png");
 	zombiescoming->setPosition(_director->getWinSize() / 2);
 	zombiescoming->setScale(5.0f);
@@ -204,9 +205,8 @@ void GSInformationLayer::updateSunNumbers()
 	auto sun = Sprite::createWithSpriteFrameName("Sun.png");
 	sun->setPosition(Vec2(290, 1010));
 	sun->setScale(0.9f);
-	sun->setName("sun");
 	this->addChild(sun);
-	sun->runAction(Sequence::create(DelayTime::create(0.15f), CallFunc::create([=]() {this->removeChildByName("sun"); }), nullptr));
+	sun->runAction(Sequence::create(DelayTime::create(0.15f), CallFunc::create([sun]() {sun->removeFromParent(); }), nullptr));
 
 	_sunNumbersText->setString(to_string(_global->userInformation->getSunNumbers()));
 }

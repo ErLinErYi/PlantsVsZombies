@@ -12,7 +12,6 @@ ConeFlagZombies::ConeFlagZombies(Node* node)
 	_node = node;
 	_attackHeadSoundEffectType = 2;
 	_attackBodySoundEffectType = 0;
-	_animationId = 4;
 	_bloodVolume = 200;
 	_headShieldVolume = 500;
 	_bodyShieldVolume = 0;

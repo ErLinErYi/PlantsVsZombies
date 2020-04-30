@@ -12,6 +12,7 @@
 #include "Scenes/GameScene/GSData.h"
 #include "Scenes/GameScene/GSBackgroundLayer.h"
 #include "Scenes/GameScene/GSControlLayer.h"
+#include "Based/PlayMusic.h"
 
 PotatoMine::PotatoMine(Node* node):
 	_isReady(false)
@@ -73,7 +74,7 @@ void PotatoMine::createListener()
 {
 	_plantAnimation->runAction(Sequence::create(DelayTime::create(_breakGround), CallFunc::create([this]()
 		{
-			AudioEngine::setVolume(AudioEngine::play2d(_global->userInformation->getMusicPath().find("dirt_rise")->second), _global->userInformation->getSoundEffectVolume());
+			PlayMusic::playMusic("dirt_rise");
 			_isReady = true;
 			_plantAnimation->setAnimation(0, "PotatoMine_Out", false);
 			_plantAnimation->addAnimation(0, "PotatoMine_Normal", true);
@@ -162,8 +163,8 @@ void PotatoMine::zombieEatPlant(Zombies* zombie)
 
 void PotatoMine::explodeHurtZombies()
 {
-	AudioEngine::setVolume(AudioEngine::play2d(_global->userInformation->getMusicPath().find("potato_mine")->second), _global->userInformation->getSoundEffectVolume());
-
+	PlayMusic::playMusic("potato_mine");
+	
 	for (auto zombie : ZombiesGroup)
 	{
 		if (zombie->getZombieIsSurvive() && zombie->getZombieIsEnterMap() && getZombieIsInExplodeRange(zombie)) /* 僵尸存活 && 僵尸进入地图 && 僵尸在爆炸范围内 */

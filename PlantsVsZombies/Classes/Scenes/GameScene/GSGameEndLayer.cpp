@@ -17,6 +17,8 @@
 #include "Based/GameType.h"
 #include "Based/LevelData.h"
 #include "Based/Car.h"
+#include "Based/UserData.h"
+#include "Based/PlayMusic.h"
 
 GSGameEndLayer::GSGameEndLayer():
 	_userWinRequirement(nullptr)
@@ -51,29 +53,36 @@ void GSGameEndLayer::createShieldLayer()
 void GSGameEndLayer::successfullEntry()
 {
 	Director::getInstance()->getScheduler()->setTimeScale(1.0f); /* 恢复播放倍数 */
+	Director::getInstance()->getOpenGLView()->setCursor("resources/images/System/cursor.png", Point::ANCHOR_TOP_LEFT);
 	caveLevelNumber();
 	carsToCoins();
 
-	auto moneybag_hi_res = ui::Button::create("moneybag_hi_res.png", "", "", TextureResType::PLIST);
+	ui::Button* moneybag_hi_res;
+
+	if (_global->userInformation->getCurrentPlayLevels() >= 52)
+		moneybag_hi_res = ui::Button::create("trophy.png", "", "", TextureResType::PLIST);
+	else
+		moneybag_hi_res = ui::Button::create("moneybag_hi_res.png", "", "", TextureResType::PLIST);
+
 	moneybag_hi_res->setPosition(Vec2(700 + rand() % 1000, 100 + rand() % 700));
 	moneybag_hi_res->runAction(JumpBy::create(0.5f, Vec2(100 - rand() % 200, 0), 100 + rand() % 100, 1));
 	moneybag_hi_res->setName("moneybag_hi_res");
 	moneybag_hi_res->setLocalZOrder(2);
 	this->addChild(moneybag_hi_res);
-
+	
 	moneybag_hi_res->runAction(RepeatForever::create(Sequence::create(TintTo::create(0.3f, 150, 150, 150), TintTo::create(0.3f, 255, 255, 255), nullptr)));
 	moneybag_hi_res->addTouchEventListener([this, moneybag_hi_res](Ref* sender, ui::Widget::TouchEventType type)
 		{
 			switch (type)
 			{
 			case cocos2d::ui::Widget::TouchEventType::BEGAN:
-				AudioEngine::setVolume(AudioEngine::play2d(_global->userInformation->getMusicPath().find("coin")->second), _global->userInformation->getSoundEffectVolume());
+				PlayMusic::playMusic("coin");
 				break;
 			case cocos2d::ui::Widget::TouchEventType::ENDED:
 				moneybag_hi_res->setEnabled(false);
 				moneybag_hi_res->setBright(true);
 
-				AudioEngine::setVolume(AudioEngine::play2d(_global->userInformation->getMusicPath().find("moneyfalls")->second), _global->userInformation->getSoundEffectVolume());
+				PlayMusic::playMusic("moneyfalls");
 				rewardCoin(moneybag_hi_res);
 				break;
 			}
@@ -84,13 +93,12 @@ void GSGameEndLayer::breakThrough(GameTypes gameType)
 {
 	GSPauseQuitLayer::pauseLayer();
 	Director::getInstance()->getScheduler()->setTimeScale(1.0f); /* 恢复播放倍数 */
-	UserDefault::getInstance()->setIntegerForKey("BREAKTHROUGH",
-		++_global->userInformation->getBreakThroughnumbers());/* 记录闯关失败个数 */
+	Director::getInstance()->getOpenGLView()->setCursor("resources/images/System/cursor.png", Point::ANCHOR_TOP_LEFT);
+	UserData::getInstance()->caveUserData("BREAKTHROUGH",
+		++_global->userInformation->getBreakThroughNumbers());/* 记录闯关失败个数 */
 
-	AudioEngine::setVolume(AudioEngine::play2d(
-		_global->userInformation->getMusicPath().find("losemusic")->second),
-		_global->userInformation->getSoundEffectVolume());
-
+	PlayMusic::playMusic("losemusic");
+	
 	if (gameType == GameTypes::UserLose)
 	{
 		showFailText();
@@ -121,7 +129,7 @@ void GSGameEndLayer::showFailDialog(GameTypes gameType)
 			switch (type)
 			{
 			case ui::Widget::TouchEventType::BEGAN:
-				AudioEngine::setVolume(AudioEngine::play2d(Global::getInstance()->userInformation->getMusicPath().find("gravebutton")->second), Global::getInstance()->userInformation->getSoundEffectVolume());
+				PlayMusic::playMusic("gravebutton");
 				break;
 			case ui::Widget::TouchEventType::ENDED:
 				_userWinRequirement->setDelectDialogAction();
@@ -187,12 +195,12 @@ void GSGameEndLayer::caveLevelNumber()
 
 		if (_global->userInformation->getIsMirrorScene())
 		{
-			UserDefault::getInstance()->setIntegerForKey(worldFile,
+			UserData::getInstance()->caveUserData(worldFile,
 				++_global->userInformation->getUserSelectWorldData().at(1)->levels);
 		}
 		else
 		{
-			UserDefault::getInstance()->setIntegerForKey(worldFile,
+			UserData::getInstance()->caveUserData(worldFile,
 				++_global->userInformation->getUserSelectWorldData().at(0)->levels);
 		}
 	}
@@ -208,8 +216,9 @@ void GSGameEndLayer::carsToCoins()
 			auto cars = car;
 			runAction(Sequence::create(DelayTime::create(0.4f * ++i), CallFunc::create([this, cars]()
 				{
-					AudioEngine::setVolume(AudioEngine::play2d(_global->userInformation->getMusicPath().find("coin")->second), _global->userInformation->getSoundEffectVolume());
-					cars->getCar()->runAction(Sequence::create( Spawn::create(ScaleTo::create(0.2f, 0), FadeOut::create(0.2f), nullptr), nullptr));
+					PlayMusic::playMusic("coin");
+					cars->getCar()->runAction(Sequence::create( 
+						Spawn::create(ScaleTo::create(0.2f, 0), FadeOut::create(0.2f), nullptr), nullptr));
 					cars->getCar()->setVisible(false);
 					coinAction(cars->getCar()->getPosition(), 0, true);
 				}), nullptr));
@@ -239,13 +248,11 @@ void GSGameEndLayer::rewardCoin(Button* button)
 			this->runAction(Sequence::create(DelayTime::create(2.0f),
 				CallFunc::create([=]()
 					{
-						auto audio = AudioEngine::play2d(_global->userInformation->getMusicPath().find("winmusic")->second);
-						AudioEngine::setVolume(audio, _global->userInformation->getSoundEffectVolume());
+						auto audio = PlayMusic::playMusic("winmusic", 0);
+						PlayMusic::setMusicVolume(audio);
 						AudioEngine::setFinishCallback(audio, [=](int i, string name)
 							{
-								AudioEngine::setVolume(AudioEngine::play2d(
-									_global->userInformation->getMusicPath().find("lightfill")->second), 
-									_global->userInformation->getSoundEffectVolume());
+								PlayMusic::playMusic("lightfill");
 							});
 
 						auto AwardRays = Sprite::createWithSpriteFrameName("AwardRays.png");
@@ -264,7 +271,7 @@ void GSGameEndLayer::rewardCoin(Button* button)
 							CallFunc::create([=]()
 								{
 									/* 保存金币数 */
-									UserDefault::getInstance()->setIntegerForKey("COINNUMBERS", _global->userInformation->getCoinNumbers() << 10);
+									UserData::getInstance()->caveUserData("COINNUMBERS", _global->userInformation->getCoinNumbers());
 									
 									if (_global->userInformation->getIsMirrorScene())
 									{
@@ -289,9 +296,7 @@ void GSGameEndLayer::coinAction(const Vec2& position, const int id, const bool b
 
 	auto callFunc = CallFunc::create([=]()
 		{
-			AudioEngine::setVolume(AudioEngine::play2d(
-				_global->userInformation->getMusicPath().find("moneyfalls")->second),
-				_global->userInformation->getSoundEffectVolume());
+			PlayMusic::playMusic("moneyfalls");
 			coin->removeFromParent();
 			big ? _global->userInformation->setCoinNumbers(_global->userInformation->getCoinNumbers() + 10) :
 				_global->userInformation->setCoinNumbers(_global->userInformation->getCoinNumbers() + 1);

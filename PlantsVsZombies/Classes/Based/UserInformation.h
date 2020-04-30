@@ -55,6 +55,7 @@ public:
 	CheckBox::EventType getIsSelectFullScreen() const;
 	CheckBox::EventType getIsSelectCursorNotHide() const;
 	CheckBox::EventType getIsSelectStretchingShow() const;
+	CheckBox::EventType getIsEaseAnimation() const;
 	map<string, spSkeletonData*>& getAnimationData();
 	map<string, string>& getGameText();
 	map<string, string>& getImagePath();
@@ -73,7 +74,7 @@ public:
 	int getUserCaveFileNumber() const;
 	int& getKillZombiesNumbers();
 	int& getUsePlantsNumbers();
-	int& getBreakThroughnumbers();
+	int& getBreakThroughNumbers();
 	int getSunNumbers() const;
 	int getCoinNumbers() const;
 	int getFps() const;
@@ -99,7 +100,7 @@ public:
 	void setUserCaveFileNumber(const int number);
 	void setKillZombiesNumbers(const int number);
 	void setUsePlantsNumbers(const int number);
-	void setBreakThroughnumbers(const int number);
+	void setBreakThroughNumbers(const int number);
 	void setSunNumbers(const int number);
 	void setCoinNumbers(const int number);
 	void setFps(const int fps);
@@ -112,11 +113,14 @@ public:
 	void setIsSelectFullScreen(CheckBox::EventType isSelect);
 	void setIsSelectHighFPS(CheckBox::EventType isSelect);
 	void setIsShowInformation(CheckBox::EventType isShow);
+	void setIsEaseAnimation(CheckBox::EventType easeAnimation);
 	void setIsMirrorScene(const bool isMirror);
+	void newUserSelectWorldData();
+	void deleteUserSelectWorldData();
 
 	static string getClientEdition();
 	static void setNewEditionName(const string& editionName);
-	static string getNewEditionName();
+	static string getNewEditionName(bool dot = false);
 	static bool getUpdateRequired();
 	static void setUpdateRequired(const bool update);
 
@@ -135,6 +139,7 @@ private:
 	CheckBox::EventType _fullScreen;                     // 全屏
 	CheckBox::EventType _cursorNotHide;                  // 鼠标隐藏
 	CheckBox::EventType _stretchingShow;                 // 拉伸显示
+	CheckBox::EventType _easeAnimation;                  // 缓入动画
 
 	map<string, spSkeletonData*> _animationData;         // 动画存储
 	map<string, string> _gameText;                       // 游戏文本
@@ -158,7 +163,7 @@ private:
 
 	int _killZombiesNumbers;                             // 杀死僵尸总数 
 	int _usePlantsNumbers;                               // 使用植物数量 
-	int _breakThroughnumbers;                            // 闯关失败次数
+	int _breakThroughNumbers;                            // 闯关失败次数
 
 	int _sunNumbers;                                     // 阳光数 
 	int _coinNumbers;                                    // 金币数

@@ -141,13 +141,9 @@ int Citron::calculateGreatEvocationProbability()
 {
 	int number = rand() % 100;
 	if (number < 5)
-	{
 		_animationId = 1;
-	}
 	else
-	{
 		_animationId = 0;
-	}
 	return _animationId;
 }
 

@@ -9,6 +9,7 @@
 
 #include "Based/UserWinRequirement.h"
 #include "Based/GameType.h"
+#include "Based/PlayMusic.h"
 
 SPSRequriementLayer::SPSRequriementLayer():
 	_requirement(nullptr)
@@ -48,9 +49,7 @@ void SPSRequriementLayer::createDialog()
 			switch (type)
 			{
 			case ui::Widget::TouchEventType::BEGAN:
-				AudioEngine::setVolume(AudioEngine::play2d(
-					Global::getInstance()->userInformation->getMusicPath().find("tap")->second), 
-					Global::getInstance()->userInformation->getSoundEffectVolume());
+				PlayMusic::playMusic("tap");
 				break;
 			case ui::Widget::TouchEventType::ENDED:
 				_requirement->setDelectDialogAction();

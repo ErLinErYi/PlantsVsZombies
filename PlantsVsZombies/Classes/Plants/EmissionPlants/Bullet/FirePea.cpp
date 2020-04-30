@@ -53,6 +53,7 @@ void FirePea::createShadow()
     auto shadow = Sprite::createWithSpriteFrameName("plantshadow.png");
     shadow->setScaleY(0.7f);
     shadow->setName("shadow");
+    shadow->setOpacity(200);
     shadow->setPosition(Vec2(0, -52));
     shadow->setLocalZOrder(_bulletAnimation->getLocalZOrder());
     _bulletAnimation->addChild(shadow, -1);

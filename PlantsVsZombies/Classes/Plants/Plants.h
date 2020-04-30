@@ -8,9 +8,8 @@
 #pragma once
 #include "cocos2d.h"
 #include "spine/spine.h"
-#include "AudioEngine.h"
 #include "Based/GlobalVariable.h"
-#include "spine\spine-cocos2dx.h"
+#include "spine/spine-cocos2dx.h"
 
 #define INIT Vec2(-1000,-1000)
 #define NOINITIALIZATION  -1

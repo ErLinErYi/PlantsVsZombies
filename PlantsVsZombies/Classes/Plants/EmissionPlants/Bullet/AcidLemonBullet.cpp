@@ -76,6 +76,7 @@ void AcidLemonBullet::createShadow()
 	shadow->setScaleX(1.7f);
 	shadow->setName("shadow");
 	shadow->setPosition(Vec2(0, -92));
+	shadow->setOpacity(200);
 	shadow->setLocalZOrder(_bulletAnimation->getLocalZOrder());
 	_bulletAnimation->addChild(shadow, -1);
 }

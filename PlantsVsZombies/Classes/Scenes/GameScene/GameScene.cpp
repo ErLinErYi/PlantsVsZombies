@@ -20,9 +20,8 @@
 #include "Plants/EmissionPlants/Bullet/Bullet.h"
 #include "Based/Car.h"
 #include "Based/Coin.h"
+#include "Based/PlayMusic.h"
 #include "Zombies/Zombies.h"
-
-bool GameScene::_wetherPausegame = false;
 
 GameScene::GameScene() :
   _global(Global::getInstance())
@@ -41,7 +40,6 @@ GameScene::~GameScene()
 
 	Zombies::setZombiesNumbers(0);
 	Zombies::zombiesWinOrLoseInit();
-	_wetherPausegame = false;
 }
 
 Scene* GameScene::createScene()
@@ -51,7 +49,7 @@ Scene* GameScene::createScene()
 
 bool GameScene::init()
 {
-	if(!Scene::init())return false;
+	if (!Scene::init())return false; 
 
 	controlPlayMusic();
 	backgroundLayer();   // ±³¾°²ã
@@ -63,9 +61,9 @@ bool GameScene::init()
 #if CC_TARGET_PLATFORM ==CC_PLATFORM_WIN32
 	schedule([&](float) {
 		pauseGame();
+		CCLOG("%d", this->getChildrenCount());
 		}, 1.0f, CC_REPEAT_FOREVER, 2.f, "pauseGame");
 #endif
-
 	return true;
 }
 
@@ -73,13 +71,13 @@ void GameScene::controlPlayMusic()
 {
 	switch (_global->userInformation->getCurrentPlayLevels())
 	{
-	case 35: _global->changeBgMusic("mainmusic.mo3.2", true);  break;
-	case 36: _global->changeBgMusic("mainmusic.mo3.3", true);  break;
-	case 37: _global->changeBgMusic("mainmusic.mo3.7", true);  break;
-	case 50: _global->changeBgMusic("mainmusic.mo3.10", true); break;
-	case 51: _global->changeBgMusic("mainmusic.mo3.11", true); break;
-	case 52: _global->changeBgMusic("mainmusic.mo3.12", true); break;
-	default: _global->changeBgMusic("KitanaiSekai", true);     break;
+	case 35: PlayMusic::changeBgMusic("mainmusic.mo3.2", true);  break;
+	case 36: PlayMusic::changeBgMusic("mainmusic.mo3.3", true);  break;
+	case 37: PlayMusic::changeBgMusic("mainmusic.mo3.7", true);  break;
+	case 50: PlayMusic::changeBgMusic("mainmusic.mo3.10", true); break;
+	case 51: PlayMusic::changeBgMusic("mainmusic.mo3.11", true); break;
+	case 52: PlayMusic::changeBgMusic("mainmusic.mo3.12", true); break;
+	default: PlayMusic::changeBgMusic("KitanaiSekai", true);     break;
 	}
 }
 
@@ -115,23 +113,13 @@ void GameScene::buttonLayer()
 
 void GameScene::pauseGame()
 {
-	if (!_wetherPausegame)
+	if (!GSPauseQuitLayer::getPauseNumbers())
 	{
 		if (::GetForegroundWindow() != _director->getOpenGLView()->getWin32Window())
 		{
-			AudioEngine::setVolume(AudioEngine::play2d(
-				_global->userInformation->getMusicPath().find("pause")->second),
-				_global->userInformation->getSoundEffectVolume());
+			PlayMusic::playMusic("pause");
 			GSPauseQuitLayer::pauseLayer();
 			_director->getRunningScene()->addChild(GSPauseLayer::addLayer(), 10);
-			_wetherPausegame = true;
 		}
 	}
-}
-
-void GameScene::setPauseGame(const bool pauseGame)
-{
-#if CC_TARGET_PLATFORM == CC_PLATFORM_WIN32
-	_wetherPausegame = pauseGame;
-#endif 
 }

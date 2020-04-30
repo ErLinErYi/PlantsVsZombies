@@ -12,6 +12,7 @@
 #include "GSDefine.h"
 
 #include "Based/UserWinRequirement.h"
+#include "Based/PlayMusic.h"
 #include "Scenes/SelectPlantsScene/SPSSpriteLayer.h"
 
 GSButtonLayer::GSButtonLayer():
@@ -60,13 +61,13 @@ Button* GSButtonLayer::createButton(const string& normal, const string& select, 
 			switch (type)
 			{
 			case cocos2d::ui::Widget::TouchEventType::BEGAN:
-				AudioEngine::setVolume(AudioEngine::play2d(_global->userInformation->getMusicPath().find("gravebutton")->second), _global->userInformation->getSoundEffectVolume());
+				PlayMusic::playMusic("gravebutton");
 				break;
 			case cocos2d::ui::Widget::TouchEventType::ENDED:
 				switch (buttonName)
 				{
 				case GSLayerButton::stopButton:
-					AudioEngine::setVolume(AudioEngine::play2d(_global->userInformation->getMusicPath().find("pause")->second), _global->userInformation->getSoundEffectVolume());
+					PlayMusic::playMusic("pause");
 					createQuitDialog();
 					break;
 				case GSLayerButton::accelerateButton:
@@ -93,20 +94,20 @@ void GSButtonLayer::createKeyBoardListener()
 		case cocos2d::EventKeyboard::KeyCode::KEY_SPACE:                     /* 空格键暂停 */
 			//if (KEY_PRESS(pressKeySpace))
 		{
-			AudioEngine::setVolume(AudioEngine::play2d(_global->userInformation->getMusicPath().find("pause")->second), _global->userInformation->getSoundEffectVolume());
+			PlayMusic::playMusic("pause");
 			createRequirementLayer();
 		}
 		break;
 		case cocos2d::EventKeyboard::KeyCode::KEY_CAPITAL_W:                 /* 大小写w或者向上箭头加速 */
 		case cocos2d::EventKeyboard::KeyCode::KEY_W:
 		case cocos2d::EventKeyboard::KeyCode::KEY_UP_ARROW:
-			AudioEngine::setVolume(AudioEngine::play2d(_global->userInformation->getMusicPath().find("gravebutton")->second), _global->userInformation->getSoundEffectVolume());
+			PlayMusic::playMusic("gravebutton");
 			controlAccelerateScheduler();
 			break;
 		case cocos2d::EventKeyboard::KeyCode::KEY_CAPITAL_S:                /* 大小写s或者向下箭头减速 */
 		case cocos2d::EventKeyboard::KeyCode::KEY_S:
 		case cocos2d::EventKeyboard::KeyCode::KEY_DOWN_ARROW:
-			AudioEngine::setVolume(AudioEngine::play2d(_global->userInformation->getMusicPath().find("gravebutton")->second), _global->userInformation->getSoundEffectVolume());
+			PlayMusic::playMusic("gravebutton");
 			controlDecelerateScheduler();
 			break;
 		default:
@@ -135,10 +136,8 @@ void GSButtonLayer::createRequirementButton()
 			{
 				switch (type)
 				{
-				case ui::Widget::TouchEventType::BEGAN:
-					AudioEngine::setVolume(AudioEngine::play2d(_global->userInformation->getMusicPath().find("pause")->second), _global->userInformation->getSoundEffectVolume());
-					break;
 				case ui::Widget::TouchEventType::ENDED:
+					PlayMusic::playMusic("pause");
 					createRequirementLayer();
 					break;
 				}
@@ -206,7 +205,7 @@ void GSButtonLayer::showShovelBank()
 			switch (type)
 			{
 			case ui::Widget::TouchEventType::BEGAN:
-				AudioEngine::setVolume(AudioEngine::play2d(_global->userInformation->getMusicPath().find("shovel")->second), _global->userInformation->getSoundEffectVolume());
+				PlayMusic::playMusic("shovel");
 				break;
 			case ui::Widget::TouchEventType::ENDED:
 				switch (mouseSelectImage->isSelectShovel)
@@ -217,13 +216,9 @@ void GSButtonLayer::showShovelBank()
 					break;
 				case false:
 					if (_global->userInformation->getIsSelectCursorNotHide() == cocos2d::ui::CheckBox::EventType::UNSELECTED)
-					{
 						Director::getInstance()->getOpenGLView()->setCursor("resources/images/System/Shovel_hi_res.png", Point::ANCHOR_BOTTOM_LEFT);
-					}
 					else
-					{
 						Director::getInstance()->getOpenGLView()->setCursor("resources/images/System/Shovel_hi_res1.png", Vec2(0.125, 0.2f));
-					}
 					mouseSelectImage->isSelectShovel = true;
 					break;
 				}
@@ -260,7 +255,7 @@ void GSButtonLayer::createPlantsCard()
 	}
 }
 
-ProgressTimer* GSButtonLayer::createProgressTimer(Button* button, const float _time, const int& id)
+ProgressTimer* GSButtonLayer::createProgressTimer(Button* button, const float _time, const unsigned int& id)
 {
 	auto timerBar = ProgressTimer::create(Sprite::createWithSpriteFrameName("SeedPacketSilhouette1.png"));
 	timerBar->setType(ProgressTimer::Type::BAR);  //设置条形进度条

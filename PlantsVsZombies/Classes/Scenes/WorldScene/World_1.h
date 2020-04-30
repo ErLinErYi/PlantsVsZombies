@@ -9,7 +9,6 @@
 #pragma once
 #include "cocos2d.h"
 #include "ui/CocosGUI.h"
-#include "AudioEngine.h"
 #include "Based/GlobalVariable.h"
 
 #ifdef WIN32
@@ -37,11 +36,11 @@ protected:
 	virtual void setLevelVisible(Node* node);
 	virtual void createButtonListener(ui::Button* button, const int& ID);
 	virtual ui::Button* createButton(Node* node, const std::string& name, const Vec2& position);
-	virtual void addScrollView();
+	virtual void createScrollView();
 	virtual void createGoBack();
 	void showLevels();
 	void createBackground();
-	void createScrollView();
+	void addScrollView(const int id);
 	Sprite* createSprite(const std::string& name, const Vec2& position, const float& scale, const int& zorder, const float& speed, bool IsFlipped = false);
 	Sprite* createSprite(Node* node, const std::string& name, const Vec2& position, const float& scale, const int& zorder,bool IsFlipped = false);
 	void createMouseListener();

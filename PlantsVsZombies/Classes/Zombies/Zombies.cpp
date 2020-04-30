@@ -14,8 +14,11 @@
 #include "Scenes/GameScene/GSData.h"
 
 #include "Based/Coin.h"
+#include "Based/UserData.h"
+#include "Based/PlayMusic.h"
 
 unsigned int Zombies::_zombiesNumbers = 0;
+int Zombies::_zombiesNewDieNumbers = 0;
 bool Zombies::_zombieIsWin = false;
 GLProgram* Zombies::_normalGLProgram = nullptr;
 GLProgram* Zombies::_highLightGLProgram = nullptr;
@@ -26,7 +29,9 @@ Zombies::Zombies() :
 	_node(nullptr)
 ,   _attackHeadSoundEffectType(0)
 ,   _attackBodySoundEffectType(0)
-,   _animationId(-1)
+,   _bodyAnimationId(1)
+,   _bodyShieldAnimationId(1)
+,   _headShieldAnimationId(1)
 ,	_isEat(false)
 ,	_isEatGarlic(false)
 ,	_isUseForGameType(false)
@@ -34,11 +39,12 @@ Zombies::Zombies() :
 ,	_isPreview(false)
 ,	_isHaveShield(false)
 ,   _isStrikeFly(false)
+,   _redWarning(false)
 ,   _isShowLoseLimbsAnimation(true)
 ,   _isCanDelete{false,false}
 ,   _zombieEatPlantNumber(-1)
 ,   _zombieHowlNumbers(0)
-,   _highLightIntensity(0.5f)
+,   _highLightIntensity(0.4f)
 ,   _highLightGLProgramState(nullptr)
 ,   _highLightFinished(false)
 ,	_openLevelData(OpenLevelData::getInstance())
@@ -100,6 +106,22 @@ void Zombies::setZombieMove(float delta)
 		setZombieIsShow(true);
 		_zombiesAnimation->runAction(FadeIn::create(1.0f));
 		_zombiesAnimation->getChildByName("shadow")->runAction(FadeIn::create(1.0f));
+	}
+
+	if (!_redWarning && getZombieWarning())
+	{
+		auto action = RepeatForever::create(
+			Sequence::create(TintTo::create(0.3f, Color3B::RED),
+				TintTo::create(0.3f, Color3B::WHITE), nullptr));
+		action->setTag(10);
+		_zombiesAnimation->runAction(action);
+		_redWarning = true;
+	}
+
+	if (_redWarning && !getZombieWarning())
+	{
+		_zombiesAnimation->stopActionByTag(10);
+		_redWarning = false;
 	}
 }
 
@@ -181,12 +203,18 @@ void Zombies::zombiesDeleteUpdate(list<Zombies*>::iterator& zombie)
 		if (!(*zombie)->getIsCanDelete()[0])
 		{
 			(*zombie)->getIsCanDelete()[0] = true;
-			UserDefault::getInstance()->setIntegerForKey("KILLALLZOMBIES", 
-				++Global::getInstance()->userInformation->getKillZombiesNumbers() - 654321);/* 杀死僵尸数加一 */
+			++Global::getInstance()->userInformation->getKillZombiesNumbers();
 			informationLayerInformation->updateZombiesDieNumbers(); /* 更新显示 */
 
 			zombiesNumbersChange("--");  /* 僵尸总数更新 */
 			rewardCoin((*zombie)->getZombieAnimation());
+
+			if (++_zombiesNewDieNumbers >= 20 || getZombiesNumbers() <= 0)
+			{
+				_zombiesNewDieNumbers = 0;
+				UserData::getInstance()->caveUserData("KILLALLZOMBIES", 
+					Global::getInstance()->userInformation->getKillZombiesNumbers());/* 杀死僵尸数加一 */
+			}
 
 			auto zombies = zombie;
 			(*zombies)->getZombieAnimation()->runAction(Sequence::create(DelayTime::create(5.0f),
@@ -270,7 +298,7 @@ int Zombies::getZombieEatPlantNumber() const
 
 bool Zombies::getZombieIsPlayDieAnimation() const
 {
-	if (_animationId != 10)
+	if (_bodyAnimationId != 10)
 	{
 		return false;
 	}
@@ -314,12 +342,12 @@ void Zombies::setZombieHurtBlink()
 				{
 					_zombiesAnimation->setGLProgram(_highLightGLProgram);
 					_highLightGLProgramState = _zombiesAnimation->getGLProgramState();
-					_highLightGLProgramState->setUniformFloat("intensity", 0.5f);
-				}), action,
-			CallFunc::create([=]()
+					_highLightGLProgramState->setUniformFloat("intensity", _highLightIntensity);
+				}), DelayTime::create(0.15f),
+			CallFunc::create([this]()
 				{
 					_zombiesAnimation->setGLProgram(_normalGLProgram);
-					_highLightIntensity = 0.5f;
+					_highLightIntensity = 0.4f;
 					_highLightFinished = false;
 				}), nullptr));
 	}
@@ -352,7 +380,7 @@ float Zombies::getZombiePositionY() const
 
 bool Zombies::getZombieIsEnterMap() const
 {
-	return _zombiesAnimation->getPositionX() < 1720 ? true : false;
+	return _zombiesAnimation->getPositionX() < 1710 ? true : false;
 }
 
 float Zombies::getZombieCurrentBodyShieldVolume() const
@@ -550,12 +578,12 @@ void Zombies::createZombieShadow()
 
 void Zombies::setZombiePrimaryInjure()
 {
-	if (_animationId <= 7 && _animationId >= 1) /* 僵尸开始掉胳膊 */
+	if (_bodyAnimationId == 1) /* 僵尸开始掉胳膊 */
 	{
 		_zombiesAnimation->setAttachment("tt_outerarm_upper", "tt_outerarm_upper2");
 		_zombiesAnimation->setAttachment("tt_outerarm_lower", "tt_innerleg_foot3");
 		_zombiesAnimation->setAttachment("tt_outerarmhand", "tt_innerleg_foot3");
-		_animationId = 8;
+		_bodyAnimationId = 2;
 
 		zombieLoseArmAnimation("ZombieArm");
 	}
@@ -563,12 +591,12 @@ void Zombies::setZombiePrimaryInjure()
 
 void Zombies::setZombieSecondaryInjure()
 {
-	if (_animationId == 8)
+	if (_bodyAnimationId == 2)
 	{
+		_zombiesAnimation->setAnimation(1, "Zombies_Die", false);
 		_zombiesAnimation->setAttachment("tt_head", "tt_innerleg_foot3");
 		_zombiesAnimation->setAttachment("tt_jaw", "tt_innerleg_foot3");
-		_zombiesAnimation->setAnimation(1, "Zombies_Die", false);
-		_animationId = 10;
+		_bodyAnimationId = 10;
 
 		zombieLoseHeadAnimation("ZombieHead");
 
@@ -578,19 +606,19 @@ void Zombies::setZombieSecondaryInjure()
 
 void Zombies::setZombieBodyShieldPrimaryInjure(const string& oldName, const string& newName)
 {
-	if (_animationId == 1)
+	if (_bodyShieldAnimationId == 1)
 	{
 		_zombiesAnimation->setAttachment(oldName, newName);
-		_animationId = 2;
+		_bodyShieldAnimationId = 2;
 	}
 }
 
 void Zombies::setZombieBodyShieldSecondaryInjure(const string& oldName, const string& newName)
 {
-	if (_animationId == 2)
+	if (_bodyShieldAnimationId == 2)
 	{
 		_zombiesAnimation->setAttachment(oldName, newName);
-		_animationId = 3;
+		_bodyShieldAnimationId = 3;
 	}
 }
 
@@ -601,19 +629,19 @@ void Zombies::setZombieBodyShieldThirdInjure(const string& oldName, const string
 
 void Zombies::setZombieHeadShieldPrimaryInjure(const string& oldName, const string& newName)
 {
-	if (_animationId <= 4 && _animationId >= 1)
+	if (_headShieldAnimationId == 1)
 	{
 		_zombiesAnimation->setAttachment(oldName, newName);
-		_animationId = 5;
+		_headShieldAnimationId = 2;
 	}
 }
 
 void Zombies::setZombieHeadShieldSecondaryInjure(const string& oldName, const string& newName)
 {
-	if (_animationId == 5)
+	if (_headShieldAnimationId == 2)
 	{
 		_zombiesAnimation->setAttachment(oldName, newName);
-		_animationId = 6;
+		_headShieldAnimationId = 3;
 	}
 }
 
@@ -626,17 +654,19 @@ void Zombies::zombieLoseArmAnimation(const std::string& name)
 {
 	if (_isShowLoseLimbsAnimation)/* 掉胳膊 */
 	{
-		AudioEngine::setVolume(AudioEngine::play2d(_global->userInformation->getMusicPath().find("limbs_pop")->second), _global->userInformation->getSoundEffectVolume());
+		PlayMusic::playMusic("limbs_pop");
 		
 		auto arm = Sprite::createWithSpriteFrameName(name +".png");
 		arm->setPosition(_zombiesAnimation->getPosition() + Vec2(-10, 100));
 		arm->setLocalZOrder(_zombiesAnimation->getLocalZOrder() + 1);
 		arm->runAction(Sequence::create(Spawn::create(
-			Sequence::create(JumpBy::create(0.5f, Vec2(-80 + rand() % 160, -100), rand() % 80 + 66, 1), JumpBy::create(0.2f, Vec2(-20 + rand() % 40, 0), rand() % 10 + 10, 1), nullptr),
+			Sequence::create(JumpBy::create(0.5f, Vec2(-80 + rand() % 160, -100), rand() % 80 + 66, 1), 
+				JumpBy::create(0.2f, Vec2(-20 + rand() % 40, 0), rand() % 10 + 10, 1), nullptr),
 			RotateBy::create(0.5f, rand() % 2 == 0 ? 90 : -90), nullptr),
 			DelayTime::create(2.0f), FadeOut::create(0.5f), CallFunc::create([arm]() {arm->removeFromParent(); }), nullptr));
 		_node->addChild(arm);
-		
+
+		showZombieShadow(arm, 100);
 		setZombieAttributeForGameType(arm);
 	}
 }
@@ -645,18 +675,20 @@ void Zombies::zombieLoseHeadAnimation(const std::string& name)
 {
 	if (_isShowLoseLimbsAnimation)/* 僵尸掉头 */
 	{
-		AudioEngine::setVolume(AudioEngine::play2d(_global->userInformation->getMusicPath().find("limbs_pop")->second), _global->userInformation->getSoundEffectVolume());
+		PlayMusic::playMusic("limbs_pop");
 		
 		auto head = Sprite::createWithSpriteFrameName(name + ".png");
 		head->setPosition(_zombiesAnimation->getPosition() + Vec2(-40, 150));
 		head->setLocalZOrder(_zombiesAnimation->getLocalZOrder() + 1);
 		head->setScale(1.5f);
 		head->runAction(Sequence::create(Spawn::create(
-			Sequence::create(JumpBy::create(0.5f, Vec2(-150 + rand() % 300, -120), rand() % 100 + 66, 1), JumpBy::create(0.2f, Vec2(-20 + rand() % 40, 0), rand() % 10 + 10, 1), nullptr),
+			Sequence::create(JumpBy::create(0.5f, Vec2(-150 + rand() % 300, -120), rand() % 100 + 66, 1), 
+				JumpBy::create(0.2f, Vec2(-20 + rand() % 40, 0), rand() % 10 + 10, 1), nullptr),
 			RotateBy::create(0.5f, -180 + rand() % 360), nullptr),
 			DelayTime::create(2.0f), FadeOut::create(0.5f), CallFunc::create([head]() {head->removeFromParent(); }), nullptr));
 		_node->addChild(head);
 
+		showZombieShadow(head, 150);
 		setZombieAttributeForGameType(head);
 	}
 }
@@ -664,18 +696,20 @@ void Zombies::zombieLoseHeadAnimation(const std::string& name)
 void Zombies::zombieLoseShieldAnimation(const std::string& name)
 {
 	/* 僵尸掉护盾 */
-	AudioEngine::setVolume(AudioEngine::play2d(_global->userInformation->getMusicPath().find("limbs_pop")->second), _global->userInformation->getSoundEffectVolume());
-
+	PlayMusic::playMusic("limbs_pop");
+	
 	auto cone = Sprite::createWithSpriteFrameName(name + ".png");
 	cone->setPosition(_zombiesAnimation->getPosition() + Vec2(-40, 200));
 	cone->setLocalZOrder(_zombiesAnimation->getLocalZOrder() + 1);
 	cone->setScale(1.5f);
 	cone->runAction(Sequence::create(Spawn::create(
-		Sequence::create(JumpBy::create(0.5f, Vec2(-150 + rand() % 300, -170), rand() % 100 + 66, 1), JumpBy::create(0.2f, Vec2(-20 + rand() % 40, 0), rand() % 10 + 10, 1), nullptr),
+		Sequence::create(JumpBy::create(0.5f, Vec2(-150 + rand() % 300, -170), rand() % 100 + 66, 1), 
+			JumpBy::create(0.2f, Vec2(-20 + rand() % 40, 0), rand() % 10 + 10, 1), nullptr),
 		RotateBy::create(0.5f, -180 + rand() % 360), nullptr),
 		DelayTime::create(2.0f), FadeOut::create(0.5f), CallFunc::create([cone]() {cone->removeFromParent(); }), nullptr));
 	_node->addChild(cone);
 
+	showZombieShadow(cone, 200);
 	setZombieAttributeForGameType(cone);
 }
 
@@ -688,9 +722,7 @@ void Zombies::zombieFadeOutAnimation()
 			if (!strcmp(event->data->name, "filldown"))
 			{
 				_currentSpeed = 0; /* 停止运动 */
-				AudioEngine::setVolume(AudioEngine::play2d(
-					_global->userInformation->getMusicPath().find(rand() % 2 ? "zombie_falling_1" : "zombie_falling_2")->second), 
-					_global->userInformation->getSoundEffectVolume());
+				PlayMusic::playMusic(rand() % 2 ? "zombie_falling_1" : "zombie_falling_2");
 			}
 			if (!strcmp(event->data->name, "die"))
 			{
@@ -715,11 +747,33 @@ void Zombies::playZombieSoundEffect(const string& name)
 	uniform_int_distribution<unsigned>number(0, 10000); 
 	if (number(_random) < 5 && _zombieHowlNumbers< 3)
 	{
-		AudioEngine::setVolume(AudioEngine::play2d(
-			_global->userInformation->getMusicPath().find(name)->second), 
-			_global->userInformation->getSoundEffectVolume());
+		PlayMusic::playMusic(name);
 		++_zombieHowlNumbers;
 	}
+}
+
+void Zombies::showZombieShadow(Node* node, const int posy)
+{
+	/* 创建僵尸掉落肢体护盾影子 */
+	auto shadow = Sprite::createWithSpriteFrameName("plantshadow.png");
+	shadow->setScale(posy == 100 ? 1.0f : 1.5f);
+	shadow->setOpacity(180);
+	shadow->setLocalZOrder(node->getLocalZOrder());
+	_node->addChild(shadow, -1);
+
+	auto positiony = node->getPosition().y - posy;
+	node->runAction(RepeatForever::create(Sequence::create(
+		CallFunc::create([=]()
+			{
+				shadow->setPosition(Vec2(node->getPosition().x, positiony));
+			}), DelayTime::create(0.01f), nullptr)));
+
+	shadow->runAction(Sequence::create(
+		DelayTime::create(2.7f), FadeOut::create(0.5f),DelayTime::create(1.0f),
+		CallFunc::create([shadow]()
+			{
+				shadow->removeFromParent();
+			}), nullptr));
 }
 
 void Zombies::setSmallZombieAttribute()
@@ -791,6 +845,11 @@ void Zombies::setZombieGLProgram()
 		_normalGLProgram = _zombiesAnimation->getGLProgram();
 		_highLightGLProgram = getHighLight();
 	}
+}
+
+bool Zombies::getZombieWarning()
+{
+	return _zombiesAnimation->getPositionX() < 570 + 122 * 2;
 }
 
 GLProgram* Zombies::getHighLight()

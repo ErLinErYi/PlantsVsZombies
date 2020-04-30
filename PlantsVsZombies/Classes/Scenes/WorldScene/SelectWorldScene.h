@@ -34,7 +34,7 @@ private:
 	void createMouseListener();
     void createGoBack();
 	void createSelectDifficulty();
-
+	
 private:
 	Size _backgroundSize;
 	ui::ScrollView* _scrollView;
