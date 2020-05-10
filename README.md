@@ -20,7 +20,7 @@
 
 ## 运行示例
 ![Image(图片)](https://gitee.com/GITLZ/PlantsVsZombies/raw/master/example.png)
-![Image(图片)](https://gitee.com/GITLZ/PlantsVsZombies/raw/master/example1.png)
+![Image(图片)](https://img-blog.csdnimg.cn/20200405101902466.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3FxXzQwNjMwMjQ2,size_16,color_FFFFFF,t_70)
 
 ## 运行要求
 * 安装visual studio 2017 or visual studio 2019
