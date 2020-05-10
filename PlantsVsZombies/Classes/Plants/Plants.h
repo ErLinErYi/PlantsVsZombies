@@ -125,7 +125,7 @@ public:
 	/**
 	 *判断植物是否存活
 	 */
-	virtual bool getPlantIsSurvive() const { return _healthPoint > 0 ? true : false; }
+	virtual bool getPlantIsSurvive() const;
 
 	/**
 	 *获取植物生命值

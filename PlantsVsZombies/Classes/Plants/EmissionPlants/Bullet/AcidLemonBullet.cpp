@@ -99,9 +99,15 @@ void AcidLemonBullet::setAttackForShield(Zombies* zombie)
 {
 	if (zombie->getZombieIsHaveShield()) /* 僵尸有护盾 */
 	{
-		if (zombie->getZombieBodyAttackSoundEffect() || zombie->getZombieHeadAttackSoundEffect()) /* 僵尸是铁质护盾 */
+		if (zombie->getZombieHeadShieldType() == ShieldType::IronHeadShield ||
+			zombie->getZombieBodyShieldType() == ShieldType::IronBodyShield)     /* 僵尸是铁质护盾 */
 		{
 			_attack = 80;
+		}
+
+		if (zombie->getZombieHeadShieldType() == ShieldType::PlasticsHeadShield) /* 僵尸是塑料护盾 */
+		{
+			_attack = 15;
 		}
 	}
 	else

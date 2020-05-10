@@ -16,6 +16,8 @@ public:
 	static SunFlower* create(Node* node = nullptr);
 	static void stopSun();
 	void createRandomSuns();
+	void setSunShowTime(const Vec2 time);
+	Vec2 getSunShowTime() const;
 	Sprite* createPlantImage() override;
 	void createPlantAnimation() override;
 	
@@ -28,11 +30,15 @@ private:
 	void goodsRecovery();
 	void createSuns();
 	void createListener();
-
+	void playAnimation();
+	void calculateSunShowTime();
+	
 private:
 	static int _sunTag;
 	Sun* _sun;
 	Node* _sunLayer;
+	Vec2 _sunShowTime;
+	Vec2 _sunShowTime1;
 };
 
 class Sun

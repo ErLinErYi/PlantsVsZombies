@@ -14,17 +14,25 @@ using namespace cocos2d;
 
 class Plants;
 class SunFlower;
+class Zombies;
+enum class PlantsType;
+enum class ZombiesType;
 
 class GSAnimationLayer :public Layer
 {
 public:
 	CREATE_FUNC(GSAnimationLayer);
 	static GSAnimationLayer* create(Node* node);
+	Plants* createDifferentPlants(PlantsType plantsType);
+	Zombies* createDifferentZombies(ZombiesType zombiesType);
 	void stopRandomSun();
 	void addLayer(Node* node, const int order, const string& name) { node->addChild(this, order, name);}
 	void plantPlants();
 	void deletePlants();
 	void createZombies();
+	void createZombiesOnSurvival();
+	Layer* getSunLayer() const;
+	GSAnimationLayer* getAnimationLayer();
 
 CC_CONSTRUCTOR_ACCESS:
 	GSAnimationLayer(Node* node = nullptr);
@@ -32,7 +40,6 @@ CC_CONSTRUCTOR_ACCESS:
 	virtual bool init();
 
 private:
-	Plants* createDifferentPlants();
 	void createSunLayer();
 	void createRandomSuns();
 	void showCars();

@@ -22,11 +22,17 @@ public:
 	void updateCoinNumbers();
 	void updateSunNumbers();
 	void updateProgressBar(const int& zombiesAppearFrequency);
+	void updateProgressBar(const int& zombiesAppearFrequency,const int& maxFrequency);
 	bool updateProgressBarFlag();
 	bool updateProgressBarFlag(const int& id);
+	void updateProgressBarFinalFlag();
 	void updateProgressBarHead();
 	void sunNumberTextWarning();
 	void createPromptText();
+	void setProgressBarPercent(const float precent);
+	float getProgressBarPercent() const;
+	void setProgressBarLastPercent(const float precent);
+	float getProgressBarLastPercent() const;
 
 CC_CONSTRUCTOR_ACCESS:
 	GSInformationLayer();

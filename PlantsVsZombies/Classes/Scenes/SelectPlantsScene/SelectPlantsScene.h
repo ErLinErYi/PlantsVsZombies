@@ -36,43 +36,47 @@ protected:
 	/**
 	 *创建文字
 	 */
-	void createReadyText(const std::string& name, const int& id);
+	virtual void createReadyText(const std::string& name, const int& id);
 
 	/**
 	 *文字回调
 	 */
 	virtual void readyTextCallBack(Node* node, const std::string& name, const int& id);
 
-private:
+	/**
+	 *切换场景
+	 */
+	virtual void replaceScene();
+
 	/**
 	 *创建背景层
 	 */
-	void createBackgroundLayer();
+	virtual void createBackgroundLayer();
 
 	/**
 	 *创建控制层
 	 */
-	void createControlLayer();
+	virtual void createControlLayer();
 
 	/**
 	 *事件更新
 	 */
-	void eventUpdate(float Time);
+	virtual void eventUpdate(float Time);
 
 	/**
 	 *创建植物选择对话框
 	 */
-	void createSelectPlantsDialog();
+	virtual void createSelectPlantsDialog();
 
 	/**
 	 *控制显示要求
 	 */
-	void controlShowRequirement();
+	virtual void controlShowRequirement();
 
 	/**
 	 *植物选择回调函数
 	 */
-	void selectPlantsCallBack();
+	virtual void selectPlantsCallBack();
 
 protected:
 	Layer* _scrollLayer;

@@ -54,39 +54,13 @@ void GSGameEndLayer::successfullEntry()
 {
 	Director::getInstance()->getScheduler()->setTimeScale(1.0f); /* 恢复播放倍数 */
 	Director::getInstance()->getOpenGLView()->setCursor("resources/images/System/cursor.png", Point::ANCHOR_TOP_LEFT);
+	UserData::getInstance()->createNewLevelDataDocument();
+	UserData::getInstance()->removeLevelData(_global->userInformation->getCurrentCaveFileLevelWorldName());
+
 	caveLevelNumber();
 	carsToCoins();
 
-	ui::Button* moneybag_hi_res;
-
-	if (_global->userInformation->getCurrentPlayLevels() >= 52)
-		moneybag_hi_res = ui::Button::create("trophy.png", "", "", TextureResType::PLIST);
-	else
-		moneybag_hi_res = ui::Button::create("moneybag_hi_res.png", "", "", TextureResType::PLIST);
-
-	moneybag_hi_res->setPosition(Vec2(700 + rand() % 1000, 100 + rand() % 700));
-	moneybag_hi_res->runAction(JumpBy::create(0.5f, Vec2(100 - rand() % 200, 0), 100 + rand() % 100, 1));
-	moneybag_hi_res->setName("moneybag_hi_res");
-	moneybag_hi_res->setLocalZOrder(2);
-	this->addChild(moneybag_hi_res);
-	
-	moneybag_hi_res->runAction(RepeatForever::create(Sequence::create(TintTo::create(0.3f, 150, 150, 150), TintTo::create(0.3f, 255, 255, 255), nullptr)));
-	moneybag_hi_res->addTouchEventListener([this, moneybag_hi_res](Ref* sender, ui::Widget::TouchEventType type)
-		{
-			switch (type)
-			{
-			case cocos2d::ui::Widget::TouchEventType::BEGAN:
-				PlayMusic::playMusic("coin");
-				break;
-			case cocos2d::ui::Widget::TouchEventType::ENDED:
-				moneybag_hi_res->setEnabled(false);
-				moneybag_hi_res->setBright(true);
-
-				PlayMusic::playMusic("moneyfalls");
-				rewardCoin(moneybag_hi_res);
-				break;
-			}
-		});
+	rewardThing();
 }
 
 void GSGameEndLayer::breakThrough(GameTypes gameType)
@@ -94,17 +68,17 @@ void GSGameEndLayer::breakThrough(GameTypes gameType)
 	GSPauseQuitLayer::pauseLayer();
 	Director::getInstance()->getScheduler()->setTimeScale(1.0f); /* 恢复播放倍数 */
 	Director::getInstance()->getOpenGLView()->setCursor("resources/images/System/cursor.png", Point::ANCHOR_TOP_LEFT);
-	UserData::getInstance()->caveUserData("BREAKTHROUGH",
-		++_global->userInformation->getBreakThroughNumbers());/* 记录闯关失败个数 */
+	UserData::getInstance()->caveUserData("BREAKTHROUGH",++_global->userInformation->getBreakThroughNumbers());/* 记录闯关失败个数 */
+
+	UserData::getInstance()->createNewLevelDataDocument();
+	UserData::getInstance()->removeLevelData(_global->userInformation->getCurrentCaveFileLevelWorldName());
 
 	PlayMusic::playMusic("losemusic");
 	
-	if (gameType == GameTypes::UserLose)
-	{
+	if (gameType == GameTypes::UserLose){
 		showFailText();
 	}
-	else
-	{
+	else{
 		showFailDialog(gameType);
 	}
 }
@@ -133,14 +107,8 @@ void GSGameEndLayer::showFailDialog(GameTypes gameType)
 				break;
 			case ui::Widget::TouchEventType::ENDED:
 				_userWinRequirement->setDelectDialogAction();
-				if (_global->userInformation->getIsMirrorScene())
-				{
-					_director->replaceScene(TransitionFade::create(1.0f, MirrorWorld_1::createScene()));
-				}
-				else
-				{
-					_director->replaceScene(TransitionFade::create(1.0f, World_1::createScene()));
-				}
+				World_1::setPopEnter(true);
+				quitScene();
 				break;
 			}
 		});
@@ -162,18 +130,48 @@ void GSGameEndLayer::showFailText()
 	lose->runAction(Sequence::create(JumpTo::create(1.0f, Director::getInstance()->getWinSize() / 2.0f, 250, 3),
 		DelayTime::create(5),CallFunc::create([this]()
 			{
-				if (_global->userInformation->getIsMirrorScene())
-				{
-					_director->replaceScene(TransitionFade::create(1.0f, MirrorWorld_1::createScene()));
-				}
-				else
-				{
-					_director->replaceScene(TransitionFade::create(1.0f, World_1::createScene()));
-				}
+				World_1::setPopEnter(true);
+				quitScene();
 			}),
 		nullptr));
 	this->addChild(lose);
 }
+
+void GSGameEndLayer::rewardThing()
+{
+	ui::Button* moneybag_hi_res;
+	if (_global->userInformation->getCurrentPlayLevels() >= 52 && _global->userInformation->getGameDifficulty())
+		moneybag_hi_res = ui::Button::create("trophy.png", "", "", TextureResType::PLIST);
+	else if (_global->userInformation->getCurrentPlayLevels() >= 52 && !_global->userInformation->getGameDifficulty())
+		moneybag_hi_res = ui::Button::create("trophy1.png", "", "", TextureResType::PLIST);
+	else
+		moneybag_hi_res = ui::Button::create("moneybag_hi_res.png", "", "", TextureResType::PLIST);
+
+	moneybag_hi_res->setPosition(Vec2(700 + rand() % 1000, 100 + rand() % 700));
+	moneybag_hi_res->runAction(JumpBy::create(0.5f, Vec2(100 - rand() % 200, 0), 100 + rand() % 100, 1));
+	moneybag_hi_res->setName("moneybag_hi_res");
+	moneybag_hi_res->setLocalZOrder(2);
+	this->addChild(moneybag_hi_res);
+
+	moneybag_hi_res->runAction(RepeatForever::create(Sequence::create(TintTo::create(0.3f, 150, 150, 150), TintTo::create(0.3f, 255, 255, 255), nullptr)));
+	moneybag_hi_res->addTouchEventListener([this, moneybag_hi_res](Ref* sender, ui::Widget::TouchEventType type)
+		{
+			switch (type)
+			{
+			case cocos2d::ui::Widget::TouchEventType::BEGAN:
+				PlayMusic::playMusic("coin");
+				break;
+			case cocos2d::ui::Widget::TouchEventType::ENDED:
+				moneybag_hi_res->setEnabled(false);
+				moneybag_hi_res->setBright(true);
+
+				PlayMusic::playMusic("moneyfalls");
+				rewardCoin(moneybag_hi_res);
+				break;
+			}
+		});
+}
+
 
 void GSGameEndLayer::caveLevelNumber()
 {
@@ -192,17 +190,9 @@ void GSGameEndLayer::caveLevelNumber()
 			snprintf(worldFile, 128, _global->userInformation->getSystemCaveFileName(
 				_global->userInformation->getUserCaveFileNumber()).c_str(), _global->userInformation->getCurrentPlayWorldTag() + 1);
 		}
-
-		if (_global->userInformation->getIsMirrorScene())
-		{
-			UserData::getInstance()->caveUserData(worldFile,
-				++_global->userInformation->getUserSelectWorldData().at(1)->levels);
-		}
-		else
-		{
-			UserData::getInstance()->caveUserData(worldFile,
-				++_global->userInformation->getUserSelectWorldData().at(0)->levels);
-		}
+		
+		UserData::getInstance()->caveUserData(worldFile, ++_global->userInformation->getUserSelectWorldData().at(
+			_global->userInformation->getCurrentPlayWorldTag())->levels);
 	}
 }
 
@@ -273,14 +263,8 @@ void GSGameEndLayer::rewardCoin(Button* button)
 									/* 保存金币数 */
 									UserData::getInstance()->caveUserData("COINNUMBERS", _global->userInformation->getCoinNumbers());
 									
-									if (_global->userInformation->getIsMirrorScene())
-									{
-										_director->replaceScene(TransitionFade::create(1.0f, MirrorWorld_1::createScene()));
-									}
-									else
-									{
-										_director->replaceScene(TransitionFade::create(1.0f, World_1::createScene()));
-									}
+									World_1::setPopEnter(true);
+									_director->popScene();
 								}), nullptr));
 					}), nullptr));
 		}
@@ -309,4 +293,16 @@ void GSGameEndLayer::coinAction(const Vec2& position, const int id, const bool b
 	auto action1 = Spawn::create(ScaleTo::create(0.2f, 0.5f), FadeOut::create(0.2f), callFunc, nullptr);
 
 	coin->runAction(Sequence::create(DelayTime::create(id * 0.05f), action, DelayTime::create(0.05f), MoveTo::create(0.5f, Vec2(1650, -40)), action1, nullptr));
+}
+
+void GSGameEndLayer::quitScene()
+{
+	auto layer = LayerColor::create(Color4B(0, 0, 0, 0));
+	this->addChild(layer);
+	layer->runAction(Sequence::create(FadeIn::create(1.0f),
+		CallFunc::create([=]()
+			{
+				layer->removeFromParent();
+				_director->popScene();
+			}), nullptr));
 }

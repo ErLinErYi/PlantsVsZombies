@@ -16,6 +16,8 @@ public:
 
 CC_CONSTRUCTOR_ACCESS:
     MirrorWorld_1();
+    ~MirrorWorld_1();
+    virtual void onEnter() override;
 
 protected:
     virtual void createScrollView() override;
@@ -24,4 +26,7 @@ protected:
     virtual void createButtonListener(ui::Button* button, const int& ID) override;
     virtual void setLevelVisible(Node* node) override;
     virtual void createGoBack() override;
+
+private:
+    static bool _isPopEnter;
 };

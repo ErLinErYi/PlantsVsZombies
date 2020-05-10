@@ -10,10 +10,17 @@
 #include "Scenes/SelectPlantsScene/SPSBackGroundLayer.h"
 #include "SelectWorldScene.h"
 #include "Scenes/SelectPlantsScene/SelectPlantsScene.h"
+#include "Scenes/GameScene/OpenCaveGameScene.h"
+#include "Scenes/GameScene/GSPauseQuitLayer.h"
+#include "Scenes/GameScene/GSData.h"
 #include "Based/LevelData.h"
 #include "Based/UserData.h"
 #include "Based/PlayMusic.h"
 #include "AudioEngine.h"
+
+#include "Scenes/SelectPlantsScene/SurvivalSelectScene/SurvivalSelectScene.h"
+
+bool World_1::_isPopEnter = false;
 
 World_1::World_1():
 	_global(Global::getInstance()),
@@ -27,14 +34,21 @@ World_1::World_1():
 
 	_worldPosition = UserData::getInstance()->openDoubleUserData(
 		_global->userInformation->getGameDifficulty() ? "WORLD_1_POSITION_DIF" : "WORLD_1_POSITION");
+}
 
-	/* 播放音乐 */
-	PlayMusic::changeBgMusic("mainmusic2", true);
+World_1::~World_1()
+{
+	_isPopEnter = false;
 }
 
 Scene* World_1::createScene()
 {
 	return World_1::create();
+}
+
+void World_1::setPopEnter(const bool isPopEnter)
+{
+	_isPopEnter = isPopEnter;
 }
 
 bool World_1::init()
@@ -48,6 +62,26 @@ bool World_1::init()
 	createMouseListener();
 
 	return true;
+}
+
+void World_1::onEnter()
+{
+	Scene::onEnter();
+
+	if (_isPopEnter)
+	{
+		_isPopEnter = false;
+		auto layer = LayerColor::create(Color4B(0, 0, 0, 255));
+		this->addChild(layer);
+		layer->runAction(Sequence::create(DelayTime::create(0.1f),
+			CallFunc::create([=]()
+				{
+					Director::getInstance()->replaceScene(TransitionFade::create(0.5f, World_1::createScene()));
+				}), nullptr));
+	}
+
+	/* 播放音乐 */
+	PlayMusic::changeBgMusic("mainmusic2", true);
 }
 
 void  World_1::createBackground()
@@ -597,9 +631,6 @@ ui::Button* World_1::createButton(Node* node, const std::string& name, const Vec
 
 void World_1::createButtonListener(ui::Button* button, const int& ID)
 {
-	char LevelName[20] = {};
-	snprintf(LevelName, 20, "Level_%d", ID);
-
 	button->addTouchEventListener([=](Ref* sender, ui::Widget::TouchEventType type)
 		{
 			switch (type)
@@ -608,21 +639,7 @@ void World_1::createButtonListener(ui::Button* button, const int& ID)
 				PlayMusic::playMusic("tap");
 				break;
 			case ui::Widget::TouchEventType::ENDED:
-				
-				UserData::getInstance()->caveUserData(
-					_global->userInformation->getGameDifficulty() ? "WORLD_1_POSITION_DIF" : "WORLD_1_POSITION",
-					_scrollView->getScrolledPercentHorizontal()); /* 记录位置 */
-
-				//读取关卡信息
-				OpenLevelData::getInstance()->createLevelData(ID, LevelName);
-				OpenLevelData::getInstance()->setLevelNumber(ID);
-				
-				_global->userInformation->setCurrentPlayLevels(ID);
-				_global->userInformation->setCurrentPlayWorldTag(0);
-				_global->userInformation->setCurrentPlayWorldName(" - 现代世界 - ");
-
-				Director::getInstance()->replaceScene(TransitionFade::create(1.0f, SelectPlantsScene::createScene()));
-
+				playLevelGameAndCaveThings(ID);
 				break;
 			}
 		});
@@ -686,4 +703,37 @@ void World_1::createGoBack()
 				break;
 			}
 		});
+}
+
+void World_1::playLevelGameAndCaveThings(const int id)
+{
+	UserData::getInstance()->caveUserData(
+		_global->userInformation->getGameDifficulty() ? "WORLD_1_POSITION_DIF" : "WORLD_1_POSITION",
+		_scrollView->getScrolledPercentHorizontal()); /* 记录位置 */
+
+	char LevelName[20] = {};
+	snprintf(LevelName, 20, "Level_%d", id);
+	//读取关卡信息
+	OpenLevelData::getInstance()->createLevelData(id, LevelName);
+	OpenLevelData::getInstance()->setLevelNumber(id);
+
+	_global->userInformation->setCurrentPlayLevels(id);
+	_global->userInformation->setCurrentPlayWorldTag(0);
+	_global->userInformation->setCurrentPlayWorldName(" - 现代世界 - ");
+
+	UserData::getInstance()->createNewLevelDataDocument();
+	if (UserData::getInstance()->isHaveLevelData(_global->userInformation->getCurrentCaveFileLevelWorldName()))
+	{
+		auto layer = LayerColor::create(Color4B(0, 0, 0, 0));
+		layer->setGlobalZOrder(2);
+		this->addChild(layer);
+		layer->runAction(Sequence::create(FadeIn::create(0.5f),
+			CallFunc::create([=]()
+				{
+					layer->removeFromParent();
+					Director::getInstance()->pushScene(OpenCaveGameScene::createScene());
+				}), nullptr));
+	}
+	else
+		Director::getInstance()->pushScene(TransitionFade::create(1.0f, SelectPlantsScene::createScene()));
 }

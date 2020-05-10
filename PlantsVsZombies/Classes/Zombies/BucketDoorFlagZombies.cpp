@@ -21,6 +21,8 @@ BucketDoorFlagZombies::BucketDoorFlagZombies(Node* node)
 	_speed = 35;
 	_currentSpeed = 35;
 	_isHaveShield = true;
+	_headShieldType = ShieldType::IronHeadShield;
+	_bodyShieldType = ShieldType::IronBodyShield;
 	_zombiesType = ZombiesType::BucketDoorFlagZombies;
 }
 

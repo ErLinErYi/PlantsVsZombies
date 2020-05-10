@@ -14,6 +14,7 @@
 #include "GSInformationLayer.h"
 #include "GSBackgroundLayer.h"
 #include "GSAnimationLayer.h"
+#include "GSZombiesAppearControl.h"
 
 #include "Plants/Plants.h"
 #include "Plants/Plants-Files.h"
@@ -375,6 +376,19 @@ void GSControlLayer::controlRefurbishMusicAndText()
 	}
 }
 
+void GSControlLayer::updateFlag()
+{
+	for (auto data : _levelData)
+	{
+		if (_zombiesAppearControl->getZombiesAppearFrequency() > data)
+		{
+			informationLayerInformation->updateProgressBarFlag(data);
+		}
+	}
+	if (_zombiesAppearControl->getIsShowWords())
+		informationLayerInformation->updateProgressBarFinalFlag();
+}
+
 bool GSControlLayer::judgeMousePositionIsInMap()
 {
 	return (_plantsPosition.x >= 0 && _plantsPosition.x <= 8 && _plantsPosition.y >= 0 && _plantsPosition.y <= 4) ? true : false;
@@ -605,63 +619,4 @@ void GSControlLayer::mouseDownControl(EventMouse* eventmouse)
 			recoveryPlantsColor();
 		}
 	}
-}
-
-
-ZombiesAppearControl::ZombiesAppearControl():
-	_zombiesAppearFrequency(0)
-,	_lastFrequencyZombiesWasDeath(false)
-,	_isBegin(false)
-,	_isShowWords(false)
-,	_time(0)
-,   _openLevelData(OpenLevelData::getInstance())
-{
-	_random.seed(time(nullptr));
-}
-
-ZombiesAppearControl::~ZombiesAppearControl()
-{
-}
-
-ZombiesType ZombiesAppearControl::createDifferentTypeZombies(const unsigned int& zombiesAppearFrequency)
-{
-	int number = rand() % 100;
-	int sum = 0, i = -1;
-	auto zombiesTypeProbability = _openLevelData->readLevelData(_openLevelData->getLevelNumber())->getZombiesTypeProbabilityFrequency().at(zombiesAppearFrequency);
-	for (auto& probability : zombiesTypeProbability)
-	{
-		++i;
-		sum += probability;
-		if (number < sum)
-		{
-			return static_cast<ZombiesType>(_openLevelData->readLevelData(_openLevelData->getLevelNumber())->getZombiesType().at(i));
-		}
-	}
-	return ZombiesType::None;
-}
-
-int ZombiesAppearControl::getZombiesNumbersForAppearFrequency(const unsigned int& ZombiesAppearFrequency)
-{
-	const unsigned int number = _openLevelData->readLevelData(_openLevelData->getLevelNumber())->getZombiesNumbers().at(ZombiesAppearFrequency);
-	return number + rand() % number;
-}
-
-int ZombiesAppearControl::getEqualProbabilityForRow()
-{
-	uniform_int_distribution<unsigned>number(0, 4);
-
-	if (_judgeZombieRow.size() == 5)
-	{
-		_judgeZombieRow.clear();
-	}
-
-	unsigned int row;
-	do
-	{
-		row = number(_random);
-	} while (_judgeZombieRow.count(row));
-
-	_judgeZombieRow.insert(row);
-	
-	return _zombiesPosition[row];
 }

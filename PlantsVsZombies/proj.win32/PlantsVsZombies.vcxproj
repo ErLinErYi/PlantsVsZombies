@@ -222,7 +222,11 @@ xcopy "$(ProjectDir)..\Resources" "$(OutDir)" /D /E /I /F /Y
     <ClCompile Include="..\Classes\Scenes\GameScene\GSPauseQuitLayer.cpp" />
     <ClCompile Include="..\Classes\Scenes\GameScene\GSControlLayer.cpp" />
     <ClCompile Include="..\Classes\Scenes\GameScene\GSRequirementLayer.cpp" />
+    <ClCompile Include="..\Classes\Scenes\GameScene\GSZombiesAppearControl.cpp" />
     <ClCompile Include="..\Classes\Scenes\GameScene\MirrorGameScene.cpp" />
+    <ClCompile Include="..\Classes\Scenes\GameScene\OpenCaveGameScene.cpp" />
+    <ClCompile Include="..\Classes\Scenes\GameScene\SurvivalGameScene\SGSSurvivalControlLayer.cpp" />
+    <ClCompile Include="..\Classes\Scenes\GameScene\SurvivalGameScene\SurvivalGameScene.cpp" />
     <ClCompile Include="..\Classes\Scenes\HelpScene\HelpScene.cpp" />
     <ClCompile Include="..\Classes\Scenes\LoadingScene\LoadingScene.cpp" />
     <ClCompile Include="..\Classes\Scenes\MainMenuScene\InputDataScene.cpp" />
@@ -237,6 +241,7 @@ xcopy "$(ProjectDir)..\Resources" "$(OutDir)" /D /E /I /F /Y
     <ClCompile Include="..\Classes\Scenes\SelectPlantsScene\SelectPlantsScene.cpp" />
     <ClCompile Include="..\Classes\Scenes\SelectPlantsScene\SPSRequriementLayer.cpp" />
     <ClCompile Include="..\Classes\Scenes\SelectPlantsScene\SPSSpriteLayer.cpp" />
+    <ClCompile Include="..\Classes\Scenes\SelectPlantsScene\SurvivalSelectScene\SurvivalSelectScene.cpp" />
     <ClCompile Include="..\Classes\Scenes\WorldScene\MirrorWorld_1.cpp" />
     <ClCompile Include="..\Classes\Scenes\WorldScene\SelectWorldScene.cpp" />
     <ClCompile Include="..\Classes\Scenes\WorldScene\World_1.cpp" />
@@ -273,6 +278,7 @@ xcopy "$(ProjectDir)..\Resources" "$(OutDir)" /D /E /I /F /Y
     <ClInclude Include="..\Classes\Plants\DefensePlants\Garlic.h" />
     <ClInclude Include="..\Classes\Plants\EmissionPlants\AcidLemon.h" />
     <ClInclude Include="..\Classes\Plants\EmissionPlants\Bullet\AcidLemonBullet.h" />
+    <ClInclude Include="..\Classes\Plants\EmissionPlants\Bullet\Bullet-File.h" />
     <ClInclude Include="..\Classes\Plants\EmissionPlants\Bullet\Bullet.h" />
     <ClInclude Include="..\Classes\Plants\EmissionPlants\Bullet\Cabbage.h" />
     <ClInclude Include="..\Classes\Plants\EmissionPlants\Bullet\CitronBullet.h" />
@@ -306,7 +312,11 @@ xcopy "$(ProjectDir)..\Resources" "$(OutDir)" /D /E /I /F /Y
     <ClInclude Include="..\Classes\Scenes\GameScene\GSPauseQuitLayer.h" />
     <ClInclude Include="..\Classes\Scenes\GameScene\GSControlLayer.h" />
     <ClInclude Include="..\Classes\Scenes\GameScene\GSRequirementLayer.h" />
+    <ClInclude Include="..\Classes\Scenes\GameScene\GSZombiesAppearControl.h" />
     <ClInclude Include="..\Classes\Scenes\GameScene\MirrorGameScene.h" />
+    <ClInclude Include="..\Classes\Scenes\GameScene\OpenCaveGameScene.h" />
+    <ClInclude Include="..\Classes\Scenes\GameScene\SurvivalGameScene\SGSSurvivalControlLayer.h" />
+    <ClInclude Include="..\Classes\Scenes\GameScene\SurvivalGameScene\SurvivalGameScene.h" />
     <ClInclude Include="..\Classes\Scenes\HelpScene\HelpScene.h" />
     <ClInclude Include="..\Classes\Scenes\LoadingScene\LoadingScene.h" />
     <ClInclude Include="..\Classes\Scenes\MainMenuScene\InputDataScene.h" />
@@ -321,6 +331,7 @@ xcopy "$(ProjectDir)..\Resources" "$(OutDir)" /D /E /I /F /Y
     <ClInclude Include="..\Classes\Scenes\SelectPlantsScene\SelectPlantsScene.h" />
     <ClInclude Include="..\Classes\Scenes\SelectPlantsScene\SPSRequriementLayer.h" />
     <ClInclude Include="..\Classes\Scenes\SelectPlantsScene\SPSSpriteLayer.h" />
+    <ClInclude Include="..\Classes\Scenes\SelectPlantsScene\SurvivalSelectScene\SurvivalSelectScene.h" />
     <ClInclude Include="..\Classes\Scenes\WorldScene\MirrorWorld_1.h" />
     <ClInclude Include="..\Classes\Scenes\WorldScene\SelectWorldScene.h" />
     <ClInclude Include="..\Classes\Scenes\WorldScene\World_1.h" />

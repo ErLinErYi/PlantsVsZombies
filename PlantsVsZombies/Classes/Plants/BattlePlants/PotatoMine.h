@@ -12,6 +12,8 @@ class PotatoMine :public BattlePlants
 {
 public:
 	static PotatoMine* create(Node* node = nullptr);
+	void setBreakGround(const float time);
+	float getBreakGround() const;
 	Sprite* createPlantImage() override;
 	void createPlantAnimation() override;
 	void determineRelativePositionPlantsAndZombies() override;

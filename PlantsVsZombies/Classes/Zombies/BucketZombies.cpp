@@ -21,6 +21,7 @@ BucketZombies::BucketZombies(Node* node)
 	_speed = 30;
 	_currentSpeed = 30;
 	_isHaveShield = true;
+	_headShieldType = ShieldType::IronHeadShield;
 	_zombiesType = ZombiesType::BucketZombies;
 }
 
@@ -102,6 +103,7 @@ void BucketZombies::setZombieHeadShieldThirdInjure(const string& oldName, const 
 		_headShieldAnimationId = 4;
 		_isHaveShield = false;
 		_attackHeadSoundEffectType = 0;
+		_headShieldType = ShieldType::none;
 
 		/* ½©Ê¬µô»¤¶Ü */
 		zombieLoseShieldAnimation("Zombie_bucket");

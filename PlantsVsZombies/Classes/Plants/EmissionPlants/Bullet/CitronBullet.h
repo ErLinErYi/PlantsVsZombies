@@ -21,6 +21,9 @@ public:
      */
     virtual void bulletAndZombiesCollision() override;
 
+    void setAnimationId(const int tag);
+    int getAnimationId();
+
 CC_CONSTRUCTOR_ACCESS:
     CitronBullet(Node* node, int id);
     ~CitronBullet();

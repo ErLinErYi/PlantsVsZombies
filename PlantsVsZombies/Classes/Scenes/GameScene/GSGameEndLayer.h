@@ -37,6 +37,8 @@ private:
     void carsToCoins();
     void rewardCoin(Button* button);
     void coinAction(const Vec2& position, const int id, const bool big = false);
+    void rewardThing();
+    void quitScene();
 
 private:
     Global* _global;

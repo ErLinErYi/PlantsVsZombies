@@ -29,6 +29,7 @@ UserInformation::UserInformation():
 , _gameDifficulty(0)
 , _mainToWorld(false)
 , _isMirrorScene(false)
+, _isReadFileLevelData(false)
 , _background(nullptr)
 , _currentPlayLevels(1)
 , _currentPlayWorldTag(0)
@@ -424,6 +425,24 @@ void UserInformation::setIsEaseAnimation(CheckBox::EventType easeAnimation)
 void UserInformation::setIsMirrorScene(const bool isMirror)
 {
     _isMirrorScene = isMirror;
+}
+
+void UserInformation::setIsReadFileData(const bool isRead)
+{
+    _isReadFileLevelData = isRead;
+}
+
+bool UserInformation::getIsReadFileData() const
+{
+    return _isReadFileLevelData;
+}
+
+char* UserInformation::getCurrentCaveFileLevelWorldName()
+{
+    auto name = "LevelData_" + to_string(getCurrentPlayWorldTag()) + "_" + to_string(getCurrentPlayLevels());
+    char* str = new char[name.size()];
+    strcpy(str, name.c_str());
+    return str;
 }
 
 void UserInformation::newUserSelectWorldData()

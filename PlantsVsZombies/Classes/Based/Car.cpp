@@ -38,11 +38,13 @@ void Car::showCar()
 	_carImage->setPosition(_position);
 	_carImage->setLocalZOrder(getZOrder(_position.y));
 	_carImage->setScale(_scale);
-	_carImage->runAction(ScaleTo::create(0.2f, 0.8f));
 	_node->addChild(_carImage);
 
 	createCarShadow();
 	createAppearSpecialEffect();
+
+	if (!_global->userInformation->getIsReadFileData())
+		_carImage->runAction(ScaleTo::create(0.2f, 0.8f));
 }
 
 void Car::setPosition(const Vec2& position)
@@ -146,7 +148,8 @@ void Car::createAppearSpecialEffect()
 	fog->setName("fog");
 	fog->setPosition(Vec2(90, 30));
 	_carImage->addChild(fog);
-	fog->runAction(Sequence::create(DelayTime::create(0.5f), FadeOut::create(0.5f), nullptr));
+	fog->runAction(Sequence::create(DelayTime::create(0.5f), FadeOut::create(0.5f),
+		CallFunc::create([fog]() {fog->removeFromParent(); }), nullptr));
 }
 
 bool Car::getZombieIsSameLineWithCar(Zombies* zombie) const

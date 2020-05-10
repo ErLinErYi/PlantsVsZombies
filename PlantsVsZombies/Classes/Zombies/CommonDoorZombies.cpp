@@ -21,6 +21,7 @@ CommonDoorZombies::CommonDoorZombies(Node* node)
 	_speed = 30;
 	_currentSpeed = 30;
 	_isHaveShield = true;
+	_bodyShieldType = ShieldType::IronBodyShield;
 	_zombiesType = ZombiesType::CommonDoorZombies;
 }
 
@@ -106,5 +107,6 @@ void CommonDoorZombies::setZombieBodyShieldThirdInjure(const string& oldName, co
 		_bodyShieldAnimationId = 4;
 		_isHaveShield = false;
 		_attackBodySoundEffectType = 0;
+		_bodyShieldType = ShieldType::none;
 	}
 }

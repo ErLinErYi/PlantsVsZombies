@@ -21,6 +21,7 @@ CommonDoorFlagZombies::CommonDoorFlagZombies(Node* node)
 	_speed = 40;
 	_currentSpeed = 40;
 	_isHaveShield = true;
+	_bodyShieldType = ShieldType::IronBodyShield;
 	_zombiesType = ZombiesType::CommonDoorFlagZombies;
 }
 

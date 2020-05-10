@@ -25,11 +25,14 @@ struct MouseSelectImage /* 鼠标选择的植物 */
 	bool isSelectShovel;              /* 是否选择了铲子 */
 };
 
-struct PlantsInformation
+class PlantsInformation
 {
+public:
 	struct PlantsCards
 	{
-		PlantsCards():timeBarIsFinished(false){}
+		PlantsCards():
+			timeBarIsFinished(false)
+		{}
 		Button* plantsCards;            /* 卡牌 */
 		Text* plantsCardText;           /* 卡牌文字 */
 		ProgressTimer* progressTimer;   /* 倒计时 */
@@ -53,6 +56,13 @@ struct PlantsInformation
 		/*土豆雷*/ 25, /*卷心菜投手  */ 100, /*火炬树桩*/ 175, /*地刺    */     100,
 		/*大蒜  */ 50, /*火焰豌豆射手*/ 200, /*火爆辣椒*/ 150, /*强酸柠檬射手*/ 125,
 		/*离子缘*/ 350
+	};
+
+	/* 植物剩余冷却时间 */
+	struct PlantsCardFileData
+	{
+		static float PlantsSurPlusCoolTime[13];
+		static float PlantsSurPlusPrecent[13];
 	};
 };
 
@@ -89,7 +99,7 @@ private:
 	void showSeedBank();
 	void showShovelBank();
 	void createPlantsCard();
-	ProgressTimer* createProgressTimer(Button* button, const float _time, const unsigned int& id);
+	ProgressTimer* createProgressTimer(Button* button, const float _time, const int from, const unsigned int& id);
 	
 public:
 	MouseSelectImage* mouseSelectImage;                 // 鼠标选择

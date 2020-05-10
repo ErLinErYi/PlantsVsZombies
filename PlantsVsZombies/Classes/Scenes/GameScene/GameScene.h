@@ -24,17 +24,17 @@ public:
 CC_CONSTRUCTOR_ACCESS:
 	GameScene();
 	~GameScene();
-	virtual bool init();
-
+	virtual bool init() override;
+	
 protected:
-	void controlPlayMusic();
-	void backgroundLayer();
-	void buttonLayer();
-	void informationLayer();
-	void controlLayer();
-	void animationLayer();
-	void pauseGame();
-
+	virtual void controlPlayMusic();
+	virtual void backgroundLayer();
+	virtual void buttonLayer();
+	virtual void informationLayer();
+	virtual void controlLayer();
+	virtual void animationLayer();
+	virtual void pauseGame();
+	
 private:
 	Global* _global;
 	Director* _director;

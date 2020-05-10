@@ -18,6 +18,11 @@ public:
 	void createCabbageExplode();
 	void setZombiePosition(const Vec2& position);
 	void setZombieSpeed(const float speed);
+	void setIsFileData(const bool isFileData);
+	float getZombieSpeed() const;
+	void setCabbageCurrentPosition(const Vec2& position);
+	Vec2 getCabbageInitialPosition();
+	Vec2 calculateZombiePosition();
 
 CC_CONSTRUCTOR_ACCESS:
 	Cabbage(Node* node);
@@ -27,9 +32,10 @@ private:
 	bool getBulletIsSameLineWithZombie(Zombies* zombie);
 	bool getBulletIsEncounterWithZombie(Zombies* zombie);
 	void bulletAttackHurtZombies(Zombies* zombie) override;
-	Vec2 calculateZombiePosition();
 
 private:
 	Vec2 _zombiePosition;
+	Vec2 _currentPosition;
 	float _zombieSpeed;
+	bool _isFileData;
 };

@@ -21,6 +21,7 @@ ConeFlagZombies::ConeFlagZombies(Node* node)
 	_speed = 40;
 	_currentSpeed = 40;
 	_isHaveShield = true;
+	_headShieldType = ShieldType::PlasticsHeadShield;
 	_zombiesType = ZombiesType::ConeFlagZombies;
 }
 

@@ -115,6 +115,9 @@ public:
 	void setIsShowInformation(CheckBox::EventType isShow);
 	void setIsEaseAnimation(CheckBox::EventType easeAnimation);
 	void setIsMirrorScene(const bool isMirror);
+	void setIsReadFileData(const bool isRead);
+	bool getIsReadFileData() const;
+	char* getCurrentCaveFileLevelWorldName();
 	void newUserSelectWorldData();
 	void deleteUserSelectWorldData();
 
@@ -148,6 +151,7 @@ private:
 	map<string, string> _animationPath;                  // 动画路径
 	map<string, string> _textPath;                       // 文本路径
 
+	bool _isReadFileLevelData;
 	bool _isUpdate;                                      // 名字是否更新
 	string _userName;                                    // 用户名字
 	string _userCaveFileName[8];                         // 用户自己定义存档名称（主要用于显示）

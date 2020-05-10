@@ -23,7 +23,7 @@ public:
 	int prohibitId;
 	UserInformation* userInformation;
 
-CC_CONSTRUCTOR_ACCESS:
+private:
 	Global();
 	~Global();
 

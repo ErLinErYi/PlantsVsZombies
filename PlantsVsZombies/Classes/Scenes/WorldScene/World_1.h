@@ -24,12 +24,14 @@ class World_1 :public Scene
 {
 public:
 	CREATE_FUNC(World_1);
-	static Scene* createScene();  
+	static Scene* createScene();
+	static void setPopEnter(const bool isPopEnter);
 
 CC_CONSTRUCTOR_ACCESS:
 	World_1();
-	~World_1(){}
+	~World_1();
 	virtual bool init(); 
+	virtual void onEnter();
 
 protected:
 	virtual void readWorldLevel();
@@ -45,6 +47,7 @@ protected:
 	Sprite* createSprite(Node* node, const std::string& name, const Vec2& position, const float& scale, const int& zorder,bool IsFlipped = false);
 	void createMouseListener();
 	void playProhibitMusic(Button* button);
+	void playLevelGameAndCaveThings(const int id);
 
 protected:
 	Global* _global;
@@ -56,4 +59,7 @@ protected:
 	float _worldPosition;                 /* 世界初始位置 */
 	float _worldRollingDistance;          /* 计算鼠标滚动距离 */
 	list<Button*> _levelButton;
+
+private:
+	static bool _isPopEnter;
 };

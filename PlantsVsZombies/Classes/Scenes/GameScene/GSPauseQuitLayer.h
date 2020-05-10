@@ -37,9 +37,15 @@ CC_CONSTRUCTOR_ACCESS:
 protected:
 	virtual void createButton(const Vec2& vec2, const std::string name, PauseQuitLayer_Button type);
 	virtual void createDialog() override;
+	virtual void popSceneAnimation();
 
 private:
 	void showPrompt();
+	void openHandBook();
+	void setRestart();
+	void setQuitGame();
+	void keyDescription();
+	void returnGame();
 
 protected:
 	EventListenerTouchOneByOne* _touchListener;
@@ -48,4 +54,5 @@ private:
 	LayerColor* _promptLayer;
 	static int _pauseNumbers;
 	static string _layerName[6];
+	char* _levelName;
 };

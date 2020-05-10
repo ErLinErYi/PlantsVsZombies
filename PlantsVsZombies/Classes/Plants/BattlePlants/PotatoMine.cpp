@@ -46,6 +46,16 @@ PotatoMine* PotatoMine::create(Node* node)
 	CC_SAFE_DELETE(potatoMine);
 	return nullptr;
 }
+
+void PotatoMine::setBreakGround(const float time)
+{
+	_breakGround = time;
+}
+
+float PotatoMine::getBreakGround() const
+{
+	return _breakGround;
+}
 Sprite* PotatoMine::createPlantImage()
 {
 	imageInit("PotatoMine", INIT);
@@ -72,13 +82,20 @@ void PotatoMine::createPlantAnimation()
 
 void PotatoMine::createListener()
 {
-	_plantAnimation->runAction(Sequence::create(DelayTime::create(_breakGround), CallFunc::create([this]()
+	_plantAnimation->runAction(Sequence::create(DelayTime::create(_breakGround), 
+		CallFunc::create([this]()
 		{
 			PlayMusic::playMusic("dirt_rise");
 			_isReady = true;
 			_plantAnimation->setAnimation(0, "PotatoMine_Out", false);
 			_plantAnimation->addAnimation(0, "PotatoMine_Normal", true);
 		}), nullptr));
+	_plantAnimation->runAction(Repeat::create(Sequence::create(DelayTime::create(1.0f),
+		CallFunc::create([this]()
+			{
+				if (_breakGround > 0)
+					--_breakGround;
+			}), nullptr), 15));
 }
 
 void PotatoMine::determineRelativePositionPlantsAndZombies()

@@ -322,6 +322,8 @@ public:
      */
     void replaceScene(Scene *scene);
 
+    void eraseScene(const int level);
+
     /** Ends the execution, releases the running scene.
      * @lua endToLua
      */

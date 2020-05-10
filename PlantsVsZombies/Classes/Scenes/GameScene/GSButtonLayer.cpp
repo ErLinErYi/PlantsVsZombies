@@ -15,6 +15,9 @@
 #include "Based/PlayMusic.h"
 #include "Scenes/SelectPlantsScene/SPSSpriteLayer.h"
 
+float PlantsInformation::PlantsCardFileData::PlantsSurPlusCoolTime[13] = { 0,0,0,0,0,0,0,0,0,0,0,0,0 };
+float PlantsInformation::PlantsCardFileData::PlantsSurPlusPrecent[13] = { 0,0,0,0,0,0,0,0,0,0,0,0,0 };
+
 GSButtonLayer::GSButtonLayer():
 	_global(Global::getInstance()),
 	_director(Director::getInstance()),
@@ -244,8 +247,15 @@ void GSButtonLayer::createPlantsCard()
 		delete sps_spriteLayer;
 
 		ProgressTimer* timerBar;
-		if (card.cardTag) timerBar = createProgressTimer(cardBackgroundImag, plantsInformation->PlantsCoolTime[card.cardTag], card.cardTag);
-		else timerBar = createProgressTimer(cardBackgroundImag, 0, card.cardTag);
+		if (_global->userInformation->getIsReadFileData())
+			timerBar = createProgressTimer(cardBackgroundImag,
+				PlantsInformation::PlantsCardFileData::PlantsSurPlusCoolTime[card.cardTag],
+				PlantsInformation::PlantsCardFileData::PlantsSurPlusPrecent[card.cardTag], card.cardTag);
+		else
+		{
+			if (card.cardTag) timerBar = createProgressTimer(cardBackgroundImag, plantsInformation->PlantsCoolTime[card.cardTag], 100, card.cardTag);
+			else timerBar = createProgressTimer(cardBackgroundImag, 0, 100, card.cardTag);
+		}
 
 		plantsCards[card.cardTag].plantsCards = cardBackgroundImag;
 		plantsCards[card.cardTag].tag = card.cardTag;
@@ -255,7 +265,7 @@ void GSButtonLayer::createPlantsCard()
 	}
 }
 
-ProgressTimer* GSButtonLayer::createProgressTimer(Button* button, const float _time, const unsigned int& id)
+ProgressTimer* GSButtonLayer::createProgressTimer(Button* button, const float _time, const int from, const unsigned int& id)
 {
 	auto timerBar = ProgressTimer::create(Sprite::createWithSpriteFrameName("SeedPacketSilhouette1.png"));
 	timerBar->setType(ProgressTimer::Type::BAR);  //设置条形进度条
@@ -264,7 +274,7 @@ ProgressTimer* GSButtonLayer::createProgressTimer(Button* button, const float _t
 	timerBar->setPosition(Vec2(90, 48));
 	timerBar->setOpacity(150);
 	timerBar->setPercentage(100);
-	timerBar->runAction(Sequence::create(ProgressFromTo::create(_time, 100, 0), 
+	timerBar->runAction(Sequence::create(ProgressFromTo::create(_time, from, 0),
 		CallFunc::create([=]() {
 			plantsCards[id].timeBarIsFinished = true;
 			}), nullptr));

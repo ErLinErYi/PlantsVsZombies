@@ -12,6 +12,8 @@
 #include "GSControlLayer.h"
 #include "GSAnimationLayer.h"
 
+#include "Zombies/Zombies.h"
+
 GSBackgroundLayer* backgroundLayerInformation;   // 背景层实例化
 GSInformationLayer* informationLayerInformation; // 信息层实例化
 GSButtonLayer* buttonLayerInformation;           // 按钮层实例化

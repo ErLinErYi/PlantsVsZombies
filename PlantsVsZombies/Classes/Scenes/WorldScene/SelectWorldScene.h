@@ -23,7 +23,7 @@ public:
 	static void createGalaxy(Node* node);
 
 CC_CONSTRUCTOR_ACCESS:
-	SelectWorldScene(): _scrollView(nullptr),_global(Global::getInstance()) {}
+	SelectWorldScene();
 	virtual bool init();
 
 private:
@@ -37,6 +37,7 @@ private:
 	
 private:
 	Size _backgroundSize;
+	float _selectWorldPosition;
 	ui::ScrollView* _scrollView;
 	Button* _world[13];
 	Global* _global;

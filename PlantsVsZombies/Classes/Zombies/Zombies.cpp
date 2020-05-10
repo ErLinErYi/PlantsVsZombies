@@ -44,9 +44,11 @@ Zombies::Zombies() :
 ,   _isCanDelete{false,false}
 ,   _zombieEatPlantNumber(-1)
 ,   _zombieHowlNumbers(0)
-,   _highLightIntensity(0.4f)
+,   _highLightIntensity(0.3f)
 ,   _highLightGLProgramState(nullptr)
 ,   _highLightFinished(false)
+,   _headShieldType(ShieldType::none)
+,   _bodyShieldType(ShieldType::none)
 ,	_openLevelData(OpenLevelData::getInstance())
 ,	_global(Global::getInstance())
 ,   _animationName{"Zombies_Stand","Zombies_Stand1","Zombies_Walk","Zombies_Walk2"}
@@ -333,9 +335,9 @@ void Zombies::setZombieHurtBlink()
 		auto action = Repeat::create(Sequence::create(
 			CallFunc::create([this]()
 				{
-					_highLightIntensity -= 0.02f;
+					_highLightIntensity -= 0.06f;
 					_highLightGLProgramState->setUniformFloat("intensity", _highLightIntensity);
-				}), DelayTime::create(0.008f), nullptr), 25);
+				}), DelayTime::create(0.02f), nullptr), 10);
 
 		_zombiesAnimation->runAction(Sequence::create(
 			CallFunc::create([this]()
@@ -347,7 +349,7 @@ void Zombies::setZombieHurtBlink()
 			CallFunc::create([this]()
 				{
 					_zombiesAnimation->setGLProgram(_normalGLProgram);
-					_highLightIntensity = 0.4f;
+					_highLightIntensity = 0.3f;
 					_highLightFinished = false;
 				}), nullptr));
 	}
@@ -488,19 +490,15 @@ void Zombies::setZombieAttributeForGameType()
 	auto data = _openLevelData->readLevelData(_openLevelData->getLevelNumber());
 	/* ÅÐ¶ÏÊÇ·ñÊÇÐ¡½©Ê¬ */
 	if (data->getZombiesIsSmall())
-	{
 		setSmallZombieAttribute();
-	}
+
 	/* ÅÐ¶ÏÊÇ·ñÊÇ¾ÞÈË½©Ê¬ */
 	else if (data->getZombiesIsBig())
-	{
 		setBigZombieAttribute();
-	}
+
 	/* ÅÐ¶Ï½©Ê¬ÊÇ·ñÒþÉí */
 	else if (data->getZombiesVisible())
-	{
 		setOpacityZombieAttribute();
-	}
 }
 
 void Zombies::setZombieIsShowLoseLimbsAnimation(const bool isShow)
@@ -516,10 +514,8 @@ void Zombies::setZombieEatPlantNumber(const int& number)
 float Zombies::getZombieLocalZOrder(const int& positiionY) const
 {
 	const int pos[] = { 682,544,406,268,130 };
-	for (int i = 0; i < 5; i++)
-	{
-		if (pos[i] == positiionY)
-		{
+	for (int i = 0; i < 5; i++){
+		if (pos[i] == positiionY){
 			return (i + 1) * 20 - 10;
 		}
 	}
@@ -752,6 +748,16 @@ void Zombies::playZombieSoundEffect(const string& name)
 	}
 }
 
+ShieldType Zombies::getZombieBodyShieldType() const
+{
+	return _bodyShieldType;
+}
+
+ShieldType Zombies::getZombieHeadShieldType() const
+{
+	return _headShieldType;
+}
+
 void Zombies::showZombieShadow(Node* node, const int posy)
 {
 	/* ´´½¨½©Ê¬µôÂäÖ«Ìå»¤¶ÜÓ°×Ó */
@@ -774,6 +780,7 @@ void Zombies::showZombieShadow(Node* node, const int posy)
 			{
 				shadow->removeFromParent();
 			}), nullptr));
+	setZombieAttributeForGameType(shadow);
 }
 
 void Zombies::setSmallZombieAttribute()

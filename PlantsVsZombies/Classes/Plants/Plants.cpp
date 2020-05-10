@@ -54,6 +54,7 @@ SkeletonAnimation* Plants::plantInit(const std::string& plantname, const std::st
 		_plantAnimation->setAnimation(0, animaionname, _isLoop);
 		_plantAnimation->setLocalZOrder(_zOrder);
 		_plantAnimation->setTag(_plantTag);
+		_plantAnimation->setTimeScale(0.7f + rand() % 4 / 10.f);
 		setPlantGLProgram();
 		return _plantAnimation;
 	}
@@ -97,6 +98,7 @@ void Plants::setPlantSoilSplashAnimation(const float& scale)
 		_soilSplashAnimation->setPosition(Vec2(0, -50));
 		_soilSplashAnimation->setAnimation(0, "SplashOfSoil", false);
 		_soilSplashAnimation->setScale(scale);
+		_soilSplashAnimation->setName("SplashOfSoil");
 		_soilSplashAnimation->setGlobalZOrder(_plantAnimation->getGlobalZOrder());
 		_plantAnimation->addChild(_soilSplashAnimation);
 	}
@@ -148,6 +150,13 @@ void Plants::setPlantVisible(const bool visible)
 void Plants::setPlantScale()
 {
 	_plantAnimation->setScale(_plantAnimation->getScale() + (4 - _plantTag / 10) / 20.f);
+}
+
+bool Plants::getPlantIsSurvive() const
+{
+	if (_healthPoint > 0 && _plantAnimation->isVisible())
+		return true;
+	return false;
 }
 
 bool Plants::getPlantVisible()

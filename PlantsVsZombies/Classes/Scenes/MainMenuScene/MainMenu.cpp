@@ -26,6 +26,10 @@ MainMenu::MainMenu() :
 	_quitLayer(nullptr),
 	_optionLayer(nullptr)
 {
+	/* 播放音乐 */
+	PlayMusic::changeBgMusic("mainmusic", true);
+
+	PlayMusic::playMusic("roll_in");
 }
 
 MainMenu::~MainMenu()
@@ -40,11 +44,6 @@ Scene* MainMenu::createScene()
 bool MainMenu::init()
 {
 	if (!Scene::init())return false;
-
-	/* 播放音乐 */
-	PlayMusic::changeBgMusic("mainmusic", true);
-
-	PlayMusic::playMusic("roll_in");
 
 	this->createMainSprite();     /* 创建主要精灵 */
 	this->createFlowers();        /* 创建花朵 */
@@ -513,17 +512,20 @@ void MainMenu::createMainSprite()
 		_sprite[3]->addChild(_mainButton[i]);
 	}
 
-
 	char worldFile[128], worldFile1[128];
 	snprintf(worldFile, 128, _global->userInformation->getSystemCaveFileName(_global->userInformation->getUserCaveFileNumber()).c_str(), 1);
 	snprintf(worldFile1, 128, _global->userInformation->getSystemDifCaveFileName(_global->userInformation->getUserCaveFileNumber()).c_str(), 1);
 	if (_global->userInformation->getIsShowEggs() &&
-		(UserData::getInstance()->openIntUserData(worldFile) >= 52 || UserData::getInstance()->openIntUserData(worldFile1) >= 52))
+		(UserData::getInstance()->openIntUserData(worldFile) >= 52 ||
+			UserData::getInstance()->openIntUserData(worldFile1) >= 52))
 	{
-		auto trophy = ui::Button::create("trophy.png", "", "", TextureResType::PLIST);
-		trophy->setPosition(Vec2(-350, 310));
-		_sprite[3]->addChild(trophy);
+		ui::Button* trophy;
+		if (UserData::getInstance()->openIntUserData(worldFile1) >= 52)
+			trophy = ui::Button::create("trophy.png", "", "", TextureResType::PLIST);
+		else
+			trophy = ui::Button::create("trophy1.png", "", "", TextureResType::PLIST);
 
+		trophy->setPosition(Vec2(-350, 310));
 		trophy->addTouchEventListener([this, trophy](Ref* sender, ui::Widget::TouchEventType type)
 			{
 				switch (type)
@@ -533,6 +535,7 @@ void MainMenu::createMainSprite()
 					break;
 				}
 			});
+		_sprite[3]->addChild(trophy);
 	}
 }
 
@@ -624,15 +627,15 @@ void MainMenu::beginAdventureGame()
 
 void MainMenu::beginSurvivalGame()
 {
-	Application::getInstance()->openURL("https://share.weiyun.com/5TewoDc");
+	Application::getInstance()->openURL("https://lzpvz.rthe.net");
 }
 
 void MainMenu::beginChallengesGame()
 {
-	Application::getInstance()->openURL("https://share.weiyun.com/5TewoDc");
+	Application::getInstance()->openURL("https://lzpvz.rthe.net/");
 }
 
 void MainMenu::beginVasebreakerGame()
 {
-	Application::getInstance()->openURL("https://pan.baidu.com/s/1NlpRcQTv1FrN51UgAzGiHw&shfl=sharepset#/");
+	Application::getInstance()->openURL("https://lzpvz.rthe.net/");
 }

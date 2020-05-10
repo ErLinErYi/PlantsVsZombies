@@ -21,6 +21,7 @@
 #include "Based/Car.h"
 #include "Based/Coin.h"
 #include "Based/PlayMusic.h"
+#include "Based/UserData.h"
 #include "Zombies/Zombies.h"
 
 GameScene::GameScene() :
@@ -57,11 +58,10 @@ bool GameScene::init()
 	buttonLayer();       // °´Å¥²ã
 	controlLayer();      // ¿ØÖÆ²ã
 	animationLayer();    // ¶¯»­²ã
-
-#if CC_TARGET_PLATFORM ==CC_PLATFORM_WIN32
+	
+#if CC_TARGET_PLATFORM == CC_PLATFORM_WIN32
 	schedule([&](float) {
 		pauseGame();
-		CCLOG("%d", this->getChildrenCount());
 		}, 1.0f, CC_REPEAT_FOREVER, 2.f, "pauseGame");
 #endif
 	return true;

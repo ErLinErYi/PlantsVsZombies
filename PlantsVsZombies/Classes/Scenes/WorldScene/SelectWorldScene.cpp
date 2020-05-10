@@ -16,6 +16,13 @@
 #include "Based/PlayMusic.h"
 #include "AudioEngine.h"
 
+SelectWorldScene::SelectWorldScene():
+	_scrollView(nullptr), 
+	_global(Global::getInstance())
+{
+	_selectWorldPosition = UserData::getInstance()->openDoubleUserData("SELECTWORLDPOSITION");
+}
+
 Scene* SelectWorldScene::createScene()
 {
 	return SelectWorldScene::create();
@@ -85,6 +92,8 @@ void SelectWorldScene::createGoBack()
 				break;
 			case ui::Widget::TouchEventType::ENDED:
 				Director::getInstance()->replaceScene(MainMenu::createScene());
+				UserData::getInstance()->caveUserData("SELECTWORLDPOSITION",
+					_scrollView->getScrolledPercentHorizontal());
 				break;
 			}
 		});
@@ -198,6 +207,7 @@ void SelectWorldScene::createScrollView()
 	_scrollView->setContentSize(size);
 	_scrollView->setInnerContainerSize(Size(2700, size.height));
 	_scrollView->setPosition(Vec2(0, 0));
+	_scrollView->jumpToPercentHorizontal(_selectWorldPosition);
 	this->addChild(_scrollView);
 }
 
@@ -243,15 +253,17 @@ void SelectWorldScene::showDifferentWorlds()
 						Director::getInstance()->replaceScene(TransitionFade::create(1.f, World_1::createScene()));
 						break;
 					case 1:
-						_global->userInformation->setIsMirrorScene(true);
-						_global->userInformation->setSelectWorldName(WorldName::Mordern); /* 初始化背景 */
-						Director::getInstance()->replaceScene(TransitionFade::create(1.0f, MirrorWorld_1::createScene()));
+						//_global->userInformation->setIsMirrorScene(true);
+						//_global->userInformation->setSelectWorldName(WorldName::Mordern); /* 初始化背景 */
+						//Director::getInstance()->replaceScene(TransitionFade::create(1.0f, MirrorWorld_1::createScene()));
 						break;
 					default:
 						break;
 					}
 					break;
 				}
+				UserData::getInstance()->caveUserData("SELECTWORLDPOSITION",
+					_scrollView->getScrolledPercentHorizontal());
 			});
 	}
 }

@@ -21,6 +21,7 @@ ConeZombies::ConeZombies(Node* node)
 	_speed = 30;
 	_currentSpeed = 30;
 	_isHaveShield = true;
+	_headShieldType = ShieldType::PlasticsHeadShield;
 	_zombiesType = ZombiesType::ConeZombies;
 }
 
@@ -102,6 +103,7 @@ void ConeZombies::setZombieHeadShieldThirdInjure(const string& oldName, const st
 		_headShieldAnimationId = 4;
 		_isHaveShield = false;
 		_attackHeadSoundEffectType = 0;
+		_headShieldType = ShieldType::none;
 
 		/* ½©Ê¬µô»¤¶Ü */
 		zombieLoseShieldAnimation("Zombie_cone");

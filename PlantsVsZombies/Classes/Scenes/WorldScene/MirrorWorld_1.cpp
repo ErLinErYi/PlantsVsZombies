@@ -10,17 +10,44 @@
 #include "Based/LevelData.h"
 #include "Based/UserData.h"
 #include "Based/PlayMusic.h"
+#include "Scenes/GameScene/OpenCaveGameScene.h"
 #include "../SelectPlantsScene/MirrorSelectPlantsScene.h"
+
+bool MirrorWorld_1::_isPopEnter = false;
 
 MirrorWorld_1::MirrorWorld_1()
 {
     _worldPosition = UserData::getInstance()->openDoubleUserData(
         _global->userInformation->getGameDifficulty() ? "WORLD_2_POSITION_DIF" : "WORLD_2_POSITION");
+
+    /* ²¥·ÅÒôÀÖ */
+    PlayMusic::changeBgMusic("mainmusic2", true);
+}
+
+MirrorWorld_1::~MirrorWorld_1()
+{
+    _isPopEnter = false;
 }
 
 Scene* MirrorWorld_1::createScene()
 {
     return MirrorWorld_1::create();
+}
+
+void MirrorWorld_1::onEnter()
+{
+    Scene::onEnter();
+    if (_isPopEnter)
+    {
+        _isPopEnter = false;
+        auto layer = LayerColor::create(Color4B(0, 0, 0, 255));
+        this->addChild(layer);
+        layer->runAction(Sequence::create(DelayTime::create(0.1f),
+            CallFunc::create([=]()
+                {
+                    Director::getInstance()->replaceScene(TransitionFade::create(0.5f, MirrorWorld_1::createScene()));
+                }), nullptr));
+    }
 }
 
 void MirrorWorld_1::createScrollView()
@@ -155,7 +182,7 @@ void MirrorWorld_1::createButtonListener(ui::Button* button, const int& ID)
                 _global->userInformation->setCurrentPlayWorldTag(1);
                 _global->userInformation->setCurrentPlayWorldName(" - ¾µÏñÊÀ½ç - ");
 
-                Director::getInstance()->replaceScene(TransitionFade::create(1.0f, MirrorSelectPlantsScene::createScene()));
+                Director::getInstance()->pushScene(TransitionFade::create(1.0f, MirrorSelectPlantsScene::createScene()));
 
                 break;
             }

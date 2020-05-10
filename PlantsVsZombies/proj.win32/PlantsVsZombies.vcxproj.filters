@@ -52,6 +52,12 @@
     <Filter Include="Class\Based">
       <UniqueIdentifier>{2f5f84c2-26a2-4a6f-ac7e-3dca217d7207}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Class\Scenes\GameScene\SurvivalScene">
+      <UniqueIdentifier>{9e77df16-359c-43af-99ba-6f16b27c4bdb}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Class\Scenes\SelectPlantsScene\SurvivalSelectScene">
+      <UniqueIdentifier>{07bc8c1a-d9fe-4ba7-a28b-fd126690f3ae}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ResourceCompile Include="game.rc">
@@ -301,6 +307,21 @@
     </ClCompile>
     <ClCompile Include="..\Classes\Based\PlayMusic.cpp">
       <Filter>Class\Based</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Classes\Scenes\GameScene\OpenCaveGameScene.cpp">
+      <Filter>Class\Scenes\GameScene</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Classes\Scenes\GameScene\GSZombiesAppearControl.cpp">
+      <Filter>Class\Scenes\GameScene</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Classes\Scenes\GameScene\SurvivalGameScene\SurvivalGameScene.cpp">
+      <Filter>Class\Scenes\GameScene\SurvivalScene</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Classes\Scenes\SelectPlantsScene\SurvivalSelectScene\SurvivalSelectScene.cpp">
+      <Filter>Class\Scenes\SelectPlantsScene\SurvivalSelectScene</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Classes\Scenes\GameScene\SurvivalGameScene\SGSSurvivalControlLayer.cpp">
+      <Filter>Class\Scenes\GameScene\SurvivalScene</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -552,6 +573,24 @@
     </ClInclude>
     <ClInclude Include="..\Classes\Based\PlayMusic.h">
       <Filter>Class\Based</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Classes\Scenes\GameScene\OpenCaveGameScene.h">
+      <Filter>Class\Scenes\GameScene</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Classes\Plants\EmissionPlants\Bullet\Bullet-File.h">
+      <Filter>Class\Plants\EmissionPlants\Bullet</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Classes\Scenes\GameScene\GSZombiesAppearControl.h">
+      <Filter>Class\Scenes\GameScene</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Classes\Scenes\GameScene\SurvivalGameScene\SurvivalGameScene.h">
+      <Filter>Class\Scenes\GameScene\SurvivalScene</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Classes\Scenes\SelectPlantsScene\SurvivalSelectScene\SurvivalSelectScene.h">
+      <Filter>Class\Scenes\SelectPlantsScene\SurvivalSelectScene</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Classes\Scenes\GameScene\SurvivalGameScene\SGSSurvivalControlLayer.h">
+      <Filter>Class\Scenes\GameScene\SurvivalScene</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>

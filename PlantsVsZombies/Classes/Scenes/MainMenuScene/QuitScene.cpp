@@ -35,7 +35,7 @@ void QuitMenu::createDiglog()
 	_quitDialog->setScale(2.0f);
 	this->addChild(_quitDialog);
 
-	this->createButtons(_global->userInformation->getGameText().find("退出游戏")->second, Vec2(90, 65), 1);
+	this->createButtons(_global->userInformation->getGameText().find("退出游戏1")->second, Vec2(90, 65), 1);
 	this->createButtons(_global->userInformation->getGameText().find("取消")->second, Vec2(225, 65), 2);
 
 	/* 创建触摸监听 */

@@ -441,7 +441,7 @@ void SPSSpriteLayer::controlPlantCanSelect(Button* button, const unsigned int id
 
 	if (id >= 9)
 	{
-		if (coinNumber < vec[id - 9].x && killZombiesNumber < vec[id - 9].y)
+		if (coinNumber < vec[id - 9].x || killZombiesNumber < vec[id - 9].y)
 		{
 			button->setColor(Color3B(70, 70, 70));
 			button->setCascadeColorEnabled(true);  /* 设置父节点影响子节点 */

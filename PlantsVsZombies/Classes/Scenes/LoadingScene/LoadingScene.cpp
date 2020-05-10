@@ -72,41 +72,8 @@ void LoadingScene::loadUserData()
 {
 	auto userdefault = UserDefault::getInstance();
 
-	if (!userdefault->getBoolForKey("UPDATE"))
-	{
-		_userData->createNewDocument();
-		_global->userInformation->setUserCaveFileNumber(userdefault->getIntegerForKey("USERDATANUMBER"));          /* 存档编号 */
-		_global->userInformation->setSoundEffectVolume(userdefault->getFloatForKey("SOUNDEFFECT"));                /* 音效 */
-		_global->userInformation->setBackGroundMusicVolume(userdefault->getFloatForKey("GLOBALMUSIC"));            /* 音乐 */
-		_global->userInformation->setKillZombiesNumbers(userdefault->getIntegerForKey("KILLALLZOMBIES") + 654321); /* 杀死僵尸数 */
-		_global->userInformation->setUsePlantsNumbers(userdefault->getIntegerForKey("USEPLANTSNUMBERS"));          /* 使用植物数量 */
-		_global->userInformation->setIsShowEggs(userdefault->getBoolForKey("ISBEGINSHOWEGGS"));                    /* 显示彩蛋 */
-		_global->userInformation->setCoinNumbers(userdefault->getIntegerForKey("COINNUMBERS") >> 10);              /* 金币数 */
-		_global->userInformation->setBreakThroughNumbers(userdefault->getIntegerForKey("BREAKTHROUGH"));           /* 闯关失败个数 */
-		_global->userInformation->newUserSelectWorldData();
-
-		char worldFile[128];
-		snprintf(worldFile, 128, _global->userInformation->getSystemDifCaveFileName(
-			_global->userInformation->getUserCaveFileNumber()).c_str(), 1);
-		_userData->caveUserData(worldFile, UserDefault::getInstance()->getIntegerForKey(worldFile));
-
-		snprintf(worldFile, 128, _global->userInformation->getSystemCaveFileName(
-			_global->userInformation->getUserCaveFileNumber()).c_str(), 1);
-		_userData->caveUserData(worldFile, UserDefault::getInstance()->getIntegerForKey(worldFile));
-
-		_userData->caveUserData("KILLALLZOMBIES", _global->userInformation->getKillZombiesNumbers());
-		_userData->caveUserData("USEPLANTSNUMBERS", _global->userInformation->getUsePlantsNumbers());
-		_userData->caveUserData("BREAKTHROUGH", _global->userInformation->getBreakThroughNumbers());
-		_userData->caveUserData("ISBEGINSHOWEGGS", _global->userInformation->getIsShowEggs());
-		_userData->caveUserData("COINNUMBERS", _global->userInformation->getCoinNumbers());
-		userdefault->setBoolForKey("UPDATE",true);
-		
-	}
-	else
-	{
-		_userData->createNewDocument();
-		loadUserFileData();
-	}
+	_userData->createNewUserDataDocument();
+	loadUserFileData();
 	
 	/* 读取用户存档名称 */
 	for (int i = 0; i < 8; i++)

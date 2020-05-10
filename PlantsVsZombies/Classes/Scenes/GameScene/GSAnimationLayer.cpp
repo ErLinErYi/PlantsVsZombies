@@ -11,6 +11,7 @@
 #include "GSData.h"
 #include "GSControlLayer.h"
 #include "GSButtonLayer.h"
+#include "GSZombiesAppearControl.h"
 
 #include "Plants/Plants-Files.h"
 #include "Zombies/Zombies-Files.h"
@@ -70,7 +71,7 @@ void GSAnimationLayer::plantPlants()
 {
 	PlayMusic::playMusic(rand() % 2 == 0 ? "plant2" : "plant");
 
-	auto plants = createDifferentPlants();
+	auto plants = createDifferentPlants(buttonLayerInformation->mouseSelectImage->selectPlantsId);
 	plants->setPlantPosition(ROW_COLUMN_TO_POSITION(controlLayerInformation->_plantsPosition));
 	plants->setPlantLocalZOrder(SET_ANIMATION_Z_ORDER(controlLayerInformation->_plantsPosition));
 	plants->setPlantRowAndColumn(controlLayerInformation->_plantsPosition);
@@ -80,10 +81,10 @@ void GSAnimationLayer::plantPlants()
 	PlantsGroup.insert(pair<int, Plants*>(SET_TAG(controlLayerInformation->_plantsPosition), plants));
 }
 
-Plants* GSAnimationLayer::createDifferentPlants()
+Plants* GSAnimationLayer::createDifferentPlants(PlantsType plantsType)
 {
 	Plants* plants;
-	switch (buttonLayerInformation->mouseSelectImage->selectPlantsId)
+	switch (plantsType)
 	{
 	case PlantsType::SunFlower:        plants = new SunFlower(this, _sunLayer);    break;
 	case PlantsType::PeaShooter:       plants = new PeaShooter(this);              break;
@@ -112,13 +113,14 @@ void GSAnimationLayer::deletePlants()
 		plant->second->setPlantVisible(false);
 	}
 
-	controlLayerInformation->_gameMapInformation->plantsMap[static_cast<int>(controlLayerInformation->_plantsPosition.y)][static_cast<int>(controlLayerInformation->_plantsPosition.x)] = NO_PLANTS;
+	controlLayerInformation->_gameMapInformation->plantsMap[static_cast<int>(
+		controlLayerInformation->_plantsPosition.y)][static_cast<int>(controlLayerInformation->_plantsPosition.x)] = NO_PLANTS;
 }
 
-void GSAnimationLayer::createZombies()
+Zombies* GSAnimationLayer::createDifferentZombies(ZombiesType zombiesType)
 {
 	Zombies* zombies;
-	switch (static_cast<ZombiesType>(controlLayerInformation->_zombiesAppearControl->createDifferentTypeZombies(controlLayerInformation->_zombiesAppearControl->getZombiesAppearFrequency())))
+	switch (zombiesType)
 	{
 	case ZombiesType::CommonZombies:          zombies = new CommonZombies(this);          break;
 	case ZombiesType::ConeZombies:            zombies = new ConeZombies(this);            break;
@@ -136,12 +138,42 @@ void GSAnimationLayer::createZombies()
 	case ZombiesType::SnowZombies:            zombies = new SnowZombies(this);            break;
 	default: break;
 	}
+	return zombies;
+}
+
+void GSAnimationLayer::createZombies()
+{
 	uniform_int_distribution<unsigned>number(0, 500);
+	auto zombies = createDifferentZombies(static_cast<ZombiesType>(
+		controlLayerInformation->_zombiesAppearControl->createDifferentTypeZombies(
+			controlLayerInformation->_zombiesAppearControl->getZombiesAppearFrequency())));
 	zombies->setZombiePosition(Vec2(1780 + number(_random), controlLayerInformation->_zombiesAppearControl->getEqualProbabilityForRow()));
 	zombies->createZombie();
 	zombies->setZombieAttributeForGameType();
 	ZombiesGroup.push_back(zombies);
 	Zombies::zombiesNumbersChange("++");
+}
+
+void GSAnimationLayer::createZombiesOnSurvival()
+{
+	uniform_int_distribution<unsigned>number(0, 500);
+	auto zombies = createDifferentZombies(static_cast<ZombiesType>(
+		controlLayerInformation->_zombiesAppearControl->createDifferentTypeZombies()));
+	zombies->setZombiePosition(Vec2(1780 + number(_random), controlLayerInformation->_zombiesAppearControl->getEqualProbabilityForRow()));
+	zombies->createZombie();
+	zombies->setZombieAttributeForGameType();
+	ZombiesGroup.push_back(zombies);
+	Zombies::zombiesNumbersChange("++");
+}
+
+Layer* GSAnimationLayer::getSunLayer() const
+{
+	return _sunLayer;
+}
+
+GSAnimationLayer* GSAnimationLayer::getAnimationLayer()
+{
+	return this;
 }
 
 void GSAnimationLayer::createSunLayer()
@@ -163,19 +195,22 @@ void GSAnimationLayer::createRandomSuns()
 
 void GSAnimationLayer::showCars()
 {
-	const int carpositions[5] = { 180,318,456,594,732 };
-	for (int i = 0; i < 5; i++)
+	if (!_global->userInformation->getIsReadFileData())
 	{
-		this->runAction(Sequence::create(DelayTime::create(0.5f + 0.1 * i), CallFunc::create([=]()
-			{
-				PlayMusic::playMusic("plastichit2");
+		const int carpositions[5] = { 180,318,456,594,732 };
+		for (int i = 0; i < 5; i++)
+		{
+			this->runAction(Sequence::create(DelayTime::create(0.5f + 0.1 * i), CallFunc::create([=]()
+				{
+					PlayMusic::playMusic("plastichit2");
 
-				auto car = new Car(this);
-				car->setPosition(Vec2(455, carpositions[i]));
-				car->showCar();
-				
-				CarsGroup.push_back(car);
-			}), nullptr));
+					auto car = new Car(this);
+					car->setPosition(Vec2(455, carpositions[i]));
+					car->showCar();
+
+					CarsGroup.push_back(car);
+				}), nullptr));
+		}
 	}
 }
 

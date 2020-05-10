@@ -201,7 +201,7 @@ void InputDataMenu::createButtons(Sprite* sprite, const std::string &Label, Vec2
 			case 3:
 				UserDefault::getInstance()->setIntegerForKey("USERDATANUMBER", _caveFileNumber); /* 记录所选存档 */
 				_global->userInformation->setUserCaveFileNumber(_caveFileNumber);
-				UserData::getInstance()->createNewDocument();
+				UserData::getInstance()->createNewUserDataDocument();
 				LoadingScene::loadUserFileData();
 
 				/* 读取所选存档的名字并更新 */

@@ -73,6 +73,16 @@ void CitronBullet::bulletAndZombiesCollision()
 	}
 }
 
+void CitronBullet::setAnimationId(const int tag)
+{
+	_animationId = tag;
+}
+
+int CitronBullet::getAnimationId()
+{
+	return _animationId;
+}
+
 void CitronBullet::bulletInit()
 {
 	_bulletAnimation = SkeletonAnimation::createWithData(_global->userInformation->getAnimationData().find("CitronBullet")->second);

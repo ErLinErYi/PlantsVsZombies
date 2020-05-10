@@ -914,6 +914,19 @@ void Director::replaceScene(Scene *scene)
     _nextScene = scene;
 }
 
+void Director::eraseScene(const int level)
+{
+    int number = -1;
+    for (auto s : _scenesStack)
+    {
+        if (++number == level)
+        {
+            _scenesStack.eraseObject(s);
+            break;
+        }
+    }
+}
+
 void Director::pushScene(Scene *scene)
 {
     CCASSERT(scene, "the scene should not null");

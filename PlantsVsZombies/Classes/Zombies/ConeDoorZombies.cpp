@@ -21,6 +21,8 @@ ConeDoorZombies::ConeDoorZombies(Node* node)
 	_speed = 30;
 	_currentSpeed = 30;
 	_isHaveShield = true;
+	_headShieldType = ShieldType::PlasticsHeadShield;
+	_bodyShieldType = ShieldType::IronBodyShield;
 	_zombiesType = ZombiesType::ConeDoorZombies;
 }
 
@@ -118,6 +120,7 @@ void ConeDoorZombies::setZombieBodyShieldThirdInjure(const string& oldName, cons
 		_zombiesAnimation->setAttachment("Zombie_screendoor", "tt_innerleg_foot3");
 		_attackBodySoundEffectType = 0;
 		_bodyShieldAnimationId = 4;
+		_bodyShieldType = ShieldType::none;
 
 		_zombiesAnimation->addAnimation(0, "Zombies_Walk", true);
 	}
@@ -131,6 +134,7 @@ void ConeDoorZombies::setZombieHeadShieldThirdInjure(const string& oldName, cons
 		_headShieldAnimationId = 4;
 		_isHaveShield = false;
 		_attackHeadSoundEffectType = 0;
+		_headShieldType = ShieldType::none;
 
 		/* ½©Ê¬µôÍ·²¿»¤¶Ü */
 		zombieLoseShieldAnimation("Zombie_cone");

@@ -7,6 +7,7 @@
 
 #include "GSPauseQuitLayer.h"
 #include "GameScene.h"
+#include "GSData.h"
 
 #include "../SelectPlantsScene/SelectPlantsScene.h"
 #include "../SelectPlantsScene/MirrorSelectPlantsScene.h"
@@ -29,6 +30,7 @@ int GSPauseQuitLayer::_pauseNumbers = 0;
 
 GSPauseQuitLayer::GSPauseQuitLayer() :
   _promptLayer(nullptr)
+, _levelName(_global->userInformation->getCurrentCaveFileLevelWorldName())
 {
 }
 
@@ -167,42 +169,12 @@ void GSPauseQuitLayer::createButton(const Vec2& vec2, const std::string name, Pa
 			case ui::Widget::TouchEventType::ENDED:
 				switch (button_type)
 				{
-				case PauseQuitLayer_Button::查看图鉴:
-					Application::getInstance()->openURL("https://share.weiyun.com/5TewoDc");
-					break;
-				case PauseQuitLayer_Button::从新开始:
-					_director->getScheduler()->setTimeScale(1.0f);
-					UserData::getInstance()->caveUserData("BREAKTHROUGH", ++_global->userInformation->getBreakThroughNumbers());
-					if (_global->userInformation->getIsMirrorScene())
-					{
-						_director->replaceScene(TransitionFade::create(1.0f, MirrorSelectPlantsScene::createScene()));
-					}
-					else
-					{
-						_director->replaceScene(TransitionFade::create(1.0f, SelectPlantsScene::createScene()));
-					}
-					break;
-				case PauseQuitLayer_Button::退出游戏:
-					_director->getScheduler()->setTimeScale(1.0f);
-					UserData::getInstance()->caveUserData("BREAKTHROUGH", ++_global->userInformation->getBreakThroughNumbers());
-					if (_global->userInformation->getIsMirrorScene())
-					{
-						_director->replaceScene(TransitionFade::create(1.0f, MirrorWorld_1::createScene()));
-					}
-					else
-					{
-						_director->replaceScene(TransitionFade::create(1.0f, World_1::createScene()));
-					}
-					break;
-				case PauseQuitLayer_Button::按键说明:
-					showPrompt();
-					break;
-				case PauseQuitLayer_Button::返回游戏:
-					resumeLayer();
-					this->removeFromParent();
-					break;
-				default:
-					break;
+				case PauseQuitLayer_Button::查看图鉴: openHandBook();   break;
+				case PauseQuitLayer_Button::从新开始: setRestart();     break;
+				case PauseQuitLayer_Button::退出游戏: setQuitGame();    break;
+				case PauseQuitLayer_Button::按键说明: keyDescription(); break;
+				case PauseQuitLayer_Button::返回游戏: returnGame();     break;
+				default: break;
 				}
 			}
 		});
@@ -239,4 +211,54 @@ void GSPauseQuitLayer::showPrompt()
 				break;
 			}
 		});
+}
+
+void GSPauseQuitLayer::openHandBook()
+{
+	Application::getInstance()->openURL("https://lzpvz.rthe.net");
+}
+
+void GSPauseQuitLayer::setRestart()
+{
+	_director->getScheduler()->setTimeScale(1.0f);
+	UserData::getInstance()->caveUserData("BREAKTHROUGH", ++_global->userInformation->getBreakThroughNumbers());
+	
+	_director->replaceScene(TransitionFade::create(1.0f, SelectPlantsScene::createScene()));
+
+	UserData::getInstance()->createNewLevelDataDocument();
+	UserData::getInstance()->removeLevelData(_levelName);
+}
+
+void GSPauseQuitLayer::setQuitGame()
+{
+	_director->getScheduler()->setTimeScale(1.0f);
+	UserData::getInstance()->caveUserData("BREAKTHROUGH", ++_global->userInformation->getBreakThroughNumbers());
+
+	UserData::getInstance()->createNewLevelDataDocument();
+	UserData::getInstance()->caveLevelData(_levelName);
+
+	popSceneAnimation();
+}
+
+void GSPauseQuitLayer::keyDescription()
+{
+	showPrompt();
+}
+
+void GSPauseQuitLayer::returnGame()
+{
+	resumeLayer();
+	this->removeFromParent();
+}
+
+void GSPauseQuitLayer::popSceneAnimation()
+{
+	auto layer = LayerColor::create(Color4B(0, 0, 0, 0));
+	this->addChild(layer);
+	layer->runAction(Sequence::create(FadeIn::create(0.5f),
+		CallFunc::create([=]()
+			{
+				layer->removeFromParent();
+				_director->popScene();
+			}), nullptr));
 }

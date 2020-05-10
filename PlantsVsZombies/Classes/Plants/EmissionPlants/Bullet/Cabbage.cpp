@@ -14,6 +14,7 @@
 Cabbage::Cabbage(Node* node) :
   _zombiePosition(Vec2::ZERO)
 , _zombieSpeed(0)
+, _isFileData(false)
 {
 	_node = node;
 	_attack = 60;
@@ -49,15 +50,39 @@ void Cabbage::bulletAndZombiesCollision()
 
 void Cabbage::bulletInit()
 {
+	float height = 300, time = 1.0f;
+	Vec2 endPosition = calculateZombiePosition();
+	Vec2 initPosition = _position + Vec2(70, 150);
+	
+	if (_isFileData)
+	{
+		_isFileData = false;
+		auto position = _position + Vec2(70, 150); //卷心菜正常初始位置
+
+		auto distance = _zombiePosition.x - position.x; // 僵尸与卷心菜初始距离
+		if (_currentPosition.x <= _zombiePosition.x - distance / 2) // 当前位置在抛物线上半部分
+			height = 300 - (_currentPosition.y - position.y);
+		else
+			height = 0;
+		time = (distance - (_currentPosition.x - _position.x)) / distance; //计算剩余运动时间
+		if (time < 0)time = 0;
+		if (time > 1)time = 1;
+
+		initPosition = _currentPosition;
+		endPosition = _zombiePosition - Vec2(0, 20);
+	}
+
 	_bulletAnimation = SkeletonAnimation::createWithData(_global->userInformation->getAnimationData().find("CabbageBullet")->second);
 	_bulletAnimation->setAnimation(0, "Cabbage_Rotate", true);
 	_bulletAnimation->setScale(0.8f);
 	_bulletAnimation->setLocalZOrder(getZOrder(_position.y));
-	_bulletAnimation->setPosition(_position + Vec2(70, 150));
+	_bulletAnimation->setPosition(initPosition);
 	_bulletAnimation->setAnchorPoint(Vec2(0, 0));
 	_node->addChild(_bulletAnimation);
 
-	_bulletAnimation->runAction(Sequence::create(JumpTo::create(1.0f, calculateZombiePosition(), 300, 1),
+	auto jto = JumpTo::create(time, endPosition, height, 1);
+
+	_bulletAnimation->runAction(Sequence::create(jto,
 		CallFunc::create([this]()
 			{
 				if (_bulletAnimation->getOpacity()) /* 如果没有隐藏说明没有击中僵尸 */
@@ -141,6 +166,26 @@ void Cabbage::setZombiePosition(const Vec2& position)
 void Cabbage::setZombieSpeed(const float speed)
 {
 	_zombieSpeed = speed;
+}
+
+void Cabbage::setIsFileData(const bool isFileData)
+{
+	_isFileData = isFileData;
+}
+
+float Cabbage::getZombieSpeed() const
+{
+	return _zombieSpeed;
+}
+
+void Cabbage::setCabbageCurrentPosition(const Vec2& position)
+{
+	_currentPosition = position;
+}
+
+Vec2 Cabbage::getCabbageInitialPosition()
+{
+	return _position;
 }
 
 bool Cabbage::getBulletIsSameLineWithZombie(Zombies* zombie)

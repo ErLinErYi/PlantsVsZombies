@@ -69,7 +69,6 @@ void SelectPlantsScene::createBackgroundLayer()
 				_scrollView->setContentOffsetInDuration(Vec2(-1010, 0), 2.5f);
 			}), nullptr));
 	this->addChild(_scrollView);
-
 }
 
 void SelectPlantsScene::createControlLayer()
@@ -162,13 +161,18 @@ void SelectPlantsScene::readyTextCallBack(Node* node, const std::string& name, c
 	default:
 		_scrollLayer->removeChildByName("previewBackgroundImage");
 
-		_global->userInformation->setUserSelectCrads(_spriteLayer->seedBankButton);
-		_global->userInformation->setSunNumbers(100); //设定初始阳光数 
-
-		if (_global->userInformation->getIsEaseAnimation() == ui::CheckBox::EventType::SELECTED)
-			Director::getInstance()->replaceScene(TransitionFade::create(1.f, GameScene::createScene()));
-		else
-			Director::getInstance()->replaceScene(GameScene::createScene());
+		replaceScene();
 		break;
 	}
+}
+
+void SelectPlantsScene::replaceScene()
+{
+	_global->userInformation->setUserSelectCrads(_spriteLayer->seedBankButton);
+	_global->userInformation->setSunNumbers(100); //设定初始阳光数 
+
+	if (_global->userInformation->getIsEaseAnimation() == ui::CheckBox::EventType::SELECTED)
+		Director::getInstance()->replaceScene(TransitionFade::create(1.f, GameScene::createScene()));
+	else
+		Director::getInstance()->replaceScene(GameScene::createScene());
 }

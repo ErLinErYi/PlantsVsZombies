@@ -18,8 +18,10 @@
 int SunFlower::_sunTag = -1;
 
 SunFlower::SunFlower(Node* node, Node* sunLayer) :
-	_sun(nullptr)
-,   _sunLayer(sunLayer)
+  _sun(nullptr)
+, _sunLayer(sunLayer)
+, _sunShowTime(Vec2(4 + rand() % 3, 16 + rand() % 5))
+, _sunShowTime1(_sunShowTime)
 {
 	_node = node;
 	_coolDownTime = 7.5f;
@@ -104,15 +106,64 @@ void SunFlower::createPlantAnimation()
 
 void SunFlower::createListener()
 {
-	auto delaytime  = DelayTime::create(5);
+	if (_global->userInformation->getIsReadFileData())
+	{
+		if (_sunShowTime1.x <= 0)
+		{
+			_plantAnimation->runAction(Sequence::create(DelayTime::create(_sunShowTime1.y),
+				CallFunc::create([&]()
+					{
+						playAnimation();
+					}), nullptr));
+		}
+		else
+		{
+			_plantAnimation->runAction(Sequence::create(DelayTime::create(_sunShowTime1.x),
+				CallFunc::create([&]() { createSuns(); }), DelayTime::create(0.5f),
+				CallFunc::create([=]() { _plantAnimation->setSkin("SunFlower_Normal"); }), DelayTime::create(_sunShowTime1.y),
+				CallFunc::create([&]()
+					{
+						playAnimation();
+					}), nullptr));
+		}
+	}
+	else
+		playAnimation();
+
+	calculateSunShowTime();
+	goodsRecovery();
+}
+
+void SunFlower::playAnimation()
+{
+	auto delaytime = DelayTime::create(_sunShowTime.x);
 	auto delaytime1 = DelayTime::create(0.5f);
-	auto delaytime2 = DelayTime::create(18);
-	auto callfunc   = CallFunc::create([&]() { createSuns(); });
-	auto callfunc1  = CallFunc::create([=](){ _plantAnimation->setSkin("SunFlower_Normal"); /* ÉèÖÃÆ¤·ô */});
+	auto delaytime2 = DelayTime::create(_sunShowTime.y);
+	auto callfunc = CallFunc::create([&]() { createSuns(); });
+	auto callfunc1 = CallFunc::create([=]() { _plantAnimation->setSkin("SunFlower_Normal"); /* ÉèÖÃÆ¤·ô */});
 
 	_plantAnimation->runAction(RepeatForever::create(Sequence::create(delaytime, callfunc, delaytime1, callfunc1, delaytime2, nullptr)));
+}
 
-	goodsRecovery();
+void SunFlower::calculateSunShowTime()
+{
+	_plantAnimation->runAction(RepeatForever::create(Sequence::create(DelayTime::create(0.05f),
+		CallFunc::create([this]()
+			{
+				if (_sunShowTime1.x > 0)_sunShowTime1.x -= 0.05f;
+				else if (_sunShowTime1.y > 0)_sunShowTime1.y -= 0.05f;
+				else _sunShowTime1 = _sunShowTime;
+			}), nullptr)));
+}
+
+void SunFlower::setSunShowTime(const Vec2 time)
+{
+	_sunShowTime1 = time;
+}
+
+Vec2 SunFlower::getSunShowTime() const
+{
+	return _sunShowTime1;
 }
 
 void SunFlower::sunRecovery(Sun* sun)

@@ -200,6 +200,26 @@ void GSInformationLayer::createPromptText()
 			}), nullptr));
 }
 
+void GSInformationLayer::setProgressBarPercent(const float precent)
+{
+	_progressBar->setPercentage(precent);
+}
+
+float GSInformationLayer::getProgressBarPercent() const
+{
+	return _progressBar->getPercentage();
+}
+
+void GSInformationLayer::setProgressBarLastPercent(const float precent)
+{
+	_levelLastPrecent = precent;
+}
+
+float GSInformationLayer::getProgressBarLastPercent() const
+{
+	return _levelLastPrecent;
+}
+
 void GSInformationLayer::updateSunNumbers()
 {
 	auto sun = Sprite::createWithSpriteFrameName("Sun.png");
@@ -214,6 +234,13 @@ void GSInformationLayer::updateSunNumbers()
 void GSInformationLayer::updateProgressBar(const int& zombiesAppearFrequency)
 {
 	float percent = zombiesAppearFrequency / static_cast<float>(_openLevelData->readLevelData(_openLevelData->getLevelNumber())->getZombiesFrequency());
+	_progressBar->runAction(ProgressFromTo::create(10.0f, _levelLastPrecent * 100, percent * 100));
+	_levelLastPrecent = percent;
+}
+
+void GSInformationLayer::updateProgressBar(const int& zombiesAppearFrequency, const int& maxFrequency)
+{
+	float percent = zombiesAppearFrequency / static_cast<float>(maxFrequency);
 	_progressBar->runAction(ProgressFromTo::create(10.0f, _levelLastPrecent * 100, percent * 100));
 	_levelLastPrecent = percent;
 }
@@ -246,6 +273,12 @@ bool GSInformationLayer::updateProgressBarFlag(const int& id)
 		return true;
 	}
 	return false;
+}
+
+void GSInformationLayer::updateProgressBarFinalFlag()
+{
+	auto flag = dynamic_cast<Sprite*>(_progressBar->getParent()->getChildByName("_progressbarflag"));
+	flag->setSpriteFrame(SpriteFrameCache::getInstance()->getSpriteFrameByName("ProgressBarFlag1.png"));
 }
 
 void GSInformationLayer::updateProgressBarHead()

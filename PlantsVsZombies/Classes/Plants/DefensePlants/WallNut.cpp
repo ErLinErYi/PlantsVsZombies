@@ -15,6 +15,7 @@ WallNut::WallNut(Node* node):
 
 	_healthPoint = 3000;
 	_totalHealthPoint = 3000;
+	_plantsType = PlantsType::WallNut;
 }
 
 WallNut::~WallNut()

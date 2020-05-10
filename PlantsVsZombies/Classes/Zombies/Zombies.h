@@ -42,6 +42,14 @@ enum class ZombiesType
 	SnowZombies
 };
 
+enum class ShieldType
+{
+	none = 0,
+	IronHeadShield,
+	IronBodyShield,
+	PlasticsHeadShield
+};
+
 class Zombies :public Node
 {
 public:
@@ -87,6 +95,9 @@ public:
 	 */
 	static GLProgram* getHighLight();
 
+	/**
+	 *奖励金币
+	 */
 	static void rewardCoin(SkeletonAnimation* zombies);
 
 	/**
@@ -359,6 +370,16 @@ public:
 	virtual bool getZombieIsStrikeFly() const;
 
 	/**
+	 *获取僵尸身体护盾类型
+	 */
+	ShieldType getZombieBodyShieldType()const;
+
+	/**
+	 *获取僵尸头部护盾类型
+	 */
+	ShieldType getZombieHeadShieldType()const;
+
+	/**
 	 *播放僵尸死亡动画
 	 */
 	virtual void playZombiesDieAnimation(const string& animationName);
@@ -487,7 +508,7 @@ private:
 
 protected:
 	int _attackHeadSoundEffectType;           // 攻击头部音效   
-	int _attackBodySoundEffectType;           // 攻击身体音效     
+	int _attackBodySoundEffectType;           // 攻击身体音效
 	int _bodyAnimationId;                     // 身体动画编号
 	int _bodyShieldAnimationId;               // 身体护盾动画编号
 	int _headShieldAnimationId;               // 头部护盾动画编号
@@ -514,6 +535,8 @@ protected:
 	Node* _node;                              // 节点
 	Global* _global;                          // 全局变量
 	SkeletonAnimation* _zombiesAnimation;     // 僵尸动画
+	ShieldType _headShieldType;               // 头部护盾类型
+	ShieldType _bodyShieldType;               // 身体护盾类型
 	ZombiesType _zombiesType;                 // 僵尸类型
 	string _animationName[7];                 // 动画名称
 	static unsigned int _zombiesNumbers;      // 僵尸数量

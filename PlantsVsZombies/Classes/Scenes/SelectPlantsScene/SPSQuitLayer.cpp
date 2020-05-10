@@ -71,7 +71,7 @@ void SPSQuitLayer::createDialog()
 
 	/* 创建按钮 */
 	GSPauseQuitLayer::createButton(Vec2(210, 100), _global->userInformation->getGameText().find("查看图鉴")->second, PauseQuitLayer_Button::查看图鉴);
-	GSPauseQuitLayer::createButton(Vec2(830, 100), _global->userInformation->getGameText().find("退出游戏")->second, PauseQuitLayer_Button::退出游戏);
+	SPSQuitLayer::createButton(Vec2(830, 100), _global->userInformation->getGameText().find("退出游戏1")->second, PauseQuitLayer_Button::退出游戏);
 	SPSQuitLayer::createButton(Vec2(520, 100), _global->userInformation->getGameText().find("返回游戏")->second, PauseQuitLayer_Button::返回游戏);
 }
 
@@ -100,6 +100,9 @@ void SPSQuitLayer::createButton(const Vec2& vec2, const std::string name, PauseQ
 				{
 				case PauseQuitLayer_Button::返回游戏:
 					this->removeFromParent();
+					break;
+				case PauseQuitLayer_Button::退出游戏:
+					popSceneAnimation();
 					break;
 				default:
 					break;
