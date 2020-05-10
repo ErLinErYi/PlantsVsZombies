@@ -1,6 +1,4 @@
 # PlantsVsZombies
-[![star](https://gitee.com/GITLZ/PlantsVsZombies/badge/star.svg?theme=dark)](https://gitee.com/GITLZ/PlantsVsZombies/stargazers)[![fork](https://gitee.com/GITLZ/PlantsVsZombies/badge/fork.svg?theme=dark)](https://gitee.com/GITLZ/PlantsVsZombies/members)
-* **游戏引擎基于版本 Cocos2d-X v3.16**
 * **游戏全部使用c++开发**
 * **如果你刚刚接触Cocos2d-X 这绝对是个不错的入门项目**
 * **如果是你C++初学者或者其他语言转游戏开发，这个项目没有复杂的语法绝对是一个不错的学习项目**
@@ -22,7 +20,7 @@
 
 ## 运行示例
 ![Image(图片)](https://gitee.com/GITLZ/PlantsVsZombies/raw/master/example.png)
-![Image(图片)](https://gitee.com/GITLZ/PlantsVsZombies/raw/master/example1.png)
+![Image(图片)](https://img-blog.csdnimg.cn/20200405101902466.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3FxXzQwNjMwMjQ2,size_16,color_FFFFFF,t_70)
 
 ## 运行要求
 * 安装visual studio 2017 or visual studio 2019
