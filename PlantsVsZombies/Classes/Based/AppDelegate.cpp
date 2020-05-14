@@ -1,5 +1,6 @@
 #include "AppDelegate.h"
 #include "Scenes/LoadingScene/LoadingScene.h"
+#include "Based/UserInformation.h"
 
 #define USE_AUDIO_ENGINE 1
 #define USE_SIMPLE_AUDIO_ENGINE 0
@@ -60,22 +61,23 @@ bool AppDelegate::applicationDidFinishLaunching()
     auto director = Director::getInstance();
 
     auto glview = director->getOpenGLView();
-		
-    if(!glview) {
+   
+    if(!glview)
+    {
 #if (CC_TARGET_PLATFORM == CC_PLATFORM_WIN32) || (CC_TARGET_PLATFORM == CC_PLATFORM_MAC) || (CC_TARGET_PLATFORM == CC_PLATFORM_LINUX)
-        glview = GLViewImpl::createWithRect("PlantsVsZombies_1.1.8.2 (2020.05.09)", cocos2d::Rect(0, 0, designResolutionSize.width, designResolutionSize.height));
+        glview = GLViewImpl::createWithRect("PlantsVsZombies_1.1.9.3 (2020.05.12)", cocos2d::Rect(0, 0, designResolutionSize.width, designResolutionSize.height));
 #else
-        glview = GLViewImpl::create("PlantsVsZombies_1.1.8.2 (2020.05.09)");
+        glview = GLViewImpl::create("PlantsVsZombies_1.1.9.3 (2020.05.12)");
 #endif
         director->setOpenGLView(glview);
     }
-	
+   
     // turn on display FPS
     director->setDisplayStats(true);
 
     // set FPS. the default value is 1.0/60 if you don't call this
-    director->setAnimationInterval(1.0f / 60);
-	
+    director->setAnimationInterval(1.0f / UserInformation::getScreenDisplayFrequency());
+  
     // Set the design resolution
     glview->setDesignResolutionSize(designResolutionSize.width, designResolutionSize.height, ResolutionPolicy::EXACT_FIT);
     

@@ -225,8 +225,8 @@ CheckBox* OptionsMenu::createCheckBox(Vec2 &vec2, Vec2 &vec2_, const std::string
 			case OptionScene_CheckBox::高帧率: /* 高帧率 */
 				_userDefault->setBoolForKey("SHOWHIGHFPS", true);
 				_global->userInformation->setIsSelectHighFPS(CheckBox::EventType::SELECTED);
-				_director->setAnimationInterval(1.0f / 60);
-				_global->userInformation->setFps(60);
+				_director->setAnimationInterval(1.0f / UserInformation::getScreenDisplayFrequency());
+				_global->userInformation->setFps(UserInformation::getScreenDisplayFrequency());
 				break;
 			case OptionScene_CheckBox::鼠标隐藏: /* 鼠标隐藏 */
 				UserData::getInstance()->caveUserData("CURSORHIDE", true);

@@ -41,6 +41,9 @@ GameScene::~GameScene()
 
 	Zombies::setZombiesNumbers(0);
 	Zombies::zombiesWinOrLoseInit();
+
+	_director->getEventDispatcher()->
+		removeCustomEventListeners(GLViewImpl::EVENT_WINDOW_UNFOCUSED);
 }
 
 Scene* GameScene::createScene()
@@ -59,11 +62,8 @@ bool GameScene::init()
 	controlLayer();      // ¿ØÖÆ²ã
 	animationLayer();    // ¶¯»­²ã
 	
-#if CC_TARGET_PLATFORM == CC_PLATFORM_WIN32
-	schedule([&](float) {
-		pauseGame();
-		}, 1.0f, CC_REPEAT_FOREVER, 2.f, "pauseGame");
-#endif
+	pauseGame();
+
 	return true;
 }
 
@@ -113,13 +113,14 @@ void GameScene::buttonLayer()
 
 void GameScene::pauseGame()
 {
-	if (!GSPauseQuitLayer::getPauseNumbers())
-	{
-		if (::GetForegroundWindow() != _director->getOpenGLView()->getWin32Window())
+	_director->getEventDispatcher()->addCustomEventListener(
+		GLViewImpl::EVENT_WINDOW_UNFOCUSED, [&](EventCustom* evt)
 		{
-			PlayMusic::playMusic("pause");
-			GSPauseQuitLayer::pauseLayer();
-			_director->getRunningScene()->addChild(GSPauseLayer::addLayer(), 10);
-		}
-	}
+			if (!GSPauseQuitLayer::getPauseNumbers())
+			{
+				PlayMusic::playMusic("pause");
+				GSPauseQuitLayer::pauseLayer();
+				_director->getRunningScene()->addChild(GSPauseLayer::addLayer(), 10);
+			}
+		});
 }

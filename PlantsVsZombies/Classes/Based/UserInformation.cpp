@@ -280,6 +280,13 @@ void UserInformation::setUpdateRequired(const bool updateRequired)
     _updateRequired = updateRequired;
 }
 
+DWORD UserInformation::getScreenDisplayFrequency()
+{
+    DEVMODE dm;
+    ::EnumDisplaySettings(NULL, ENUM_CURRENT_SETTINGS, &dm);
+    return dm.dmDisplayFrequency;
+}
+
 void UserInformation::setGameDifficulty(const int difficulty)
 {
     _gameDifficulty = difficulty;

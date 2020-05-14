@@ -36,7 +36,7 @@ GameType::~GameType()
 void GameType::createGameType()
 {
 	auto _levelData = _openlevelData->readLevelData(_openlevelData->getLevelNumber());
-	for (unsigned int i = 0; i < _levelData->getGameType().size(); i++)
+	for (unsigned int i = 0; i < _levelData->getGameType().size(); ++i)
 	{
 		switch (static_cast<GameTypes>(_levelData->getGameType().at(i)))
 		{
@@ -138,6 +138,21 @@ void GameType::updateRequirementNumbers(const std::string name)
 	}
 }
 
+void GameType::updateRequirementNumbers()
+{
+	/* 如果有植物数量要求 */
+	if (_plantsRequriement->isHavePlantsRequriement)
+	{
+		updateNumbers(2);
+	}
+
+	/* 如果有阳光数量要求 */
+	if (_sunNumberRequriement->isHaveSunNumberRequriement)
+	{
+		updateNumbers(1);
+	}
+}
+
 void GameType::showNumbers(const int& ID)
 {
 	switch(ID)
@@ -180,9 +195,11 @@ void GameType::updateNumbers(const int& ID)
 	{
 	case 1:
 	{
-		_sunNumberRequriement->allSunNumbersText->setString(to_string(_sunNumberRequriement->atLeastSunNumbers) + "/" + to_string(_sunNumberRequriement->allSunNumbers));
+		_sunNumberRequriement->allSunNumbersText->setString(
+			to_string(_sunNumberRequriement->atLeastSunNumbers) + "/" + to_string(_sunNumberRequriement->allSunNumbers));
 
-		if (!_sunNumberRequriement->isUpdateImage && _sunNumberRequriement->allSunNumbers >= _openlevelData->readLevelData(_openlevelData->getLevelNumber())->getAtLeastSunNumbers())
+		if (!_sunNumberRequriement->isUpdateImage && _sunNumberRequriement->allSunNumbers >=
+			_openlevelData->readLevelData(_openlevelData->getLevelNumber())->getAtLeastSunNumbers())
 		{
 			auto sprite = static_cast<Sprite*>(_node->getChildByName("LackSun"));
 			sprite->setSpriteFrame(SpriteFrameCache::getInstance()->getSpriteFrameByName("MoreSun.png"));
@@ -193,7 +210,8 @@ void GameType::updateNumbers(const int& ID)
 		break;
 	case 2:
 	{
-		_plantsRequriement->palntsNumbersText->setString(to_string(_plantsRequriement->userPlantsNumbers) + " / " + to_string(_plantsRequriement->surPlusPlantsNumbers));
+		_plantsRequriement->palntsNumbersText->setString(
+			to_string(_plantsRequriement->userPlantsNumbers) + " / " + to_string(_plantsRequriement->surPlusPlantsNumbers));
 
 		if (!_plantsRequriement->isUpdateImage && _plantsRequriement->surPlusPlantsNumbers <= 0)
 		{

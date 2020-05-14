@@ -219,6 +219,7 @@ void Plants::zombieRecoveryMove(Zombies* zombie)
 		zombie->getZombieIsEat() && zombie->getZombieIsStop()) /* 僵尸正在吃植物 && 僵尸正在停止移动 */
 	{
 		setPlantVisible(false);
+		_plantAnimation->stopAllActions();
 		Bullet::playSoundEffect("gulp");
 		zombie->setZombieIsEat(false);
 		if (!zombie->getZombieIsPlayDieAnimation()) /* 僵尸没有播放死亡动画 */

@@ -23,11 +23,7 @@ bool MirrorGameScene::init()
 	controlLayer();      // ¿ØÖÆ²ã
 	animationLayer();    // ¶¯»­²ã
 
-#if CC_TARGET_PLATFORM ==CC_PLATFORM_WIN32
-	schedule([&](float) {
-		pauseGame();
-		}, 1.0f, "pauseGame");
-#endif
+    pauseGame();
     createMirrorWorld();
 	return true;
 }

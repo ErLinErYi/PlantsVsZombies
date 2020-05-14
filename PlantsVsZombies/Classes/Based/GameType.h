@@ -48,6 +48,7 @@ class GameType
 public:
 	void createGameType();                                            /* 创建游戏类型 */
 	void updateRequirementNumbers(const std::string name);            /* 更新数量 */
+	void updateRequirementNumbers();
 	void waringPlantsNull();                                          /* 警告植物使用完 */
 	SunNumberRequriement* getSunNumberRequriement() const;
 	PlantsRequriement* getPlantsRequriement() const;

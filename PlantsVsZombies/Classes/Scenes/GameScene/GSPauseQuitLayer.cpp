@@ -188,15 +188,13 @@ void GSPauseQuitLayer::showPrompt()
 
 	auto prompt = Sprite::createWithSpriteFrameName("Prompt.png");
 	prompt->setPosition(_director->getWinSize() / 2.0f);
-	prompt->setScale(2.0f);
 	prompt->setOpacity(200);
 	_promptLayer->addChild(prompt);
 
-	this->createTouchtListener(prompt);
-
 	auto Close = ui::Button::create("CloseDown.png", "Close.png", "", TextureResType::PLIST);
-	Close->setPosition(Vec2(750, 360));
+	Close->setPosition(Vec2(1510, 422));
 	Close->setScale(0.6f);
+	Close->setScaleY(0.58f);
 	prompt->addChild(Close);
 
 	Close->addTouchEventListener([=](Ref* sender, ui::Widget::TouchEventType type)
@@ -258,6 +256,7 @@ void GSPauseQuitLayer::popSceneAnimation()
 	layer->runAction(Sequence::create(FadeIn::create(0.5f),
 		CallFunc::create([=]()
 			{
+				World_1::setPopEnter(true);
 				layer->removeFromParent();
 				_director->popScene();
 			}), nullptr));

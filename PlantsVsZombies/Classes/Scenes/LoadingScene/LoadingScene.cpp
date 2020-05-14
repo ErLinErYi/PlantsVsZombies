@@ -122,7 +122,7 @@ void LoadingScene::loadUserData()
 	switch (userdefault->getBoolForKey("SHOWHIGHFPS"))
 	{
 	case true:
-		_director->setAnimationInterval(1.0f / 60);
+		_director->setAnimationInterval(1.0f / UserInformation::getScreenDisplayFrequency());
 		_global->userInformation->setIsSelectHighFPS(cocos2d::ui::CheckBox::EventType::SELECTED);
 		_global->userInformation->setFps(60);
 		break;

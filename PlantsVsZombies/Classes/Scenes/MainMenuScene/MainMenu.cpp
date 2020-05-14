@@ -515,12 +515,10 @@ void MainMenu::createMainSprite()
 	char worldFile[128], worldFile1[128];
 	snprintf(worldFile, 128, _global->userInformation->getSystemCaveFileName(_global->userInformation->getUserCaveFileNumber()).c_str(), 1);
 	snprintf(worldFile1, 128, _global->userInformation->getSystemDifCaveFileName(_global->userInformation->getUserCaveFileNumber()).c_str(), 1);
-	if (_global->userInformation->getIsShowEggs() &&
-		(UserData::getInstance()->openIntUserData(worldFile) >= 52 ||
-			UserData::getInstance()->openIntUserData(worldFile1) >= 52))
+	if (_global->userInformation->getIsShowEggs())
 	{
 		ui::Button* trophy;
-		if (UserData::getInstance()->openIntUserData(worldFile1) >= 52)
+		if (UserData::getInstance()->openIntUserData(worldFile1) > 52)
 			trophy = ui::Button::create("trophy.png", "", "", TextureResType::PLIST);
 		else
 			trophy = ui::Button::create("trophy1.png", "", "", TextureResType::PLIST);

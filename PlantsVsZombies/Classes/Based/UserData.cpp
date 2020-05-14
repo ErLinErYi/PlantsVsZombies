@@ -14,6 +14,7 @@
 #include "Scenes/GameScene/GSControlLayer.h"
 #include "Scenes/GameScene/GSZombiesAppearControl.h"
 #include "Scenes/GameScene/GSInformationLayer.h"
+#include "Scenes/GameScene/GSBackgroundLayer.h"
 #include "Scenes/SelectPlantsScene/SelectPlantsScene.h"
 #include "Plants/Plants.h"
 #include "Plants/Plants-Files.h"
@@ -210,6 +211,9 @@ void UserData::caveUserData(char* key, double value)
 	case openUserDataReturnType::FileNotExist:
 		(*_userDataDocument)["UserData"].AddMember(rapidjson::StringRef(key), value, _userDataDocument->GetAllocator());
 		break;
+	case openUserDataReturnType::FileExistError:
+		remove(getUserDataFileName().c_str());
+		break;
 	}
 	flushUserData();
 }
@@ -226,6 +230,9 @@ void UserData::caveUserData(char* key, bool value)
 		break;
 	case openUserDataReturnType::FileNotExist:
 		(*_userDataDocument)["UserData"].AddMember(rapidjson::StringRef(key), value, _userDataDocument->GetAllocator());
+		break;
+	case openUserDataReturnType::FileExistError:
+		remove(getUserDataFileName().c_str());
 		break;
 	}
 	flushUserData();
@@ -244,6 +251,9 @@ void UserData::caveUserData(char* key, char* value)
 	case openUserDataReturnType::FileNotExist:
 		(*_userDataDocument)["UserData"].AddMember(rapidjson::StringRef(key), rapidjson::StringRef(value), _userDataDocument->GetAllocator());
 		break;
+	case openUserDataReturnType::FileExistError:
+		remove(getUserDataFileName().c_str());
+		break;
 	}
 	flushUserData();
 }
@@ -261,6 +271,9 @@ void UserData::caveUserData(char* key, int value)
 	case openUserDataReturnType::FileNotExist:
 		(*_userDataDocument)["UserData"].AddMember(rapidjson::StringRef(key), value, _userDataDocument->GetAllocator());
 		break;
+	case openUserDataReturnType::FileExistError:
+		remove(getUserDataFileName().c_str());
+		break;
 	}
 	flushUserData();
 }
@@ -272,6 +285,9 @@ int UserData::openIntUserData(char* key)
 	case openUserDataReturnType::FileExistCorrect:
 		if (isHaveMember(key))
 			return (*_userDataDocument)["UserData"][key].GetInt();
+		break;
+	case openUserDataReturnType::FileExistError:
+		remove(getUserDataFileName().c_str());
 		break;
 	default: break;
 	}
@@ -286,6 +302,9 @@ double UserData::openDoubleUserData(char* key)
 		if (isHaveMember(key))
 			return (*_userDataDocument)["UserData"][key].GetDouble();
 		break;
+	case openUserDataReturnType::FileExistError:
+		remove(getUserDataFileName().c_str());
+		break;
 	default: break;
 	}
 	return 0.0;
@@ -299,6 +318,9 @@ bool UserData::openBoolUserData(char* key)
 		if (isHaveMember(key))
 			return (*_userDataDocument)["UserData"][key].GetBool();
 		break;
+	case openUserDataReturnType::FileExistError:
+		remove(getUserDataFileName().c_str());
+		break;
 	default: break;
 	}
 	return false;
@@ -311,6 +333,9 @@ const char* UserData::openStringUserData(char* key)
 	case openUserDataReturnType::FileExistCorrect:
 		if (isHaveMember(key))
 			return (*_userDataDocument)["UserData"][key].GetString();
+		break;
+	case openUserDataReturnType::FileExistError:
+		remove(getUserDataFileName().c_str());
 		break;
 	default: break;
 	}
@@ -354,6 +379,7 @@ void UserData::caveLevelData(char* key)
 			(*_levelDataDocument).RemoveMember(key);
 		break;
 	case openUserDataReturnType::FileExistError:
+		remove(getLevelDataFileName().c_str());
 		return;
 		break;
 	}
@@ -410,41 +436,46 @@ void UserData::caveLevelPlantsData(char* key)
 	rapidjson::Value _object(rapidjson::kObjectType);
 	rapidjson::Document::AllocatorType& allocator = _levelDataDocument->GetAllocator();
 	(*_levelDataDocument)[key].AddMember("Plants", _object, allocator);
-	(*_levelDataDocument)[key]["Plants"].AddMember("PlantsNumber", PlantsGroup.size(), allocator);
-
+	
 	for (auto plant : PlantsGroup)
 	{
 		rapidjson::Value object(rapidjson::kObjectType);
 		
-		object.AddMember("PlantsTag", plant.second->getPlantTag(), allocator);
-		object.AddMember("PlantsHealthPoint", plant.second->getPlantHealthPoint(), allocator);
-		object.AddMember("PlantsPositionX", plant.second->getPlantAnimation()->getPositionX(), allocator);
-		object.AddMember("PlantsPositionY", plant.second->getPlantAnimation()->getPositionY(), allocator);
-		object.AddMember("PlantsRow", plant.second->getPlantRow(), allocator);
-		object.AddMember("PlantsColumn", plant.second->getPlantColumn(), allocator);
-		object.AddMember("PlantsLocalZOrder", plant.second->getPlantAnimation()->getLocalZOrder(), allocator);
-		object.AddMember("PlantsType",static_cast<int>(plant.second->getPlantType()), allocator);
-		object.AddMember("PlantVisible", plant.second->getPlantAnimation()->isVisible(), allocator);
-
-		switch (plant.second->getPlantType())
+		auto visible = plant.second->getPlantAnimation()->isVisible();
+		if (visible)
 		{
-		case PlantsType::SunFlower:
-			object.AddMember("SunShowTime.X", dynamic_cast<SunFlower*>(plant.second)->getSunShowTime().x, allocator);
-			object.AddMember("SunShowTime.Y", dynamic_cast<SunFlower*>(plant.second)->getSunShowTime().y, allocator);
-			break;
-		case PlantsType::PotatoMine:
-			object.AddMember("BreakGround", dynamic_cast<PotatoMine*>(plant.second)->getBreakGround(), allocator);
-			break;
-		default:
-			break;
+			object.AddMember("PlantsTag", plant.second->getPlantTag(), allocator);
+			object.AddMember("PlantsHealthPoint", plant.second->getPlantHealthPoint(), allocator);
+			object.AddMember("PlantsPositionX", plant.second->getPlantAnimation()->getPositionX(), allocator);
+			object.AddMember("PlantsPositionY", plant.second->getPlantAnimation()->getPositionY(), allocator);
+			object.AddMember("PlantsRow", plant.second->getPlantRow(), allocator);
+			object.AddMember("PlantsColumn", plant.second->getPlantColumn(), allocator);
+			object.AddMember("PlantsLocalZOrder", plant.second->getPlantAnimation()->getLocalZOrder(), allocator);
+			object.AddMember("PlantsType", static_cast<int>(plant.second->getPlantType()), allocator);
+			object.AddMember("PlantVisible", visible, allocator);
+
+			switch (plant.second->getPlantType())
+			{
+			case PlantsType::SunFlower:
+				object.AddMember("SunShowTime.X", dynamic_cast<SunFlower*>(plant.second)->getSunShowTime().x, allocator);
+				object.AddMember("SunShowTime.Y", dynamic_cast<SunFlower*>(plant.second)->getSunShowTime().y, allocator);
+				break;
+			case PlantsType::PotatoMine:
+				object.AddMember("BreakGround", dynamic_cast<PotatoMine*>(plant.second)->getBreakGround(), allocator);
+				break;
+			default:
+				break;
+			}
+
+			auto number = to_string(++plantsNumber);
+			char* str = new char[number.size() + 1];
+			strcpy(str, number.c_str());
+			str[number.size()] = '\0';
+			(*_levelDataDocument)[key]["Plants"].AddMember(rapidjson::StringRef(str), object, _levelDataDocument->GetAllocator());
 		}
-		
-		auto number = to_string(++plantsNumber);
-		char* str = new char[number.size() + 1];
-		strcpy(str, number.c_str());
-		str[number.size()] = '\0';
-		(*_levelDataDocument)[key]["Plants"].AddMember(rapidjson::StringRef(str),object, _levelDataDocument->GetAllocator());
 	}
+
+	(*_levelDataDocument)[key]["Plants"].AddMember("PlantsNumber", plantsNumber, allocator);
 }
 
 void UserData::caveLevelZombiesData(char* key)
@@ -632,6 +663,8 @@ void UserData::caveLevelOtherData(char* key)
 	rapidjson::Value object(rapidjson::kObjectType);
 
 	object.AddMember("SunNumbers", _global->userInformation->getSunNumbers(), allocator);
+	object.AddMember("SurSunNumbers", backgroundLayerInformation->gameType->getSunNumberRequriement()->allSunNumbers, allocator);
+	object.AddMember("SurPlusPlantsNumbers", backgroundLayerInformation->gameType->getPlantsRequriement()->surPlusPlantsNumbers, allocator);
 	object.AddMember("ZombiesAppearFrequency", controlLayerInformation->_zombiesAppearControl->getZombiesAppearFrequency(), allocator);
 	object.AddMember("ZombiesAppearTime", controlLayerInformation->_zombiesAppearControl->getTime(), allocator);
 	object.AddMember("IsBegin", controlLayerInformation->_zombiesAppearControl->getIsBegin(), allocator);
@@ -661,6 +694,9 @@ bool UserData::readLevelData()
 	case openUserDataReturnType::FileExistCorrect:
 		return true;
 		break;
+	case openUserDataReturnType::FileExistError:
+		remove(getLevelDataFileName().c_str());
+		return false;
 	default:
 		return false;
 		break;
@@ -693,6 +729,9 @@ bool UserData::isHaveLevelData(char* key)
 		if ((*_levelDataDocument).HasMember(key))
 			return true;
 		break;
+	case openUserDataReturnType::FileExistError:
+		remove(getLevelDataFileName().c_str());
+		break;
 	default: break;
 	}
 	return false;
@@ -710,6 +749,9 @@ void UserData::openSurvivalData(char* key)
 		openLevelCarData(key);
 		openLevelBulletData(key);
 		break;
+	case openUserDataReturnType::FileExistError:
+		remove(getSurvivalDataFileName().c_str());
+		break;
 	}
 }
 
@@ -721,6 +763,8 @@ bool UserData::isHaveSurvivalData(char* key)
 		if ((*_levelDataDocument).HasMember(key))
 			return true;
 		break;
+	case openUserDataReturnType::FileExistError:
+		remove(getSurvivalDataFileName().c_str());
 	default: break;
 	}
 	return false;
@@ -983,6 +1027,12 @@ void UserData::openLevelOtherData(char* key)
 	_global->userInformation->setSunNumbers(
 		(*_levelDataDocument)[key]["OtherData"]["SunNumbers"].GetInt());
 	informationLayerInformation->updateSunNumbers();
+
+	backgroundLayerInformation->gameType->getSunNumberRequriement()->allSunNumbers =
+		(*_levelDataDocument)[key]["OtherData"]["SurSunNumbers"].GetInt();
+	backgroundLayerInformation->gameType->getPlantsRequriement()->surPlusPlantsNumbers =
+		(*_levelDataDocument)[key]["OtherData"]["SurPlusPlantsNumbers"].GetInt();
+	backgroundLayerInformation->gameType->updateRequirementNumbers();
 }
 
 void UserData::openSurvivalOtherData(char* key)
@@ -1039,11 +1089,15 @@ string UserData::encryption(string& str)
 
 string UserData::decryption(string& str)
 {
-	unsigned char* decryptString, * decryptString1;
+	unsigned char* decryptString = nullptr, * decryptString1 = nullptr;
 	
-	decryptString[base64Decode((unsigned char*)str.c_str(), (unsigned int)str.length(), &decryptString)] = '\0';
-
+	auto ret = base64Decode((unsigned char*)str.c_str(), (unsigned int)str.length(), &decryptString);
+	
+	if (ret > 0) decryptString[ret] = '\0';
+	else return "";
+	
 	string sss(reinterpret_cast<char*>(decryptString));
+	
 	for (auto& s : sss)
 	{
 		if (s >= 'a' && s <= 'z')s = ((s - 'a') + 24) % 26 + 'a';
@@ -1053,7 +1107,10 @@ string UserData::decryption(string& str)
 	}
 	reverse(sss.begin(), sss.end());
 
-	decryptString1[base64Decode((unsigned char*)sss.c_str(), (unsigned int)sss.length(), &decryptString1)] = '\0';
+	ret = base64Decode((unsigned char*)sss.c_str(), (unsigned int)sss.length(), &decryptString1);
+
+	if (ret > 0) decryptString1[ret] = '\0';
+	else { CC_SAFE_FREE(decryptString); return ""; }
 
 	string s(reinterpret_cast<char*>(decryptString1));
 

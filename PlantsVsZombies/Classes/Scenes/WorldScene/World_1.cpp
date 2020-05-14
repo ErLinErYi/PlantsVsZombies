@@ -617,13 +617,6 @@ ui::Button* World_1::createButton(Node* node, const std::string& name, const Vec
 		sprite4->setColor(Color3B(0, 255, 255));
 	}
 
-	if (_global->userInformation->getUserSelectWorldData().at(0)->levels >= 52 && 
-		!_global->userInformation->getUserSelectWorldData().at(0)->isBeginShowEggs)
-	{
-		_global->userInformation->getUserSelectWorldData().at(0)->isBeginShowEggs = true;
-		UserData::getInstance()->caveUserData("ISBEGINSHOWEGGS", true);
-	}
-
 	createButtonListener(sprite4, _level);
 
 	return sprite4;

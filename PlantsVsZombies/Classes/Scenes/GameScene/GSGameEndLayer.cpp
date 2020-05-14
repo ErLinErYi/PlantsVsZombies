@@ -194,6 +194,12 @@ void GSGameEndLayer::caveLevelNumber()
 		UserData::getInstance()->caveUserData(worldFile, ++_global->userInformation->getUserSelectWorldData().at(
 			_global->userInformation->getCurrentPlayWorldTag())->levels);
 	}
+
+	if (_global->userInformation->getCurrentPlayLevels() >= 52)
+	{
+		UserData::getInstance()->caveUserData("ISBEGINSHOWEGGS", true);
+		_global->userInformation->setIsShowEggs(true);
+	}
 }
 
 void GSGameEndLayer::carsToCoins()

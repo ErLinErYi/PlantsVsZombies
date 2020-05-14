@@ -111,6 +111,7 @@ void GSAnimationLayer::deletePlants()
 	{
 		plant->second->setPlantHealthPoint(0);
 		plant->second->setPlantVisible(false);
+		plant->second->getPlantAnimation()->stopAllActions();
 	}
 
 	controlLayerInformation->_gameMapInformation->plantsMap[static_cast<int>(

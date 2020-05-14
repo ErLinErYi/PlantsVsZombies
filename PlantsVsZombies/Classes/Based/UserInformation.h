@@ -126,6 +126,7 @@ public:
 	static string getNewEditionName(bool dot = false);
 	static bool getUpdateRequired();
 	static void setUpdateRequired(const bool update);
+	static DWORD getScreenDisplayFrequency();
 
 CC_CONSTRUCTOR_ACCESS:
 	UserInformation();
