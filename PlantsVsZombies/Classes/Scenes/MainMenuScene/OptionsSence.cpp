@@ -201,6 +201,9 @@ CheckBox* OptionsMenu::createCheckBox(Vec2 &vec2, Vec2 &vec2_, const std::string
 	case OptionScene_CheckBox::缓入动画:
 		checkbox->setSelected(_global->userInformation->getIsEaseAnimation() == cocos2d::ui::CheckBox::EventType::SELECTED ? true : false);
 		break;
+	case OptionScene_CheckBox::垂直同步:
+		checkbox->setSelected(_global->userInformation->getIsVerticalSynchronization() == cocos2d::ui::CheckBox::EventType::SELECTED ? true : false);
+		break;
 	default:
 		break;
 	}
@@ -226,7 +229,6 @@ CheckBox* OptionsMenu::createCheckBox(Vec2 &vec2, Vec2 &vec2_, const std::string
 				_userDefault->setBoolForKey("SHOWHIGHFPS", true);
 				_global->userInformation->setIsSelectHighFPS(CheckBox::EventType::SELECTED);
 				_director->setAnimationInterval(1.0f / UserInformation::getScreenDisplayFrequency());
-				_global->userInformation->setFps(UserInformation::getScreenDisplayFrequency());
 				break;
 			case OptionScene_CheckBox::鼠标隐藏: /* 鼠标隐藏 */
 				UserData::getInstance()->caveUserData("CURSORHIDE", true);
@@ -240,6 +242,11 @@ CheckBox* OptionsMenu::createCheckBox(Vec2 &vec2, Vec2 &vec2_, const std::string
 			case OptionScene_CheckBox::缓入动画: 
 				UserData::getInstance()->caveUserData("EASEANIMATION", true);
 				_global->userInformation->setIsEaseAnimation(CheckBox::EventType::SELECTED);
+				break;
+			case OptionScene_CheckBox::垂直同步:
+				_userDefault->setBoolForKey("VERTICALSYNCHRONIZATION", true);
+				wglSwapIntervalEXT(1);
+				_global->userInformation->setIsVerticalSynchronization(CheckBox::EventType::SELECTED);
 				break;
 			default:
 				break;
@@ -262,7 +269,6 @@ CheckBox* OptionsMenu::createCheckBox(Vec2 &vec2, Vec2 &vec2_, const std::string
 				_userDefault->setBoolForKey("SHOWHIGHFPS", false);
 				_global->userInformation->setIsSelectHighFPS(CheckBox::EventType::UNSELECTED);
 				_director->setAnimationInterval(1.0f / 45);
-				_global->userInformation->setFps(45);
 				break;
 			case OptionScene_CheckBox::鼠标隐藏:
 				UserData::getInstance()->caveUserData("CURSORHIDE", false);
@@ -276,6 +282,11 @@ CheckBox* OptionsMenu::createCheckBox(Vec2 &vec2, Vec2 &vec2_, const std::string
 			case OptionScene_CheckBox::缓入动画:
 				UserData::getInstance()->caveUserData("EASEANIMATION", false);
 				_global->userInformation->setIsEaseAnimation(CheckBox::EventType::UNSELECTED);
+				break;
+			case OptionScene_CheckBox::垂直同步:
+				_userDefault->setBoolForKey("VERTICALSYNCHRONIZATION", false);
+				wglSwapIntervalEXT(0);
+				_global->userInformation->setIsVerticalSynchronization(CheckBox::EventType::UNSELECTED);
 				break;
 			default:
 				break;

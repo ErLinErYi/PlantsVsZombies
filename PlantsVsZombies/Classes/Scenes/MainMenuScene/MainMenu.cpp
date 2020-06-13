@@ -52,6 +52,7 @@ bool MainMenu::init()
 	this->createMainButton();     /* 创建按钮 */
 	this->schedule(schedule_selector(MainMenu::curUpdate), 0.05f);/* 定时器 */
 
+	createNewUserDataFileName();
 #if MYRELEASE
 #   if CC_TARGET_PLATFORM == CC_PLATFORM_WIN32
 	if (UserInformation::getUpdateRequired())
@@ -169,6 +170,14 @@ void MainMenu::playMusicBleepInMainButtons(int ID, const Vec2& vec2)
 	else
 	{
 		if (_playMusic[ID + 4]) _playMusic[ID + 4] = false;
+	}
+}
+
+void MainMenu::createNewUserDataFileName()
+{
+	if (_global->userInformation->getUserName() == "未命名存档")
+	{
+		menuDataCallBack(nullptr);
 	}
 }
 

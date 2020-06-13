@@ -58,7 +58,7 @@ void SPSQuitLayer::createDialog()
 	auto check = createCheckBox(Vec2(350, 340), Vec2(150, 340), _global->userInformation->getGameText().find("信息")->second, OptionScene_CheckBox::显示信息, "CheckBox2", "CheckBox", true);
 	auto check1 = createCheckBox(Vec2(800, 340), Vec2(600, 340), _global->userInformation->getGameText().find("全屏")->second, OptionScene_CheckBox::全屏, "CheckBox2", "CheckBox", true);
 	auto check2 = createCheckBox(Vec2(350, 265), Vec2(150, 265), _global->userInformation->getGameText().find("高帧率")->second, OptionScene_CheckBox::高帧率, "CheckBox2", "CheckBox", true);
-	auto check3 = createCheckBox(Vec2(800, 265), Vec2(600, 265), _global->userInformation->getGameText().find("鼠标显示")->second, OptionScene_CheckBox::鼠标隐藏, "CheckBox2", "CheckBox", true);
+	auto check3 = createCheckBox(Vec2(800, 265), Vec2(600, 265), _global->userInformation->getGameText().find("垂直同步")->second, OptionScene_CheckBox::垂直同步, "CheckBox2", "CheckBox", true);
 	auto check4 = createCheckBox(Vec2(350, 190), Vec2(150, 190), _global->userInformation->getGameText().find("拉伸显示")->second, OptionScene_CheckBox::拉伸显示, "CheckBox2", "CheckBox", true);
 	auto check5 = createCheckBox(Vec2(800, 190), Vec2(600, 190), _global->userInformation->getGameText().find("缓入动画")->second, OptionScene_CheckBox::缓入动画, "CheckBox2", "CheckBox", true);
 

@@ -56,6 +56,7 @@ public:
 	CheckBox::EventType getIsSelectCursorNotHide() const;
 	CheckBox::EventType getIsSelectStretchingShow() const;
 	CheckBox::EventType getIsEaseAnimation() const;
+	CheckBox::EventType getIsVerticalSynchronization() const;
 	map<string, spSkeletonData*>& getAnimationData();
 	map<string, string>& getGameText();
 	map<string, string>& getImagePath();
@@ -114,6 +115,7 @@ public:
 	void setIsSelectHighFPS(CheckBox::EventType isSelect);
 	void setIsShowInformation(CheckBox::EventType isShow);
 	void setIsEaseAnimation(CheckBox::EventType easeAnimation);
+	void setIsVerticalSynchronization(CheckBox::EventType verticalSynchronization);
 	void setIsMirrorScene(const bool isMirror);
 	void setIsReadFileData(const bool isRead);
 	bool getIsReadFileData() const;
@@ -144,6 +146,7 @@ private:
 	CheckBox::EventType _cursorNotHide;                  // 鼠标隐藏
 	CheckBox::EventType _stretchingShow;                 // 拉伸显示
 	CheckBox::EventType _easeAnimation;                  // 缓入动画
+	CheckBox::EventType _verticalSynchronization;        // 垂直同步
 
 	map<string, spSkeletonData*> _animationData;         // 动画存储
 	map<string, string> _gameText;                       // 游戏文本
@@ -186,4 +189,5 @@ private:
 	const static string _clientEdition;                  // 当前客户端版本
 	static string _editionName;                          // 版本名称
 	static bool _updateRequired;                         // 是否需要更新
+	static DWORD _screenDisplayFrequency;                // 屏幕刷新率
 };

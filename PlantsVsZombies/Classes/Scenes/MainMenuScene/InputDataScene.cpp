@@ -36,7 +36,8 @@ bool InputDataMenu::init()
 
 	Dialog::createShieldLayer(this);
 
-	this->createDialog();
+    createDialog();
+	inputNewFileDataName();
 
 	return true;
 }
@@ -74,12 +75,12 @@ void InputDataMenu::createDialog()
 	if (_global->userInformation->getUserCaveFileNumber() == -1)
 	{
 		_caveFileNumber = UserData::getInstance()->openIntUserData("USERDATANUMBER");
-		_dataButton.find(_caveFileNumber)->second->setColor(Color3B::YELLOW);
+		_dataButton.find(_caveFileNumber)->second->setColor(Color3B(0, 255, 255));
 	}
 	else
 	{
 		_caveFileNumber = _global->userInformation->getUserCaveFileNumber();
-		_dataButton.find(_caveFileNumber)->second->setColor(Color3B::YELLOW);
+		_dataButton.find(_caveFileNumber)->second->setColor(Color3B(0, 255, 255));
 	}
 
 	/* 创建按钮 */
@@ -111,7 +112,7 @@ void InputDataMenu::CreateInputDialog()
 	_inputDataDialog->addChild(_inputCursor);
 	_inputCursor->runAction(RepeatForever::create(Sequence::create(FadeOut::create(0.25f), FadeIn::create(0.25f), nullptr)));
 
-	_textField = TextField::create("点击此处进行输入",GAME_FONT_NAME_1, FontSize);
+	_textField = TextField::create("点击此处输入存档名称",GAME_FONT_NAME_1, FontSize);
 	_inputDataDialog->addChild(_textField);
 	_textField->setPosition(Vec2(155, 137));
 	_textField->setMaxLengthEnabled(true);
@@ -125,7 +126,7 @@ void InputDataMenu::CreateInputDialog()
 				_inputCursor->setVisible(true);
 				break;
 			case cocos2d::ui::TextField::EventType::DETACH_WITH_IME:
-				_textField->setPlaceHolder("点击此处进行输入");
+				_textField->setPlaceHolder("点击此处进行输入存档名称");
 				_inputCursor->setVisible(false);
 				break;
 			case cocos2d::ui::TextField::EventType::INSERT_TEXT:
@@ -189,14 +190,21 @@ void InputDataMenu::createButtons(Sprite* sprite, const std::string &Label, Vec2
 			switch (ID)
 			{
 			case 1: /* 确定 */
-				caveData();
-				updateButtonText();
-				this->removeChildByName("_shieldDialogLayer");
-				_inputString.clear();
+				if (!_textField->getString().empty() &&
+					_textField->getString() != "未命名存档")
+				{
+					caveData();
+					updateButtonText();
+					this->removeChildByName("_shieldDialogLayer");
+					_inputString.clear();
+				}
 				break;
 			case 2: /* 取消 */
-				this->removeChildByName("_shieldDialogLayer");
-				_inputString.clear();
+				if (_global->userInformation->getUserName() != "未命名存档")
+				{
+					this->removeChildByName("_shieldDialogLayer");
+					_inputString.clear();
+				}
 				break;
 			case 3:
 				UserDefault::getInstance()->setIntegerForKey("USERDATANUMBER", _caveFileNumber); /* 记录所选存档 */
@@ -288,7 +296,7 @@ void InputDataMenu::setButtonColor(Button* button)
 	{
 		sp.second->setColor(Color3B::WHITE);
 	}
-	button->setColor(Color3B::YELLOW);
+	button->setColor(Color3B(0, 255, 255));
 }
 
 void InputDataMenu::setButtonText(Button* button, const string& text, const float& scale)
@@ -319,6 +327,14 @@ void InputDataMenu::updateButtonText()
 	for (auto& sp : _dataButton)
 	{
 		setButtonText(sp.second, _global->userInformation->getUserCaveFileName(i++), 3.7f);
+	}
+}
+
+void InputDataMenu::inputNewFileDataName()
+{
+	if (_global->userInformation->getUserName() == "未命名存档")
+	{
+		createShieldLayer();
 	}
 }
 

@@ -455,13 +455,13 @@ bool Zombies::getZombieIsStrikeFly() const
 	return _isStrikeFly;
 }
 
-void Zombies::playZombiesDieAnimation(const string& animationName)
+void Zombies::playZombiesDieAnimation()
 {
 	uniform_real_distribution<float>number(0.f, 0.4f);
-	auto ashes = SkeletonAnimation::createWithData(_global->userInformation->getAnimationData().find(animationName)->second);
+	auto ashes = SkeletonAnimation::createWithData(_global->userInformation->getAnimationData().find("Zombies_Ash")->second);
 	ashes->setPosition(_zombiesAnimation->getPosition() + Vec2(0, -15));
 	ashes->setLocalZOrder(_zombiesAnimation->getLocalZOrder());
-	ashes->setScale(1.3f);
+	ashes->setScale(1.5f);
 	ashes->setTimeScale(0.8f + number(_random));
 	ashes->setAnimation(0, "animation", false);
 	_node->addChild(ashes);
@@ -493,11 +493,11 @@ void Zombies::setZombieAttributeForGameType()
 		setSmallZombieAttribute();
 
 	/* ÅÐ¶ÏÊÇ·ñÊÇ¾ÞÈË½©Ê¬ */
-	else if (data->getZombiesIsBig())
+	if (data->getZombiesIsBig())
 		setBigZombieAttribute();
 
 	/* ÅÐ¶Ï½©Ê¬ÊÇ·ñÒþÉí */
-	else if (data->getZombiesVisible())
+	if (data->getZombiesVisible())
 		setOpacityZombieAttribute();
 }
 

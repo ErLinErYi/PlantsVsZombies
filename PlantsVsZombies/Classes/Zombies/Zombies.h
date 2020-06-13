@@ -382,7 +382,7 @@ public:
 	/**
 	 *播放僵尸死亡动画
 	 */
-	virtual void playZombiesDieAnimation(const string& animationName);
+	virtual void playZombiesDieAnimation();
 
 	/**
 	 *播放僵尸音效
@@ -446,6 +446,11 @@ protected:
 	virtual void showZombieShadow(Node* node, const int posy);
 
 	/**
+	 *设置僵尸不同关卡的属性
+	 */
+	virtual void setZombieAttributeForGameType(Node* sprite);
+
+	/**
 	 *设置头部护盾一级损伤
 	 *参数：更换之前名字
 	 *参数：要更换的名字
@@ -500,7 +505,6 @@ CC_CONSTRUCTOR_ACCESS:
 private:
 	void setSmallZombieAttribute();
 	void setBigZombieAttribute();
-	void setZombieAttributeForGameType(Node* sprite);
 	void setOpacityZombieAttribute();
 	void setZombieGLProgram();
 	bool getZombieWarning();
@@ -539,14 +543,14 @@ protected:
 	ShieldType _bodyShieldType;               // 身体护盾类型
 	ZombiesType _zombiesType;                 // 僵尸类型
 	string _animationName[7];                 // 动画名称
+	default_random_engine _random;            // 随机数引擎
+	random_device _device;
 	static unsigned int _zombiesNumbers;      // 僵尸数量
 
 private:
 	int _zombieEatPlantNumber;
 	int _zombieHowlNumbers;
 	OpenLevelData* _openLevelData;
-	default_random_engine _random;
-	random_device _device;
 	GLProgramState* _highLightGLProgramState;
 	float _highLightIntensity;
 	bool _highLightFinished;

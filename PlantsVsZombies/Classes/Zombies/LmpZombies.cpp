@@ -65,6 +65,36 @@ void LmpZombies::playZombieSoundEffect()
 	Zombies::playZombieSoundEffect(rand() % 2 ? "imp" : "imp2");
 }
 
+void LmpZombies::playZombiesDieAnimation()
+{
+	uniform_real_distribution<float>number(0.f, 0.4f);
+	auto ashes = SkeletonAnimation::createWithData(_global->userInformation->getAnimationData().find("LmpZombies_Charre")->second);
+	ashes->setPosition(_zombiesAnimation->getPosition() + Vec2(0, -15));
+	ashes->setLocalZOrder(_zombiesAnimation->getLocalZOrder());
+	ashes->setScale(1.2f);
+	ashes->setTimeScale(0.8f + number(_random));
+	ashes->setAnimation(0, "animation", false);
+	_node->addChild(ashes);
+
+	ashes->setEventListener([ashes](spTrackEntry* entry, spEvent* event)
+		{
+			if (!strcmp(event->data->name, "Finished"))
+			{
+				ashes->runAction(Sequence::create(FadeOut::create(1.0f), CallFunc::create([ashes]()
+					{
+						ashes->setVisible(false);
+					}), nullptr));
+			}
+		});
+
+	ashes->runAction(Sequence::create(DelayTime::create(3), CallFunc::create([ashes]()
+		{
+			ashes->removeFromParent();
+		}), nullptr));
+
+	setZombieAttributeForGameType(ashes);
+}
+
 void LmpZombies::zombieInjuredEventUpdate()
 {
 	if (_currentBloodVolume <= _bloodVolume / 2.0f)  /* 僵尸血量小于一定值，僵尸掉胳膊 */

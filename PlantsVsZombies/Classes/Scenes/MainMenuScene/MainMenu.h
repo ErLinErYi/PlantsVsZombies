@@ -48,6 +48,7 @@ private:
 	void setCloudPosition(Node* node, int ID, const Vec2& vec2);  /* 设置云的位置 */
 	void playMusicBleepInGameButtons(MainMenuButton ID);          /* 播放音乐 */
 	void playMusicBleepInMainButtons(int ID, const Vec2& vec2);
+	void createNewUserDataFileName();                             /* 创建新存档名称*/
 
 	/*游戏选择函数*/
 	void beginAdventureGame();                                    /* 冒险模式 */

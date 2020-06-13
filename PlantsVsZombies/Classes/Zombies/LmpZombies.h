@@ -18,6 +18,7 @@ public:
 	virtual void createZombie() override;
 	virtual void createPreviewZombie() override;
     virtual void playZombieSoundEffect() override;
+    virtual void playZombiesDieAnimation() override;
 
 CC_CONSTRUCTOR_ACCESS:
 	LmpZombies(Node* node = nullptr);

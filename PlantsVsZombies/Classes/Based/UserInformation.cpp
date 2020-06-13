@@ -3,20 +3,20 @@
  *Author : LZ
  *Date: 2020.2.20
  *Email: 2117610943@qq.com
+ *1.1.9.4
  */
 
 #include "UserInformation.h"
+#include "GlobalVariable.h"
 
 const string UserInformation::_clientEdition = "9.9.9.9";
 string UserInformation::_editionName = "";
 bool UserInformation::_updateRequired = false;
+DWORD UserInformation::_screenDisplayFrequency = 0;
 
 UserInformation::UserInformation():
   _isUpdate(false)
-, _userName("·ßÅ­µÄÐ¡½©Ê¬")
-, _userCaveFileNameKey{ "USERNAMEDATA","USERNAMEDATA_2","USERNAMEDATA_3","USERNAMEDATA_4","USERNAMEDATA_5","USERNAMEDATA_6","USERNAMEDATA_7","USERNAMEDATA_8" }
-, _systemCaveFileName_difficult{ "WORLD_%d_LEVELS","WORLD_%d_LEVELS_2","WORLD_%d_LEVELS_3","WORLD_%d_LEVELS_4","WORLD_%d_LEVELS_5","WORLD_%d_LEVELS_6","WORLD_%d_LEVELS_7","WORLD_%d_LEVELS_8" }
-, _systemCaveFileName{ "WORLD_%d_LEVELS_DIF","WORLD_%d_LEVELS_2_DIF","WORLD_%d_LEVELS_3_DIF","WORLD_%d_LEVELS_4_DIF","WORLD_%d_LEVELS_5_DIF","WORLD_%d_LEVELS_6_DIF","WORLD_%d_LEVELS_7_DIF","WORLD_%d_LEVELS_8_DIF" }
+, _userName("")
 , _soundEffectVolume(0.5f)
 , _backGroundMusicVolume(0.2f)
 , _userCaveFileNumber(0)
@@ -40,6 +40,16 @@ UserInformation::UserInformation():
 , _stretchingShow(CheckBox::EventType::SELECTED)
 , _selectWorldName(WorldName::Mordern)
 {
+    string keyName[] = { "USERNAMEDATA","USERNAMEDATA_2","USERNAMEDATA_3","USERNAMEDATA_4","USERNAMEDATA_5","USERNAMEDATA_6","USERNAMEDATA_7","USERNAMEDATA_8" };
+    string fileName[] = { "WORLD_%d_LEVELS","WORLD_%d_LEVELS_2","WORLD_%d_LEVELS_3","WORLD_%d_LEVELS_4","WORLD_%d_LEVELS_5","WORLD_%d_LEVELS_6","WORLD_%d_LEVELS_7","WORLD_%d_LEVELS_8" };
+    string dfileName[] = { "WORLD_%d_LEVELS_DIF","WORLD_%d_LEVELS_2_DIF","WORLD_%d_LEVELS_3_DIF","WORLD_%d_LEVELS_4_DIF","WORLD_%d_LEVELS_5_DIF","WORLD_%d_LEVELS_6_DIF","WORLD_%d_LEVELS_7_DIF","WORLD_%d_LEVELS_8_DIF" };
+
+    for (int i = 0; i < 8; ++i) 
+    {
+        _userCaveFileNameKey[i] = keyName[i];
+        _systemCaveFileName_difficult[i] = fileName[i];
+        _systemCaveFileName[i] = dfileName[i];
+    }
 }
 
 UserInformation::~UserInformation()
@@ -85,6 +95,11 @@ CheckBox::EventType UserInformation::getIsSelectStretchingShow() const
 CheckBox::EventType UserInformation::getIsEaseAnimation() const
 {
     return _easeAnimation;
+}
+
+CheckBox::EventType UserInformation::getIsVerticalSynchronization() const
+{
+    return _verticalSynchronization;
 }
 
 map<string, spSkeletonData*>& UserInformation::getAnimationData()
@@ -282,9 +297,15 @@ void UserInformation::setUpdateRequired(const bool updateRequired)
 
 DWORD UserInformation::getScreenDisplayFrequency()
 {
-    DEVMODE dm;
-    ::EnumDisplaySettings(NULL, ENUM_CURRENT_SETTINGS, &dm);
-    return dm.dmDisplayFrequency;
+    if (!_screenDisplayFrequency ||
+        Global::getInstance()->userInformation->getIsSelectFullScreen() == cocos2d::ui::CheckBox::EventType::UNSELECTED)
+    {
+        DEVMODE dm;
+        dm.dmSize = sizeof(DEVMODE);
+        ::EnumDisplaySettings(nullptr, ENUM_CURRENT_SETTINGS, &dm);
+        _screenDisplayFrequency = dm.dmDisplayFrequency;
+    }
+    return _screenDisplayFrequency;
 }
 
 void UserInformation::setGameDifficulty(const int difficulty)
@@ -427,6 +448,11 @@ void UserInformation::setIsShowInformation(CheckBox::EventType isShow)
 void UserInformation::setIsEaseAnimation(CheckBox::EventType easeAnimation)
 {
     _easeAnimation = easeAnimation;
+}
+
+void UserInformation::setIsVerticalSynchronization(CheckBox::EventType verticalSynchronization)
+{
+    _verticalSynchronization = verticalSynchronization;
 }
 
 void UserInformation::setIsMirrorScene(const bool isMirror)

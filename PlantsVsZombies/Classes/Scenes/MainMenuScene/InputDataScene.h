@@ -47,6 +47,7 @@ private:
 	void setButtonText(Button* button, const string& text, const float& scale);
 	void caveData();
 	void updateButtonText();
+	void inputNewFileDataName();
 	Label* onTextFieldInsertText();
 	Label* onTextFieldDeleteBackward();
 

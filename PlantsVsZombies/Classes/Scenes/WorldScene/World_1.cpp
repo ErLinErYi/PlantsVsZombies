@@ -223,6 +223,7 @@ void World_1::showLevels()
 	auto sprite = Button::create("begingame.png", "", "", TextureResType::PLIST);
 	sprite->setPosition(Vec2(250, 230));
 	sprite->setAnchorPoint(Vec2(0, 0.5f));
+	sprite->setGlobalZOrder(1);
 	World1_38->addChild(sprite);
 
 	if (_global->userInformation->getUserSelectWorldData().at(0)->levels <= 10)
@@ -230,6 +231,7 @@ void World_1::showLevels()
 		auto prohibit = Sprite::createWithSpriteFrameName("Prohibit.png");
 		prohibit->setPosition(Vec2(40, 30));
 		prohibit->setScale(0.5f);
+		prohibit->setGlobalZOrder(2);
 		sprite->addChild(prohibit);
 	}
 	else
@@ -239,6 +241,7 @@ void World_1::showLevels()
 	auto wgfd = Sprite::createWithSpriteFrameName("wgfd.png");
 	wgfd->setPosition(Vec2(40, 15));
 	wgfd->setScale(0.8f);
+	wgfd->setGlobalZOrder(1);
 	sprite->addChild(wgfd, -1);
 
 	auto Level_1 = createSprite("World1_26", Vec2(900, 500), 0.6f, 2, 0.5f, true);

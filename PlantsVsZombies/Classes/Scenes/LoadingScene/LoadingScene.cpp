@@ -5,9 +5,9 @@
  *Emal: 2117610943@qq.com
  */
 
-#include "Based/LevelData.h"
 #include "LoadingScene.h"
 #include "tinyxml2/tinyxml2.h"
+#include "Based/LevelData.h"
 #include "Based/UserInformation.h"
 #include "Based/PlayMusic.h"
 #include "AudioEngine.h"
@@ -72,9 +72,6 @@ void LoadingScene::loadUserData()
 {
 	auto userdefault = UserDefault::getInstance();
 
-	_userData->createNewUserDataDocument();
-	loadUserFileData();
-	
 	/* 读取用户存档名称 */
 	for (int i = 0; i < 8; i++)
 	{
@@ -92,6 +89,9 @@ void LoadingScene::loadUserData()
 	_global->userInformation->setUserName(_global->userInformation->getUserCaveFileName(_global->userInformation->getUserCaveFileNumber()));
 	_global->userInformation->setIsUpdate(true);
 
+	_userData->createNewUserDataDocument();
+	loadUserFileData();
+
 	/* 显示信息 */
 	switch (userdefault->getBoolForKey("SHOWINFORMATION"))
 	{
@@ -102,6 +102,19 @@ void LoadingScene::loadUserData()
 	case false:
 		_director->setDisplayStats(false);
 		_global->userInformation->setIsShowInformation(cocos2d::ui::CheckBox::EventType::UNSELECTED);
+		break;
+	}
+
+	/* 是否高帧率 */
+	switch (userdefault->getBoolForKey("SHOWHIGHFPS"))
+	{
+	case true:
+		_director->setAnimationInterval(1.0f / UserInformation::getScreenDisplayFrequency());
+		_global->userInformation->setIsSelectHighFPS(cocos2d::ui::CheckBox::EventType::SELECTED);
+		break;
+	case false:
+		_director->setAnimationInterval(1.0f / 45);
+		_global->userInformation->setIsSelectHighFPS(cocos2d::ui::CheckBox::EventType::UNSELECTED);
 		break;
 	}
 
@@ -118,21 +131,6 @@ void LoadingScene::loadUserData()
 		break;
 	}
 
-	/* 是否高帧率 */
-	switch (userdefault->getBoolForKey("SHOWHIGHFPS"))
-	{
-	case true:
-		_director->setAnimationInterval(1.0f / UserInformation::getScreenDisplayFrequency());
-		_global->userInformation->setIsSelectHighFPS(cocos2d::ui::CheckBox::EventType::SELECTED);
-		_global->userInformation->setFps(60);
-		break;
-	case false:
-		_director->setAnimationInterval(1.0f / 45);
-		_global->userInformation->setIsSelectHighFPS(cocos2d::ui::CheckBox::EventType::UNSELECTED);
-		_global->userInformation->setFps(45);
-		break;
-	}
-
 	/* 是否拉伸显示 */
 	switch (userdefault->getBoolForKey("STRETCHINGSHOW"))
 	{
@@ -143,6 +141,19 @@ void LoadingScene::loadUserData()
 	case false:
 		_global->userInformation->setIsSelectStretchingShow(cocos2d::ui::CheckBox::EventType::UNSELECTED);
 		_director->getOpenGLView()->setDesignResolutionSize(_director->getWinSize().width, _director->getWinSize().height, ResolutionPolicy::SHOW_ALL);
+		break;
+	}
+
+	/* 是否垂直同步 */
+	switch (userdefault->getBoolForKey("VERTICALSYNCHRONIZATION"))
+	{
+	case true:
+		wglSwapIntervalEXT(1);
+		_global->userInformation->setIsVerticalSynchronization(CheckBox::EventType::SELECTED);
+		break;
+	case false:
+		_global->userInformation->setIsVerticalSynchronization(CheckBox::EventType::UNSELECTED);
+		wglSwapIntervalEXT(0);
 		break;
 	}
 
@@ -157,6 +168,15 @@ void LoadingScene::loadUserData()
 
 void LoadingScene::loadUserFileData()
 {
+	if (Global::getInstance()->userInformation->getUserName() == "未命名存档")
+	{
+		UserDefault::getInstance()->setFloatForKey("SOUNDEFFECT", 0.5f);
+		UserDefault::getInstance()->setFloatForKey("GLOBALMUSIC", 0.2f);
+		UserDefault::getInstance()->setBoolForKey("SHOWFULLSCREEN", true);
+		UserDefault::getInstance()->setBoolForKey("SHOWHIGHFPS", true);
+		UserDefault::getInstance()->setBoolForKey("SHOWINFORMATION", true);
+	}
+
 	Global::getInstance()->userInformation->setUserCaveFileNumber(UserDefault::getInstance()->getIntegerForKey("USERDATANUMBER"));      /* 存档编号 */
 	Global::getInstance()->userInformation->setSoundEffectVolume(UserDefault::getInstance()->getFloatForKey("SOUNDEFFECT"));            /* 音效 */
 	Global::getInstance()->userInformation->setBackGroundMusicVolume(UserDefault::getInstance()->getFloatForKey("GLOBALMUSIC"));        /* 音乐 */
