@@ -310,6 +310,7 @@ void GameEasterEggs::musicCallBack()
 		});
 }
 
+#if MYRELEASE
 void GameEasterEggs::playVideo()
 {
 	_pPlayer = VideoPlayer::instance();
@@ -335,7 +336,9 @@ void GameEasterEggs::playVideo()
 		}, 1.f, CC_REPEAT_FOREVER, 5.f, "video");
 #endif
 }
+#endif
 
+#ifdef VIDEO_TEST
 void GameEasterEggs::createSlider()
 {
 	_slider = Slider::create();
@@ -385,3 +388,4 @@ void GameEasterEggs::createSlider()
 	};
 	_director->getEventDispatcher()->addEventListenerWithSceneGraphPriority(KeyBoard, this);
 }
+#endif

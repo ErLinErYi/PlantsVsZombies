@@ -1,5 +1,5 @@
 #pragma
-
+#if MYRELEASE
 #include "Based/vlc/vlc.h"
 #include "cocos2d.h"
 
@@ -45,3 +45,4 @@ private:
 
     static VideoPlayer* _instance;
 };
+#endif

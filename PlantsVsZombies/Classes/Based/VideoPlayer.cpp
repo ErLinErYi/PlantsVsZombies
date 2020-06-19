@@ -1,3 +1,4 @@
+#if MYRELEASE
 #include "VideoPlayer.h"
 #include "base/CCDirector.h"
 
@@ -189,3 +190,4 @@ VideoPlayer* VideoPlayer::instance()
     return _instance;
 }
 
+#endif
