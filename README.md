@@ -32,7 +32,7 @@
 **Author: LZ** <br>
 **QQ: 2117610943** <br>
 **Email: 2117610943@qq.com** <br>
-**Website: https://lzpvz.rthe.net** <br>
+**Website: https://lzpvz.rthe.xyz** <br>
 
 ### License
 **Copyright (c) LZ. All rights reserved.**
