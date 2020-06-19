@@ -120,6 +120,9 @@ xcopy "$(ProjectDir)..\Resources" "$(OutDir)" /D /E /I /F /Y
     <ClCompile>
       <LanguageStandard Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">stdcpp14</LanguageStandard>
     </ClCompile>
+    <Link>
+      <AdditionalOptions Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">/SAFESEH:NO %(AdditionalOptions)</AdditionalOptions>
+    </Link>
   </ItemDefinitionGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
     <ClCompile>
@@ -132,7 +135,7 @@ xcopy "$(ProjectDir)..\Resources" "$(OutDir)" /D /E /I /F /Y
       <PrecompiledHeader>
       </PrecompiledHeader>
       <WarningLevel>Level3</WarningLevel>
-      <DebugInformationFormat>ProgramDatabase</DebugInformationFormat>
+      <DebugInformationFormat>None</DebugInformationFormat>
       <DisableSpecificWarnings>4267;4251;4244;%(DisableSpecificWarnings)</DisableSpecificWarnings>
       <MultiProcessorCompilation>true</MultiProcessorCompilation>
       <LanguageStandard>stdcpp14</LanguageStandard>
@@ -141,11 +144,12 @@ xcopy "$(ProjectDir)..\Resources" "$(OutDir)" /D /E /I /F /Y
       <AdditionalDependencies>libcurl.lib;%(AdditionalDependencies);$(_COCOS_LIB_WIN32_BEGIN);$(_COCOS_LIB_WIN32_END)</AdditionalDependencies>
       <OutputFile>$(OutDir)$(ProjectName).exe</OutputFile>
       <AdditionalLibraryDirectories>$(OutDir);%(AdditionalLibraryDirectories);$(_COCOS_LIB_PATH_WIN32_BEGIN);$(_COCOS_LIB_PATH_WIN32_END)</AdditionalLibraryDirectories>
-      <GenerateDebugInformation>true</GenerateDebugInformation>
+      <GenerateDebugInformation>false</GenerateDebugInformation>
       <SubSystem>Windows</SubSystem>
       <OptimizeReferences>true</OptimizeReferences>
       <EnableCOMDATFolding>true</EnableCOMDATFolding>
       <TargetMachine>MachineX86</TargetMachine>
+      <AdditionalOptions>/SAFESEH:NO %(AdditionalOptions)</AdditionalOptions>
     </Link>
     <PostBuildEvent>
       <Command>
@@ -186,6 +190,7 @@ xcopy "$(ProjectDir)..\Resources" "$(OutDir)" /D /E /I /F /Y
     <ClCompile Include="..\Classes\Based\UserData.cpp" />
     <ClCompile Include="..\Classes\Based\UserInformation.cpp" />
     <ClCompile Include="..\Classes\Based\UserWinRequirement.cpp" />
+    <ClCompile Include="..\Classes\Based\VideoPlayer.cpp" />
     <ClCompile Include="..\Classes\PlantsVsZombies.cpp" />
     <ClCompile Include="..\Classes\Plants\BattlePlants\Jalapeno.cpp" />
     <ClCompile Include="..\Classes\Plants\DefensePlants\Garlic.cpp" />
@@ -269,10 +274,12 @@ xcopy "$(ProjectDir)..\Resources" "$(OutDir)" /D /E /I /F /Y
     <ClInclude Include="..\Classes\Based\GameType.h" />
     <ClInclude Include="..\Classes\Based\GlobalVariable.h" />
     <ClInclude Include="..\Classes\Based\LevelData.h" />
+    <ClInclude Include="..\Classes\Based\libpvz.h" />
     <ClInclude Include="..\Classes\Based\PlayMusic.h" />
     <ClInclude Include="..\Classes\Based\UserData.h" />
     <ClInclude Include="..\Classes\Based\UserInformation.h" />
     <ClInclude Include="..\Classes\Based\UserWinRequirement.h" />
+    <ClInclude Include="..\Classes\Based\VideoPlayer.h" />
     <ClInclude Include="..\Classes\PlantsVsZombies.h" />
     <ClInclude Include="..\Classes\Plants\BattlePlants\Jalapeno.h" />
     <ClInclude Include="..\Classes\Plants\DefensePlants\Garlic.h" />

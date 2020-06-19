@@ -51,6 +51,7 @@ bool MainMenu::init()
 	this->createMouseListener();  /* 创建鼠标监听 */
 	this->createMainButton();     /* 创建按钮 */
 	this->schedule(schedule_selector(MainMenu::curUpdate), 0.05f);/* 定时器 */
+	schedule([this](float) {_global->checkAnimationInterval(); }, 1.f, "FPS");
 
 	createNewUserDataFileName();
 #if MYRELEASE
@@ -634,15 +635,15 @@ void MainMenu::beginAdventureGame()
 
 void MainMenu::beginSurvivalGame()
 {
-	Application::getInstance()->openURL("https://lzpvz.rthe.net");
+	Application::getInstance()->openURL(_global->userInformation->getGameText().find("官方网址")->second);
 }
 
 void MainMenu::beginChallengesGame()
 {
-	Application::getInstance()->openURL("https://lzpvz.rthe.net/");
+	Application::getInstance()->openURL(_global->userInformation->getGameText().find("官方网址")->second);
 }
 
 void MainMenu::beginVasebreakerGame()
 {
-	Application::getInstance()->openURL("https://lzpvz.rthe.net/");
+	Application::getInstance()->openURL(_global->userInformation->getGameText().find("官方网址")->second);
 }

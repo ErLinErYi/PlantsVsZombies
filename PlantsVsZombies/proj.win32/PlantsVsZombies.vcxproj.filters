@@ -323,6 +323,9 @@
     <ClCompile Include="..\Classes\Scenes\GameScene\SurvivalGameScene\SGSSurvivalControlLayer.cpp">
       <Filter>Class\Scenes\GameScene\SurvivalScene</Filter>
     </ClCompile>
+    <ClCompile Include="..\Classes\Based\VideoPlayer.cpp">
+      <Filter>Class\Based</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="..\Classes\Zombies\BucketZombies.h">
@@ -591,6 +594,12 @@
     </ClInclude>
     <ClInclude Include="..\Classes\Scenes\GameScene\SurvivalGameScene\SGSSurvivalControlLayer.h">
       <Filter>Class\Scenes\GameScene\SurvivalScene</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Classes\Based\VideoPlayer.h">
+      <Filter>Class\Based</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Classes\Based\libpvz.h">
+      <Filter>Class\Based</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>

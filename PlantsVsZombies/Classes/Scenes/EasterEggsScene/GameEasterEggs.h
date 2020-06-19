@@ -6,7 +6,7 @@
  */
 
 #pragma once
-#include"cocos2d.h"
+#include "cocos2d.h"
 #include "ui/CocosGUI.h"
 #include "AudioEngine.h"
 #include "Based/GlobalVariable.h"
@@ -17,6 +17,8 @@
 
 using namespace cocos2d;
 using namespace cocos2d::experimental;
+
+class VideoPlayer;
 
 class GameEasterEggs :public Scene
 {
@@ -47,6 +49,8 @@ private:
     void renewCallBack();
 	void createEggText();
 	void musicCallBack();
+    void playVideo();
+    void createSlider();
 
 private:
 	Global*    _global;
@@ -58,6 +62,9 @@ private:
     State      _state;
     MoveTo*    _moveAction;
     string     _fileName;
+    Slider*    _slider;
+    VideoPlayer* _pPlayer;
+
 	float      _arcSpeed;
 	float      _radius;
 	float      _accAngle;

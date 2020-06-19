@@ -55,6 +55,7 @@ private:
 
 	void throwException();
 	void checkEdition();
+	void changeFiles();
 
 private:
 	int _textNumbers;                                 // ÎÄ±¾Êý

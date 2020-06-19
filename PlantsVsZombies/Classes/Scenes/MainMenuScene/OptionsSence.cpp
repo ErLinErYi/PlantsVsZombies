@@ -268,7 +268,7 @@ CheckBox* OptionsMenu::createCheckBox(Vec2 &vec2, Vec2 &vec2_, const std::string
 			case OptionScene_CheckBox::¸ßÖ¡ÂÊ:
 				_userDefault->setBoolForKey("SHOWHIGHFPS", false);
 				_global->userInformation->setIsSelectHighFPS(CheckBox::EventType::UNSELECTED);
-				_director->setAnimationInterval(1.0f / 45);
+				_director->setAnimationInterval(1.0f / 30);
 				break;
 			case OptionScene_CheckBox::Êó±êÒþ²Ø:
 				UserData::getInstance()->caveUserData("CURSORHIDE", false);

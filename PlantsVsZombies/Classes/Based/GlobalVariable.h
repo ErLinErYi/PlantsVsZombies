@@ -18,6 +18,7 @@ class Global
 public:
 	static Global* getInstance();
 	void resumeProhibit();
+	void checkAnimationInterval();
 
 public:
 	int prohibitId;
@@ -29,4 +30,6 @@ private:
 
 private:
 	static Global* _instance;    /* µ¥Àý */
+	float _sumAnimationInterval;
+	int _frequence;
 };

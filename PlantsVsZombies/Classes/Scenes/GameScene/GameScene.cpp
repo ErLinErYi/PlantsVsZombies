@@ -113,6 +113,8 @@ void GameScene::buttonLayer()
 
 void GameScene::pauseGame()
 {
+	schedule([this](float) {_global->checkAnimationInterval(); }, 1.f, "FPS");
+
 	_director->getEventDispatcher()->addCustomEventListener(
 		GLViewImpl::EVENT_WINDOW_UNFOCUSED, [&](EventCustom* evt)
 		{

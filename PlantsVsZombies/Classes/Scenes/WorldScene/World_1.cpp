@@ -60,6 +60,7 @@ bool World_1::init()
 	createScrollView();
     createGoBack();
 	createMouseListener();
+	schedule([this](float) {_global->checkAnimationInterval(); }, 1.f, "FPS");
 
 	return true;
 }
@@ -178,6 +179,7 @@ void World_1::addScrollView(const int id)
 	
 	/* 创建线条 */
 	auto draw = DrawNode::create();
+	draw->setOpacity(0);
 	Vec2 BeginPoint[53] =
 	{
 		Vec2(575, 450) ,Vec2(1050, 580) ,Vec2(1370, 730) ,Vec2(1650, 510) ,Vec2(2050, 440) ,Vec2(2300, 370) ,Vec2(2650, 520) ,Vec2(2900,740),
@@ -211,6 +213,7 @@ void World_1::addScrollView(const int id)
 					LineAction->setPosition(BeginPoint[i]);
 				}), nullptr)));
 	}
+	draw->runAction(RepeatForever::create(Sequence::create(FadeIn::create(0.7f), FadeOut::create(0.7f), nullptr)));
 	_parallax->addChild(draw, 3, Vec2(0.5f, 0), Vec2(0, 0));
 
 	showLevels();

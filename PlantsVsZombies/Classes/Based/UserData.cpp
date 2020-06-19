@@ -24,7 +24,10 @@
 #include "Plants/EmissionPlants/Bullet/Bullet.h"
 #include "Plants/EmissionPlants/Bullet/Bullet-File.h"
 
-//#define DEBUG 
+#ifdef DLLTEST
+#include "libpvz.h"
+#pragma comment (lib,"libpvz")
+#endif // !DLLTEST
 
 UserData* UserData::_instance = nullptr;
 
@@ -64,7 +67,14 @@ void UserData::flushUserData()
 #ifdef DEBUG
 	_fileUtils->writeStringToFile(str, getUserDataFileName());
 #else
+#   ifndef DLLTEST
 	_fileUtils->writeStringToFile(encryption(str), getUserDataFileName());
+#   else
+	char* buf = new char[str.length() * 3];
+	encryption(str.c_str(), buf);
+	_fileUtils->writeStringToFile(buf, getUserDataFileName());
+	CC_SAFE_DELETE(buf);
+#   endif
 #endif
 	_isAnewReadData = false; // if flush must anew read data
 }
@@ -80,7 +90,14 @@ void UserData::flushLevelData()
 #ifdef DEBUG
 	_fileUtils->writeStringToFile(str, getLevelDataFileName());
 #else
+#   ifndef DLLTEST
 	_fileUtils->writeStringToFile(encryption(str), getLevelDataFileName());
+#   else
+	char* buf = new char[str.length() * 3];
+	encryption(str.c_str(), buf);
+	_fileUtils->writeStringToFile(buf, getLevelDataFileName());
+	CC_SAFE_DELETE(buf);
+#   endif
 #endif
 }
 
@@ -95,7 +112,14 @@ void UserData::flushSurvivalData()
 #ifdef DEBUG
 	_fileUtils->writeStringToFile(str, getSurvivalLevelDataFileName());
 #else
+#   ifndef DLLTEST
 	_fileUtils->writeStringToFile(encryption(str), getSurvivalDataFileName());
+#   else
+	char* buf = new char[str.length() * 3];
+	encryption(str.c_str(), buf);
+	_fileUtils->writeStringToFile(buf, getSurvivalDataFileName());
+	CC_SAFE_DELETE(buf);
+#   endif
 #endif
 }
 
@@ -111,8 +135,21 @@ openUserDataReturnType UserData::openUserData()
 			_userData = _fileUtils->getStringFromFile(getUserDataFileName());
 			_userDataDocument->Parse<rapidjson::kParseDefaultFlags>(_userData.c_str());
 #else
+#   ifndef DLLTEST
 			_userData = _fileUtils->getStringFromFile(getUserDataFileName());
 			_userDataDocument->Parse<rapidjson::kParseDefaultFlags>(decryption(_userData).c_str());
+#   else
+			_userData = _fileUtils->getStringFromFile(getUserDataFileName());
+			char* buf = new char[_userData.length()];
+			if (decryption(_userData.c_str(), buf)) {
+				_userDataDocument->Parse<rapidjson::kParseDefaultFlags>(buf);
+			}
+			else {
+				CC_SAFE_DELETE(buf);
+				return openUserDataReturnType::FileExistError;
+		}
+			CC_SAFE_DELETE(buf);
+#   endif
 #endif
 			if (_userDataDocument->HasParseError()) {
 				return openUserDataReturnType::FileExistError;
@@ -141,8 +178,21 @@ openUserDataReturnType UserData::openLevelData()
 		_levelData = _fileUtils->getStringFromFile(getLevelDataFileName());
 		_levelDataDocument->Parse<rapidjson::kParseDefaultFlags>(_levelData.c_str());
 #else
+#   ifndef DLLTEST
 		_levelData = _fileUtils->getStringFromFile(getLevelDataFileName());
 		_levelDataDocument->Parse<rapidjson::kParseDefaultFlags>(decryption(_levelData).c_str());
+#   else
+		_levelData = _fileUtils->getStringFromFile(getLevelDataFileName());
+		char* buf = new char[_levelData.length()];
+		if (decryption(_levelData.c_str(), buf)) {
+			_levelDataDocument->Parse<rapidjson::kParseDefaultFlags>(buf);
+		}
+		else {
+			CC_SAFE_DELETE(buf);
+			return openUserDataReturnType::FileExistError;
+		}
+		CC_SAFE_DELETE(buf);
+#   endif
 #endif
 		if (_levelDataDocument->HasParseError()) {
 			return openUserDataReturnType::FileExistError;
@@ -163,8 +213,21 @@ openUserDataReturnType UserData::openSurvivalData()
 		_levelData = _fileUtils->getStringFromFile(getSurvivalDataFileName());
 		_levelDataDocument->Parse<rapidjson::kParseDefaultFlags>(_levelData.c_str());
 #else
+#   ifndef DLLTEST
 		_levelData = _fileUtils->getStringFromFile(getSurvivalDataFileName());
 		_levelDataDocument->Parse<rapidjson::kParseDefaultFlags>(decryption(_levelData).c_str());
+#   else
+		_levelData = _fileUtils->getStringFromFile(getSurvivalDataFileName());
+		char* buf = new char[_levelData.length()];
+		if (decryption(_levelData.c_str(), buf)) {
+			_levelDataDocument->Parse<rapidjson::kParseDefaultFlags>(buf);
+		}
+		else {
+			CC_SAFE_DELETE(buf);
+			return openUserDataReturnType::FileExistError;
+		}
+		CC_SAFE_DELETE(buf);
+#   endif
 #endif
 		if (_levelDataDocument->HasParseError()) {
 			return openUserDataReturnType::FileExistError;
@@ -828,6 +891,7 @@ void UserData::openLevelZombiesData(char* key)
 		zombies->setZombieCurrentBodyShieldVolume((*_levelDataDocument)[key]["Zombies"][to_string(i).c_str()]["ZombieCurrentBodyShieldVolume"].GetFloat());
 		zombies->setZombieCurrentHeadShieldVolume((*_levelDataDocument)[key]["Zombies"][to_string(i).c_str()]["ZombieCurrentHeadShieldVolume"].GetFloat());
 		zombies->getZombieAnimation()->setOpacity((*_levelDataDocument)[key]["Zombies"][to_string(i).c_str()]["ZombieOpacity"].GetInt());
+		zombies->getZombieAnimation()->getChildByName("shadow")->setOpacity(zombies->getZombieAnimation()->getOpacity());
 
 		auto visible = (*_levelDataDocument)[key]["Zombies"][to_string(i).c_str()]["ZombieVisible"].GetBool();
 		zombies->getZombieAnimation()->setVisible(visible);
@@ -1062,6 +1126,7 @@ void UserData::replaceScene()
 	Director::getInstance()->replaceScene(TransitionFade::create(1.0f, SelectPlantsScene::createScene()));
 }
 
+#ifndef DLLTEST
 string UserData::encryption(string& str)
 {
 	char* encryptString, * encryptString1;
@@ -1119,3 +1184,4 @@ string UserData::decryption(string& str)
 
 	return s;
 }
+#endif // !DLLTEST

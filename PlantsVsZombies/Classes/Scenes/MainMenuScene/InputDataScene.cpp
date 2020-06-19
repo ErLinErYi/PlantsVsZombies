@@ -74,7 +74,7 @@ void InputDataMenu::createDialog()
 	/* if not read data, read it */
 	if (_global->userInformation->getUserCaveFileNumber() == -1)
 	{
-		_caveFileNumber = UserData::getInstance()->openIntUserData("USERDATANUMBER");
+		_caveFileNumber = UserDefault::getInstance()->getIntegerForKey("USERDATANUMBER");
 		_dataButton.find(_caveFileNumber)->second->setColor(Color3B(0, 255, 255));
 	}
 	else

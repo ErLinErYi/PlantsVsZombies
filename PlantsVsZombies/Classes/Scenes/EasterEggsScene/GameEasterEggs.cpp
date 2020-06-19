@@ -9,7 +9,7 @@
 
 #include "Scenes/MainMenuScene/QuitScene.h"
 #include "Based/PlayMusic.h"
-
+#include "Based/VideoPlayer.h"
 
 GameEasterEggs::GameEasterEggs():
 	_eggstext(nullptr)
@@ -46,12 +46,23 @@ bool GameEasterEggs::init()
 {
 	if (!Scene::init())return false;
 
+#if MYRELEASE
+	playVideo();
+#endif
+
+#ifndef VIDEO_TEST
 	addtortoiseRotate();
 	addtortoiseStraight();
 	createEggText();
 	musicCallBack();
 	schedule(schedule_selector(GameEasterEggs::rotateUpdate));
 	schedule(schedule_selector(GameEasterEggs::straightUpdate));
+#else
+#   if CC_TARGET_PLATFORM == CC_PLATFORM_WIN32
+	createSlider();
+    playVideo();
+#   endif
+#endif
 
 	return true;
 }
@@ -271,7 +282,8 @@ void GameEasterEggs::musicCallBack()
 {
 	AudioEngine::setFinishCallback(_audioId, [=](int i, string name)
 		{
-			this->getChildByName("Text")->setVisible(false);
+			if (this->getChildByName("Text"))
+				this->getChildByName("Text")->setVisible(false);
 
 			PlayMusic::changeBgMusic("mainmusic", true);
 			
@@ -296,4 +308,80 @@ void GameEasterEggs::musicCallBack()
 					}
 				});
 		});
+}
+
+void GameEasterEggs::playVideo()
+{
+	_pPlayer = VideoPlayer::instance();
+	this->addChild(_pPlayer);
+
+	string str = FileUtils::getInstance()->fullPathForFilename(_global->userInformation->getGameText().find("VideoµØÖ·")->second);
+
+	auto n = str.find("/");
+	while (n != string::npos)
+	{
+		str.replace(n, 1, "\\");
+		n = str.find("/");
+	}
+
+	_pPlayer->play(str.c_str());
+
+#if MYRELEASE
+#else
+	schedule([=](float)
+		{
+			auto value = _pPlayer->getPrecent();
+			_slider->setPercent(value == -1 ? 0 : value);
+		}, 1.f, CC_REPEAT_FOREVER, 5.f, "video");
+#endif
+}
+
+void GameEasterEggs::createSlider()
+{
+	_slider = Slider::create();
+	_slider->loadBarTexture("bgFile.png", TextureResType::PLIST);
+	_slider->loadSlidBallTextureNormal("thumbFile.png", TextureResType::PLIST);
+	_slider->loadProgressBarTexture("progressFile.png", TextureResType::PLIST);
+	_slider->setPosition(Vec2(Director::getInstance()->getWinSize().width / 2.f, 25));
+	_slider->setLocalZOrder(1);
+	_slider->addTouchEventListener([=](Ref* sender, Widget::TouchEventType type)
+		{
+			auto slider = (Slider*)sender;
+			switch (type)
+			{
+			case cocos2d::ui::Widget::TouchEventType::ENDED:
+				_pPlayer->setPrecent(slider->getPercent() / 100.f);
+				break;
+			}
+		});
+	this->addChild(_slider);
+
+	auto KeyBoard = EventListenerKeyboard::create();
+	KeyBoard->onKeyReleased = [&](EventKeyboard::KeyCode code, Event* event)
+	{
+		switch (code)
+		{
+		case cocos2d::EventKeyboard::KeyCode::KEY_LEFT_ARROW:
+			_pPlayer->setVideoTime(_pPlayer->getVideoTime() - 30000);
+			break;
+		case cocos2d::EventKeyboard::KeyCode::KEY_RIGHT_ARROW:
+			_pPlayer->setVideoTime(_pPlayer->getVideoTime() + 30000);
+			break;
+		case cocos2d::EventKeyboard::KeyCode::KEY_UP_ARROW:
+			_pPlayer->setVolume(_pPlayer->getVolume() + 5);
+			break;
+		case cocos2d::EventKeyboard::KeyCode::KEY_DOWN_ARROW:
+			_pPlayer->setVolume(_pPlayer->getVolume() - 5);
+			break;
+		case cocos2d::EventKeyboard::KeyCode::KEY_SPACE:
+			_pPlayer->changeVideoState();
+			break;
+		case cocos2d::EventKeyboard::KeyCode::KEY_ESCAPE:
+			Director::getInstance()->popScene();
+			break;
+		default:
+			break;
+		}
+	};
+	_director->getEventDispatcher()->addEventListenerWithSceneGraphPriority(KeyBoard, this);
 }

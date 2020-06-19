@@ -18,7 +18,7 @@ string INFORMATION_TEXT = { "\
 （！！！重要）此游戏为同人游戏而且仅供学习交流使用。该程序与原版游戏程序没有任何关系，程序不是基于原版的二次开发，\
 而是从零开始制作的。由于游戏资源可能存在侵权的问题，所以请勿用于商业用途，否则后果自负。\n\
 		目前有14种僵尸和13种植物，由于做动画的能力有限，有些僵尸和植物动画不能实现或动画与原版存在很大偏差。\
-（使用spine或者DragonBones制作的2D动画）。\nQQ:2117610943 QQ群:926707238 网址:https://lzpvz.rthe.net\n"
+（使用spine或者DragonBones制作的2D动画）。\nQQ:2117610943 QQ群:926707238 网址:https://lzpvz.rthe.xyz\n"
 };
 
 Scene* HelpScene::createHelpScene()

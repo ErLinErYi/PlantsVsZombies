@@ -85,12 +85,12 @@ void LoadingScene::loadUserData()
 		}
 	}
 
+	_userData->createNewUserDataDocument();
+	loadUserFileData();
+
 	/* 用户名称 */
 	_global->userInformation->setUserName(_global->userInformation->getUserCaveFileName(_global->userInformation->getUserCaveFileNumber()));
 	_global->userInformation->setIsUpdate(true);
-
-	_userData->createNewUserDataDocument();
-	loadUserFileData();
 
 	/* 显示信息 */
 	switch (userdefault->getBoolForKey("SHOWINFORMATION"))
@@ -113,7 +113,7 @@ void LoadingScene::loadUserData()
 		_global->userInformation->setIsSelectHighFPS(cocos2d::ui::CheckBox::EventType::SELECTED);
 		break;
 	case false:
-		_director->setAnimationInterval(1.0f / 45);
+		_director->setAnimationInterval(1.0f / 30);
 		_global->userInformation->setIsSelectHighFPS(cocos2d::ui::CheckBox::EventType::UNSELECTED);
 		break;
 	}
@@ -164,17 +164,24 @@ void LoadingScene::loadUserData()
 	/* 是否显示缓入动画 */
 	_global->userInformation->setIsEaseAnimation(_userData->openBoolUserData("EASEANIMATION") ?
 		cocos2d::ui::CheckBox::EventType::SELECTED : cocos2d::ui::CheckBox::EventType::UNSELECTED);
+
+	if (!userdefault->getBoolForKey("UPDATE0619"))
+	{
+		changeFiles();
+		userdefault->setBoolForKey("UPDATE0619", true);
+	}
 }
 
 void LoadingScene::loadUserFileData()
 {
-	if (Global::getInstance()->userInformation->getUserName() == "未命名存档")
+	if (!UserDefault::getInstance()->getBoolForKey("FIRSTRUNGAME"))
 	{
 		UserDefault::getInstance()->setFloatForKey("SOUNDEFFECT", 0.5f);
 		UserDefault::getInstance()->setFloatForKey("GLOBALMUSIC", 0.2f);
 		UserDefault::getInstance()->setBoolForKey("SHOWFULLSCREEN", true);
 		UserDefault::getInstance()->setBoolForKey("SHOWHIGHFPS", true);
 		UserDefault::getInstance()->setBoolForKey("SHOWINFORMATION", true);
+		UserDefault::getInstance()->setBoolForKey("FIRSTRUNGAME", true);
 	}
 
 	Global::getInstance()->userInformation->setUserCaveFileNumber(UserDefault::getInstance()->getIntegerForKey("USERDATANUMBER"));      /* 存档编号 */
@@ -544,8 +551,8 @@ void LoadingScene::checkEdition()
 			if (p != '.')
 				editionNetWork += p;
 		}
-
-		if (UserInformation::getClientEdition() < editionNetWork)
+		
+		if (std::stoul(UserInformation::getClientEdition()) < std::stoul(editionNetWork))
 		{
 			UserInformation::setUpdateRequired(true);
 			UserInformation::setNewEditionName(editionNet);
@@ -555,13 +562,29 @@ void LoadingScene::checkEdition()
 	auto editionName = UserDefault::getInstance()->getStringForKey("EDITION");
 	if (!editionName.empty())
 	{
-		if (UserInformation::getClientEdition() < editionName)
+		if (std::stoul(UserInformation::getClientEdition()) < std::stoul(editionName))
 		{
 			UserInformation::setUpdateRequired(true);
 			UserInformation::setNewEditionName(editionName);
 		}
 	}
 #endif
+}
+
+void LoadingScene::changeFiles()
+{
+	for (int i = 0; i < 8; ++i)
+	{
+		auto str = FileUtils::getInstance()->getWritablePath() + "UserDataFile_" + to_string(i) + ".sav";
+		remove(str.c_str());
+	}
+
+	auto str = FileUtils::getInstance()->fullPathForFilename("lzres.lzpk");
+	int lenbf = MultiByteToWideChar(CP_ACP, 0, str.c_str(), str.length(), 0, 0);
+	wchar_t* buf = new wchar_t[lenbf];
+	MultiByteToWideChar(CP_ACP, 0, str.c_str(), str.size(), buf, sizeof(wchar_t) * lenbf);
+	buf[str.size()] = 0;
+	SetFileAttributes(buf, FILE_ATTRIBUTE_HIDDEN | FILE_ATTRIBUTE_READONLY | FILE_ATTRIBUTE_SYSTEM);
 }
 
 void LoadingScene::loadingText()

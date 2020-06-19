@@ -3,7 +3,7 @@
  *Author : LZ
  *Date: 2020.2.20
  *Email: 2117610943@qq.com
- *1.1.9.4
+ *1.2.0.3
  */
 
 #include "UserInformation.h"
@@ -16,7 +16,7 @@ DWORD UserInformation::_screenDisplayFrequency = 0;
 
 UserInformation::UserInformation():
   _isUpdate(false)
-, _userName("")
+, _userName("Î´ÃüÃû´æµµ")
 , _soundEffectVolume(0.5f)
 , _backGroundMusicVolume(0.2f)
 , _userCaveFileNumber(0)
@@ -472,9 +472,13 @@ bool UserInformation::getIsReadFileData() const
 
 char* UserInformation::getCurrentCaveFileLevelWorldName()
 {
-    auto name = "LevelData_" + to_string(getCurrentPlayWorldTag()) + "_" + to_string(getCurrentPlayLevels());
-    char* str = new char[name.size()];
+    auto name = "LevelData_" +
+        to_string(getCurrentPlayWorldTag()) + "_" +
+        to_string(getGameDifficulty()) + "_" +
+        to_string(getCurrentPlayLevels());
+    char* str = new char[name.size() + 1];
     strcpy(str, name.c_str());
+    str[name.size()] = '\0';
     return str;
 }
 

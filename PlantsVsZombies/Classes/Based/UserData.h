@@ -8,12 +8,14 @@
 #pragma once
 #include "cocos2d.h"
 #include "json/writer.h"
-#include "json/prettywriter.h"
 #include "json/document.h"
 #include "json/stringbuffer.h"
 
 #include <string>
 #include "base/CCDirector.h"
+
+//#define DEBUG 
+//#define DLLTEST
 
 using namespace rapidjson;
 using namespace cocos2d;
@@ -105,8 +107,10 @@ private:
     void caveSurvivalOtherData(char* key);
 
     void replaceScene();
+#ifndef DLLTEST
     string encryption(string& str);
     string decryption(string& str);
+#endif // !DLLTEST
 
 private:
     Document* _userDataDocument;
