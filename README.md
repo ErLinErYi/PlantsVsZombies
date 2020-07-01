@@ -5,7 +5,7 @@
 * **如果是你C++初学者或者其他语言转游戏开发，这个项目没有复杂的语法绝对是一个不错的学习项目**
 * **如果你是游戏开发从业者想做一些类似的游戏，这个项目可能会帮到你或给你一些启发**
 * *!!! 重要*  **这个游戏模仿了原版植物大战僵尸。不要用于商业用途，否则后果自负**
-* **官网: https://lzpvz.rthe.xyz**
+* **官网: https://gitlz.gitee.io/lz**
 
 ## 项目说明 <br>
 - 此游戏全部由本人自己制作完成。此版本为测试版(具有一定的可玩性)，今后会不定时更新（不断完善）。
@@ -32,7 +32,7 @@
 **Author: LZ** <br>
 **QQ: 2117610943** <br>
 **Email: 2117610943@qq.com** <br>
-**Website: https://lzpvz.rthe.xyz** <br>
+**Website: https://gitlz.gitee.io/lz** <br>
 
 ### License
 **Copyright (c) LZ. All rights reserved.**
