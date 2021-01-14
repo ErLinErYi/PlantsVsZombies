@@ -278,9 +278,7 @@ public:
 
 	static void onGLFWWindowCloseCallback(GLFWwindow* window)
 	{
-		glfwSetWindowShouldClose(window, false);
-        MessageBoxW(glfwGetWin32Window(window),
-            L"由于程序要记录游戏中必要的数据，不能中途关闭。请谅解！", L"提示", MB_OK);
+		glfwSetWindowShouldClose(window, GLFW_FALSE);
 	}
 
 private:
