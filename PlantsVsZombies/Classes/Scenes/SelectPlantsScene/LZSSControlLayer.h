@@ -22,6 +22,8 @@ public:
 	CREATE_FUNC(SPSControlLayer);
 	static bool isShowJumpLevelButton();
 	static int getLevelBreakThroughNumbers();
+	static ui::Text* showCoinNumbers(Node* node);
+	static ui::Text* showDieZombiesNumbers(Node* node);
 
 CC_CONSTRUCTOR_ACCESS:
 	SPSControlLayer();
@@ -31,8 +33,6 @@ CC_CONSTRUCTOR_ACCESS:
 private:
 	void createButton();
 	void showUserName();
-	void showCoinNumbers();
-	void showDieZombiesNumbers();
 	void createDialog();
 	
 private:

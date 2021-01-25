@@ -7,7 +7,8 @@
  */
 
 #include "LZSSBackgroundLayer.h"
-
+#include "../GameScene/LZSGAnimationLayer.h"
+#include "../GameScene/LZSGData.h"
 #include "Zombies/LZZZombies-Files.h"
 #include "Zombies/LZZZombies.h"
 #include "Based/LZBLevelData.h"
@@ -127,20 +128,21 @@ void SPSBackgroundLayer::createMordernPreviewZombies()
 	uniform_int_distribution<unsigned>n(0, 2);
 	uniform_int_distribution<unsigned>n1(0, 550);
 	uniform_int_distribution<unsigned>n2(0, 650);
-	int number = _openLevelData->readLevelData(_openLevelData->getLevelNumber())->getZombiesType().size();
-	for (int i = 0; i < number; ++i)
+	auto &type=_openLevelData->readLevelData(_openLevelData->getLevelNumber())->getZombiesType();
+
+	for (unsigned int i = 0; i < type.size(); ++i)
 	{
 		int k;
 		_previewZombies.size() < 15 ? k = n(_random) + 1 : k = 1;
 		for (int j = 0; j < k; ++j)
 		{
-			auto zombies = createDifferentZombies(i);
+			auto zombies = animationLayerInformation->createDifferentZombies(static_cast<ZombiesType>(type.at(i)), this);
 			zombies->setZombiePosition(getPreviewZombiesPosition(n1, n2));
 			zombies->setZombieTag(_previewZombiesTag++);
 			zombies->createPreviewZombie();
 			zombies->setZombieAttributeForGameType();
 
-			PreviewZombies previewzombies;
+			PreviewZombies previewzombies{};
 			previewzombies.animation = zombies->getZombieAnimation();
 			previewzombies.position_y = previewzombies.animation->getPositionY();
 			previewzombies.position_x = previewzombies.animation->getPositionX();
@@ -175,7 +177,7 @@ void SPSBackgroundLayer::sortZombiesPosition()
 Vec2 SPSBackgroundLayer::getPreviewZombiesPosition(UID& n1, UID& n2)
 {
 	Vec2 vec2;
-	bool can;
+	bool can = false;
 	int x, y;
 	do
 	{
@@ -201,28 +203,4 @@ Vec2 SPSBackgroundLayer::getPreviewZombiesPosition(UID& n1, UID& n2)
 bool SPSBackgroundLayer::cmp(PreviewZombies& a, PreviewZombies& b)
 {
 	return a.position_y > b.position_y;
-}
-
-Zombies* SPSBackgroundLayer::createDifferentZombies(const int& id)
-{
-	Zombies* zombies;
-	switch (static_cast<ZombiesType>(_openLevelData->readLevelData(_openLevelData->getLevelNumber())->getZombiesType().at(id)))
-	{
-	case ZombiesType::CommonZombies:          zombies = CommonZombies::create(this);            break;
-	case ZombiesType::ConeZombies:            zombies = ConeZombies::create(this);              break;
-	case ZombiesType::BucketZombies:          zombies = BucketZombies::create(this);            break;
-	case ZombiesType::CommonDoorZombies:      zombies = CommonDoorZombies::create(this);        break;
-	case ZombiesType::ConeDoorZombies:        zombies = ConeDoorZombies::create(this);          break;
-	case ZombiesType::BucketDoorZombies:      zombies = BucketDoorZombies::create(this);        break;
-	case ZombiesType::LmpZombies:             zombies = LmpZombies::create(this);               break;
-	case ZombiesType::CommonFlagZombies:      zombies = CommonFlagZombies::create(this);        break;
-	case ZombiesType::ConeFlagZombies:        zombies = ConeFlagZombies::create(this);          break;
-	case ZombiesType::BucketFlagZombies:      zombies = BucketFlagZombies::create(this);        break;
-	case ZombiesType::CommonDoorFlagZombies:  zombies = CommonDoorFlagZombies::create(this);    break;
-	case ZombiesType::ConeDoorFlagZombies:    zombies = ConeDoorFlagZombies::create(this);      break;
-	case ZombiesType::BucketDoorFlagZombies:  zombies = BucketDoorFlagZombies::create(this);    break;
-	case ZombiesType::SnowZombies:            zombies = SnowZombies::create(this);              break;
-	default: break;
-	}
-	return zombies;
 }

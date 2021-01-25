@@ -7,6 +7,7 @@
 
 #pragma once
 #include "../LZPPlants.h"
+#include "Scenes/SelectPlantsScene/LZSSSpriteLayer.h"
 
 class Zombies;
 class Bullet;
@@ -19,6 +20,8 @@ CC_CONSTRUCTOR_ACCESS:
 
 protected:
     virtual void plantAttack(Zombies* zombie) = 0;
+	virtual void cavePlantInformation(rapidjson::Value& object, rapidjson::Document::AllocatorType& allocator);
+	virtual void readPlantInforamtion(rapidjson::Document* levelDataDocument, char* key, int i);
 
 protected:
     bool _isChanged;           // 是否改变为攻击形态

@@ -6,20 +6,20 @@
  */
 
 #include "LZPDSunFlower.h"
-#include "../EmissionPlants/Bullet/LZPEBBullet.h"
 
-#include "Based/LZBGameType.h"
 #include "Scenes/GameScene/LZSGData.h"
 #include "Scenes/GameScene/LZSGBackgroundLayer.h"
 #include "Scenes/GameScene/LZSGInformationLayer.h"
+#include "Scenes/SelectPlantsScene/LZSSSpriteLayer.h"
 
-#include "Based/LZBCoin.h"
+#include "Based/LZBGameType.h"
+#include "Based/LZBMouseEventControl.h"
+#include "Based/LZBPlayMusic.h"
 
 int SunFlower::_sunTag = -1;
 
-SunFlower::SunFlower(Node* node, Node* sunLayer) :
+SunFlower::SunFlower(Node* node) :
   _sun(nullptr)
-, _sunLayer(sunLayer)
 , _sunShowTime(Vec2(4 + rand() % 3, 16 + rand() % 5))
 , _sunShowTime1(_sunShowTime)
 {
@@ -56,11 +56,10 @@ void SunFlower::stopSun()
 
 void SunFlower::createRandomSuns()
 {
-	/* »ñÈ¡Ì«Ñô²ã */
-	_sunLayer->runAction(RepeatForever::create(Sequence::create(DelayTime::create(5),
+	_node->runAction(RepeatForever::create(Sequence::create(DelayTime::create(5),
 		CallFunc::create([this]()
 			{
-				auto sun = new Sun(_sunLayer);
+				auto sun = new Sun(goodsLayerInformation);
 				sun->setSunTag(++_sunTag);
 				sun->setPosition(Vec2(rand() % 1100 + 500, 1150));
 				sun->createSuns();
@@ -77,12 +76,11 @@ void SunFlower::createRandomSuns()
 				
 				SunsGroup.push_back(sun);
 			}), DelayTime::create(20), nullptr)));
-	goodsRecovery();
 }
 
 Sprite* SunFlower::createPlantImage()
 {
-	imageInit("SunFlower_2", INIT);
+	imageInit("SunFlower", INIT);
 	_plantImage->setScale(1.5f);
 	return _plantImage;
 }
@@ -128,10 +126,11 @@ void SunFlower::createListener()
 		}
 	}
 	else
+	{
 		playAnimation();
+	}
 
 	calculateSunShowTime();
-	goodsRecovery();
 }
 
 void SunFlower::playAnimation()
@@ -171,7 +170,7 @@ void SunFlower::sunRecovery(Sun* sun)
 	auto temporary = sun;
 	sun->setEnable(false);
 	sun->getSun()->stopAllActions();
-	sun->getSun()->runAction(Sequence::create(EaseSineOut::create(MoveTo::create(0.5f, Vec2(290, 1010))),
+	sun->getSun()->runAction(Sequence::create(EaseSineOut::create(MoveTo::create(sun->calculateMoveTime(), Vec2(290, 1010))),
 		Spawn::create(ScaleTo::create(0.2f, 0.3f), FadeOut::create(0.2f), nullptr),
 		CallFunc::create([=]()
 			{
@@ -185,49 +184,49 @@ void SunFlower::sunRecovery(Sun* sun)
 			}), nullptr));
 }
 
-void SunFlower::goodsRecovery()
-{
-	auto linster = EventListenerTouchOneByOne::create();
-	linster->onTouchBegan = [=](Touch* t, Event* e)
-	{
-		Point p = t->getLocation();
-		if (Global::getInstance()->userInformation->getIsMirrorScene())
-		{	
-			p.x = 1920 - p.x;
-		}
-		for (auto sun : SunsGroup)
-		{
-			if ( sun->getSun()->getBoundingBox().containsPoint(p) && sun->getEnable())
-			{
-				Bullet::playSoundEffect("points");
-				sunRecovery(sun);
-			}
-		}
-
-		for (auto coin : CoinsGroup)
-		{
-			if (coin->getCoin()->getBoundingBox().containsPoint(p) && coin->getEnable())
-			{
-				Bullet::playSoundEffect("coin");
-				Coin::coinRecoveryAction(coin);
-			}
-		}
-		return true;
-	};
-	Director::getInstance()->getEventDispatcher()->addEventListenerWithSceneGraphPriority(linster, _sunLayer);
-}
-
 void SunFlower::createSuns()
 {
-	Bullet::playSoundEffect(rand() % 2 == 0 ? "throw" : "throw2");
+	PlayMusic::playMusic(rand() % 2 == 0 ? "throw" : "throw2");
 	_plantAnimation->setSkin("SunFlower_ProduceSun"); /* ÉèÖÃÆ¤·ô */
 
-	_sun = new Sun(_sunLayer);
+	_sun = new Sun(goodsLayerInformation);
 	_sun->setSunTag(++_sunTag);
 	_sun->setPosition(_plantAnimation->getPosition());
 	_sun->createSuns();
 
 	SunsGroup.push_back(_sun);
+}
+
+SkeletonAnimation* SunFlower::showPlantAnimationAndText()
+{
+	auto& lta = _global->userInformation->getGameText();
+	SPSSpriteLayer::plantCardTextScrollView->setInnerContainerSize(Size(lta.find("SUNFLOWER_1")->second->position));
+
+	_isLoop = true;
+	_plantAnimation = plantInit("SunFlower_2", "SunFlower_Normal");
+	_plantAnimation->setSkin("SunFlower_Normal");
+	_plantAnimation->setAnchorPoint(Vec2::ANCHOR_MIDDLE);
+	_plantAnimation->setScale(1.5f);
+	_plantAnimation->setPosition(Vec2(200, 610));
+
+	SPSSpriteLayer::createPlantsText(0, lta.find("SUNFLOWER_1")->second->text, Vec2(190, 910), lta.find("SUNFLOWER_1")->second->fontsize);
+	SPSSpriteLayer::createPlantsText(1, lta.find("SUNFLOWER_2")->second->text, Vec2(360, 1000), lta.find("SUNFLOWER_2")->second->fontsize, Color3B::YELLOW, false);
+	SPSSpriteLayer::createPlantsText(2, lta.find("SUNFLOWER_3")->second->text, Vec2(440, 1000), lta.find("SUNFLOWER_3")->second->fontsize, Color3B::RED, false);
+	SPSSpriteLayer::createPlantsText(3, lta.find("SUNFLOWER_4")->second->text, Vec2(360, 830), lta.find("SUNFLOWER_4")->second->fontsize, Color3B::YELLOW, false);
+
+	return _plantAnimation;
+}
+
+void SunFlower::cavePlantInformation(rapidjson::Value& object, rapidjson::Document::AllocatorType& allocator)
+{
+	object.AddMember("SunShowTime.X", _sunShowTime1.x, allocator);
+	object.AddMember("SunShowTime.Y", _sunShowTime1.y, allocator);
+}
+
+void SunFlower::readPlantInforamtion(rapidjson::Document* levelDataDocument, char* key, int i)
+{
+	_sunShowTime1 = Vec2((*levelDataDocument)[key]["Plants"][to_string(i).c_str()]["SunShowTime.X"].GetFloat(),
+		(*levelDataDocument)[key]["Plants"][to_string(i).c_str()]["SunShowTime.Y"].GetFloat());
 }
 
 Sun::Sun(Node* node) :
@@ -278,6 +277,12 @@ bool Sun::getEnable() const
 void Sun::releaseSun() const
 {
 	_sun->removeFromParent();
+}
+
+float Sun::calculateMoveTime()
+{
+	auto distance = sqrt(pow(_sun->getPosition().x - 290, 2) + pow(_sun->getPosition().y - 1010, 2));
+	return static_cast<float>(distance / (750 + distance));
 }
 
 SkeletonAnimation* Sun::getSun()

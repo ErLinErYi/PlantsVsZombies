@@ -54,6 +54,6 @@ protected:
 private:
 	LayerColor* _promptLayer;
 	static int _pauseNumbers;
-	static string _layerName[6];
+	static string _layerName[7];
 	char* _levelName;
 };

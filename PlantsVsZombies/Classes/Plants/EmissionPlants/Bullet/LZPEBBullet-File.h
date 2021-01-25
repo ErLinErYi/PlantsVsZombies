@@ -7,6 +7,7 @@
 
 #pragma once
 #include "Plants/EmissionPlants/Bullet/LZPEBPea.h"
+#include "Plants/EmissionPlants/Bullet/LZPEBIcePea.h"
 #include "Plants/EmissionPlants/Bullet/LZPEBFirePea.h"
 #include "Plants/EmissionPlants/Bullet/LZPEBCabbage.h"
 #include "Plants/EmissionPlants/Bullet/LZPEBCitronBullet.h"

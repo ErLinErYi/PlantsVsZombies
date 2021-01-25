@@ -9,26 +9,35 @@
 #include "LZSSSpriteLayer.h"
 #include "spine/spine-cocos2dx.h"
 #include "Based/LZBPlayMusic.h"
-
-using namespace spine;
+#include "Based/LZBMouseEventControl.h"
+#include "Plants/LZPPlants.h"
+#include "../GameScene/LZSGData.h"
+#include "../GameScene/LZSGAnimationLayer.h"
 
 EventListenerMouse* SPSSpriteLayer::_listener = nullptr;
+int SPSSpriteLayer::_listenerMutex = 0;
+ui::ScrollView* SPSSpriteLayer::plantCardTextScrollView;
+bool SPSSpriteLayer::isPlantIsCanSelect[]{};
+Text* SPSSpriteLayer::animationText[]{};
 
 SPSSpriteLayer::SPSSpriteLayer() :
 	_seedChooser(nullptr)
+,   _plantsAnimation(nullptr)
 ,	_plantCardScrollView(ScrollView::create())
-,	_plantCardTextScrollView(ScrollView::create())
 ,	_global(Global::getInstance())
 ,	_plantCardScrollViewPercent(0)
 ,	_selectFinished(false)
-,   _plantsNumber(13)
-,   _isPlantIsCanSelect{ true,true,true,true,true,true,true,true,true,true,true,true ,true }
+,   _plantsNumber(PLANTSNUMBERS)
 {
+	plantCardTextScrollView = ui::ScrollView::create();
+	memset(isPlantIsCanSelect, true, sizeof(isPlantIsCanSelect));
 }
 
 SPSSpriteLayer::~SPSSpriteLayer()
 {
 	_plantsCards.clear();
+	_listenerMutex = 0;
+	memset(isPlantIsCanSelect, true, sizeof(isPlantIsCanSelect));
 }
 
 bool SPSSpriteLayer::init()
@@ -105,32 +114,28 @@ void SPSSpriteLayer::createScrollview()
 {
 	/* 植物卡牌滑动视图 */
 	_plantCardScrollView->setDirection(ui::ScrollView::Direction::VERTICAL);
-	_plantCardScrollView->setContentSize(Size(800.0f, 420));
-	_plantCardScrollView->setPosition(Vec2(0, 120));
-	_plantCardScrollView->setInnerContainerSize(Size(800, 420));
-	//_plantCardScrollView->setBounceEnabled(true);
-	_plantCardScrollView->setScrollBarPositionFromCorner(Vec2(40, 0));
+	_plantCardScrollView->setAnchorPoint(Vec2::ANCHOR_TOP_LEFT);
+	_plantCardScrollView->setContentSize(Size(760.0f, 420));
+	_plantCardScrollView->setInnerContainerSize(Size(760, 525));
+	_plantCardScrollView->setPosition(Vec2(0, 540));
+	_plantCardScrollView->setBounceEnabled(true);
+	_plantCardScrollView->setScrollBarPositionFromCorner(Vec2(5, 0));
 	_plantCardScrollView->setScrollBarWidth(7);
-	_plantCardScrollView->setScrollBarAutoHideTime(2.0f);
-	_plantCardScrollView->setScrollBarColor(Color3B::WHITE);
-	//this->schedule(schedule_selector(SPSSpriteLayer::scrollViewUpdate), 0.1f);
+	_plantCardScrollView->setScrollBarColor(Color3B(0,255,255));
+	_plantCardScrollView->setScrollBarAutoHideTime(6666);
+	_plantCardScrollView->scrollToTop(0.1f,true);
 	_seedChooser->addChild(_plantCardScrollView);
 
 	/* 植物卡牌介绍滑动视图 */
-	_plantCardTextScrollView->setDirection(ui::ScrollView::Direction::VERTICAL);
-	_plantCardTextScrollView->setContentSize(Size(400.0f, 360.0f));
-	_plantCardTextScrollView->setPosition(Vec2(360, 580));
-	_plantCardTextScrollView->setBounceEnabled(true);
-	_plantCardTextScrollView->setScrollBarPositionFromCorner(Vec2(10, 0));
-	_plantCardTextScrollView->setScrollBarAutoHideTime(2.0f);
-	_plantCardTextScrollView->setScrollBarWidth(7);
-	_plantCardTextScrollView->setScrollBarColor(Color3B::WHITE);
-	_seedChooser->addChild(_plantCardTextScrollView);
-}
-
-void SPSSpriteLayer::scrollViewUpdate(float Time)
-{
-	_plantCardScrollViewPercent = (_plantCardScrollView->getScrolledPercentVertical()) * 25;
+	plantCardTextScrollView->setDirection(ui::ScrollView::Direction::VERTICAL);
+	plantCardTextScrollView->setContentSize(Size(400.0f, 360.0f));
+	plantCardTextScrollView->setPosition(Vec2(360, 580));
+	plantCardTextScrollView->setBounceEnabled(true);
+	plantCardTextScrollView->setScrollBarPositionFromCorner(Vec2(10, 0));
+	plantCardTextScrollView->setScrollBarAutoHideTime(2.0f);
+	plantCardTextScrollView->setScrollBarWidth(7);
+	plantCardTextScrollView->setScrollBarColor(Color3B::WHITE);
+	_seedChooser->addChild(plantCardTextScrollView);
 }
 
 void SPSSpriteLayer::createMouseListener()
@@ -141,18 +146,20 @@ void SPSSpriteLayer::createMouseListener()
 	{
 		auto e = (EventMouse*)event;
 		auto cur = e->getLocationInView();
-		auto a = e->getScrollY();
-		cur.x -= 200;
+		cur.x -= 205;
 
 		if (_plantCardScrollView->getBoundingBox().containsPoint(cur))
 		{
-			if (_plantCardRollingDistance + a >= 0 && _plantCardRollingDistance + a <= 50)
-			{
-				_plantCardRollingDistance += a;
-			}
-			if (_plantCardRollingDistance < 0)_plantCardRollingDistance = 0;
-			if (_plantCardRollingDistance > 50)_plantCardRollingDistance = 50;
-			_plantCardScrollView->jumpToPercentVertical(_plantCardRollingDistance * 2);
+			float movex = e->getScrollY() * 90;
+			MouseEventControl::mouseScrollControlListener(
+				_plantCardScrollView, movex, ScrollView::Direction::VERTICAL, 0.25f);
+		}
+
+		if (plantCardTextScrollView->getBoundingBox().containsPoint(cur))
+		{
+			float movex = e->getScrollY() * 90;
+			MouseEventControl::mouseScrollControlListener(
+				plantCardTextScrollView, movex, ScrollView::Direction::VERTICAL, 0.25f);
 		}
 	}; 
 
@@ -169,19 +176,20 @@ void SPSSpriteLayer::createMouseListener()
 
 void SPSSpriteLayer::createPlantsCards()
 {
-	for (unsigned int i = 0; i < 4; i++)
+	for (unsigned int i = 0; i < 5; i++)
 	{
 		for (unsigned int j = 0; j < 4; j++)
 		{
 			if (4 * i + j < _plantsNumber)
 			{
-				_plantsCards.push_back(createButtons(Vec2(110 + 185 * j, 490 - 105 * i), 4 * i + j));
+				_plantsCards.push_back(
+					createButtons(Vec2(110 + 185 * j, 490 - 105 * i), plantsCardInformation[4 * i + j].type));
 			}
 		}
 	}
 }
 
-Button* SPSSpriteLayer::createButtons(const Vec2& vec2, const unsigned int& id)
+Button* SPSSpriteLayer::createButtons(const Vec2& vec2, PlantsType plantsType)
 {
 	auto button = Button::create("SeedPacket_Larger.png", "SeedPacket_Larger.png", "", TextureResType::PLIST);
 	button->setPosition(Vec2(vec2.x, _plantCardScrollView->getInnerContainerSize().height + vec2.y - 540));
@@ -193,7 +201,7 @@ Button* SPSSpriteLayer::createButtons(const Vec2& vec2, const unsigned int& id)
 				PlayMusic::playMusic("tap");
 				break;
 			case ui::Widget::TouchEventType::ENDED:
-				if (_isPlantIsCanSelect[id])
+				if (isPlantIsCanSelect[static_cast<unsigned int>(plantsType)])
 				{
 					if (seedBankButton.size() > 3)/* 583 */
 					{
@@ -206,25 +214,20 @@ Button* SPSSpriteLayer::createButtons(const Vec2& vec2, const unsigned int& id)
 						button->setColor(Color3B(70, 70, 70));
 						button->setCascadeColorEnabled(true);  /* 设置父节点影响子节点 */
 
-						createMoveButton(button, vec2, id);
+						createMoveButton(button, vec2, plantsType);
 					}
 				}
 
-				createAnimationAndText(id);//创建植物动画 
+				createAnimationAndText(plantsType);//创建植物动画 
 				
 				break;
 			}
 		});
 	_plantCardScrollView->addChild(button);
 
-	createButtonHoverEffect(button);
-	controlPlantCanSelect(button,id);               /* 控制植物是否可以选择 */
-	showPlantsInformation(button, id);              /* 显示植物信息 */
-
-	if (!_isPlantIsCanSelect[id])
-	{
-		createProhibit(button);
-	}
+	controlPlantCanSelect(button, plantsType);              /* 控制植物是否可以选择 */
+	showPlantsInformation(button, plantsType);              /* 显示植物信息 */
+	createButtonHoverEffect(button);                        /* 鼠标悬停效果 */
 
 	return button;
 }
@@ -233,20 +236,21 @@ void SPSSpriteLayer::createButtonHoverEffect(Button* button)
 {
 	auto seedPacketFlash = Sprite::createWithSpriteFrameName("SeedPacketFlash.png");
 	seedPacketFlash->setVisible(false);
+	seedPacketFlash->setPosition(Vec2(0, -1));
 	seedPacketFlash->setAnchorPoint(Vec2::ANCHOR_BOTTOM_LEFT);
 	seedPacketFlash->setName("seedPacketFlash");
-	seedPacketFlash->setGlobalZOrder(1);
 	button->addChild(seedPacketFlash);
 }
 
 void SPSSpriteLayer::pauseButtonHoverEffect()
 {
-	_listener->setEnabled(false);
+	++_listenerMutex;
+	if (_listener)_listener->setEnabled(false);
 }
 
 void SPSSpriteLayer::resumeButtonHoverEffect()
 {
-	_listener->setEnabled(true);
+	if (!--_listenerMutex && _listener)_listener->setEnabled(true);
 }
 
 void SPSSpriteLayer::showSelectedButtonHoverEffect(EventMouse* e)
@@ -263,7 +267,7 @@ void SPSSpriteLayer::showPopulationButtonHoverEffect(EventMouse* e)
 	for (auto card : _plantsCards)
 	{
 		card->getChildByName("seedPacketFlash")->setVisible(
-			card->getBoundingBox().containsPoint(e->getLocationInView() - Vec2(205, 120)));
+			card->getBoundingBox().containsPoint(e->getLocationInView() - Vec2(205, calculateScrollDistance() + 15)));
 	}
 }
 
@@ -273,48 +277,37 @@ void SPSSpriteLayer::showRandPlantsInformation()
 
 	/* 开始进入创建随机动画 */
 	srand(time(nullptr));
-	createAnimationAndText(rand() % 11);
+	createAnimationAndText(static_cast<PlantsType>(rand() % _plantsNumber));
 }
 
 void SPSSpriteLayer::preLoadText()
 {
 	for (unsigned int i = 0; i < _plantsNumber; i++)
 	{
-		_animationText[i] = Text::create("", GAME_FONT_NAME_1, 30);
-		_animationText[i]->setName("AnimationText");
-		_animationText[i]->enableOutline(Color4B(0, 255, 255, 255));
-		_animationText[i]->enableShadow(Color4B::GRAY, Size(4, -4), 1);
+		animationText[i] = Text::create("", GAME_FONT_NAME_1, 30);
+		animationText[i]->setName("AnimationText");
+		animationText[i]->enableOutline(Color4B(0, 255, 255, 255));
+		animationText[i]->enableShadow(Color4B::GRAY, Size(4, -4), 1);
 		switch (i)
 		{
 		case 0:
-			_seedChooser->addChild(_animationText[i]);
+			_seedChooser->addChild(animationText[i]);
 			break;
 		default:
-			_plantCardTextScrollView->addChild(_animationText[i]);
+			plantCardTextScrollView->addChild(animationText[i]);
 			break;
 		}
 	}
 }
 
-Text* SPSSpriteLayer::showPlantsInformation(Button* button, const unsigned int id) const
+Text* SPSSpriteLayer::showPlantsInformation(Button* button, PlantsType type)
 {
-	const string PlantsImageName[][5] =
-	{
-		{{"SunFlower_2"},{"50"},{"PlantsIcon4"}},{{"PeaShooter"},{"100"},{"PlantsIcon5"}},{{"Wallnut_body"},{"50"},{"PlantsIcon6"}},{{"CherryBomb"},{"150"},{"PlantsIcon7"}},
-		{{"PotatoMine"},{"25"},{"PlantsIcon7"}},{{"Cabbage"},{"100"},{"PlantsIcon3"}},{{"Torchwood"},{"175"},{"PlantsIcon2"}},{{"Spikeweed"},{"100"},{"PlantsIcon12"}},
-		{{"Garlic"},{"50"},{"PlantsIcon10"}},{{"FirePeaShooter"},{"200"},{"PlantsIcon2"}},{{"Jalapeno"},{"150"},{"PlantsIcon2"}},{{"LemonShooter"},{"125"},{"PlantsIcon10"}},
-	    {{"Citron"},{"350"},{"PlantsIcon"}}
-	};
-	Color3B color[] =
-	{
-		Color3B::YELLOW,Color3B::GREEN,Color3B(140,80,10),Color3B::RED,Color3B(250,75,10),Color3B(64,0,0),Color3B::RED,Color3B::BLACK,Color3B(128,0,128),Color3B::RED,
-		Color3B::RED,Color3B::ORANGE,Color3B(0,255,255)
-	};
-
 	/* 图片 */
-	createPlantsImage(button, PlantsImageName[id][0]);
+	createPlantsImage(button, type);
 
-	auto PlantsLevelIamge = Sprite::createWithSpriteFrameName("PlantsLevel_Copper.png");
+	string str[] = { "PlantsLevel_Gold.png","PlantsLevel_Silver.png","PlantsLevel_Copper.png" };
+
+	auto PlantsLevelIamge = Sprite::createWithSpriteFrameName(str[plantsCardInformation[static_cast<unsigned int>(type)].quality - 1]);
 	PlantsLevelIamge->setPosition(Vec2(155, 74));
 	PlantsLevelIamge->setScale(0.65f);
 	button->addChild(PlantsLevelIamge);
@@ -326,66 +319,71 @@ Text* SPSSpriteLayer::showPlantsInformation(Button* button, const unsigned int i
 	auto PlantsIconBackground = Sprite::createWithSpriteFrameName("PlantsIconBackground.png");
 	PlantsIconBackground->setPosition(Vec2(97, 150));
 	PlantsIconBackground->setScale(0.28f);
-	PlantsIconBackground->setColor(color[id]);
+	PlantsIconBackground->setColor(plantsCardInformation[static_cast<unsigned int>(type)].color);
 	Background->addChild(PlantsIconBackground);
 
-	auto PlantsIcon = Sprite::createWithSpriteFrameName(PlantsImageName[id][2] + ".png");
+	auto PlantsIcon = Sprite::createWithSpriteFrameName(plantsCardInformation[static_cast<unsigned int>(type)].information[1] + ".png");
 	PlantsIcon->setPosition(Vec2(75, 75));
 	PlantsIcon->setScale(1.2f);
 	PlantsIconBackground->addChild(PlantsIcon);
 
 	/* 文本 */
 	auto PlantsNeedSuns = ui::Text::create();
-	PlantsNeedSuns->setFontName(GAME_FONT_NAME_2);
+	PlantsNeedSuns->setFontName(GAME_FONT_NAME_3);
 	PlantsNeedSuns->setColor(Color3B::BLACK);
 	PlantsNeedSuns->setAnchorPoint(Vec2(1, 0.5f));
-	PlantsNeedSuns->setPosition(Vec2(175, 20));
-	PlantsNeedSuns->setFontSize(30);
-	PlantsNeedSuns->setString(PlantsImageName[id][1]);
+	PlantsNeedSuns->setPosition(Vec2(175, 18));
+	PlantsNeedSuns->setFontSize(35);
+	PlantsNeedSuns->setString(to_string(plantsCardInformation[static_cast<unsigned int>(type)].plantsNeedSunNumbers));
 	button->addChild(PlantsNeedSuns);
 
 	auto PlantsLevelText = ui::Text::create();
 	PlantsLevelText->setFontName(GAME_FONT_NAME_1);
 	PlantsLevelText->setColor(Color3B::BLACK);
-	PlantsLevelText->setAnchorPoint(Vec2(1, 0.5f));
-	PlantsLevelText->setPosition(Vec2(177, 77));
-	PlantsLevelText->setFontSize(20);
-	PlantsLevelText->setString("LVL1");
+	PlantsLevelText->setAnchorPoint(Vec2::ANCHOR_MIDDLE);
+	PlantsLevelText->setPosition(Vec2(153, 75));
+	PlantsLevelText->setFontSize(25);
+	PlantsLevelText->setString(plantsCardInformation[static_cast<unsigned int>(type)].information[2]);
 	button->addChild(PlantsLevelText);
+
+	if (!isPlantIsCanSelect[static_cast<unsigned int>(type)])
+	{
+		createProhibit(button);
+	}
 
 	return PlantsNeedSuns;
 }
 
-void SPSSpriteLayer::createPlantsImage(Button* button, const std::string& resource, const float& scale) const
+void SPSSpriteLayer::createPlantsImage(Button* button, PlantsType type, const float& scale) const
 {
-	auto image = Sprite::createWithSpriteFrameName(resource + ".png");
+	auto image = Sprite::createWithSpriteFrameName(plantsCardInformation[static_cast<unsigned int>(type)].information[0] + ".png");
 	image->setScale(scale);
+	image->setFlippedX(plantsCardInformation[static_cast<unsigned int>(type)].flippedX);
 	image->setPosition(Vec2(55, 50));
 	button->addChild(image);
 }
 
-void SPSSpriteLayer::createMoveButton(Button* button, const Vec2& vec2, const unsigned int& id)
+void SPSSpriteLayer::createMoveButton(Button* button, const Vec2& vec2, PlantsType plantsType)
 {
 	/* 创建移动卡牌 */
 	auto moveCard = ui::Button::create("SeedPacket_Larger.png", "SeedPacket_Larger.png", "", TextureResType::PLIST);
-	moveCard->setPosition(Vec2(vec2.x + 212, vec2.y + _plantCardScrollViewPercent));
+	moveCard->setPosition(Vec2(vec2.x + 212, vec2.y + calculateScrollDistance()));
 	moveCard->setTitleColor(Color3B::RED);
 	moveCard->setTitleFontSize(25);
-	moveCard->setTag(id);
+	moveCard->setTag(static_cast<unsigned int>(plantsType));
 	moveCard->runAction(MoveTo::create(0.2f, Vec2(105, 1008 - 103 * seedBankButton.size())));
 	this->addChild(moveCard);
 
-	createButtonHoverEffect(moveCard);
-
-	showPlantsInformation(moveCard, id); //显示信息
+	showPlantsInformation(moveCard, plantsType); // 显示信息
+	createButtonHoverEffect(moveCard);           // 鼠标悬停信息
 
 	/* 存储到卡牌栏中 */
 	UserSelectCard seed_bank_button{};
 	seed_bank_button.cardbutton = moveCard;
-	seed_bank_button.cardTag = id;
+	seed_bank_button.cardTag = static_cast<unsigned int>(plantsType);
 	seedBankButton.push_back(seed_bank_button);
 	
-	float PlantCardScrollViewPercentLast = _plantCardScrollViewPercent;
+	float plantCardRollingDistanceLast = calculateScrollDistance();
 	moveCard->addTouchEventListener([=](Ref* sender, ui::Widget::TouchEventType type)
 		{
 			switch (type)
@@ -394,11 +392,10 @@ void SPSSpriteLayer::createMoveButton(Button* button, const Vec2& vec2, const un
 				PlayMusic::playMusic("tap2");
 				break;
 			case ui::Widget::TouchEventType::ENDED:
-				createAnimationAndText(id);  //创建植物动画
-				sortPlantsCard(id);          //对植物卡牌重新排序
-				_plantCardScrollView->scrollToPercentVertical(PlantCardScrollViewPercentLast / 25.0f, 0.5f, true);//滚动到初始位置
-				_plantCardRollingDistance = PlantCardScrollViewPercentLast / 25.0f;
-				moveCard->runAction(Sequence::create(MoveTo::create(0.2f, Vec2(vec2.x + 212, vec2.y + PlantCardScrollViewPercentLast)),
+				createAnimationAndText(plantsType);  //创建植物动画
+				sortPlantsCard(plantsType);          //对植物卡牌重新排序
+				_plantCardScrollView->scrollToPercentVertical(calculateScrollPrecent(plantCardRollingDistanceLast), 0.5f, true);//滚动到初始位置
+				moveCard->runAction(Sequence::create(MoveTo::create(0.2f, Vec2(vec2.x + 212, vec2.y + plantCardRollingDistanceLast)),
 					CallFunc::create([=]()
 						{
 							moveCard->removeFromParent();
@@ -412,12 +409,25 @@ void SPSSpriteLayer::createMoveButton(Button* button, const Vec2& vec2, const un
 		});
 }
 
-void SPSSpriteLayer::sortPlantsCard(const unsigned int& id)
+float SPSSpriteLayer::calculateScrollDistance()
+{
+	_plantCardRollingDistance = (_plantCardScrollView->getInnerContainerSize().height -
+		_plantCardScrollView->getContentSize().height) * _plantCardScrollView->getScrolledPercentVertical() / 100;
+	return _plantCardRollingDistance;
+}
+
+float SPSSpriteLayer::calculateScrollPrecent(float distance)
+{
+	return distance * 100 / (_plantCardScrollView->getInnerContainerSize().height -
+		_plantCardScrollView->getContentSize().height);
+}
+
+void SPSSpriteLayer::sortPlantsCard(PlantsType type)
 {
 	/* 删除取消选择的卡牌 */
 	for (auto& card = seedBankButton.begin(); card != seedBankButton.end();)
 	{
-		if (card->cardTag == id)
+		if (card->cardTag == static_cast<unsigned int>(type))
 		{
 			card = seedBankButton.erase(card);
 		}
@@ -486,18 +496,19 @@ void SPSSpriteLayer::startGame()
 	pauseButtonHoverEffect();
 }
 
-void SPSSpriteLayer::controlPlantCanSelect(Button* button, const unsigned int id)
+void SPSSpriteLayer::controlPlantCanSelect(Button* button, PlantsType type)
 {
 	auto coinNumber = _global->userInformation->getCoinNumbers();
 	auto killZombiesNumber = _global->userInformation->getKillZombiesNumbers();
 
-	if (id >= 9)
+	if (static_cast<unsigned int>(type) >= 9)
 	{
-		if (coinNumber < requirement[id - 9].x || killZombiesNumber < requirement[id - 9].y)
+		if (coinNumber < plantsCardInformation[static_cast<unsigned int>(type)].requirement.x ||
+			killZombiesNumber < plantsCardInformation[static_cast<unsigned int>(type)].requirement.y)
 		{
 			button->setColor(Color3B(70, 70, 70));
 			button->setCascadeColorEnabled(true);  /* 设置父节点影响子节点 */
-			_isPlantIsCanSelect[id] = false;
+			isPlantIsCanSelect[static_cast<unsigned int>(type)] = false;
 		}
 	}
 }
@@ -510,173 +521,50 @@ void SPSSpriteLayer::createProhibit(Button* button)
 	button->addChild(prohibit);
 }
 
-void SPSSpriteLayer::createPlantsAnimation(const std::string& filepath, const std::string& AnimationName, const std::string& skin, Vec2& vec2, const float& scale)
-{
-	/* 创建动画 */
-	auto iter = _global->userInformation->getAnimationData().find(filepath);
-	if (iter != _global->userInformation->getAnimationData().end())/* 如果可以找到 */
-	{
-		_plantsAnimation = SkeletonAnimation::createWithData(iter->second);
-		_plantsAnimation->setPosition(vec2);
-		_plantsAnimation->setScale(scale);
-		_plantsAnimation->setSkin(skin);
-		_plantsAnimation->setAnimation(0, AnimationName, true);
-		_plantsAnimation->setName("PlantsAnimation");
-	}
-}
-
 void SPSSpriteLayer::createPlantsText(const unsigned int& ID, const std::string& name, const Vec2& vec2, const float& fontsize, Color3B color, bool AnchorPoint)
 {
-	_animationText[ID]->setString(name);
-	ID != 0 ? _animationText[ID]->setTextAreaSize(Size(400, 800)) : nullptr;
-	_animationText[ID]->setFontSize(fontsize);
-	_animationText[ID]->setColor(color);
-	_plantCardTextScrollView->scrollToTop(0.1f, true);
-	AnchorPoint ? _animationText[ID]->setAnchorPoint(Vec2(0.5f, 0.5f)) : _animationText[ID]->setAnchorPoint(Vec2(0, 1));
+	animationText[ID]->setString(name);
+	ID != 0 ? animationText[ID]->setTextAreaSize(Size(400, 800)) : nullptr;
+	animationText[ID]->setFontSize(fontsize);
+	animationText[ID]->setColor(color);
+	plantCardTextScrollView->scrollToTop(0.1f, true);
+	AnchorPoint ? animationText[ID]->setAnchorPoint(Vec2(0.5f, 0.5f)) : animationText[ID]->setAnchorPoint(Vec2(0, 1));
 	switch (ID)
 	{
 	case 0:
-		_animationText[ID]->setPosition(vec2);
+		animationText[ID]->setPosition(vec2);
 		break;
 	default:
-		_animationText[ID]->setPosition(Vec2(vec2.x - _plantCardTextScrollView->getInnerContainerSize().width + 40, vec2.y + _plantCardTextScrollView->getInnerContainerSize().height - 1000));
+		animationText[ID]->setPosition(Vec2(
+			vec2.x - plantCardTextScrollView->getInnerContainerSize().width + 40,
+			vec2.y + plantCardTextScrollView->getInnerContainerSize().height - 1000));
 		break;
 	}
 }
 
-void SPSSpriteLayer::createAnimationAndText(const unsigned int& id)
+void SPSSpriteLayer::createAnimationAndText(PlantsType type)
 {
-	_seedChooser->removeChildByName("PlantsAnimation");
-	for (unsigned int i = 0; i < _plantsNumber; i++)_animationText[i]->setString("");
+	for (unsigned int i = 0; i < _plantsNumber; i++)animationText[i]->setString("");
+	if (_plantsAnimation)_plantsAnimation->removeFromParent();
 
-	auto& lta = _global->userInformation->getGameText();
-	switch (id)
-	{
-	case 0:
-		_plantCardTextScrollView->setInnerContainerSize(Size(lta.find("SUNFLOWER_1")->second->position));
-		this->createPlantsAnimation("SunFlower_2", "SunFlower_Normal", "SunFlower_Normal", Vec2(200, 610), 1.5f);
-		this->createPlantsText(0, lta.find("SUNFLOWER_1")->second->text, Vec2(190, 910), lta.find("SUNFLOWER_1")->second->fontsize);
-		this->createPlantsText(1, lta.find("SUNFLOWER_2")->second->text, Vec2(360, 1000), lta.find("SUNFLOWER_2")->second->fontsize, Color3B::YELLOW, false);
-		this->createPlantsText(2, lta.find("SUNFLOWER_3")->second->text, Vec2(440, 1000), lta.find("SUNFLOWER_3")->second->fontsize, Color3B::RED, false);
-		this->createPlantsText(3, lta.find("SUNFLOWER_4")->second->text, Vec2(360, 830), lta.find("SUNFLOWER_4")->second->fontsize, Color3B::YELLOW, false);
-		break;
-	case 1:
-		_plantCardTextScrollView->setInnerContainerSize(Size(lta.find("PEASHOOTER_1")->second->position));
-		this->createPlantsAnimation("PeaShooter", "PeaShooter_Normal", "", Vec2(200, 610), 1.8f);
-		this->createPlantsText(0, lta.find("PEASHOOTER_1")->second->text, Vec2(190, 910), lta.find("PEASHOOTER_1")->second->fontsize);
-		this->createPlantsText(2, lta.find("PEASHOOTER_2")->second->text, Vec2(360, 1000), lta.find("PEASHOOTER_2")->second->fontsize, Color3B::YELLOW, false);
-		this->createPlantsText(3, lta.find("PEASHOOTER_3")->second->text, Vec2(440, 1000), lta.find("PEASHOOTER_3")->second->fontsize, Color3B::RED, false);
-		this->createPlantsText(1, lta.find("PEASHOOTER_4")->second->text, Vec2(360, 830), lta.find("PEASHOOTER_4")->second->fontsize, Color3B::YELLOW, false);
-
-		break;
-	case 2:
-		_plantCardTextScrollView->setInnerContainerSize(Size(lta.find("WALLNUT_1")->second->position));
-		this->createPlantsAnimation("WallNut", "WallNut_Nornal", "WallNut_Normal", Vec2(200, 610), 1.5f);
-		this->createPlantsText(0, lta.find("WALLNUT_1")->second->text, Vec2(190, 910), lta.find("WALLNUT_1")->second->fontsize);
-		this->createPlantsText(2, lta.find("WALLNUT_2")->second->text, Vec2(360, 1000), lta.find("WALLNUT_2")->second->fontsize, Color3B::YELLOW, false);
-		this->createPlantsText(3, lta.find("WALLNUT_3")->second->text, Vec2(440, 1000), lta.find("WALLNUT_3")->second->fontsize, Color3B::RED, false);
-		this->createPlantsText(1, lta.find("WALLNUT_4")->second->text, Vec2(360, 870), lta.find("WALLNUT_4")->second->fontsize, Color3B::YELLOW, false);
-		break;
-	case 3:
-		_plantCardTextScrollView->setInnerContainerSize(Size(lta.find("CHERRYBOMB_1")->second->position));
-		this->createPlantsAnimation("CherryBomb", "CherryBomb_Normal", "", Vec2(200, 610), 1.8f);
-		this->createPlantsText(0, lta.find("CHERRYBOMB_1")->second->text, Vec2(190, 910), lta.find("CHERRYBOMB_1")->second->fontsize);
-		this->createPlantsText(2, lta.find("CHERRYBOMB_2")->second->text, Vec2(360, 1000), lta.find("CHERRYBOMB_2")->second->fontsize, Color3B::YELLOW, false);
-		this->createPlantsText(3, lta.find("CHERRYBOMB_3")->second->text, Vec2(440, 1000), lta.find("CHERRYBOMB_3")->second->fontsize, Color3B::RED, false);
-		this->createPlantsText(1, lta.find("CHERRYBOMB_4")->second->text, Vec2(360, 870), lta.find("CHERRYBOMB_4")->second->fontsize, Color3B::YELLOW, false);
-		break;
-	case 4:
-		_plantCardTextScrollView->setInnerContainerSize(Size(lta.find("POTATOMINE_1")->second->position));
-		this->createPlantsAnimation("PotatoMine", "PotatoMine_Normal", "", Vec2(200, 610), 1.8f);
-		this->createPlantsText(0, lta.find("POTATOMINE_1")->second->text, Vec2(190, 910), lta.find("POTATOMINE_1")->second->fontsize);
-		this->createPlantsText(2, lta.find("POTATOMINE_2")->second->text, Vec2(360, 1000), lta.find("POTATOMINE_2")->second->fontsize, Color3B::YELLOW, false);
-		this->createPlantsText(3, lta.find("POTATOMINE_3")->second->text, Vec2(440, 1000), lta.find("POTATOMINE_3")->second->fontsize, Color3B::RED, false);
-		this->createPlantsText(1, lta.find("POTATOMINE_4")->second->text, Vec2(360, 870), lta.find("POTATOMINE_4")->second->fontsize, Color3B::YELLOW, false);
-		break;
-	case 5:
-		_plantCardTextScrollView->setInnerContainerSize(Size(lta.find("CABBAGE_1")->second->position));
-		this->createPlantsAnimation("Cabbage", "Cabbage_Normal", "", Vec2(200, 610), 1.3f);
-		this->createPlantsText(0, lta.find("CABBAGE_1")->second->text, Vec2(190, 910), lta.find("CABBAGE_1")->second->fontsize);
-		this->createPlantsText(2, lta.find("CABBAGE_2")->second->text, Vec2(360, 1000), lta.find("CABBAGE_2")->second->fontsize, Color3B::YELLOW, false);
-		this->createPlantsText(3, lta.find("CABBAGE_3")->second->text, Vec2(440, 1000), lta.find("CABBAGE_3")->second->fontsize, Color3B::RED, false);
-		this->createPlantsText(1, lta.find("CABBAGE_4")->second->text, Vec2(360, 870), lta.find("CABBAGE_4")->second->fontsize, Color3B::YELLOW, false);
-		break;
-	case 6:
-		_plantCardTextScrollView->setInnerContainerSize(Size(lta.find("TORCHWOOD_1")->second->position));
-		this->createPlantsAnimation("Torchwood", "animation", "", Vec2(200, 610), 1.8f);
-		this->createPlantsText(0, lta.find("TORCHWOOD_1")->second->text, Vec2(190, 910), lta.find("TORCHWOOD_1")->second->fontsize);
-		this->createPlantsText(2, lta.find("TORCHWOOD_2")->second->text, Vec2(360, 1000), lta.find("TORCHWOOD_2")->second->fontsize, Color3B::YELLOW, false);
-		this->createPlantsText(3, lta.find("TORCHWOOD_3")->second->text, Vec2(440, 1000), lta.find("TORCHWOOD_3")->second->fontsize, Color3B::RED, false);
-		this->createPlantsText(1, lta.find("TORCHWOOD_4")->second->text, Vec2(360, 870), lta.find("TORCHWOOD_4")->second->fontsize, Color3B::YELLOW, false);
-		break;
-	case 7:
-		_plantCardTextScrollView->setInnerContainerSize(Size(lta.find("SPIKEWEED_1")->second->position));
-		this->createPlantsAnimation("Spikeweed", "Spikeweed_Normal", "", Vec2(200, 610), 1.5f);
-		this->createPlantsText(0, lta.find("SPIKEWEED_1")->second->text, Vec2(190, 910), lta.find("SPIKEWEED_1")->second->fontsize);
-		this->createPlantsText(2, lta.find("SPIKEWEED_2")->second->text, Vec2(360, 1000), lta.find("SPIKEWEED_2")->second->fontsize, Color3B::YELLOW, false);
-		this->createPlantsText(3, lta.find("SPIKEWEED_3")->second->text, Vec2(440, 1000), lta.find("SPIKEWEED_3")->second->fontsize, Color3B::RED, false);
-		this->createPlantsText(1, lta.find("SPIKEWEED_4")->second->text, Vec2(360, 870), lta.find("SPIKEWEED_4")->second->fontsize, Color3B::YELLOW, false);
-		break;
-	case 8:
-		_plantCardTextScrollView->setInnerContainerSize(Size(lta.find("GARLIC_1")->second->position));
-		this->createPlantsAnimation("Garlic", "Garlic_Normal", "", Vec2(200, 610), 1.5f);
-		this->createPlantsText(0, lta.find("GARLIC_1")->second->text, Vec2(190, 910), lta.find("GARLIC_1")->second->fontsize);
-		this->createPlantsText(2, lta.find("GARLIC_2")->second->text, Vec2(360, 1000), lta.find("GARLIC_2")->second->fontsize, Color3B::YELLOW, false);
-		this->createPlantsText(3, lta.find("GARLIC_3")->second->text, Vec2(440, 1000), lta.find("GARLIC_3")->second->fontsize, Color3B::RED, false);
-		this->createPlantsText(1, lta.find("GARLIC_4")->second->text, Vec2(360, 870), lta.find("GARLIC_4")->second->fontsize, Color3B::YELLOW, false);
-		break;
-	case 9:
-		_plantCardTextScrollView->setInnerContainerSize(Size(lta.find("FIREPEASHOOTER_1")->second->position));
-		this->createPlantsAnimation("FirePeaShooter", "FirePeaShooter_Normal", "", Vec2(200, 610), 1.8f);
-		this->createPlantsText(0, lta.find("FIREPEASHOOTER_1")->second->text, Vec2(190, 910), lta.find("FIREPEASHOOTER_1")->second->fontsize);
-		this->createPlantsText(2, lta.find("FIREPEASHOOTER_2")->second->text, Vec2(360, 1000), lta.find("FIREPEASHOOTER_2")->second->fontsize, Color3B::YELLOW, false);
-		this->createPlantsText(3, lta.find("FIREPEASHOOTER_3")->second->text, Vec2(440, 1000), lta.find("FIREPEASHOOTER_3")->second->fontsize, Color3B::RED, false);
-		this->createPlantsText(1, selectRequirementText(lta, 9, "FIREPEASHOOTER_4", "FIREPEASHOOTER_5"), Vec2(360, 870),
-			lta.find("FIREPEASHOOTER_4")->second->fontsize, _isPlantIsCanSelect[9] ? Color3B::YELLOW : Color3B(255, 70, 0), false);
-		break;
-	case 10:
-		_plantCardTextScrollView->setInnerContainerSize(Size(lta.find("JALAPENO_1")->second->position));
-		this->createPlantsAnimation("Jalapeno", "Jalapeno_Normal", "", Vec2(200, 610), 1.5f);
-		this->createPlantsText(0, lta.find("JALAPENO_1")->second->text, Vec2(190, 910), lta.find("JALAPENO_1")->second->fontsize);
-		this->createPlantsText(2, lta.find("JALAPENO_2")->second->text, Vec2(360, 1000), lta.find("JALAPENO_2")->second->fontsize, Color3B::YELLOW, false);
-		this->createPlantsText(3, lta.find("JALAPENO_3")->second->text, Vec2(440, 1000), lta.find("JALAPENO_3")->second->fontsize, Color3B::RED, false);
-		this->createPlantsText(1, selectRequirementText(lta, 10, "JALAPENO_4", "JALAPENO_5"), Vec2(360, 870),
-			lta.find("JALAPENO_4")->second->fontsize, _isPlantIsCanSelect[10] ? Color3B::YELLOW : Color3B(255, 70, 0), false);
-		break;
-	case 11:
-		_plantCardTextScrollView->setInnerContainerSize(Size(lta.find("ACIDLEMON_1")->second->position));
-		this->createPlantsAnimation("LemonShooter", "LemonNormal", "", Vec2(200, 610), 2.2f);
-		this->createPlantsText(0, lta.find("ACIDLEMON_1")->second->text, Vec2(190, 910), lta.find("ACIDLEMON_1")->second->fontsize);
-		this->createPlantsText(2, lta.find("ACIDLEMON_2")->second->text, Vec2(360, 1000), lta.find("ACIDLEMON_2")->second->fontsize, Color3B::YELLOW, false);
-		this->createPlantsText(3, lta.find("ACIDLEMON_3")->second->text, Vec2(440, 1000), lta.find("ACIDLEMON_3")->second->fontsize, Color3B::RED, false);
-		this->createPlantsText(1, selectRequirementText(lta, 11, "ACIDLEMON_4", "ACIDLEMON_5"), Vec2(360, 870),
-			lta.find("ACIDLEMON_4")->second->fontsize, _isPlantIsCanSelect[11] ? Color3B::YELLOW : Color3B(255, 70, 0), false);
-		break;
-	case 12:
-		_plantCardTextScrollView->setInnerContainerSize(Size(lta.find("CITRON_1")->second->position));
-		this->createPlantsAnimation("Citron", "normal", "", Vec2(200, 610), 2.0f);
-		this->createPlantsText(0, lta.find("CITRON_1")->second->text, Vec2(190, 910), lta.find("CITRON_1")->second->fontsize);
-		this->createPlantsText(2, lta.find("CITRON_2")->second->text, Vec2(360, 1000), lta.find("CITRON_2")->second->fontsize, Color3B::YELLOW, false);
-		this->createPlantsText(3, lta.find("CITRON_3")->second->text, Vec2(440, 1000), lta.find("CITRON_3")->second->fontsize, Color3B::RED, false);
-		this->createPlantsText(1, selectRequirementText(lta, 12, "CITRON_4", "CITRON_5"), Vec2(360, 870),
-			lta.find("CITRON_4")->second->fontsize, _isPlantIsCanSelect[12] ? Color3B::YELLOW : Color3B(255, 70, 0), false);
-		break;
-	default:
-		break;
-	}
-	_seedChooser->addChild(_plantsAnimation);
+	auto plant = animationLayerInformation->createDifferentPlants(type);
+	_plantsAnimation = plant->showPlantAnimationAndText();
+	
+	if (_plantsAnimation) _seedChooser->addChild(_plantsAnimation);
 }
 
-string SPSSpriteLayer::selectRequirementText(map<string, LanguageTextAttribute*>& lta, int id, string str, string str1)
+string SPSSpriteLayer::selectRequirementText(map<string, LanguageTextAttribute*>& lta, PlantsType type, string str, string str1)
 {
-	if (_isPlantIsCanSelect[id])
+	if (isPlantIsCanSelect[static_cast<unsigned int>(type)])
 	{
 		return lta.find(str)->second->text;
 	}
 	else
 	{
 		char buf[256];
-		snprintf(buf, 256, lta.find(str1)->second->text.c_str(), requirement[id - 9].x, requirement[id - 9].y);
+		snprintf(buf, 256, lta.find(str1)->second->text.c_str(),
+			plantsCardInformation[static_cast<unsigned int>(type)].requirement.x,
+			plantsCardInformation[static_cast<unsigned int>(type)].requirement.y);
 		string s(buf);
 		return s;
 	}

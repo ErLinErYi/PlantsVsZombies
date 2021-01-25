@@ -10,15 +10,14 @@
 #include "LZSMSelectWorldScene.h"
 #include "Scenes/SelectPlantsScene/LZSSBackgroundLayer.h"
 #include "Scenes/SelectPlantsScene/LZSSSelectPlantsScene.h"
+#include "Scenes/SelectPlantsScene/SurvivalSelectScene/LZSSSSurvivalSelectScene.h"
 #include "Scenes/GameScene/LZSGOpenCaveGameScene.h"
 #include "Scenes/GameScene/LZSGPauseQuitLayer.h"
 #include "Scenes/GameScene/LZSGData.h"
 #include "Based/LZBLevelData.h"
 #include "Based/LZBUserData.h"
 #include "Based/LZBPlayMusic.h"
-#include "AudioEngine.h"
-
-#include "Scenes/SelectPlantsScene/SurvivalSelectScene/LZSSSSurvivalSelectScene.h"
+#include "Based/LZBMouseEventControl.h"
 
 bool ModernWorld::_isPopEnter = false;
 
@@ -525,21 +524,7 @@ void ModernWorld::createMouseListener()
 		auto mouseEvent = static_cast<EventMouse*>(event);
 		float movex = mouseEvent->getScrollY() * 99360.f / (1920 + 600 * _global->userInformation->getUserSelectWorldData().at(0)->levels);
 
-		auto minOffset = 0.f;
-		auto maxOffset = 100.f;
-
-		auto offset = _scrollView->getScrolledPercentHorizontal();
-		offset += movex;
-
-		if (offset < minOffset)
-		{
-			offset = minOffset;
-		}
-		else if (offset > maxOffset)
-		{
-			offset = maxOffset;
-		}
-		_scrollView->scrollToPercentHorizontal(offset, 0.5f, true);
+		MouseEventControl::mouseScrollControlListener(_scrollView, movex, ui::ScrollView::Direction::HORIZONTAL);
 	};
 	Director::getInstance()->getEventDispatcher()->addEventListenerWithSceneGraphPriority(mouse, _scrollView);
 }
@@ -589,11 +574,12 @@ ui::Button* ModernWorld::createButton(Node* node, const std::string& name, const
 
 	auto text = ui::Text::create();
 	text->setFontName(GAME_FONT_NAME_2);
-	text->setFontSize(30);
+	text->setFontSize(28);
 	text->setString(to_string(++_level));
 	text->setGlobalZOrder(1);
 	text->setTextColor(Color4B::RED);
-	text->setPosition(Vec2(40, 35));
+	text->setPosition(Vec2(37, 30));
+	text->enableGlow(Color4B::GREEN);
 	setLevelVisible(text);
 	sprite4->addChild(text);
 

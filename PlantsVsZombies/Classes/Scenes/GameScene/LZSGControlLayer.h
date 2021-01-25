@@ -24,7 +24,7 @@ enum class PlantsType;
 struct GameMapInformation
 {
 	GameMapInformation();
-	int plantsMap[6][10];               /* 植物种植地图 */
+	int plantsMap[6][10];              /* 植物种植地图 */
 	unsigned int rowNumbers;           /* 行数 */
 	unsigned int columnNumbers;        /* 列数 */
 };
@@ -87,5 +87,5 @@ protected:
 	vector<int> _levelData;                              // 临时关卡数据
 
 private:
-	EventListenerMouse* _listener;                       /* 鼠标监听 */
+	EventListenerMouse* _listener;                       // 鼠标监听 
 };

@@ -23,6 +23,7 @@ CC_CONSTRUCTOR_ACCESS:
 protected:
 	virtual void createBullet();
 	virtual void plantAttack(Zombies* zombie) override;
+	virtual SkeletonAnimation* showPlantAnimationAndText() override;
 	virtual void plantEmission();
 	virtual void plantRecovery(const string& plantAnimation);
 

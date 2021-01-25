@@ -356,12 +356,11 @@ void LoadingScene::showTileAndLoadingBar()
 	string text;
 	switch (Application::getInstance()->getCurrentLanguage())
 	{
-	case LanguageType::CHINESE: text = "加载中......";  break;
-	case LanguageType::ENGLISH: text = "Loading......"; break;
-	default:                    text = "加载中......";  break;
+	case LanguageType::CHINESE: text = "加载中......";   break;
+	default:                    text = "Loading......";  break;
 	}
 	_label = MenuItemLabel::create(
-		Label::createWithSystemFont(text, "Arial Black", 20),
+		Label::createWithSystemFont(text, "language/fonts/GameFont.ttf", 20),
 		CC_CALLBACK_1(LoadingScene::beginGameCallBack, this));
 	_label->runAction(RepeatForever::create(Sequence::create(TintTo::create(0.5f, 255, 255, 255), TintTo::create(0.5f, 0, 0, 0), nullptr)));
 	_label->setColor(Color3B::YELLOW);

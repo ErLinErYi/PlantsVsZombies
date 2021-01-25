@@ -15,7 +15,7 @@
 
 #include "Plants/LZPPlants-Files.h"
 #include "Zombies/LZZZombies-Files.h"
-#include "Plants/EmissionPlants/Bullet/LZPEBBullet.h"
+#include "Plants/EmissionPlants/Bullet/LZPEBBullet-File.h"
 
 #include "Based/LZBCar.h"
 #include "Based/LZBCoin.h"
@@ -26,7 +26,6 @@ GSAnimationLayer::GSAnimationLayer(Node* node) :
 ,	_global(Global::getInstance())
 ,   _openLevelData(OpenLevelData::getInstance())
 ,   _randomSuns(nullptr)
-,   _sunLayer(nullptr)
 {
 	_random.seed(_device());
 }
@@ -48,16 +47,77 @@ GSAnimationLayer* GSAnimationLayer::create(Node* node)
 	return nullptr;
 }
 
-void GSAnimationLayer::stopRandomSun()
+Bullet* GSAnimationLayer::createDifferentBullet(BulletType bulletType)
 {
-	_sunLayer->stopAllActions();
+	Bullet* bullet;
+	switch (bulletType)
+	{
+	case BulletType::Pea:              bullet = new Pea(this);              break;
+	case BulletType::IcePea:           bullet = new IcePea(this);           break;
+	case BulletType::FirePea:          bullet = new FirePea(this);          break;
+	case BulletType::Cabbage:          bullet = new Cabbage(this);          break;
+	case BulletType::AcidLemonBullet:  bullet = new AcidLemonBullet(this);  break;
+	case BulletType::CitronBullet:     bullet = new CitronBullet(this, 0);  break;
+	default:break;
+	}
+	return bullet;
+}
+
+Plants* GSAnimationLayer::createDifferentPlants(PlantsType plantsType)
+{
+	Plants* plants;
+	switch (plantsType)
+	{
+	case PlantsType::SunFlower:        plants = new SunFlower(this);               break;
+	case PlantsType::PeaShooter:       plants = new PeaShooter(this);              break;
+	case PlantsType::WallNut:          plants = new WallNut(this);                 break;
+	case PlantsType::CherryBomb:       plants = new CherryBomb(this);              break;
+	case PlantsType::PotatoMine:       plants = new PotatoMine(this);              break;
+	case PlantsType::CabbagePult:      plants = new CabbagePult(this);             break;
+	case PlantsType::Torchwood:        plants = new Torchwood(this);               break;
+	case PlantsType::Spikeweed:        plants = new Spikeweed(this);               break;
+	case PlantsType::Garlic:           plants = new Garlic(this);                  break;
+	case PlantsType::Chomper:          plants = new Chomper(this);                 break;
+	case PlantsType::IcePeaShooter:    plants = new IcePeaShooter(this);           break;
+	case PlantsType::FirePeaShooter:   plants = new FirePeaShooter(this);          break;
+	case PlantsType::Jalapeno:         plants = new Jalapeno(this);                break;
+	case PlantsType::JalapenoVariation:plants = new JalapenoVariation(this);       break;
+	case PlantsType::AcidLemonShooter: plants = new AcidLemonShooter(this);        break;
+	case PlantsType::Citron:           plants = new Citron(this);                  break;
+	case PlantsType::GloomShroom:      plants = new GloomShroom(this);             break;
+	default: break;
+	}
+	return plants;
+}
+
+Zombies* GSAnimationLayer::createDifferentZombies(ZombiesType zombiesType, Node* node)
+{
+	Zombies* zombies;
+	switch (zombiesType)
+	{
+	case ZombiesType::CommonZombies:          zombies = new CommonZombies(node ? node : this);          break;
+	case ZombiesType::ConeZombies:            zombies = new ConeZombies(node ? node : this);            break;
+	case ZombiesType::BucketZombies:          zombies = new BucketZombies(node ? node : this);          break;
+	case ZombiesType::CommonDoorZombies:      zombies = new CommonDoorZombies(node ? node : this);      break;
+	case ZombiesType::ConeDoorZombies:        zombies = new ConeDoorZombies(node ? node : this);        break;
+	case ZombiesType::BucketDoorZombies:      zombies = new BucketDoorZombies(node ? node : this);      break;
+	case ZombiesType::LmpZombies:             zombies = new LmpZombies(node ? node : this);             break;
+	case ZombiesType::CommonFlagZombies:      zombies = new CommonFlagZombies(node ? node : this);      break;
+	case ZombiesType::ConeFlagZombies:        zombies = new ConeFlagZombies(node ? node : this);        break;
+	case ZombiesType::BucketFlagZombies:      zombies = new BucketFlagZombies(node ? node : this);      break;
+	case ZombiesType::CommonDoorFlagZombies:  zombies = new CommonDoorFlagZombies(node ? node : this);  break;
+	case ZombiesType::ConeDoorFlagZombies:    zombies = new ConeDoorFlagZombies(node ? node : this);    break;
+	case ZombiesType::BucketDoorFlagZombies:  zombies = new BucketDoorFlagZombies(node ? node : this);  break;
+	case ZombiesType::SnowZombies:            zombies = new SnowZombies(node ? node : this);            break;
+	default: break;
+	}
+	return zombies;
 }
 
 bool GSAnimationLayer::init()
 {
 	if(!Layer::init())return false;
 
-	createSunLayer();
 	createRandomSuns();
 	showCars();
 
@@ -81,65 +141,19 @@ void GSAnimationLayer::plantPlants()
 	PlantsGroup.insert(pair<int, Plants*>(SET_TAG(controlLayerInformation->_plantsPosition), plants));
 }
 
-Plants* GSAnimationLayer::createDifferentPlants(PlantsType plantsType)
-{
-	Plants* plants;
-	switch (plantsType)
-	{
-	case PlantsType::SunFlower:        plants = new SunFlower(this, _sunLayer);    break;
-	case PlantsType::PeaShooter:       plants = new PeaShooter(this);              break;
-    case PlantsType::WallNut:          plants = new WallNut(this);                 break;
-	case PlantsType::CherryBomb:       plants = new CherryBomb(this);              break;
-	case PlantsType::PotatoMine:       plants = new PotatoMine(this);              break;
-	case PlantsType::CabbagePult:      plants = new CabbagePult(this);             break;
-    case PlantsType::Torchwood:        plants = new Torchwood(this);               break;
-	case PlantsType::Spikeweed:        plants = new Spikeweed(this);               break;
-	case PlantsType::Garlic:           plants = new Garlic(this);                  break;
-	case PlantsType::FirePeaShooter:   plants = new FirePeaShooter(this);          break;
-	case PlantsType::Jalapeno:         plants = new Jalapeno(this);                break;
-	case PlantsType::AcidLemonShooter: plants = new AcidLemonShooter(this);        break;
-	case PlantsType::Citron:           plants = new Citron(this);                  break;
-	default: break;
-	}
-	return plants;
-}
-
 void GSAnimationLayer::deletePlants()
 {
 	auto multimap_iter = PlantsGroup.equal_range(SET_TAG(controlLayerInformation->_plantsPosition));
-	for (auto plant = multimap_iter.first; plant != multimap_iter.second; ++plant)
+	for (auto &plant = multimap_iter.first; plant != multimap_iter.second; ++plant)
 	{
 		plant->second->setPlantHealthPoint(0);
 		plant->second->setPlantVisible(false);
+		plant->second->getPlantAnimation()->setTimeScale(0);
 		plant->second->getPlantAnimation()->stopAllActions();
 	}
 
 	controlLayerInformation->_gameMapInformation->plantsMap[static_cast<int>(
 		controlLayerInformation->_plantsPosition.y)][static_cast<int>(controlLayerInformation->_plantsPosition.x)] = NO_PLANTS;
-}
-
-Zombies* GSAnimationLayer::createDifferentZombies(ZombiesType zombiesType)
-{
-	Zombies* zombies;
-	switch (zombiesType)
-	{
-	case ZombiesType::CommonZombies:          zombies = new CommonZombies(this);          break;
-	case ZombiesType::ConeZombies:            zombies = new ConeZombies(this);            break;
-	case ZombiesType::BucketZombies:          zombies = new BucketZombies(this);          break;
-	case ZombiesType::CommonDoorZombies:      zombies = new CommonDoorZombies(this);      break;
-	case ZombiesType::ConeDoorZombies:        zombies = new ConeDoorZombies(this);        break;
-	case ZombiesType::BucketDoorZombies:      zombies = new BucketDoorZombies(this);      break;
-	case ZombiesType::LmpZombies:             zombies = new LmpZombies(this);             break;
-	case ZombiesType::CommonFlagZombies:      zombies = new CommonFlagZombies(this);      break;
-	case ZombiesType::ConeFlagZombies:        zombies = new ConeFlagZombies(this);        break;
-	case ZombiesType::BucketFlagZombies:      zombies = new BucketFlagZombies(this);      break;
-	case ZombiesType::CommonDoorFlagZombies:  zombies = new CommonDoorFlagZombies(this);  break;
-	case ZombiesType::ConeDoorFlagZombies:    zombies = new ConeDoorFlagZombies(this);    break;
-	case ZombiesType::BucketDoorFlagZombies:  zombies = new BucketDoorFlagZombies(this);  break;
-	case ZombiesType::SnowZombies:            zombies = new SnowZombies(this);            break;
-	default: break;
-	}
-	return zombies;
 }
 
 void GSAnimationLayer::createZombies()
@@ -148,7 +162,9 @@ void GSAnimationLayer::createZombies()
 	auto zombies = createDifferentZombies(static_cast<ZombiesType>(
 		controlLayerInformation->_zombiesAppearControl->createDifferentTypeZombies(
 			controlLayerInformation->_zombiesAppearControl->getZombiesAppearFrequency())));
-	zombies->setZombiePosition(Vec2(1780 + number(_random), controlLayerInformation->_zombiesAppearControl->getEqualProbabilityForRow()));
+	auto row = controlLayerInformation->_zombiesAppearControl->getEqualProbabilityForRow();
+	zombies->setZombiePosition(Vec2(1780 + number(_random), ZombiesAppearControl::zombiesPosition[row]));
+	zombies->setZombieInRow(row);
 	zombies->createZombie();
 	zombies->setZombieAttributeForGameType();
 	ZombiesGroup.push_back(zombies);
@@ -167,20 +183,9 @@ void GSAnimationLayer::createZombiesOnSurvival()
 	Zombies::zombiesNumbersChange("++");
 }
 
-Layer* GSAnimationLayer::getSunLayer() const
-{
-	return _sunLayer;
-}
-
 GSAnimationLayer* GSAnimationLayer::getAnimationLayer()
 {
 	return this;
-}
-
-void GSAnimationLayer::createSunLayer()
-{
-	_sunLayer = Layer::create();
-	_gameScene->addChild(_sunLayer, 6, "sunLayer");
 }
 
 void GSAnimationLayer::createRandomSuns()
@@ -189,7 +194,7 @@ void GSAnimationLayer::createRandomSuns()
 	auto level = _global->userInformation->getCurrentPlayLevels();
 	if (level != 36 && level != 50 && level != 52)
 	{
-		_randomSuns = new SunFlower(this, _sunLayer);
+		_randomSuns = new SunFlower(this);
 		_randomSuns->createRandomSuns();
 	}
 }
@@ -253,7 +258,7 @@ void GSAnimationLayer::plantsDeleteUpdate(map<int, Plants*>::iterator& plant)
 		if (!plant->second->getPlantIsCanDelete()[0])
 		{
 			plant->second->getPlantIsCanDelete()[0] = true;
-			GSControlLayer::setPlantMapCanPlant(plant->second->getPlantColumn(), plant->second->getPlantRow());
+			GSControlLayer::setPlantMapCanPlant(plant->second->getPlantRow(), plant->second->getPlantColumn());
 
 			auto plants = plant;
 			plant->second->getPlantAnimation()->runAction(Sequence::create(DelayTime::create(4.0f),

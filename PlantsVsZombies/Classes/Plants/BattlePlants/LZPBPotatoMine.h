@@ -25,9 +25,12 @@ CC_CONSTRUCTOR_ACCESS:
 private:
 	void plantExplode() override;
 	void zombieEatPlant(Zombies* zombie) override;
+	void cavePlantInformation(rapidjson::Value& object, rapidjson::Document::AllocatorType& allocator) override;
+	void readPlantInforamtion(rapidjson::Document* levelDataDocument, char* key, int i) override;
+	SkeletonAnimation* showPlantAnimationAndText() override;
 	void createListener();
 	void explodeHurtZombies();
-	bool getZombieIsInExplodeRange(Zombies* zombie);
+	bool getZombieIsInExplodeRange(Zombies* zombie) override;
 	
 private:
 	bool _isReady;                 // 是否准备好
@@ -35,5 +38,6 @@ private:
 	bool _isBeginExplode;          // 是否开始爆炸
 	bool _isCanKillZombies;        // 是否可以杀手僵尸
 	bool _isKillZombiesFinished;   // 是否杀死僵尸结束
+	bool _isReadFile;              // 是否读取文件
 	float _breakGround;            // 破土时间
 };

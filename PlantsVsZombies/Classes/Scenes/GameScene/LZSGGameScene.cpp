@@ -13,18 +13,21 @@
 #include "LZSGAnimationLayer.h"
 #include "LZSGPauseQuitLayer.h"
 #include "LZSGPauseLayer.h"
+#include "LZSGGameTimerLayer.h"
 #include "LZSGDefine.h"
 #include "LZSGData.h"
 
-#include "Plants/DefensePlants/LZPDSunFlower.h"
-#include "Plants/EmissionPlants/Bullet/LZPEBBullet.h"
 #include "Based/LZBCar.h"
 #include "Based/LZBCoin.h"
 #include "Based/LZBPlayMusic.h"
 #include "Based/LZBUserData.h"
+#include "Based/LZBMouseEventControl.h"
+
+#include "Plants/DefensePlants/LZPDSunFlower.h"
+#include "Plants/EmissionPlants/Bullet/LZPEBBullet.h"
 #include "Zombies/LZZZombies.h"
 
-int GameScene::breakThroughTime = 0;
+bool GameScene::isRunGameScene = false;
 
 GameScene::GameScene() :
   _global(Global::getInstance())
@@ -47,7 +50,7 @@ GameScene::~GameScene()
 	_director->getEventDispatcher()->
 		removeCustomEventListeners(GLViewImpl::EVENT_WINDOW_UNFOCUSED);
 
-	GameScene::breakThroughTime = 0;
+	isRunGameScene = false;
 }
 
 Scene* GameScene::createScene()
@@ -59,16 +62,23 @@ bool GameScene::init()
 {
 	if (!Scene::init())return false; 
 
+	showGameLayer();
+	pauseGame();
+
+	isRunGameScene = true;
+	return true;
+}
+
+void GameScene::showGameLayer()
+{
 	controlPlayMusic();
 	backgroundLayer();   // 背景层
 	informationLayer();  // 信息层
 	buttonLayer();       // 按钮层
 	controlLayer();      // 控制层
 	animationLayer();    // 动画层
-	
-	pauseGame();
-
-	return true;
+	goodsLayer();        // 物品层
+	gameTimerLayer();    // 时间层
 }
 
 void GameScene::controlPlayMusic()
@@ -115,13 +125,20 @@ void GameScene::buttonLayer()
 	buttonLayerInformation->addLayer(this, 4, "buttonLayer");
 }
 
+void GameScene::goodsLayer()
+{
+	goodsLayerInformation = Layer::create();
+	this->addChild(goodsLayerInformation, 5, "goodsLayer");
+	MouseEventControl::goodsRecovery(goodsLayerInformation);
+}
+
+void GameScene::gameTimerLayer()
+{
+	this->addChild(GSGameTimerLayer::create(), 6, "gameTimerLayer");
+}
+
 void GameScene::pauseGame()
 {
-	schedule([this](float) {
-		_global->checkAnimationInterval();
-		if (!GSPauseQuitLayer::getPauseNumbers())++GameScene::breakThroughTime;
-		}, 1.f, "FPS");
-
 	_director->getEventDispatcher()->addCustomEventListener(
 		GLViewImpl::EVENT_WINDOW_UNFOCUSED, [&](EventCustom* evt)
 		{

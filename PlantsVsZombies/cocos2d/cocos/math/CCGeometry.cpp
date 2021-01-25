@@ -124,6 +124,12 @@ Rect& Rect::operator= (const Rect& other)
     return *this;
 }
 
+Rect& Rect::operator-(const Rect& other)
+{
+    return Rect(origin.x - other.origin.x, origin.y - other.origin.y, 
+        size.width - other.size.width, size.height - other.size.height);
+}
+
 void Rect::setRect(float x, float y, float width, float height)
 {
     // CGRect can support width<0 or height<0

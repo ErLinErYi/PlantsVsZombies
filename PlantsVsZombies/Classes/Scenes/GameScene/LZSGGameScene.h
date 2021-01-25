@@ -25,18 +25,21 @@ CC_CONSTRUCTOR_ACCESS:
 	GameScene();
 	~GameScene();
 	virtual bool init() override;
-
-public:
-	static int breakThroughTime;
 	
 protected:
+	virtual void showGameLayer();
 	virtual void controlPlayMusic();
 	virtual void backgroundLayer();
 	virtual void buttonLayer();
 	virtual void informationLayer();
 	virtual void controlLayer();
 	virtual void animationLayer();
+	virtual void goodsLayer();
+	virtual void gameTimerLayer();
 	virtual void pauseGame();
+
+public:
+	static bool isRunGameScene;
 	
 private:
 	Global* _global;

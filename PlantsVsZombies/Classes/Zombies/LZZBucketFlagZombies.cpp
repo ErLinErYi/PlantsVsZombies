@@ -42,7 +42,7 @@ void BucketFlagZombies::createZombie()
 {
 	zombieInit();
 
-	setZombieAnimationInformation(rand() % 2 + 2);
+	setZombieAnimation(rand() % 2 + 2);
 
 	setZombieScale();
 
@@ -58,7 +58,7 @@ void BucketFlagZombies::createPreviewZombie()
 {
 	zombieInit();
 
-	setZombieAnimationInformation(rand() % 2);
+	setZombieAnimation(rand() % 2);
 
 	setZombieScale();
 

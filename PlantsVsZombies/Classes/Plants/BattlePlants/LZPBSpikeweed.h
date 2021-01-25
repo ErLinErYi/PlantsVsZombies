@@ -6,9 +6,9 @@
  */
 
 #pragma once
-#include "LZPBBattlePlants.h"
+#include "LZPBGloomShroom.h"
 
-class Spikeweed :public BattlePlants
+class Spikeweed :public GloomShroom
 {
 public:
 	static Spikeweed* create(Node* node = nullptr);
@@ -22,11 +22,7 @@ CC_CONSTRUCTOR_ACCESS:
 
 private:
 	void plantAttack() override;
-	void plantAnimationChange(Zombies* zombie);
-	void plantAnimationRecovery();
-
-private:
-	bool _isHaveZombies;         // ÊÇ·ñÓÐ½©Ê¬
-	bool _isAttack = true;         // ÊÇ·ñ¹¥»÷
-	bool _isChanged;
+	bool getZombieIsEncounterPlant(Zombies* zombie) override;
+	SkeletonAnimation* showPlantAnimationAndText() override;
+	void setListenr() override;
 };

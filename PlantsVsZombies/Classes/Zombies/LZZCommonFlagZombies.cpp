@@ -41,7 +41,7 @@ void CommonFlagZombies::createZombie()
 {
 	zombieInit();
 
-	setZombieAnimationInformation(rand() % 2 + 2);
+	setZombieAnimation(rand() % 2 + 2);
 
 	setZombieScale();
 
@@ -57,7 +57,7 @@ void CommonFlagZombies::createPreviewZombie()
 {
 	zombieInit();
 
-	setZombieAnimationInformation(rand() % 2);
+	setZombieAnimation(rand() % 2);
 
 	setZombieScale();
 

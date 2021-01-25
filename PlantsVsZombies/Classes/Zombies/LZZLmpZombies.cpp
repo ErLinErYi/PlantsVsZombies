@@ -41,7 +41,7 @@ void LmpZombies::createZombie()
 {
 	zombieInit("LmpZombies");
 
-	setZombieAnimationName("Zombies_Walk");
+	setZombieAnimation("Zombies_Walk");
 
 	createZombieShadow();
 
@@ -53,7 +53,7 @@ void LmpZombies::createPreviewZombie()
 {
 	zombieInit("LmpZombies");
 
-	setZombieAnimationName("Zombies_Stand");
+	setZombieAnimation("Zombies_Stand");
 
 	createZombieShadow();
 
@@ -65,7 +65,7 @@ void LmpZombies::playZombieSoundEffect()
 	Zombies::playZombieSoundEffect(rand() % 2 ? "imp" : "imp2");
 }
 
-void LmpZombies::playZombiesDieAnimation()
+void LmpZombies::playZombiesAshesAnimation()
 {
 	uniform_real_distribution<float>number(0.f, 0.4f);
 	auto ashes = SkeletonAnimation::createWithData(_global->userInformation->getAnimationData().find("LmpZombies_Charre")->second);
@@ -126,11 +126,11 @@ void LmpZombies::setZombieSecondaryInjure()
 	{
 		_zombiesAnimation->setAttachment("3", "0");
 		_zombiesAnimation->setAttachment("14", "0");
-		_zombiesAnimation->setAnimation(1, "Zombies_Die", false);
+		_zombiesAnimation->setAnimation(0, "Zombies_Die", false);
 		_bodyAnimationId = 10;
 
 		zombieLoseHeadAnimation("ZombieImpHead");
 
-		zombieFadeOutAnimation();
+		playZombiesFillDownAnimation();
 	}
 }

@@ -14,6 +14,7 @@
 #include "Based/LZBGlobalVariable.h"
 #include "Based/LZBUserData.h"
 #include "Based/LZBPlayMusic.h"
+#include "Based/LZBMouseEventControl.h"
 #include "AudioEngine.h"
 
 SelectWorldScene::SelectWorldScene():
@@ -37,21 +38,7 @@ void SelectWorldScene::createMouseListener()
 		auto mouseEvent = static_cast<EventMouse*>(event);
 		float movex = mouseEvent->getScrollY() * 40;
 
-		auto minOffset = 0.f;
-		auto maxOffset = 100.f;
-
-		auto offset = _scrollView->getScrolledPercentHorizontal();
-		offset += movex;
-
-		if (offset < minOffset)
-		{
-			offset = minOffset;
-		}
-		else if (offset > maxOffset)
-		{
-			offset = maxOffset;
-		}
-		_scrollView->scrollToPercentHorizontal(offset, 0.5f, true);
+		MouseEventControl::mouseScrollControlListener(_scrollView, movex, ScrollView::Direction::HORIZONTAL);
 	};
 	Director::getInstance()->getEventDispatcher()->addEventListenerWithSceneGraphPriority(mouse, _scrollView);
 }

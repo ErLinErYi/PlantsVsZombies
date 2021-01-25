@@ -24,7 +24,7 @@ using namespace spine;
 string GSPauseQuitLayer::_layerName[] = 
 { 
 	"backgroundLayer","buttonLayer","animationLayer",
-	"controlLayer","informationLayer","sunLayer" 
+	"controlLayer","informationLayer","goodsLayer","gameTimerLayer"
 };
 
 int GSPauseQuitLayer::_pauseNumbers = 0;
@@ -240,8 +240,11 @@ void GSPauseQuitLayer::setQuitGame()
 	UserData::getInstance()->caveUserData("BREAKTHROUGH", ++_global->userInformation->getBreakThroughNumbers());
 	GSGameEndLayer::judgeBreakThroughAboutJumpLevel();
 
-	UserData::getInstance()->createNewLevelDataDocument();
-	UserData::getInstance()->caveLevelData(_levelName);
+	if (GameScene::isRunGameScene) /* 如果运行了游戏场景则保存 */
+	{
+		UserData::getInstance()->createNewLevelDataDocument();
+		UserData::getInstance()->caveLevelData(_levelName);
+	}
 
 	popSceneAnimation();
 }
@@ -253,6 +256,7 @@ void GSPauseQuitLayer::keyDescription()
 
 void GSPauseQuitLayer::returnGame()
 {
+	GameScene::isRunGameScene = true;
 	resumeLayer();
 	this->removeFromParent();
 }

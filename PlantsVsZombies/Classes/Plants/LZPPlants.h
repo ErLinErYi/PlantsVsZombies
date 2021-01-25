@@ -9,11 +9,13 @@
 #include "cocos2d.h"
 #include "spine/spine.h"
 #include "spine/spine-cocos2dx.h"
+#include "json/document.h"
 
 #include "Based/LZBGlobalVariable.h"
 
 #define INIT Vec2(-1000,-1000)
 #define NOINITIALIZATION  -1
+#define PLANTSNUMBERS 17
 
 using namespace spine;
 using namespace cocos2d;
@@ -32,13 +34,55 @@ enum class PlantsType
 	Torchwood,          /* 火炬树桩 */
 	Spikeweed,          /* 地刺 */
 	Garlic,             /* 大蒜 */
+	Chomper,            /* 大嘴花 */
+	IcePeaShooter,      /* 寒冰豌豆射手 */
 	FirePeaShooter,     /* 火焰豌豆射手 */
 	Jalapeno,           /* 火爆辣椒 */
+	JalapenoVariation, /* 火爆辣椒变异 */
 	AcidLemonShooter,   /* 强酸柠檬射手 */
 	Citron,             /* 离子缘 */
+	GloomShroom,        /* 忧郁菇 */
 	//...
 	None = 19
 };  
+
+/**
+ *植物卡牌信息
+ */
+class PlantsInformation
+{
+public:
+	struct PlantsCards
+	{
+		PlantsCards() :
+			timeBarIsFinished(false)
+		{}
+		Button* plantsCards;            /* 卡牌 */
+		Text* plantsCardText;           /* 卡牌文字 */
+		ProgressTimer* progressTimer;   /* 倒计时 */
+		int plantsNeedSunNumbers;       /* 所需阳光 */
+		int tag;                        /* 编号 */
+		bool timeBarIsFinished;         /* 倒计时是否完成 */
+	};
+
+	struct point { int x, y; };
+	struct PlantsCardInformation
+	{
+		string information[3];              // 文字信息
+		int quality;                        // 品质
+		int priority;                       // 优先级
+		int plantsNeedSunNumbers;           // 植物所需阳光数
+		float plantsCoolTime;               // 植物冷却时间
+		float PlantsSurPlusCoolTime;        // 植物剩余冷却时间
+		float PlantsSurPlusPrecent;         // 植物剩余进度百分比
+		bool flippedX;                      // 左右反转
+		PlantsType type;                    // 植物类型
+		Color3B color;                      // 颜色
+		point requirement{ 0,0 };           // 要求
+	};
+};
+
+extern PlantsInformation::PlantsCardInformation plantsCardInformation[];
 
 class  Plants :public Node
 {
@@ -67,6 +111,28 @@ public:
 	 *检测植物生命情况
 	 */
 	virtual void checkPlantHealthPoint() {}
+
+	/**
+	 * 存储植物特有信息  
+	 * 子类重写该方法
+	 */
+	virtual void cavePlantInformation(rapidjson::Value& object, rapidjson::Document::AllocatorType& allocator) {};
+
+	/**
+	 * 读取植物特有信息  
+	 * 子类重写该方法
+	 */
+	virtual void readPlantInforamtion(rapidjson::Document* levelDataDocument, char* key, int i) {};
+
+	/**
+	 * 显示植物介绍信息与动画  
+	 */
+	virtual SkeletonAnimation* showPlantAnimationAndText() = 0;
+
+	/**
+	 * 设置植物当前动画名称  
+	 */
+	//virtual 
 
 	/**
 	 *设置节点
@@ -141,12 +207,12 @@ public:
 	/**
 	 *@ 2.获取植物所在行
 	 */
-	virtual int getPlantRow() const { return _rowAndColumn.x; }
+	virtual int getPlantRow() const { return _rowAndColumn.y; }
 
 	/**
 	 *@ 3.获取植物所在列
 	 */
-	virtual int getPlantColumn() const { return _rowAndColumn.y; }
+	virtual int getPlantColumn() const { return _rowAndColumn.x; }
 
 	/**
 	 *获取是否显示
@@ -197,17 +263,17 @@ protected:
 	/**
 	 *获取僵尸是否在植物前方
 	 */
-	virtual bool getZombieIsTheFrontOfPlant(Zombies* zombie) const;
+	virtual bool getZombieIsTheFrontOfPlant(Zombies* zombie);
 
 	/**
 	 *获取僵尸是否于植物在同一行
 	 */
-	virtual bool getZombieIsSameLineWithPlant(Zombies* zombie) const;
+	virtual bool getZombieIsSameLineWithPlant(Zombies* zombie);
 
 	/**
 	 *获取僵尸是否遇到植物
 	 */
-	virtual bool getzombieIsEncounterPlant(Zombies* zombie) const;
+	virtual bool getZombieIsEncounterPlant(Zombies* zombie);
 
 	/**
 	 *僵尸吃植物
@@ -226,18 +292,19 @@ protected:
 	int _sunNeed;                               // 阳光需求
 	int _costGold;                              // 花费金币
 	int _costMasonry;                           // 花费砖石
-	int _combatEffecttiveness;                  // 战斗力
 	int _plantTag;                              // 植物标签
 	int _zOrder;                                // 绘制顺序
 	int _plantNumber;                           // 存储植物编号（唯一性 ）
 	bool _isLoop;                               // 是否循环
 	bool _isCanDelete[2];                       // 是否可以删除
+	float _combatEffecttiveness;                // 战斗力
 	float _coolDownTime;                        // 冷却时间
 	float _healthPoint;                         // 生命值
 	float _totalHealthPoint;                    // 生命总值
 	Vec2 _position;                             // 位置
 	Vec2 _rowAndColumn;                         // 详细地址,所在行列
 	SkeletonAnimation* _plantAnimation;         // 植物动画
+	string _plantAnimationName;                 // 植物动画名称
 	Node* _node;                                // 节点
 	Global* _global;                            // 全局变量
 	Sprite* _plantImage;                        // 植物图片

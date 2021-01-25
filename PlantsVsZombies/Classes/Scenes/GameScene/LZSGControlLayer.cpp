@@ -298,23 +298,8 @@ void GSControlLayer::createPreviewPlants()
 	CURSOR_VISIBLE(false)
 
 	Plants* previewPlants, * curPlants;/* 预览植物 */
-	switch (_selectPlantsTag)
-	{
-	case PlantsType::SunFlower:          previewPlants = SunFlower::create(this);         curPlants = SunFlower::create(this);         break;
-	case PlantsType::PeaShooter:         previewPlants = PeaShooter::create(this);        curPlants = PeaShooter::create(this);        break;
-	case PlantsType::WallNut:            previewPlants = WallNut::create(this);           curPlants = WallNut::create(this);           break;
-	case PlantsType::CherryBomb:         previewPlants = CherryBomb::create(this);        curPlants = CherryBomb::create(this);        break;
-	case PlantsType::PotatoMine:         previewPlants = PotatoMine::create(this);        curPlants = PotatoMine::create(this);        break;
-	case PlantsType::CabbagePult:        previewPlants = CabbagePult::create(this);       curPlants = CabbagePult::create(this);       break;
-	case PlantsType::Torchwood:          previewPlants = Torchwood::create(this);         curPlants = Torchwood::create(this);         break;
-	case PlantsType::Spikeweed:          previewPlants = Spikeweed::create(this);         curPlants = Spikeweed::create(this);         break;
-	case PlantsType::Garlic:             previewPlants = Garlic::create(this);            curPlants = Garlic::create(this);            break;
-	case PlantsType::FirePeaShooter:     previewPlants = FirePeaShooter::create(this);    curPlants = FirePeaShooter::create(this);    break;
-	case PlantsType::Jalapeno:           previewPlants = Jalapeno::create(this);          curPlants = Jalapeno::create(this);          break;
-	case PlantsType::AcidLemonShooter:   previewPlants = AcidLemonShooter::create(this);  curPlants = AcidLemonShooter::create(this);  break;
-	case PlantsType::Citron:             previewPlants = Citron::create(this);            curPlants = Citron::create(this);            break;
-	default: break;
-	}
+	previewPlants = animationLayerInformation->createDifferentPlants(_selectPlantsTag);
+	curPlants = animationLayerInformation->createDifferentPlants(_selectPlantsTag);
 	
 	_plantPreviewImage = previewPlants->createPlantImage();
 
@@ -609,7 +594,7 @@ void GSControlLayer::mouseDownControl(EventMouse* eventmouse)
 
 			/* 加上所需的阳光数并更新 */
 			_global->userInformation->setSunNumbers(_global->userInformation->getSunNumbers() +
-				buttonLayerInformation->plantsInformation->PlantsNeedSunNumbers[static_cast<unsigned int>(buttonLayerInformation->mouseSelectImage->selectPlantsId)]);
+				plantsCardInformation[static_cast<unsigned int>(buttonLayerInformation->mouseSelectImage->selectPlantsId)].plantsNeedSunNumbers);
 			informationLayerInformation->updateSunNumbers();
 
 			/* 植物要求更新 */
@@ -647,7 +632,7 @@ void GSControlLayer::mouseDownControl(EventMouse* eventmouse)
 				buttonLayerInformation->plantsCards[static_cast<unsigned int>(buttonLayerInformation->mouseSelectImage->selectPlantsId)].plantsCards->setEnabled(false);
 				buttonLayerInformation->plantsCards[static_cast<unsigned int>(buttonLayerInformation->mouseSelectImage->selectPlantsId)].plantsCards->setColor(Color3B::GRAY);
 				buttonLayerInformation->plantsCards[static_cast<unsigned int>(buttonLayerInformation->mouseSelectImage->selectPlantsId)].progressTimer->runAction(
-					Sequence::create(ProgressFromTo::create(buttonLayerInformation->plantsInformation->PlantsCoolTime[static_cast<unsigned int>(buttonLayerInformation->mouseSelectImage->selectPlantsId)], 100, 0),
+					Sequence::create(ProgressFromTo::create(plantsCardInformation[static_cast<unsigned int>(buttonLayerInformation->mouseSelectImage->selectPlantsId)].plantsCoolTime, 100, 0),
 						CallFunc::create([=]() { buttonLayerInformation->plantsCards[plantsTag].timeBarIsFinished = true;}), nullptr)
 				);
 				removePreviewPlant();
@@ -668,7 +653,7 @@ void GSControlLayer::mouseDownControl(EventMouse* eventmouse)
 
 					/* 加上所需的阳光数并更新 */
 					_global->userInformation->setSunNumbers(_global->userInformation->getSunNumbers() +
-						buttonLayerInformation->plantsInformation->PlantsNeedSunNumbers[static_cast<unsigned int>(buttonLayerInformation->mouseSelectImage->selectPlantsId)]);
+						plantsCardInformation[static_cast<unsigned int>(buttonLayerInformation->mouseSelectImage->selectPlantsId)].plantsNeedSunNumbers);
 					informationLayerInformation->updateSunNumbers();
 
 					/* 植物要求更新 */

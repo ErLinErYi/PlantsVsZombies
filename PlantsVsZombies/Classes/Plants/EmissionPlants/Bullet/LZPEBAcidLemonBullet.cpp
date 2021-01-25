@@ -24,7 +24,16 @@ AcidLemonBullet::~AcidLemonBullet()
 
 void AcidLemonBullet::createBullet()
 {
-    bulletInit();
+    bulletInit("LemonJuice", rand() % 2 ? "shoot" : "shoot1");
+
+	_bulletAnimation->setPosition(_position + Vec2(70, 90));
+	_bulletAnimation->setScale(0.9f);
+	_bulletAnimation->runAction(Sequence::create(MoveBy::create(2.0f, Vec2(2000, rand() % 31 - 15)),
+		CallFunc::create([this]()
+			{
+				_bulletAnimation->setVisible(false);
+			}), nullptr));
+
     createShadow();
 }
 
@@ -32,9 +41,9 @@ void AcidLemonBullet::bulletAndZombiesCollision()
 {
 	for (auto zombie : ZombiesGroup)
 	{
-		if (!_isUsed && getBulletIsSameLineWithZombie(zombie) &&  /* 没有被使用 && 柠檬酸与僵尸在同一行 */
-			getBulletIsEncounterWithZombie(zombie) &&             /* 柠檬酸与僵尸碰撞 */
-			zombie->getZombieIsSurvive() && zombie->getZombieIsEnterMap()) /* 僵尸没有死亡 && 僵尸进入地图内 */
+		if (!_isUsed && getBulletIsSameLineWithZombie(zombie) &&             /* 没有被使用 && 柠檬酸与僵尸在同一行 */
+			zombie->getZombieIsSurvive() && zombie->getZombieIsEnterMap() && /* 僵尸没有死亡 && 僵尸进入地图内 */
+			getBulletIsEncounterWithZombie(zombie))                          /* 柠檬酸与僵尸碰撞 */
 		{
 			selectSoundEffect(zombie->getZombieBodyAttackSoundEffect(), zombie->getZombieHeadAttackSoundEffect());  /* 播放指定音乐 */
 
@@ -53,22 +62,6 @@ void AcidLemonBullet::bulletAndZombiesCollision()
 	}
 }
 
-void AcidLemonBullet::bulletInit()
-{
-	_bulletAnimation = SkeletonAnimation::createWithData(_global->userInformation->getAnimationData().find("LemonJuice")->second);
-	_bulletAnimation->setAnimation(0, rand() % 2 ? "shoot" : "shoot1", true);
-	_bulletAnimation->setPosition(_position + Vec2(70, 90));
-	_bulletAnimation->setScale(0.9f);
-	_bulletAnimation->setName(_bulletName);
-	_bulletAnimation->setLocalZOrder(getZOrder(_position.y));
-	_node->addChild(_bulletAnimation);
-	_bulletAnimation->runAction(Sequence::create(MoveBy::create(2.0f, Vec2(2000, 0)),
-		CallFunc::create([this]()
-			{
-				_bulletAnimation->setVisible(false);
-			}), nullptr));
-}
-
 void AcidLemonBullet::createShadow()
 {
 	/* 创建影子 */
@@ -85,7 +78,9 @@ void AcidLemonBullet::createAcidLemonBulletExplode()
 {
 	auto explode = SkeletonAnimation::createWithData(_global->userInformation->getAnimationData().find("PeaExplode")->second);
 	explode->setPosition(getBulletPosition());
-	explode->setAnimation(0, "Explode4", false);
+	explode->setAnimation(0, "LemonBullet_Explode", false);
+	explode->setScale(0.8f);
+	explode->update(0);
 	explode->setLocalZOrder(_bulletAnimation->getLocalZOrder());
 	_node->addChild(explode);
 
@@ -114,4 +109,12 @@ void AcidLemonBullet::setAttackForShield(Zombies* zombie)
 	{
 		_attack = 20;
 	}
+}
+
+void AcidLemonBullet::readBulletAnimationInformation(rapidjson::Document* levelDataDocument, char* key, int i)
+{
+	_bulletAnimation->setPosition(Vec2(
+		(*levelDataDocument)[key]["Bullet"][to_string(i).c_str()]["PositionX"].GetFloat(),
+		(*levelDataDocument)[key]["Bullet"][to_string(i).c_str()]["PositionY"].GetFloat()));
+	Bullet::setBulletOpacity((*levelDataDocument)[key]["Bullet"][to_string(i).c_str()]["Opacity"].GetInt());
 }

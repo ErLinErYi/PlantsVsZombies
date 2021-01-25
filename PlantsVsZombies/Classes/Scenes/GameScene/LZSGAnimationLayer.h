@@ -15,8 +15,11 @@ using namespace cocos2d;
 class Plants;
 class SunFlower;
 class Zombies;
+class Bullet;
+
 enum class PlantsType;
 enum class ZombiesType;
+enum class BulletType;
 
 class GSAnimationLayer :public Layer
 {
@@ -24,14 +27,13 @@ public:
 	CREATE_FUNC(GSAnimationLayer);
 	static GSAnimationLayer* create(Node* node);
 	Plants* createDifferentPlants(PlantsType plantsType);
-	Zombies* createDifferentZombies(ZombiesType zombiesType);
-	void stopRandomSun();
+	Zombies* createDifferentZombies(ZombiesType zombiesType, Node* node = nullptr);
+	Bullet* createDifferentBullet(BulletType bulletType);
 	void addLayer(Node* node, const int order, const string& name) { node->addChild(this, order, name);}
 	void plantPlants();
 	void deletePlants();
 	void createZombies();
 	void createZombiesOnSurvival();
-	Layer* getSunLayer() const;
 	GSAnimationLayer* getAnimationLayer();
 
 CC_CONSTRUCTOR_ACCESS:
@@ -40,7 +42,6 @@ CC_CONSTRUCTOR_ACCESS:
 	virtual bool init();
 
 private:
-	void createSunLayer();
 	void createRandomSuns();
 	void showCars();
 	void gameMainLoop(float delta);
@@ -55,7 +56,6 @@ private:
 private:
 	Global* _global;
 	Node* _gameScene;
-	Layer* _sunLayer;
 	SunFlower* _randomSuns;
 	OpenLevelData* _openLevelData;
 	default_random_engine _random; 

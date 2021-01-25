@@ -20,11 +20,6 @@ public:
 	 *子弹与僵尸碰撞检测
 	 */
 	virtual void bulletAndZombiesCollision() override;
-	 
-	/**
-	 *子弹初始化
-	 */
-	virtual void bulletInit() override;
 
 	/**
 	 *创建子弹影子
@@ -38,4 +33,5 @@ CC_CONSTRUCTOR_ACCESS:
 private:
 	void createAcidLemonBulletExplode();
 	void setAttackForShield(Zombies* zombie);
+	void readBulletAnimationInformation(rapidjson::Document* levelDataDocument, char* key, int i) override;
 };

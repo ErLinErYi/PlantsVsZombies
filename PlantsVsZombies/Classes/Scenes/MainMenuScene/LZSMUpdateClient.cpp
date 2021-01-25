@@ -8,6 +8,7 @@
 #include "LZSMUpdateClient.h"
 #include "spine/spine-cocos2dx.h"
 #include "Based/LZBPlayMusic.h"
+#include "Based/LZBMouseEventControl.h"
 
 #include <stdio.h>
 
@@ -188,21 +189,7 @@ void UpdateClient::addMouseEvent()
 		auto mouseEvent = static_cast<EventMouse*>(event);
 		float movex = mouseEvent->getScrollY() * 5;
 
-		auto minOffset = 0.f;
-		auto maxOffset = 100.f;
-
-		auto offset = _textScrollView->getScrolledPercentVertical();
-		offset += movex;
-
-		if (offset < minOffset)
-		{
-			offset = minOffset;
-		}
-		else if (offset > maxOffset)
-		{
-			offset = maxOffset;
-		}
-		_textScrollView->scrollToPercentVertical(offset, 0.5f, true);
+		MouseEventControl::mouseScrollControlListener(_textScrollView, movex, ui::ScrollView::Direction::VERTICAL);
 	};
 	Director::getInstance()->getEventDispatcher()->addEventListenerWithSceneGraphPriority(mouse, _textScrollView);
 }

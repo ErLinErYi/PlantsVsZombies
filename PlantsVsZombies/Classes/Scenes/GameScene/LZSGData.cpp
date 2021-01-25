@@ -19,6 +19,7 @@ GSInformationLayer* informationLayerInformation; // 信息层实例化
 GSButtonLayer* buttonLayerInformation;           // 按钮层实例化
 GSControlLayer* controlLayerInformation;         // 控制层实例化
 GSAnimationLayer* animationLayerInformation;     // 动画层示例化
+Layer* goodsLayerInformation;                    // 物品层实例化
 
 multimap<int, Plants*> PlantsGroup;
 list<Zombies*> ZombiesGroup;

@@ -10,6 +10,7 @@
 
 #include "Zombies/LZZZombies.h"
 #include "Scenes/GameScene/LZSGData.h"
+#include "Based/LZBPlayMusic.h"
 
 Citron::Citron(Node* node):
 	_attackInterval(0)
@@ -102,7 +103,7 @@ void Citron::plantEmission()
 			{
 				if (strcmp(event->data->name, "shoot") == 0)
 				{
-					rand() % 2 == 0 ? Bullet::playSoundEffect("throw") : Bullet::playSoundEffect("throw2");
+					rand() % 2 == 0 ? PlayMusic::playMusic("throw") : PlayMusic::playMusic("throw2");
 					createBullet();
 					plantRecovery("normal");
 				}
@@ -151,7 +152,28 @@ void Citron::createBullet()
 {
 	_bulletAnimation = new CitronBullet(_node, _animationId);
 	_bulletAnimation->setBulletPosition(_position);
+	_bulletAnimation->setBulletInRow(_rowAndColumn.y);
 	_bulletAnimation->createBullet();
 
 	BulletGroup.push_back(_bulletAnimation);
+}
+
+SkeletonAnimation* Citron::showPlantAnimationAndText()
+{
+	auto& lta = _global->userInformation->getGameText();
+	SPSSpriteLayer::plantCardTextScrollView->setInnerContainerSize(Size(lta.find("CITRON_1")->second->position));
+
+	_isLoop = true;
+	_plantAnimation = plantInit("Citron", "normal");
+	_plantAnimation->setAnchorPoint(Vec2::ANCHOR_MIDDLE);
+	_plantAnimation->setScale(2.0f);
+	_plantAnimation->setPosition(Vec2(200, 610));
+
+	SPSSpriteLayer::createPlantsText(0, lta.find("CITRON_1")->second->text, Vec2(190, 910), lta.find("CITRON_1")->second->fontsize);
+	SPSSpriteLayer::createPlantsText(2, lta.find("CITRON_2")->second->text, Vec2(360, 1000), lta.find("CITRON_2")->second->fontsize, Color3B::YELLOW, false);
+	SPSSpriteLayer::createPlantsText(3, lta.find("CITRON_3")->second->text, Vec2(440, 1000), lta.find("CITRON_3")->second->fontsize, Color3B::RED, false);
+	SPSSpriteLayer::createPlantsText(1, SPSSpriteLayer::selectRequirementText(lta, PlantsType::Citron, "CITRON_4", "CITRON_5"), Vec2(360, 870),
+		lta.find("CITRON_4")->second->fontsize, SPSSpriteLayer::isPlantIsCanSelect[static_cast<unsigned int>(PlantsType::Citron)] ? Color3B::YELLOW : Color3B(255, 70, 0), false);
+	
+	return _plantAnimation;
 }

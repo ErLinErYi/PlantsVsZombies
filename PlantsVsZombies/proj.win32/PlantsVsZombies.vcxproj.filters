@@ -332,6 +332,27 @@
     <ClCompile Include="..\Classes\Scenes\LoadingScene\LZSLSelectLanguageLayer.cpp">
       <Filter>Class\Scenes\LoadingScene</Filter>
     </ClCompile>
+    <ClCompile Include="..\Classes\Plants\BattlePlants\LZPBChomper.cpp">
+      <Filter>Class\Plants\BattlePlants</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Classes\Plants\EmissionPlants\LZPEIcePeaShooter.cpp">
+      <Filter>Class\Plants\EmissionPlants</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Classes\Plants\EmissionPlants\Bullet\LZPEBIcePea.cpp">
+      <Filter>Class\Plants\EmissionPlants\Bullet</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Classes\Scenes\GameScene\LZSGGameTimerLayer.cpp">
+      <Filter>Class\Scenes\GameScene</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Classes\Plants\BattlePlants\LZPBGloomShroom.cpp">
+      <Filter>Class\Plants\BattlePlants</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Classes\Plants\BattlePlants\LZPBJalapenoVariation.cpp">
+      <Filter>Class\Plants\BattlePlants</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Classes\Based\LZBMouseEventControl.cpp">
+      <Filter>Class\Based</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="..\Classes\Based\LZBCar.h">
@@ -612,6 +633,27 @@
     </ClInclude>
     <ClInclude Include="..\Classes\Scenes\LoadingScene\LZSLSelectLanguageLayer.h">
       <Filter>Class\Scenes\LoadingScene</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Classes\Plants\BattlePlants\LZPBChomper.h">
+      <Filter>Class\Plants\BattlePlants</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Classes\Plants\EmissionPlants\LZPEIcePeaShooter.h">
+      <Filter>Class\Plants\EmissionPlants</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Classes\Plants\EmissionPlants\Bullet\LZPEBIcePea.h">
+      <Filter>Class\Plants\EmissionPlants\Bullet</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Classes\Scenes\GameScene\LZSGGameTimerLayer.h">
+      <Filter>Class\Scenes\GameScene</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Classes\Plants\BattlePlants\LZPBGloomShroom.h">
+      <Filter>Class\Plants\BattlePlants</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Classes\Plants\BattlePlants\LZPBJalapenoVariation.h">
+      <Filter>Class\Plants\BattlePlants</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Classes\Based\LZBMouseEventControl.h">
+      <Filter>Class\Based</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>

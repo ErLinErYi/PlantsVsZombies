@@ -10,14 +10,12 @@
 #include "LZSGRequirementLayer.h"
 #include "LZSGInformationLayer.h"
 #include "LZSGDefine.h"
+#include "LZSGData.h"
 
 #include "Based/LZBUserWinRequirement.h"
 #include "Based/LZBPlayMusic.h"
 #include "Scenes/SelectPlantsScene/LZSSSpriteLayer.h"
 #include "Scenes/SelectPlantsScene/LZSSJumpLevelLayer.h"
-
-float PlantsInformation::PlantsCardFileData::PlantsSurPlusCoolTime[13] = { 0,0,0,0,0,0,0,0,0,0,0,0,0 };
-float PlantsInformation::PlantsCardFileData::PlantsSurPlusPrecent[13] = { 0,0,0,0,0,0,0,0,0,0,0,0,0 };
 
 GSButtonLayer::GSButtonLayer():
 	_global(Global::getInstance()),
@@ -26,15 +24,13 @@ GSButtonLayer::GSButtonLayer():
 	_quitLayer(nullptr),
 	_accelerateButton(nullptr),
 	_decelerateButton(nullptr),
-	mouseSelectImage(new MouseSelectImage),
-	plantsInformation(new PlantsInformation)
+	mouseSelectImage(new MouseSelectImage)
 {
 }
 
 GSButtonLayer::~GSButtonLayer()
 {
 	delete mouseSelectImage;
-	delete plantsInformation;
 }
 
 bool GSButtonLayer::init()
@@ -178,14 +174,14 @@ void GSButtonLayer::controlAccelerateScheduler()
 
 void GSButtonLayer::controlDecelerateScheduler()
 {
-	if (Director::getInstance()->getScheduler()->getTimeScale() == 0.5f)
+	if (Director::getInstance()->getScheduler()->getTimeScale() == 0.7f)
 	{
 		Director::getInstance()->getScheduler()->setTimeScale(1.0f);
 		_decelerateButton->loadTextureNormal("SpeedButton.png", TextureResType::PLIST);
 	}
 	else
 	{
-		Director::getInstance()->getScheduler()->setTimeScale(0.5f);
+		Director::getInstance()->getScheduler()->setTimeScale(0.7f);
 		_accelerateButton->loadTextureNormal("SpeedButton.png", TextureResType::PLIST);
 		_decelerateButton->loadTextureNormal("SpeedButtonDown.png", TextureResType::PLIST);
 	}
@@ -249,27 +245,29 @@ void GSButtonLayer::createPlantsCard()
 		cardBackgroundImag->setCascadeColorEnabled(true);
 		this->addChild(cardBackgroundImag);
 
-		SPSSpriteLayer::createButtonHoverEffect(cardBackgroundImag);
-
 		SPSSpriteLayer* sps_spriteLayer = new SPSSpriteLayer;
-		auto cardInformation = sps_spriteLayer->showPlantsInformation(cardBackgroundImag, card.cardTag);
+		auto cardInformation = sps_spriteLayer->showPlantsInformation(cardBackgroundImag, static_cast<PlantsType>(card.cardTag));
 		delete sps_spriteLayer;
 
 		ProgressTimer* timerBar;
 		if (_global->userInformation->getIsReadFileData())
+		{
 			timerBar = createProgressTimer(cardBackgroundImag,
-				PlantsInformation::PlantsCardFileData::PlantsSurPlusCoolTime[card.cardTag],
-				PlantsInformation::PlantsCardFileData::PlantsSurPlusPrecent[card.cardTag], card.cardTag);
+				plantsCardInformation[card.cardTag].PlantsSurPlusCoolTime,
+				plantsCardInformation[card.cardTag].PlantsSurPlusPrecent, card.cardTag);
+		}
 		else
 		{
-			if (card.cardTag) timerBar = createProgressTimer(cardBackgroundImag, plantsInformation->PlantsCoolTime[card.cardTag], 100, card.cardTag);
+			if (card.cardTag) timerBar = createProgressTimer(cardBackgroundImag, plantsCardInformation[card.cardTag].plantsCoolTime, 100, card.cardTag);
 			else timerBar = createProgressTimer(cardBackgroundImag, 0, 100, card.cardTag);
 		}
+
+		SPSSpriteLayer::createButtonHoverEffect(cardBackgroundImag);
 
 		plantsCards[card.cardTag].plantsCards = cardBackgroundImag;
 		plantsCards[card.cardTag].tag = card.cardTag;
 		plantsCards[card.cardTag].plantsCardText = cardInformation;
-		plantsCards[card.cardTag].plantsNeedSunNumbers = plantsInformation->PlantsNeedSunNumbers[card.cardTag];
+		plantsCards[card.cardTag].plantsNeedSunNumbers = plantsCardInformation[card.cardTag].plantsNeedSunNumbers;
 		plantsCards[card.cardTag].progressTimer = timerBar;
 	}
 }

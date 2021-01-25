@@ -12,12 +12,13 @@
 #include "Zombies/LZZZombies.h"
 #include "Scenes/GameScene/LZSGData.h"
 #include "Scenes/GameScene/LZSGBackgroundLayer.h"
+#include "Based/LZBPlayMusic.h"
 
 CitronBullet::CitronBullet(Node* node, int id):
 	_animationId(id)
 {
 	_node = node;
-	_attack = 700;
+	_attack = 400;
 	_bulletType = BulletType::CitronBullet;
 }
 
@@ -27,50 +28,17 @@ CitronBullet::~CitronBullet()
 
 void CitronBullet::createBullet()
 {
-    bulletInit();
+    bulletInit("CitronBullet", _animationId ? "animation1" : "animation");
+
+	_bulletAnimation->setPosition(_position + Vec2(0, 70));
+	_bulletAnimation->setScale(1.7f);
+	_bulletAnimation->runAction(Sequence::create(MoveBy::create(4.0f, Vec2(2000, 0)),
+		CallFunc::create([this]()
+			{
+				_bulletAnimation->setVisible(false);
+			}), nullptr));
+
     createShadow();
-}
-
-void CitronBullet::bulletAndZombiesCollision()
-{
-	for (auto zombie : ZombiesGroup)
-	{
-		if (!_isUsed && getBulletIsSameLineWithZombie(zombie) &&  /* 没有被使用 && 僵尸在同一行 */
-			getBulletIsEncounterWithZombie(zombie) &&   /* 与僵尸碰撞 */
-			zombie->getZombieIsSurvive() && zombie->getZombieIsEnterMap()) /* 僵尸没有死亡 && 僵尸进入地图内 */
-		{
-			if (_animationId)
-			{
-				if (!zombie->getZombieIsStrikeFly())
-				{
-					playSoundEffect("ignite");
-					zombie->getZombieAnimation()->getChildByName("shadow")->setVisible(false);
-					zombie->getZombieAnimation()->stopAllActions();
-					zombie->getZombieAnimation()->setAnimation(1, "Zombies_Stand", false);
-					zombie->getZombieAnimation()->setAnchorPoint(Vec2(1.f, 1.f));
-					zombie->getZombieAnimation()->runAction(Sequence::create(JumpBy::create(1.0f, Vec2(1000, 500 + rand() % 100), 150 + rand() % 100, 1),
-						CallFunc::create([zombie]()
-							{
-								zombie->setZombieVisible(false);
-							}), nullptr));
-					zombie->getZombieAnimation()->runAction(RepeatForever::create(RotateBy::create(0.1f, 180)));
-					zombie->setZombieIsStrikeFly(true);
-				}
-			}
-			else
-			{
-				playSoundEffect("cherrybomb");
-
-				setBulletOpacity(); /* 子弹消失 */
-				attackZombies();    /* 爆炸对僵尸造成伤害 */
-				createExplode();    /* 创建爆炸动画 */
-				setBulletAttack(0);
-				setBulletIsUsed(true);
-
-				break;
-			}
-		}
-	}
 }
 
 void CitronBullet::setAnimationId(const int tag)
@@ -81,22 +49,6 @@ void CitronBullet::setAnimationId(const int tag)
 int CitronBullet::getAnimationId()
 {
 	return _animationId;
-}
-
-void CitronBullet::bulletInit()
-{
-	_bulletAnimation = SkeletonAnimation::createWithData(_global->userInformation->getAnimationData().find("CitronBullet")->second);
-	_bulletAnimation->setAnimation(0, _animationId ? "animation1" : "animation", true);
-	_bulletAnimation->setPosition(_position + Vec2(0, 70));
-	_bulletAnimation->setScale(1.7f);
-	_bulletAnimation->setName(_bulletName);
-	_bulletAnimation->setLocalZOrder(getZOrder(_position.y));
-	_bulletAnimation->runAction(Sequence::create(MoveBy::create(4.0f, Vec2(2000, 0)),
-		CallFunc::create([this]()
-			{
-				_bulletAnimation->setVisible(false);
-			}), nullptr));
-	_node->addChild(_bulletAnimation);
 }
 
 void CitronBullet::createShadow()
@@ -110,6 +62,50 @@ void CitronBullet::createShadow()
 	shadow->setLocalZOrder(_bulletAnimation->getLocalZOrder());
 	_bulletAnimation->addChild(shadow, -1);
 }
+
+void CitronBullet::bulletAndZombiesCollision()
+{
+	for (auto zombie : ZombiesGroup)
+	{
+		if (!_isUsed && getBulletIsSameLineWithZombie(zombie) &&             /* 没有被使用 && 僵尸在同一行 */
+			zombie->getZombieIsSurvive() && zombie->getZombieIsEnterMap() && /* 僵尸没有死亡 && 僵尸进入地图内 */
+			getBulletIsEncounterWithZombie(zombie))                          /* 与僵尸碰撞 */
+		{
+			if (_animationId)
+			{
+				if (!zombie->getZombieIsStrikeFly())
+				{
+					PlayMusic::playMusic("ignite");
+					zombie->getZombieAnimation()->getChildByName("shadow")->setVisible(false);
+					zombie->getZombieAnimation()->stopAllActions();
+					zombie->getZombieAnimation()->setAnimation(0, "Zombies_Stand", false);
+					zombie->getZombieAnimation()->setAnchorPoint(Vec2(1.f, 1.f));
+					zombie->getZombieAnimation()->runAction(Sequence::create(JumpBy::create(1.0f, Vec2(1000, 500 + rand() % 100), 150 + rand() % 100, 1),
+						CallFunc::create([zombie]()
+							{
+								zombie->setZombieVisible(false);
+							}), nullptr));
+					zombie->getZombieAnimation()->runAction(RepeatForever::create(RotateBy::create(0.1f, 180)));
+					zombie->setZombieIsStrikeFly(true);
+				}
+			}
+			else
+			{
+				PlayMusic::playMusic("cherrybomb");
+
+				attackZombies(zombie);        /* 爆炸对僵尸造成伤害 */
+				splashDamageZombies(zombie);  /* 对僵尸造成溅伤*/
+				setBulletOpacity();           /* 子弹消失 */
+				createExplode();              /* 创建爆炸动画 */
+				setBulletAttack(0);
+				setBulletIsUsed(true);
+
+				break;
+			}
+		}
+	}
+}
+
 
 void CitronBullet::createExplode()
 {
@@ -127,31 +123,66 @@ void CitronBullet::createExplode()
 	_node->addChild(explode);	
 }
 
-void CitronBullet::attackZombies()
+void CitronBullet::attackZombies(Zombies* zombie)
 {
-	for (auto zombie : ZombiesGroup)
-	{
-		if (zombie->getZombieIsSurvive() && zombie->getZombieIsEnterMap())
-		{
-			auto at = static_cast<int>((getZombieInExplodeRange(zombie) / 60 * 350 - 350));
-			_attack = 700;
-
-			if (at > 0)_attack -= at;
-			if (_attack <= 0) continue;
-			bulletAttackHurtZombies(zombie);
-			zombie->setZombieHurtBlink();
-		}
-	}
+	bulletAttackHurtZombies(zombie);
+	zombie->setZombieHurtBlink();
 }
 
-float CitronBullet::getZombieInExplodeRange(Zombies* zombie)
+void CitronBullet::splashDamageZombies(Zombies* exceptZombie)
+{
+	/* 计算溅射伤害僵尸数 */
+	for (auto zombie : ZombiesGroup)
+	{
+		if (zombie->getZombieIsEnterMap() && zombie->getZombieIsSurvive() && getZombieInExplodeRange(zombie))
+		{
+			++_zombieInExplodeRangeNumbers;
+		}
+	}
+
+	for (auto zombie : ZombiesGroup)
+	{
+		if (exceptZombie != zombie && zombie->getZombieIsEnterMap() &&
+			zombie->getZombieIsSurvive() && getZombieInExplodeRange(zombie))
+		{
+			/* 溅射伤害计算 */
+			if (int(_attack / 3) * _zombieInExplodeRangeNumbers > _attack * 7)
+			{
+				_attack = max(int(7 * pow(_attack, 2) / (int(_attack / 3) * 3 * _zombieInExplodeRangeNumbers)), 1);
+			}
+			else
+			{
+				_attack = int(_attack / 3);
+			}
+
+			attackZombies(zombie);
+		}
+	}
+
+	_zombieInExplodeRangeNumbers = 0;
+}
+
+bool CitronBullet::getZombieInExplodeRange(Zombies* zombie)
 {
 	/* 僵尸是否在爆炸范围判断 */
 	return sqrt(pow(zombie->getZombieAnimation()->getPositionX() - _bulletAnimation->getPositionX(), 2) +
-		pow(zombie->getZombieAnimation()->getPositionY() - _bulletAnimation->getPositionY(), 2));
+		pow((zombie->getZombieAnimation()->getPositionY() + 50) - (_bulletAnimation->getPositionY() - 40), 2)) <= 200 ? true : false;
 }
 
-bool CitronBullet::getBulletIsSameLineWithZombie(Zombies* zombie)
+void CitronBullet::caveBulletInformation(rapidjson::Value& object, rapidjson::Document::AllocatorType& allocator)
 {
-	return fabs(_bulletAnimation->getPositionY() - 68 - zombie->getZombiePositionY()) <= 10 ? true : false;
+	object.AddMember("AnimationId", _animationId, allocator);
+}
+
+void CitronBullet::readBulletInformation(rapidjson::Document* levelDataDocument, char* key, int i)
+{
+	_animationId = (*levelDataDocument)[key]["Bullet"][to_string(i).c_str()]["AnimationId"].GetInt();
+}
+
+void CitronBullet::readBulletAnimationInformation(rapidjson::Document* levelDataDocument, char* key, int i)
+{
+	_bulletAnimation->setPosition(Vec2(
+		(*levelDataDocument)[key]["Bullet"][to_string(i).c_str()]["PositionX"].GetFloat(),
+		(*levelDataDocument)[key]["Bullet"][to_string(i).c_str()]["PositionY"].GetFloat()));
+	Bullet::setBulletOpacity((*levelDataDocument)[key]["Bullet"][to_string(i).c_str()]["Opacity"].GetInt());
 }

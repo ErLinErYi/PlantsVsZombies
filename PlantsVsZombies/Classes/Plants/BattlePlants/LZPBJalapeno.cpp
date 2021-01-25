@@ -6,11 +6,12 @@
  */
 
 #include "LZPBJalapeno.h"
-#include "../EmissionPlants/Bullet/LZPEBBullet.h"
 
 #include "Zombies/LZZZombies.h"
 #include "Scenes/GameScene/LZSGData.h"
 #include "Scenes/GameScene/LZSGBackgroundLayer.h"
+#include "Scenes/GameScene/LZSGDefine.h"
+#include "Based/LZBPlayMusic.h"
 
 Jalapeno::Jalapeno(Node* node)
 {
@@ -77,15 +78,16 @@ void Jalapeno::plantExplode()
 
 void Jalapeno::showExplodeAnimation()
 {
-	Bullet::playSoundEffect("cherrybomb");
+	PlayMusic::playMusic("cherrybomb");
+
 	GSBackgroundLayer::backgroundRunAction();
 
 	for (int i = 0; i < 9; i++)
 	{
 		auto jalapenoFire = SkeletonAnimation::createWithData(_global->userInformation->getAnimationData().find("Jalapeno_Fire")->second);
-		jalapenoFire->setPosition(Vec2(570 + 122 * i + 60, _plantAnimation->getPositionY() - 10));
+		jalapenoFire->setPosition(Vec2(GRASS_POSITION_LEFT + 122 * i + 60, _plantAnimation->getPositionY() - 10));
 		jalapenoFire->setAnimation(0, "animation", false);
-		jalapenoFire->setScaleY(1.3f);
+		jalapenoFire->setScaleY(3.0f);
 		jalapenoFire->setLocalZOrder(_plantAnimation->getLocalZOrder() + 10); // 植物绘制顺序加10正好等于僵尸绘制顺序 ，爆炸就可以覆盖到僵尸上面
 		jalapenoFire->runAction(Sequence::create(DelayTime::create(2),
 			CallFunc::create([jalapenoFire]()
@@ -96,7 +98,27 @@ void Jalapeno::showExplodeAnimation()
 	}
 }
 
-bool Jalapeno::getZombieIsInExplodeRange(Zombies* zombie) const
+bool Jalapeno::getZombieIsInExplodeRange(Zombies* zombie)
 {
-	return fabs(zombie->getZombieAnimation()->getPositionY() - 10 - _plantAnimation->getPositionY()) <= 10 ? true : false;
+	return getPlantRow() == zombie->getZombieInRow() && zombie->getZombieAnimation()->getPositionX() > 570 ? true : false;
+}
+
+SkeletonAnimation* Jalapeno::showPlantAnimationAndText()
+{
+	auto& lta = _global->userInformation->getGameText();
+	SPSSpriteLayer::plantCardTextScrollView->setInnerContainerSize(Size(lta.find("JALAPENO_1")->second->position));
+
+	_isLoop = true;
+	_plantAnimation = plantInit("Jalapeno", "Jalapeno_Normal");
+	_plantAnimation->setAnchorPoint(Vec2::ANCHOR_MIDDLE);
+	_plantAnimation->setScale(1.5f);
+	_plantAnimation->setPosition(Vec2(200, 610));
+
+	SPSSpriteLayer::createPlantsText(0, lta.find("JALAPENO_1")->second->text, Vec2(190, 910), lta.find("JALAPENO_1")->second->fontsize);
+	SPSSpriteLayer::createPlantsText(2, lta.find("JALAPENO_2")->second->text, Vec2(360, 1000), lta.find("JALAPENO_2")->second->fontsize, Color3B::YELLOW, false);
+	SPSSpriteLayer::createPlantsText(3, lta.find("JALAPENO_3")->second->text, Vec2(440, 1000), lta.find("JALAPENO_3")->second->fontsize, Color3B::RED, false);
+	SPSSpriteLayer::createPlantsText(1, SPSSpriteLayer::selectRequirementText(lta, PlantsType::Jalapeno, "JALAPENO_4", "JALAPENO_5"), Vec2(360, 870),
+		lta.find("JALAPENO_4")->second->fontsize, SPSSpriteLayer::isPlantIsCanSelect[static_cast<unsigned int>(PlantsType::Jalapeno)] ? Color3B::YELLOW : Color3B(255, 70, 0), false);
+	
+	return _plantAnimation;
 }

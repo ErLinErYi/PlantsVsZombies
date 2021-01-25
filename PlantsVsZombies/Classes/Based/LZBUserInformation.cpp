@@ -298,7 +298,7 @@ DWORD UserInformation::getScreenDisplayFrequency()
     if (!_screenDisplayFrequency ||
         Global::getInstance()->userInformation->getIsSelectFullScreen() == cocos2d::ui::CheckBox::EventType::UNSELECTED)
     {
-        DEVMODE dm;
+        DEVMODE dm{};
         dm.dmSize = sizeof(DEVMODE);
         ::EnumDisplaySettings(nullptr, ENUM_CURRENT_SETTINGS, &dm);
         _screenDisplayFrequency = dm.dmDisplayFrequency;

@@ -9,7 +9,7 @@
 #include "LZSGData.h"
 #include "LZSGInformationLayer.h"
 #include "LZSGPauseQuitLayer.h"
-#include "LZSGGameScene.h"
+#include "LZSGGameTimerLayer.h"
 
 #include "../WorldScene/LZSMModernWorld.h"
 #include "../WorldScene/LZSMMirrorModernWorld.h"
@@ -47,7 +47,7 @@ bool GSGameEndLayer::init()
 void GSGameEndLayer::judgeBreakThroughAboutJumpLevel()
 {
 	// 如果此次闯关时间超过210秒并且闯关失败，则满足一次闯关失败
-	if (GameScene::breakThroughTime > 210) 
+	if (GSGameTimerLayer::breakThroughTime > 210) 
 	{
 		UserData::getInstance()->caveUserData(
 			Global::getInstance()->userInformation->getCurrentCaveFileLevelWorldName(),
@@ -307,10 +307,11 @@ void GSGameEndLayer::quitScene()
 	layer->runAction(Sequence::create(FadeIn::create(1.0f),
 		CallFunc::create([=]()
 			{
-				GSPauseQuitLayer::resumeLayer();
-				GSPauseQuitLayer::setPauseNumbers(0);
 				ModernWorld::setPopEnter(true);
 				layer->removeFromParent();
 				_director->popScene();
+
+				GSPauseQuitLayer::resumeLayer();
+				GSPauseQuitLayer::setPauseNumbers(0);
 			}), nullptr));
 }

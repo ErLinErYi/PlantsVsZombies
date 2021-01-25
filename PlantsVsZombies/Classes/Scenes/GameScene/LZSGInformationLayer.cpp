@@ -6,8 +6,10 @@
  */
 
 #include "LZSGInformationLayer.h"
+
 #include "Based/LZBGameType.h"
 #include "Based/LZBPlayMusic.h"
+#include "Scenes/SelectPlantsScene/LZSSControlLayer.h"
 
 GSInformationLayer::GSInformationLayer():
 	_levelLastPrecent(0.0f)
@@ -101,17 +103,7 @@ void GSInformationLayer::showProgressBar()
 
 void GSInformationLayer::showZombiesDieNumbers()
 {
-	auto zombiesDie = Sprite::createWithSpriteFrameName("ZombiesDie.png");
-	zombiesDie->setPosition(Vec2(1500, 0));
-	zombiesDie->setAnchorPoint(Vec2::ANCHOR_MIDDLE_BOTTOM);
-	this->addChild(zombiesDie);
-
-	_zombiesDieText = Text::create();
-	_zombiesDieText->setPosition(Vec2(130, 32));
-	_zombiesDieText->setFontName(GAME_FONT_NAME_2);
-	_zombiesDieText->setFontSize(30);
-	_zombiesDieText->setColor(Color3B(190, 0, 190));
-	zombiesDie->addChild(_zombiesDieText);
+	_zombiesDieText = SPSControlLayer::showDieZombiesNumbers(this);
 
 	updateZombiesDieNumbers();
 }
@@ -123,19 +115,7 @@ void GSInformationLayer::updateZombiesDieNumbers()
 
 void GSInformationLayer::showCoinNumbers()
 {
-	auto coinBank = Sprite::createWithSpriteFrameName("coinbank.png");
-	coinBank->setScale(0.8f);
-	coinBank->setAnchorPoint(Vec2::ANCHOR_MIDDLE_BOTTOM);
-	coinBank->setPosition(Vec2(1750, 0));
-	this->addChild(coinBank);
-
-	_coinNumbersText = ui::Text::create();
-	_coinNumbersText->setFontSize(40);
-	_coinNumbersText->setFontName(GAME_FONT_NAME_2);
-	_coinNumbersText->setPosition(Vec2(180, 40));
-	_coinNumbersText->setAnchorPoint(Vec2(0.5f, 0.5f));
-	_coinNumbersText->setColor(Color3B::YELLOW);
-	coinBank->addChild(_coinNumbersText);
+	_coinNumbersText = SPSControlLayer::showCoinNumbers(this);
 
 	updateCoinNumbers();
 }
@@ -155,11 +135,12 @@ void GSInformationLayer::showSunNumbers()
 	this->addChild(sunBank);
 
 	_sunNumbersText = ui::Text::create();
-	_sunNumbersText->setFontSize(50);
+	_sunNumbersText->setFontSize(45);
 	_sunNumbersText->setFontName(GAME_FONT_NAME_2);
-	_sunNumbersText->setPosition(Vec2(215, 70));
+	_sunNumbersText->setPosition(Vec2(215, 65));
 	_sunNumbersText->setAnchorPoint(Vec2(0.5f, 0.5f));
 	_sunNumbersText->setColor(Color3B(255, 127, 39));
+	_sunNumbersText->enableGlow(Color4B(0, 255, 255, 255));
 	_sunNumbersText->setName("SunNumbersText");
 	sunBank->addChild(_sunNumbersText);
 

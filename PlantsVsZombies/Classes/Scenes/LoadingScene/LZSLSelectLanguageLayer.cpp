@@ -8,6 +8,7 @@
 #include "LZSLSelectLanguageLayer.h"
 #include "LZSLLoadingScene.h"
 #include "Based/LZBPlayMusic.h"
+#include "Based/LZBMouseEventControl.h"
 
 SelectLanguage::SelectLanguage() :
 	_selectLanguageDialog(nullptr),
@@ -208,21 +209,7 @@ void SelectLanguage::createMouseListener()
 		auto mouseEvent = static_cast<EventMouse*>(event);
 		float movex = mouseEvent->getScrollY() * 40;
 
-		auto minOffset = 0.f;
-		auto maxOffset = 100.f;
-
-		auto offset = _scrollView->getScrolledPercentHorizontal();
-		offset += movex;
-
-		if (offset < minOffset)
-		{
-			offset = minOffset;
-		}
-		else if (offset > maxOffset)
-		{
-			offset = maxOffset;
-		}
-		_scrollView->scrollToPercentHorizontal(offset, 0.5f, true);
+		MouseEventControl::mouseScrollControlListener(_scrollView, movex, ui::ScrollView::Direction::HORIZONTAL);
 	};
 	Director::getInstance()->getEventDispatcher()->addEventListenerWithSceneGraphPriority(mouse, _scrollView);
 }

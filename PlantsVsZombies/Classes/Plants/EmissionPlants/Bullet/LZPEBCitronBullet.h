@@ -29,12 +29,14 @@ CC_CONSTRUCTOR_ACCESS:
     ~CitronBullet();
 
 private:
-    void bulletInit() override;
     void createShadow() override;
-    bool getBulletIsSameLineWithZombie(Zombies* zombie) override;
+    void caveBulletInformation(rapidjson::Value& object, rapidjson::Document::AllocatorType& allocator) override;
+    void readBulletInformation(rapidjson::Document* levelDataDocument, char* key, int i) override;
+    void readBulletAnimationInformation(rapidjson::Document* levelDataDocument, char* key, int i) override;
     void createExplode();
-    void attackZombies();
-    float getZombieInExplodeRange(Zombies* zombie);
+    void attackZombies(Zombies* zombie);
+    void splashDamageZombies(Zombies* exceptZombie);
+    bool getZombieInExplodeRange(Zombies* zombie);
 
 private:
     int _animationId;

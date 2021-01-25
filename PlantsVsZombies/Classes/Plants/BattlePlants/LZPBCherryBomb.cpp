@@ -6,11 +6,11 @@
  */
 
 #include "LZPBCherryBomb.h"
-#include "../EmissionPlants/Bullet/LZPEBBullet.h"
 
 #include "Scenes/GameScene/LZSGData.h"
 #include "Zombies/LZZZombies.h"
 #include "Scenes/GameScene/LZSGBackgroundLayer.h"
+#include "Based/LZBPlayMusic.h"
 
 CherryBomb::CherryBomb(Node* node):
 	_isReadyExplode(false)
@@ -75,7 +75,7 @@ void CherryBomb::setEventListener()
 				_plantAnimation->setVisible(false);
 			}
 		});
-	Bullet::playSoundEffect("wakeup");
+	PlayMusic::playMusic("wakeup");
 }
 
 bool CherryBomb::getPlantIsReadyExplode() const
@@ -83,11 +83,11 @@ bool CherryBomb::getPlantIsReadyExplode() const
 	return _isReadyExplode;
 }
 
-bool CherryBomb::getZombieIsInExplodeRange(Zombies* zombie) const
+bool CherryBomb::getZombieIsInExplodeRange(Zombies* zombie)
 {
 	/* ½©Ê¬ÊÇ·ñÔÚ±¬Õ¨·¶Î§ÅÐ¶Ï */
 	return sqrt(pow(zombie->getZombieAnimation()->getPositionX() - _plantAnimation->getPositionX(), 2) +
-		pow(zombie->getZombieAnimation()->getPositionY() - _plantAnimation->getPositionY(), 2)) <= 195 ? true : false;
+		pow((zombie->getZombieAnimation()->getPositionY() + 50) - (_plantAnimation->getPositionY() + 60), 2)) <= 200 ? true : false;
 }
 
 void CherryBomb::determineRelativePositionPlantsAndZombies()
@@ -96,10 +96,10 @@ void CherryBomb::determineRelativePositionPlantsAndZombies()
 	{
 		zombieEatPlant(zombie);      /* ½©Ê¬³ÔÖ²Îï */
 
-		plantExplode();              /* Ö²Îï¹¥»÷ */
-
 		zombieRecoveryMove(zombie);  /* ½©Ê¬»Ö¸´ÒÆ¶¯ */
 	}
+
+	plantExplode();                  /* Ö²Îï¹¥»÷ */
 }
 
 void CherryBomb::plantExplode()
@@ -127,7 +127,8 @@ void CherryBomb::explodeHurtZombies()
 			if (!zombie->getZombieIsSurvive())
 			{
 				zombie->setZombieOpacity(0);
-				zombie->playZombiesDieAnimation();
+				zombie->setZombieVisible(false);
+				zombie->playZombiesAshesAnimation();
 			}
 		}
 	}
@@ -135,7 +136,7 @@ void CherryBomb::explodeHurtZombies()
 
 void CherryBomb::showExplodeAnimation()
 {
-	Bullet::playSoundEffect("cherrybomb");
+	PlayMusic::playMusic("cherrybomb");
 	GSBackgroundLayer::backgroundRunAction();
 
 	/* ±¬Õ¨¶¯»­ */
@@ -154,4 +155,23 @@ void CherryBomb::showExplodeAnimation()
 			}
 		});
 	_node->runAction(Sequence::create(DelayTime::create(2.0f), CallFunc::create([cherryBomb_Explode]() {cherryBomb_Explode->removeFromParent(); }), nullptr));
+}
+
+SkeletonAnimation* CherryBomb::showPlantAnimationAndText()
+{
+	auto& lta = _global->userInformation->getGameText();
+	SPSSpriteLayer::plantCardTextScrollView->setInnerContainerSize(Size(lta.find("CHERRYBOMB_1")->second->position));
+
+	_isLoop = true;
+	_plantAnimation = plantInit("CherryBomb", "CherryBomb_Normal");
+	_plantAnimation->setAnchorPoint(Vec2::ANCHOR_MIDDLE);
+	_plantAnimation->setScale(1.8f);
+	_plantAnimation->setPosition(Vec2(200, 610));
+
+	SPSSpriteLayer::createPlantsText(0, lta.find("CHERRYBOMB_1")->second->text, Vec2(190, 910), lta.find("CHERRYBOMB_1")->second->fontsize);
+	SPSSpriteLayer::createPlantsText(2, lta.find("CHERRYBOMB_2")->second->text, Vec2(360, 1000), lta.find("CHERRYBOMB_2")->second->fontsize, Color3B::YELLOW, false);
+	SPSSpriteLayer::createPlantsText(3, lta.find("CHERRYBOMB_3")->second->text, Vec2(440, 1000), lta.find("CHERRYBOMB_3")->second->fontsize, Color3B::RED, false);
+	SPSSpriteLayer::createPlantsText(1, lta.find("CHERRYBOMB_4")->second->text, Vec2(360, 870), lta.find("CHERRYBOMB_4")->second->fontsize, Color3B::YELLOW, false);
+
+	return _plantAnimation;
 }

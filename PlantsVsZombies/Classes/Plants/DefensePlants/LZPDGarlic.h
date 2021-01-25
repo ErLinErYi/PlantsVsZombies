@@ -25,11 +25,10 @@ private:
 	void zombieRecoveryMove(Zombies* zombie) override;
 	void checkPlantHealthPoint() override;
 	bool getPlantIsSurvive() const override;
-	bool getzombieIsEncounterPlant(Zombies* zombie) const override;
+	SkeletonAnimation* showPlantAnimationAndText() override;
 	void changeZombiePositionY(Zombies* zombie);
 
 private:
 	int _canEatNumbers;             // 可以被吃的次数
-	int _currentCanEatNumbers;      // 当前可以被吃的次数
 	int _animationId;               // 动画编号
 };

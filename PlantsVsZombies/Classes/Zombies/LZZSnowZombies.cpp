@@ -41,7 +41,7 @@ void SnowZombies::createZombie()
 {
 	zombieInit("SnowZombies");
 
-	setZombieAnimationName("Zombies_Walk");
+	setZombieAnimation("Zombies_Walk");
 
 	createZombieShadow();
 
@@ -54,7 +54,7 @@ void SnowZombies::createPreviewZombie()
 {
 	zombieInit("SnowZombies");
 
-	setZombieAnimationName("Zombies_Stand");
+	setZombieAnimation("Zombies_Stand");
 
 	createZombieShadow();
 
@@ -99,11 +99,11 @@ void SnowZombies::setZombieSecondaryInjure()
 	{
 		_zombiesAnimation->setAttachment("Zombie_yeti_head", "th");
 		_zombiesAnimation->setAttachment("Zombie_yeti_jaw", "th");
-		_zombiesAnimation->setAnimation(1, "Zombies_Die", false);
+		_zombiesAnimation->setAnimation(0, "Zombies_Die", false);
 		_bodyAnimationId = 10;
 
 		zombieLoseHeadAnimation("ZombieYetiHead");
 
-		zombieFadeOutAnimation();
+		playZombiesFillDownAnimation();
 	}
 }

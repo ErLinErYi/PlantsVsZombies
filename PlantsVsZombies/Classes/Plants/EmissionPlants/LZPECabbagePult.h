@@ -24,6 +24,7 @@ CC_CONSTRUCTOR_ACCESS:
 
 private:
 	void plantAttack(Zombies* zombie) override;
+	SkeletonAnimation* showPlantAnimationAndText() override;
 	void createCabbage();
 
 private:

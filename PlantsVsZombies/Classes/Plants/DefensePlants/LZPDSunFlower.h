@@ -15,6 +15,7 @@ class SunFlower :public Plants
 public:
 	static SunFlower* create(Node* node = nullptr);
 	static void stopSun();
+	static void sunRecovery(Sun* sun);
 	void createRandomSuns();
 	void setSunShowTime(const Vec2 time);
 	Vec2 getSunShowTime() const;
@@ -22,12 +23,13 @@ public:
 	void createPlantAnimation() override;
 	
 CC_CONSTRUCTOR_ACCESS:
-	SunFlower(Node* node = nullptr, Node* sunLayer = nullptr);
+	SunFlower(Node* node = nullptr);
 	~SunFlower();
 
 private:
-	static void sunRecovery(Sun* sun);
-	void goodsRecovery();
+	void cavePlantInformation(rapidjson::Value& object, rapidjson::Document::AllocatorType& allocator) override;
+	void readPlantInforamtion(rapidjson::Document* levelDataDocument, char* key, int i) override;
+	SkeletonAnimation* showPlantAnimationAndText() override;
 	void createSuns();
 	void createListener();
 	void playAnimation();
@@ -36,7 +38,6 @@ private:
 private:
 	static int _sunTag;
 	Sun* _sun;
-	Node* _sunLayer;
 	Vec2 _sunShowTime;
 	Vec2 _sunShowTime1;
 };
@@ -51,6 +52,7 @@ public:
 	int getSunTag() const;
 	bool getEnable() const;
 	void releaseSun() const;
+	float calculateMoveTime();
 	SkeletonAnimation* getSun();
 	static void deleteSun(list<Sun*>::iterator& sun);
 

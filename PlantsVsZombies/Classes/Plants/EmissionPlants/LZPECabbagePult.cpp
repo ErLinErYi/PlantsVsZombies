@@ -8,10 +8,10 @@
 #include "LZPECabbagePult.h"
 #include "LZPEPeaShooter.h"
 #include "Bullet/LZPEBCabbage.h"
-#include "Bullet/LZPEBBullet.h"
 
 #include "Zombies/LZZZombies.h"
 #include "Scenes/GameScene/LZSGData.h"
+#include "Based/LZBPlayMusic.h"
 
 #define _MAX_ 0xffffff
 
@@ -86,7 +86,7 @@ void CabbagePult::determineRelativePositionPlantsAndZombies()
 			{
 				if (strcmp(event->data->name, "Shoot") == 0)
 				{
-					rand() % 2 == 0 ? Bullet::playSoundEffect("throw") : Bullet::playSoundEffect("throw2");
+					rand() % 2 == 0 ? PlayMusic::playMusic("throw") : PlayMusic::playMusic("throw2");
 					createCabbage();
 				}
 			});
@@ -129,6 +129,7 @@ void CabbagePult::createCabbage()
 {
 	_bulletAnimation = new Cabbage(_node);
 	_bulletAnimation->setBulletPosition(_position);
+	_bulletAnimation->setBulletInRow(_rowAndColumn.y);
 	dynamic_cast<Cabbage*>(_bulletAnimation)->setZombiePosition(_zombiePostion);
 	dynamic_cast<Cabbage*>(_bulletAnimation)->setZombieSpeed(_zombieSpeed);
 	dynamic_cast<Cabbage*>(_bulletAnimation)->setZombieHeight(_zombieHeight);
@@ -137,4 +138,21 @@ void CabbagePult::createCabbage()
 	BulletGroup.push_back(_bulletAnimation);
 }
 
+SkeletonAnimation* CabbagePult::showPlantAnimationAndText()
+{
+	auto& lta = _global->userInformation->getGameText();
+	SPSSpriteLayer::plantCardTextScrollView->setInnerContainerSize(Size(lta.find("CABBAGE_1")->second->position));
 
+	_isLoop = true;
+	_plantAnimation = plantInit("Cabbage", "Cabbage_Normal");
+	_plantAnimation->setAnchorPoint(Vec2::ANCHOR_MIDDLE);
+	_plantAnimation->setScale(1.3f);
+	_plantAnimation->setPosition(Vec2(200, 610));
+
+	SPSSpriteLayer::createPlantsText(0, lta.find("CABBAGE_1")->second->text, Vec2(190, 910), lta.find("CABBAGE_1")->second->fontsize);
+	SPSSpriteLayer::createPlantsText(2, lta.find("CABBAGE_2")->second->text, Vec2(360, 1000), lta.find("CABBAGE_2")->second->fontsize, Color3B::YELLOW, false);
+	SPSSpriteLayer::createPlantsText(3, lta.find("CABBAGE_3")->second->text, Vec2(440, 1000), lta.find("CABBAGE_3")->second->fontsize, Color3B::RED, false);
+	SPSSpriteLayer::createPlantsText(1, lta.find("CABBAGE_4")->second->text, Vec2(360, 870), lta.find("CABBAGE_4")->second->fontsize, Color3B::YELLOW, false);
+
+	return _plantAnimation;
+}

@@ -11,6 +11,7 @@
 #include "Scenes/EasterEggsScene/LZSEGameEasterEggs.h"
 #include "Scenes/WorldScene/LZSMSelectWorldScene.h"
 #include "Based/LZBPlayMusic.h"
+#include "Based/LZBMouseEventControl.h"
 
 string INFORMATION_TEXT = { "\
 		此游戏全部由本人自己制作完成。此版本为测试版(具有一定的可玩性)。今后会不定时更新（不断完善）。目前我己经把该项目的源码开源发到GitHub。\n\
@@ -145,21 +146,7 @@ void HelpScene::addMouseEvent()
 		auto mouseEvent = static_cast<EventMouse*>(event);
 		float movex = mouseEvent->getScrollY() * 5;
 
-		auto minOffset = 0.f;
-		auto maxOffset = 100.f;
-
-		auto offset = _textScrollView->getScrolledPercentVertical();
-		offset += movex;
-
-		if (offset < minOffset)
-		{
-			offset = minOffset;
-		}
-		else if (offset > maxOffset)
-		{
-			offset = maxOffset;
-		}
-		_textScrollView->scrollToPercentVertical(offset, 0.5f, true);
+		MouseEventControl::mouseScrollControlListener(_textScrollView, movex, ui::ScrollView::Direction::VERTICAL);
 	};
 	Director::getInstance()->getEventDispatcher()->addEventListenerWithSceneGraphPriority(mouse, _textScrollView);
 }

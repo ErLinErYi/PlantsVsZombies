@@ -22,6 +22,8 @@ using namespace cocos2d;
 using namespace std;
 
 class Global;
+class Plants;
+class Zombies;
 enum class openUserDataReturnType
 {
     FileExistError = 1,
@@ -63,7 +65,9 @@ public:
     bool isHaveSurvivalData(char* key);
 
     void openLevelPlantsData(char* key);
+    void openLevelPlantsAnimationData(char* key, const char* pl, Plants* plant);
     void openLevelZombiesData(char* key);
+    void openLevelZombiesAnimationData(char* key, const char* zo, Zombies* zombie);
     void openLevelSelectCardData(char* key);
     void openLevelSunData(char* key);
     void openLevelCoinData(char* key);
@@ -96,8 +100,12 @@ private:
     bool isHaveMember(char* key);
     bool readLevelData();
 
+    bool checkLevelDataVersion();
+    void caveLevelDataVersion();
     void caveLevelPlantsData(char* key);
+    void caveLevelPlantsAnimationData(Plants* plant, rapidjson::Value& object);
     void caveLevelZombiesData(char* key);
+    void caveLevelZombiesAnimationData(Zombies* zombie, rapidjson::Value& object);
     void caveLevelSelectPlantsData(char* key);
     void caveLevelSunData(char* key);
     void caveLevelCoinData(char* key);
@@ -113,6 +121,10 @@ private:
 #endif // !DLLTEST
 
 private:
+    rapidjson::Value numberToString(int number, rapidjson::Document::AllocatorType& allocator);
+    rapidjson::Value numberAddString(int number, string str, rapidjson::Document::AllocatorType& allocator);
+
+private:
     Document* _userDataDocument;
     Document* _levelDataDocument;
     FileUtils* _fileUtils;
@@ -121,5 +133,6 @@ private:
     string _levelData;
     bool _isAnewReadData;
     vector<GSScene*>_gsScene;
+    static int _levelDataVersion;
     static UserData* _instance;
 };

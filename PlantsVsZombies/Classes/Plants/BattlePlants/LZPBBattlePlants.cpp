@@ -21,9 +21,12 @@ void BattlePlants::hurtZombies(Zombies* zombie)
 {
 	if (zombie->getZombieCurrentBodyShieldVolume() < _combatEffecttiveness) /* 如果当前身体护盾血量小于爆炸伤害 */
 	{
-		if (zombie->getZombieCurrentBodyShieldVolume() + zombie->getZombieCurrentHeadShieldVolume() < _combatEffecttiveness) /* 如果当前身体护盾加头部护盾血量小于爆炸伤害 */
+		if (zombie->getZombieCurrentBodyShieldVolume() + 
+			zombie->getZombieCurrentHeadShieldVolume() < _combatEffecttiveness) /* 如果当前身体护盾加头部护盾血量小于爆炸伤害 */
 		{
-			if (zombie->getZombieCurrentBodyShieldVolume() + zombie->getZombieCurrentHeadShieldVolume() + zombie->getZombieCurrentBloodVolume() <= _combatEffecttiveness) /* 如果僵尸所有血量小于爆炸伤害（僵尸死亡） */
+			if (zombie->getZombieCurrentBodyShieldVolume() + 
+				zombie->getZombieCurrentHeadShieldVolume() + 
+				zombie->getZombieCurrentBloodVolume() <= _combatEffecttiveness) /* 如果僵尸所有血量小于爆炸伤害（僵尸死亡） */
 			{
 				/* 僵尸死亡 */
 				zombie->setZombieCurrentBloodVolume(0);
@@ -33,7 +36,10 @@ void BattlePlants::hurtZombies(Zombies* zombie)
 			else
 			{
 				/* 计算僵尸本体血量 */
-				zombie->setZombieCurrentBloodVolume(zombie->getZombieCurrentBodyShieldVolume() + zombie->getZombieCurrentHeadShieldVolume() + zombie->getZombieCurrentBloodVolume() - _combatEffecttiveness);
+				zombie->setZombieCurrentBloodVolume(
+					zombie->getZombieCurrentBodyShieldVolume() + 
+					zombie->getZombieCurrentHeadShieldVolume() + 
+					zombie->getZombieCurrentBloodVolume() - _combatEffecttiveness);
 				zombie->setZombieCurrentHeadShieldVolume(0);
 				zombie->setZombieCurrentBodyShieldVolume(0);
 			}
@@ -41,12 +47,15 @@ void BattlePlants::hurtZombies(Zombies* zombie)
 		else
 		{
 			/* 计算僵尸护盾剩于血量 */
-			zombie->setZombieCurrentHeadShieldVolume(zombie->getZombieCurrentBodyShieldVolume() + zombie->getZombieCurrentHeadShieldVolume() - _combatEffecttiveness);
+			zombie->setZombieCurrentHeadShieldVolume(
+				zombie->getZombieCurrentBodyShieldVolume() + 
+				zombie->getZombieCurrentHeadShieldVolume() - _combatEffecttiveness);
 			zombie->setZombieCurrentBodyShieldVolume(0);
 		}
 	}
 	else
 	{
-		zombie->setZombieCurrentBodyShieldVolume(zombie->getZombieCurrentBodyShieldVolume() - _combatEffecttiveness);
+		zombie->setZombieCurrentBodyShieldVolume(
+			zombie->getZombieCurrentBodyShieldVolume() - _combatEffecttiveness);
 	}
 }

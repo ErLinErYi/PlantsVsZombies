@@ -17,12 +17,20 @@ public:
 	virtual void setIsFire(const bool isFire);
 
 	/**
+	 *设置是否冰冻 
+	 */
+	virtual void setIsIce(const bool isIce);
+
+	/**
 	 *设置燃烧次数
 	 */
 	virtual void setPeaFireNumbers(const int fireNumbers);
 
 	/**
 	 *增加子弹燃烧次数
+	 * -1 ：  表示被冰冻
+	 * 0  ：  表示没有燃烧
+	 * >=1:   表示被燃烧的次数
 	 */
 	virtual void addPeaFireNumbers();
 
@@ -35,6 +43,11 @@ public:
 	 *获取是否燃烧
 	 */
 	virtual bool getIsFire() const;
+
+	/**
+	 * 获取是否冰冻
+	 */
+	virtual bool getIsIce() const;
 
 	/**
 	 *获取燃烧次数
@@ -58,14 +71,29 @@ protected:
 	virtual void bulletAndZombiesCollision() override;
 
 	/**
+	 *  判段攻击方式
+	 */
+	virtual void judgeAttackMethod(Zombies* zombie);
+
+	/**
+	 * 攻击僵尸 
+	 */
+	virtual void attackZombies(Zombies* zombie);
+	
+	/**
+	 * 对僵尸溅射伤害 
+	 */
+	virtual void splashDamageZombies(Zombies* exceptZombie);
+
+	/**
+	 *  僵尸是否在溅射范围判断
+	 */
+	virtual bool getZombieInExplodeRange(Zombies* zombie);
+
+	/**
 	 *创建豌豆爆炸动画
 	 */
 	virtual void  createPeaExplode();
-
-	/**
-	 *子弹初始化
-	 */
-	virtual void bulletInit() override;
 
 	/**
 	 *创建子弹影子
@@ -73,25 +101,23 @@ protected:
 	virtual void createShadow() override;
 
 	/**
-	 *子弹攻击僵尸
+	 * 存储子弹特有信息
 	 */
-	virtual void bulletAttackZombies();
+	virtual void caveBulletInformation(rapidjson::Value& object, rapidjson::Document::AllocatorType& allocator) override;
 
 	/**
-	 *火子弹攻击僵尸
+	 * 读取子弹特有信息
 	 */
-	virtual void fireBulletAttackZombies();
+	virtual void readBulletInformation(rapidjson::Document* levelDataDocument, char* key, int i) override;
+	virtual void readBulletAnimationInformation(rapidjson::Document* levelDataDocument, char* key, int i) override;
 
 CC_CONSTRUCTOR_ACCESS:
 	Pea(Node* node = nullptr);
 	~Pea();
 
-private:
-	void attackZombies();
-	float getZombieInExplodeRange(Zombies* zombie);
-
 protected:
 	bool _isFire;                         // 是否燃烧 
+	bool _isIce;                          // 是否冰冻
 	int _fireNumbers;                     // 燃烧次数
 	int _torchwoodTag;                    // 火炬树桩标记
 	string _peaAnimationName;             // 豌豆动画名称

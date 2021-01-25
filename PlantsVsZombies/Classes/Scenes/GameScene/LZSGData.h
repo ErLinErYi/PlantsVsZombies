@@ -10,7 +10,12 @@
 #include <list>
 #include <vector>
 
+#include "cocos2d.h"
+#include "cocos/ui/CocosGUI.h"
+
 using namespace std;
+using namespace cocos2d;
+using namespace cocos2d::ui;
 
 class GSBackgroundLayer;
 class GSInformationLayer;
@@ -30,6 +35,7 @@ extern GSInformationLayer* informationLayerInformation; // 信息层实例化
 extern GSButtonLayer* buttonLayerInformation;           // 按钮层实例化
 extern GSControlLayer* controlLayerInformation;         // 控制层实例化
 extern GSAnimationLayer* animationLayerInformation;     // 动画层示例化
+extern Layer* goodsLayerInformation;                    // 物品层实例化
 
 /**使用multimap：使用随机查找删除
  *存储所有植物的集合

@@ -16,3 +16,13 @@ EmissionPlants::EmissionPlants():
 EmissionPlants::~EmissionPlants()
 {
 }
+
+void EmissionPlants::cavePlantInformation(rapidjson::Value& object, rapidjson::Document::AllocatorType& allocator)
+{
+    object.AddMember("isChanged", _isChanged, allocator);
+}
+
+void EmissionPlants::readPlantInforamtion(rapidjson::Document* levelDataDocument, char* key, int i)
+{
+    _isChanged = (*levelDataDocument)[key]["Plants"][to_string(i).c_str()]["isChanged"].GetBool();
+}

@@ -102,6 +102,9 @@ CC_CONSTRUCTOR_ACCESS:
 	ZombiesAppearControl();
 	~ZombiesAppearControl();
 
+public:
+	static unsigned int zombiesPosition[5];    // 僵尸位置
+
 private:
 	int _zombiesAppearFrequency;               // 僵尸出现波次
 	bool _lastFrequencyZombiesWasDeath;        // 上一波僵尸已阵亡 
@@ -111,8 +114,4 @@ private:
 	OpenLevelData* _openLevelData;
 	default_random_engine _random;             // 随机数引擎
 	set<int> _judgeZombieRow;                  // 判断僵尸所在行
-	unsigned int _zombiesPosition[5] =         // 僵尸位置
-	{
-		130,268,406,544,682
-	};
 };

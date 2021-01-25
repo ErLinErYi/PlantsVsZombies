@@ -26,6 +26,7 @@ CC_CONSTRUCTOR_ACCESS:
 protected:
 	virtual void createPea();
 	virtual void plantAttack(Zombies* zombie) override;
+	virtual SkeletonAnimation* showPlantAnimationAndText() override;
 	virtual void plantEmission(const string& plantAnimation);
 	virtual void plantRecovery(const string& plantAnimation);
 	

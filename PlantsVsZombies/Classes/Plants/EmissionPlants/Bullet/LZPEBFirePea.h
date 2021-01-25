@@ -18,6 +18,10 @@ CC_CONSTRUCTOR_ACCESS:
     ~FirePea();
 
 protected:
-    virtual void bulletInit() override;
     virtual void createShadow() override;
+    virtual void bulletAndZombiesCollision() override;
+    virtual void readBulletInformation(rapidjson::Document* levelDataDocument, char* key, int i) override;
+    virtual void readBulletAnimationInformation(rapidjson::Document* levelDataDocument, char* key, int i) override;
+    virtual void attackZombies(Zombies* zombie) override;
+    virtual void recoveryFrozenZombie(Zombies* zombie);
 };

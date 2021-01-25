@@ -34,19 +34,12 @@ bool OpenCaveGameScene::init()
 	UserData::getInstance()->createNewLevelDataDocument();
 	UserData::getInstance()->openLevelSelectCardData(_levelName);
 
-	controlPlayMusic();
-	backgroundLayer();   // ±³¾°²ã
-	informationLayer();  // ÐÅÏ¢²ã
-	buttonLayer();       // °´Å¥²ã
-	controlLayer();      // ¿ØÖÆ²ã
-	animationLayer();    // ¶¯»­²ã
+	showGameLayer();
 	
 	openLevelData();
 	
 #if CC_TARGET_PLATFORM == CC_PLATFORM_WIN32
-	schedule([&](float) {
-		pauseGame();
-		}, 1.0f, 0, 2.f, "pauseGame");
+	pauseGame();
 #endif
 	return true;
 }
@@ -55,14 +48,10 @@ void OpenCaveGameScene::onEnter()
 {
 	Scene::onEnter();
 
-	runAction(Sequence::create(DelayTime::create(0.01f),
-		CallFunc::create([=]()
-			{
-				GSPauseQuitLayer::setPauseNumbers(0);
-				GSPauseQuitLayer::pauseLayer();
-				_director->getRunningScene()->addChild(GSPauseQuitLayer::addLayer(), 10, "pauseLayer");
-			}), nullptr));
-
+	GSPauseQuitLayer::setPauseNumbers(0);
+	GSPauseQuitLayer::pauseLayer();
+	_director->getRunningScene()->addChild(GSPauseQuitLayer::addLayer(), 10, "pauseLayer");
+	
 	auto layer = LayerColor::create(Color4B(0, 0, 0, 255));
 	layer->setGlobalZOrder(2);
 	this->addChild(layer);

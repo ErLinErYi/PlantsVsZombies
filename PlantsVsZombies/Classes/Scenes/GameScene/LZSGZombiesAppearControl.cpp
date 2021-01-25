@@ -7,6 +7,8 @@
 
 #include "LZSGZombiesAppearControl.h"
 
+unsigned int ZombiesAppearControl::zombiesPosition[] = { 130,268,406,544,682 };
+
 ZombiesAppearControl::ZombiesAppearControl() :
   _zombiesAppearFrequency(0)
 , _lastFrequencyZombiesWasDeath(false)
@@ -87,7 +89,7 @@ int ZombiesAppearControl::getEqualProbabilityForRow()
 		_judgeZombieRow.clear();
 	}
 
-	unsigned int row;
+	unsigned int row = 0;
 	do
 	{
 		row = number(_random);
@@ -95,7 +97,7 @@ int ZombiesAppearControl::getEqualProbabilityForRow()
 
 	_judgeZombieRow.insert(row);
 
-	return _zombiesPosition[row];
+	return row;
 }
 
 void ZombiesAppearControl::setZombiesAppearFrequency(const unsigned int zombiesAppearFrequency)

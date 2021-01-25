@@ -7,6 +7,7 @@
 
 #pragma once
 #include "../LZPPlants.h"
+#include "Scenes/SelectPlantsScene/LZSSSpriteLayer.h"
 
 class Zombies;
 
@@ -16,6 +17,7 @@ protected:
     virtual void hurtZombies(Zombies* zombie);
     virtual void plantExplode() {};
     virtual void plantAttack() {};
+    virtual bool getZombieIsInExplodeRange(Zombies* zombie) { return false; };
 
 CC_CONSTRUCTOR_ACCESS:
     BattlePlants();

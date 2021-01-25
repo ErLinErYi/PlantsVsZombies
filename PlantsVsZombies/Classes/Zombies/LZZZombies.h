@@ -117,6 +117,12 @@ public:
 	virtual void zombieInjuredEventUpdate() = 0;
 
 	/**
+	 * 读取僵尸特有信息
+	 * 子类可以重写该方法
+	 */
+	virtual void readZombieInformation();
+
+	/**
 	 *创建僵尸影子
 	 */
 	virtual void createZombieShadow();
@@ -132,6 +138,11 @@ public:
 	virtual void setZombieScale(const int& scale) const;
 
 	/**
+	 * 设置僵尸所在行 
+	 */
+	virtual void setZombieInRow(const int row);
+
+	/**
 	 *设置动画播放速度
 	 */
 	virtual void setZombieTimeScale(const float& timeScale) const;
@@ -139,12 +150,12 @@ public:
 	/**
 	 *设置僵尸动画编号
 	 */
-	virtual void setZombieAnimationInformation(const int tag, const bool isLoop = true) const;
+	virtual void setZombieAnimation(const int tag, const bool isLoop = true) const;
 
 	/**
 	 *设置僵尸动画
 	 */
-	virtual void setZombieAnimationName(const string& name, bool isLoop = true) const;
+	virtual void setZombieAnimation(const string& name, bool isLoop = true) const;
 
 	/**
 	 *设置僵尸的大小
@@ -155,6 +166,11 @@ public:
 	 *设置是否显示僵尸掉落肢体动画
 	 */
 	virtual void setZombieIsShowLoseLimbsAnimation(const bool isShow);
+
+	/**
+	 *设置是否显示僵尸掉落护盾动画
+	 */
+	virtual void setZombieIsShowLoseShieldAnimation(const bool isShow);
 
 	/**
 	 *设置僵尸所吃植物编号
@@ -177,9 +193,9 @@ public:
 	virtual void setZombiePosition(const Vec2& position);
 
 	/**
-	 *设置名字
+	 *设置僵尸动画名字
 	 */
-	virtual void setZombieName(const string& name); 
+	virtual void setZombieAnimationName(const string& name);
 
 	/**
 	 *设置僵尸编号
@@ -231,9 +247,19 @@ public:
 	virtual void setZombieCurrentBloodVolume(const float currentBloodVolume);
 
 	/**
+	 *设置僵尸是否创建定时器 
+	 */
+	virtual void setZombieIsCreateTimer(const bool isCreateTimer);
+
+	/**
 	 *设置僵尸是否被击飞
 	 */
 	virtual void setZombieIsStrikeFly(const bool isStrikeFly);
+
+	/**
+	 *设置僵尸是否被冻住  
+	 */
+	virtual void setZombieIsFrozen(const bool isFrozen);
 
 	/**
 	 *设置僵尸受伤闪烁
@@ -244,6 +270,21 @@ public:
 	 *设置僵尸大小
 	 */
 	virtual void setZombieScale();
+
+	/**
+	 * 获取僵尸所在行 
+	 */
+	virtual int getZombieInRow() const;
+
+	/**
+	 *设置僵尸已被某一植物预订杀死
+	 */
+	virtual void setZombieReserveKill(bool reserveKill);
+
+	/**
+	 *设置僵尸定时器时间  
+	 */
+	virtual void setZombieTimerTime(const int timerTime);
 
 	/**
 	 *获取僵尸动画
@@ -263,7 +304,7 @@ public:
 	/**
 	 *获取僵尸名字
 	 */
-	virtual string getZombieName() const;
+	virtual string getZombieAnimationName() const;
 
 	/**
 	 *获取僵尸编号
@@ -341,6 +382,21 @@ public:
 	virtual bool getZombieIsShow() const;
 
 	/**
+	 *获取僵尸是否创建定时器  
+	 */
+	virtual bool getZombieIsCreateTimer() const;
+
+	/**
+     *获取定时器时间  
+	 */
+	virtual int& getZombieTimerTime();
+
+	/**
+	 *获取僵尸是否被冻住  
+	 */
+	virtual bool getZombieIsFrozen() const;
+
+	/**
 	 *获取僵尸种类
 	 */
 	virtual ZombiesType getZombieType() const;
@@ -371,6 +427,11 @@ public:
 	virtual bool getZombieIsStrikeFly() const;
 
 	/**
+	 *获取僵尸是否已被某一植物预订杀死
+	 */
+	virtual bool getZombieReserveKill();
+
+	/**
 	 *获取僵尸身体护盾类型
 	 */
 	ShieldType getZombieBodyShieldType()const;
@@ -381,9 +442,14 @@ public:
 	ShieldType getZombieHeadShieldType()const;
 
 	/**
-	 *播放僵尸死亡动画
+	 *播放僵尸灰烬动画
 	 */
-	virtual void playZombiesDieAnimation();
+	virtual void playZombiesFillDownAnimation();
+
+	/**
+	 *播放僵尸灰烬动画
+	 */
+	virtual void playZombiesAshesAnimation();
 
 	/**
 	 *播放僵尸音效
@@ -399,7 +465,7 @@ protected:
 	/**
      *获取僵尸绘制图层
      */
-	virtual float getZombieLocalZOrder(const int& positiionY) const;
+	virtual float getZombieLocalZOrder() const;
 
 	/**
 	 *设置节点
@@ -509,7 +575,6 @@ private:
 	void setOpacityZombieAttribute();
 	void setZombieGLProgram();
 	bool getZombieWarning();
-	string& createZombieName();
 
 protected:
 	int _attackHeadSoundEffectType;           // 攻击头部音效   
@@ -518,6 +583,8 @@ protected:
 	int _bodyShieldAnimationId;               // 身体护盾动画编号
 	int _headShieldAnimationId;               // 头部护盾动画编号
 	int _zombieTag;                           // 僵尸编号(暂未使用)
+	int _zombieRow;                           // 僵尸所在行
+	int _timerTime;                           // 定时器时间
 	float _bloodVolume;                       // 血量
 	float _headShieldVolume;                  // 护盾血量
 	float _bodyShieldVolume;                  // 护盾1血量
@@ -533,9 +600,13 @@ protected:
 	bool _isShow;                             // 是否显示
 	bool _isPreview;                          // 是否是预览模式
 	bool _isShowLoseLimbsAnimation;           // 是否显示僵尸掉落肢体动画
+	bool _isShowLoseShieldAnimation;          // 是否显示僵尸护盾掉落动画
 	bool _isCanDelete[2];                     // 是否可以删除
-	bool _isStrikeFly;                        // 是否击飞
-	string _zombieName;                       // 僵尸名字
+	bool _isCreateTimer;                      // 是否创建定时器
+	bool _isStrikeFly;                        // 是否击飞(离子缘）
+	bool _isReserveKill;                      // 是否被预定杀死（大嘴花）
+	bool _isFrozen;                           // 是否被冻住（寒冰射手）
+	string _zombieAnimationName;              // 僵尸动画名字
 	Vec2 _position;                           // 位置
 	Node* _node;                              // 节点
 	Global* _global;                          // 全局变量
@@ -553,9 +624,9 @@ private:
 	int _zombieHowlNumbers;
 	OpenLevelData* _openLevelData;
 	GLProgramState* _highLightGLProgramState;
-	float _highLightIntensity;
-	bool _highLightFinished;
-	bool _redWarning;
+	float _highLightIntensity;                
+	bool _highLightFinished;                  // 是否高亮
+	bool _redWarning;                         // 是否警告
 
 	static bool _zombieIsWin;
 	static int _zombiesNewDieNumbers;

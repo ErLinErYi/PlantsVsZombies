@@ -32,8 +32,8 @@ bool SPSControlLayer::init()
 	/* 显示用户名字 */
 	showUserName();
 
-	showCoinNumbers();
-	showDieZombiesNumbers();
+	showCoinNumbers(this);
+	showDieZombiesNumbers(this);
 
 	return true;
 }
@@ -120,32 +120,38 @@ void SPSControlLayer::showUserName()
 	this->addChild(username);
 }
 
-void SPSControlLayer::showCoinNumbers()
+ui::Text* SPSControlLayer::showCoinNumbers(Node* node)
 {
 	auto coinBank = Sprite::createWithSpriteFrameName("coinbank.png");
 	coinBank->setScale(0.8f);
 	coinBank->setAnchorPoint(Vec2::ANCHOR_MIDDLE_BOTTOM);
 	coinBank->setPosition(Vec2(1750, 0));
-	this->addChild(coinBank);
+	node->addChild(coinBank);
 
-	auto coinNumbersText = ui::Text::create(to_string(_global->userInformation->getCoinNumbers()), GAME_FONT_NAME_2, 40);
-	coinNumbersText->setPosition(Vec2(180, 40));
+	auto coinNumbersText = ui::Text::create(to_string(Global::getInstance()->userInformation->getCoinNumbers()), GAME_FONT_NAME_2, 35);
+	coinNumbersText->setPosition(Vec2(185, 36));
 	coinNumbersText->setAnchorPoint(Vec2(0.5f, 0.5f));
 	coinNumbersText->setColor(Color3B::YELLOW);
+	coinNumbersText->enableGlow(Color4B(0, 255, 255, 255));
 	coinBank->addChild(coinNumbersText);
+
+	return coinNumbersText;
 }
 
-void SPSControlLayer::showDieZombiesNumbers()
+ui::Text* SPSControlLayer::showDieZombiesNumbers(Node* node)
 {
 	auto zombiesDie = Sprite::createWithSpriteFrameName("ZombiesDie.png");
 	zombiesDie->setPosition(Vec2(1500, 0));
 	zombiesDie->setAnchorPoint(Vec2::ANCHOR_MIDDLE_BOTTOM);
-	this->addChild(zombiesDie);
+	node->addChild(zombiesDie);
 
-	auto zombiesDieText = Text::create(to_string(_global->userInformation->getKillZombiesNumbers()), GAME_FONT_NAME_2, 30);
-	zombiesDieText->setPosition(Vec2(130, 32));
+	auto zombiesDieText = Text::create(to_string(Global::getInstance()->userInformation->getKillZombiesNumbers()), GAME_FONT_NAME_2, 30);
+	zombiesDieText->setPosition(Vec2(130, 30));
 	zombiesDieText->setColor(Color3B(190, 0, 190));
+	zombiesDieText->enableGlow(Color4B(0, 255, 255, 255));
 	zombiesDie->addChild(zombiesDieText);
+
+	return zombiesDieText;
 }
 
 void SPSControlLayer::createDialog()

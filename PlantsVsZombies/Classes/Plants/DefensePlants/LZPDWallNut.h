@@ -21,6 +21,7 @@ CC_CONSTRUCTOR_ACCESS:
 
 private:
 	void checkPlantHealthPoint() override;
+	SkeletonAnimation* showPlantAnimationAndText() override;
 
 private:
 	int _skinId;

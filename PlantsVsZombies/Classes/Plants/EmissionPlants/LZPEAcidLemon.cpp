@@ -7,9 +7,9 @@
 
 #include "LZPEAcidLemon.h"
 #include "Bullet/LZPEBAcidLemonBullet.h"
-
 #include "Zombies/LZZZombies.h"
 #include "Scenes/GameScene/LZSGData.h"
+#include "Based/LZBPlayMusic.h"
 
 AcidLemonShooter::AcidLemonShooter(Node* node) :
 	_isCreateAcidLemon(false)
@@ -97,7 +97,7 @@ void AcidLemonShooter::plantEmission(const string& plantAnimation)
 		{
 			if (strcmp(event->data->name, "shoot") == 0)
 			{
-				rand() % 2 == 0 ? Bullet::playSoundEffect("throw") : Bullet::playSoundEffect("throw2");
+				rand() % 2 == 0 ? PlayMusic::playMusic("throw") : PlayMusic::playMusic("throw2");
 				createAcidLemon();
 			}
 		});
@@ -121,7 +121,28 @@ void AcidLemonShooter::createAcidLemon()
 {
 	_bulletAnimation = new AcidLemonBullet(_node);
 	_bulletAnimation->setBulletPosition(_position);
+	_bulletAnimation->setBulletInRow(_rowAndColumn.y);
 	_bulletAnimation->createBullet();
 
 	BulletGroup.push_back(_bulletAnimation);
+}
+
+SkeletonAnimation* AcidLemonShooter::showPlantAnimationAndText()
+{
+	auto& lta = _global->userInformation->getGameText();
+	SPSSpriteLayer::plantCardTextScrollView->setInnerContainerSize(Size(lta.find("ACIDLEMON_1")->second->position));
+
+	_isLoop = true;
+	_plantAnimation = plantInit("LemonShooter", "LemonNormal");
+	_plantAnimation->setAnchorPoint(Vec2::ANCHOR_MIDDLE);
+	_plantAnimation->setScale(2.2f);
+	_plantAnimation->setPosition(Vec2(200, 610));
+
+	SPSSpriteLayer::createPlantsText(0, lta.find("ACIDLEMON_1")->second->text, Vec2(190, 910), lta.find("ACIDLEMON_1")->second->fontsize);
+	SPSSpriteLayer::createPlantsText(2, lta.find("ACIDLEMON_2")->second->text, Vec2(360, 1000), lta.find("ACIDLEMON_2")->second->fontsize, Color3B::YELLOW, false);
+	SPSSpriteLayer::createPlantsText(3, lta.find("ACIDLEMON_3")->second->text, Vec2(440, 1000), lta.find("ACIDLEMON_3")->second->fontsize, Color3B::RED, false);
+	SPSSpriteLayer::createPlantsText(1, SPSSpriteLayer::selectRequirementText(lta, PlantsType::AcidLemonShooter, "ACIDLEMON_4", "ACIDLEMON_5"), Vec2(360, 870),
+		lta.find("ACIDLEMON_4")->second->fontsize, SPSSpriteLayer::isPlantIsCanSelect[static_cast<unsigned int>(PlantsType::AcidLemonShooter)] ? Color3B::YELLOW : Color3B(255, 70, 0), false);
+	
+	return _plantAnimation;
 }

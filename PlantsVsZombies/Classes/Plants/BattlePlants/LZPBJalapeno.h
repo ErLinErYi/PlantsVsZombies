@@ -22,5 +22,6 @@ CC_CONSTRUCTOR_ACCESS:
 private:
     void plantExplode() override;
     void showExplodeAnimation() override;
-    bool getZombieIsInExplodeRange(Zombies* zombie) const override;
+    bool getZombieIsInExplodeRange(Zombies* zombie) override;
+    SkeletonAnimation* showPlantAnimationAndText() override;
 };

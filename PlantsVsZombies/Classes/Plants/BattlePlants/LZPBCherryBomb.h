@@ -25,10 +25,11 @@ CC_CONSTRUCTOR_ACCESS:
 protected:
     virtual void setEventListener();
     virtual void plantExplode() override;
+    virtual SkeletonAnimation* showPlantAnimationAndText() override;
     virtual bool getPlantIsReadyExplode() const;
     virtual void explodeHurtZombies();
     virtual void showExplodeAnimation();
-    virtual bool getZombieIsInExplodeRange(Zombies* zombie) const;
+    virtual bool getZombieIsInExplodeRange(Zombies* zombie)override;
 
 protected:
     bool _isReadyExplode;          // ÊÇ·ñ×¼±¸±¬Õ¨

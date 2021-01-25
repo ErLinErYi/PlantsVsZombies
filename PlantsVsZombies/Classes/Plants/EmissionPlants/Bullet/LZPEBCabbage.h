@@ -13,7 +13,6 @@ class Cabbage :public Bullet
 public:
 	void createBullet() override;
 	void bulletAndZombiesCollision() override;
-	void bulletInit() override;
 	void createShadow() override;
 	void createCabbageExplode();
 	void setZombiePosition(const Vec2& position);
@@ -29,8 +28,11 @@ CC_CONSTRUCTOR_ACCESS:
 	Cabbage(Node* node);
 	~Cabbage() {}
 
+protected:
+	virtual void caveBulletInformation(rapidjson::Value& object, rapidjson::Document::AllocatorType& allocator) override;
+	virtual void readBulletInformation(rapidjson::Document* levelDataDocument, char* key, int i) override;
+
 private:
-	bool getBulletIsSameLineWithZombie(Zombies* zombie);
 	bool getBulletIsEncounterWithZombie(Zombies* zombie);
 	void bulletAttackHurtZombies(Zombies* zombie) override;
 

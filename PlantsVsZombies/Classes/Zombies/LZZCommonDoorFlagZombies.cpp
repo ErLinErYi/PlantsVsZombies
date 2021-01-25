@@ -41,7 +41,7 @@ void CommonDoorFlagZombies::createZombie()
 {
 	zombieInit();
 
-	setZombieAnimationInformation(rand() % 2 + 2);
+	setZombieAnimation(rand() % 2 + 2);
 
 	setZombieScale();
 
@@ -55,7 +55,7 @@ void CommonDoorFlagZombies::createPreviewZombie()
 {
 	zombieInit();
 
-	setZombieAnimationInformation(rand() % 2);
+	setZombieAnimation(rand() % 2);
 
 	setZombieScale();
 

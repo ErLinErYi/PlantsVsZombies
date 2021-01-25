@@ -25,47 +25,6 @@ struct MouseSelectImage /* 鼠标选择的植物 */
 	bool isSelectShovel;              /* 是否选择了铲子 */
 };
 
-class PlantsInformation
-{
-public:
-	struct PlantsCards
-	{
-		PlantsCards():
-			timeBarIsFinished(false)
-		{}
-		Button* plantsCards;            /* 卡牌 */
-		Text* plantsCardText;           /* 卡牌文字 */
-		ProgressTimer* progressTimer;   /* 倒计时 */
-		int plantsNeedSunNumbers;       /* 所需阳光 */
-		int tag;                        /* 编号 */
-		bool timeBarIsFinished;         /* 倒计时是否完成 */
-	};
-
-	/* 植物冷却时间 */
-	float PlantsCoolTime[13] =
-	{
-		/*向日葵*/  7.5f, /*豌豆射手    */  7.5f, /*坚果    */  30,   /*樱桃炸弹*/     35,
-		/*土豆雷*/  30,   /*卷心菜投手  */  7.5f, /*火炬树桩*/  7.5f, /*地刺    */     7.5f,
-		/*大蒜  */  10,   /*火焰豌豆射手*/  10,   /*火爆辣椒*/  35,   /*强酸柠檬射手*/ 7.5f,
-		/*离子缘*/  7.5f
-	};
-	/* 植物所需阳光 */
-	int PlantsNeedSunNumbers[13] =
-	{
-		/*向日葵*/ 50, /*豌豆射手    */ 100, /*坚果    */ 50,  /*樱桃炸弹*/     150,
-		/*土豆雷*/ 25, /*卷心菜投手  */ 100, /*火炬树桩*/ 175, /*地刺    */     100,
-		/*大蒜  */ 50, /*火焰豌豆射手*/ 200, /*火爆辣椒*/ 150, /*强酸柠檬射手*/ 125,
-		/*离子缘*/ 350
-	};
-
-	/* 植物剩余冷却时间 */
-	struct PlantsCardFileData
-	{
-		static float PlantsSurPlusCoolTime[13];
-		static float PlantsSurPlusPrecent[13];
-	};
-};
-
 enum class GSLayerButton
 {
 	stopButton = 1,
@@ -103,9 +62,8 @@ private:
 	ProgressTimer* createProgressTimer(Button* button, const float _time, const int from, const unsigned int& id);
 	
 public:
-	MouseSelectImage* mouseSelectImage;                 // 鼠标选择
-	PlantsInformation* plantsInformation;               // 植物属性
-	PlantsInformation::PlantsCards plantsCards[20];     // 植物卡片
+	MouseSelectImage* mouseSelectImage;                            // 鼠标选择
+	PlantsInformation::PlantsCards plantsCards[PLANTSNUMBERS];     // 植物卡片
 	
 private:
 	Global* _global;                                     // 全局变量

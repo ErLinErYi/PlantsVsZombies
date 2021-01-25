@@ -8,7 +8,9 @@
 #pragma once
 #include "cocos2d.h"
 #include "spine/spine-cocos2dx.h"
+#include "json/document.h"
 #include "Based/LZBGlobalVariable.h"
+#include "Scenes/GameScene/LZSGAnimationLayer.h"
 
 using namespace spine;
 using namespace cocos2d;
@@ -19,6 +21,7 @@ enum class BulletType
 {
 	None = 0,
 	Pea,
+	IcePea,
 	FirePea,
 	Cabbage,
 	AcidLemonBullet,
@@ -47,6 +50,19 @@ public:
 	virtual void bulletAndZombiesCollision() = 0;
 
 	/**
+	 * 存储子弹特有信息
+	 * 子类中实现
+	 */
+	virtual void caveBulletInformation(rapidjson::Value& object, rapidjson::Document::AllocatorType& allocator) {};
+
+	/**
+	 * 读取子弹特有信息 
+	 * 子类中实现
+	 */
+	virtual void readBulletInformation(rapidjson::Document* levelDataDocument, char* key, int i) {};
+	virtual void readBulletAnimationInformation(rapidjson::Document* levelDataDocument, char* key, int i) {};
+
+	/**
 	 *获取子弹动画
 	 */
 	virtual SkeletonAnimation* getBullet() const;
@@ -55,6 +71,11 @@ public:
 	 *设置子弹的位置
 	 */
 	virtual void setBulletPosition(const Vec2& position);
+
+	/**
+	 * 设置子弹所在行  
+	 */
+	virtual void setBulletInRow(const int row);
 
 	/**
 	 *设置子弹的名字
@@ -91,6 +112,11 @@ public:
 	 *获取子弹位置
 	 */
 	virtual Vec2 getBulletPosition() const;
+
+	/**
+	 *获取子所在行 
+	 */
+	virtual int getBulletInRow() const;
 
 	/**
 	 *获取子弹X位置
@@ -141,7 +167,6 @@ public:
 	 *播放子弹碰撞声音
 	 */
 	static void playSoundEffect(SoundEffectType soundEffect);
-	static void playSoundEffect(const std::string& MusicName);
 
 	/**
 	 *选择播放音效
@@ -154,9 +179,9 @@ CC_CONSTRUCTOR_ACCESS:
 	~Bullet();
 
 protected:
-	virtual void bulletInit() = 0;
+	virtual SkeletonAnimation* bulletInit(const std::string& plantname, const std::string& animaionname);
 	virtual void createShadow() = 0;
-	virtual float getZOrder(const int& positionY) const;
+	virtual float getZOrder() const;
 
 private:
 	void releaseBullet() const;
@@ -165,6 +190,8 @@ protected:
 	SkeletonAnimation* _bulletAnimation;  // 动画
 	float _attack;                        // 攻击力
 	bool _isUsed;                         // 是否使用
+	int _bulletRow;                       // 所在行
+	int _zombieInExplodeRangeNumbers;     // 溅射伤害僵尸数
 	Node* _node;                          // 父节点
 	Vec2 _position;                       // 位置
 	string _bulletName;                   // 豌豆名字

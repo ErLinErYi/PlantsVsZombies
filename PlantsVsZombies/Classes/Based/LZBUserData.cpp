@@ -5,9 +5,11 @@
  *Email: 2117610943@qq.com
  */
 
+#include "base/base64.h"
 #include "LZBUserData.h"
 #include "LZBGlobalVariable.h"
-#include "base/base64.h"
+#include "LZBCar.h"
+#include "LZBCoin.h"
 #include "Scenes/GameScene/LZSGData.h"
 #include "Scenes/GameScene/LZSGAnimationLayer.h"
 #include "Scenes/GameScene/LZSGButtonLayer.h"
@@ -18,11 +20,9 @@
 #include "Scenes/SelectPlantsScene/LZSSSelectPlantsScene.h"
 #include "Plants/LZPPlants.h"
 #include "Plants/LZPPlants-Files.h"
-#include "Zombies/LZZZombies.h"
-#include "LZBCar.h"
-#include "LZBCoin.h"
 #include "Plants/EmissionPlants/Bullet/LZPEBBullet.h"
 #include "Plants/EmissionPlants/Bullet/LZPEBBullet-File.h"
+#include "Zombies/LZZZombies.h"
 
 #ifdef DLLTEST
 #include "libpvz.h"
@@ -30,6 +30,7 @@
 #endif // !DLLTEST
 
 UserData* UserData::_instance = nullptr;
+int UserData::_levelDataVersion = 1300;
 
 UserData::UserData() :
   _global(Global::getInstance())
@@ -194,7 +195,7 @@ openUserDataReturnType UserData::openLevelData()
 		CC_SAFE_DELETE(buf);
 #   endif
 #endif
-		if (_levelDataDocument->HasParseError()) {
+		if (_levelDataDocument->HasParseError()|| checkLevelDataVersion()) {
 			return openUserDataReturnType::FileExistError;
 		}
 		return openUserDataReturnType::FileExistCorrect;
@@ -452,6 +453,7 @@ void UserData::caveLevelData(char* key)
 	rapidjson::Value object(rapidjson::kObjectType);
 	_levelDataDocument->AddMember(rapidjson::StringRef(key), object, _levelDataDocument->GetAllocator());
 
+	caveLevelDataVersion();
 	caveLevelPlantsData(key);
 	caveLevelZombiesData(key);
 	caveLevelSelectPlantsData(key);
@@ -493,6 +495,28 @@ void UserData::caveSurvivalData(char* key)
 	flushSurvivalData();
 }
 
+bool UserData::checkLevelDataVersion()
+{
+	return _levelDataDocument->HasMember("LevelDataVersion") ? _levelDataVersion == (*_levelDataDocument)["LevelDataVersion"].GetInt() ? false : true : true;
+}
+
+void UserData::caveLevelDataVersion()
+{
+	if (!_levelDataDocument->HasMember("LevelDataVersion"))
+	{
+		_levelDataDocument->AddMember(rapidjson::StringRef("LevelDataVersion"), _levelDataVersion, _levelDataDocument->GetAllocator());
+	}
+	else
+	{
+		if (_levelDataVersion != (*_levelDataDocument)["LevelDataVersion"].GetInt())
+		{
+			_levelDataDocument->RemoveMember("LevelDataVersion");
+			_levelDataDocument->AddMember(rapidjson::StringRef("LevelDataVersion"), _levelDataVersion, _levelDataDocument->GetAllocator());
+		}
+	}
+	
+}
+
 void UserData::caveLevelPlantsData(char* key)
 {
 	unsigned int plantsNumber = 0;
@@ -500,45 +524,50 @@ void UserData::caveLevelPlantsData(char* key)
 	rapidjson::Document::AllocatorType& allocator = _levelDataDocument->GetAllocator();
 	(*_levelDataDocument)[key].AddMember("Plants", _object, allocator);
 	
-	for (auto plant : PlantsGroup)
+	for (auto &plant : PlantsGroup)
 	{
 		rapidjson::Value object(rapidjson::kObjectType);
-		
-		auto visible = plant.second->getPlantAnimation()->isVisible();
-		if (visible)
+
+		if (plant.second->getPlantAnimation()&& plant.second->getPlantAnimation()->isVisible())
 		{
 			object.AddMember("PlantsTag", plant.second->getPlantTag(), allocator);
 			object.AddMember("PlantsHealthPoint", plant.second->getPlantHealthPoint(), allocator);
+			object.AddMember("PlantsAnimationTime", plant.second->getPlantAnimation()->getCurrent()->animationLast, allocator);
+			object.AddMember("PlantsAnimationTimeScale", plant.second->getPlantAnimation()->getTimeScale(), allocator);
 			object.AddMember("PlantsPositionX", plant.second->getPlantAnimation()->getPositionX(), allocator);
 			object.AddMember("PlantsPositionY", plant.second->getPlantAnimation()->getPositionY(), allocator);
 			object.AddMember("PlantsRow", plant.second->getPlantRow(), allocator);
 			object.AddMember("PlantsColumn", plant.second->getPlantColumn(), allocator);
 			object.AddMember("PlantsLocalZOrder", plant.second->getPlantAnimation()->getLocalZOrder(), allocator);
 			object.AddMember("PlantsType", static_cast<int>(plant.second->getPlantType()), allocator);
-			object.AddMember("PlantVisible", visible, allocator);
+			
+			caveLevelPlantsAnimationData(plant.second, object);
 
-			switch (plant.second->getPlantType())
-			{
-			case PlantsType::SunFlower:
-				object.AddMember("SunShowTime.X", dynamic_cast<SunFlower*>(plant.second)->getSunShowTime().x, allocator);
-				object.AddMember("SunShowTime.Y", dynamic_cast<SunFlower*>(plant.second)->getSunShowTime().y, allocator);
-				break;
-			case PlantsType::PotatoMine:
-				object.AddMember("BreakGround", dynamic_cast<PotatoMine*>(plant.second)->getBreakGround(), allocator);
-				break;
-			default:
-				break;
-			}
+			plant.second->cavePlantInformation(object, allocator);
 
-			auto number = to_string(++plantsNumber);
-			char* str = new char[number.size() + 1];
-			strcpy(str, number.c_str());
-			str[number.size()] = '\0';
-			(*_levelDataDocument)[key]["Plants"].AddMember(rapidjson::StringRef(str), object, _levelDataDocument->GetAllocator());
+			(*_levelDataDocument)[key]["Plants"].AddMember(numberToString(++plantsNumber, allocator), object, _levelDataDocument->GetAllocator());
 		}
 	}
 
 	(*_levelDataDocument)[key]["Plants"].AddMember("PlantsNumber", plantsNumber, allocator);
+}
+
+void UserData::caveLevelPlantsAnimationData(Plants* plant, rapidjson::Value& object)
+{
+	rapidjson::Document::AllocatorType& allocator = _levelDataDocument->GetAllocator();
+
+	auto spTE = plant->getPlantAnimation()->getCurrent();
+	int animationNumber = 0;
+	do
+	{
+		rapidjson::Value objectPA(rapidjson::kObjectType);
+		objectPA.AddMember("PlantsAnimationName", rapidjson::StringRef(spTE->animation->name), allocator);
+		objectPA.AddMember("PlantsAnimationLoop", spTE->loop, allocator);
+
+		object.AddMember(numberToString(++animationNumber, allocator), objectPA, allocator);
+		spTE = spTE->next;
+	} while (spTE);
+	object.AddMember("AnimationNumber", animationNumber, allocator);
 }
 
 void UserData::caveLevelZombiesData(char* key)
@@ -547,28 +576,54 @@ void UserData::caveLevelZombiesData(char* key)
 	rapidjson::Value _object(rapidjson::kObjectType);
 	rapidjson::Document::AllocatorType& allocator = _levelDataDocument->GetAllocator();
 	(*_levelDataDocument)[key].AddMember("Zombies", _object, allocator);
-	(*_levelDataDocument)[key]["Zombies"].AddMember("ZombiesNumber", ZombiesGroup.size(), allocator);
 
 	for (auto zombie : ZombiesGroup)
 	{
-		rapidjson::Value object(rapidjson::kObjectType);
+		if (zombie->getZombieAnimation()&& zombie->getZombieAnimation()->isVisible())
+		{
+			rapidjson::Value object(rapidjson::kObjectType);
 
-		object.AddMember("ZombieCurrentBloodVolume", zombie->getZombieCurrentBloodVolume(), allocator);
-		object.AddMember("ZombieCurrentBodyShieldVolume", zombie->getZombieCurrentBodyShieldVolume(), allocator);
-		object.AddMember("ZombieCurrentHeadShieldVolume", zombie->getZombieCurrentHeadShieldVolume(), allocator);
-		object.AddMember("ZombiePositionX", zombie->getZombieAnimation()->getPositionX(), allocator);
-		object.AddMember("ZombiePositionY", zombie->getZombieAnimation()->getPositionY(), allocator);
-		object.AddMember("ZombieLocalZOrder", zombie->getZombieAnimation()->getLocalZOrder(), allocator);
-		object.AddMember("ZombieType", static_cast<int>(zombie->getZombieType()), allocator);
-		object.AddMember("ZombieOpacity", static_cast<int>(zombie->getZombieAnimation()->getOpacity()), allocator);
-		object.AddMember("ZombieVisible", zombie->getZombieAnimation()->isVisible(), allocator);
+			object.AddMember("ZombieCurrentBloodVolume", zombie->getZombieCurrentBloodVolume(), allocator);
+			object.AddMember("ZombieCurrentBodyShieldVolume", zombie->getZombieCurrentBodyShieldVolume(), allocator);
+			object.AddMember("ZombieCurrentHeadShieldVolume", zombie->getZombieCurrentHeadShieldVolume(), allocator);
+			object.AddMember("ZombieAnimationTime", zombie->getZombieAnimation()->getCurrent()->animationLast, allocator);
+			object.AddMember("ZombieAnimationTimeScale", zombie->getZombieAnimation()->getTimeScale(), allocator);
+			object.AddMember("ZombiePositionX", zombie->getZombieAnimation()->getPositionX(), allocator);
+			object.AddMember("ZombiePositionY", zombie->getZombieAnimation()->getPositionY(), allocator);
+			object.AddMember("ZombieCurrentSpeed", zombie->getZombieCurrentSpeed(), allocator);
+			object.AddMember("ZombieTimerTime", zombie->getZombieTimerTime(), allocator);
+			object.AddMember("ZombieInRow", zombie->getZombieInRow(), allocator);
+			object.AddMember("ZombieIsFrozen", zombie->getZombieIsFrozen(), allocator);
+			object.AddMember("ZombieIsStrikeFly", zombie->getZombieIsStrikeFly(), allocator);
+			object.AddMember("ZombieLocalZOrder", zombie->getZombieAnimation()->getLocalZOrder(), allocator);
+			object.AddMember("ZombieType", static_cast<int>(zombie->getZombieType()), allocator);
+			object.AddMember("ZombieOpacity", static_cast<int>(zombie->getZombieAnimation()->getOpacity()), allocator);
+			
+			caveLevelZombiesAnimationData(zombie, object);
 
-		auto number = to_string(++zombiesNumber);
-		char* str = new char[number.size() + 1];
-		strcpy(str, number.c_str());
-		str[number.size()] = '\0';
-		(*_levelDataDocument)[key]["Zombies"].AddMember(rapidjson::StringRef(str), object, _levelDataDocument->GetAllocator());
+			(*_levelDataDocument)[key]["Zombies"].AddMember(numberToString(++zombiesNumber, allocator), object, _levelDataDocument->GetAllocator());
+		}
 	}
+
+	(*_levelDataDocument)[key]["Zombies"].AddMember("ZombiesNumber", zombiesNumber, allocator);
+}
+
+void UserData::caveLevelZombiesAnimationData(Zombies* zombie, rapidjson::Value& object)
+{
+	rapidjson::Document::AllocatorType& allocator = _levelDataDocument->GetAllocator();
+
+	auto spTE = zombie->getZombieAnimation()->getCurrent();
+	int animationNumber = 0;
+	do
+	{
+		rapidjson::Value objectPA(rapidjson::kObjectType);
+		objectPA.AddMember("ZombieAnimationName", rapidjson::StringRef(spTE->animation->name), allocator);
+		objectPA.AddMember("ZombieAnimationLoop", spTE->loop, allocator);
+
+		object.AddMember(numberToString(++animationNumber, allocator), objectPA, allocator);
+		spTE = spTE->next;
+	} while (spTE);
+	object.AddMember("AnimationNumber", animationNumber, allocator);
 }
 
 void UserData::caveLevelSunData(char* key)
@@ -589,11 +644,7 @@ void UserData::caveLevelSunData(char* key)
 		object.AddMember("PositionY", sun->getSun()->getPositionY(), allocator);
 		object.AddMember("Opacity", static_cast<int>(sun->getSun()->getOpacity()), allocator);
 
-		auto number = to_string(++sunsNumber);
-		char* str = new char[number.size() + 1];
-		strcpy(str, number.c_str());
-		str[number.size()] = '\0';
-		(*_levelDataDocument)[key]["Sun"].AddMember(rapidjson::StringRef(str), object, _levelDataDocument->GetAllocator());
+		(*_levelDataDocument)[key]["Sun"].AddMember(numberToString(++sunsNumber, allocator), object, _levelDataDocument->GetAllocator());
 	}
 }
 
@@ -614,11 +665,7 @@ void UserData::caveLevelCoinData(char* key)
 		object.AddMember("LocalZOrder", coin->getCoin()->getLocalZOrder(), allocator);
 		object.AddMember("Enable", coin->getEnable(), allocator);
 
-		auto number = to_string(++coinNumber);
-		char* str = new char[number.size() + 1];
-		strcpy(str, number.c_str());
-		str[number.size()] = '\0';
-		(*_levelDataDocument)[key]["Coin"].AddMember(rapidjson::StringRef(str), object, _levelDataDocument->GetAllocator());
+		(*_levelDataDocument)[key]["Coin"].AddMember(numberToString(++coinNumber, allocator), object, _levelDataDocument->GetAllocator());
 	}
 }
 
@@ -638,11 +685,7 @@ void UserData::caveLevelCarData(char* key)
 		object.AddMember("PositionX", car->getCar()->getPositionX(), allocator);
 		object.AddMember("PositionY", car->getCar()->getPositionY(), allocator);
 		
-		auto number = to_string(++carsNumber);
-		char* str = new char[number.size() + 1];
-		strcpy(str, number.c_str());
-		str[number.size()] = '\0';
-		(*_levelDataDocument)[key]["Car"].AddMember(rapidjson::StringRef(str), object, _levelDataDocument->GetAllocator());
+		(*_levelDataDocument)[key]["Car"].AddMember(numberToString(++carsNumber, allocator), object, _levelDataDocument->GetAllocator());
 	}
 }
 
@@ -661,36 +704,14 @@ void UserData::caveLevelBulletData(char* key)
 		object.AddMember("BulletType", static_cast<int>(bullet->getBulletType()), allocator);
 		object.AddMember("PositionX", bullet->getBullet()->getPositionX(), allocator);
 		object.AddMember("PositionY", bullet->getBullet()->getPositionY(), allocator);
+		object.AddMember("bulletInRow", bullet->getBulletInRow(), allocator);
 		object.AddMember("IsUsed", bullet->getBulletIsUsed(), allocator);
 		object.AddMember("LocalZOrder", bullet->getBullet()->getLocalZOrder(), allocator);
 		object.AddMember("Opacity", static_cast<int>(bullet->getBullet()->getOpacity()), allocator);
 
-		switch (bullet->getBulletType())
-		{
-		case BulletType::Pea:
-		case BulletType::FirePea:
-			object.AddMember("IsFire", dynamic_cast<Pea*>(bullet)->getIsFire(), allocator);
-			object.AddMember("PeaFireNumbers", dynamic_cast<Pea*>(bullet)->getPeaFireNumbers(), allocator);
-			break;
-		case BulletType::Cabbage:
-			object.AddMember("cabbageInitialPositionX", dynamic_cast<Cabbage*>(bullet)->getCabbageInitialPosition().x, allocator);
-			object.AddMember("cabbageInitialPositionY", dynamic_cast<Cabbage*>(bullet)->getCabbageInitialPosition().y, allocator);
-			object.AddMember("ZombiePositionX", dynamic_cast<Cabbage*>(bullet)->calculateZombiePosition().x, allocator);
-			object.AddMember("ZombiePositionY", dynamic_cast<Cabbage*>(bullet)->calculateZombiePosition().y, allocator);
-			object.AddMember("ZombieSpeed", dynamic_cast<Cabbage*>(bullet)->getZombieSpeed(), allocator);
-			break;
-		case BulletType::CitronBullet:
-			object.AddMember("AnimationId", dynamic_cast<CitronBullet*>(bullet)->getAnimationId(), allocator);
-			break;
-		default:
-			break;
-		}
+		bullet->caveBulletInformation(object, allocator);
 
-		auto number = to_string(++bulletNumber);
-		char* str = new char[number.size() + 1];
-		strcpy(str, number.c_str());
-		str[number.size()] = '\0';
-		(*_levelDataDocument)[key]["Bullet"].AddMember(rapidjson::StringRef(str), object, _levelDataDocument->GetAllocator());
+		(*_levelDataDocument)[key]["Bullet"].AddMember(numberToString(++bulletNumber, allocator), object, _levelDataDocument->GetAllocator());
 	}
 }
 
@@ -709,13 +730,9 @@ void UserData::caveLevelSelectPlantsData(char* key)
 		object.AddMember("CardTag", card.cardTag, allocator);
 		object.AddMember("Percent", buttonLayerInformation->plantsCards[card.cardTag].progressTimer->getPercentage(), allocator);
 		object.AddMember("LastTime", buttonLayerInformation->plantsCards[card.cardTag].progressTimer->getPercentage() / 100.f *
-			buttonLayerInformation->plantsInformation->PlantsCoolTime[card.cardTag], allocator);
+			plantsCardInformation[card.cardTag].plantsCoolTime, allocator);
 
-		auto number = to_string(++plantsNumber);
-		char* str = new char[number.size() + 1];
-		strcpy(str, number.c_str());
-		str[number.size()] = '\0';
-		(*_levelDataDocument)[key]["SelectPlants"].AddMember(rapidjson::StringRef(str), object, _levelDataDocument->GetAllocator());
+		(*_levelDataDocument)[key]["SelectPlants"].AddMember(numberToString(++plantsNumber, allocator), object, _levelDataDocument->GetAllocator());
 	}
 }
 
@@ -845,32 +862,35 @@ void UserData::openLevelPlantsData(char* key)
 			(*_levelDataDocument)[key]["Plants"][to_string(i).c_str()]["PlantsPositionY"].GetFloat()));
 		plants->setPlantLocalZOrder((*_levelDataDocument)[key]["Plants"][to_string(i).c_str()]["PlantsLocalZOrder"].GetInt());
 		plants->setPlantRowAndColumn(Vec2(
-			(*_levelDataDocument)[key]["Plants"][to_string(i).c_str()]["PlantsRow"].GetInt(),
-			(*_levelDataDocument)[key]["Plants"][to_string(i).c_str()]["PlantsColumn"].GetInt()));
+			(*_levelDataDocument)[key]["Plants"][to_string(i).c_str()]["PlantsColumn"].GetInt(),
+			(*_levelDataDocument)[key]["Plants"][to_string(i).c_str()]["PlantsRow"].GetInt()));
 		plants->setPlantTag((*_levelDataDocument)[key]["Plants"][to_string(i).c_str()]["PlantsTag"].GetInt());
-		
-		switch (type)
-		{
-		case PlantsType::SunFlower:
-			dynamic_cast<SunFlower*>(plants)->setSunShowTime(
-				Vec2((*_levelDataDocument)[key]["Plants"][to_string(i).c_str()]["SunShowTime.X"].GetFloat(),
-					(*_levelDataDocument)[key]["Plants"][to_string(i).c_str()]["SunShowTime.Y"].GetFloat()));
-			break;
-		case PlantsType::PotatoMine:
-			dynamic_cast<PotatoMine*>(plants)->setBreakGround((*_levelDataDocument)[key]["Plants"][to_string(i).c_str()]["BreakGround"].GetFloat());
-			break;
-		default:
-			break;
-		}
-
+		plants->readPlantInforamtion(_levelDataDocument, key, i);
 		plants->createPlantAnimation();
+
+		openLevelPlantsAnimationData(key, to_string(i).c_str(), plants);
+		plants->getPlantAnimation()->update((*_levelDataDocument)[key]["Plants"][to_string(i).c_str()]["PlantsAnimationTime"].GetFloat());
+		plants->getPlantAnimation()->setTimeScale((*_levelDataDocument)[key]["Plants"][to_string(i).c_str()]["PlantsAnimationTimeScale"].GetFloat());
 		plants->setPlantHealthPoint((*_levelDataDocument)[key]["Plants"][to_string(i).c_str()]["PlantsHealthPoint"].GetFloat());
-		plants->getPlantAnimation()->setVisible((*_levelDataDocument)[key]["Plants"][to_string(i).c_str()]["PlantVisible"].GetBool());
 		plants->getPlantAnimation()->getChildByName("SplashOfSoil")->setOpacity(0);
 
 		PlantsGroup.insert(pair<int, Plants*>((*_levelDataDocument)[key]["Plants"][to_string(i).c_str()]["PlantsTag"].GetInt(), plants));
 		
-		controlLayerInformation->_gameMapInformation->plantsMap[plants->getPlantColumn()][plants->getPlantRow()] = static_cast<unsigned int>(type);/* 地图记录种植的植物 */
+		controlLayerInformation->_gameMapInformation->plantsMap[plants->getPlantRow()][plants->getPlantColumn()] = static_cast<unsigned int>(type);/* 地图记录种植的植物 */
+	}
+}
+
+void UserData::openLevelPlantsAnimationData(char* key, const char* pl, Plants* plant)
+{
+	plant->getPlantAnimation()->setTimeScale(1.f);
+
+	int animationNumber = (*_levelDataDocument)[key]["Plants"][pl]["AnimationNumber"].GetInt();
+	for (int i = 1; i <= animationNumber; ++i)
+	{
+		auto name = (*_levelDataDocument)[key]["Plants"][pl][to_string(i).c_str()]["PlantsAnimationName"].GetString();
+		auto loop = static_cast<bool>((*_levelDataDocument)[key]["Plants"][pl][to_string(i).c_str()]["PlantsAnimationLoop"].GetInt());
+
+		i == 1 ? plant->getPlantAnimation()->setAnimation(0, name, loop) : plant->getPlantAnimation()->addAnimation(0, name, loop);
 	}
 }
 
@@ -885,22 +905,47 @@ void UserData::openLevelZombiesData(char* key)
 		zombies->setZombiePosition(Vec2(
 			(*_levelDataDocument)[key]["Zombies"][to_string(i).c_str()]["ZombiePositionX"].GetFloat(),
 			(*_levelDataDocument)[key]["Zombies"][to_string(i).c_str()]["ZombiePositionY"].GetFloat()));
+		zombies->setZombieInRow((*_levelDataDocument)[key]["Zombies"][to_string(i).c_str()]["ZombieInRow"].GetInt());
 		zombies->createZombie();
 		zombies->setZombieAttributeForGameType();
 
+		openLevelZombiesAnimationData(key, to_string(i).c_str(), zombies);
+
+		zombies->getZombieAnimation()->update((*_levelDataDocument)[key]["Zombies"][to_string(i).c_str()]["ZombieAnimationTime"].GetFloat());
+		zombies->getZombieAnimation()->setTimeScale((*_levelDataDocument)[key]["Zombies"][to_string(i).c_str()]["ZombieAnimationTimeScale"].GetFloat());
+		zombies->setZombieIsStrikeFly((*_levelDataDocument)[key]["Zombies"][to_string(i).c_str()]["ZombieIsStrikeFly"].GetBool());
 		zombies->setZombieCurrentBloodVolume((*_levelDataDocument)[key]["Zombies"][to_string(i).c_str()]["ZombieCurrentBloodVolume"].GetFloat());
 		zombies->setZombieCurrentBodyShieldVolume((*_levelDataDocument)[key]["Zombies"][to_string(i).c_str()]["ZombieCurrentBodyShieldVolume"].GetFloat());
 		zombies->setZombieCurrentHeadShieldVolume((*_levelDataDocument)[key]["Zombies"][to_string(i).c_str()]["ZombieCurrentHeadShieldVolume"].GetFloat());
 		zombies->getZombieAnimation()->setOpacity((*_levelDataDocument)[key]["Zombies"][to_string(i).c_str()]["ZombieOpacity"].GetInt());
 		zombies->getZombieAnimation()->getChildByName("shadow")->setOpacity(zombies->getZombieAnimation()->getOpacity());
+		zombies->setZombieIsFrozen((*_levelDataDocument)[key]["Zombies"][to_string(i).c_str()]["ZombieIsFrozen"].GetBool());
+		zombies->setZombieCurrentSpeed((*_levelDataDocument)[key]["Zombies"][to_string(i).c_str()]["ZombieCurrentSpeed"].GetFloat());
+		zombies->setZombieTimerTime((*_levelDataDocument)[key]["Zombies"][to_string(i).c_str()]["ZombieTimerTime"].GetInt());
 
-		auto visible = (*_levelDataDocument)[key]["Zombies"][to_string(i).c_str()]["ZombieVisible"].GetBool();
-		zombies->getZombieAnimation()->setVisible(visible);
-		if (!visible) 
-			zombies->setZombieIsShowLoseLimbsAnimation(false);
+		zombies->setZombieIsShowLoseLimbsAnimation(false);
+		zombies->setZombieIsShowLoseShieldAnimation(false);
+		zombies->zombieInjuredEventUpdate();
+		zombies->setZombieIsShowLoseLimbsAnimation(true);
+		zombies->setZombieIsShowLoseShieldAnimation(true);
+		zombies->readZombieInformation();
 
 		ZombiesGroup.push_back(zombies);
 		Zombies::zombiesNumbersChange("++");
+	}
+}
+
+void UserData::openLevelZombiesAnimationData(char* key, const char* zo, Zombies* zombie)
+{
+	zombie->getZombieAnimation()->setTimeScale(1.f);
+
+	int animationNumber = (*_levelDataDocument)[key]["Zombies"][zo]["AnimationNumber"].GetInt();
+	for (int i = 1; i <= animationNumber; ++i)
+	{
+		auto name = (*_levelDataDocument)[key]["Zombies"][zo][to_string(i).c_str()]["ZombieAnimationName"].GetString();
+		auto loop = static_cast<bool>((*_levelDataDocument)[key]["Zombies"][zo][to_string(i).c_str()]["ZombieAnimationLoop"].GetInt());
+
+		i == 1 ? zombie->getZombieAnimation()->setAnimation(0, name, loop), zombie->setZombieAnimationName(name) : zombie->getZombieAnimation()->addAnimation(0, name, loop);
 	}
 }
 
@@ -908,16 +953,16 @@ void UserData::openLevelSelectCardData(char* key)
 {
 	if (readLevelData())
 	{
-		UserSelectCard card;
+		UserSelectCard card{};
 		vector<UserSelectCard> userSelectCard;
 		auto selectNumbers = (*_levelDataDocument)[key]["SelectPlants"]["SelectNumber"].GetInt();
 		for (int i = 1; i <= selectNumbers; ++i)
 		{
 			card.cardTag = (*_levelDataDocument)[key]["SelectPlants"][to_string(i).c_str()]["CardTag"].GetInt();
 			userSelectCard.push_back(card);
-			PlantsInformation::PlantsCardFileData::PlantsSurPlusPrecent[card.cardTag] =
+			plantsCardInformation[card.cardTag].PlantsSurPlusPrecent =
 				(*_levelDataDocument)[key]["SelectPlants"][to_string(i).c_str()]["Percent"].GetFloat();
-			PlantsInformation::PlantsCardFileData::PlantsSurPlusCoolTime[card.cardTag] =
+			plantsCardInformation[card.cardTag].PlantsSurPlusCoolTime =
 				(*_levelDataDocument)[key]["SelectPlants"][to_string(i).c_str()]["LastTime"].GetFloat();
 		}
 		_global->userInformation->setUserSelectCrads(userSelectCard);
@@ -935,7 +980,7 @@ void UserData::openLevelSunData(char* key)
 	auto sunNumbers = (*_levelDataDocument)[key]["Sun"]["SunNumbers"].GetInt();
 	for (int i = 1; i <= sunNumbers; ++i)
 	{
-		auto sun = new Sun(animationLayerInformation->getSunLayer());
+		auto sun = new Sun(goodsLayerInformation);
 		sun->setSunTag((*_levelDataDocument)[key]["Sun"][to_string(i).c_str()]["SunTag"].GetInt());
 		sun->setPosition(Vec2(
 			(*_levelDataDocument)[key]["Sun"][to_string(i).c_str()]["PositionX"].GetFloat(),
@@ -991,73 +1036,15 @@ void UserData::openLevelBulletData(char* key)
 	auto bulletNumbers = (*_levelDataDocument)[key]["Bullet"]["BulletNumbers"].GetInt();
 	for (int i = 1; i <= bulletNumbers; ++i)
 	{
-		Bullet* bullet;
 		auto type = static_cast<BulletType>((*_levelDataDocument)[key]["Bullet"][to_string(i).c_str()]["BulletType"].GetInt());
-		switch (type)
-		{
-		case BulletType::Pea:
-			bullet = new Pea(animationLayerInformation->getAnimationLayer());
-			dynamic_cast<Pea*>(bullet)->setIsFire((*_levelDataDocument)[key]["Bullet"][to_string(i).c_str()]["IsFire"].GetBool());
-			dynamic_cast<Pea*>(bullet)->setPeaFireNumbers((*_levelDataDocument)[key]["Bullet"][to_string(i).c_str()]["PeaFireNumbers"].GetInt());
-			break;
-		case BulletType::FirePea:
-			bullet = new FirePea(animationLayerInformation->getAnimationLayer());
-			dynamic_cast<FirePea*>(bullet)->setIsFire((*_levelDataDocument)[key]["Bullet"][to_string(i).c_str()]["IsFire"].GetBool());
-			dynamic_cast<FirePea*>(bullet)->setPeaFireNumbers((*_levelDataDocument)[key]["Bullet"][to_string(i).c_str()]["PeaFireNumbers"].GetInt());
-			break;
-		case BulletType::Cabbage:
-		{
-			bullet = new Cabbage(animationLayerInformation->getAnimationLayer());
-	
-			Vec2 cabbageInitialPosition, zombiePosition;
-			cabbageInitialPosition.x = (*_levelDataDocument)[key]["Bullet"][to_string(i).c_str()]["cabbageInitialPositionX"].GetFloat();
-			cabbageInitialPosition.y = (*_levelDataDocument)[key]["Bullet"][to_string(i).c_str()]["cabbageInitialPositionY"].GetFloat();
-			zombiePosition.x = (*_levelDataDocument)[key]["Bullet"][to_string(i).c_str()]["ZombiePositionX"].GetFloat();
-			zombiePosition.y = (*_levelDataDocument)[key]["Bullet"][to_string(i).c_str()]["ZombiePositionY"].GetFloat();
-			dynamic_cast<Cabbage*>(bullet)->setIsFileData(true);
-			bullet->setBulletPosition(cabbageInitialPosition);
-			dynamic_cast<Cabbage*>(bullet)->setCabbageCurrentPosition(Vec2(
-				(*_levelDataDocument)[key]["Bullet"][to_string(i).c_str()]["PositionX"].GetFloat(),
-				(*_levelDataDocument)[key]["Bullet"][to_string(i).c_str()]["PositionY"].GetFloat()));
-			dynamic_cast<Cabbage*>(bullet)->setZombieSpeed((*_levelDataDocument)[key]["Bullet"][to_string(i).c_str()]["ZombiePositionY"].GetFloat());
-			dynamic_cast<Cabbage*>(bullet)->setZombiePosition(zombiePosition);
-		}
-			break;
-		case BulletType::AcidLemonBullet:
-			bullet = new AcidLemonBullet(animationLayerInformation->getAnimationLayer());
-			break;
-		case BulletType::CitronBullet:
-			bullet = new CitronBullet(animationLayerInformation->getAnimationLayer(),
-				(*_levelDataDocument)[key]["Bullet"][to_string(i).c_str()]["AnimationId"].GetInt());
-			break;
-		default:
-			break;
-		}
-
+		auto bullet = animationLayerInformation->createDifferentBullet(type);
+		bullet->readBulletInformation(_levelDataDocument, key, i);
+		bullet->setBulletInRow((*_levelDataDocument)[key]["Bullet"][to_string(i).c_str()]["bulletInRow"].GetInt());
 		bullet->setBulletIsUsed((*_levelDataDocument)[key]["Bullet"][to_string(i).c_str()]["IsUsed"].GetBool());
 		bullet->createBullet();
-
 		bullet->getBullet()->setOpacity((*_levelDataDocument)[key]["Bullet"][to_string(i).c_str()]["Opacity"].GetInt());
 		bullet->getBullet()->setLocalZOrder((*_levelDataDocument)[key]["Bullet"][to_string(i).c_str()]["LocalZOrder"].GetInt());
-
-		if (type == BulletType::Pea)
-		{
-			if (dynamic_cast<Pea*>(bullet)->getIsFire())
-			{
-				bullet->getBullet()->setAnimation(0, "fire", true);
-				bullet->getBullet()->getChildByName("shadow")->setPosition(Vec2(0, -52));
-				bullet->getBullet()->getChildByName("shadow")->setScaleY(0.7f);
-				bullet->getBullet()->getChildByName("shadow")->setScaleX(1.0f);
-				bullet->getBullet()->setScale(1.5f);
-			}
-		}
-		if (type != BulletType::Cabbage)
-		{
-			bullet->getBullet()->setPosition(Vec2(
-				(*_levelDataDocument)[key]["Bullet"][to_string(i).c_str()]["PositionX"].GetFloat() - 20,
-				(*_levelDataDocument)[key]["Bullet"][to_string(i).c_str()]["PositionY"].GetFloat()));
-			bullet->setBulletOpacity((*_levelDataDocument)[key]["Bullet"][to_string(i).c_str()]["Opacity"].GetInt());
-		}
+		bullet->readBulletAnimationInformation(_levelDataDocument, key, i);
 
 		BulletGroup.push_back(bullet);
 	}
@@ -1121,6 +1108,22 @@ void UserData::removeLevelData(char* key)
 		break;
 	}
 	flushLevelData();
+}
+
+rapidjson::Value UserData::numberToString(int number, rapidjson::Document::AllocatorType& allocator)
+{
+	rapidjson::Value v(kStringType);
+	auto str = to_string(number);
+	v.SetString(str.c_str(), str.size(), allocator);
+	return v;
+}
+
+rapidjson::Value UserData::numberAddString(int number, string sstr, rapidjson::Document::AllocatorType& allocator)
+{
+	rapidjson::Value v(kStringType);
+	auto str = sstr + to_string(number);
+	v.SetString(str.c_str(), str.size(), allocator);
+	return v;
 }
 
 void UserData::replaceScene()

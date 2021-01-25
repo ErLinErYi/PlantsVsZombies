@@ -51,7 +51,6 @@ private:
 	void setBackgroundImagePosition();
 	void sortZombiesPosition();
 	Vec2 getPreviewZombiesPosition(UID& n1, UID& n2);
-	Zombies* createDifferentZombies(const int& id);
 	static bool cmp(PreviewZombies& a, PreviewZombies& b);
 
 private:

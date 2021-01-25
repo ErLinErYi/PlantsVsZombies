@@ -6,7 +6,6 @@
  */
 
 #include "LZPBPotatoMine.h"
-#include "../EmissionPlants/Bullet/LZPEBBullet.h"
 
 #include "Zombies/LZZZombies.h"
 #include "Scenes/GameScene/LZSGData.h"
@@ -20,6 +19,7 @@ PotatoMine::PotatoMine(Node* node):
 ,   _isExplodeFinished(false)
 ,   _isCanKillZombies(false)
 ,   _isKillZombiesFinished(false)
+,   _isReadFile(false)
 ,   _breakGround(15.f)
 {
 	_node = node;
@@ -82,20 +82,27 @@ void PotatoMine::createPlantAnimation()
 
 void PotatoMine::createListener()
 {
-	_plantAnimation->runAction(Sequence::create(DelayTime::create(_breakGround), 
-		CallFunc::create([this]()
-		{
-			PlayMusic::playMusic("dirt_rise");
-			_isReady = true;
-			_plantAnimation->setAnimation(0, "PotatoMine_Out", false);
-			_plantAnimation->addAnimation(0, "PotatoMine_Normal", true);
-		}), nullptr));
-	_plantAnimation->runAction(Repeat::create(Sequence::create(DelayTime::create(1.0f),
-		CallFunc::create([this]()
-			{
-				if (_breakGround > 0)
-					--_breakGround;
-			}), nullptr), 15));
+	if (_breakGround > 0)
+	{
+		_plantAnimation->runAction(Sequence::create(DelayTime::create(_breakGround),
+			CallFunc::create([this]()
+				{
+					PlayMusic::playMusic("dirt_rise");
+					_isReady = true;
+					_plantAnimation->setAnimation(0, "PotatoMine_Out", false);
+					_plantAnimation->addAnimation(0, "PotatoMine_Normal", true);
+				}), nullptr));
+		_plantAnimation->runAction(Repeat::create(Sequence::create(DelayTime::create(1.0f),
+			CallFunc::create([this]()
+				{
+					if (_breakGround > 0)
+						--_breakGround;
+				}), nullptr), 15));
+	}
+	else
+	{
+		_isReady = true;
+	}
 }
 
 void PotatoMine::determineRelativePositionPlantsAndZombies()
@@ -115,28 +122,25 @@ void PotatoMine::plantExplode()
 	if (_isBeginExplode && !_isExplodeFinished)/* 土豆雷爆炸 */
 	{
 		_isExplodeFinished = true;
-		_plantAnimation->setVisible(false);
-
-		auto plantAnimation = SkeletonAnimation::createWithData(_global->userInformation->getAnimationData().find("PotatoMine")->second);
-		plantAnimation->setAnchorPoint(Vec2::ANCHOR_MIDDLE);
-		plantAnimation->setScale(1.2f);
-		plantAnimation->setLocalZOrder(_plantAnimation->getLocalZOrder() + 1);
-		plantAnimation->setPosition(_plantAnimation->getPosition());
-		plantAnimation->setAnimation(0, "PotatoMine_Blast", false);
-		plantAnimation->setEventListener([=](spTrackEntry* entry, spEvent* event)
+		
+		_isReadFile ? nullptr : _plantAnimation->setAnimation(0, "PotatoMine_Blast", false);
+		_plantAnimation->setAnchorPoint(Vec2::ANCHOR_MIDDLE);
+		_plantAnimation->setScale(1.2f);
+		_plantAnimation->setLocalZOrder(_plantAnimation->getLocalZOrder() + 3);
+		_plantAnimation->setEventListener([=](spTrackEntry* entry, spEvent* event)
 			{
 				if (strcmp(event->data->name, "BlastBegin") == 0)
 				{
 					_isCanKillZombies = true;
+					_plantAnimation->getChildByName("plantshadow")->setVisible(false);
 					GSBackgroundLayer::backgroundRunAction();
 				}
 			});
-		plantAnimation->runAction(Sequence::create(DelayTime::create(2.f),
-			CallFunc::create([plantAnimation]()
+		_plantAnimation->runAction(Sequence::create(DelayTime::create(2.f),
+			CallFunc::create([this]()
 				{
-					plantAnimation->setVisible(false);
+					_plantAnimation->setVisible(false);
 				}), nullptr));
-		_node->addChild(plantAnimation);
 	}
 
 	if (_isCanKillZombies&& !_isKillZombiesFinished)
@@ -148,7 +152,8 @@ void PotatoMine::plantExplode()
 
 void PotatoMine::zombieEatPlant(Zombies* zombie)
 {
-	if (getPlantIsSurvive() && getZombieIsSameLineWithPlant(zombie) && getzombieIsEncounterPlant(zombie)) /* 植物存活 && 植物与僵尸在同一行 && 僵尸遇到植物 */
+	if (getPlantIsSurvive() && zombie->getZombieIsSurvive() &&                     /* 植物存活 && 僵尸存活 */
+		getZombieIsSameLineWithPlant(zombie) && getZombieIsEncounterPlant(zombie)) /* 植物与僵尸在同一行 && 僵尸遇到植物 */
 	{
 		if (_isReady)  /* 土豆雷准备好 */
 		{
@@ -161,7 +166,7 @@ void PotatoMine::zombieEatPlant(Zombies* zombie)
 			zombie->setZombieEatPlantNumber(_plantNumber);
 			zombie->setZombieStop();
 			zombie->setZombieIsEat(true);
-			zombie->getZombieAnimation()->setAnimation(1, "Zombies_Eat", true);
+			zombie->getZombieAnimation()->setAnimation(0, "Zombies_Eat", true);
 			zombie->getZombieAnimation()->setEventListener([this, eateffect](spTrackEntry* entry, spEvent* event)
 				{
 					if (!strcmp(event->data->name, "eat"))
@@ -169,7 +174,7 @@ void PotatoMine::zombieEatPlant(Zombies* zombie)
 						if (event->intValue == 1)
 						{
 							reducePlantHealthPoint(100);
-							Bullet::playSoundEffect(eateffect[rand() % 3]);
+							PlayMusic::playMusic(eateffect[rand() % 3]);
 							setPlantHurtBlink(PlantsType::PotatoMine);
 						}
 					}
@@ -191,6 +196,7 @@ void PotatoMine::explodeHurtZombies()
 			if (!zombie->getZombieIsSurvive())
 			{
 				zombie->setZombieOpacity(0);
+				zombie->setZombieVisible(false);
 			}
 		}
 	}
@@ -198,5 +204,39 @@ void PotatoMine::explodeHurtZombies()
 
 bool PotatoMine::getZombieIsInExplodeRange(Zombies* zombie)
 {
-	return (getZombieIsSameLineWithPlant(zombie) && fabs(zombie->getZombieAnimation()->getPositionX() - _plantAnimation->getPositionX()) < 190) ? true : false;
+	return (getZombieIsSameLineWithPlant(zombie) && fabs(zombie->getZombieAnimation()->getPositionX() - _plantAnimation->getPositionX()) < 130) ? true : false;
+}
+
+void PotatoMine::cavePlantInformation(rapidjson::Value& object, rapidjson::Document::AllocatorType& allocator)
+{
+	object.AddMember("BreakGround", _breakGround, allocator);
+}
+
+void PotatoMine::readPlantInforamtion(rapidjson::Document* levelDataDocument, char* key, int i)
+{
+	_breakGround = (*levelDataDocument)[key]["Plants"][to_string(i).c_str()]["BreakGround"].GetFloat();
+
+	if (!strcmp((*levelDataDocument)[key]["Plants"][to_string(i).c_str()]["1"]["PlantsAnimationName"].GetString(), "PotatoMine_Blast"))
+	{
+		_isReadFile = true;
+	}
+}
+
+SkeletonAnimation* PotatoMine::showPlantAnimationAndText()
+{
+	auto& lta = _global->userInformation->getGameText();
+	SPSSpriteLayer::plantCardTextScrollView->setInnerContainerSize(Size(lta.find("POTATOMINE_1")->second->position));
+
+	_isLoop = true;
+	_plantAnimation = plantInit("PotatoMine", "PotatoMine_Normal");
+	_plantAnimation->setAnchorPoint(Vec2::ANCHOR_MIDDLE);
+	_plantAnimation->setScale(1.8f);
+	_plantAnimation->setPosition(Vec2(200, 610));
+
+	SPSSpriteLayer::createPlantsText(0, lta.find("POTATOMINE_1")->second->text, Vec2(190, 910), lta.find("POTATOMINE_1")->second->fontsize);
+	SPSSpriteLayer::createPlantsText(2, lta.find("POTATOMINE_2")->second->text, Vec2(360, 1000), lta.find("POTATOMINE_2")->second->fontsize, Color3B::YELLOW, false);
+	SPSSpriteLayer::createPlantsText(3, lta.find("POTATOMINE_3")->second->text, Vec2(440, 1000), lta.find("POTATOMINE_3")->second->fontsize, Color3B::RED, false);
+	SPSSpriteLayer::createPlantsText(1, lta.find("POTATOMINE_4")->second->text, Vec2(360, 870), lta.find("POTATOMINE_4")->second->fontsize, Color3B::YELLOW, false);
+
+	return _plantAnimation;
 }

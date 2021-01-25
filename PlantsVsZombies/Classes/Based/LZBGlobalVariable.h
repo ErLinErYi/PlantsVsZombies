@@ -8,6 +8,7 @@
 
 #define GAME_FONT_NAME_1 Global::getInstance()->userInformation->getGameText().find("TTF字体名称1")->second->text
 #define GAME_FONT_NAME_2 Global::getInstance()->userInformation->getGameText().find("TTF字体名称2")->second->text
+#define GAME_FONT_NAME_3 Global::getInstance()->userInformation->getGameText().find("TTF字体名称3")->second->text
 #define MYRELEASE 0
 
 using namespace std;
