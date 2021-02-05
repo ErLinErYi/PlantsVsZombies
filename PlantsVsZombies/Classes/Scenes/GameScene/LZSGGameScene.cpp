@@ -85,13 +85,13 @@ void GameScene::controlPlayMusic()
 {
 	switch (_global->userInformation->getCurrentPlayLevels())
 	{
-	case 35: PlayMusic::changeBgMusic("mainmusic.mo3.2", true);  break;
-	case 36: PlayMusic::changeBgMusic("mainmusic.mo3.3", true);  break;
-	case 37: PlayMusic::changeBgMusic("mainmusic.mo3.7", true);  break;
-	case 50: PlayMusic::changeBgMusic("mainmusic.mo3.10", true); break;
-	case 51: PlayMusic::changeBgMusic("mainmusic.mo3.11", true); break;
-	case 52: PlayMusic::changeBgMusic("mainmusic.mo3.12", true); break;
-	default: PlayMusic::changeBgMusic("KitanaiSekai", true);     break;
+	case 35: PlayMusic::changeBgMusic("mainmusic.mo3.2", true);                      break;
+	case 36: PlayMusic::changeBgMusic("mainmusic.mo3.3", true);                      break;
+	case 37: PlayMusic::changeBgMusic("mainmusic.mo3.7", true);                      break;
+	case 50: PlayMusic::changeBgMusic("mainmusic.mo3.10", true);                     break;
+	case 51: PlayMusic::changeBgMusic("mainmusic.mo3.11", true);                     break;
+	case 52: PlayMusic::changeBgMusic("mainmusic.mo3.12", true);                     break;
+	default: PlayMusic::changeBgMusic("bgMusic" + to_string(rand() % 11), true);     break;
 	}
 }
 

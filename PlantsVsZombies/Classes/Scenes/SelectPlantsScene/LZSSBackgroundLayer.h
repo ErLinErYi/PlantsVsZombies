@@ -46,9 +46,9 @@ private:
 private:
 	void createMordernBackgroundImage();
 	void createFireEffect(Sprite* name);
-	void createPreviewZombie();
 	void createMordernPreviewZombies();
 	void setBackgroundImagePosition();
+	void createSnowParticle();
 	void sortZombiesPosition();
 	Vec2 getPreviewZombiesPosition(UID& n1, UID& n2);
 	static bool cmp(PreviewZombies& a, PreviewZombies& b);

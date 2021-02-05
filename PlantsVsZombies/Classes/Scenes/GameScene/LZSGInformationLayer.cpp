@@ -41,18 +41,18 @@ bool GSInformationLayer::init()
 
 void GSInformationLayer::showUserText()
 {
-	char buff[128];
-	snprintf(buff, 128, _global->userInformation->getGameText().find("第 %d 天")->second->text.c_str(), _global->userInformation->getCurrentPlayLevels());
-
 	auto username = ui::Text::create();
 	username->setString("“" + _global->userInformation->getUserName() + "”" +
 		_global->userInformation->getGameText().find("的时空冒险之旅")->second->text +
 		_global->userInformation->getCurrentPlayWorldName() + (_global->userInformation->getGameDifficulty() == 1 ?
 			_global->userInformation->getGameText().find("噩梦模式")->second->text + " - " :
-			_global->userInformation->getGameText().find("简单模式")->second->text + " - ") + buff);
+			_global->userInformation->getGameText().find("简单模式")->second->text + " - ") +
+		StringUtils::format(_global->userInformation->getGameText().find("第 %d 天")->second->text.c_str(),
+			_global->userInformation->getCurrentPlayLevels()));
 	username->setFontName(GAME_FONT_NAME_1);
 	username->setFontSize(30);
 	username->setColor(Color3B(0, 255, 255));
+	username->enableGlow(Color4B::ORANGE);
 	username->setPosition(Vec2(Director::getInstance()->getWinSize().width / 2.0f, 850));
 	this->addChild(username);
 }
@@ -63,7 +63,7 @@ void GSInformationLayer::showProgressBar()
 	progressBarBackgroundImage->setContentSize(Size(465, 40));
 	progressBarBackgroundImage->setName("ProgressBar");
 	progressBarBackgroundImage->setAnchorPoint(Vec2(1, 0.3f));
-	progressBarBackgroundImage->setPosition(Vec2(1300, 1005));
+	progressBarBackgroundImage->setPosition(Vec2(1300, 1020));
 	this->addChild(progressBarBackgroundImage);
 
 	_progressBar = ProgressTimer::create(Sprite::createWithSpriteFrameName("ProgressBar1.png"));
@@ -131,7 +131,7 @@ void GSInformationLayer::showSunNumbers()
 	sunBank->setScale(0.8f);
 	sunBank->setAnchorPoint(Vec2(0, 1));
 	sunBank->setName("SunBank");
-	sunBank->setPosition(Vec2(235, 1065));
+	sunBank->setPosition(Vec2(235, 1080));
 	this->addChild(sunBank);
 
 	_sunNumbersText = ui::Text::create();
@@ -212,7 +212,7 @@ float GSInformationLayer::getProgressBarLastPercent() const
 void GSInformationLayer::updateSunNumbers()
 {
 	auto sun = Sprite::createWithSpriteFrameName("Sun.png");
-	sun->setPosition(Vec2(290, 1010));
+	sun->setPosition(Vec2(290, 1025));
 	sun->setScale(0.9f);
 	this->addChild(sun);
 	sun->runAction(Sequence::create(DelayTime::create(0.15f), CallFunc::create([sun]() {sun->removeFromParent(); }), nullptr));

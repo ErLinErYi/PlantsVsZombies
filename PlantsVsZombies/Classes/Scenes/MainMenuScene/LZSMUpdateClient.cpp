@@ -270,20 +270,17 @@ void UpdateClient::downloadProgress()
 			_loadingBar->setPercent(100);
 			_explanText->setString(_global->userInformation->getGameText().find("解释说明_快")->second->text);
 
-			char buf[128];
 			if (bytesReceived / 1024.f * 10 >= 1000)
 			{
-				std::snprintf(buf, 128, 
-					_global->userInformation->getGameText().find("%.1fMB/s  [已下载 : %dKB]")->second->text.c_str(), 
-					float(bytesReceived / 1024.f / 1024.f) * 10, int(totalBytesReceived / 1024));
-				_progressText->setString(buf);
+				_progressText->setString(StringUtils::format(
+					_global->userInformation->getGameText().find("%.1fMB/s  [已下载 : %dKB]")->second->text.c_str(),
+					float(bytesReceived / 1024.f / 1024.f) * 10, int(totalBytesReceived / 1024)));
 			}
 			else
 			{
-				std::snprintf(buf, 128, 
-					_global->userInformation->getGameText().find("%.1fKB/s  [已下载 : %dKB]")->second->text.c_str(), 
-					float(bytesReceived / 1024.f) * 10, int(totalBytesReceived / 1024));
-				_progressText->setString(buf);
+				_progressText->setString(StringUtils::format(
+					_global->userInformation->getGameText().find("%.1fKB/s  [已下载 : %dKB]")->second->text.c_str(),
+					float(bytesReceived / 1024.f) * 10, int(totalBytesReceived / 1024)));
 			}
 		}
 		else
@@ -297,18 +294,17 @@ void UpdateClient::downloadProgress()
 			int min = ((totalBytesExpected - totalBytesReceived) / (bytesReceived * 10) - hour * 3600) / 60;
 			int second = (totalBytesExpected - totalBytesReceived) / (bytesReceived * 10) - hour * 3600 - min * 60;
 
-			char buf[128];
 			if (bytesReceived / 1024.f * 10 >= 1000)
 			{
-				std::snprintf(buf, 128, _global->userInformation->getGameText().find("%.1fMB/s  %dKB/%dKB  %.2f%%  time:%02d:%02d:%02d")->second->text.c_str(),
-					bytesReceived / 1024.f / 1024.f * 10, int(totalBytesReceived / 1024), int(totalBytesExpected / 1024), percent, hour, min, second);
-				_progressText->setString(buf);
+				_progressText->setString(StringUtils::format(
+					_global->userInformation->getGameText().find("%.1fMB/s  %dKB/%dKB  %.2f%%  time:%02d:%02d:%02d")->second->text.c_str(),
+					bytesReceived / 1024.f / 1024.f * 10, int(totalBytesReceived / 1024), int(totalBytesExpected / 1024), percent, hour, min, second));
 			}
 			else
 			{
-				std::snprintf(buf, 128, _global->userInformation->getGameText().find("%.1fKB/s  %dKB/%dKB  %.2f%%  time:%02d:%02d:%02d")->second->text.c_str(),
-					bytesReceived / 1024.f * 10, int(totalBytesReceived / 1024), int(totalBytesExpected / 1024), percent, hour, min, second);
-				_progressText->setString(buf);
+				_progressText->setString(StringUtils::format(
+					_global->userInformation->getGameText().find("%.1fKB/s  %dKB/%dKB  %.2f%%  time:%02d:%02d:%02d")->second->text.c_str(),
+					bytesReceived / 1024.f * 10, int(totalBytesReceived / 1024), int(totalBytesExpected / 1024), percent, hour, min, second));
 			}
 		}
 
@@ -347,13 +343,12 @@ void UpdateClient::downloadError()
 		((Button*)_dialog->getChildByName(to_string(static_cast<int>(Update_Button::直接下载))))->setEnabled(true);
 		((Button*)_dialog->getChildByName(to_string(static_cast<int>(Update_Button::退出游戏))))->setEnabled(true);
 
-		char str[256];
-		snprintf(str, 256, _global->userInformation->getGameText().find("错误信息")->second->text.c_str()
+		_explanText->setString(StringUtils::format(
+			_global->userInformation->getGameText().find("错误信息")->second->text.c_str()
 			, task.identifier.c_str()
 			, errorCode
 			, errorCodeInternal
-			, errorStr.c_str());
-		_explanText->setString(str);
+			, errorStr.c_str()));
 		_explanText->setColor(Color3B::RED);
 #ifdef DEBUG
 		log("Failed to download : %s, identifier(%s) error code(%d), internal error code(%d) desc(%s)"

@@ -48,6 +48,7 @@ Zombies::Zombies() :
 ,   _isShowLoseLimbsAnimation(true)
 ,   _isShowLoseShieldAnimation(true)
 ,   _isCanDelete{false,false}
+,   _timeScale(0)
 ,   _zombieEatPlantNumber(-1)
 ,   _zombieHowlNumbers(0)
 ,   _highLightIntensity(0.3f)
@@ -69,10 +70,12 @@ Zombies::~Zombies()
 void Zombies::zombieInit(const string& animation_name)
 {
 	uniform_real_distribution<float>number(0.f, 0.45f);
+	_timeScale = 0.6f + number(_random);
+
 	_zombiesAnimation = SkeletonAnimation::createWithData(_global->userInformation->getAnimationData().find(animation_name)->second);
 	_zombiesAnimation->setPosition(_position);
 	_zombiesAnimation->setAnchorPoint(Vec2(0, 0));
-	_zombiesAnimation->setTimeScale(0.6f + number(_random));
+	_zombiesAnimation->setTimeScale(_timeScale);
 	_zombiesAnimation->setLocalZOrder(getZombieLocalZOrder());
 	_zombiesAnimation->setOpacity(0);   /* !!! 创建的僵尸自动隐身 */
 	_zombiesAnimation->update(0);
@@ -429,7 +432,7 @@ float Zombies::getZombiePositionY() const
 
 bool Zombies::getZombieIsEnterMap() const
 {
-	return _zombiesAnimation->getPositionX() < 1710 ? true : false;
+	return _zombiesAnimation->getPositionX() < 1680 ? true : false;
 }
 
 float Zombies::getZombieCurrentBodyShieldVolume() const
@@ -445,6 +448,15 @@ float Zombies::getZombieCurrentHeadShieldVolume() const
 float Zombies::getZombieCurrentBloodVolume() const
 {
 	return _currentBloodVolume;
+}
+
+float Zombies::getZombieCurrentBloodProportionBloodPrecent() const
+{
+	return 1 -
+		(getZombieCurrentBloodVolume() +
+		getZombieCurrentHeadShieldVolume() +
+		getZombieCurrentBodyShieldVolume()) /
+		(_bloodVolume + _headShieldVolume + _bodyShieldVolume);
 }
 
 bool Zombies::getZombieIsEat() const
@@ -653,6 +665,21 @@ void Zombies::createZombieShadow()
 	shadow->setPosition(Vec2(0, 10));
 	shadow->setOpacity(0);
 	_zombiesAnimation->addChild(shadow, -1);
+}
+
+void Zombies::createZombieTimer()
+{
+	if (!_isCreateTimer)
+	{
+		_isCreateTimer = true;
+		_zombiesAnimation->runAction(RepeatForever::create(
+			Sequence::create(DelayTime::create(1.f),
+			CallFunc::create([=]()
+				{
+					if (_timerTime > 0) --_timerTime;
+					else if (_timerTime == 0) setZombieActionRecovery();
+				}), nullptr)));
+	}
 }
 
 void Zombies::setZombiePrimaryInjure()
@@ -880,8 +907,9 @@ void Zombies::setSmallZombieAttribute()
 		_currentSpeed = 40;
 
 		/* 身体变小，动作变快 */
+		_timeScale += 0.4f;
 		_zombiesAnimation->setScale(0.7f);
-		_zombiesAnimation->setTimeScale(_zombiesAnimation->getTimeScale() + 0.4f);
+		_zombiesAnimation->setTimeScale(_timeScale);
 
 		_isUseForGameType = true;
 	}
@@ -904,8 +932,9 @@ void Zombies::setBigZombieAttribute()
 		_currentSpeed = 20;
 
 		/* 身体变大，动作变慢 */
+		_timeScale -= 0.3f;
 		_zombiesAnimation->setScale(1.3f);
-		_zombiesAnimation->setTimeScale(_zombiesAnimation->getTimeScale() - 0.3f);
+		_zombiesAnimation->setTimeScale(_timeScale);
 
 		_isUseForGameType = true;
 	}
@@ -923,6 +952,31 @@ void Zombies::setOpacityZombieAttribute()
 	_zombiesAnimation->setOpacity(0);
 	_isShow = true;
 	_zombiesAnimation->getChildByName("shadow")->setOpacity(0);
+}
+
+void Zombies::setZombieActionSlow()
+{
+	_isFrozen = true;
+	_zombiesAnimation->setColor(Color3B(0, 162, 232));
+	_zombiesAnimation->setTimeScale(_zombiesAnimation->getTimeScale() / 2.0f);   /* 运动速度减半 */
+	_currentSpeed /= 2.0f;                                                       /* 移动速度减半 */
+}
+
+void Zombies::setZombieActionStop()
+{
+	_isFrozen = true;
+	_zombiesAnimation->setColor(Color3B(0, 162, 232));
+	_zombiesAnimation->setTimeScale(0);                                          /* 运动速度0 */
+	_currentSpeed = 0;                                                           /* 移动速度0 */
+}
+
+void Zombies::setZombieActionRecovery()
+{
+	_timerTime = -1;
+	_isFrozen = false;
+	_zombiesAnimation->setColor(Color3B::WHITE);
+	_zombiesAnimation->setTimeScale(_timeScale);                                 
+	_currentSpeed = _speed;                                                   
 }
 
 void Zombies::setZombieGLProgram()
@@ -945,7 +999,7 @@ GLProgram* Zombies::getHighLight()
 	if (!program)
 	{
 		program = GLProgram::createWithByteArrays(ccPositionTextureColor_noMVP_vert,
-			FileUtils::getInstance()->getStringFromFile("resources/Text/Bloom.fsh").c_str());
+			FileUtils::getInstance()->getStringFromFile("resources/Text/Bloom.reanim.compiled").c_str());
 		program->bindAttribLocation(GLProgram::ATTRIBUTE_NAME_POSITION, GLProgram::VERTEX_ATTRIB_POSITION);
 		program->bindAttribLocation(GLProgram::ATTRIBUTE_NAME_COLOR, GLProgram::VERTEX_ATTRIB_COLOR);
 		program->bindAttribLocation(GLProgram::ATTRIBUTE_NAME_TEX_COORD, GLProgram::VERTEX_ATTRIB_TEX_COORD);
@@ -962,23 +1016,6 @@ void Zombies::readZombieInformation()
 	if (_isFrozen)
 	{
 		_zombiesAnimation->setColor(Color3B(0, 162, 232));
-
-		if (!_isCreateTimer)
-		{
-			_isCreateTimer = true;
-			_zombiesAnimation->runAction(RepeatForever::create(Sequence::create(DelayTime::create(1.f),
-				CallFunc::create([=]()
-					{
-						if (_timerTime > 0)--_timerTime;
-						else if (_timerTime == 0)
-						{
-							--_timerTime;
-							_isFrozen = false;
-							_zombiesAnimation->setColor(Color3B::WHITE);
-							_zombiesAnimation->setTimeScale(_zombiesAnimation->getTimeScale() * 2.0f);   /* 运动速度恢复 */
-							_currentSpeed *= 2.f;                                                        /* 移动速度恢复 */
-						}
-					}), nullptr)));
-		}
+		createZombieTimer();
 	}
 }

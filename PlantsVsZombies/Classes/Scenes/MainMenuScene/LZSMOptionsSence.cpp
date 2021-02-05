@@ -62,16 +62,15 @@ void OptionsMenu::createDialog()
 	this->createCheckBox(Vec2(300, 175), Vec2(140, 175), _global->userInformation->getGameText().find("拉伸显示")->second->text, OptionScene_CheckBox::拉伸显示, "options_checkbox0", "options_checkbox1");
 
 	/* 创建彩蛋 */
-	char worldFile[128], worldFile1[128];
-	snprintf(worldFile, 128, _global->userInformation->getSystemCaveFileName().c_str(), 1);
-	snprintf(worldFile1, 128, _global->userInformation->getSystemDifCaveFileName().c_str(), 1);
-
 	if (_global->userInformation->getIsShowEggs() &&
-		(UserData::getInstance()->openIntUserData(worldFile) >= 52 || UserData::getInstance()->openIntUserData(worldFile1) >= 52))
+		(UserData::getInstance()->openIntUserData(const_cast<char*>(StringUtils::format(
+			_global->userInformation->getSystemCaveFileName().c_str(), 1).c_str())) >= 52 ||
+		UserData::getInstance()->openIntUserData(const_cast<char*>(StringUtils::format(
+			_global->userInformation->getSystemDifCaveFileName().c_str(), 1).c_str())) >= 52))
 	{
 		auto button = Button::create("button.png", "button_down.png", "", TextureResType::PLIST);
 		button->setTitleLabel(label(
-			_global->userInformation->getGameText().find("制作者")->second->text, 
+			_global->userInformation->getGameText().find("制作者")->second->text,
 			_global->userInformation->getGameText().find("制作者")->second->fontsize, Vec2(0, 0), 0, Color3B::GRAY, 0.5f));
 		button->setPosition(Vec2(210, 140));
 		button->setScaleX(2.0f);

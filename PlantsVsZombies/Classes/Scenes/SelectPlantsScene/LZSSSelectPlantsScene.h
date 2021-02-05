@@ -33,6 +33,14 @@ CC_CONSTRUCTOR_ACCESS:
 	virtual bool init();
 
 protected:
+	enum class SPSEventType
+	{
+		scrollToRight,
+		scrollToLeft,
+		playGame,
+		null
+	};
+
 	/**
 	 *创建文字
 	 */
@@ -61,7 +69,7 @@ protected:
 	/**
 	 *事件更新
 	 */
-	virtual void eventUpdate(float Time);
+	virtual void eventUpdate(SPSEventType eventType);
 
 	/**
 	 *创建植物选择对话框
@@ -85,4 +93,5 @@ protected:
 	SPSControlLayer* _controlLayer;
 	SPSSpriteLayer* _spriteLayer;
 	extension::ScrollView* _scrollView;
+	SPSEventType _eventType;
 };

@@ -128,6 +128,26 @@ public:
 	virtual void createZombieShadow();
 
 	/**
+	 * 创建僵尸定时器  
+	 */
+	virtual void createZombieTimer();
+
+	/**
+	 * 设置僵尸动作减缓二分之一 
+	 */
+	void setZombieActionSlow();
+
+	/**
+	 * 市设置僵尸恢复运动速度 
+	 */
+	void setZombieActionRecovery();
+
+	/**
+	 * 设置僵尸动作停止
+	 */
+	void setZombieActionStop();
+
+	/**
 	 *设置僵尸大小
 	 */
 	virtual void setZombieScale(const Size& scale = Size(40, 40)) const;
@@ -355,6 +375,11 @@ public:
 	 *获取僵尸血量
 	 */
 	virtual float getZombieCurrentBloodVolume() const;
+
+	/**
+	 * 获取当前总血量是总血量的百分比 
+	 */
+	virtual float getZombieCurrentBloodProportionBloodPrecent() const;
 
 	/**
 	 *获取僵尸是否在吃植物
@@ -585,6 +610,7 @@ protected:
 	int _zombieTag;                           // 僵尸编号(暂未使用)
 	int _zombieRow;                           // 僵尸所在行
 	int _timerTime;                           // 定时器时间
+	float _timeScale;                         // 播放速度
 	float _bloodVolume;                       // 血量
 	float _headShieldVolume;                  // 护盾血量
 	float _bodyShieldVolume;                  // 护盾1血量
@@ -605,7 +631,7 @@ protected:
 	bool _isCreateTimer;                      // 是否创建定时器
 	bool _isStrikeFly;                        // 是否击飞(离子缘）
 	bool _isReserveKill;                      // 是否被预定杀死（大嘴花）
-	bool _isFrozen;                           // 是否被冻住（寒冰射手）
+	bool _isFrozen;                           // 是否被冻住（寒冰射手，冰莴苣）
 	string _zombieAnimationName;              // 僵尸动画名字
 	Vec2 _position;                           // 位置
 	Node* _node;                              // 节点

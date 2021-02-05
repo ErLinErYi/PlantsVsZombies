@@ -118,11 +118,14 @@ xcopy "$(ProjectDir)..\Resources" "$(OutDir)" /D /E /I /F /Y
     </CustomBuildStep>
     <ClCompile />
     <ClCompile>
-      <LanguageStandard Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">stdcpp14</LanguageStandard>
+      <LanguageStandard Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">stdcpp17</LanguageStandard>
     </ClCompile>
     <Link>
       <AdditionalOptions Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">/SAFESEH:NO %(AdditionalOptions)</AdditionalOptions>
     </Link>
+    <ResourceCompile>
+      <Culture Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">0x0804</Culture>
+    </ResourceCompile>
   </ItemDefinitionGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
     <ClCompile>
@@ -195,10 +198,15 @@ xcopy "$(ProjectDir)..\Resources" "$(OutDir)" /D /E /I /F /Y
     <ClCompile Include="..\Classes\LZPlantsVsZombies.cpp" />
     <ClCompile Include="..\Classes\Plants\BattlePlants\LZPBChomper.cpp" />
     <ClCompile Include="..\Classes\Plants\BattlePlants\LZPBGloomShroom.cpp" />
+    <ClCompile Include="..\Classes\Plants\BattlePlants\LZPBIceBergLettuce.cpp" />
     <ClCompile Include="..\Classes\Plants\BattlePlants\LZPBJalapeno.cpp" />
     <ClCompile Include="..\Classes\Plants\BattlePlants\LZPBJalapenoVariation.cpp" />
     <ClCompile Include="..\Classes\Plants\DefensePlants\LZPDGarlic.cpp" />
+    <ClCompile Include="..\Classes\Plants\DefensePlants\LZPDSunFlowerTwin.cpp" />
     <ClCompile Include="..\Classes\Plants\EmissionPlants\Bullet\LZPEBIcePea.cpp" />
+    <ClCompile Include="..\Classes\Plants\EmissionPlants\Bullet\LZPEBStarFruitBullet.cpp" />
+    <ClCompile Include="..\Classes\Plants\EmissionPlants\Bullet\LZPEBWaterMelonBullet.cpp" />
+    <ClCompile Include="..\Classes\Plants\EmissionPlants\Bullet\LZPEBWinterMelonBullet.cpp" />
     <ClCompile Include="..\Classes\Plants\EmissionPlants\LZPEAcidLemon.cpp" />
     <ClCompile Include="..\Classes\Plants\EmissionPlants\Bullet\LZPEBAcidLemonBullet.cpp" />
     <ClCompile Include="..\Classes\Plants\EmissionPlants\Bullet\LZPEBBullet.cpp" />
@@ -219,6 +227,10 @@ xcopy "$(ProjectDir)..\Resources" "$(OutDir)" /D /E /I /F /Y
     <ClCompile Include="..\Classes\Plants\EmissionPlants\LZPEEmissionPlants.cpp" />
     <ClCompile Include="..\Classes\Plants\BattlePlants\LZPBCherryBomb.cpp" />
     <ClCompile Include="..\Classes\Plants\BattlePlants\LZPBPotatoMine.cpp" />
+    <ClCompile Include="..\Classes\Plants\EmissionPlants\LZPEStarFruit.cpp" />
+    <ClCompile Include="..\Classes\Plants\EmissionPlants\LZPEThreePeaShooter.cpp" />
+    <ClCompile Include="..\Classes\Plants\EmissionPlants\LZPEWaterMelonPult.cpp" />
+    <ClCompile Include="..\Classes\Plants\EmissionPlants\LZPEWinterMelonPult.cpp" />
     <ClCompile Include="..\Classes\Plants\LZPPlants.cpp" />
     <ClCompile Include="..\Classes\Scenes\EasterEggsScene\LZSEGameEasterEggs.cpp" />
     <ClCompile Include="..\Classes\Scenes\GameScene\LZSGAnimationLayer.cpp" />
@@ -251,6 +263,7 @@ xcopy "$(ProjectDir)..\Resources" "$(OutDir)" /D /E /I /F /Y
     <ClCompile Include="..\Classes\Scenes\SelectPlantsScene\LZSSBackgroundLayer.cpp" />
     <ClCompile Include="..\Classes\Scenes\SelectPlantsScene\LZSSControlLayer.cpp" />
     <ClCompile Include="..\Classes\Scenes\SelectPlantsScene\LZSSJumpLevelLayer.cpp" />
+    <ClCompile Include="..\Classes\Scenes\SelectPlantsScene\LZSSPlantSCardUnlockLayer.cpp" />
     <ClCompile Include="..\Classes\Scenes\SelectPlantsScene\LZSSQuitLayer.cpp" />
     <ClCompile Include="..\Classes\Scenes\SelectPlantsScene\LZSSSelectPlantsScene.cpp" />
     <ClCompile Include="..\Classes\Scenes\SelectPlantsScene\LZSSRequriementLayer.cpp" />
@@ -293,10 +306,15 @@ xcopy "$(ProjectDir)..\Resources" "$(OutDir)" /D /E /I /F /Y
     <ClInclude Include="..\Classes\LZPlantsVsZombies.h" />
     <ClInclude Include="..\Classes\Plants\BattlePlants\LZPBChomper.h" />
     <ClInclude Include="..\Classes\Plants\BattlePlants\LZPBGloomShroom.h" />
+    <ClInclude Include="..\Classes\Plants\BattlePlants\LZPBIceBergLettuce.h" />
     <ClInclude Include="..\Classes\Plants\BattlePlants\LZPBJalapeno.h" />
     <ClInclude Include="..\Classes\Plants\BattlePlants\LZPBJalapenoVariation.h" />
     <ClInclude Include="..\Classes\Plants\DefensePlants\LZPDGarlic.h" />
+    <ClInclude Include="..\Classes\Plants\DefensePlants\LZPDSunFlowerTwin.h" />
     <ClInclude Include="..\Classes\Plants\EmissionPlants\Bullet\LZPEBIcePea.h" />
+    <ClInclude Include="..\Classes\Plants\EmissionPlants\Bullet\LZPEBStarFruitBullet.h" />
+    <ClInclude Include="..\Classes\Plants\EmissionPlants\Bullet\LZPEBWaterMelonBullet.h" />
+    <ClInclude Include="..\Classes\Plants\EmissionPlants\Bullet\LZPEBWinterMelonBullet.h" />
     <ClInclude Include="..\Classes\Plants\EmissionPlants\LZPEAcidLemon.h" />
     <ClInclude Include="..\Classes\Plants\EmissionPlants\Bullet\LZPEBAcidLemonBullet.h" />
     <ClInclude Include="..\Classes\Plants\EmissionPlants\Bullet\LZPEBBullet-File.h" />
@@ -318,6 +336,10 @@ xcopy "$(ProjectDir)..\Resources" "$(OutDir)" /D /E /I /F /Y
     <ClInclude Include="..\Classes\Plants\EmissionPlants\LZPEEmissionPlants.h" />
     <ClInclude Include="..\Classes\Plants\BattlePlants\LZPBCherryBomb.h" />
     <ClInclude Include="..\Classes\Plants\BattlePlants\LZPBPotatoMine.h" />
+    <ClInclude Include="..\Classes\Plants\EmissionPlants\LZPEStarFruit.h" />
+    <ClInclude Include="..\Classes\Plants\EmissionPlants\LZPEThreePeaShooter.h" />
+    <ClInclude Include="..\Classes\Plants\EmissionPlants\LZPEWaterMelonPult.h" />
+    <ClInclude Include="..\Classes\Plants\EmissionPlants\LZPEWinterMelonPult.h" />
     <ClInclude Include="..\Classes\Plants\LZPPlants-Files.h" />
     <ClInclude Include="..\Classes\Plants\LZPPlants.h" />
     <ClInclude Include="..\Classes\Scenes\EasterEggsScene\LZSEGameEasterEggs.h" />
@@ -352,6 +374,7 @@ xcopy "$(ProjectDir)..\Resources" "$(OutDir)" /D /E /I /F /Y
     <ClInclude Include="..\Classes\Scenes\SelectPlantsScene\LZSSBackgroundLayer.h" />
     <ClInclude Include="..\Classes\Scenes\SelectPlantsScene\LZSSControlLayer.h" />
     <ClInclude Include="..\Classes\Scenes\SelectPlantsScene\LZSSJumpLevelLayer.h" />
+    <ClInclude Include="..\Classes\Scenes\SelectPlantsScene\LZSSPlantSCardUnlockLayer.h" />
     <ClInclude Include="..\Classes\Scenes\SelectPlantsScene\LZSSQuitLayer.h" />
     <ClInclude Include="..\Classes\Scenes\SelectPlantsScene\LZSSSelectPlantsScene.h" />
     <ClInclude Include="..\Classes\Scenes\SelectPlantsScene\LZSSRequriementLayer.h" />

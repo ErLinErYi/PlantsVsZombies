@@ -117,8 +117,7 @@ void UserWinRequirement::showRequirement(GameTypes finishedid)
 			break;
 		case GameTypes::AtLeastSunNumbers:
 		{
-			char buff[128];
-			snprintf(buff, 128,_global->userInformation->getGameText().find("至少产生 %d 的阳光！")->second->text.c_str(), leveldata->getAtLeastSunNumbers());
+			auto buff = StringUtils::format(_global->userInformation->getGameText().find("至少产生 %d 的阳光！")->second->text.c_str(), leveldata->getAtLeastSunNumbers());
 			finishedid == GameTypes::AtLeastSunNumbers ? showText(buff, i, Color3B::RED) : showText(buff, i);
 		}
 			break;
@@ -128,15 +127,13 @@ void UserWinRequirement::showRequirement(GameTypes finishedid)
 			break;
 		case GameTypes::CarNumbers:
 		{
-			char buff[128];
-			snprintf(buff, 128, _global->userInformation->getGameText().find("僵尸进攻结束后至少存留 %d 辆小车！")->second->text.c_str(), leveldata->getCarNumbers());
+			auto buff = StringUtils::format(_global->userInformation->getGameText().find("僵尸进攻结束后至少存留 %d 辆小车！")->second->text.c_str(), leveldata->getCarNumbers());
 			finishedid == GameTypes::CarNumbers ? showText(buff, i, Color3B::RED) : showText(buff, i);
 		}
 			break;
 		case GameTypes::UserPlantsNumbers:
 		{
-			char buff[128];
-			snprintf(buff, 128, _global->userInformation->getGameText().find("最多使用 %d 株植物来建立你的防线！")->second->text.c_str(), leveldata->getUsePlantsNumbers());
+			auto buff = StringUtils::format(_global->userInformation->getGameText().find("最多使用 %d 株植物来建立你的防线！")->second->text.c_str(), leveldata->getUsePlantsNumbers());
 			showText(buff, i);
 		}
 			break;

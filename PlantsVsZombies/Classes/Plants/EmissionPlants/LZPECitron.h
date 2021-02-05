@@ -21,19 +21,20 @@ CC_CONSTRUCTOR_ACCESS:
 	~Citron();
 
 protected:
-	virtual void createBullet();
+	virtual void createListener() override;
+	virtual void createBullet() override;
 	virtual void plantAttack(Zombies* zombie) override;
 	virtual SkeletonAnimation* showPlantAnimationAndText() override;
-	virtual void plantEmission();
+	virtual void cavePlantInformation(rapidjson::Value& object, rapidjson::Document::AllocatorType& allocator) override;
+	virtual void readPlantInforamtion(rapidjson::Document* levelDataDocument, char* key, int i) override;
+	virtual void plantEmission(const string& plantAnimation);
 	virtual void plantRecovery(const string& plantAnimation);
 
 private:
-	void createListener();
 	int calculateGreatEvocationProbability();
 
 private:
 	int _attackInterval;              // 攻击间隔
 	int _animationId;                 // 动画编号
-	bool _isBaginReady;               // 是否已经开始准备
 	bool _readyFinished;              // 准备完成
 };

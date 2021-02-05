@@ -43,7 +43,8 @@ GloomShroom* GloomShroom::create(Node* node)
 Sprite* GloomShroom::createPlantImage()
 {
 	imageInit("GloomShroom", INIT);
-	_plantImage->setScale(1.5f);
+	_plantImage->setScale(1.4f);
+	_plantImage->setAnchorPoint(Vec2(0.5f, 0.55f));
 	return _plantImage;
 }
 
@@ -61,10 +62,10 @@ void GloomShroom::createPlantAnimation()
 	setPlantSoilSplashAnimation(0.8f);
 
 	// ¼àÌý
-	setListenr();
+	createListener();
 }
 
-void GloomShroom::setListenr()
+void GloomShroom::createListener()
 {
 	_plantAnimation->setEventListener([=](spTrackEntry* entry, spEvent* event)
 		{
@@ -148,7 +149,7 @@ SkeletonAnimation* GloomShroom::showPlantAnimationAndText()
 	SPSSpriteLayer::createPlantsText(2, lta.find("GloomShroom_2")->second->text, Vec2(360, 1000), lta.find("GloomShroom_2")->second->fontsize, Color3B::YELLOW, false);
 	SPSSpriteLayer::createPlantsText(3, lta.find("GloomShroom_3")->second->text, Vec2(440, 1000), lta.find("GloomShroom_3")->second->fontsize, Color3B::RED, false);
 	SPSSpriteLayer::createPlantsText(1, SPSSpriteLayer::selectRequirementText(lta, PlantsType::GloomShroom, "GloomShroom_4", "GloomShroom_5"), Vec2(360, 870),
-		lta.find("GloomShroom_4")->second->fontsize, SPSSpriteLayer::isPlantIsCanSelect[static_cast<unsigned int>(PlantsType::GloomShroom)] ? Color3B::YELLOW : Color3B(255, 70, 0), false);
+		lta.find("GloomShroom_4")->second->fontsize, SPSSpriteLayer::isPlantIsCanSelect[static_cast<unsigned int>(PlantsType::GloomShroom)] ? Color3B::ORANGE : Color3B(255, 70, 0), false);
 
 	return _plantAnimation;
 }

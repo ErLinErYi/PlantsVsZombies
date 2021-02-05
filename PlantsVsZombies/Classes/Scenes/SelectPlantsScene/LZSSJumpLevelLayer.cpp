@@ -6,6 +6,7 @@
  */
 
 #include "LZSSJumpLevelLayer.h"
+#include "LZSSSpriteLayer.h"
 #include "Based/LZBPlayMusic.h"
 #include "Based/LZBUserData.h"
 
@@ -56,10 +57,9 @@ void SPSJumpLevelLayer::createText()
     _jumpLevelDialog->addChild(text);
 
 	auto str = _global->userInformation->getGameText().find("跳关说明信息")->second;
-	char* buf = new char[str->text.size()];
-	snprintf(buf, str->text.size(), str->text.c_str(), UserData::getInstance()->openIntUserData("JUMPLEVELNUMBERS"));
-
-	auto information = Text::create(buf, GAME_FONT_NAME_1, str->fontsize);
+	
+	auto information = Text::create(StringUtils::format(str->text.c_str(), 
+		UserData::getInstance()->openIntUserData("JUMPLEVELNUMBERS")), GAME_FONT_NAME_1, str->fontsize);
     information->setColor(Color3B::RED);
     information->setGlobalZOrder(10);
     information->setTextVerticalAlignment(TextVAlignment::CENTER);
@@ -67,8 +67,6 @@ void SPSJumpLevelLayer::createText()
     information->setTextAreaSize(Size(_jumpLevelDialog->getContentSize().width - 85, 150));
     information->setPosition(Vec2(_jumpLevelDialog->getContentSize().width / 2.0f, _jumpLevelDialog->getContentSize().height / 2.0f -30));
     _jumpLevelDialog->addChild(information);
-
-	delete[] buf;
 }
 
 void SPSJumpLevelLayer::showButton()
@@ -116,6 +114,7 @@ void SPSJumpLevelLayer::createButton(Vec2& vec2, string title, const int id)
 				PlayMusic::playMusic("gravebutton");
 				break;
 			case Widget::TouchEventType::ENDED:
+				SPSSpriteLayer::resumeButtonHoverEffect();
 				switch (id)
 				{
 				case 1: jumpLevel();                              break;

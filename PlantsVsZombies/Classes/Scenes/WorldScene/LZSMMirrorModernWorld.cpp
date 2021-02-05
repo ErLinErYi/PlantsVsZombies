@@ -79,17 +79,13 @@ void MirrorModernWorld::readWorldLevel()
         _global->userInformation->getUserSelectWorldData().at(1)->isReadWoldInformation = true;
     }
 
-    char worldFile[128];
+    string worldFile;
     if (_global->userInformation->getGameDifficulty())
-    {
-        snprintf(worldFile, 128, _global->userInformation->getSystemDifCaveFileName().c_str(), 2);
-    }
+        worldFile = StringUtils::format(_global->userInformation->getSystemDifCaveFileName().c_str(), 2);
     else
-    {
-        snprintf(worldFile, 128, _global->userInformation->getSystemCaveFileName().c_str(), 2);
-    }
+        worldFile = StringUtils::format(_global->userInformation->getSystemCaveFileName().c_str(), 2);
     _global->userInformation->getUserSelectWorldData().at(1)->levels =
-        UserData::getInstance()->openIntUserData(worldFile);
+        UserData::getInstance()->openIntUserData(const_cast<char*>(worldFile.c_str()));
 
 
     if (_global->userInformation->getUserSelectWorldData().at(1)->levels == 0)
@@ -149,9 +145,6 @@ ui::Button* MirrorModernWorld::createButton(Node* node, const std::string& name,
 
 void MirrorModernWorld::createButtonListener(ui::Button* button, const int& ID)
 {
-    char LevelName[20] = {};
-    snprintf(LevelName, 20, "Level_%d", ID);
-
     button->addTouchEventListener([=](Ref* sender, ui::Widget::TouchEventType type)
         {
             switch (type)
@@ -166,7 +159,7 @@ void MirrorModernWorld::createButtonListener(ui::Button* button, const int& ID)
                     _scrollView->getScrolledPercentHorizontal()); /* 记录位置 */
 
                 //读取关卡信息
-                OpenLevelData::getInstance()->createLevelData(ID, LevelName);
+                OpenLevelData::getInstance()->createLevelData(ID, StringUtils::format("Level_%d", ID).c_str());
                 OpenLevelData::getInstance()->setLevelNumber(ID);
 
                 _global->userInformation->setCurrentPlayLevels(ID);

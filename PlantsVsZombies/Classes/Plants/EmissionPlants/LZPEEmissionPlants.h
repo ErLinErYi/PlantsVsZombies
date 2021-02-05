@@ -19,11 +19,15 @@ CC_CONSTRUCTOR_ACCESS:
     ~EmissionPlants();
 
 protected:
+    virtual void createBullet() = 0;
     virtual void plantAttack(Zombies* zombie) = 0;
-	virtual void cavePlantInformation(rapidjson::Value& object, rapidjson::Document::AllocatorType& allocator);
-	virtual void readPlantInforamtion(rapidjson::Document* levelDataDocument, char* key, int i);
+    virtual void createListener(std::string animationName, std::string actionName = "shoot") override;
+	virtual void cavePlantInformation(rapidjson::Value& object, rapidjson::Document::AllocatorType& allocator) override;
+	virtual void readPlantInforamtion(rapidjson::Document* levelDataDocument, char* key, int i) override;
 
 protected:
     bool _isChanged;           // 是否改变为攻击形态
+    bool _isCreateBullet;      // 是否创建子弹
+    bool _isHaveZombies;       // 是否有僵尸
     Bullet* _bulletAnimation;  // 子弹动画
 };

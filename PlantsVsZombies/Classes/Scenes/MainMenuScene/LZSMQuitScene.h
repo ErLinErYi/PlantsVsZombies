@@ -24,11 +24,14 @@ CC_CONSTRUCTOR_ACCESS:
 	QuitMenu():_quitDialog(nullptr){}
 	virtual bool init();
 
+protected:
+	virtual void deleteDialog() override;
+
 private:
 	void createDiglog();	/* 创建对话框 */
 	void createButtons(const std::string& Label, Vec2& vec2, const int& ID);/* 创建按钮 */
 	void caveTime(const int time);
-	virtual void deleteDialog() override;
+	void quitGame();
 
 private:
 	Sprite* _quitDialog;    /* 对话框 */

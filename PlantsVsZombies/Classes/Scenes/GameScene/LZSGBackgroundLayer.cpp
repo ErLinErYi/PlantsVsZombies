@@ -1,9 +1,16 @@
+/**
+ *Copyright (c) 2020 LZ.All Right Reserved
+ *Author : LZ
+ *Date: 2020.1.28
+ *Email: 2117610943@qq.com
+ */
+
 #include "LZSGBackgroundLayer.h"
 #include "LZSGData.h"
 
 #include "Based/LZBGameType.h"
-#include "Zombies/LZZCommonZombies.h"
 #include "Based/LZBLevelData.h"
+#include "Zombies/LZZCommonZombies.h"
 
 GSBackgroundLayer::GSBackgroundLayer():
 	_global(Global::getInstance()),

@@ -43,7 +43,8 @@ Spikeweed* Spikeweed::create(Node* node)
 Sprite* Spikeweed::createPlantImage()
 {
 	imageInit("Spikeweed", INIT);
-	_plantImage->setScale(1.0f);
+	_plantImage->setScale(1.1f);
+	_plantImage->setAnchorPoint(Vec2(0.5f, 1.f));
 	return _plantImage;
 }
 
@@ -61,10 +62,10 @@ void Spikeweed::createPlantAnimation()
 	setPlantSoilSplashAnimation(0.8f);
 
 	// ´´½¨¼àÌý
-	setListenr();
+	createListener();
 }
 
-void Spikeweed::setListenr()
+void Spikeweed::createListener()
 {
 	_plantAnimation->setEventListener([this](spTrackEntry* entry, spEvent* event)
 		{
@@ -129,7 +130,7 @@ SkeletonAnimation* Spikeweed::showPlantAnimationAndText()
 	SPSSpriteLayer::createPlantsText(0, lta.find("SPIKEWEED_1")->second->text, Vec2(190, 910), lta.find("SPIKEWEED_1")->second->fontsize);
 	SPSSpriteLayer::createPlantsText(2, lta.find("SPIKEWEED_2")->second->text, Vec2(360, 1000), lta.find("SPIKEWEED_2")->second->fontsize, Color3B::YELLOW, false);
 	SPSSpriteLayer::createPlantsText(3, lta.find("SPIKEWEED_3")->second->text, Vec2(440, 1000), lta.find("SPIKEWEED_3")->second->fontsize, Color3B::RED, false);
-	SPSSpriteLayer::createPlantsText(1, lta.find("SPIKEWEED_4")->second->text, Vec2(360, 870), lta.find("SPIKEWEED_4")->second->fontsize, Color3B::YELLOW, false);
+	SPSSpriteLayer::createPlantsText(1, lta.find("SPIKEWEED_4")->second->text, Vec2(360, 870), lta.find("SPIKEWEED_4")->second->fontsize, Color3B::ORANGE, false);
 	
 	return _plantAnimation;
 }

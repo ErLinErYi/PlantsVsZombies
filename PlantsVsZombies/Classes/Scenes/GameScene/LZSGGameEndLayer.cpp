@@ -180,17 +180,17 @@ void GSGameEndLayer::caveLevelNumber()
 	if (_global->userInformation->getUserSelectWorldData().at(
 		_global->userInformation->getCurrentPlayWorldTag())->levels == _global->userInformation->getCurrentPlayLevels())
 	{
-		char worldFile[128];
+		string worldFile;
 		if (_global->userInformation->getGameDifficulty())
 		{
-			snprintf(worldFile, 128, _global->userInformation->getSystemDifCaveFileName().c_str(), _global->userInformation->getCurrentPlayWorldTag() + 1);
+			worldFile = StringUtils::format(_global->userInformation->getSystemDifCaveFileName().c_str(), _global->userInformation->getCurrentPlayWorldTag() + 1);
 		}
 		else
 		{
-			snprintf(worldFile, 128, _global->userInformation->getSystemCaveFileName().c_str(), _global->userInformation->getCurrentPlayWorldTag() + 1);
+			worldFile = StringUtils::format(_global->userInformation->getSystemCaveFileName().c_str(), _global->userInformation->getCurrentPlayWorldTag() + 1);
 		}
 		
-		UserData::getInstance()->caveUserData(worldFile,
+		UserData::getInstance()->caveUserData(const_cast<char*>(worldFile.c_str()),
 			++_global->userInformation->getUserSelectWorldData().at(_global->userInformation->getCurrentPlayWorldTag())->levels);
 	}
 

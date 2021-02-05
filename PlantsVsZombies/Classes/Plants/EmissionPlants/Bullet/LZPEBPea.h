@@ -11,28 +11,18 @@
 class Pea :public Bullet
 {
 public:
-	/**
-	 *设置是否燃烧
-	 */
-	virtual void setIsFire(const bool isFire);
+	enum class PeaDirectionType
+	{
+		Up,         // 上方
+		Normal,     // 正常
+		Down        // 下方
+	};
 
+public:
 	/**
-	 *设置是否冰冻 
+	 *创建豌豆
 	 */
-	virtual void setIsIce(const bool isIce);
-
-	/**
-	 *设置燃烧次数
-	 */
-	virtual void setPeaFireNumbers(const int fireNumbers);
-
-	/**
-	 *增加子弹燃烧次数
-	 * -1 ：  表示被冰冻
-	 * 0  ：  表示没有燃烧
-	 * >=1:   表示被燃烧的次数
-	 */
-	virtual void addPeaFireNumbers();
+	virtual void createBullet() override;
 
 	/**
 	 *设置火炬树桩编号
@@ -40,19 +30,19 @@ public:
 	virtual void setTorchwoodTag(const int torchwoodTag);
 
 	/**
-	 *获取是否燃烧
+	 * 计算豌豆偏移方向计算 
 	 */
-	virtual bool getIsFire() const;
+	virtual void calculateDirectionDistance(Vec2 initPosition, Vec2 position);
 
 	/**
-	 * 获取是否冰冻
+	 * 设置豌豆方向类型
 	 */
-	virtual bool getIsIce() const;
+	virtual void setPeaDirectionType(PeaDirectionType type);
 
 	/**
-	 *获取燃烧次数
+	 * 获取豌豆方向类型
 	 */
-	virtual int getPeaFireNumbers() const;
+	virtual PeaDirectionType getPeaDirectionType();
 
 	/**
 	 *获取火炬树桩编号
@@ -61,30 +51,15 @@ public:
 
 protected:
 	/**
-	 *创建豌豆
-	 */
-	virtual void createBullet() override;
-
-	/**
 	 *豌豆与僵尸碰撞和检测
 	 */
 	virtual void bulletAndZombiesCollision() override;
-
-	/**
-	 *  判段攻击方式
-	 */
-	virtual void judgeAttackMethod(Zombies* zombie);
 
 	/**
 	 * 攻击僵尸 
 	 */
 	virtual void attackZombies(Zombies* zombie);
 	
-	/**
-	 * 对僵尸溅射伤害 
-	 */
-	virtual void splashDamageZombies(Zombies* exceptZombie);
-
 	/**
 	 *  僵尸是否在溅射范围判断
 	 */
@@ -98,7 +73,12 @@ protected:
 	/**
 	 *创建子弹影子
 	 */
-	virtual void createShadow() override;
+	virtual void createShadow(Vec2 position = Vec2::ZERO) override;
+
+	/**
+	 * 设置移动方式
+	 */
+	virtual void setBulletAction();
 
 	/**
 	 * 存储子弹特有信息
@@ -116,9 +96,9 @@ CC_CONSTRUCTOR_ACCESS:
 	~Pea();
 
 protected:
-	bool _isFire;                         // 是否燃烧 
-	bool _isIce;                          // 是否冰冻
-	int _fireNumbers;                     // 燃烧次数
 	int _torchwoodTag;                    // 火炬树桩标记
+	float _actionTime;                    // 动作时间
+	Vec2 _initPostion[2];                 // 初始时间
 	string _peaAnimationName;             // 豌豆动画名称
+	PeaDirectionType _peaDirectionType;   // 豌豆方向类型
 };

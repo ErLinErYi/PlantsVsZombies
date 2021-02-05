@@ -42,7 +42,10 @@ bool SPSControlLayer::isShowJumpLevelButton()
 {
 	auto gl = Global::getInstance()->userInformation;
 	if (getLevelBreakThroughNumbers() >= 6 &&  /* 闯关失败次数多于*次 */
-		gl->getUserSelectWorldData().at(gl->getCurrentPlayWorldTag())->levels == gl->getCurrentPlayLevels()){ //目前关卡时最高记录
+		gl->getUserSelectWorldData().at(
+		gl->getCurrentPlayWorldTag())->levels == 
+		gl->getCurrentPlayLevels())            /* 目前关卡时最高记录 */
+	{ 
 		return true;
 	}
 	return false;
@@ -92,30 +95,40 @@ void SPSControlLayer::createButton()
 					PlayMusic::playMusic("gravebutton");
 					break;
 				case cocos2d::ui::Widget::TouchEventType::ENDED:
+					SPSSpriteLayer::pauseButtonHoverEffect();
 					auto jump = SPSJumpLevelLayer::create();
 					if (jump) this->addChild(jump, 11);
 					break;
 				}
 			});
+
+		srand(time(nullptr));
+		auto effect = SkeletonAnimation::createWithData(_global->userInformation->getAnimationData().find("ButtonEffect")->second);
+		effect->setAnimation(0, rand() % 2 ? "blue" : "yellow", true);
+		effect->setPosition(breakButton->getContentSize() / 2.f);
+		effect->setScale(2.05f,0.49f);
+		effect->setTimeScale(0.8f);
+		effect->update(0);
+		breakButton->addChild(effect);
 	}
 }
 
 void SPSControlLayer::showUserName()
 {
-	char buff[128];
-	snprintf(buff, 128, _global->userInformation->getGameText().find("第 %d 天")->second->text.c_str(), _global->userInformation->getCurrentPlayLevels());
-
 	auto username = Text::create();
 	username->setString("“" + _global->userInformation->getUserName() + "”" +
 		_global->userInformation->getGameText().find("的时空冒险之旅")->second->text +
 		_global->userInformation->getCurrentPlayWorldName() +
 		(_global->userInformation->getGameDifficulty() == 1 ? 
 			_global->userInformation->getGameText().find("噩梦模式")->second->text + " - " : 
-			_global->userInformation->getGameText().find("简单模式")->second->text + " - ") + buff);
+			_global->userInformation->getGameText().find("简单模式")->second->text + " - ") + 
+		StringUtils::format(_global->userInformation->getGameText().find("第 %d 天")->second->text.c_str(), 
+			_global->userInformation->getCurrentPlayLevels()));
 	username->setFontName(GAME_FONT_NAME_1);
 	username->setFontSize(_global->userInformation->getGameText().find("的时空冒险之旅")->second->fontsize);
 	username->setColor(Color3B::YELLOW);
 	username->setName("username");
+	username->enableGlow(Color4B::ORANGE);
 	username->setPosition(Vec2(_director->getWinSize().width / 2.0f, 150));
 	this->addChild(username);
 }

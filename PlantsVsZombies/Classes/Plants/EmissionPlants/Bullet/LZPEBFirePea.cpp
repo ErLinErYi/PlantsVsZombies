@@ -16,8 +16,6 @@ FirePea::FirePea(Node* node)
     _attack = 40;
     _bulletType = BulletType::FirePea;
 
-    _isFire = true;
-    _fireNumbers = 1;
     _peaAnimationName = "fire";
 }
 
@@ -31,23 +29,18 @@ void FirePea::createBullet()
 
     _bulletAnimation->setPosition(_position + Vec2(70, 85));
     _bulletAnimation->setScale(1.5f);
-    _bulletAnimation->runAction(Sequence::create(MoveBy::create(3.0f, Vec2(2000, rand() % 31 - 15)),
-        CallFunc::create([=]()
-            {
-                _bulletAnimation->setVisible(false);
-            }), nullptr));
 
-    createShadow();
+    setBulletAction();
 }
 
-void FirePea::createShadow()
+void FirePea::createShadow(Vec2 position)
 {
     /* 创建影子 */
     auto shadow = Sprite::createWithSpriteFrameName("plantshadow.png");
     shadow->setScaleY(0.7f);
     shadow->setName("shadow");
     shadow->setOpacity(200);
-    shadow->setPosition(Vec2(0, -52));
+    shadow->setPosition(Vec2(0, -52) + position);
     shadow->setLocalZOrder(_bulletAnimation->getLocalZOrder());
     _bulletAnimation->addChild(shadow, -1);
 }
@@ -81,19 +74,61 @@ void FirePea::attackZombies(Zombies* zombie)
     zombie->setZombieHurtBlink();
 }
 
+void FirePea::splashDamageZombies(Zombies* exceptZombie)
+{
+    /* 计算溅射伤害僵尸数 */
+    for (auto zombie : ZombiesGroup)
+    {
+        if (zombie->getZombieIsEnterMap() && zombie->getZombieIsSurvive() && getZombieInExplodeRange(zombie))
+        {
+            ++_zombieInExplodeRangeNumbers;
+        }
+    }
+
+    for (auto zombie : ZombiesGroup)
+    {
+        if (exceptZombie != zombie && zombie->getZombieIsEnterMap() &&
+            zombie->getZombieIsSurvive() && getZombieInExplodeRange(zombie))
+        {
+            /* 溅射伤害计算 */
+            if (int(_attack / 3) * _zombieInExplodeRangeNumbers > _attack)
+            {
+                _attack = max(int(pow(_attack, 2) / (int(_attack / 3) * 3 * _zombieInExplodeRangeNumbers)), 1);
+            }
+            else
+            {
+                _attack = int(_attack / 3);
+            }
+
+            attackZombies(zombie);
+        }
+    }
+
+    _zombieInExplodeRangeNumbers = 0;
+}
+
+void FirePea::createPeaExplode()
+{
+    auto peaExplode = SkeletonAnimation::createWithData(_global->userInformation->getAnimationData().find("PeaExplode")->second);
+    peaExplode->setPosition(getBulletPosition());
+    peaExplode->setAnimation(0, "FirePea_Explode", false);
+    peaExplode->update(0);
+    peaExplode->setScale(1.4f);
+    peaExplode->setLocalZOrder(_bulletAnimation->getLocalZOrder());
+    _node->addChild(peaExplode);
+
+    peaExplode->runAction(Sequence::create(DelayTime::create(0.8f), CallFunc::create([peaExplode]()
+        {
+            peaExplode->removeFromParent();
+        }), nullptr));
+}
+
 void FirePea::recoveryFrozenZombie(Zombies* zombie)
 {
     if (zombie->getZombieTimerTime() != -1)
     {
-        zombie->setZombieTimerTime(-1); /* 僵尸被寒冰射手减速时间清零 */
-        IcePea::setZombieActionRecovery(zombie);
+        zombie->setZombieActionRecovery();
     }
-}
-
-void FirePea::readBulletInformation(rapidjson::Document* levelDataDocument, char* key, int i)
-{
-    _isFire = (*levelDataDocument)[key]["Bullet"][to_string(i).c_str()]["IsFire"].GetBool();
-    _fireNumbers = (*levelDataDocument)[key]["Bullet"][to_string(i).c_str()]["PeaFireNumbers"].GetInt();
 }
 
 void FirePea::readBulletAnimationInformation(rapidjson::Document* levelDataDocument, char* key, int i)
@@ -101,5 +136,4 @@ void FirePea::readBulletAnimationInformation(rapidjson::Document* levelDataDocum
     _bulletAnimation->setPosition(Vec2(
         (*levelDataDocument)[key]["Bullet"][to_string(i).c_str()]["PositionX"].GetFloat(),
         (*levelDataDocument)[key]["Bullet"][to_string(i).c_str()]["PositionY"].GetFloat()));
-    Bullet::setBulletOpacity((*levelDataDocument)[key]["Bullet"][to_string(i).c_str()]["Opacity"].GetInt());
 }

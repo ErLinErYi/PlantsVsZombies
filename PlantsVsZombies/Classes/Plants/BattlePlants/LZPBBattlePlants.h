@@ -15,8 +15,9 @@ class BattlePlants :public Plants
 {
 protected:
     virtual void hurtZombies(Zombies* zombie);
-    virtual void plantExplode() {};
     virtual void plantAttack() {};
+    virtual void plantAttack(Zombies* zombie) {};
+    virtual void plantExplode() {};
     virtual bool getZombieIsInExplodeRange(Zombies* zombie) { return false; };
 
 CC_CONSTRUCTOR_ACCESS:

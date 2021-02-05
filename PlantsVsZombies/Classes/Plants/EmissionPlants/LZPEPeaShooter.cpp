@@ -10,11 +10,9 @@
 
 #include "Zombies/LZZZombies.h"
 #include "Scenes/GameScene/LZSGData.h"
-#include "Based/LZBPlayMusic.h"
 
 
-PeaShooter::PeaShooter(Node* node):
-	_isCreatePea(false)
+PeaShooter::PeaShooter(Node* node)
 {
 	_node = node;
 	_plantImage = nullptr;
@@ -44,6 +42,7 @@ Sprite* PeaShooter::createPlantImage()
 {
 	imageInit("PeaShooter", INIT);
 	_plantImage->setScale(1.3f);
+	_plantImage->setAnchorPoint(Vec2(0.35f, 0.6f));
 	return _plantImage;
 }
 
@@ -60,6 +59,9 @@ void PeaShooter::createPlantAnimation()
 
 	// 泥土飞溅动画
 	setPlantSoilSplashAnimation(0.8f);
+
+	// 创建监听
+	createListener("PeaShooter_Shoot");
 }
 
 void PeaShooter::determineRelativePositionPlantsAndZombies()
@@ -87,26 +89,17 @@ void PeaShooter::plantAttack(Zombies* zombie)
 
 void PeaShooter::plantEmission(const string& plantAnimation)
 {
-	_isCreatePea = true; /* 表示有僵尸与植物在同一行 */
+	_isHaveZombies = true; /* 表示有僵尸与植物在同一行 */
 	if (!_isChanged)     /* 判断动画是否已经改变 */
 	{
 		_plantAnimation->addAnimation(0, plantAnimation, true);
 		_isChanged = true;
 	}
-
-	_plantAnimation->setEventListener([&](spTrackEntry* entry, spEvent* event)
-		{
-			if (strcmp(event->data->name, "shoot") == 0)
-			{
-				rand() % 2 == 0 ? PlayMusic::playMusic("throw") : PlayMusic::playMusic("throw2");
-				createPea();
-			}
-		});
 }
 
 void PeaShooter::plantRecovery(const string& plantAnimation)
 {
-	if (!_isCreatePea) /* 判断是否有僵尸与豌豆射手在同一行 */
+	if (!_isHaveZombies) /* 判断是否有僵尸与豌豆射手在同一行 */
 	{
 		if (_isChanged)
 		{
@@ -115,11 +108,13 @@ void PeaShooter::plantRecovery(const string& plantAnimation)
 		}
 	}
 
-	_isCreatePea = false; /* 每循环一次就初始化 */
+	_isHaveZombies = false; /* 每循环一次就初始化 */
 }
 
-void PeaShooter::createPea()
+void PeaShooter::createBullet()
 {
+	_isCreateBullet = true;
+
 	_bulletAnimation= new Pea(_node);
 	_bulletAnimation->setBulletPosition(_position);
 	_bulletAnimation->setBulletInRow(_rowAndColumn.y);
@@ -142,7 +137,7 @@ SkeletonAnimation* PeaShooter::showPlantAnimationAndText()
 	SPSSpriteLayer::createPlantsText(0, lta.find("PEASHOOTER_1")->second->text, Vec2(190, 910), lta.find("PEASHOOTER_1")->second->fontsize);
 	SPSSpriteLayer::createPlantsText(2, lta.find("PEASHOOTER_2")->second->text, Vec2(360, 1000), lta.find("PEASHOOTER_2")->second->fontsize, Color3B::YELLOW, false);
 	SPSSpriteLayer::createPlantsText(3, lta.find("PEASHOOTER_3")->second->text, Vec2(440, 1000), lta.find("PEASHOOTER_3")->second->fontsize, Color3B::RED, false);
-	SPSSpriteLayer::createPlantsText(1, lta.find("PEASHOOTER_4")->second->text, Vec2(360, 830), lta.find("PEASHOOTER_4")->second->fontsize, Color3B::YELLOW, false);
+	SPSSpriteLayer::createPlantsText(1, lta.find("PEASHOOTER_4")->second->text, Vec2(360, 830), lta.find("PEASHOOTER_4")->second->fontsize, Color3B::ORANGE, false);
 
 	return _plantAnimation;
 }

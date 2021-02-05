@@ -6,10 +6,13 @@
  *Email: 2117610943@qq.com
  */
 
-#include "LZSSSpriteLayer.h"
 #include "spine/spine-cocos2dx.h"
+
+#include "LZSSSpriteLayer.h"
+#include "LZSSPlantSCardUnlockLayer.h"
 #include "Based/LZBPlayMusic.h"
 #include "Based/LZBMouseEventControl.h"
+#include "Based/LZBUserData.h"
 #include "Plants/LZPPlants.h"
 #include "../GameScene/LZSGData.h"
 #include "../GameScene/LZSGAnimationLayer.h"
@@ -23,14 +26,15 @@ Text* SPSSpriteLayer::animationText[]{};
 SPSSpriteLayer::SPSSpriteLayer() :
 	_seedChooser(nullptr)
 ,   _plantsAnimation(nullptr)
+,   _plant(nullptr)
 ,	_plantCardScrollView(ScrollView::create())
 ,	_global(Global::getInstance())
 ,	_plantCardScrollViewPercent(0)
 ,	_selectFinished(false)
-,   _plantsNumber(PLANTSNUMBERS)
 {
 	plantCardTextScrollView = ui::ScrollView::create();
 	memset(isPlantIsCanSelect, true, sizeof(isPlantIsCanSelect));
+	PlantsCardUnlock::unlockPlantsCard.clear();
 }
 
 SPSSpriteLayer::~SPSSpriteLayer()
@@ -59,6 +63,7 @@ void SPSSpriteLayer::createSelectPlantsDialog()
 	createPlantsCards();
 	showRandPlantsInformation();
 	createMouseListener();
+	popUnlockDialog();
 }
 
 void SPSSpriteLayer::alreadySelectPlantsDialog()
@@ -89,19 +94,27 @@ void SPSSpriteLayer::alreadyHavePlantsDialog()
 	_seedChooser->runAction(Sequence::create(MoveTo::create(0.2f, Vec2(595, 540)), CallFunc::create([&]() {createBeginButton(); }), nullptr));
 	this->addChild(_seedChooser);
 
-	auto SelectBackground = Sprite::createWithSpriteFrameName("SelectBackground.png");
-	SelectBackground->setPosition(Vec2(190, 730));
-	SelectBackground->setScaleY(0.96f);
-	SelectBackground->setScaleX(1.14f);
-	SelectBackground->setColor(Color3B(0, 255, 255));
-	SelectBackground->runAction(RepeatForever::create(Sequence::create(FadeTo::create(0.2f, 150), FadeTo::create(0.2f, 50), nullptr)));
-	_seedChooser->addChild(SelectBackground);
+	auto selectBackground = Sprite::createWithSpriteFrameName("SelectBackground.png");
+	selectBackground->setPosition(Vec2(190, 730));
+	selectBackground->setScaleY(0.96f);
+	selectBackground->setScaleX(1.14f);
+	selectBackground->setColor(Color3B(0, 255, 255));
+	selectBackground->runAction(RepeatForever::create(Sequence::create(FadeTo::create(0.2f, 150), FadeTo::create(0.2f, 50), nullptr)));
+	_seedChooser->addChild(selectBackground);
 
-	auto State = SkeletonAnimation::createWithData(_global->userInformation->getAnimationData().find("Stage")->second);
-	State->setPosition(Vec2(195, 720));
-	State->setScale(3.5f);
-	State->setAnimation(0, "Rotate", true);
-	_seedChooser->addChild(State);
+	auto state = SkeletonAnimation::createWithData(_global->userInformation->getAnimationData().find("Stage")->second);
+	state->setAnimation(0, "Rotate", true);
+	state->setPosition(Vec2(195, 720));
+	state->setScale(3.5f);
+	state->update(0);
+	_seedChooser->addChild(state);
+
+	auto bufEffect = SkeletonAnimation::createWithData(_global->userInformation->getAnimationData().find("BufEffect")->second);
+	bufEffect->setAnimation(0, "animation", true);
+	bufEffect->setPosition(Vec2(195, 520));
+	bufEffect->setScale(1.5f);
+	bufEffect->update(0);
+	_seedChooser->addChild(bufEffect, 1);
 
 	auto SeedChooserText = ui::Text::create(_global->userInformation->getGameText().find("请选择你出战的植物！")->second->text, GAME_FONT_NAME_1,
 		_global->userInformation->getGameText().find("请选择你出战的植物！")->second->fontsize);
@@ -116,7 +129,7 @@ void SPSSpriteLayer::createScrollview()
 	_plantCardScrollView->setDirection(ui::ScrollView::Direction::VERTICAL);
 	_plantCardScrollView->setAnchorPoint(Vec2::ANCHOR_TOP_LEFT);
 	_plantCardScrollView->setContentSize(Size(760.0f, 420));
-	_plantCardScrollView->setInnerContainerSize(Size(760, 525));
+	_plantCardScrollView->setInnerContainerSize(Size(760, 105 * ceil(PLANTSNUMBERS / 4.f)));
 	_plantCardScrollView->setPosition(Vec2(0, 540));
 	_plantCardScrollView->setBounceEnabled(true);
 	_plantCardScrollView->setScrollBarPositionFromCorner(Vec2(5, 0));
@@ -150,7 +163,7 @@ void SPSSpriteLayer::createMouseListener()
 
 		if (_plantCardScrollView->getBoundingBox().containsPoint(cur))
 		{
-			float movex = e->getScrollY() * 90;
+			float movex = e->getScrollY() * 60;
 			MouseEventControl::mouseScrollControlListener(
 				_plantCardScrollView, movex, ScrollView::Direction::VERTICAL, 0.25f);
 		}
@@ -176,60 +189,92 @@ void SPSSpriteLayer::createMouseListener()
 
 void SPSSpriteLayer::createPlantsCards()
 {
-	for (unsigned int i = 0; i < 5; i++)
+	auto number = static_cast<unsigned int>(ceil(PLANTSNUMBERS / 4.f));
+	for (unsigned int i = 0; i < number; ++i)
 	{
 		for (unsigned int j = 0; j < 4; j++)
 		{
-			if (4 * i + j < _plantsNumber)
+			if (4 * i + j < PLANTSNUMBERS)
 			{
-				_plantsCards.push_back(
-					createButtons(Vec2(110 + 185 * j, 490 - 105 * i), plantsCardInformation[4 * i + j].type));
+				auto card = createButtons(Vec2(110 + 185 * j, 105 * i), 4 * i + j);
+				_plantsCards.insert(pair<PlantsType, Button*>(plantsCardInformation[4 * i + j].type, card));
+
+				controlPlantCanSelect(card, 4 * i + j);              /* 控制植物是否可以选择 */
+				showPlantsInformation(card, true);        /* 显示植物信息 */
+				createButtonHoverEffect(card);                       /* 鼠标悬停效果 */
 			}
 		}
 	}
 }
 
-Button* SPSSpriteLayer::createButtons(const Vec2& vec2, PlantsType plantsType)
+Button* SPSSpriteLayer::createButtons(const Vec2& vec2, int priority)
 {
 	auto button = Button::create("SeedPacket_Larger.png", "SeedPacket_Larger.png", "", TextureResType::PLIST);
-	button->setPosition(Vec2(vec2.x, _plantCardScrollView->getInnerContainerSize().height + vec2.y - 540));
+	button->setPosition(Vec2(vec2.x, _plantCardScrollView->getInnerContainerSize().height - button->getContentSize().height / 2.f - vec2.y));
+	button->setTag(priority);
 	button->addTouchEventListener([=](Ref* sender, ui::Widget::TouchEventType type)
 		{
 			switch (type)
 			{
-			case ui::Widget::TouchEventType::BEGAN:
-				PlayMusic::playMusic("tap");
-				break;
-			case ui::Widget::TouchEventType::ENDED:
-				if (isPlantIsCanSelect[static_cast<unsigned int>(plantsType)])
-				{
-					if (seedBankButton.size() > 3)/* 583 */
-					{
-						((Button*)_seedChooser->getChildByName("Begin"))->setEnabled(true);
-						((Button*)_seedChooser->getChildByName("Begin"))->setTitleColor(Color3B::YELLOW);
-					}
-					if (seedBankButton.size() < 9)
-					{
-						button->setEnabled(false);
-						button->setColor(Color3B(70, 70, 70));
-						button->setCascadeColorEnabled(true);  /* 设置父节点影响子节点 */
-
-						createMoveButton(button, vec2, plantsType);
-					}
-				}
-
-				createAnimationAndText(plantsType);//创建植物动画 
-				
-				break;
+			case ui::Widget::TouchEventType::BEGAN: PlayMusic::playMusic("tap");                   break;
+			case ui::Widget::TouchEventType::ENDED: plantsCardButtonEvent(button, vec2); break;
 			}
 		});
 	_plantCardScrollView->addChild(button);
 
-	controlPlantCanSelect(button, plantsType);              /* 控制植物是否可以选择 */
-	showPlantsInformation(button, plantsType);              /* 显示植物信息 */
-	createButtonHoverEffect(button);                        /* 鼠标悬停效果 */
-
 	return button;
+}
+
+void SPSSpriteLayer::plantsCardButtonEvent(Button* button, Vec2 vec2)
+{
+	if (isPlantIsCanSelect[static_cast<unsigned int>(plantsCardInformation[button->getTag()].type)])
+	{
+		if (seedBankButton.size() > 4)/* 583 */
+		{
+			((Button*)_seedChooser->getChildByName("Begin"))->setEnabled(true);
+			((Button*)_seedChooser->getChildByName("Begin"))->setTitleColor(Color3B::YELLOW);
+		}
+		if (seedBankButton.size() < 9)
+		{
+			button->setEnabled(false);
+			button->setColor(Color3B(70, 70, 70));
+			button->setCascadeColorEnabled(true);  /* 设置父节点影响子节点 */
+
+			createMoveButton(button, vec2);
+		}
+	}
+	createAnimationAndText(plantsCardInformation[button->getTag()].type);//创建植物动画 
+}
+
+void SPSSpriteLayer::createMoveButton(Button* button, const Vec2& vec2)
+{
+	/* 创建移动卡牌 */
+	auto moveCard = ui::Button::create("SeedPacket_Larger.png", "SeedPacket_Larger.png", "", TextureResType::PLIST);
+	moveCard->setPosition(Vec2(vec2.x + 205, _plantCardScrollView->getInnerContainerSize().height - moveCard->getContentSize().height - vec2.y - 40 + calculateScrollDistance()));
+	moveCard->setTitleColor(Color3B::RED);
+	moveCard->setTitleFontSize(25);
+	moveCard->setTag(button->getTag());
+	moveCard->runAction(MoveTo::create(0.2f, Vec2(105, 1008 - 103 * seedBankButton.size())));
+	this->addChild(moveCard);
+
+	showPlantsInformation(moveCard);   // 显示信息
+	createButtonHoverEffect(moveCard);           // 鼠标悬停信息
+
+	/* 存储到卡牌栏中 */
+	UserSelectCard seed_bank_button{};
+	seed_bank_button.cardbutton = moveCard;
+	seed_bank_button.cardTag = button->getTag();
+	seedBankButton.push_back(seed_bank_button);
+
+	float plantCardRollingDistanceLast = calculateScrollDistance();
+	moveCard->addTouchEventListener([=](Ref* sender, ui::Widget::TouchEventType type)
+		{
+			switch (type)
+			{
+			case ui::Widget::TouchEventType::BEGAN: PlayMusic::playMusic("tap2"); break;
+			case ui::Widget::TouchEventType::ENDED: plantsMoveCardButtonEvent(button, moveCard, vec2, plantCardRollingDistanceLast); break;
+			}
+		});
 }
 
 void SPSSpriteLayer::createButtonHoverEffect(Button* button)
@@ -240,6 +285,21 @@ void SPSSpriteLayer::createButtonHoverEffect(Button* button)
 	seedPacketFlash->setAnchorPoint(Vec2::ANCHOR_BOTTOM_LEFT);
 	seedPacketFlash->setName("seedPacketFlash");
 	button->addChild(seedPacketFlash);
+}
+
+void SPSSpriteLayer::plantsMoveCardButtonEvent(Button* button, Button* moveCard, Vec2 vec2, float plantCardRollingDistanceLast)
+{
+	createAnimationAndText(plantsCardInformation[button->getTag()].type);  //创建植物动画
+	sortPlantsCard(plantsCardInformation[button->getTag()].type);          //对植物卡牌重新排序
+	_plantCardScrollView->scrollToPercentVertical(calculateScrollPrecent(plantCardRollingDistanceLast), 0.5f, true);//滚动到初始位置
+	moveCard->runAction(Sequence::create(MoveTo::create(0.2f, Vec2(vec2.x + 205, _plantCardScrollView->getInnerContainerSize().height -
+		moveCard->getContentSize().height - vec2.y - 40 + plantCardRollingDistanceLast)),
+		CallFunc::create([=]()
+			{
+				moveCard->removeFromParent();   /* 删除移动卡牌 */
+				button->setEnabled(true);       /* 设置卡牌精灵可以再次选择 */
+				button->setColor(Color3B::WHITE);
+			}), nullptr));
 }
 
 void SPSSpriteLayer::pauseButtonHoverEffect()
@@ -266,23 +326,20 @@ void SPSSpriteLayer::showPopulationButtonHoverEffect(EventMouse* e)
 {
 	for (auto card : _plantsCards)
 	{
-		card->getChildByName("seedPacketFlash")->setVisible(
-			card->getBoundingBox().containsPoint(e->getLocationInView() - Vec2(205, calculateScrollDistance() + 15)));
+		card.second->getChildByName("seedPacketFlash")->setVisible(
+			card.second->getBoundingBox().containsPoint(e->getLocationInView() - Vec2(205, calculateScrollDistance() - 90)));
 	}
 }
 
 void SPSSpriteLayer::showRandPlantsInformation()
 {
 	preLoadText();
-
-	/* 开始进入创建随机动画 */
-	srand(time(nullptr));
-	createAnimationAndText(static_cast<PlantsType>(rand() % _plantsNumber));
+	createAnimationAndText(plantsCardInformation[rand() % PLANTSNUMBERS].type);
 }
 
 void SPSSpriteLayer::preLoadText()
 {
-	for (unsigned int i = 0; i < _plantsNumber; i++)
+	for (unsigned int i = 0; i < 4; i++)
 	{
 		animationText[i] = Text::create("", GAME_FONT_NAME_1, 30);
 		animationText[i]->setName("AnimationText");
@@ -290,123 +347,76 @@ void SPSSpriteLayer::preLoadText()
 		animationText[i]->enableShadow(Color4B::GRAY, Size(4, -4), 1);
 		switch (i)
 		{
-		case 0:
-			_seedChooser->addChild(animationText[i]);
-			break;
-		default:
-			plantCardTextScrollView->addChild(animationText[i]);
-			break;
+		case 0:  _seedChooser->addChild(animationText[i]);            break;
+		default: plantCardTextScrollView->addChild(animationText[i]); break;
 		}
 	}
 }
 
-Text* SPSSpriteLayer::showPlantsInformation(Button* button, PlantsType type)
+Text* SPSSpriteLayer::showPlantsInformation(Button* button, bool showHeart)
 {
 	/* 图片 */
-	createPlantsImage(button, type);
+	auto plantImage = Sprite::createWithSpriteFrameName(plantsCardInformation[button->getTag()].information[0] + ".png");
+	plantImage->setScale(0.8f);
+	plantImage->setFlippedX(plantsCardInformation[button->getTag()].flippedX);
+	plantImage->setPosition(Vec2(55, 50));
+	button->addChild(plantImage);
 
 	string str[] = { "PlantsLevel_Gold.png","PlantsLevel_Silver.png","PlantsLevel_Copper.png" };
+	auto plantsLevelIamge = Sprite::createWithSpriteFrameName(str[plantsCardInformation[button->getTag()].quality - 1]);
+	plantsLevelIamge->setPosition(Vec2(155, 74));
+	plantsLevelIamge->setScale(0.65f);
+	button->addChild(plantsLevelIamge);
 
-	auto PlantsLevelIamge = Sprite::createWithSpriteFrameName(str[plantsCardInformation[static_cast<unsigned int>(type)].quality - 1]);
-	PlantsLevelIamge->setPosition(Vec2(155, 74));
-	PlantsLevelIamge->setScale(0.65f);
-	button->addChild(PlantsLevelIamge);
+	auto background = Sprite::createWithSpriteFrameName("PlantsIconBackground.png");
+	background->setOpacity(0);
+	button->addChild(background);
 
-	auto Background = Sprite::createWithSpriteFrameName("PlantsIconBackground.png");
-	Background->setOpacity(0);
-	button->addChild(Background);
+	auto plantsIconBackground = Sprite::createWithSpriteFrameName("PlantsIconBackground.png");
+	plantsIconBackground->setPosition(Vec2(95, 150));
+	plantsIconBackground->setScale(0.28f);
+	plantsIconBackground->setColor(plantsCardInformation[button->getTag()].color);
+	background->addChild(plantsIconBackground);
 
-	auto PlantsIconBackground = Sprite::createWithSpriteFrameName("PlantsIconBackground.png");
-	PlantsIconBackground->setPosition(Vec2(97, 150));
-	PlantsIconBackground->setScale(0.28f);
-	PlantsIconBackground->setColor(plantsCardInformation[static_cast<unsigned int>(type)].color);
-	Background->addChild(PlantsIconBackground);
+	auto plantsIcon = Sprite::createWithSpriteFrameName(plantsCardInformation[button->getTag()].information[1] + ".png");
+	plantsIcon->setPosition(Vec2(75, 75));
+	plantsIcon->setScale(1.2f);
+	plantsIconBackground->addChild(plantsIcon);
 
-	auto PlantsIcon = Sprite::createWithSpriteFrameName(plantsCardInformation[static_cast<unsigned int>(type)].information[1] + ".png");
-	PlantsIcon->setPosition(Vec2(75, 75));
-	PlantsIcon->setScale(1.2f);
-	PlantsIconBackground->addChild(PlantsIcon);
+	/*auto likeImage = Sprite::createWithSpriteFrameName("heart2.png");
+	likeImage->setPosition(Vec2(23, 18));
+	likeImage->setScale(0.45f);
+	likeImage->setName("likeImage");
+	likeImage->setVisible(_plantIsSelectLike[static_cast<unsigned int>(plantsCardInformation[priority].type)] &&
+		isPlantIsCanSelect[static_cast<unsigned int>(plantsCardInformation[priority].type)] && showHeart);
+	button->addChild(likeImage);*/
+
+	auto prohibit = Sprite::createWithSpriteFrameName("Prohibit.png");
+	prohibit->setPosition(Vec2(160, 20));
+	prohibit->setScale(0.5f);
+	prohibit->setVisible(!isPlantIsCanSelect[static_cast<unsigned int>(plantsCardInformation[button->getTag()].type)]);
+	button->addChild(prohibit, 1);
 
 	/* 文本 */
-	auto PlantsNeedSuns = ui::Text::create();
-	PlantsNeedSuns->setFontName(GAME_FONT_NAME_3);
-	PlantsNeedSuns->setColor(Color3B::BLACK);
-	PlantsNeedSuns->setAnchorPoint(Vec2(1, 0.5f));
-	PlantsNeedSuns->setPosition(Vec2(175, 18));
-	PlantsNeedSuns->setFontSize(35);
-	PlantsNeedSuns->setString(to_string(plantsCardInformation[static_cast<unsigned int>(type)].plantsNeedSunNumbers));
-	button->addChild(PlantsNeedSuns);
+	auto plantsNeedSuns = ui::Text::create();
+	plantsNeedSuns->setFontName(GAME_FONT_NAME_3);
+	plantsNeedSuns->setColor(Color3B::BLACK);
+	plantsNeedSuns->setAnchorPoint(Vec2(1, 0.5f));
+	plantsNeedSuns->setPosition(Vec2(175, 18));
+	plantsNeedSuns->setFontSize(35);
+	plantsNeedSuns->setString(to_string(plantsCardInformation[button->getTag()].plantsNeedSunNumbers));
+	button->addChild(plantsNeedSuns);
 
-	auto PlantsLevelText = ui::Text::create();
-	PlantsLevelText->setFontName(GAME_FONT_NAME_1);
-	PlantsLevelText->setColor(Color3B::BLACK);
-	PlantsLevelText->setAnchorPoint(Vec2::ANCHOR_MIDDLE);
-	PlantsLevelText->setPosition(Vec2(153, 75));
-	PlantsLevelText->setFontSize(25);
-	PlantsLevelText->setString(plantsCardInformation[static_cast<unsigned int>(type)].information[2]);
-	button->addChild(PlantsLevelText);
+	auto plantsLevelText = ui::Text::create();
+	plantsLevelText->setFontName(GAME_FONT_NAME_1);
+	plantsLevelText->setColor(Color3B::BLACK);
+	plantsLevelText->setAnchorPoint(Vec2::ANCHOR_MIDDLE);
+	plantsLevelText->setPosition(Vec2(153, 75));
+	plantsLevelText->setFontSize(25);
+	plantsLevelText->setString(plantsCardInformation[button->getTag()].information[2]);
+	button->addChild(plantsLevelText);
 
-	if (!isPlantIsCanSelect[static_cast<unsigned int>(type)])
-	{
-		createProhibit(button);
-	}
-
-	return PlantsNeedSuns;
-}
-
-void SPSSpriteLayer::createPlantsImage(Button* button, PlantsType type, const float& scale) const
-{
-	auto image = Sprite::createWithSpriteFrameName(plantsCardInformation[static_cast<unsigned int>(type)].information[0] + ".png");
-	image->setScale(scale);
-	image->setFlippedX(plantsCardInformation[static_cast<unsigned int>(type)].flippedX);
-	image->setPosition(Vec2(55, 50));
-	button->addChild(image);
-}
-
-void SPSSpriteLayer::createMoveButton(Button* button, const Vec2& vec2, PlantsType plantsType)
-{
-	/* 创建移动卡牌 */
-	auto moveCard = ui::Button::create("SeedPacket_Larger.png", "SeedPacket_Larger.png", "", TextureResType::PLIST);
-	moveCard->setPosition(Vec2(vec2.x + 212, vec2.y + calculateScrollDistance()));
-	moveCard->setTitleColor(Color3B::RED);
-	moveCard->setTitleFontSize(25);
-	moveCard->setTag(static_cast<unsigned int>(plantsType));
-	moveCard->runAction(MoveTo::create(0.2f, Vec2(105, 1008 - 103 * seedBankButton.size())));
-	this->addChild(moveCard);
-
-	showPlantsInformation(moveCard, plantsType); // 显示信息
-	createButtonHoverEffect(moveCard);           // 鼠标悬停信息
-
-	/* 存储到卡牌栏中 */
-	UserSelectCard seed_bank_button{};
-	seed_bank_button.cardbutton = moveCard;
-	seed_bank_button.cardTag = static_cast<unsigned int>(plantsType);
-	seedBankButton.push_back(seed_bank_button);
-	
-	float plantCardRollingDistanceLast = calculateScrollDistance();
-	moveCard->addTouchEventListener([=](Ref* sender, ui::Widget::TouchEventType type)
-		{
-			switch (type)
-			{
-			case ui::Widget::TouchEventType::BEGAN:
-				PlayMusic::playMusic("tap2");
-				break;
-			case ui::Widget::TouchEventType::ENDED:
-				createAnimationAndText(plantsType);  //创建植物动画
-				sortPlantsCard(plantsType);          //对植物卡牌重新排序
-				_plantCardScrollView->scrollToPercentVertical(calculateScrollPrecent(plantCardRollingDistanceLast), 0.5f, true);//滚动到初始位置
-				moveCard->runAction(Sequence::create(MoveTo::create(0.2f, Vec2(vec2.x + 212, vec2.y + plantCardRollingDistanceLast)),
-					CallFunc::create([=]()
-						{
-							moveCard->removeFromParent();
-							
-							/* 设置卡牌精灵可以再次选择 */
-							button->setEnabled(true);
-							button->setColor(Color3B::WHITE);
-						}), nullptr));//植物卡牌取消选择
-				break;
-			}
-		});
+	return plantsNeedSuns;
 }
 
 float SPSSpriteLayer::calculateScrollDistance()
@@ -496,29 +506,30 @@ void SPSSpriteLayer::startGame()
 	pauseButtonHoverEffect();
 }
 
-void SPSSpriteLayer::controlPlantCanSelect(Button* button, PlantsType type)
+void SPSSpriteLayer::controlPlantCanSelect(Button* button, int priority)
 {
 	auto coinNumber = _global->userInformation->getCoinNumbers();
 	auto killZombiesNumber = _global->userInformation->getKillZombiesNumbers();
 
-	if (static_cast<unsigned int>(type) >= 9)
+	if (static_cast<unsigned int>(plantsCardInformation[priority].type) >= 9)
 	{
-		if (coinNumber < plantsCardInformation[static_cast<unsigned int>(type)].requirement.x ||
-			killZombiesNumber < plantsCardInformation[static_cast<unsigned int>(type)].requirement.y)
+		if (coinNumber < plantsCardInformation[priority].requirement.x ||
+			killZombiesNumber < plantsCardInformation[priority].requirement.y)
 		{
 			button->setColor(Color3B(70, 70, 70));
 			button->setCascadeColorEnabled(true);  /* 设置父节点影响子节点 */
-			isPlantIsCanSelect[static_cast<unsigned int>(type)] = false;
+			isPlantIsCanSelect[static_cast<unsigned int>(plantsCardInformation[priority].type)] = false;
+		}
+		else
+		{
+			auto cardStr = StringUtils::format("CardUnlock_%d", static_cast<int>(plantsCardInformation[priority].type));
+			if (!UserData::getInstance()->openBoolUserData(const_cast<char*>(cardStr.c_str())))
+			{
+				PlantsCardUnlock::unlockPlantsCard.push_back(plantsCardInformation[priority].type);
+				UserData::getInstance()->caveUserData(const_cast<char*>(cardStr.c_str()), true);
+			}
 		}
 	}
-}
-
-void SPSSpriteLayer::createProhibit(Button* button)
-{
-	auto prohibit = Sprite::createWithSpriteFrameName("Prohibit.png");
-	prohibit->setPosition(Vec2(160, 20));
-	prohibit->setScale(0.5f);
-	button->addChild(prohibit);
 }
 
 void SPSSpriteLayer::createPlantsText(const unsigned int& ID, const std::string& name, const Vec2& vec2, const float& fontsize, Color3B color, bool AnchorPoint)
@@ -544,13 +555,17 @@ void SPSSpriteLayer::createPlantsText(const unsigned int& ID, const std::string&
 
 void SPSSpriteLayer::createAnimationAndText(PlantsType type)
 {
-	for (unsigned int i = 0; i < _plantsNumber; i++)animationText[i]->setString("");
-	if (_plantsAnimation)_plantsAnimation->removeFromParent();
+	for (unsigned int i = 0; i < 4; ++i)animationText[i]->setString("");
+	if (_plantsAnimation)
+	{
+		_plantsAnimation->removeFromParent();
+		delete _plant;
+		_plant = nullptr;
+	}
 
-	auto plant = animationLayerInformation->createDifferentPlants(type);
-	_plantsAnimation = plant->showPlantAnimationAndText();
-	
-	if (_plantsAnimation) _seedChooser->addChild(_plantsAnimation);
+	_plant = animationLayerInformation->createDifferentPlants(type);
+	_plantsAnimation = _plant->showPlantAnimationAndText();
+	if (_plantsAnimation) _seedChooser->addChild(_plantsAnimation, 2);
 }
 
 string SPSSpriteLayer::selectRequirementText(map<string, LanguageTextAttribute*>& lta, PlantsType type, string str, string str1)
@@ -561,11 +576,17 @@ string SPSSpriteLayer::selectRequirementText(map<string, LanguageTextAttribute*>
 	}
 	else
 	{
-		char buf[256];
-		snprintf(buf, 256, lta.find(str1)->second->text.c_str(),
+		return StringUtils::format(lta.find(str1)->second->text.c_str(),
 			plantsCardInformation[static_cast<unsigned int>(type)].requirement.x,
 			plantsCardInformation[static_cast<unsigned int>(type)].requirement.y);
-		string s(buf);
-		return s;
+	}
+}
+
+void SPSSpriteLayer::popUnlockDialog()
+{
+	if (PlantsCardUnlock::unlockPlantsCard.size())
+	{
+		pauseButtonHoverEffect();
+		Director::getInstance()->getRunningScene()->addChild(PlantsCardUnlock::create(), 3);
 	}
 }

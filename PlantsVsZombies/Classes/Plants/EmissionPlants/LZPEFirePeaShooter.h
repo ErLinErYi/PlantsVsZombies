@@ -20,8 +20,8 @@ CC_CONSTRUCTOR_ACCESS:
 	FirePeaShooter(Node* node = nullptr);
 	~FirePeaShooter();
 
-private:
-	void plantAttack(Zombies* zombie) override;
-	SkeletonAnimation* showPlantAnimationAndText() override;
-	void createPea() override;
+protected:
+	virtual void createBullet() override;
+	virtual void plantAttack(Zombies* zombie) override;
+	virtual SkeletonAnimation* showPlantAnimationAndText() override;
 };

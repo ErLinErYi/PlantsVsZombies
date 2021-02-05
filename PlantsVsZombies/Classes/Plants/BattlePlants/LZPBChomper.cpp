@@ -44,6 +44,7 @@ Sprite* Chomper::createPlantImage()
 {
 	imageInit("Chomper", INIT);
 	_plantImage->setScale(1.7f);
+	_plantImage->setAnchorPoint(Vec2(0.37f, 0.45f));
 	return _plantImage;
 }
 
@@ -59,7 +60,7 @@ void Chomper::createPlantAnimation()
 	_plantAnimation->getChildByName("plantshadow")->setPosition(Vec2(0, 10));
 
 	// ÄàÍÁ·É½¦¶¯»­
-	setPlantSoilSplashAnimation(0.8f);
+	setPlantSoilSplashAnimation(0.5f);
 
 	// ´´½¨¼àÌý(¶ÁÈ¡´æµµÉèÖÃ)
 	createListener();
@@ -255,7 +256,7 @@ SkeletonAnimation* Chomper::showPlantAnimationAndText()
 	SPSSpriteLayer::createPlantsText(2, lta.find("CHOMER_2")->second->text, Vec2(360, 1000), lta.find("CHOMER_2")->second->fontsize, Color3B::YELLOW, false);
 	SPSSpriteLayer::createPlantsText(3, lta.find("CHOMER_3")->second->text, Vec2(440, 1000), lta.find("CHOMER_3")->second->fontsize, Color3B::RED, false);
 	SPSSpriteLayer::createPlantsText(1, SPSSpriteLayer::selectRequirementText(lta, PlantsType::Chomper, "CHOMER_4", "CHOMER_5"), Vec2(360, 870),
-		lta.find("CHOMER_4")->second->fontsize, SPSSpriteLayer::isPlantIsCanSelect[static_cast<unsigned int>(PlantsType::Chomper)] ? Color3B::YELLOW : Color3B(255, 70, 0), false);
+		lta.find("CHOMER_4")->second->fontsize, SPSSpriteLayer::isPlantIsCanSelect[static_cast<unsigned int>(PlantsType::Chomper)] ? Color3B::ORANGE : Color3B(255, 70, 0), false);
 	
 	return _plantAnimation;
 }

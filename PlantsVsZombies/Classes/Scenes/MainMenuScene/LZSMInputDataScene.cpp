@@ -427,8 +427,8 @@ void InputDataMenu::createDeleteDialog()
 
 void InputDataMenu::unlock()
 {
-	UserData::getInstance()->caveUserData("KILLALLZOMBIES", 11000);
-	UserData::getInstance()->caveUserData("COINNUMBERS", 11000);
+	UserData::getInstance()->caveUserData("KILLALLZOMBIES", 66666);
+	UserData::getInstance()->caveUserData("COINNUMBERS", 66666);
 	UserData::getInstance()->caveUserData("ISBEGINSHOWEGGS", true);
 	UserData::getInstance()->caveUserData("WORLD_1_LEVELS", 53);
 	UserData::getInstance()->caveUserData("WORLD_1_LEVELS_DIF", 53);

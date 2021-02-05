@@ -116,5 +116,4 @@ void AcidLemonBullet::readBulletAnimationInformation(rapidjson::Document* levelD
 	_bulletAnimation->setPosition(Vec2(
 		(*levelDataDocument)[key]["Bullet"][to_string(i).c_str()]["PositionX"].GetFloat(),
 		(*levelDataDocument)[key]["Bullet"][to_string(i).c_str()]["PositionY"].GetFloat()));
-	Bullet::setBulletOpacity((*levelDataDocument)[key]["Bullet"][to_string(i).c_str()]["Opacity"].GetInt());
 }

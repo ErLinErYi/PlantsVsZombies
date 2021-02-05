@@ -61,7 +61,7 @@ void JalapenoVariation::createPlantAnimation()
 	setPlantSoilSplashAnimation(0.8f);
 
 	// ÊÂ¼þ¼àÌý
-	setEventListener();
+	createListener();
 }
 
 void JalapenoVariation::showExplodeAnimation()
@@ -88,7 +88,7 @@ void JalapenoVariation::showExplodeAnimation()
 
 bool JalapenoVariation::getZombieIsInExplodeRange(Zombies* zombie)
 {
-	return fabs(_plantAnimation->getPositionX() - zombie->getZombieAnimation()->getPositionX()) < 70 ? true : false;
+	return getZombieIsSameColumnWithPlant(zombie) ? true : false;
 }
 
 SkeletonAnimation* JalapenoVariation::showPlantAnimationAndText()
@@ -106,8 +106,8 @@ SkeletonAnimation* JalapenoVariation::showPlantAnimationAndText()
 	SPSSpriteLayer::createPlantsText(0, lta.find("JALAPENO_6")->second->text, Vec2(190, 910), lta.find("JALAPENO_6")->second->fontsize);
 	SPSSpriteLayer::createPlantsText(2, lta.find("JALAPENO_2")->second->text, Vec2(360, 1000), lta.find("JALAPENO_2")->second->fontsize, Color3B::YELLOW, false);
 	SPSSpriteLayer::createPlantsText(3, lta.find("JALAPENO_7")->second->text, Vec2(440, 1000), lta.find("JALAPENO_7")->second->fontsize, Color3B::RED, false);
-	SPSSpriteLayer::createPlantsText(1, SPSSpriteLayer::selectRequirementText(lta, PlantsType::JalapenoVariation, "JALAPENO_4", "JALAPENO_5"), Vec2(360, 870),
-		lta.find("JALAPENO_4")->second->fontsize, SPSSpriteLayer::isPlantIsCanSelect[static_cast<unsigned int>(PlantsType::JalapenoVariation)] ? Color3B::YELLOW : Color3B(255, 70, 0), false);
+	SPSSpriteLayer::createPlantsText(1, SPSSpriteLayer::selectRequirementText(lta, PlantsType::JalapenoVariation, "JALAPENO_8", "JALAPENO_5"), Vec2(360, 870),
+		lta.find("JALAPENO_8")->second->fontsize, SPSSpriteLayer::isPlantIsCanSelect[static_cast<unsigned int>(PlantsType::JalapenoVariation)] ? Color3B::ORANGE : Color3B(255, 70, 0), false);
 
 	return _plantAnimation;
 }

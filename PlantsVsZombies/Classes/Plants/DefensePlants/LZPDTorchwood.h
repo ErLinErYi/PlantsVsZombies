@@ -23,10 +23,15 @@ CC_CONSTRUCTOR_ACCESS:
 	~Torchwood();
 
 private:
+	void createListener() override;
 	SkeletonAnimation* showPlantAnimationAndText() override;
 	void judgeTorchwoodAndPeaPosition();                   // 豌豆与火炬树桩位置判断
 	bool getPeaIsSameLineWithTorchwood(Bullet* bullet);    // 获取豌豆与火炬树桩是否在同一行
 	bool getPeaIsEncounterTorchwood(Bullet* bullet);       // 获取豌豆与火炬树桩是否相遇
 	bool getBulletIsPea(Bullet* bullet);                   // 获取子弹是否是豌豆
-	void makePeaFire(Bullet* bullet);
+	void createFirePea(Bullet* bullet);
+	void createPea(Bullet* bullet);
+	
+private:
+	int _playMusicMaxNumber;
 };

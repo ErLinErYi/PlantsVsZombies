@@ -9,10 +9,8 @@
 #include "Bullet/LZPEBAcidLemonBullet.h"
 #include "Zombies/LZZZombies.h"
 #include "Scenes/GameScene/LZSGData.h"
-#include "Based/LZBPlayMusic.h"
 
-AcidLemonShooter::AcidLemonShooter(Node* node) :
-	_isCreateAcidLemon(false)
+AcidLemonShooter::AcidLemonShooter(Node* node)
 {
 	_node = node;
 	_plantImage = nullptr;
@@ -41,7 +39,8 @@ AcidLemonShooter* AcidLemonShooter::create(Node* node)
 Sprite* AcidLemonShooter::createPlantImage()
 {
 	imageInit("LemonShooter", INIT);
-	_plantImage->setScale(1.3f);
+	_plantImage->setScale(1.25f);
+	_plantImage->setAnchorPoint(Vec2(0.4f, 0.55f));
 	return _plantImage;
 }
 
@@ -59,6 +58,9 @@ void AcidLemonShooter::createPlantAnimation()
 
 	// 泥土飞溅动画
 	setPlantSoilSplashAnimation(0.8f);
+
+	// 创建监听
+	createListener("LemonShooter");
 }
 
 void AcidLemonShooter::determineRelativePositionPlantsAndZombies()
@@ -86,26 +88,17 @@ void AcidLemonShooter::plantAttack(Zombies* zombie)
 
 void AcidLemonShooter::plantEmission(const string& plantAnimation)
 {
-	_isCreateAcidLemon = true; /* 表示有僵尸与植物在同一行 */
+	_isHaveZombies = true; /* 表示有僵尸与植物在同一行 */
 	if (!_isChanged)     /* 判断动画是否已经改变 */
 	{
 		_plantAnimation->addAnimation(0, plantAnimation, true);
 		_isChanged = true;
 	}
-
-	_plantAnimation->setEventListener([&](spTrackEntry* entry, spEvent* event)
-		{
-			if (strcmp(event->data->name, "shoot") == 0)
-			{
-				rand() % 2 == 0 ? PlayMusic::playMusic("throw") : PlayMusic::playMusic("throw2");
-				createAcidLemon();
-			}
-		});
 }
 
 void AcidLemonShooter::plantRecovery(const string& plantAnimation)
 {
-	if (!_isCreateAcidLemon)  /* 判断是否有僵尸与强酸柠檬射手在同一行 */
+	if (!_isHaveZombies)  /* 判断是否有僵尸与强酸柠檬射手在同一行 */
 	{
 		if (_isChanged)
 		{
@@ -114,11 +107,13 @@ void AcidLemonShooter::plantRecovery(const string& plantAnimation)
 		}
 	}
 
-	_isCreateAcidLemon = false; /* 每循环一次就初始化 */
+	_isHaveZombies = false; /* 每循环一次就初始化 */
 }
 
-void AcidLemonShooter::createAcidLemon()
+void AcidLemonShooter::createBullet()
 {
+	_isCreateBullet = true;
+
 	_bulletAnimation = new AcidLemonBullet(_node);
 	_bulletAnimation->setBulletPosition(_position);
 	_bulletAnimation->setBulletInRow(_rowAndColumn.y);
@@ -142,7 +137,7 @@ SkeletonAnimation* AcidLemonShooter::showPlantAnimationAndText()
 	SPSSpriteLayer::createPlantsText(2, lta.find("ACIDLEMON_2")->second->text, Vec2(360, 1000), lta.find("ACIDLEMON_2")->second->fontsize, Color3B::YELLOW, false);
 	SPSSpriteLayer::createPlantsText(3, lta.find("ACIDLEMON_3")->second->text, Vec2(440, 1000), lta.find("ACIDLEMON_3")->second->fontsize, Color3B::RED, false);
 	SPSSpriteLayer::createPlantsText(1, SPSSpriteLayer::selectRequirementText(lta, PlantsType::AcidLemonShooter, "ACIDLEMON_4", "ACIDLEMON_5"), Vec2(360, 870),
-		lta.find("ACIDLEMON_4")->second->fontsize, SPSSpriteLayer::isPlantIsCanSelect[static_cast<unsigned int>(PlantsType::AcidLemonShooter)] ? Color3B::YELLOW : Color3B(255, 70, 0), false);
+		lta.find("ACIDLEMON_4")->second->fontsize, SPSSpriteLayer::isPlantIsCanSelect[static_cast<unsigned int>(PlantsType::AcidLemonShooter)] ? Color3B::ORANGE : Color3B(255, 70, 0), false);
 	
 	return _plantAnimation;
 }

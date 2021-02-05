@@ -25,7 +25,10 @@ enum class BulletType
 	FirePea,
 	Cabbage,
 	AcidLemonBullet,
-	CitronBullet
+	CitronBullet,
+	StarFruitBullet,
+	WaterMelonBullet,
+	WinterMelonBullet
 };
 
 enum class SoundEffectType
@@ -71,7 +74,7 @@ public:
 	 *设置子弹的位置
 	 */
 	virtual void setBulletPosition(const Vec2& position);
-
+	
 	/**
 	 * 设置子弹所在行  
 	 */
@@ -112,6 +115,11 @@ public:
 	 *获取子弹位置
 	 */
 	virtual Vec2 getBulletPosition() const;
+
+	/**
+	 * 获取子弹初始位置 
+	 */
+	virtual Vec2 getBulletInitPosition() const;
 
 	/**
 	 *获取子所在行 
@@ -180,7 +188,9 @@ CC_CONSTRUCTOR_ACCESS:
 
 protected:
 	virtual SkeletonAnimation* bulletInit(const std::string& plantname, const std::string& animaionname);
-	virtual void createShadow() = 0;
+	virtual void createShadow() {};
+	virtual void createShadow(Vec2 position) {};
+	virtual void createShadow(float scale) {};
 	virtual float getZOrder() const;
 
 private:

@@ -21,8 +21,8 @@ CC_CONSTRUCTOR_ACCESS:
 	~Spikeweed();
 
 private:
+	void createListener() override;
 	void plantAttack() override;
 	bool getZombieIsEncounterPlant(Zombies* zombie) override;
 	SkeletonAnimation* showPlantAnimationAndText() override;
-	void setListenr() override;
 };

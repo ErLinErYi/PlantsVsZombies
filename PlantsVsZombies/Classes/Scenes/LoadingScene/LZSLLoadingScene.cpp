@@ -22,6 +22,10 @@ LoadingScene::LoadingScene() :
 	_loadFileNumbers(0),
 	_textNumbers(0),
 	_allFileNumbers(0),
+	_musicNumbers(0),
+	_animationNumbers(0),
+	_imageNumbers(0),
+	_delayTime(0.08f),
 	_loadingPrecent(0),
 	_label(nullptr),
 	_loadingBar(nullptr),
@@ -31,12 +35,15 @@ LoadingScene::LoadingScene() :
 	_files(FileUtils::getInstance()),
 	_userData(UserData::getInstance())
 {
+	SpriteFrameCache::getInstance()->
+		addSpriteFramesWithFile("resources/images/LoadingScene/LoadingScene.plist");
 	_downloader.reset(new network::Downloader());
 }
 
 LoadingScene::~LoadingScene()
 {
-	SpriteFrameCache::getInstance()->removeSpriteFramesFromFile("resources/images/LoadingScene/LoadingScene.plist");
+	SpriteFrameCache::getInstance()->
+		removeSpriteFramesFromFile("resources/images/LoadingScene/LoadingScene.plist");
 }
 
 Scene* LoadingScene::createLaodingScene()
@@ -54,10 +61,10 @@ bool LoadingScene::init()
 #   endif
 #endif
 	setRunFirstTime();       /* 获取第一次运行时间 */
-	calculateFileNumbers();  /* 计算文件总数 */
 	setSystem();             /* 设置系统参数 */
 	loadUserData();          /* 加载用户信息 */
 	showLoadingBackGround(); /* 展示加载界面 */
+	calculateFileNumbers();  /* 计算文件总数 */
 
 	return true;
 }
@@ -217,17 +224,13 @@ void LoadingScene::caveUserFileData()
 
 void LoadingScene::showLoadingBackGround()
 {
-	/* 播放音乐 */
-	PlayMusic::changeBgMusic("mainmusic", true);
-
 	/* 获取窗口大小 */
 	auto const size = Director::getInstance()->getWinSize();
 
 	/* 创建精灵 */
-	SpriteFrameCache::getInstance()->addSpriteFramesWithFile("resources/images/LoadingScene/LoadingScene.plist");
 	_sprite[0] = Sprite::createWithSpriteFrameName("cocos2dx_Logo.png");
 	_sprite[1] = Sprite::createWithSpriteFrameName("PopCap_Logo.png");
-	_sprite[7] = Sprite::create("resources/text/txt/About.txt");
+	_sprite[7] = Sprite::create("resources/text/About.reanim.compiled");
 	_sprite[2] = Sprite::createWithSpriteFrameName("titlescreen.png");
 
 	/* 为精灵设置名字 */
@@ -319,7 +322,7 @@ void LoadingScene::showTileAndLoadingBar()
 
 	/* 为精灵设置初始位置 */
 	_sprite[4]->setPosition(Vec2(size.width / 2, -100));
-	_sprite[5]->setPosition(Vec2(10, 95));
+	_sprite[5]->setPosition(Vec2(5, 95));
 	_sprite[6]->setPosition(Vec2(-SpriteSize.width, 0));
 	clippingNode->setPosition(Vec2(size.width / 2 + 10, 1100));
 
@@ -327,6 +330,7 @@ void LoadingScene::showTileAndLoadingBar()
 	_sprite[3]->setScaleX(1.25f);
 	_sprite[4]->setScale(2.0f);
 	_sprite[6]->setScale(2.0f);
+
 
 	/* 让精灵运动起来 */
 	_sprite[4]->runAction(Sequence::create(
@@ -388,13 +392,11 @@ void LoadingScene::beginLoadingImageAndMusic()
 	runAction(Sequence::create(
 		CallFunc::create([=]() {loadingText(
 			language.empty() ? "中文" : language.c_str());     /* 加载文本 */}),
-		DelayTime::create(0.2f),
-		CallFunc::create([&]() {loadingMusic();                /* 加载音乐 */}),
-		DelayTime::create(2.0f),
-		CallFunc::create([&]() {loadingImage();                /* 加载图片 */}),
-		DelayTime::create(3.0f),
 		CallFunc::create([&]() {loadingAnimation();            /* 加载动画 */}),
-		DelayTime::create(0.5f),
+		DelayTime::create(_animationNumbers * _delayTime),
+		CallFunc::create([&]() {loadingImage();                /* 加载图片 */}),
+		DelayTime::create(_imageNumbers * _delayTime),
+		CallFunc::create([&]() {loadingMusic();                /* 加载音乐 */}),
 		CallFunc::create([&]() {throwException();              /* 抛出异常 */}),
 		nullptr));
 }
@@ -406,7 +408,7 @@ void LoadingScene::update(float Time)
 		_loadingBar->setPercent(_loadingPrecent);              /* 设置加载进度 */
 		_sprite[5]->setScale(1 - _loadingPrecent / 170);       /* 设置精灵大小 */
 		_sprite[5]->setRotation(9 * _loadingPrecent);          /* 设置精旋转度数 */
-		_sprite[5]->setPosition(Vec2(10 + 290 / 100.0 * _loadingPrecent, 100 - _sprite[5]->getContentSize().height / 400 * _loadingPrecent));
+		_sprite[5]->setPosition(Vec2(5 + 290 / 100.0 * _loadingPrecent, 100 - _sprite[5]->getContentSize().height / 400 * _loadingPrecent));
 
 		if (_loadingPrecent >= 20)  showLoadingBarFlower(0);
 		if (_loadingPrecent >= 40)  showLoadingBarFlower(1);
@@ -461,17 +463,17 @@ void LoadingScene::calculateFileNumbers()
 {
 #if MYDEBUG
 	/* 文件总数 = 文本数 + 图片数 + 音乐数 + 动画数 */
-	_allFileNumbers =
-		openResourcesPath(_global->userInformation->getTextPath(), "resources/Text/TextPath.reanim.compiled", true) +
-		openResourcesPath(_global->userInformation->getImagePath(), "resources/Text/ImagePath.reanim.compiled", true) +
-		openResourcesPath(_global->userInformation->getMusicPath(), "resources/Text/MusicPath.reanim.compiled", true) +
-		openResourcesPath(_global->userInformation->getAnimationPath(), "resources/Text/AnimationPath.reanim.compiled", true);
+	_textNumbers = openResourcesPath(_global->userInformation->getTextPath(), "resources/Text/TextPath.reanim.compiled", true);
+	_imageNumbers = openResourcesPath(_global->userInformation->getImagePath(), "resources/Text/ImagePath.reanim.compiled", true);
+	_musicNumbers = openResourcesPath(_global->userInformation->getMusicPath(), "resources/Text/MusicPath.reanim.compiled", true);
+	_animationNumbers = openResourcesPath(_global->userInformation->getAnimationPath(), "resources/Text/AnimationPath.reanim.compiled", true);
+	_allFileNumbers = _textNumbers + _imageNumbers + _musicNumbers + _animationNumbers;
 #else
-	_allFileNumbers =
-		openResourcesPath(_global->userInformation->getTextPath(), "resources/Text/TextPath.xml", false) +
-		openResourcesPath(_global->userInformation->getImagePath(), "resources/Text/ImagePath.xml", false) +
-		openResourcesPath(_global->userInformation->getMusicPath(), "resources/Text/MusicPath.xml", false) +
-		openResourcesPath(_global->userInformation->getAnimationPath(), "resources/Text/AnimationPath.xml", false);
+	_textNumbers = openResourcesPath(_global->userInformation->getTextPath(), "resources/Text/TextPath.xml", false);
+	_imageNumbers = openResourcesPath(_global->userInformation->getImagePath(), "resources/Text/ImagePath.xml", false);
+	_musicNumbers = openResourcesPath(_global->userInformation->getMusicPath(), "resources/Text/MusicPath.xml", false);
+	_animationNumbers = openResourcesPath(_global->userInformation->getAnimationPath(), "resources/Text/AnimationPath.xml", false);
+	_allFileNumbers = _textNumbers + _imageNumbers + _musicNumbers + _animationNumbers;
 #endif
 }
 
@@ -559,7 +561,7 @@ int LoadingScene::openResourcesPath(map<string, string>& Path, const std::string
 void LoadingScene::throwException()
 {
 #if CC_TARGET_PLATFORM == CC_PLATFORM_WIN32
-	this->runAction(Sequence::create(DelayTime::create(100.f), CallFunc::create([=]()
+	this->runAction(Sequence::create(DelayTime::create(30.f), CallFunc::create([=]()
 		{
 			try
 			{
@@ -668,71 +670,72 @@ void LoadingScene::loadingText(const char* language)
 				}
 			}
 		}
-		this->loadingTextCallBack();
+		loadingTextCallBack();
 	}
 }
 
 void LoadingScene::loadingImage()
 {
+	int number = 0;
 	/* 循环加载图片 */
 	for (auto& i : _global->userInformation->getImagePath())
 	{
-		this->runAction(Sequence::create(CallFunc::create([=]
-			{
-				_director->getTextureCache()->addImageAsync(i.second + "pvr.ccz", [=](Texture2D* texture)
-					{
-						SpriteFrameCache::getInstance()->addSpriteFramesWithFile(i.second + "plist", texture);
-						_loadFileNumbers++;     /* 文件数加一 */
-						_loadingPrecent = ((_loadFileNumbers * 1.0f) / _allFileNumbers) * 100;  /* 计算加载的百分比 */
-					});
-			}), DelayTime::create(0.2f), nullptr));
+		runAction(Sequence::create(DelayTime::create(++number * _delayTime),
+			CallFunc::create([=]()
+				{
+					_director->getTextureCache()->addImageAsync(i.second + "pvr.ccz", [=](Texture2D* texture)
+						{
+							SpriteFrameCache::getInstance()->addSpriteFramesWithFile(i.second + "plist", texture);
+							_loadFileNumbers++;     /* 文件数加一 */
+							_loadingPrecent = ((_loadFileNumbers * 1.0f) / _allFileNumbers) * 100;  /* 计算加载的百分比 */
+						});
+				}), nullptr));
 	}
 }
 
 void LoadingScene::loadingMusic()
 {
+	int number = 0;
 	/* 循环加载音乐 */
 	for (auto& i : _global->userInformation->getMusicPath())
 	{
-		this->runAction(Sequence::create(CallFunc::create([=]
-			{
-				AudioEngine::preload(i.second, [=](bool isSucceed)
-					{
-						if (isSucceed)/* 如果加载成功 */
+		runAction(Sequence::create(DelayTime::create(++number * 0.015f),
+			CallFunc::create([=]()
+				{
+					AudioEngine::preload(i.second, [=](bool isSucceed)
 						{
-							_loadFileNumbers++;     /* 文件数加一 */
-							_loadingPrecent = ((_loadFileNumbers * 1.0f) / _allFileNumbers) * 100;  /* 计算加载的百分比 */
-						}
-					});
-			}), DelayTime::create(0.2f), nullptr));
+							if (isSucceed)/* 如果加载成功 */
+							{
+								_loadFileNumbers++;     /* 文件数加一 */
+								_loadingPrecent = ((_loadFileNumbers * 1.0f) / _allFileNumbers) * 100;  /* 计算加载的百分比 */
+							}
+						});
+				}), nullptr));
+		
 	}
 }
 
 void LoadingScene::loadingAnimation()
 {
+	int number = 0;
 	/* 循环加载动画 */
 	for (auto& i : _global->userInformation->getAnimationPath())
 	{
-		this->runAction(Sequence::create(CallFunc::create([=]
-			{
-				/* 临时存储文件名字 */
-				char JsonName[128], AtlasName[128];
+		runAction(Sequence::create(DelayTime::create(++number * _delayTime),
+			CallFunc::create([=]() 
+				{
+					/* 加载 */
+					auto json = spSkeletonJson_createWithLoader((spAttachmentLoader*)Cocos2dAttachmentLoader_create(
+						spAtlas_createFromFile(("resources/Animations/reanim/" + i.second + ".reanim").c_str(), nullptr)));
+					auto skeletonData = spSkeletonJson_readSkeletonDataFile(json, ("resources/Animations/compiled/" + i.second + ".compiled").c_str());
+					spSkeletonJson_dispose(json);
 
-				/* 转换 */
-				snprintf(JsonName, 128, "resources/Animations/compiled/%s.compiled", (i.second).c_str());
-				snprintf(AtlasName, 128, "resources/Animations/reanim/%s.reanim", (i.second).c_str());
+					/* 把加载到的动画放入map中 */
+					_global->userInformation->getAnimationData().insert(pair<string, spSkeletonData*>(i.second, skeletonData));
 
-				/* 加载 */
-				spSkeletonJson* json = spSkeletonJson_createWithLoader((spAttachmentLoader*)Cocos2dAttachmentLoader_create(spAtlas_createFromFile(AtlasName, nullptr)));
-				auto skeletonData = spSkeletonJson_readSkeletonDataFile(json, JsonName);
-				spSkeletonJson_dispose(json);
-
-				/* 把加载到的动画放入map中 */
-				_global->userInformation->getAnimationData().insert(pair<string, spSkeletonData*>(i.second, skeletonData));
-
-				/* 进行回调 */
-				this->loadingAnimationCallBack();
-			}), DelayTime::create(0.2f), nullptr));
+					/* 进行回调 */
+					loadingAnimationCallBack();
+				}), nullptr));
 	}
 }
 

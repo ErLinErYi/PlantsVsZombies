@@ -19,4 +19,7 @@
 // C RunTime Header Files
 #include "platform/CCStdC.h"
 
+bool checkAlreadyRunning();
+void setPowerActiveScheme();
+
 #endif    // __MAIN_H__

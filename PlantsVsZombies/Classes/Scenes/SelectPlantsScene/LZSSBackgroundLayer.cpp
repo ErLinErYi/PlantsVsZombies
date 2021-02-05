@@ -34,9 +34,6 @@ bool SPSBackgroundLayer::init()
 
 	setBackgroundImagePosition();
 
-	/* ´´½¨Ô¤ÀÀ½©Ê¬ */
-	createPreviewZombie();
-
 	return true;
 }
 
@@ -46,6 +43,7 @@ void SPSBackgroundLayer::createBackGroundEffect()
 	{
 	case WorldName::Mordern:
 		createMordernBackgroundImage();
+		createMordernPreviewZombies();
 		break;
 	case WorldName::DarkAges:
 		createFireEffect(_global->userInformation->getBackground());
@@ -54,9 +52,8 @@ void SPSBackgroundLayer::createBackGroundEffect()
 		break;
 	case WorldName::FrostibiteCaves:
 		break;
-	default:
-		break;
 	}
+	sortZombiesPosition();
 }
 
 void SPSBackgroundLayer::createMordernBackgroundImage()
@@ -64,11 +61,8 @@ void SPSBackgroundLayer::createMordernBackgroundImage()
 	switch (_global->userInformation->getCurrentPlayLevels())
 	{
 	case 35:
-	{
 		_global->userInformation->setBackground(Sprite::createWithSpriteFrameName("background6.png"));
-		auto snow = ParticleSnow::create();
-		_global->userInformation->getBackground()->addChild(snow);
-	}
+		createSnowParticle();
 		break;
 	case 36:
 		_global->userInformation->setBackground(Sprite::createWithSpriteFrameName("background1.png"));
@@ -91,6 +85,20 @@ void SPSBackgroundLayer::createMordernBackgroundImage()
 	}
 }
 
+void SPSBackgroundLayer::createSnowParticle()
+{
+	auto sonw = ParticleSnow::create();
+	sonw->retain();
+	sonw->setTotalParticles(2000);
+	sonw->setLife(6);
+	sonw->setLifeVar(1);
+	sonw->setGravity(Vec2(0, -10));
+	sonw->setSpeed(130);
+	sonw->setSpeedVar(30);
+	sonw->setEmissionRate(sonw->getTotalParticles() / sonw->getLife());
+	_global->userInformation->getBackground()->addChild(sonw, 10);
+}
+
 void SPSBackgroundLayer::createFireEffect(Sprite* name)
 {
 	auto fire = ParticleFire::create();
@@ -100,27 +108,6 @@ void SPSBackgroundLayer::createFireEffect(Sprite* name)
 	auto fire1 = ParticleFire::create();
 	fire1->setPosition(Vec2(1820, 1000));
 	name->addChild(fire1);
-}
-
-void SPSBackgroundLayer::createPreviewZombie()
-{
-	srand(time(nullptr));
-	switch (_global->userInformation->getSelectWorldName())
-	{
-	case WorldName::Mordern:
-		createMordernPreviewZombies();
-		break;
-	case WorldName::DarkAges:
-		break;
-	case WorldName::NeonMixtapeTour:
-		break;
-	case WorldName::FrostibiteCaves:
-		break;
-	default:
-		break;
-	}
-
-	sortZombiesPosition();
 }
 
 void SPSBackgroundLayer::createMordernPreviewZombies()

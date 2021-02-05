@@ -8,6 +8,8 @@
 #pragma once
 #include "LZPEEmissionPlants.h"
 
+#define _MAX_ 0xffffff
+
 class Bullet;
 
 class CabbagePult :public EmissionPlants
@@ -22,13 +24,14 @@ CC_CONSTRUCTOR_ACCESS:
 	CabbagePult(Node* node = nullptr);
 	~CabbagePult();
 
-private:
-	void plantAttack(Zombies* zombie) override;
-	SkeletonAnimation* showPlantAnimationAndText() override;
-	void createCabbage();
+protected:
+	virtual void createBullet() override;
+	virtual void plantAttack(Zombies* zombie) override;
+	virtual void plantAttack(Zombies* zombie, const string& animationName);
+	virtual SkeletonAnimation* showPlantAnimationAndText() override;
+	virtual void determineRelativePositionPlantsAndZombies(const string& animationName);
 
-private:
-	bool _isCreateCabbage;    // 是否创建据卷心菜子弹
+protected:
 	float _distance;          // 植物与最近的僵尸的距离
 	Vec2 _zombiePostion;      // 临时挑选出来的僵尸的位置
 	float _zombieSpeed;       // 临时挑选出来的僵尸的速度

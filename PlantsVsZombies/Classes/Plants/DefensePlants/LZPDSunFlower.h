@@ -17,8 +17,6 @@ public:
 	static void stopSun();
 	static void sunRecovery(Sun* sun);
 	void createRandomSuns();
-	void setSunShowTime(const Vec2 time);
-	Vec2 getSunShowTime() const;
 	Sprite* createPlantImage() override;
 	void createPlantAnimation() override;
 	
@@ -26,26 +24,26 @@ CC_CONSTRUCTOR_ACCESS:
 	SunFlower(Node* node = nullptr);
 	~SunFlower();
 
-private:
-	void cavePlantInformation(rapidjson::Value& object, rapidjson::Document::AllocatorType& allocator) override;
-	void readPlantInforamtion(rapidjson::Document* levelDataDocument, char* key, int i) override;
-	SkeletonAnimation* showPlantAnimationAndText() override;
-	void createSuns();
-	void createListener();
-	void playAnimation();
-	void calculateSunShowTime();
+protected:
+	virtual void cavePlantInformation(rapidjson::Value& object, rapidjson::Document::AllocatorType& allocator) override;
+	virtual void readPlantInforamtion(rapidjson::Document* levelDataDocument, char* key, int i) override;
+	virtual SkeletonAnimation* showPlantAnimationAndText() override;
+	virtual void createSuns();
+	virtual void createListener();
+	virtual void playAnimation();
+	virtual void calculateSunShowTime();
 	
-private:
+protected:
 	static int _sunTag;
 	Sun* _sun;
 	Vec2 _sunShowTime;
-	Vec2 _sunShowTime1;
+	bool _isCreateSun;
 };
 
 class Sun
 {
 public:
-	void createSuns();
+	void createSuns(float scale = 1.2f);
 	void setSunTag(const int& sunTag);
 	void setPosition(const Vec2& position);
 	void setEnable(bool isUsed);

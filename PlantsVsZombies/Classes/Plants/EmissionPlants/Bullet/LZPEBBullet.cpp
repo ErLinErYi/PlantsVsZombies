@@ -170,6 +170,11 @@ Vec2 Bullet::getBulletPosition() const
 	return _bulletAnimation->getPosition();
 }
 
+Vec2 Bullet::getBulletInitPosition() const
+{
+	return _position;
+}
+
 int Bullet::getBulletInRow() const
 {
 	return _bulletRow;
@@ -197,9 +202,6 @@ bool Bullet::getBulletIsSameLineWithZombie(Zombies* zombie)
 
 bool Bullet::getBulletIsEncounterWithZombie(Zombies* zombie)
 {
-	/*auto &rect = zombie->getZombieAnimation()->getBoundingBox();
-	return _bulletAnimation->getBoundingBox().intersectsRect(
-		Rect(rect.origin.x + 70, rect.origin.y, rect.size.width, rect.size.height));*/
 	return fabs(zombie->getZombieAnimation()->getPositionX() - _bulletAnimation->getPositionX()) <= 25 ? true : false;
 }
 
@@ -234,9 +236,9 @@ void Bullet::playSoundEffect(SoundEffectType soundEffect)
 {
 	switch (soundEffect)
 	{
-	case SoundEffectType::kernelpult: rand() % 2 ? PlayMusic::playMusic("kernelpult") : PlayMusic::playMusic("kernelpult2");  break;
-	case SoundEffectType::shieldhit:  rand() % 2 ? PlayMusic::playMusic("shieldhit") :  PlayMusic::playMusic("shieldhit2");   break;
-	case SoundEffectType::plastichit: rand() % 2 ? PlayMusic::playMusic("plastichit") : PlayMusic::playMusic("plastichit2");  break;
-	case SoundEffectType::firepea:    PlayMusic::playMusic("firepea"); break;
+	case SoundEffectType::kernelpult:  PlayMusic::playMusic(rand() % 2 ? "kernelpult" : "kernelpult2");  break;
+	case SoundEffectType::shieldhit:   PlayMusic::playMusic(rand() % 2 ? "shieldhit" : "shieldhit2");    break;
+	case SoundEffectType::plastichit:  PlayMusic::playMusic(rand() % 2 ? "plastichit" : "plastichit2");  break;
+	case SoundEffectType::firepea:     PlayMusic::playMusic(rand() % 2 ? "ignite" : "ignite2");          break;
 	}
 }

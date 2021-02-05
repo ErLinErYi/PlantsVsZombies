@@ -48,6 +48,7 @@ void MouseEventControl::goodsRecovery(Node* node)
 			{
 				PlayMusic::playMusic("points");
 				SunFlower::sunRecovery(sun);
+				break;
 			}
 		}
 
@@ -57,6 +58,7 @@ void MouseEventControl::goodsRecovery(Node* node)
 			{
 				PlayMusic::playMusic("coin");
 				Coin::coinRecoveryAction(coin);
+				break;
 			}
 		}
 		return true;

@@ -11,10 +11,6 @@
 
 class IcePea :public Pea
 {
-public:
-    static void setZombieActionSlow(Zombies* zombie);
-    static void setZombieActionRecovery(Zombies* zombie);
-
 CC_CONSTRUCTOR_ACCESS:
     IcePea(Node* node);
     ~IcePea();
@@ -22,9 +18,8 @@ CC_CONSTRUCTOR_ACCESS:
 protected:
     virtual void createShadow() override;
     virtual void bulletAndZombiesCollision() override;
-    virtual void readBulletInformation(rapidjson::Document* levelDataDocument, char* key, int i) override;
     virtual void readBulletAnimationInformation(rapidjson::Document* levelDataDocument, char* key, int i) override;
     virtual void createPeaExplode() override;
-    virtual void createPeaExplode(Zombies* zombie);
+    virtual void attackZombies(Zombies* zombie) override;
     virtual void icePeaExplodeEffect(Zombies* zombie);
 };

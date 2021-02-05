@@ -34,6 +34,7 @@ bool HelpScene::init()
 	PlayMusic::playMusic("paper");
 	
 	createBackground();
+	createParticle();
 	createText();
 	createButton();
 	
@@ -121,6 +122,13 @@ void HelpScene::createButton()
 			}
 		});
 
+}
+
+void HelpScene::createParticle()
+{
+	/*auto particle = ParticleSystemQuad::create("resources/Text/Particle.plist");
+	particle->setPosition(Vec2(0, -30));
+	this->addChild(particle);*/
 }
 
 void HelpScene::addScrollView()

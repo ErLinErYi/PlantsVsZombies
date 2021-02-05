@@ -579,7 +579,7 @@ ui::Button* ModernWorld::createButton(Node* node, const std::string& name, const
 	text->setGlobalZOrder(1);
 	text->setTextColor(Color4B::RED);
 	text->setPosition(Vec2(37, 30));
-	text->enableGlow(Color4B::GREEN);
+	text->enableGlow(Color4B::BLUE);
 	setLevelVisible(text);
 	sprite4->addChild(text);
 
@@ -642,17 +642,13 @@ void ModernWorld::readWorldLevel()
 		_global->userInformation->getUserSelectWorldData().at(0)->isReadWoldInformation = true;
 	}
 
-	char worldFile[128];
+	string worldFile;
 	if (_global->userInformation->getGameDifficulty())
-	{
-		snprintf(worldFile, 128, _global->userInformation->getSystemDifCaveFileName().c_str(), 1);
-	}
+		worldFile = StringUtils::format(_global->userInformation->getSystemDifCaveFileName().c_str(), 1);
 	else
-	{
-		snprintf(worldFile, 128, _global->userInformation->getSystemCaveFileName().c_str(), 1);
-	}
+		worldFile = StringUtils::format(_global->userInformation->getSystemCaveFileName().c_str(), 1);
 	_global->userInformation->getUserSelectWorldData().at(0)->levels =
-		UserData::getInstance()->openIntUserData(worldFile);
+		UserData::getInstance()->openIntUserData(const_cast<char*>(worldFile.c_str()));
 	
 	if (_global->userInformation->getUserSelectWorldData().at(0)->levels == 0)
 	{

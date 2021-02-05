@@ -23,6 +23,7 @@ SelectPlantsScene::SelectPlantsScene() :
 	_scrollLayer(nullptr),
 	_spriteLayer(nullptr),
 	_scrollView(nullptr),
+	_eventType(SPSEventType::scrollToRight),
 	_director(Director::getInstance()),
 	_global(Global::getInstance())
 {
@@ -44,7 +45,7 @@ bool SelectPlantsScene::init()
 
 	createBackgroundLayer();
 	createControlLayer();
-	schedule(schedule_selector(SelectPlantsScene::eventUpdate), 0.25f);
+	schedule([this](float) {eventUpdate(_eventType); }, "event");
 	schedule([this](float) {_global->checkAnimationInterval(); }, 1.f, "FPS");
 
 	return true;
@@ -66,7 +67,7 @@ void SelectPlantsScene::createBackgroundLayer()
 	_scrollView->setDirection(extension::ScrollView::Direction::HORIZONTAL);//设置只能纵向滚动
 	_scrollView->setTouchEnabled(false);//关闭触碰事件
 	_scrollView->runAction(Sequence::create(DelayTime::create(1.0f),
-		CallFuncN::create([&](Node* node)
+		CallFunc::create([&]()
 			{
 				_scrollView->setContentOffsetInDuration(Vec2(-1010, 0), 2.5f);
 			}), nullptr));
@@ -79,34 +80,34 @@ void SelectPlantsScene::createControlLayer()
 	this->addChild(_controlLayer, 1);
 }
 
-void SelectPlantsScene::eventUpdate(float Time)
+void SelectPlantsScene::eventUpdate(SPSEventType eventType)
 {
-	if (Time == 0.22f && _spriteLayer->_selectFinished)
+	switch (eventType)
 	{
-		unschedule(schedule_selector(SelectPlantsScene::eventUpdate));
-		selectPlantsCallBack();
-	}
-	else if (Time == 0.25f)
-	{
+	case SPSEventType::scrollToRight:
 		if (_scrollView->getContentOffset().x <= SCROLLRIGHTFINISHED)
 		{
-			/* 取消定时函数 */
-			unschedule(schedule_selector(SelectPlantsScene::eventUpdate)); 
-
+			_eventType = SPSEventType::null;
 			runAction(Sequence::create(DelayTime::create(1.0f), CallFunc::create([&]() {controlShowRequirement(); }), nullptr));
 		}
-	}
-	else if (Time == 0.3f)
-	{
+		break;
+	case SPSEventType::scrollToLeft:
+		if (_spriteLayer->_selectFinished)
+		{
+			_eventType = SPSEventType::null;
+			selectPlantsCallBack();
+		}
+		break;
+	case SPSEventType::playGame:
 		if (_scrollView->getContentOffset().x >= SCROLLLEFTFINISHED)
 		{
 			/* 播放音乐 */
+			_eventType = SPSEventType::null;
 			PlayMusic::playMusic("readysetplant");
-			/* 取消定时函数 */
-			this->unschedule(schedule_selector(SelectPlantsScene::eventUpdate));
-
 			createReadyText("StartReady", 1);
 		}
+		break;
+	default: break;
 	}
 }
 
@@ -118,7 +119,7 @@ void SelectPlantsScene::createSelectPlantsDialog()
 	_spriteLayer = SPSSpriteLayer::create();
 	this->addChild(_spriteLayer);
 
-	schedule(schedule_selector(SelectPlantsScene::eventUpdate), 0.22f);
+	_eventType = SPSEventType::scrollToLeft;
 }
 
 void SelectPlantsScene::controlShowRequirement()
@@ -137,7 +138,8 @@ void SelectPlantsScene::controlShowRequirement()
 void SelectPlantsScene::selectPlantsCallBack()
 {
 	_scrollView->setContentOffsetInDuration(Vec2(-220, 0), 2.0f);//设置滚动方向与时间
-	this->schedule(schedule_selector(SelectPlantsScene::eventUpdate), 0.3f);
+
+	_eventType = SPSEventType::playGame;
 }
 
 void SelectPlantsScene::createReadyText(const std::string& name, const int& id)

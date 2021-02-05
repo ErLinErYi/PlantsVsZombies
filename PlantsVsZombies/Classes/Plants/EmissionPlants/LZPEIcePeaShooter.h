@@ -24,7 +24,7 @@ CC_CONSTRUCTOR_ACCESS:
 	~IcePeaShooter();
 
 protected:
-	virtual void createPea();
+	virtual void createBullet() override;
 	virtual void plantAttack(Zombies* zombie) override;
 	virtual SkeletonAnimation* showPlantAnimationAndText() override;
 };

@@ -24,6 +24,7 @@ using namespace std;
 class Global;
 class Plants;
 class Zombies;
+class Bullet;
 enum class openUserDataReturnType
 {
     FileExistError = 1,
@@ -73,6 +74,7 @@ public:
     void openLevelCoinData(char* key);
     void openLevelCarData(char* key);
     void openLevelBulletData(char* key);
+    void openLevelBulletAnimationData(char* key, const char* bu, Bullet* bullet);
     void openLevelOtherData(char* key);
     void openSurvivalOtherData(char* key);
 
@@ -111,6 +113,7 @@ private:
     void caveLevelCoinData(char* key);
     void caveLevelCarData(char* key);
     void caveLevelBulletData(char* key);
+    void caveLevelBulletAnimationData(Bullet* bullet, rapidjson::Value& object);
     void caveLevelOtherData(char* key);
     void caveSurvivalOtherData(char* key);
 

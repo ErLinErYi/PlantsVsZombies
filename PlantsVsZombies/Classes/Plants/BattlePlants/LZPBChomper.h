@@ -26,10 +26,10 @@ CC_CONSTRUCTOR_ACCESS:
     ~Chomper();
 
 protected:
-    virtual void plantAttack(Zombies* zombie);
+    virtual void createListener() override;
+    virtual void plantAttack(Zombies* zombie) override;
     virtual bool getZombieIsEncounterPlant(Zombies* zombie) override;
     virtual SkeletonAnimation* showPlantAnimationAndText() override;
-    virtual void createListener();
 
 private:
     void cavePlantInformation(rapidjson::Value& object, rapidjson::Document::AllocatorType& allocator) override;

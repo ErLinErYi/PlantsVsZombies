@@ -3,7 +3,8 @@
 
 #include <string>
 #include <unordered_map>
-#include "json/document-wrapper.h"
+#include "json/document.h"
+#include "json/cursorstreamwrapper.h"
 #include "editor-support/cocostudio/CocosStudioExport.h"
 
 namespace cocostudio {

@@ -38,7 +38,7 @@
 #include "Manifest.h"
 #include "extensions/ExtensionMacros.h"
 #include "extensions/ExtensionExport.h"
-#include "json/document-wrapper.h"
+#include "json/cursorstreamwrapper.h"
 
 
 NS_CC_EXT_BEGIN

@@ -1176,7 +1176,7 @@ void AssetsManagerEx::queueDowload()
     {
         // Save current download manifest information for resuming
         _tempManifest->saveToFile(_tempManifestPath);
-        _nextSavePoint += SAVE_POINT_INTERVAL;
+        _nextSavePoint += static_cast<float>(SAVE_POINT_INTERVAL);
     }
 }
 

@@ -353,6 +353,36 @@
     <ClCompile Include="..\Classes\Based\LZBMouseEventControl.cpp">
       <Filter>Class\Based</Filter>
     </ClCompile>
+    <ClCompile Include="..\Classes\Plants\EmissionPlants\LZPEStarFruit.cpp">
+      <Filter>Class\Plants\EmissionPlants</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Classes\Plants\EmissionPlants\Bullet\LZPEBStarFruitBullet.cpp">
+      <Filter>Class\Plants\EmissionPlants\Bullet</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Classes\Plants\EmissionPlants\LZPEThreePeaShooter.cpp">
+      <Filter>Class\Plants\EmissionPlants</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Classes\Plants\BattlePlants\LZPBIceBergLettuce.cpp">
+      <Filter>Class\Plants\BattlePlants</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Classes\Scenes\SelectPlantsScene\LZSSPlantSCardUnlockLayer.cpp">
+      <Filter>Class\Scenes\SelectPlantsScene</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Classes\Plants\EmissionPlants\LZPEWaterMelonPult.cpp">
+      <Filter>Class\Plants\EmissionPlants</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Classes\Plants\EmissionPlants\LZPEWinterMelonPult.cpp">
+      <Filter>Class\Plants\EmissionPlants</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Classes\Plants\DefensePlants\LZPDSunFlowerTwin.cpp">
+      <Filter>Class\Plants\DefensePlants</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Classes\Plants\EmissionPlants\Bullet\LZPEBWaterMelonBullet.cpp">
+      <Filter>Class\Plants\EmissionPlants\Bullet</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Classes\Plants\EmissionPlants\Bullet\LZPEBWinterMelonBullet.cpp">
+      <Filter>Class\Plants\EmissionPlants\Bullet</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="..\Classes\Based\LZBCar.h">
@@ -654,6 +684,36 @@
     </ClInclude>
     <ClInclude Include="..\Classes\Based\LZBMouseEventControl.h">
       <Filter>Class\Based</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Classes\Plants\EmissionPlants\LZPEStarFruit.h">
+      <Filter>Class\Plants\EmissionPlants</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Classes\Plants\EmissionPlants\Bullet\LZPEBStarFruitBullet.h">
+      <Filter>Class\Plants\EmissionPlants\Bullet</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Classes\Plants\EmissionPlants\LZPEThreePeaShooter.h">
+      <Filter>Class\Plants\EmissionPlants</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Classes\Plants\BattlePlants\LZPBIceBergLettuce.h">
+      <Filter>Class\Plants\BattlePlants</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Classes\Scenes\SelectPlantsScene\LZSSPlantSCardUnlockLayer.h">
+      <Filter>Class\Scenes\SelectPlantsScene</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Classes\Plants\EmissionPlants\LZPEWaterMelonPult.h">
+      <Filter>Class\Plants\EmissionPlants</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Classes\Plants\EmissionPlants\LZPEWinterMelonPult.h">
+      <Filter>Class\Plants\EmissionPlants</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Classes\Plants\DefensePlants\LZPDSunFlowerTwin.h">
+      <Filter>Class\Plants\DefensePlants</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Classes\Plants\EmissionPlants\Bullet\LZPEBWaterMelonBullet.h">
+      <Filter>Class\Plants\EmissionPlants\Bullet</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Classes\Plants\EmissionPlants\Bullet\LZPEBWinterMelonBullet.h">
+      <Filter>Class\Plants\EmissionPlants\Bullet</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>

@@ -243,10 +243,11 @@ void GSButtonLayer::createPlantsCard()
 		cardBackgroundImag->setEnabled(false);
 		cardBackgroundImag->setColor(Color3B::GRAY);
 		cardBackgroundImag->setCascadeColorEnabled(true);
+		cardBackgroundImag->setTag(card.cardTag);
 		this->addChild(cardBackgroundImag);
 
 		SPSSpriteLayer* sps_spriteLayer = new SPSSpriteLayer;
-		auto cardInformation = sps_spriteLayer->showPlantsInformation(cardBackgroundImag, static_cast<PlantsType>(card.cardTag));
+		auto cardInformation = sps_spriteLayer->showPlantsInformation(cardBackgroundImag);
 		delete sps_spriteLayer;
 
 		ProgressTimer* timerBar;
@@ -258,7 +259,8 @@ void GSButtonLayer::createPlantsCard()
 		}
 		else
 		{
-			if (card.cardTag) timerBar = createProgressTimer(cardBackgroundImag, plantsCardInformation[card.cardTag].plantsCoolTime, 100, card.cardTag);
+			if (plantsCardInformation[card.cardTag].type != PlantsType::SunFlower && plantsCardInformation[card.cardTag].type != PlantsType::SunFlowerTwin)
+				timerBar = createProgressTimer(cardBackgroundImag, plantsCardInformation[card.cardTag].plantsCoolTime, 100, card.cardTag);
 			else timerBar = createProgressTimer(cardBackgroundImag, 0, 100, card.cardTag);
 		}
 

@@ -34,7 +34,8 @@
 #include "network/CCDownloader.h"
 #include "platform/CCFileUtils.h"
 
-#include "json/document-wrapper.h"
+#include "json/cursorstreamwrapper.h"
+#include "json/document.h"
 
 NS_CC_EXT_BEGIN
 

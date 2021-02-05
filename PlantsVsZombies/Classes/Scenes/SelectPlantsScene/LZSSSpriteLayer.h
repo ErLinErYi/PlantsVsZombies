@@ -17,6 +17,7 @@ using namespace cocos2d;
 using namespace cocos2d::ui;
 using namespace spine;
 
+class Plants;
 enum class PlantsType;
 
 class SPSSpriteLayer : public Layer
@@ -26,9 +27,10 @@ public:
 	static void createButtonHoverEffect(Button* button);
 	static void pauseButtonHoverEffect();
 	static void resumeButtonHoverEffect();
-	static void createPlantsText(const unsigned int& ID, const std::string& name, const Vec2& vec2, const float& fontsize, Color3B color = Color3B::WHITE, bool AnchorPoint = true);
+	static void createPlantsText(const unsigned int& ID, const std::string& name, 
+		const Vec2& vec2, const float& fontsize, Color3B color = Color3B::WHITE, bool AnchorPoint = true);
 	static string selectRequirementText(map<string, LanguageTextAttribute*>& lta, PlantsType type, string str, string str1);
-	Text* showPlantsInformation(Button* button, PlantsType type);
+	Text* showPlantsInformation(Button* button, bool showHeart = false);
 
 private:
 	void createSelectPlantsDialog();
@@ -38,22 +40,23 @@ private:
 	void createMouseListener();
 	void createPlantsCards();
 	void showRandPlantsInformation();
-	Button* createButtons(const Vec2& vec2, PlantsType type);
+	Button* createButtons(const Vec2& vec2,int priority);
 	void showSelectedButtonHoverEffect(EventMouse* e);
 	void showPopulationButtonHoverEffect(EventMouse* e);
 	void preLoadText();
-	void createPlantsImage(Button* button, PlantsType type, const float& scale = 0.8f) const;
-	void createMoveButton(Button* button, const Vec2& vec2, PlantsType type);
+	void createMoveButton(Button* button, const Vec2& vec2);
 	void createAnimationAndText(PlantsType type);
 	void sortPlantsCard(PlantsType type);
 	void createBeginButton();
-	void controlPlantCanSelect(Button* button, PlantsType type);
-	void createProhibit(Button* button);
+	void controlPlantCanSelect(Button* button, int priority);
 	void startGame();
 	void selectPlantsCallBack(Node* node) { _selectFinished = true; }
 	float calculateScrollDistance();
 	float calculateScrollPrecent(float distance);
-
+	void popUnlockDialog();
+	void plantsCardButtonEvent(Button* button, Vec2 vec2);
+	void plantsMoveCardButtonEvent(Button* button, Button* moveCard, Vec2 vec2, float plantCardRollingDistanceLast);
+	
 CC_CONSTRUCTOR_ACCESS:
 	SPSSpriteLayer();
 	~SPSSpriteLayer();
@@ -61,20 +64,20 @@ CC_CONSTRUCTOR_ACCESS:
 
 public:
 	static Text* animationText[PLANTSNUMBERS];        /* 动画说明 */
-	static ui::ScrollView* plantCardTextScrollView;   /* 植物卡牌滚动视图 */
 	static bool isPlantIsCanSelect[PLANTSNUMBERS];    /* 是否可以选择该植物 */
+	static ui::ScrollView* plantCardTextScrollView;   /* 植物卡牌滚动视图 */
 	bool _selectFinished;                             /* 是否选择完成 */
 	vector<UserSelectCard> seedBankButton;
 
 private:
-	Global* _global;
-	Sprite* _seedChooser;
+	Global* _global;                           /* 全局变量单例 */
+	Sprite* _seedChooser;                      /* 植物选择对话框 */
+	Plants* _plant;                            /* 植物变量 */
 	SkeletonAnimation* _plantsAnimation;       /* 植物动画 */
 	ui::ScrollView* _plantCardScrollView;      /* 植物卡牌滚动视图 */
 	float _plantCardScrollViewPercent;         /* 植物卡牌滚动视图滚动距离 */
 	float _plantCardRollingDistance;           /* 计算鼠标滚动距离 */
-	unsigned int _plantsNumber;                /* 植物数量 */
 	static EventListenerMouse* _listener;      /* 鼠标监听 */
 	static int _listenerMutex;                 /* 鼠标监听互斥 */
-	vector<Button*>_plantsCards;               /* 植物卡牌 */
+	map<PlantsType, Button*>_plantsCards;      /* 植物卡牌 */
 };

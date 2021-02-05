@@ -12,3 +12,6 @@
 #include "Plants/EmissionPlants/Bullet/LZPEBCabbage.h"
 #include "Plants/EmissionPlants/Bullet/LZPEBCitronBullet.h"
 #include "Plants/EmissionPlants/Bullet/LZPEBAcidLemonBullet.h"
+#include "Plants/EmissionPlants/Bullet/LZPEBStarFruitBullet.h"
+#include "Plants/EmissionPlants/Bullet/LZPEBWaterMelonBullet.h"
+#include "Plants/EmissionPlants/Bullet/LZPEBWinterMelonBullet.h"

@@ -13,20 +13,67 @@
 
 Cabbage::Cabbage(Node* node) :
   _zombiePosition(Vec2::ZERO)
+, _initPosition(Vec2::ZERO)
+, _endPosition(Vec2::ZERO)
+, _currentPosition(Vec2::ZERO)
+, _actionTime(1.f)
+, _acxtionHeight(300)
 , _zombieSpeed(0)
 , _zombieHeight(0)
 , _isFileData(false)
 {
 	_node = node;
-	_attack = 60;
+	_attack = 40;
 	_bulletType = BulletType::Cabbage;
+}
+
+Cabbage::~Cabbage()
+{
 }
 
 void Cabbage::createBullet()
 {
-	float height = 300, time = 1.0f;
-	Vec2 endPosition = calculateZombiePosition();
-	Vec2 initPosition = _position + Vec2(70, 150);
+	calculateInformationForReadFile();
+
+	bulletInit("CabbageBullet", "Cabbage_Rotate");
+
+	_bulletAnimation->setScale(0.8f);
+	_bulletAnimation->setPosition(_initPosition);
+	_bulletAnimation->setAnchorPoint(Vec2(0, 0));
+
+	createShadow(1.f);
+
+	createListener("Cabbage_Crush");
+}
+
+void Cabbage::createListener(const string& actionName, float scale)
+{
+	auto jto = JumpTo::create(_actionTime, _endPosition, _acxtionHeight, 1);
+
+	_bulletAnimation->runAction(Sequence::create(jto,
+		CallFunc::create([=]()
+			{
+				if (_bulletAnimation->getOpacity()) /* 如果没有隐藏说明没有击中僵尸 */
+				{
+					playSoundEffect(SoundEffectType::kernelpult);
+				}
+				_bulletAnimation->setScale(scale);
+				_bulletAnimation->setAnimation(0, actionName, false);
+			}), DelayTime::create(1.4f),
+		CallFunc::create([this]()
+				{
+					_bulletAnimation->runAction(Sequence::create(FadeOut::create(0.2f),
+						CallFunc::create([this]()
+							{
+								_bulletAnimation->setVisible(false);
+							}), nullptr));
+				}), nullptr));
+}
+
+void Cabbage::calculateInformationForReadFile()
+{
+	_endPosition = calculateZombiePosition();
+	_initPosition = _position + Vec2(70, 150);
 
 	if (_isFileData)
 	{
@@ -35,44 +82,16 @@ void Cabbage::createBullet()
 
 		auto distance = _zombiePosition.x - position.x; // 僵尸与卷心菜初始距离
 		if (_currentPosition.x <= _zombiePosition.x - distance / 2) // 当前位置在抛物线上半部分
-			height = 300 - (_currentPosition.y - position.y);
+			_acxtionHeight = 300 - (_currentPosition.y - position.y);
 		else
-			height = 0;
-		time = (distance - (_currentPosition.x - _position.x)) / distance; //计算剩余运动时间
-		if (time < 0)time = 0;
-		if (time > 1)time = 1;
+			_acxtionHeight = 0;
+		_actionTime = (distance - (_currentPosition.x - _position.x)) / distance; //计算剩余运动时间
+		if (_actionTime < 0)_actionTime = 0;
+		if (_actionTime > 1)_actionTime = 1;
 
-		initPosition = _currentPosition;
-		endPosition = _zombiePosition - Vec2(0, 20);
+		_initPosition = _currentPosition;
+		_endPosition = _zombiePosition - Vec2(0, 20);
 	}
-
-	bulletInit("CabbageBullet", "Cabbage_Rotate");
-
-	_bulletAnimation->setScale(0.8f);
-	_bulletAnimation->setPosition(initPosition);
-	_bulletAnimation->setAnchorPoint(Vec2(0, 0));
-
-	auto jto = JumpTo::create(time, endPosition, height, 1);
-
-	_bulletAnimation->runAction(Sequence::create(jto,
-		CallFunc::create([this]()
-			{
-				if (_bulletAnimation->getOpacity()) /* 如果没有隐藏说明没有击中僵尸 */
-				{
-					playSoundEffect(SoundEffectType::kernelpult);
-				}
-				_bulletAnimation->setAnimation(0, "Cabbage_Crush", false);
-			}), DelayTime::create(1.4f),
-				CallFunc::create([this]()
-					{
-						_bulletAnimation->runAction(Sequence::create(FadeOut::create(0.2f),
-							CallFunc::create([this]()
-								{
-									_bulletAnimation->setVisible(false);
-								}), nullptr));
-					}), nullptr));
-
-	createShadow();
 }
 
 void Cabbage::bulletAndZombiesCollision()
@@ -83,14 +102,14 @@ void Cabbage::bulletAndZombiesCollision()
 			getBulletIsSameLineWithZombie(zombie) && getBulletIsEncounterWithZombie(zombie))      /* 子弹与僵尸同一行 && 子弹与僵尸碰撞 */
 		{
 			selectSoundEffect(zombie->getZombieHeadAttackSoundEffect());
-			_bulletAnimation->setOpacity(0);
 			bulletAttackHurtZombies(zombie);   /* 僵尸减少生命值 */
 
+			_bulletAnimation->setOpacity(0);
 			zombie->setZombieHurtBlink();
 
-			createCabbageExplode();
+			createExplodeAnimation("CabbageBullet", "Cabbage_Crush");
 
-			_isUsed = true;
+			setBulletIsUsed(true);
 			break; /* 一个只能击中一个僵尸 */
 		}
 	}
@@ -119,13 +138,15 @@ Vec2 Cabbage::calculateZombiePosition()
 	}
 }
 
-void Cabbage::createShadow()
+void Cabbage::createShadow(float scale)
 {
 	/* 创建影子 */
 	auto shadow = Sprite::createWithSpriteFrameName("plantshadow.png");
-	shadow->setPosition(_position + Vec2(70, 10));
+	shadow->setPosition(Vec2(_initPosition.x, _position.y));
 	shadow->setLocalZOrder(getZOrder());
-	shadow->setOpacity(200);
+	shadow->setOpacity(180);
+	shadow->setName("shadow");
+	shadow->setScale(scale);
 	_node->addChild(shadow);
 	shadow->runAction(RepeatForever::create(Sequence::create(
 		CallFunc::create([=]()
@@ -146,12 +167,12 @@ void Cabbage::createShadow()
 			}), nullptr));
 }
 
-void Cabbage::createCabbageExplode()
+void Cabbage::createExplodeAnimation(const string& animationName, const string& actionName,const float scale)
 {
 	auto cabbageExplode = SkeletonAnimation::createWithData(
-		_global->userInformation->getAnimationData().find("CabbageBullet")->second);
-	cabbageExplode->setAnimation(0, "Cabbage_Crush", false);
-	cabbageExplode->setScale(0.6f);
+		_global->userInformation->getAnimationData().find(animationName)->second);
+	cabbageExplode->setAnimation(0, actionName, false);
+	cabbageExplode->setScale(scale);
 	cabbageExplode->setLocalZOrder(_bulletAnimation->getLocalZOrder());
 	cabbageExplode->setPosition(_bulletAnimation->getPosition());
 	cabbageExplode->setAnchorPoint(Vec2(0, 0));
@@ -192,12 +213,12 @@ float Cabbage::getZombieSpeed() const
 	return _zombieSpeed;
 }
 
-void Cabbage::setCabbageCurrentPosition(const Vec2& position)
+void Cabbage::setBulletCurrentPosition(const Vec2& position)
 {
 	_currentPosition = position;
 }
 
-Vec2 Cabbage::getCabbageInitialPosition()
+Vec2 Cabbage::getBulletInitialPosition()
 {
 	return _position;
 }
@@ -258,4 +279,9 @@ void Cabbage::readBulletInformation(rapidjson::Document* levelDataDocument, char
 	setBulletPosition(Vec2(
 		(*levelDataDocument)[key]["Bullet"][to_string(i).c_str()]["cabbageInitialPositionX"].GetFloat(),
 		(*levelDataDocument)[key]["Bullet"][to_string(i).c_str()]["cabbageInitialPositionY"].GetFloat()));
+}
+
+void Cabbage::readBulletAnimationInformation(rapidjson::Document* levelDataDocument, char* key, int i)
+{
+	_node->getChildByName("shadow")->setOpacity(_bulletAnimation->getOpacity());
 }

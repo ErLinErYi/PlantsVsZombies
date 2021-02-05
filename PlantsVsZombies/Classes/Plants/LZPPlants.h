@@ -15,7 +15,7 @@
 
 #define INIT Vec2(-1000,-1000)
 #define NOINITIALIZATION  -1
-#define PLANTSNUMBERS 17
+#define PLANTSNUMBERS 23
 
 using namespace spine;
 using namespace cocos2d;
@@ -34,16 +34,22 @@ enum class PlantsType
 	Torchwood,          /* 火炬树桩 */
 	Spikeweed,          /* 地刺 */
 	Garlic,             /* 大蒜 */
+	IceBergLettuce,     /* 冰莴苣 */
 	Chomper,            /* 大嘴花 */
 	IcePeaShooter,      /* 寒冰豌豆射手 */
 	FirePeaShooter,     /* 火焰豌豆射手 */
-	Jalapeno,           /* 火爆辣椒 */
-	JalapenoVariation, /* 火爆辣椒变异 */
 	AcidLemonShooter,   /* 强酸柠檬射手 */
+	SunFlowerTwin,      /* 双胞向日葵 */
+	WaterMelonPult,     /* 西瓜投手 */
+	Jalapeno,           /* 火爆辣椒 */
+	JalapenoVariation,  /* 火爆辣椒变异 */
+	ThreePeaShooter,    /* 三头豌豆射手 */
+	StarFruit,          /* 杨桃 */
+	WinterMelonPult,    /* 冰瓜投手 */
 	Citron,             /* 离子缘 */
 	GloomShroom,        /* 忧郁菇 */
 	//...
-	None = 19
+	None = 25
 };  
 
 /**
@@ -61,24 +67,24 @@ public:
 		Text* plantsCardText;           /* 卡牌文字 */
 		ProgressTimer* progressTimer;   /* 倒计时 */
 		int plantsNeedSunNumbers;       /* 所需阳光 */
-		int tag;                        /* 编号 */
 		bool timeBarIsFinished;         /* 倒计时是否完成 */
+		int tag;                        /* 编号 */
 	};
 
 	struct point { int x, y; };
 	struct PlantsCardInformation
 	{
-		string information[3];              // 文字信息
-		int quality;                        // 品质
-		int priority;                       // 优先级
-		int plantsNeedSunNumbers;           // 植物所需阳光数
-		float plantsCoolTime;               // 植物冷却时间
-		float PlantsSurPlusCoolTime;        // 植物剩余冷却时间
-		float PlantsSurPlusPrecent;         // 植物剩余进度百分比
-		bool flippedX;                      // 左右反转
-		PlantsType type;                    // 植物类型
-		Color3B color;                      // 颜色
-		point requirement{ 0,0 };           // 要求
+		const string information[3];              // 文字信息
+		const unsigned int quality;               // 品质
+		unsigned int priority;                    // 优先级
+		const int plantsNeedSunNumbers;           // 植物所需阳光数
+		const float plantsCoolTime;               // 植物冷却时间
+		float PlantsSurPlusCoolTime;              // 植物剩余冷却时间
+		float PlantsSurPlusPrecent;               // 植物剩余进度百分比
+		const bool flippedX;                      // 左右反转
+		const PlantsType type;                    // 植物类型
+		const Color3B color;                      // 颜色
+		const point requirement{ 0,0 };           // 要求
 	};
 };
 
@@ -130,9 +136,9 @@ public:
 	virtual SkeletonAnimation* showPlantAnimationAndText() = 0;
 
 	/**
-	 * 设置植物当前动画名称  
+	 * 设置植物动画
 	 */
-	//virtual 
+	virtual void setPlantNoramlAnimation() {};
 
 	/**
 	 *设置节点
@@ -230,6 +236,12 @@ CC_CONSTRUCTOR_ACCESS:
 	
 protected:
 	/**
+	 * 创建监听 
+	 */
+	virtual void createListener() {};
+	virtual void createListener(std::string animationName, std::string actionName = "") {};
+
+	/**
 	 *种植植物
 	 */
 	virtual SkeletonAnimation* plantInit(const std::string& plantname, const std::string& animaionname);
@@ -264,6 +276,11 @@ protected:
 	 *获取僵尸是否在植物前方
 	 */
 	virtual bool getZombieIsTheFrontOfPlant(Zombies* zombie);
+
+	/**
+	 * 获取僵尸是否于植物在同一列
+	 */
+	virtual bool getZombieIsSameColumnWithPlant(Zombies* zombie);
 
 	/**
 	 *获取僵尸是否于植物在同一行

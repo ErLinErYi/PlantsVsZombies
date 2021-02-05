@@ -23,11 +23,11 @@ CC_CONSTRUCTOR_ACCESS:
 	~GloomShroom();
 
 protected:
+	virtual void createListener() override;
+	virtual void plantAttack(Zombies* zombie) override;
 	virtual SkeletonAnimation* showPlantAnimationAndText() override;
 	virtual bool getZombieIsInAttackRange(Zombies* zombie);
-	virtual void plantAttack(Zombies* zombie);
 	virtual void plantRecovery(const string& name);
-	virtual void setListenr();
 
 protected:
 	bool _isChangeAnimation;  /* 是否改变动画 */

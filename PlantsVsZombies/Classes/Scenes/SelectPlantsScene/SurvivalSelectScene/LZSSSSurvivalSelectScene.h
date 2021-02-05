@@ -21,5 +21,5 @@ protected:
     virtual void replaceScene() override;
     virtual void createBackgroundLayer() override;
     virtual void createSelectPlantsDialog() override;
-    virtual void eventUpdate(float time) override;
+    virtual void eventUpdate(float time);
 };

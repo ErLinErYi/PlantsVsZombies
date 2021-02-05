@@ -28,7 +28,8 @@
 #include "base/CCData.h"
 #include "3d/CCBundle3DData.h"
 #include "3d/CCBundleReader.h"
-#include "json/document-wrapper.h"
+#include "json/document.h"
+#include "json/cursorstreamwrapper.h"
 
 NS_CC_BEGIN
 

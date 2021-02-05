@@ -6,10 +6,10 @@
  */
 
 #include "LZPEIcePeaShooter.h"
-#include "Based/LZBPlayMusic.h"
 #include "Bullet/LZPEBIcePea.h"
 #include "Zombies/LZZZombies.h"
 #include "Scenes/GameScene/LZSGData.h"
+#include "Based/LZBPlayMusic.h"
 
 IcePeaShooter::IcePeaShooter(Node* node)
 {
@@ -41,6 +41,7 @@ Sprite* IcePeaShooter::createPlantImage()
 {
 	imageInit("IcePeaShooter", INIT);
 	_plantImage->setScale(1.3f);
+	_plantImage->setAnchorPoint(Vec2(0.4f, 0.6f));
 	return _plantImage;
 }
 
@@ -57,6 +58,9 @@ void IcePeaShooter::createPlantAnimation()
 
 	// 泥土飞溅动画
 	setPlantSoilSplashAnimation(0.8f);
+
+	// 创建监听
+	createListener("IcePeaShooter_Shoot");
 }
 
 void IcePeaShooter::determineRelativePositionPlantsAndZombies()
@@ -82,9 +86,11 @@ void IcePeaShooter::plantAttack(Zombies* zombie)
 	}
 }
 
-void IcePeaShooter::createPea()
+void IcePeaShooter::createBullet()
 {
 	PlayMusic::playMusic("snow_pea_sparkles");
+
+	_isCreateBullet = true;
 
 	_bulletAnimation = new IcePea(_node);
 	_bulletAnimation->setBulletPosition(_position);
@@ -109,7 +115,7 @@ SkeletonAnimation* IcePeaShooter::showPlantAnimationAndText()
 	SPSSpriteLayer::createPlantsText(2, lta.find("ICEPEASHOOTER_2")->second->text, Vec2(360, 1000), lta.find("ICEPEASHOOTER_2")->second->fontsize, Color3B::YELLOW, false);
 	SPSSpriteLayer::createPlantsText(3, lta.find("ICEPEASHOOTER_3")->second->text, Vec2(440, 1000), lta.find("ICEPEASHOOTER_3")->second->fontsize, Color3B::RED, false);
 	SPSSpriteLayer::createPlantsText(1, SPSSpriteLayer::selectRequirementText(lta, PlantsType::IcePeaShooter, "ICEPEASHOOTER_4", "ICEPEASHOOTER_5"), Vec2(360, 870),
-		lta.find("ICEPEASHOOTER_4")->second->fontsize, SPSSpriteLayer::isPlantIsCanSelect[static_cast<unsigned int>(PlantsType::IcePeaShooter)] ? Color3B::YELLOW : Color3B(255, 70, 0), false);
+		lta.find("ICEPEASHOOTER_4")->second->fontsize, SPSSpriteLayer::isPlantIsCanSelect[static_cast<unsigned int>(PlantsType::IcePeaShooter)] ? Color3B::ORANGE : Color3B(255, 70, 0), false);
 	
 	return _plantAnimation;
 }

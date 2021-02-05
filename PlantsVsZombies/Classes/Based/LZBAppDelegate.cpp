@@ -24,6 +24,7 @@ using namespace CocosDenshion;
 USING_NS_CC;
 
 static cocos2d::Size designResolutionSize = cocos2d::Size(1920, 1080);
+GUID scheme_default;
 
 AppDelegate::AppDelegate()
 {
@@ -65,9 +66,9 @@ bool AppDelegate::applicationDidFinishLaunching()
     if(!glview)
     {
 #if (CC_TARGET_PLATFORM == CC_PLATFORM_WIN32) || (CC_TARGET_PLATFORM == CC_PLATFORM_MAC) || (CC_TARGET_PLATFORM == CC_PLATFORM_LINUX)
-        glview = GLViewImpl::createWithRect("PlantsVsZombies_1.3.0.0 (2021.01.05)", cocos2d::Rect(0, 0, designResolutionSize.width, designResolutionSize.height), 1.0f);
+        glview = GLViewImpl::createWithRect(LZPVZNAME, cocos2d::Rect(0, 0, designResolutionSize.width, designResolutionSize.height), 1.0f);
 #else
-        glview = GLViewImpl::create("PlantsVsZombies_1.2.0.3 (2020.06.19)");
+        glview = GLViewImpl::create(LZPVZNAME);
 #endif
         director->setOpenGLView(glview);
     }

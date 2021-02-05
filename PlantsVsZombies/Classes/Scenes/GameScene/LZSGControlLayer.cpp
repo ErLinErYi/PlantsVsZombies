@@ -358,7 +358,7 @@ bool GSControlLayer::controlRefurbishZombies()
 		_zombiesAppearControl->getZombiesAppearFrequency() > 3)                    /* 如果活着的僵尸数小于规定，刷新下一波 */
 
 		|| (Zombies::getZombiesNumbers() <= 0 &&                                   /* 如果没有存活僵尸则立即刷新僵尸 */
-			_zombiesAppearControl->getZombiesAppearFrequency() > 1)
+			_zombiesAppearControl->getZombiesAppearFrequency() >= 1)
 
 		|| (_zombiesAppearControl->getTime() >= 
 			_openLevelData->readLevelData(
@@ -369,8 +369,8 @@ bool GSControlLayer::controlRefurbishZombies()
 			(_zombiesAppearControl->getZombiesAppearFrequency() == 1 || 
 		     _zombiesAppearControl->getZombiesAppearFrequency() == 2))             /* 第二三波刷新控制 */
 
-		|| (_zombiesAppearControl->getTime() >= 45 &&
-			_zombiesAppearControl->getZombiesAppearFrequency() > 2)                /* 如果大于45秒刷新下一波 */
+		|| (_zombiesAppearControl->getTime() >= 40 &&
+			_zombiesAppearControl->getZombiesAppearFrequency() > 2)                /* 如果大于40秒刷新下一波 */
 		)
 	{
 		return true;
@@ -522,12 +522,6 @@ void GSControlLayer::judgeLevelIsFinished()
 
 void GSControlLayer::setGameEnd()
 {
-	//unschedule("mainUpdate");
-	//unschedule("zombiesComing");
-	//removeMouseListener();
-	//SunFlower::stopSun();
-	//Plants::stopPlantsAllAction();
-	//animationLayerInformation->stopRandomSun();
 	GSPauseQuitLayer::pauseLayer();
 
 	_gameEndShieldLayer = GSGameEndLayer::create();
@@ -549,8 +543,9 @@ void GSControlLayer::mouseMoveControl()
 			}
 			else
 			{
-				_plantPreviewImage->setPosition(Vec2(GRASS_POSITION_LEFT + 122 * 
-					_plantsPosition.x + 60, 110 + 138 * (_plantsPosition.y + 1) - 60));
+				auto size = _plantPreviewImage->getContentSize() / 2.f;
+				_plantPreviewImage->setPosition(Vec2(GRASS_POSITION_LEFT + 122 *
+					_plantsPosition.x + size.width, 110 + 138 * (_plantsPosition.y + 1) - size.height));
 			}
 		}
 		else

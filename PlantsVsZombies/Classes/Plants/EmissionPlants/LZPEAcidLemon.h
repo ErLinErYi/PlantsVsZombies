@@ -21,12 +21,9 @@ CC_CONSTRUCTOR_ACCESS:
 	~AcidLemonShooter();
 
 protected:
-	virtual void createAcidLemon();
+	virtual void createBullet() override;
 	virtual void plantAttack(Zombies* zombie) override;
 	virtual SkeletonAnimation* showPlantAnimationAndText() override;
 	virtual void plantEmission(const string& plantAnimation);
 	virtual void plantRecovery(const string& plantAnimation);
-
-protected:
-	bool _isCreateAcidLemon;
 };

@@ -23,7 +23,7 @@ CC_CONSTRUCTOR_ACCESS:
 	~CherryBomb();
 
 protected:
-    virtual void setEventListener();
+    virtual void createListener() override;
     virtual void plantExplode() override;
     virtual SkeletonAnimation* showPlantAnimationAndText() override;
     virtual bool getPlantIsReadyExplode() const;

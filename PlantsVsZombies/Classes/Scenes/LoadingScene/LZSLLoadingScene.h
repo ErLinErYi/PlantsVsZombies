@@ -63,9 +63,13 @@ private:
 	void changeFiles();
 
 private:
-	int _textNumbers;                                 // 文本数
 	int _loadFileNumbers;                             // 文件加载数
 	int _allFileNumbers;                              // 文件总数(图片，音乐，动画，文本)
+	int _musicNumbers;                                // 音乐文件总数
+	int _animationNumbers;                            // 动画文件总数
+	int _imageNumbers;                                // 图片文件总数
+	int _textNumbers;                                 // 文本文件总数
+	float _delayTime;                                 // 延迟时间
 	bool _flowerVisible[5] = { false };               // 加载花朵是否可见 
 	float _loadingPrecent;                            // 加载进度 
 	Sprite* _sprite[8];                               // 精灵图片 

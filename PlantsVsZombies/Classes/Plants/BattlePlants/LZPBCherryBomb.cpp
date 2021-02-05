@@ -44,6 +44,7 @@ Sprite* CherryBomb::createPlantImage()
 {
 	imageInit("CherryBomb", INIT);
 	_plantImage->setScale(1.3f);
+	_plantImage->setAnchorPoint(Vec2(0.45f, 0.6f));
 	return _plantImage;
 }
 
@@ -61,10 +62,10 @@ void CherryBomb::createPlantAnimation()
 	setPlantSoilSplashAnimation(0.8f);
 
 	// ÊÂ¼þ¼àÌý
-	setEventListener();
+	createListener();
 }
 
-void CherryBomb::setEventListener()
+void CherryBomb::createListener()
 {
 	_plantAnimation->setEventListener([this](spTrackEntry* entry, spEvent* event)
 		{
@@ -171,7 +172,7 @@ SkeletonAnimation* CherryBomb::showPlantAnimationAndText()
 	SPSSpriteLayer::createPlantsText(0, lta.find("CHERRYBOMB_1")->second->text, Vec2(190, 910), lta.find("CHERRYBOMB_1")->second->fontsize);
 	SPSSpriteLayer::createPlantsText(2, lta.find("CHERRYBOMB_2")->second->text, Vec2(360, 1000), lta.find("CHERRYBOMB_2")->second->fontsize, Color3B::YELLOW, false);
 	SPSSpriteLayer::createPlantsText(3, lta.find("CHERRYBOMB_3")->second->text, Vec2(440, 1000), lta.find("CHERRYBOMB_3")->second->fontsize, Color3B::RED, false);
-	SPSSpriteLayer::createPlantsText(1, lta.find("CHERRYBOMB_4")->second->text, Vec2(360, 870), lta.find("CHERRYBOMB_4")->second->fontsize, Color3B::YELLOW, false);
+	SPSSpriteLayer::createPlantsText(1, lta.find("CHERRYBOMB_4")->second->text, Vec2(360, 870), lta.find("CHERRYBOMB_4")->second->fontsize, Color3B::ORANGE, false);
 
 	return _plantAnimation;
 }

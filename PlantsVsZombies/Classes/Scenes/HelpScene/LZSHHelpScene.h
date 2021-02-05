@@ -26,6 +26,7 @@ private:
 	void createText();
 	void createGithubUrl();
 	void createButton();
+	void createParticle();
 	void addScrollView();
 	void addMouseEvent();
 

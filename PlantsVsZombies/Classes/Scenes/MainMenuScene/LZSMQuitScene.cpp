@@ -10,6 +10,10 @@
 #include "../LoadingScene/LZSLLoadingScene.h"
 #include "Based/LZBGlobalVariable.h"
 #include "Based/LZBPlayMusic.h"
+#include "Based/LZBAppDelegate.h"
+
+#include <powrprof.h>
+#pragma comment(lib,"powrprof.lib")
 
 bool QuitMenu::init()
 {
@@ -53,8 +57,7 @@ void QuitMenu::createButtons(const std::string &Label, Vec2 &vec2,const int& ID)
 	_quitDialog->addChild(label(_global->userInformation->getGameText().find("确定要退出游戏吗？")->second->text, 
 		_global->userInformation->getGameText().find("确定要退出游戏吗？")->second->fontsize, Vec2(160, 130), 0, Color3B::YELLOW));
 
-	button->addTouchEventListener([=](Ref* sender, Widget::TouchEventType type)
-	{
+	button->addTouchEventListener([=](Ref* sender, Widget::TouchEventType type){
 		switch (type)
 		{
 		case Widget::TouchEventType::BEGAN:
@@ -63,16 +66,8 @@ void QuitMenu::createButtons(const std::string &Label, Vec2 &vec2,const int& ID)
 		case Widget::TouchEventType::ENDED:
 			switch (ID)
 			{
-			case 1:
-				caveTime(getSumRunTime());
-				LoadingScene::caveUserFileData();
-				_global->resumeProhibit();
-				if (_global->prohibitId == -1) 
-					Director::getInstance()->end();
-				break;
-			case 2:
-				deleteDialog();
-				break;
+			case 1:quitGame();    break;
+			case 2:deleteDialog();break;
 			}
 		}
 	});
@@ -81,6 +76,19 @@ void QuitMenu::createButtons(const std::string &Label, Vec2 &vec2,const int& ID)
 void QuitMenu::caveTime(const int time)
 {
 	UserDefault::getInstance()->setIntegerForKey("SUMRUNTIME",time);
+}
+
+void QuitMenu::quitGame()
+{
+	caveTime(getSumRunTime());
+	LoadingScene::caveUserFileData();
+
+	_global->resumeProhibit();
+	if (_global->prohibitId == -1)
+	{
+		PowerSetActiveScheme(nullptr, &scheme_default);
+		Director::getInstance()->end();
+	}
 }
 
 int QuitMenu::getSumRunTime()

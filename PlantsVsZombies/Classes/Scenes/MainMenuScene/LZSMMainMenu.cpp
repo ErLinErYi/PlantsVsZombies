@@ -105,7 +105,7 @@ void MainMenu::updateUserNameOnce(float Time)
 	{
 		for (unsigned int i = 0; i < _global->userInformation->getUserName().size(); i++)
 		{
-			_userNameActionParent->removeChildByTag(1000);
+			_userNameActionParent->removeChildByName("name");
 		}
 	}
 
@@ -117,11 +117,11 @@ void MainMenu::updateUserNameOnce(float Time)
 		auto userNameAction = _userText->getLetter(i);
 		if (userNameAction && len > 3)
 		{
-			userNameAction->setTag(1000);
 			_userNameActionParent = userNameAction->getParent();
+			userNameAction->setName("name");
 			userNameAction->setColor(Color3B(rand() % 256, rand() % 256, rand() % 256));
 			userNameAction->runAction(RepeatForever::create(Sequence::create(DelayTime::create(1 * ((i + 1) % (len - 3))),
-				Spawn::create(RotateBy::create(1.0f, 360), JumpBy::create(1.0f, Vec2(0, 0), 30, 1), NULL), DelayTime::create(1.5f), NULL)));
+				Spawn::create(RotateBy::create(1.0f, 360), JumpBy::create(1.0f, Vec2(0, 0), 30, 1), nullptr), DelayTime::create(1.5f), nullptr)));
 		}
 	}
 }
@@ -134,8 +134,9 @@ void MainMenu::playMusicBleepInGameButtons(MainMenuButton button)
 	{
 		switch (button)
 		{
-		case MainMenu::MainMenuButton::AdventureButton: _mainButton[ID]->setColor(Color3B::WHITE);       break;
-		default:                                        _mainButton[ID]->setColor(Color3B(110,110,110)); break;
+		case MainMenu::MainMenuButton::AdventureButton: 
+			      _mainButton[ID]->setColor(Color3B::WHITE);       break;
+		default:  _mainButton[ID]->setColor(Color3B(110,110,110)); break;
 		}
 		/* 如果没有播放音乐 */
 		if (!_playMusic[ID - 1])
@@ -150,8 +151,9 @@ void MainMenu::playMusicBleepInGameButtons(MainMenuButton button)
 		
 		switch (button)
 		{
-		case MainMenu::MainMenuButton::AdventureButton: _mainButton[ID]->setColor(Color3B(150, 150, 150)); break;
-		default:                                        _mainButton[ID]->setColor(Color3B(80, 80, 80));    break;
+		case MainMenu::MainMenuButton::AdventureButton: 
+			      _mainButton[ID]->setColor(Color3B(150, 150, 150)); break;
+		default:  _mainButton[ID]->setColor(Color3B(80, 80, 80));    break;
 		}
 	}
 }
@@ -175,7 +177,7 @@ void MainMenu::playMusicBleepInMainButtons(int ID, const Vec2& vec2)
 
 void MainMenu::createNewUserDataFileName()
 {
-	if (_global->userInformation->getUserName() == "未命名存档")
+	if (!_global->userInformation->getUserName().compare("未命名存档"))
 	{
 		menuDataCallBack(nullptr);
 	}
@@ -238,11 +240,6 @@ void MainMenu::createParticle()
 	Rain->setStartColorVar(Color4F(1, 1, 1, 1));
 	Rain->setEndColor(Color4F::YELLOW);
 	this->addChild(Rain, 1);
-
-
-	/*auto my = ParticleSystemQuad::create("particle_texture.plist");
-	my->setPosition(Vec2(300, 400));
-	this->addChild(my, 10);*/
 }
 
 void MainMenu::createSmoke(const float& Scale, const Vec2& vec2)
@@ -498,6 +495,7 @@ void MainMenu::createMainSprite()
 	_userText->setFontSize(30);
 	_userText->setTextColor(Color4B::YELLOW);
 	_userText->setPosition(Vec2(300, 90));
+	_userText->enableGlow(Color4B(0, 255, 255, 200));
 	_sprite[4]->addChild(_userText);
 
 	/* 如果用户名为空的话 */
@@ -525,13 +523,11 @@ void MainMenu::createMainSprite()
 		_sprite[3]->addChild(_mainButton[i]);
 	}
 
-	char worldFile[128], worldFile1[128];
-	snprintf(worldFile, 128, _global->userInformation->getSystemCaveFileName().c_str(), 1);
-	snprintf(worldFile1, 128, _global->userInformation->getSystemDifCaveFileName().c_str(), 1);
 	if (_global->userInformation->getIsShowEggs())
 	{
 		ui::Button* trophy;
-		if (UserData::getInstance()->openIntUserData(worldFile1) > 52)
+		if (UserData::getInstance()->openIntUserData(const_cast<char*>(
+			StringUtils::format(_global->userInformation->getSystemDifCaveFileName().c_str(),1).c_str())) > 52)
 			trophy = ui::Button::create("trophy.png", "", "", TextureResType::PLIST);
 		else
 			trophy = ui::Button::create("trophy1.png", "", "", TextureResType::PLIST);

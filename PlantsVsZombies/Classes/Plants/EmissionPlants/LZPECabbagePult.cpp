@@ -11,13 +11,9 @@
 
 #include "Zombies/LZZZombies.h"
 #include "Scenes/GameScene/LZSGData.h"
-#include "Based/LZBPlayMusic.h"
-
-#define _MAX_ 0xffffff
 
 CabbagePult::CabbagePult(Node* node):
-    _isCreateCabbage(false)
-,   _zombiePostion(Vec2::ZERO)
+    _zombiePostion(Vec2::ZERO)
 ,   _zombie(nullptr)
 {
 	_node = node;
@@ -47,6 +43,7 @@ Sprite* CabbagePult::createPlantImage()
 {
 	imageInit("Cabbage", INIT);
 	_plantImage->setScale(1.5f);
+	_plantImage->setAnchorPoint(Vec2(0.6f, 0.6f));
 	return _plantImage;
 }
 
@@ -54,6 +51,7 @@ void CabbagePult::createPlantAnimation()
 {
 	_plantAnimation = plantInit("Cabbage", "Cabbage_Normal");
 	_plantAnimation->setAnchorPoint(Vec2::ANCHOR_MIDDLE);
+	_plantAnimation->setTimeScale(1.f);
 	_plantAnimation->setScale(0.8f);
 	_node->addChild(_plantAnimation);
 
@@ -62,9 +60,22 @@ void CabbagePult::createPlantAnimation()
 
 	// 泥土飞溅动画
 	setPlantSoilSplashAnimation(1.0f);
+
+	// 创建监听
+	createListener("Cabbage_Shoot", "Shoot");
 }
 
 void CabbagePult::determineRelativePositionPlantsAndZombies()
+{
+	determineRelativePositionPlantsAndZombies("Cabbage_Normal");
+}
+
+void CabbagePult::plantAttack(Zombies* zombie)
+{
+	plantAttack(zombie, "Cabbage_Shoot");
+}
+
+void CabbagePult::determineRelativePositionPlantsAndZombies(const string& animationName)
 {
 	_distance = _MAX_; /* 初始化距离变量 */
 
@@ -77,42 +88,34 @@ void CabbagePult::determineRelativePositionPlantsAndZombies()
 		zombieRecoveryMove(zombie);  /* 僵尸恢复移动 */
 	}
 
-	if (_isCreateCabbage)  /* 如果有僵尸与卷心菜投手在同一行 */
+	if (_isHaveZombies)  /* 如果有僵尸与卷心菜投手在同一行 */
 	{
 		_zombiePostion = _zombie->getZombieAnimation()->getPosition();
 		_zombieSpeed = _zombie->getZombieCurrentSpeed();
-		_zombieHeight = _zombie->getZombieAnimation()->getScale() * _zombie->getZombieAnimation()->getBoundingBox().size.height;
-		_plantAnimation->setEventListener([&](spTrackEntry* entry, spEvent* event)
-			{
-				if (strcmp(event->data->name, "Shoot") == 0)
-				{
-					rand() % 2 == 0 ? PlayMusic::playMusic("throw") : PlayMusic::playMusic("throw2");
-					createCabbage();
-				}
-			});
+		//_zombieHeight = _zombie->getZombieAnimation()->getScale() * _zombie->getZombieAnimation()->getBoundingBox().size.height;
 	}
 
-	if (!_isCreateCabbage) /* 如果没有僵尸与卷心菜投手在同一行 */
+	if (!_isHaveZombies) /* 如果没有僵尸与卷心菜投手在同一行 */
 	{
 		if (_isChanged)
 		{
-			_plantAnimation->addAnimation(0, "Cabbage_Normal", true);
+			_plantAnimation->addAnimation(0, animationName, true);
 			_isChanged = false;
 		}
 	}
 
-	_isCreateCabbage = false; /* 每循环一次就初始化 */
+	_isHaveZombies = false; /* 每循环一次就初始化 */
 }
 
-void CabbagePult::plantAttack(Zombies* zombie)
+void CabbagePult::plantAttack(Zombies* zombie, const string& animationName)
 {
 	if (zombie->getZombieIsSurvive() && getPlantIsSurvive() && zombie->getZombieIsEnterMap() && /* 僵尸存活 && 植物存活 && 僵尸进入地图 */
 		getZombieIsSameLineWithPlant(zombie) && getZombieIsTheFrontOfPlant(zombie))             /* 与植物在同一行 && 僵尸在植物的前方 */
 	{
-		_isCreateCabbage = true; /* 表示有僵尸与植物在同一行 */
+		_isHaveZombies = true; /* 表示有僵尸与植物在同一行 */
 		if (!_isChanged)
 		{
-			_plantAnimation->addAnimation(0, "Cabbage_Shoot", true);
+			_plantAnimation->addAnimation(0, animationName, true);
 			_isChanged = true;
 		}
 
@@ -125,8 +128,10 @@ void CabbagePult::plantAttack(Zombies* zombie)
 	}
 }
 
-void CabbagePult::createCabbage()
+void CabbagePult::createBullet()
 {
+	_isCreateBullet = true;
+
 	_bulletAnimation = new Cabbage(_node);
 	_bulletAnimation->setBulletPosition(_position);
 	_bulletAnimation->setBulletInRow(_rowAndColumn.y);
@@ -152,7 +157,7 @@ SkeletonAnimation* CabbagePult::showPlantAnimationAndText()
 	SPSSpriteLayer::createPlantsText(0, lta.find("CABBAGE_1")->second->text, Vec2(190, 910), lta.find("CABBAGE_1")->second->fontsize);
 	SPSSpriteLayer::createPlantsText(2, lta.find("CABBAGE_2")->second->text, Vec2(360, 1000), lta.find("CABBAGE_2")->second->fontsize, Color3B::YELLOW, false);
 	SPSSpriteLayer::createPlantsText(3, lta.find("CABBAGE_3")->second->text, Vec2(440, 1000), lta.find("CABBAGE_3")->second->fontsize, Color3B::RED, false);
-	SPSSpriteLayer::createPlantsText(1, lta.find("CABBAGE_4")->second->text, Vec2(360, 870), lta.find("CABBAGE_4")->second->fontsize, Color3B::YELLOW, false);
+	SPSSpriteLayer::createPlantsText(1, lta.find("CABBAGE_4")->second->text, Vec2(360, 870), lta.find("CABBAGE_4")->second->fontsize, Color3B::ORANGE, false);
 
 	return _plantAnimation;
 }

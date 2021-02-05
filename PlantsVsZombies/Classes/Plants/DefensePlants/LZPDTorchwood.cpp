@@ -9,11 +9,14 @@
 
 #include "Zombies/LZZZombies.h"
 #include "Plants/EmissionPlants/Bullet/LZPEBPea.h"
+#include "Plants/EmissionPlants/Bullet/LZPEBFirePea.h"
+#include "Plants/EmissionPlants/Bullet/LZPEBIcePea.h"
 #include "Scenes/GameScene/LZSGData.h"
 #include "Scenes/SelectPlantsScene/LZSSSpriteLayer.h"
 #include "Based/LZBPlayMusic.h"
 
-Torchwood::Torchwood(Node* node)
+Torchwood::Torchwood(Node* node):
+	_playMusicMaxNumber(0)
 {
 	_node = node;
 	_plantImage = nullptr;
@@ -42,6 +45,7 @@ Sprite* Torchwood::createPlantImage()
 {
 	imageInit("Torchwood", INIT);
 	_plantImage->setScale(1.5f);
+	_plantImage->setAnchorPoint(Vec2(0.4f, 0.5f));
 	return _plantImage;
 }
 
@@ -58,6 +62,18 @@ void Torchwood::createPlantAnimation()
 
 	// 泥土飞溅动画
 	setPlantSoilSplashAnimation(0.8f);
+
+	//创建监听
+	createListener();
+}
+
+void Torchwood::createListener()
+{
+	_plantAnimation->runAction(RepeatForever::create(Sequence::create(DelayTime::create(1.f), 
+		CallFunc::create([&]() 
+			{
+				_playMusicMaxNumber = 0;
+			}), nullptr)));
 }
 
 void Torchwood::determineRelativePositionPlantsAndZombies()
@@ -76,38 +92,49 @@ void Torchwood::judgeTorchwoodAndPeaPosition()
 {
 	for (auto bullet : BulletGroup)
 	{
-		if (getBulletIsPea(bullet) && getPlantIsSurvive() &&                                 /* 子弹是豌豆 && 植物存活 */
+		if (!bullet->getBulletIsUsed()&& getBulletIsPea(bullet) && getPlantIsSurvive() &&    /* 子弹没有使用 && 子弹是豌豆 && 植物存活 */
 			getPeaIsSameLineWithTorchwood(bullet) && getPeaIsEncounterTorchwood(bullet))     /* 豌豆与火炬树桩在同一行 && 豌豆遇到火炬树桩 */
 		{
-			PlayMusic::playMusic("firepea");
-			if (dynamic_cast<Pea*>(bullet)->getIsIce() && dynamic_cast<Pea*>(bullet)->getTorchwoodTag() != _plantAnimation->getTag())        // 如果豌豆被冰冻
+			if (dynamic_cast<Pea*>(bullet)->getTorchwoodTag() != _plantAnimation->getTag())
 			{
-				bullet->getBullet()->setAnimation(0, "normal", true);
-				dynamic_cast<Pea*>(bullet)->setTorchwoodTag(_plantAnimation->getTag());
-				dynamic_cast<Pea*>(bullet)->addPeaFireNumbers();
-				dynamic_cast<Pea*>(bullet)->setIsIce(false);
+				++_playMusicMaxNumber < 2 ? PlayMusic::playMusic(rand() % 2 ? "firepea" : "firepea1") : nullptr;
+				bullet->setBulletOpacity();
+				bullet->setBulletIsUsed(true);
+				
+				switch (bullet->getBulletType())
+				{
+				case BulletType::Pea:    createFirePea(bullet);  break;
+				case BulletType::IcePea: createPea(bullet);      break;
+				}
 			}
-			else if (!dynamic_cast<Pea*>(bullet)->getIsFire() && dynamic_cast<Pea*>(bullet)->getTorchwoodTag() != _plantAnimation->getTag()) // 如果豌豆没有燃烧
-			{
-				bullet->getBullet()->setAnimation(0, "fire", true);
-				bullet->getBullet()->getChildByName("shadow")->setPosition(Vec2(0, -52));
-				bullet->getBullet()->getChildByName("shadow")->setScaleY(0.7f);
-				bullet->getBullet()->getChildByName("shadow")->setScaleX(1.0f);
-				bullet->getBullet()->runAction(ScaleTo::create(0.2f, 1.5f));
-				bullet->setBulletAttack(bullet->getBulletAttack() * _combatEffecttiveness);
-				dynamic_cast<Pea*>(bullet)->setTorchwoodTag(_plantAnimation->getTag());
-				dynamic_cast<Pea*>(bullet)->addPeaFireNumbers();
-				dynamic_cast<Pea*>(bullet)->setIsFire(true);
-			}
-			else if (dynamic_cast<Pea*>(bullet)->getIsFire() && dynamic_cast<Pea*>(bullet)->getTorchwoodTag() != _plantAnimation->getTag())
-			{
-				dynamic_cast<Pea*>(bullet)->setTorchwoodTag(_plantAnimation->getTag());
-				dynamic_cast<Pea*>(bullet)->addPeaFireNumbers();
-			}
-
-			makePeaFire(bullet);
 		}
 	}
+}
+
+void Torchwood::createFirePea(Bullet* bullet)
+{
+	FirePea* firePea = new FirePea(_node);
+	firePea->setBulletPosition(bullet->getBulletPosition() - Vec2(70, 85));
+	firePea->setBulletInRow(bullet->getBulletInRow());
+	firePea->setPeaDirectionType(dynamic_cast<Pea*>(bullet)->getPeaDirectionType());
+	firePea->calculateDirectionDistance(bullet->getBulletInitPosition() + Vec2(70, 85), bullet->getBulletPosition());
+	firePea->createBullet();
+	firePea->setTorchwoodTag(_plantAnimation->getTag());
+
+	BulletGroup.push_back(firePea);
+}
+
+void Torchwood::createPea(Bullet* bullet)
+{
+	Pea* pea = new Pea(_node);
+	pea->setBulletPosition(bullet->getBulletPosition() - Vec2(70, 85));
+	pea->setBulletInRow(bullet->getBulletInRow());
+	pea->setPeaDirectionType(dynamic_cast<Pea*>(bullet)->getPeaDirectionType());
+	pea->calculateDirectionDistance(bullet->getBulletInitPosition() + Vec2(70, 85), bullet->getBulletPosition());
+	pea->createBullet();
+	pea->setTorchwoodTag(_plantAnimation->getTag());
+
+	BulletGroup.push_back(pea);
 }
 
 bool Torchwood::getPeaIsSameLineWithTorchwood(Bullet* bullet)
@@ -127,17 +154,6 @@ bool Torchwood::getBulletIsPea(Bullet* bullet)
 		bullet->getBulletType() == BulletType::IcePea) ? true : false;
 }
 
-void Torchwood::makePeaFire(Bullet* bullet)
-{
-	if (dynamic_cast<Pea*>(bullet)->getPeaFireNumbers() > 1)
-	{
-		bullet->setBulletAttack(0);
-		bullet->setBulletIsUsed(true);
-		bullet->getBullet()->setOpacity(0);
-		bullet->getBullet()->getChildByName("shadow")->setVisible(false);
-	}
-}
-
 SkeletonAnimation* Torchwood::showPlantAnimationAndText()
 {
 	auto& lta = _global->userInformation->getGameText();
@@ -152,7 +168,7 @@ SkeletonAnimation* Torchwood::showPlantAnimationAndText()
 	SPSSpriteLayer::createPlantsText(0, lta.find("TORCHWOOD_1")->second->text, Vec2(190, 910), lta.find("TORCHWOOD_1")->second->fontsize);
 	SPSSpriteLayer::createPlantsText(2, lta.find("TORCHWOOD_2")->second->text, Vec2(360, 1000), lta.find("TORCHWOOD_2")->second->fontsize, Color3B::YELLOW, false);
 	SPSSpriteLayer::createPlantsText(3, lta.find("TORCHWOOD_3")->second->text, Vec2(440, 1000), lta.find("TORCHWOOD_3")->second->fontsize, Color3B::RED, false);
-	SPSSpriteLayer::createPlantsText(1, lta.find("TORCHWOOD_4")->second->text, Vec2(360, 870), lta.find("TORCHWOOD_4")->second->fontsize, Color3B::YELLOW, false);
+	SPSSpriteLayer::createPlantsText(1, lta.find("TORCHWOOD_4")->second->text, Vec2(360, 870), lta.find("TORCHWOOD_4")->second->fontsize, Color3B::ORANGE, false);
 
 	return _plantAnimation;
 }

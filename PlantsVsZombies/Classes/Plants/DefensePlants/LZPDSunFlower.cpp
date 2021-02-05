@@ -20,11 +20,10 @@ int SunFlower::_sunTag = -1;
 
 SunFlower::SunFlower(Node* node) :
   _sun(nullptr)
+, _isCreateSun(false)
 , _sunShowTime(Vec2(4 + rand() % 3, 16 + rand() % 5))
-, _sunShowTime1(_sunShowTime)
 {
 	_node = node;
-	_coolDownTime = 7.5f;
 	_plantImage = nullptr;
 	_plantsType = PlantsType::SunFlower;
 	_healthPoint = 300;
@@ -46,42 +45,11 @@ SunFlower* SunFlower::create(Node* node)
 	return nullptr;
 }
 
-void SunFlower::stopSun()
-{
-	for (auto sun : SunsGroup)
-	{
-		sunRecovery(sun);
-	}
-}
-
-void SunFlower::createRandomSuns()
-{
-	_node->runAction(RepeatForever::create(Sequence::create(DelayTime::create(5),
-		CallFunc::create([this]()
-			{
-				auto sun = new Sun(goodsLayerInformation);
-				sun->setSunTag(++_sunTag);
-				sun->setPosition(Vec2(rand() % 1100 + 500, 1150));
-				sun->createSuns();
-
-				auto temporary = sun->getSunTag();
-				sun->getSun()->setScale(1.2f);
-				sun->getSun()->runAction(Sequence::create(
-					MoveBy::create(5.0f, Vec2(0, -rand() % 500 - 500)), 
-					DelayTime::create(14), FadeOut::create(0.5f), 
-					CallFunc::create([sun]() 
-						{
-							sun->getSun()->setVisible(false); 
-						}), nullptr));
-				
-				SunsGroup.push_back(sun);
-			}), DelayTime::create(20), nullptr)));
-}
-
 Sprite* SunFlower::createPlantImage()
 {
 	imageInit("SunFlower", INIT);
 	_plantImage->setScale(1.5f);
+	_plantImage->setAnchorPoint(Vec2(0.37f, 0.52f));
 	return _plantImage;
 }
 
@@ -99,70 +67,38 @@ void SunFlower::createPlantAnimation()
 	// ÄàÍÁ·É½¦¶¯»­
 	setPlantSoilSplashAnimation(1.0f);
 	
+	// ´´½¨¼àÌý
 	createListener();
 }
 
 void SunFlower::createListener()
 {
-	if (_global->userInformation->getIsReadFileData())
-	{
-		if (_sunShowTime1.x <= 0)
-		{
-			_plantAnimation->runAction(Sequence::create(DelayTime::create(_sunShowTime1.y),
-				CallFunc::create([&]()
-					{
-						playAnimation();
-					}), nullptr));
-		}
-		else
-		{
-			_plantAnimation->runAction(Sequence::create(DelayTime::create(_sunShowTime1.x),
-				CallFunc::create([&]() { createSuns(); }), DelayTime::create(0.5f),
-				CallFunc::create([=]() { _plantAnimation->setSkin("SunFlower_Normal"); }), DelayTime::create(_sunShowTime1.y),
-				CallFunc::create([&]()
-					{
-						playAnimation();
-					}), nullptr));
-		}
-	}
-	else
-	{
-		playAnimation();
-	}
-
 	calculateSunShowTime();
+
+	playAnimation();
 }
 
 void SunFlower::playAnimation()
 {
 	auto delaytime = DelayTime::create(_sunShowTime.x);
-	auto delaytime1 = DelayTime::create(0.5f);
+	auto delaytime1 = DelayTime::create(1.f);
 	auto delaytime2 = DelayTime::create(_sunShowTime.y);
 	auto callfunc = CallFunc::create([&]() { createSuns(); });
 	auto callfunc1 = CallFunc::create([=]() { _plantAnimation->setSkin("SunFlower_Normal"); /* ÉèÖÃÆ¤·ô */});
+	auto callfunc2 = CallFunc::create([=]() { _isCreateSun = false; });
 
-	_plantAnimation->runAction(RepeatForever::create(Sequence::create(delaytime, callfunc, delaytime1, callfunc1, delaytime2, nullptr)));
+	_plantAnimation->runAction(RepeatForever::create(Sequence::create(delaytime, callfunc, delaytime1, callfunc1, delaytime2, callfunc2, nullptr)));
 }
 
 void SunFlower::calculateSunShowTime()
 {
-	_plantAnimation->runAction(RepeatForever::create(Sequence::create(DelayTime::create(0.05f),
+	_plantAnimation->runAction(RepeatForever::create(Sequence::create(DelayTime::create(1.f),
 		CallFunc::create([this]()
 			{
-				if (_sunShowTime1.x > 0)_sunShowTime1.x -= 0.05f;
-				else if (_sunShowTime1.y > 0)_sunShowTime1.y -= 0.05f;
-				else _sunShowTime1 = _sunShowTime;
+				if (_sunShowTime.x > 0)_sunShowTime.x -= 1.f;
+				else if (_sunShowTime.y > 0)_sunShowTime.y -= 1.f;
+				else _sunShowTime = Vec2(4 + rand() % 3, 16 + rand() % 5);
 			}), nullptr)));
-}
-
-void SunFlower::setSunShowTime(const Vec2 time)
-{
-	_sunShowTime1 = time;
-}
-
-Vec2 SunFlower::getSunShowTime() const
-{
-	return _sunShowTime1;
 }
 
 void SunFlower::sunRecovery(Sun* sun)
@@ -170,7 +106,7 @@ void SunFlower::sunRecovery(Sun* sun)
 	auto temporary = sun;
 	sun->setEnable(false);
 	sun->getSun()->stopAllActions();
-	sun->getSun()->runAction(Sequence::create(EaseSineOut::create(MoveTo::create(sun->calculateMoveTime(), Vec2(290, 1010))),
+	sun->getSun()->runAction(Sequence::create(EaseSineOut::create(MoveTo::create(sun->calculateMoveTime(), Vec2(290, 1025))),
 		Spawn::create(ScaleTo::create(0.2f, 0.3f), FadeOut::create(0.2f), nullptr),
 		CallFunc::create([=]()
 			{
@@ -193,8 +129,41 @@ void SunFlower::createSuns()
 	_sun->setSunTag(++_sunTag);
 	_sun->setPosition(_plantAnimation->getPosition());
 	_sun->createSuns();
-
 	SunsGroup.push_back(_sun);
+
+	_isCreateSun = true;
+}
+
+void SunFlower::createRandomSuns()
+{
+	_node->runAction(RepeatForever::create(Sequence::create(DelayTime::create(5),
+		CallFunc::create([this]()
+			{
+				auto sun = new Sun(goodsLayerInformation);
+				sun->setSunTag(++_sunTag);
+				sun->setPosition(Vec2(rand() % 1100 + 500, 1150));
+				sun->createSuns();
+
+				auto temporary = sun->getSunTag();
+				sun->getSun()->setScale(1.2f);
+				sun->getSun()->runAction(Sequence::create(
+					MoveBy::create(5.0f, Vec2(0, -rand() % 500 - 500)),
+					DelayTime::create(14), FadeOut::create(0.5f),
+					CallFunc::create([sun]()
+						{
+							sun->getSun()->setVisible(false);
+						}), nullptr));
+
+				SunsGroup.push_back(sun);
+			}), DelayTime::create(20), nullptr)));
+}
+
+void SunFlower::stopSun()
+{
+	for (auto sun : SunsGroup)
+	{
+		sunRecovery(sun);
+	}
 }
 
 SkeletonAnimation* SunFlower::showPlantAnimationAndText()
@@ -212,21 +181,19 @@ SkeletonAnimation* SunFlower::showPlantAnimationAndText()
 	SPSSpriteLayer::createPlantsText(0, lta.find("SUNFLOWER_1")->second->text, Vec2(190, 910), lta.find("SUNFLOWER_1")->second->fontsize);
 	SPSSpriteLayer::createPlantsText(1, lta.find("SUNFLOWER_2")->second->text, Vec2(360, 1000), lta.find("SUNFLOWER_2")->second->fontsize, Color3B::YELLOW, false);
 	SPSSpriteLayer::createPlantsText(2, lta.find("SUNFLOWER_3")->second->text, Vec2(440, 1000), lta.find("SUNFLOWER_3")->second->fontsize, Color3B::RED, false);
-	SPSSpriteLayer::createPlantsText(3, lta.find("SUNFLOWER_4")->second->text, Vec2(360, 830), lta.find("SUNFLOWER_4")->second->fontsize, Color3B::YELLOW, false);
+	SPSSpriteLayer::createPlantsText(3, lta.find("SUNFLOWER_4")->second->text, Vec2(360, 830), lta.find("SUNFLOWER_4")->second->fontsize, Color3B::ORANGE, false);
 
 	return _plantAnimation;
 }
 
 void SunFlower::cavePlantInformation(rapidjson::Value& object, rapidjson::Document::AllocatorType& allocator)
 {
-	object.AddMember("SunShowTime.X", _sunShowTime1.x, allocator);
-	object.AddMember("SunShowTime.Y", _sunShowTime1.y, allocator);
+	object.AddMember("SunShowTime", _isCreateSun ? _sunShowTime.x + _sunShowTime.y : _sunShowTime.x, allocator);
 }
 
 void SunFlower::readPlantInforamtion(rapidjson::Document* levelDataDocument, char* key, int i)
 {
-	_sunShowTime1 = Vec2((*levelDataDocument)[key]["Plants"][to_string(i).c_str()]["SunShowTime.X"].GetFloat(),
-		(*levelDataDocument)[key]["Plants"][to_string(i).c_str()]["SunShowTime.Y"].GetFloat());
+	_sunShowTime.x = (*levelDataDocument)[key]["Plants"][to_string(i).c_str()]["SunShowTime"].GetFloat();
 }
 
 Sun::Sun(Node* node) :
@@ -238,13 +205,13 @@ Sun::Sun(Node* node) :
 {
 }
 
-void Sun::createSuns()
+void Sun::createSuns(float scale)
 {
 	_sun = SkeletonAnimation::createWithData(_global->userInformation->getAnimationData().find("Sun")->second);
 	_sun->addAnimation(0, "Sun_rotate", true);
 	_sun->setPosition(_position);
 	_sun->runAction(Sequence::create(
-		Spawn::create(ScaleTo::create(0.5f, 1.2f), JumpBy::create(0.6f, Vec2(rand() % 120 - 60, 0), rand() % 100 + 100, 1), nullptr), 
+		Spawn::create(ScaleTo::create(0.5f, scale), JumpBy::create(0.6f, Vec2(rand() % 180 - 90, 0), rand() % 100 + 100, 1), nullptr),
 		DelayTime::create(14), FadeOut::create(0.5f), DelayTime::create(5.0f), CallFunc::create([this]() {_sun->setVisible(false); }), nullptr));
 	_node->addChild(_sun);
 }

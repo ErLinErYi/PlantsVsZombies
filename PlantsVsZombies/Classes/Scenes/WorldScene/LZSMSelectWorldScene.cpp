@@ -106,6 +106,7 @@ void SelectWorldScene::createSelectDifficulty()
 	text->setString(_global->userInformation->getGameDifficulty() ? 
 		_global->userInformation->getGameText().find("噩梦模式")->second->text : 
 		_global->userInformation->getGameText().find("简单模式")->second->text);
+	text->enableGlow(Color4B::BLUE);
 	checkbox->addChild(text);
 
 	checkbox->addEventListener([=](Ref* sender, CheckBox::EventType type)
@@ -219,6 +220,7 @@ void SelectWorldScene::showDifferentWorlds()
 		worldname->setFontSize(_global->userInformation->getGameText().find(worldName[i])->second->fontsize);
 		worldname->setColor(Color3B(0, 255, 255));
 		worldname->setString(_global->userInformation->getGameText().find(worldName[i])->second->text);
+		worldname->enableGlow(Color4B::BLUE);
 		_world[i]->addChild(worldname);
 
 		if (i > 1)

@@ -11,35 +11,40 @@
 class Cabbage :public Bullet
 {
 public:
-	void createBullet() override;
-	void bulletAndZombiesCollision() override;
-	void createShadow() override;
-	void createCabbageExplode();
-	void setZombiePosition(const Vec2& position);
-	void setZombieSpeed(const float speed);
-	void setZombieHeight(const float height);
-	void setIsFileData(const bool isFileData);
-	float getZombieSpeed() const;
-	void setCabbageCurrentPosition(const Vec2& position);
-	Vec2 getCabbageInitialPosition();
-	Vec2 calculateZombiePosition();
+	virtual void createBullet() override;
+	virtual void bulletAndZombiesCollision() override;
+	virtual void createShadow(float scale) override;
+	virtual void setZombiePosition(const Vec2& position);
+	virtual void setZombieSpeed(const float speed);
+	virtual void setZombieHeight(const float height);
+	virtual void setIsFileData(const bool isFileData);
+	virtual float getZombieSpeed() const;
+	virtual void setBulletCurrentPosition(const Vec2& position);
+	virtual Vec2 getBulletInitialPosition();
+	virtual Vec2 calculateZombiePosition();
 
 CC_CONSTRUCTOR_ACCESS:
-	Cabbage(Node* node);
-	~Cabbage() {}
+	Cabbage(Node* node = nullptr);
+	~Cabbage();
 
 protected:
 	virtual void caveBulletInformation(rapidjson::Value& object, rapidjson::Document::AllocatorType& allocator) override;
 	virtual void readBulletInformation(rapidjson::Document* levelDataDocument, char* key, int i) override;
+	virtual void readBulletAnimationInformation(rapidjson::Document* levelDataDocument, char* key, int i) override;
+	virtual void bulletAttackHurtZombies(Zombies* zombie) override;
+	virtual void createListener(const string& actionName, float scale = 0.8f);
+	virtual void createExplodeAnimation(const string& animationName, const string& actionName, const float scale = 0.6f);
+	virtual void calculateInformationForReadFile();
+	virtual bool getBulletIsEncounterWithZombie(Zombies* zombie);
 
-private:
-	bool getBulletIsEncounterWithZombie(Zombies* zombie);
-	void bulletAttackHurtZombies(Zombies* zombie) override;
-
-private:
+protected:
 	Vec2 _zombiePosition;
 	Vec2 _currentPosition;
+	Vec2 _initPosition;
+	Vec2 _endPosition;
 	float _zombieSpeed;
 	float _zombieHeight;
+	float _actionTime;
+	float _acxtionHeight;
 	bool _isFileData;      // 是否读取文件数据标志
 };

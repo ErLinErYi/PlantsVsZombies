@@ -24,12 +24,9 @@ CC_CONSTRUCTOR_ACCESS:
 	~PeaShooter();
 
 protected:
-	virtual void createPea();
+	virtual void createBullet() override;
 	virtual void plantAttack(Zombies* zombie) override;
 	virtual SkeletonAnimation* showPlantAnimationAndText() override;
 	virtual void plantEmission(const string& plantAnimation);
 	virtual void plantRecovery(const string& plantAnimation);
-	
-protected:
-	bool _isCreatePea;
 };

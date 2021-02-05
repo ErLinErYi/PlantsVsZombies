@@ -594,7 +594,6 @@ void UserData::caveLevelZombiesData(char* key)
 			object.AddMember("ZombieTimerTime", zombie->getZombieTimerTime(), allocator);
 			object.AddMember("ZombieInRow", zombie->getZombieInRow(), allocator);
 			object.AddMember("ZombieIsFrozen", zombie->getZombieIsFrozen(), allocator);
-			object.AddMember("ZombieIsStrikeFly", zombie->getZombieIsStrikeFly(), allocator);
 			object.AddMember("ZombieLocalZOrder", zombie->getZombieAnimation()->getLocalZOrder(), allocator);
 			object.AddMember("ZombieType", static_cast<int>(zombie->getZombieType()), allocator);
 			object.AddMember("ZombieOpacity", static_cast<int>(zombie->getZombieAnimation()->getOpacity()), allocator);
@@ -632,20 +631,21 @@ void UserData::caveLevelSunData(char* key)
 	rapidjson::Value _object(rapidjson::kObjectType);
 	rapidjson::Document::AllocatorType& allocator = _levelDataDocument->GetAllocator();
 	(*_levelDataDocument)[key].AddMember("Sun", _object, allocator);
-	(*_levelDataDocument)[key]["Sun"].AddMember("SunNumbers", SunsGroup.size(), allocator);
 
 	for (auto sun : SunsGroup)
 	{
-		rapidjson::Value object(rapidjson::kObjectType);
+		if (sun->getSun() && sun->getSun()->isVisible() && sun->getEnable())
+		{
+			rapidjson::Value object(rapidjson::kObjectType);
 
-		object.AddMember("SunTag", sun->getSunTag(), allocator);
-		object.AddMember("Enable", sun->getEnable(), allocator);
-		object.AddMember("PositionX", sun->getSun()->getPositionX(), allocator);
-		object.AddMember("PositionY", sun->getSun()->getPositionY(), allocator);
-		object.AddMember("Opacity", static_cast<int>(sun->getSun()->getOpacity()), allocator);
+			object.AddMember("SunTag", sun->getSunTag(), allocator);
+			object.AddMember("PositionX", sun->getSun()->getPositionX(), allocator);
+			object.AddMember("PositionY", sun->getSun()->getPositionY(), allocator);
 
-		(*_levelDataDocument)[key]["Sun"].AddMember(numberToString(++sunsNumber, allocator), object, _levelDataDocument->GetAllocator());
+			(*_levelDataDocument)[key]["Sun"].AddMember(numberToString(++sunsNumber, allocator), object, _levelDataDocument->GetAllocator());
+		}
 	}
+	(*_levelDataDocument)[key]["Sun"].AddMember("SunNumbers", sunsNumber, allocator);
 }
 
 void UserData::caveLevelCoinData(char* key)
@@ -654,19 +654,21 @@ void UserData::caveLevelCoinData(char* key)
 	rapidjson::Value _object(rapidjson::kObjectType);
 	rapidjson::Document::AllocatorType& allocator = _levelDataDocument->GetAllocator();
 	(*_levelDataDocument)[key].AddMember("Coin", _object, allocator);
-	(*_levelDataDocument)[key]["Coin"].AddMember("CoinNumbers", CoinsGroup.size(), allocator);
 
 	for (auto coin : CoinsGroup)
 	{
-		rapidjson::Value object(rapidjson::kObjectType);
+		if (coin->getCoin() && coin->getCoin()->isVisible() && coin->getEnable())
+		{
+			rapidjson::Value object(rapidjson::kObjectType);
 
-		object.AddMember("PositionX", coin->getCoin()->getPositionX(), allocator);
-		object.AddMember("PositionY", coin->getCoin()->getPositionY(), allocator);
-		object.AddMember("LocalZOrder", coin->getCoin()->getLocalZOrder(), allocator);
-		object.AddMember("Enable", coin->getEnable(), allocator);
+			object.AddMember("PositionX", coin->getCoin()->getPositionX(), allocator);
+			object.AddMember("PositionY", coin->getCoin()->getPositionY(), allocator);
+			object.AddMember("LocalZOrder", coin->getCoin()->getLocalZOrder(), allocator);
 
-		(*_levelDataDocument)[key]["Coin"].AddMember(numberToString(++coinNumber, allocator), object, _levelDataDocument->GetAllocator());
+			(*_levelDataDocument)[key]["Coin"].AddMember(numberToString(++coinNumber, allocator), object, _levelDataDocument->GetAllocator());
+		}
 	}
+	(*_levelDataDocument)[key]["Coin"].AddMember("CoinNumbers", coinNumber, allocator);
 }
 
 void UserData::caveLevelCarData(char* key)
@@ -695,24 +697,48 @@ void UserData::caveLevelBulletData(char* key)
 	rapidjson::Value _object(rapidjson::kObjectType);
 	rapidjson::Document::AllocatorType& allocator = _levelDataDocument->GetAllocator();
 	(*_levelDataDocument)[key].AddMember("Bullet", _object, allocator);
-	(*_levelDataDocument)[key]["Bullet"].AddMember("BulletNumbers", BulletGroup.size(), allocator);
 
 	for (auto bullet : BulletGroup)
 	{
-		rapidjson::Value object(rapidjson::kObjectType);
+		if (!bullet->getBulletIsUsed() && bullet->getBulletVisible() && bullet->getBulletPosition().x < 2000)
+		{
+			rapidjson::Value object(rapidjson::kObjectType);
 
-		object.AddMember("BulletType", static_cast<int>(bullet->getBulletType()), allocator);
-		object.AddMember("PositionX", bullet->getBullet()->getPositionX(), allocator);
-		object.AddMember("PositionY", bullet->getBullet()->getPositionY(), allocator);
-		object.AddMember("bulletInRow", bullet->getBulletInRow(), allocator);
-		object.AddMember("IsUsed", bullet->getBulletIsUsed(), allocator);
-		object.AddMember("LocalZOrder", bullet->getBullet()->getLocalZOrder(), allocator);
-		object.AddMember("Opacity", static_cast<int>(bullet->getBullet()->getOpacity()), allocator);
+			object.AddMember("BulletType", static_cast<int>(bullet->getBulletType()), allocator);
+			object.AddMember("PositionX", bullet->getBullet()->getPositionX(), allocator);
+			object.AddMember("PositionY", bullet->getBullet()->getPositionY(), allocator);
+			object.AddMember("BulletOpcity", static_cast<int>(bullet->getBullet()->getOpacity()), allocator);
+			object.AddMember("BulletAnimationTime",bullet->getBullet()->getCurrent()->animationLast, allocator);
+			object.AddMember("BulletAnimationTimeScale", bullet->getBullet()->getTimeScale(), allocator);
+			object.AddMember("bulletInRow", bullet->getBulletInRow(), allocator);
+			object.AddMember("LocalZOrder", bullet->getBullet()->getLocalZOrder(), allocator);
 
-		bullet->caveBulletInformation(object, allocator);
+			caveLevelBulletAnimationData(bullet, object);
 
-		(*_levelDataDocument)[key]["Bullet"].AddMember(numberToString(++bulletNumber, allocator), object, _levelDataDocument->GetAllocator());
+			bullet->caveBulletInformation(object, allocator);
+
+			(*_levelDataDocument)[key]["Bullet"].AddMember(numberToString(++bulletNumber, allocator), object, _levelDataDocument->GetAllocator());
+		}
 	}
+	(*_levelDataDocument)[key]["Bullet"].AddMember("BulletNumbers", bulletNumber, allocator);
+}
+
+void UserData::caveLevelBulletAnimationData(Bullet* bullet, rapidjson::Value& object)
+{
+	rapidjson::Document::AllocatorType& allocator = _levelDataDocument->GetAllocator();
+
+	auto spTE = bullet->getBullet()->getCurrent();
+	int animationNumber = 0;
+	do
+	{
+		rapidjson::Value objectPA(rapidjson::kObjectType);
+		objectPA.AddMember("BulletAnimationName", rapidjson::StringRef(spTE->animation->name), allocator);
+		objectPA.AddMember("BulletAnimationLoop", spTE->loop, allocator);
+
+		object.AddMember(numberToString(++animationNumber, allocator), objectPA, allocator);
+		spTE = spTE->next;
+	} while (spTE);
+	object.AddMember("AnimationNumber", animationNumber, allocator);
 }
 
 void UserData::caveLevelSelectPlantsData(char* key)
@@ -729,8 +755,7 @@ void UserData::caveLevelSelectPlantsData(char* key)
 
 		object.AddMember("CardTag", card.cardTag, allocator);
 		object.AddMember("Percent", buttonLayerInformation->plantsCards[card.cardTag].progressTimer->getPercentage(), allocator);
-		object.AddMember("LastTime", buttonLayerInformation->plantsCards[card.cardTag].progressTimer->getPercentage() / 100.f *
-			plantsCardInformation[card.cardTag].plantsCoolTime, allocator);
+		object.AddMember("LastTime", buttonLayerInformation->plantsCards[card.cardTag].progressTimer->getPercentage() / 100.f * plantsCardInformation[card.cardTag].plantsCoolTime, allocator);
 
 		(*_levelDataDocument)[key]["SelectPlants"].AddMember(numberToString(++plantsNumber, allocator), object, _levelDataDocument->GetAllocator());
 	}
@@ -873,6 +898,7 @@ void UserData::openLevelPlantsData(char* key)
 		plants->getPlantAnimation()->setTimeScale((*_levelDataDocument)[key]["Plants"][to_string(i).c_str()]["PlantsAnimationTimeScale"].GetFloat());
 		plants->setPlantHealthPoint((*_levelDataDocument)[key]["Plants"][to_string(i).c_str()]["PlantsHealthPoint"].GetFloat());
 		plants->getPlantAnimation()->getChildByName("SplashOfSoil")->setOpacity(0);
+		plants->getPlantAnimation()->getChildByName("BufEffect")->setOpacity(0);
 
 		PlantsGroup.insert(pair<int, Plants*>((*_levelDataDocument)[key]["Plants"][to_string(i).c_str()]["PlantsTag"].GetInt(), plants));
 		
@@ -913,7 +939,6 @@ void UserData::openLevelZombiesData(char* key)
 
 		zombies->getZombieAnimation()->update((*_levelDataDocument)[key]["Zombies"][to_string(i).c_str()]["ZombieAnimationTime"].GetFloat());
 		zombies->getZombieAnimation()->setTimeScale((*_levelDataDocument)[key]["Zombies"][to_string(i).c_str()]["ZombieAnimationTimeScale"].GetFloat());
-		zombies->setZombieIsStrikeFly((*_levelDataDocument)[key]["Zombies"][to_string(i).c_str()]["ZombieIsStrikeFly"].GetBool());
 		zombies->setZombieCurrentBloodVolume((*_levelDataDocument)[key]["Zombies"][to_string(i).c_str()]["ZombieCurrentBloodVolume"].GetFloat());
 		zombies->setZombieCurrentBodyShieldVolume((*_levelDataDocument)[key]["Zombies"][to_string(i).c_str()]["ZombieCurrentBodyShieldVolume"].GetFloat());
 		zombies->setZombieCurrentHeadShieldVolume((*_levelDataDocument)[key]["Zombies"][to_string(i).c_str()]["ZombieCurrentHeadShieldVolume"].GetFloat());
@@ -960,10 +985,8 @@ void UserData::openLevelSelectCardData(char* key)
 		{
 			card.cardTag = (*_levelDataDocument)[key]["SelectPlants"][to_string(i).c_str()]["CardTag"].GetInt();
 			userSelectCard.push_back(card);
-			plantsCardInformation[card.cardTag].PlantsSurPlusPrecent =
-				(*_levelDataDocument)[key]["SelectPlants"][to_string(i).c_str()]["Percent"].GetFloat();
-			plantsCardInformation[card.cardTag].PlantsSurPlusCoolTime =
-				(*_levelDataDocument)[key]["SelectPlants"][to_string(i).c_str()]["LastTime"].GetFloat();
+			plantsCardInformation[card.cardTag].PlantsSurPlusPrecent = (*_levelDataDocument)[key]["SelectPlants"][to_string(i).c_str()]["Percent"].GetFloat();
+			plantsCardInformation[card.cardTag].PlantsSurPlusCoolTime = (*_levelDataDocument)[key]["SelectPlants"][to_string(i).c_str()]["LastTime"].GetFloat();
 		}
 		_global->userInformation->setUserSelectCrads(userSelectCard);
 		_global->userInformation->setIsReadFileData(true);
@@ -972,7 +995,6 @@ void UserData::openLevelSelectCardData(char* key)
 	{
 		replaceScene();
 	}
-
 }
 
 void UserData::openLevelSunData(char* key)
@@ -986,12 +1008,6 @@ void UserData::openLevelSunData(char* key)
 			(*_levelDataDocument)[key]["Sun"][to_string(i).c_str()]["PositionX"].GetFloat(),
 			(*_levelDataDocument)[key]["Sun"][to_string(i).c_str()]["PositionY"].GetFloat()));
 		sun->createSuns();
-
-		auto enable = (*_levelDataDocument)[key]["Sun"][to_string(i).c_str()]["Enable"].GetBool();
-		auto opacity = (*_levelDataDocument)[key]["Sun"][to_string(i).c_str()]["Opacity"].GetInt();
-		sun->setEnable(enable);
-		if (!enable || opacity < 255)
-			sun->getSun()->setVisible(false);
 
 		SunsGroup.push_back(sun);
 	}
@@ -1040,13 +1056,31 @@ void UserData::openLevelBulletData(char* key)
 		auto bullet = animationLayerInformation->createDifferentBullet(type);
 		bullet->readBulletInformation(_levelDataDocument, key, i);
 		bullet->setBulletInRow((*_levelDataDocument)[key]["Bullet"][to_string(i).c_str()]["bulletInRow"].GetInt());
-		bullet->setBulletIsUsed((*_levelDataDocument)[key]["Bullet"][to_string(i).c_str()]["IsUsed"].GetBool());
 		bullet->createBullet();
-		bullet->getBullet()->setOpacity((*_levelDataDocument)[key]["Bullet"][to_string(i).c_str()]["Opacity"].GetInt());
+
+		openLevelBulletAnimationData(key, to_string(i).c_str(), bullet);
+
 		bullet->getBullet()->setLocalZOrder((*_levelDataDocument)[key]["Bullet"][to_string(i).c_str()]["LocalZOrder"].GetInt());
+		bullet->getBullet()->setOpacity((*_levelDataDocument)[key]["Bullet"][to_string(i).c_str()]["BulletOpcity"].GetInt());
+		bullet->getBullet()->update((*_levelDataDocument)[key]["Bullet"][to_string(i).c_str()]["BulletAnimationTime"].GetFloat());
+		bullet->getBullet()->setTimeScale((*_levelDataDocument)[key]["Bullet"][to_string(i).c_str()]["BulletAnimationTimeScale"].GetFloat());
 		bullet->readBulletAnimationInformation(_levelDataDocument, key, i);
 
 		BulletGroup.push_back(bullet);
+	}
+}
+
+void UserData::openLevelBulletAnimationData(char* key, const char* bu, Bullet* bullet)
+{
+	bullet->getBullet()->setTimeScale(1.f);
+
+	int animationNumber = (*_levelDataDocument)[key]["Bullet"][bu]["AnimationNumber"].GetInt();
+	for (int i = 1; i <= animationNumber; ++i)
+	{
+		auto name = (*_levelDataDocument)[key]["Bullet"][bu][to_string(i).c_str()]["BulletAnimationName"].GetString();
+		auto loop = static_cast<bool>((*_levelDataDocument)[key]["Bullet"][bu][to_string(i).c_str()]["BulletAnimationLoop"].GetInt());
+
+		i == 1 ? bullet->getBullet()->setAnimation(0, name, loop), bullet->getBullet()->setAnimation(0, name, loop) : bullet->getBullet()->addAnimation(0, name, loop);
 	}
 }
 

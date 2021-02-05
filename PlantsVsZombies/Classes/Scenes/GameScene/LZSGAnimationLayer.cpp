@@ -13,8 +13,8 @@
 #include "LZSGButtonLayer.h"
 #include "LZSGZombiesAppearControl.h"
 
-#include "Plants/LZPPlants-Files.h"
 #include "Zombies/LZZZombies-Files.h"
+#include "Plants/LZPPlants-Files.h"
 #include "Plants/EmissionPlants/Bullet/LZPEBBullet-File.h"
 
 #include "Based/LZBCar.h"
@@ -58,6 +58,9 @@ Bullet* GSAnimationLayer::createDifferentBullet(BulletType bulletType)
 	case BulletType::Cabbage:          bullet = new Cabbage(this);          break;
 	case BulletType::AcidLemonBullet:  bullet = new AcidLemonBullet(this);  break;
 	case BulletType::CitronBullet:     bullet = new CitronBullet(this, 0);  break;
+	case BulletType::StarFruitBullet:  bullet = new StarFruitBullet(this);  break;
+	case BulletType::WaterMelonBullet: bullet = new WaterMelonBullet(this); break;
+	case BulletType::WinterMelonBullet:bullet = new WinterMelonBullet(this);break;
 	default:break;
 	}
 	return bullet;
@@ -68,23 +71,29 @@ Plants* GSAnimationLayer::createDifferentPlants(PlantsType plantsType)
 	Plants* plants;
 	switch (plantsType)
 	{
-	case PlantsType::SunFlower:        plants = new SunFlower(this);               break;
-	case PlantsType::PeaShooter:       plants = new PeaShooter(this);              break;
-	case PlantsType::WallNut:          plants = new WallNut(this);                 break;
-	case PlantsType::CherryBomb:       plants = new CherryBomb(this);              break;
-	case PlantsType::PotatoMine:       plants = new PotatoMine(this);              break;
-	case PlantsType::CabbagePult:      plants = new CabbagePult(this);             break;
-	case PlantsType::Torchwood:        plants = new Torchwood(this);               break;
-	case PlantsType::Spikeweed:        plants = new Spikeweed(this);               break;
-	case PlantsType::Garlic:           plants = new Garlic(this);                  break;
-	case PlantsType::Chomper:          plants = new Chomper(this);                 break;
-	case PlantsType::IcePeaShooter:    plants = new IcePeaShooter(this);           break;
-	case PlantsType::FirePeaShooter:   plants = new FirePeaShooter(this);          break;
-	case PlantsType::Jalapeno:         plants = new Jalapeno(this);                break;
-	case PlantsType::JalapenoVariation:plants = new JalapenoVariation(this);       break;
-	case PlantsType::AcidLemonShooter: plants = new AcidLemonShooter(this);        break;
-	case PlantsType::Citron:           plants = new Citron(this);                  break;
-	case PlantsType::GloomShroom:      plants = new GloomShroom(this);             break;
+	case PlantsType::SunFlower:           plants = new SunFlower(this);               break;
+	case PlantsType::PeaShooter:          plants = new PeaShooter(this);              break;
+	case PlantsType::WallNut:             plants = new WallNut(this);                 break;
+	case PlantsType::CherryBomb:          plants = new CherryBomb(this);              break;
+	case PlantsType::PotatoMine:          plants = new PotatoMine(this);              break;
+	case PlantsType::CabbagePult:         plants = new CabbagePult(this);             break;
+	case PlantsType::Torchwood:           plants = new Torchwood(this);               break;
+	case PlantsType::Spikeweed:           plants = new Spikeweed(this);               break;
+	case PlantsType::Garlic:              plants = new Garlic(this);                  break;
+	case PlantsType::IceBergLettuce:      plants = new IceBergLettuce(this);          break;
+	case PlantsType::Chomper:             plants = new Chomper(this);                 break;
+	case PlantsType::IcePeaShooter:       plants = new IcePeaShooter(this);           break;
+	case PlantsType::FirePeaShooter:      plants = new FirePeaShooter(this);          break;
+	case PlantsType::AcidLemonShooter:    plants = new AcidLemonShooter(this);        break;
+	case PlantsType::SunFlowerTwin:       plants = new SunFlowerTwin(this);           break;
+	case PlantsType::WaterMelonPult:      plants = new WaterMelonPult(this);          break;
+	case PlantsType::Jalapeno:            plants = new Jalapeno(this);                break;
+	case PlantsType::JalapenoVariation:   plants = new JalapenoVariation(this);       break;
+	case PlantsType::ThreePeaShooter:     plants = new ThreePeaShooter(this);         break;
+	case PlantsType::StarFruit:           plants = new StarFruit(this);               break;
+	case PlantsType::WinterMelonPult:     plants = new WinterMelonPult(this);         break;
+	case PlantsType::Citron:              plants = new Citron(this);                  break;
+	case PlantsType::GloomShroom:         plants = new GloomShroom(this);             break;
 	default: break;
 	}
 	return plants;

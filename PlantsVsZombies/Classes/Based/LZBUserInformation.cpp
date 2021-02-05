@@ -378,19 +378,12 @@ void UserInformation::setBreakThroughNumbers(const int number)
 
 void UserInformation::setSunNumbers(const int number)
 {
-    if (_sunNumbers <= 100000)
-    {
-        _sunNumbers = number;
-    }
-    else
-    {
-        _sunNumbers = 100000;
-    }
+    number <= 999999 ? _sunNumbers = number : _sunNumbers = 999999;
 }
 
 void UserInformation::setCoinNumbers(const int number)
 {
-    _coinNumbers = number;
+    number <= 99999999 ? _coinNumbers = number : _coinNumbers = 99999999;
 }
 
 void UserInformation::setFps(const int fps)
