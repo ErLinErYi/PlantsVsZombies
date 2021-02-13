@@ -41,7 +41,7 @@ protected:
 public:
 	static bool isRunGameScene;
 	
-private:
+protected:
 	Global* _global;
 	Director* _director;
 };

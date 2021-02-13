@@ -71,6 +71,11 @@ protected:
 	virtual void  createPeaExplode();
 
 	/**
+	 *创建爆炸效果 
+	 */
+	virtual void createExplodeEffect();
+
+	/**
 	 *创建子弹影子
 	 */
 	virtual void createShadow(Vec2 position = Vec2::ZERO) override;

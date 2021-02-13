@@ -18,6 +18,7 @@
 #include "Plants/EmissionPlants/LZPEStarFruit.h"
 #include "Plants/EmissionPlants/LZPEWaterMelonPult.h"
 #include "Plants/EmissionPlants/LZPEWinterMelonPult.h"
+#include "Plants/EmissionPlants/LZPECatTail.h"
 
 #include "Plants/BattlePlants/LZPBCherryBomb.h"
 #include "Plants/BattlePlants/LZPBPotatoMine.h"

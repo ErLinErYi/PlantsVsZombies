@@ -47,6 +47,8 @@ GameScene::~GameScene()
 	Zombies::setZombiesNumbers(0);
 	Zombies::zombiesWinOrLoseInit();
 
+	GSPauseQuitLayer::setPause(false);
+
 	_director->getEventDispatcher()->
 		removeCustomEventListeners(GLViewImpl::EVENT_WINDOW_UNFOCUSED);
 
@@ -142,7 +144,7 @@ void GameScene::pauseGame()
 	_director->getEventDispatcher()->addCustomEventListener(
 		GLViewImpl::EVENT_WINDOW_UNFOCUSED, [&](EventCustom* evt)
 		{
-			if (!GSPauseQuitLayer::getPauseNumbers())
+			if (!GSPauseQuitLayer::getIsPause())
 			{
 				PlayMusic::playMusic("pause");
 				GSPauseQuitLayer::pauseLayer();

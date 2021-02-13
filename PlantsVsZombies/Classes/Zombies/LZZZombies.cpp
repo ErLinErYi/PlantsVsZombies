@@ -32,7 +32,8 @@ Zombies::Zombies() :
 ,   _bodyAnimationId(1)
 ,   _bodyShieldAnimationId(1)
 ,   _headShieldAnimationId(1)
-,   _timerTime(-1)
+,   _timerTimeSlow(-1)
+,   _timerTimeStop(-1)
 ,   _zombieRow(-1)
 ,	_isEat(false)
 ,	_isEatGarlic(false)
@@ -44,7 +45,8 @@ Zombies::Zombies() :
 ,   _isStrikeFly(false)
 ,   _redWarning(false)
 ,   _isReserveKill(false)
-,   _isFrozen(false)
+,   _gameTypeInvalid(false)
+,   _isFrozen(0)
 ,   _isShowLoseLimbsAnimation(true)
 ,   _isShowLoseShieldAnimation(true)
 ,   _isCanDelete{false,false}
@@ -261,6 +263,46 @@ void Zombies::zombiesDeleteUpdate(list<Zombies*>::iterator& zombie)
 	}
 }
 
+void Zombies::zombiesDeleteUpdateNotRecordDieNumbers(list<Zombies*>::iterator& zombie)
+{
+	/* 删除死亡僵尸 */
+	if (!(*zombie)->getZombieAnimation()->isVisible())
+	{
+		if (!(*zombie)->getIsCanDelete()[0])
+		{
+			(*zombie)->getIsCanDelete()[0] = true;
+
+			zombiesNumbersChange("--");  /* 僵尸总数更新 */
+			rewardCoin((*zombie)->getZombieAnimation());
+
+			auto& zombies = zombie;
+			(*zombies)->getZombieAnimation()->runAction(Sequence::create(DelayTime::create(5.0f),
+				CallFunc::create([zombies]()
+					{
+						(*zombies)->getIsCanDelete()[1] = true;
+					}), nullptr));
+		}
+
+		if ((*zombie)->getIsCanDelete()[1])
+		{
+			(*zombie)->getZombieAnimation()->pause();
+			(*zombie)->getZombieAnimation()->stopAllActions();
+			(*zombie)->getZombieAnimation()->removeFromParent();
+			delete* zombie;
+			*zombie = nullptr;
+			ZombiesGroup.erase(zombie++);
+		}
+		else
+		{
+			++zombie;
+		}
+	}
+	else
+	{
+		++zombie;
+	}
+}
+
 void Zombies::rewardCoin(SkeletonAnimation* zombies)
 {
 	if (rand() % 100 < 5)
@@ -286,11 +328,7 @@ void Zombies::setZombiesNumbers(const unsigned int numbers)
 
 bool Zombies::getZombieIsSurvive() const
 {
-	if (_currentBloodVolume > 0 && _zombiesAnimation->isVisible())
-	{
-		return true;
-	}
-	return false;
+	return (_currentBloodVolume > 0 && _zombiesAnimation->isVisible()) ? true : false;
 }
 
 bool Zombies::getZombieIsVisible() const
@@ -315,11 +353,7 @@ int Zombies::getZombieEatPlantNumber() const
 
 bool Zombies::getZombieIsPlayDieAnimation() const
 {
-	if (_bodyAnimationId != 10)
-	{
-		return false;
-	}
-	return true;
+	return _bodyAnimationId != 10 ? false : true;
 }
 
 void Zombies::setZombieCurrentBodyShieldVolume(const float currentBodyShieldVolume)
@@ -347,7 +381,7 @@ void Zombies::setZombieIsStrikeFly(const bool isStrikeFly)
 	_isStrikeFly = isStrikeFly;
 }
 
-void Zombies::setZombieIsFrozen(const bool isFrozen)
+void Zombies::setZombieIsFrozen(const int isFrozen)
 {
 	_isFrozen = isFrozen;
 }
@@ -395,6 +429,11 @@ void Zombies::setZombieScale()
 	_zombiesAnimation->setScale(_zombiesAnimation->getScale() + (getZombieLocalZOrder() + 10) / 20 / 40.f);
 }
 
+void Zombies::setZombieIsEatGarlic(const bool isEatGarlic)
+{
+	_isEatGarlic = isEatGarlic;
+}
+
 int Zombies::getZombieInRow() const
 {
 	return _zombieRow;
@@ -405,9 +444,10 @@ void Zombies::setZombieReserveKill(bool reserveKill)
 	_isReserveKill = reserveKill;
 }
 
-void Zombies::setZombieTimerTime(const int timerTime)
+void Zombies::setZombieTimerTime(const int timerTime, bool slow)
 {
-	_timerTime = timerTime;
+	slow ? _timerTimeSlow = max(_timerTimeSlow, timerTime) :
+		_timerTimeStop = max(_timerTimeStop, timerTime);
 }
 
 SkeletonAnimation* Zombies::getZombieAnimation() const
@@ -489,12 +529,12 @@ bool Zombies::getZombieIsCreateTimer() const
 	return _isCreateTimer;
 }
 
-int& Zombies::getZombieTimerTime()
+int& Zombies::getZombieTimerTime(bool slow)
 {
-	return _timerTime;
+	return slow ? _timerTimeSlow : _timerTimeStop;
 }
 
-bool Zombies::getZombieIsFrozen() const
+int Zombies::getZombieIsFrozen() const
 {
 	return _isFrozen;
 }
@@ -676,8 +716,11 @@ void Zombies::createZombieTimer()
 			Sequence::create(DelayTime::create(1.f),
 			CallFunc::create([=]()
 				{
-					if (_timerTime > 0) --_timerTime;
-					else if (_timerTime == 0) setZombieActionRecovery();
+					if (_timerTimeSlow > 0) --_timerTimeSlow;
+					else if (_timerTimeSlow == 0) setZombieActionRecovery(true);
+
+					if (_timerTimeStop > 0) --_timerTimeStop;
+					else if (_timerTimeStop == 0) setZombieActionRecovery();
 				}), nullptr)));
 	}
 }
@@ -865,6 +908,11 @@ ShieldType Zombies::getZombieHeadShieldType() const
 	return _headShieldType;
 }
 
+bool Zombies::getZombieIsEatGarlic() const
+{
+	return _isEatGarlic;
+}
+
 void Zombies::showZombieShadow(Node* node, const int posy)
 {
 	/* 创建僵尸掉落肢体护盾影子 */
@@ -942,9 +990,16 @@ void Zombies::setBigZombieAttribute()
 
 void Zombies::setZombieAttributeForGameType(Node* sprite)
 {
-	auto data = _openLevelData->readLevelData(_openLevelData->getLevelNumber());
+	if (!_gameTypeInvalid)
+	{
+		auto data = _openLevelData->readLevelData(_openLevelData->getLevelNumber());
+		data->getZombiesIsSmall() ? sprite->setScale(0.85f) : data->getZombiesIsBig() ? sprite->setScale(1.8f) : nullptr;
+	}
+}
 
-	data->getZombiesIsSmall() ? sprite->setScale(0.85f) : data->getZombiesIsBig() ? sprite->setScale(1.8f) : nullptr;
+void Zombies::setZombieAttributeForGameTypeInvalid(const bool invalid)
+{
+	_gameTypeInvalid = invalid;
 }
 
 void Zombies::setOpacityZombieAttribute()
@@ -956,27 +1011,48 @@ void Zombies::setOpacityZombieAttribute()
 
 void Zombies::setZombieActionSlow()
 {
-	_isFrozen = true;
-	_zombiesAnimation->setColor(Color3B(0, 162, 232));
-	_zombiesAnimation->setTimeScale(_zombiesAnimation->getTimeScale() / 2.0f);   /* 运动速度减半 */
-	_currentSpeed /= 2.0f;                                                       /* 移动速度减半 */
+	if (_isFrozen == 0)
+	{
+		_isFrozen = 1;
+		_zombiesAnimation->setColor(Color3B(0, 162, 232));
+		_zombiesAnimation->setTimeScale(_zombiesAnimation->getTimeScale() / 2.0f);   /* 运动速度减半 */
+		_currentSpeed /= 2.0f;                                                       /* 移动速度减半 */
+	}
 }
 
 void Zombies::setZombieActionStop()
 {
-	_isFrozen = true;
-	_zombiesAnimation->setColor(Color3B(0, 162, 232));
-	_zombiesAnimation->setTimeScale(0);                                          /* 运动速度0 */
-	_currentSpeed = 0;                                                           /* 移动速度0 */
+	if ((_isFrozen == 0 || _isFrozen == 1) && !_isEatGarlic)
+	{
+		_isFrozen = 2;
+		_isEat = false;
+		_zombiesAnimation->setColor(Color3B(0, 162, 232));
+		_zombiesAnimation->setTimeScale(0);                                          /* 运动速度0 */
+		_currentSpeed = 0;                                                           /* 移动速度0 */
+	}
 }
 
-void Zombies::setZombieActionRecovery()
+void Zombies::setZombieActionRecovery(bool slow)
 {
-	_timerTime = -1;
-	_isFrozen = false;
-	_zombiesAnimation->setColor(Color3B::WHITE);
-	_zombiesAnimation->setTimeScale(_timeScale);                                 
-	_currentSpeed = _speed;                                                   
+	if (slow)
+	{
+		_timerTimeSlow = -1;
+		_isFrozen = 0;
+		_zombiesAnimation->setColor(Color3B::WHITE);
+		_zombiesAnimation->setTimeScale(_timeScale);
+		_currentSpeed = _speed;
+	}
+	else
+	{
+		if (!_isEatGarlic) /* 没有吃大蒜 */
+		{
+			_timerTimeStop = -1;
+			_isFrozen = 0;
+			_zombiesAnimation->setColor(Color3B::WHITE);
+			_zombiesAnimation->setTimeScale(_timeScale);
+			_currentSpeed = _speed;
+		}
+	}
 }
 
 void Zombies::setZombieGLProgram()

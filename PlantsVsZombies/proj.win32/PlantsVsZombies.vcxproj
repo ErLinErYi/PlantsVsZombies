@@ -203,6 +203,7 @@ xcopy "$(ProjectDir)..\Resources" "$(OutDir)" /D /E /I /F /Y
     <ClCompile Include="..\Classes\Plants\BattlePlants\LZPBJalapenoVariation.cpp" />
     <ClCompile Include="..\Classes\Plants\DefensePlants\LZPDGarlic.cpp" />
     <ClCompile Include="..\Classes\Plants\DefensePlants\LZPDSunFlowerTwin.cpp" />
+    <ClCompile Include="..\Classes\Plants\EmissionPlants\Bullet\LZPEBCatTailBullet.cpp" />
     <ClCompile Include="..\Classes\Plants\EmissionPlants\Bullet\LZPEBIcePea.cpp" />
     <ClCompile Include="..\Classes\Plants\EmissionPlants\Bullet\LZPEBStarFruitBullet.cpp" />
     <ClCompile Include="..\Classes\Plants\EmissionPlants\Bullet\LZPEBWaterMelonBullet.cpp" />
@@ -215,6 +216,7 @@ xcopy "$(ProjectDir)..\Resources" "$(OutDir)" /D /E /I /F /Y
     <ClCompile Include="..\Classes\Plants\EmissionPlants\Bullet\LZPEBFirePea.cpp" />
     <ClCompile Include="..\Classes\Plants\EmissionPlants\Bullet\LZPEBPea.cpp" />
     <ClCompile Include="..\Classes\Plants\EmissionPlants\LZPECabbagePult.cpp" />
+    <ClCompile Include="..\Classes\Plants\EmissionPlants\LZPECatTail.cpp" />
     <ClCompile Include="..\Classes\Plants\EmissionPlants\LZPECitron.cpp" />
     <ClCompile Include="..\Classes\Plants\EmissionPlants\LZPEFirePeaShooter.cpp" />
     <ClCompile Include="..\Classes\Plants\EmissionPlants\LZPEIcePeaShooter.cpp" />
@@ -233,6 +235,15 @@ xcopy "$(ProjectDir)..\Resources" "$(OutDir)" /D /E /I /F /Y
     <ClCompile Include="..\Classes\Plants\EmissionPlants\LZPEWinterMelonPult.cpp" />
     <ClCompile Include="..\Classes\Plants\LZPPlants.cpp" />
     <ClCompile Include="..\Classes\Scenes\EasterEggsScene\LZSEGameEasterEggs.cpp" />
+    <ClCompile Include="..\Classes\Scenes\GameScene\HammerZombies\LZSHammerZombiesScene.cpp" />
+    <ClCompile Include="..\Classes\Scenes\GameScene\HammerZombies\LZSHAnimationLayer.cpp" />
+    <ClCompile Include="..\Classes\Scenes\GameScene\HammerZombies\LZSHBackGroundLayer.cpp" />
+    <ClCompile Include="..\Classes\Scenes\GameScene\HammerZombies\LZSHButtonLayer.cpp" />
+    <ClCompile Include="..\Classes\Scenes\GameScene\HammerZombies\LZSHControlLayer.cpp" />
+    <ClCompile Include="..\Classes\Scenes\GameScene\HammerZombies\LZSHGameEndLayer.cpp" />
+    <ClCompile Include="..\Classes\Scenes\GameScene\HammerZombies\LZSHGameTimerLayer.cpp" />
+    <ClCompile Include="..\Classes\Scenes\GameScene\HammerZombies\LZSHInformationLayer.cpp" />
+    <ClCompile Include="..\Classes\Scenes\GameScene\HammerZombies\LZSHPauseQuiteLayer.cpp" />
     <ClCompile Include="..\Classes\Scenes\GameScene\LZSGAnimationLayer.cpp" />
     <ClCompile Include="..\Classes\Scenes\GameScene\LZSGBackgroundLayer.cpp" />
     <ClCompile Include="..\Classes\Scenes\GameScene\LZSGGameScene.cpp" />
@@ -258,6 +269,7 @@ xcopy "$(ProjectDir)..\Resources" "$(OutDir)" /D /E /I /F /Y
     <ClCompile Include="..\Classes\Scenes\MainMenuScene\LZSMMainMenu.cpp" />
     <ClCompile Include="..\Classes\Scenes\MainMenuScene\LZSMOptionsSence.cpp" />
     <ClCompile Include="..\Classes\Scenes\MainMenuScene\LZSMQuitScene.cpp" />
+    <ClCompile Include="..\Classes\Scenes\MainMenuScene\LZSMUnlockDialogLayer.cpp" />
     <ClCompile Include="..\Classes\Scenes\MainMenuScene\LZSMUpdateClient.cpp" />
     <ClCompile Include="..\Classes\Scenes\SelectPlantsScene\LZSSMirrorSelectPlantsScene.cpp" />
     <ClCompile Include="..\Classes\Scenes\SelectPlantsScene\LZSSBackgroundLayer.cpp" />
@@ -311,6 +323,7 @@ xcopy "$(ProjectDir)..\Resources" "$(OutDir)" /D /E /I /F /Y
     <ClInclude Include="..\Classes\Plants\BattlePlants\LZPBJalapenoVariation.h" />
     <ClInclude Include="..\Classes\Plants\DefensePlants\LZPDGarlic.h" />
     <ClInclude Include="..\Classes\Plants\DefensePlants\LZPDSunFlowerTwin.h" />
+    <ClInclude Include="..\Classes\Plants\EmissionPlants\Bullet\LZPEBCatTailBullet.h" />
     <ClInclude Include="..\Classes\Plants\EmissionPlants\Bullet\LZPEBIcePea.h" />
     <ClInclude Include="..\Classes\Plants\EmissionPlants\Bullet\LZPEBStarFruitBullet.h" />
     <ClInclude Include="..\Classes\Plants\EmissionPlants\Bullet\LZPEBWaterMelonBullet.h" />
@@ -324,6 +337,7 @@ xcopy "$(ProjectDir)..\Resources" "$(OutDir)" /D /E /I /F /Y
     <ClInclude Include="..\Classes\Plants\EmissionPlants\Bullet\LZPEBFirePea.h" />
     <ClInclude Include="..\Classes\Plants\EmissionPlants\Bullet\LZPEBPea.h" />
     <ClInclude Include="..\Classes\Plants\EmissionPlants\LZPECabbagePult.h" />
+    <ClInclude Include="..\Classes\Plants\EmissionPlants\LZPECatTail.h" />
     <ClInclude Include="..\Classes\Plants\EmissionPlants\LZPECitron.h" />
     <ClInclude Include="..\Classes\Plants\EmissionPlants\LZPEFirePeaShooter.h" />
     <ClInclude Include="..\Classes\Plants\EmissionPlants\LZPEIcePeaShooter.h" />
@@ -343,6 +357,15 @@ xcopy "$(ProjectDir)..\Resources" "$(OutDir)" /D /E /I /F /Y
     <ClInclude Include="..\Classes\Plants\LZPPlants-Files.h" />
     <ClInclude Include="..\Classes\Plants\LZPPlants.h" />
     <ClInclude Include="..\Classes\Scenes\EasterEggsScene\LZSEGameEasterEggs.h" />
+    <ClInclude Include="..\Classes\Scenes\GameScene\HammerZombies\LZSHammerZombiesScene.h" />
+    <ClInclude Include="..\Classes\Scenes\GameScene\HammerZombies\LZSHAnimationLayer.h" />
+    <ClInclude Include="..\Classes\Scenes\GameScene\HammerZombies\LZSHBackGroundLayer.h" />
+    <ClInclude Include="..\Classes\Scenes\GameScene\HammerZombies\LZSHButtonLayer.h" />
+    <ClInclude Include="..\Classes\Scenes\GameScene\HammerZombies\LZSHControlLayer.h" />
+    <ClInclude Include="..\Classes\Scenes\GameScene\HammerZombies\LZSHGameEndLayer.h" />
+    <ClInclude Include="..\Classes\Scenes\GameScene\HammerZombies\LZSHGameTimerLayer.h" />
+    <ClInclude Include="..\Classes\Scenes\GameScene\HammerZombies\LZSHInformationLayer.h" />
+    <ClInclude Include="..\Classes\Scenes\GameScene\HammerZombies\LZSHPauseQuiteLayer.h" />
     <ClInclude Include="..\Classes\Scenes\GameScene\LZSGAnimationLayer.h" />
     <ClInclude Include="..\Classes\Scenes\GameScene\LZSGBackgroundLayer.h" />
     <ClInclude Include="..\Classes\Scenes\GameScene\LZSGGameScene.h" />
@@ -369,6 +392,7 @@ xcopy "$(ProjectDir)..\Resources" "$(OutDir)" /D /E /I /F /Y
     <ClInclude Include="..\Classes\Scenes\MainMenuScene\LZSMMainMenu.h" />
     <ClInclude Include="..\Classes\Scenes\MainMenuScene\LZSMOptionsSence.h" />
     <ClInclude Include="..\Classes\Scenes\MainMenuScene\LZSMQuitScene.h" />
+    <ClInclude Include="..\Classes\Scenes\MainMenuScene\LZSMUnlockDialogLayer.h" />
     <ClInclude Include="..\Classes\Scenes\MainMenuScene\LZSMUpdateClient.h" />
     <ClInclude Include="..\Classes\Scenes\SelectPlantsScene\LZSSMirrorSelectPlantsScene.h" />
     <ClInclude Include="..\Classes\Scenes\SelectPlantsScene\LZSSBackgroundLayer.h" />

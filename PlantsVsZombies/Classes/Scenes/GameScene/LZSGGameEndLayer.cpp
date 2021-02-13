@@ -226,13 +226,9 @@ void GSGameEndLayer::rewardCoin(Button* button)
 	const int coins = _openLevelData->readLevelData(_openLevelData->getLevelNumber())->getCoinNumbers() / 2;
 	const int number = coins + rand() % coins;
 
-	button->runAction(Sequence::create(Repeat::create(Sequence::create(MoveBy::create(0.05f, Vec2(5, 5)), 
+	button->runAction(Sequence::create(Repeat::create(Sequence::create(MoveBy::create(0.05f, Vec2(5, 5)),
 		MoveBy::create(0.05f, Vec2(-5, -5)), nullptr), number / 2), DelayTime::create(0.5f), FadeOut::create(0.5f),
-		CallFunc::create([button]()
-			{
-				button->removeFromParent();
-			}),
-		nullptr));
+		CallFunc::create([button]() {button->removeFromParent(); }), nullptr));
 
 	for (int i = 0; i < number; i++)
 	{
@@ -312,6 +308,5 @@ void GSGameEndLayer::quitScene()
 				_director->popScene();
 
 				GSPauseQuitLayer::resumeLayer();
-				GSPauseQuitLayer::setPauseNumbers(0);
 			}), nullptr));
 }

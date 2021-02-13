@@ -18,6 +18,8 @@ IcePea::IcePea(Node* node)
     _bulletType = BulletType::IcePea;
 
     _peaAnimationName = "ice";
+
+    srand(time(nullptr));
 }
 
 IcePea::~IcePea()
@@ -68,10 +70,11 @@ void IcePea::createPeaExplode()
     static string animation[] = { {"IcePea_Explode_1"},{"IcePea_Explode_2"} };
 
     auto peaExplode = SkeletonAnimation::createWithData(_global->userInformation->getAnimationData().find("PeaExplode")->second);
-    peaExplode->setPosition(getBulletPosition() - Vec2(5, -5));
+    peaExplode->setPosition(getBulletPosition() + Vec2(20, 5));
     peaExplode->setAnimation(0, animation[rand() % 2], false);
     peaExplode->update(0);
     peaExplode->setScale(1.7f);
+    peaExplode->setScaleX(-peaExplode->getScaleX());
     peaExplode->setLocalZOrder(_bulletAnimation->getLocalZOrder());
     _node->addChild(peaExplode);
 
@@ -79,11 +82,13 @@ void IcePea::createPeaExplode()
         {
             peaExplode->removeFromParent();
         }), nullptr));
+
+    if (!(rand() % 3)) createExplodeEffect();
 }
 
 void IcePea::icePeaExplodeEffect(Zombies* zombie)
 {
-    zombie->setZombieTimerTime(10);
+    zombie->setZombieTimerTime(10, true);
     
     if (!zombie->getZombieIsFrozen())//判断是否已经被减速
     {

@@ -47,53 +47,55 @@ GSAnimationLayer* GSAnimationLayer::create(Node* node)
 	return nullptr;
 }
 
-Bullet* GSAnimationLayer::createDifferentBullet(BulletType bulletType)
+Bullet* GSAnimationLayer::createDifferentBullet(BulletType bulletType, Node* node)
 {
 	Bullet* bullet;
 	switch (bulletType)
 	{
-	case BulletType::Pea:              bullet = new Pea(this);              break;
-	case BulletType::IcePea:           bullet = new IcePea(this);           break;
-	case BulletType::FirePea:          bullet = new FirePea(this);          break;
-	case BulletType::Cabbage:          bullet = new Cabbage(this);          break;
-	case BulletType::AcidLemonBullet:  bullet = new AcidLemonBullet(this);  break;
-	case BulletType::CitronBullet:     bullet = new CitronBullet(this, 0);  break;
-	case BulletType::StarFruitBullet:  bullet = new StarFruitBullet(this);  break;
-	case BulletType::WaterMelonBullet: bullet = new WaterMelonBullet(this); break;
-	case BulletType::WinterMelonBullet:bullet = new WinterMelonBullet(this);break;
+	case BulletType::Pea:              bullet = new Pea(node);              break;
+	case BulletType::IcePea:           bullet = new IcePea(node);           break;
+	case BulletType::FirePea:          bullet = new FirePea(node);          break;
+	case BulletType::Cabbage:          bullet = new Cabbage(node);          break;
+	case BulletType::AcidLemonBullet:  bullet = new AcidLemonBullet(node);  break;
+	case BulletType::CitronBullet:     bullet = new CitronBullet(node, 0);  break;
+	case BulletType::StarFruitBullet:  bullet = new StarFruitBullet(node);  break;
+	case BulletType::WaterMelonBullet: bullet = new WaterMelonBullet(node); break;
+	case BulletType::WinterMelonBullet:bullet = new WinterMelonBullet(node);break;
+	case BulletType::CatTailBullet:    bullet = new CatTailBullet(node);    break;
 	default:break;
 	}
 	return bullet;
 }
 
-Plants* GSAnimationLayer::createDifferentPlants(PlantsType plantsType)
+Plants* GSAnimationLayer::createDifferentPlants(PlantsType plantsType, Node* node)
 {
 	Plants* plants;
 	switch (plantsType)
 	{
-	case PlantsType::SunFlower:           plants = new SunFlower(this);               break;
-	case PlantsType::PeaShooter:          plants = new PeaShooter(this);              break;
-	case PlantsType::WallNut:             plants = new WallNut(this);                 break;
-	case PlantsType::CherryBomb:          plants = new CherryBomb(this);              break;
-	case PlantsType::PotatoMine:          plants = new PotatoMine(this);              break;
-	case PlantsType::CabbagePult:         plants = new CabbagePult(this);             break;
-	case PlantsType::Torchwood:           plants = new Torchwood(this);               break;
-	case PlantsType::Spikeweed:           plants = new Spikeweed(this);               break;
-	case PlantsType::Garlic:              plants = new Garlic(this);                  break;
-	case PlantsType::IceBergLettuce:      plants = new IceBergLettuce(this);          break;
-	case PlantsType::Chomper:             plants = new Chomper(this);                 break;
-	case PlantsType::IcePeaShooter:       plants = new IcePeaShooter(this);           break;
-	case PlantsType::FirePeaShooter:      plants = new FirePeaShooter(this);          break;
-	case PlantsType::AcidLemonShooter:    plants = new AcidLemonShooter(this);        break;
-	case PlantsType::SunFlowerTwin:       plants = new SunFlowerTwin(this);           break;
-	case PlantsType::WaterMelonPult:      plants = new WaterMelonPult(this);          break;
-	case PlantsType::Jalapeno:            plants = new Jalapeno(this);                break;
-	case PlantsType::JalapenoVariation:   plants = new JalapenoVariation(this);       break;
-	case PlantsType::ThreePeaShooter:     plants = new ThreePeaShooter(this);         break;
-	case PlantsType::StarFruit:           plants = new StarFruit(this);               break;
-	case PlantsType::WinterMelonPult:     plants = new WinterMelonPult(this);         break;
-	case PlantsType::Citron:              plants = new Citron(this);                  break;
-	case PlantsType::GloomShroom:         plants = new GloomShroom(this);             break;
+	case PlantsType::SunFlower:           plants = new SunFlower(node);               break;
+	case PlantsType::PeaShooter:          plants = new PeaShooter(node);              break;
+	case PlantsType::WallNut:             plants = new WallNut(node);                 break;
+	case PlantsType::CherryBomb:          plants = new CherryBomb(node);              break;
+	case PlantsType::PotatoMine:          plants = new PotatoMine(node);              break;
+	case PlantsType::CabbagePult:         plants = new CabbagePult(node);             break;
+	case PlantsType::Torchwood:           plants = new Torchwood(node);               break;
+	case PlantsType::Spikeweed:           plants = new Spikeweed(node);               break;
+	case PlantsType::Garlic:              plants = new Garlic(node);                  break;
+	case PlantsType::IceBergLettuce:      plants = new IceBergLettuce(node);          break;
+	case PlantsType::Chomper:             plants = new Chomper(node);                 break;
+	case PlantsType::IcePeaShooter:       plants = new IcePeaShooter(node);           break;
+	case PlantsType::FirePeaShooter:      plants = new FirePeaShooter(node);          break;
+	case PlantsType::AcidLemonShooter:    plants = new AcidLemonShooter(node);        break;
+	case PlantsType::SunFlowerTwin:       plants = new SunFlowerTwin(node);           break;
+	case PlantsType::WaterMelonPult:      plants = new WaterMelonPult(node);          break;
+	case PlantsType::Jalapeno:            plants = new Jalapeno(node);                break;
+	case PlantsType::JalapenoVariation:   plants = new JalapenoVariation(node);       break;
+	case PlantsType::ThreePeaShooter:     plants = new ThreePeaShooter(node);         break;
+	case PlantsType::StarFruit:           plants = new StarFruit(node);               break;
+	case PlantsType::WinterMelonPult:     plants = new WinterMelonPult(node);         break;
+	case PlantsType::Citron:              plants = new Citron(node);                  break;
+	case PlantsType::CatTail:             plants = new CatTail(node);                 break;
+	case PlantsType::GloomShroom:         plants = new GloomShroom(node);             break;
 	default: break;
 	}
 	return plants;
@@ -104,20 +106,20 @@ Zombies* GSAnimationLayer::createDifferentZombies(ZombiesType zombiesType, Node*
 	Zombies* zombies;
 	switch (zombiesType)
 	{
-	case ZombiesType::CommonZombies:          zombies = new CommonZombies(node ? node : this);          break;
-	case ZombiesType::ConeZombies:            zombies = new ConeZombies(node ? node : this);            break;
-	case ZombiesType::BucketZombies:          zombies = new BucketZombies(node ? node : this);          break;
-	case ZombiesType::CommonDoorZombies:      zombies = new CommonDoorZombies(node ? node : this);      break;
-	case ZombiesType::ConeDoorZombies:        zombies = new ConeDoorZombies(node ? node : this);        break;
-	case ZombiesType::BucketDoorZombies:      zombies = new BucketDoorZombies(node ? node : this);      break;
-	case ZombiesType::LmpZombies:             zombies = new LmpZombies(node ? node : this);             break;
-	case ZombiesType::CommonFlagZombies:      zombies = new CommonFlagZombies(node ? node : this);      break;
-	case ZombiesType::ConeFlagZombies:        zombies = new ConeFlagZombies(node ? node : this);        break;
-	case ZombiesType::BucketFlagZombies:      zombies = new BucketFlagZombies(node ? node : this);      break;
-	case ZombiesType::CommonDoorFlagZombies:  zombies = new CommonDoorFlagZombies(node ? node : this);  break;
-	case ZombiesType::ConeDoorFlagZombies:    zombies = new ConeDoorFlagZombies(node ? node : this);    break;
-	case ZombiesType::BucketDoorFlagZombies:  zombies = new BucketDoorFlagZombies(node ? node : this);  break;
-	case ZombiesType::SnowZombies:            zombies = new SnowZombies(node ? node : this);            break;
+	case ZombiesType::CommonZombies:          zombies = new CommonZombies(node);          break;
+	case ZombiesType::ConeZombies:            zombies = new ConeZombies(node);            break;
+	case ZombiesType::BucketZombies:          zombies = new BucketZombies(node);          break;
+	case ZombiesType::CommonDoorZombies:      zombies = new CommonDoorZombies(node);      break;
+	case ZombiesType::ConeDoorZombies:        zombies = new ConeDoorZombies(node);        break;
+	case ZombiesType::BucketDoorZombies:      zombies = new BucketDoorZombies(node);      break;
+	case ZombiesType::LmpZombies:             zombies = new LmpZombies(node);             break;
+	case ZombiesType::CommonFlagZombies:      zombies = new CommonFlagZombies(node);      break;
+	case ZombiesType::ConeFlagZombies:        zombies = new ConeFlagZombies(node);        break;
+	case ZombiesType::BucketFlagZombies:      zombies = new BucketFlagZombies(node);      break;
+	case ZombiesType::CommonDoorFlagZombies:  zombies = new CommonDoorFlagZombies(node);  break;
+	case ZombiesType::ConeDoorFlagZombies:    zombies = new ConeDoorFlagZombies(node);    break;
+	case ZombiesType::BucketDoorFlagZombies:  zombies = new BucketDoorFlagZombies(node);  break;
+	case ZombiesType::SnowZombies:            zombies = new SnowZombies(node);            break;
 	default: break;
 	}
 	return zombies;
@@ -140,7 +142,7 @@ void GSAnimationLayer::plantPlants()
 {
 	PlayMusic::playMusic(rand() % 2 == 0 ? "plant2" : "plant");
 
-	auto plants = createDifferentPlants(buttonLayerInformation->mouseSelectImage->selectPlantsId);
+	auto plants = createDifferentPlants(buttonLayerInformation->mouseSelectImage->selectPlantsId, this);
 	plants->setPlantPosition(ROW_COLUMN_TO_POSITION(controlLayerInformation->_plantsPosition));
 	plants->setPlantLocalZOrder(SET_ANIMATION_Z_ORDER(controlLayerInformation->_plantsPosition));
 	plants->setPlantRowAndColumn(controlLayerInformation->_plantsPosition);
@@ -170,7 +172,7 @@ void GSAnimationLayer::createZombies()
 	uniform_int_distribution<unsigned>number(0, 500);
 	auto zombies = createDifferentZombies(static_cast<ZombiesType>(
 		controlLayerInformation->_zombiesAppearControl->createDifferentTypeZombies(
-			controlLayerInformation->_zombiesAppearControl->getZombiesAppearFrequency())));
+			controlLayerInformation->_zombiesAppearControl->getZombiesAppearFrequency())), this);
 	auto row = controlLayerInformation->_zombiesAppearControl->getEqualProbabilityForRow();
 	zombies->setZombiePosition(Vec2(1780 + number(_random), ZombiesAppearControl::zombiesPosition[row]));
 	zombies->setZombieInRow(row);
@@ -184,7 +186,7 @@ void GSAnimationLayer::createZombiesOnSurvival()
 {
 	uniform_int_distribution<unsigned>number(0, 500);
 	auto zombies = createDifferentZombies(static_cast<ZombiesType>(
-		controlLayerInformation->_zombiesAppearControl->createDifferentTypeZombies()));
+		controlLayerInformation->_zombiesAppearControl->createDifferentTypeZombies()), this);
 	zombies->setZombiePosition(Vec2(1780 + number(_random), controlLayerInformation->_zombiesAppearControl->getEqualProbabilityForRow()));
 	zombies->createZombie();
 	zombies->setZombieAttributeForGameType();

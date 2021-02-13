@@ -43,31 +43,30 @@ CC_CONSTRUCTOR_ACCESS:
 	virtual bool init();
 
 protected:
+	virtual void initData();                                                            /* 初始化数据 */
 	virtual void judgeLevelIsFinished();                                                /* 判断关卡是否结束 */
 	virtual void zombiesComeTiming();                                                   /* 僵尸出现计时 */
 	virtual void createZombies();                                                       /* 创建僵尸 */
 	virtual bool controlRefurbishZombies();                                             /* 控制僵尸刷新 */
 	virtual void controlRefurbishMusicAndText();                                        /* 控制音乐与文字的刷新*/
-
-private:
-	void createSchedule();                                                              /* 创建定时器 */
-	void controlCardEnabled();                                                          /* 控制卡牌是否可用 */
-	void calculatePlantPosition();                                                      /* 计算植物种植位置 */
-	void createMouseListener();                                                         /* 创建鼠标 */
-	void mouseMoveControl();                                                            /* 鼠标移动控制 */
-	void mouseDownControl(EventMouse* eventmouse = nullptr);                            /* 鼠标按下控制 */
-	void createPlantsCardListener();                                                    /* 创建植物卡牌监听 */
-	void showSelectedButtonHoverEffect();                                               /* 显示卡牌鼠标悬停效果 */
-	void selectPlantsPreviewImage();                                                    /* 选择植物预览图片 */
-	void createPreviewPlants();                                                         /* 创建预览植物 */
-	bool judgeMousePositionIsInMap();                                                   /* 判断鼠标点击方位是否在地图内 */
-	bool judgeMousePositionIsCanPlant();                                                /* 判断鼠标点击方位是否可以种植植物 */
-	bool judgeMousePositionHavePlant();                                                 /* 判断鼠标点击方位是否有植物 */
-	void removePreviewPlant();                                                          /* 移除预览植物 */
-	void removeShovel();                                                                /* 移除铲子 */
-	void removeMouseListener();                                                         /* 移除鼠标监听 */
-	void recoveryPlantsColor();                                                         /* 恢复植物颜色 */
-  	void setGameEnd();                                                                  /* 设置游戏结束 */
+	virtual void createSchedule();                                                      /* 创建定时器 */
+	virtual void controlCardEnabled();                                                  /* 控制卡牌是否可用 */
+	virtual void calculatePlantPosition();                                              /* 计算植物种植位置 */
+	virtual void createMouseListener();                                                 /* 创建鼠标 */
+	virtual void mouseMoveControl();                                                    /* 鼠标移动控制 */
+	virtual void mouseDownControl(EventMouse* eventmouse = nullptr);                    /* 鼠标按下控制 */
+	virtual void createPlantsCardListener();                                            /* 创建植物卡牌监听 */
+	virtual void showSelectedButtonHoverEffect();                                       /* 显示卡牌鼠标悬停效果 */
+	virtual void selectPlantsPreviewImage();                                            /* 选择植物预览图片 */
+	virtual void createPreviewPlants();                                                 /* 创建预览植物 */
+	virtual bool judgeMousePositionIsInMap();                                           /* 判断鼠标点击方位是否在地图内 */
+	virtual bool judgeMousePositionIsCanPlant();                                        /* 判断鼠标点击方位是否可以种植植物 */
+	virtual bool judgeMousePositionHavePlant();                                         /* 判断鼠标点击方位是否有植物 */
+	virtual void removePreviewPlant();                                                  /* 移除预览植物 */
+	virtual void removeShovel();                                                        /* 移除铲子 */
+	virtual void removeMouseListener();                                                 /* 移除鼠标监听 */
+	virtual void recoveryPlantsColor();                                                 /* 恢复植物颜色 */
+	virtual void setGameEnd();                                                          /* 设置游戏结束 */
 	
 public:
 	Vec2 _cur,_touch;                                    // 鼠标坐标 

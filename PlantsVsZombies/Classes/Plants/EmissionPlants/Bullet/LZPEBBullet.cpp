@@ -236,9 +236,10 @@ void Bullet::playSoundEffect(SoundEffectType soundEffect)
 {
 	switch (soundEffect)
 	{
-	case SoundEffectType::kernelpult:  PlayMusic::playMusic(rand() % 2 ? "kernelpult" : "kernelpult2");  break;
-	case SoundEffectType::shieldhit:   PlayMusic::playMusic(rand() % 2 ? "shieldhit" : "shieldhit2");    break;
-	case SoundEffectType::plastichit:  PlayMusic::playMusic(rand() % 2 ? "plastichit" : "plastichit2");  break;
-	case SoundEffectType::firepea:     PlayMusic::playMusic(rand() % 2 ? "ignite" : "ignite2");          break;
+	case SoundEffectType::kernelpult:  PlayMusic::playMusic(rand() % 2 ? "kernelpult" : "kernelpult2");   break;
+	case SoundEffectType::shieldhit:   PlayMusic::playMusic(rand() % 2 ? "shieldhit" : "shieldhit2");     break;
+	case SoundEffectType::plastichit:  PlayMusic::playMusic(rand() % 2 ? "plastichit" : "plastichit2");   break;
+	case SoundEffectType::firepea:     PlayMusic::playMusic(rand() % 2 ? "ignite" : "ignite2");           break;
+	case SoundEffectType::watermelon:  PlayMusic::playMusic(rand() % 2 ? "melonimpact" : "melonimpact2"); break;
 	}
 }

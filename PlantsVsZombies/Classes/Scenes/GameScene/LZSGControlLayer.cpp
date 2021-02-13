@@ -44,30 +44,36 @@ GSControlLayer::GSControlLayer():
 ,   _gameEndShieldLayer(nullptr)
 ,   _zombiesAppearControl(nullptr)
 ,   _listener(nullptr)
+,   _touchMouse(nullptr)
 ,   _cur(Vec2(-100,-100))
 {
-	srand(time(nullptr));
-	_levelData = _openLevelData->readLevelData(_openLevelData->getLevelNumber())->getMunchZombiesFrequency();
-	_gameMapInformation = new GameMapInformation();
-	_zombiesAppearControl = new ZombiesAppearControl();
 }
 
 GSControlLayer::~GSControlLayer()
 {
-	delete _gameMapInformation;
-	delete _zombiesAppearControl;
-	delete _touchMouse;
+	if(_gameMapInformation)delete _gameMapInformation;
+	if(_zombiesAppearControl)delete _zombiesAppearControl;
+	if(_touchMouse)delete _touchMouse;
 }
 
 bool GSControlLayer::init()
 {
 	if(!Layer::init())return false;
 
+	initData();
 	createSchedule();
 	createPlantsCardListener();
 	createMouseListener();
 
 	return true;
+}
+
+void GSControlLayer::initData()
+{
+	srand(time(nullptr));
+	_gameMapInformation = new GameMapInformation();
+	_zombiesAppearControl = new ZombiesAppearControl();
+	_levelData = _openLevelData->readLevelData(_openLevelData->getLevelNumber())->getMunchZombiesFrequency();
 }
 
 void GSControlLayer::setPlantMapCanPlant(const unsigned int colum, const unsigned int row)
@@ -298,8 +304,8 @@ void GSControlLayer::createPreviewPlants()
 	CURSOR_VISIBLE(false)
 
 	Plants* previewPlants, * curPlants;/* Ô¤ÀÀÖ²Îï */
-	previewPlants = animationLayerInformation->createDifferentPlants(_selectPlantsTag);
-	curPlants = animationLayerInformation->createDifferentPlants(_selectPlantsTag);
+	previewPlants = GSAnimationLayer::createDifferentPlants(_selectPlantsTag, animationLayerInformation);
+	curPlants = GSAnimationLayer::createDifferentPlants(_selectPlantsTag, animationLayerInformation);
 	
 	_plantPreviewImage = previewPlants->createPlantImage();
 

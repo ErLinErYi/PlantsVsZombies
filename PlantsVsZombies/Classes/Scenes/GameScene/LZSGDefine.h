@@ -35,6 +35,7 @@
 // row_column->position/position->row_column
 #define ROW_COLUMN_TO_POSITION(__ROW_COLUMN__) Vec2(GRASS_POSITION_LEFT + 122 * __ROW_COLUMN__.x + 60,GRASS_POSITION_BOTTOM + 138 * (__ROW_COLUMN__.y + 1) - 125)
 #define POSITION_TO_ROW_COLUMN(__POSITION__) Vec2((-GRASS_POSITION_LEFT + __POSITION__.x - 60)/ 122,(-GRASS_POSITION_BOTTOM + __POSITION__.y -125)/ 138 - 1)
+#define POSITION_TO_COLUMN(__POSITION__,__X__) __POSITION__.y > 110 + 138 * __X__ && __POSITION__.y < 110 + 138 * (__X__ + 1)
 
 // judge map
 #define GRASS_INSIDE(__POSITION__,__X__,__Y__) (__POSITION__.x > GRASS_POSITION_LEFT + 122 * __Y__ && __POSITION__.x < GRASS_POSITION_LEFT + 122 * (__Y__ + 1) && __POSITION__.y > 110 + 138 * __X__ && __POSITION__.y < 110 + 138 * (__X__ + 1))

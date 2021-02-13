@@ -47,25 +47,25 @@ CC_CONSTRUCTOR_ACCESS:
 	~GSButtonLayer();
 	virtual bool init();
 
-private:
-	Button* createButton(const string& normal, const string& select, const Vec2& position, GSLayerButton buttonName, const bool isFlippedX = false);
-	void createKeyBoardListener();
-	void createQuitDialog();
-	void createRequirementButton();
-	void createRequirementLayer();
-	void controlAccelerateScheduler();
-	void controlDecelerateScheduler();
-	void showSeedBank();
-	void showShovelBank();
-	void createPlantsCard();
-	void createJumpLevelButton();
-	ProgressTimer* createProgressTimer(Button* button, const float _time, const int from, const unsigned int& id);
+protected:
+	virtual Button* createButton(const string& normal, const string& select, const Vec2& position, GSLayerButton buttonName, const bool isFlippedX = false);
+	virtual void createKeyBoardListener();
+	virtual void createQuitDialog();
+	virtual void createRequirementButton();
+	virtual void createRequirementLayer();
+	virtual void controlAccelerateScheduler();
+	virtual void controlDecelerateScheduler();
+	virtual void showSeedBank();
+	virtual void showShovelBank();
+	virtual void createPlantsCard();
+	virtual void createJumpLevelButton();
+	virtual ProgressTimer* createProgressTimer(Button* button, const float _time, const int from, const unsigned int& id);
 	
 public:
 	MouseSelectImage* mouseSelectImage;                            // 鼠标选择
 	PlantsInformation::PlantsCards plantsCards[PLANTSNUMBERS];     // 植物卡片
 	
-private:
+protected:
 	Global* _global;                                     // 全局变量
 	Director* _director;                                 // 导演单例
 	Layer* _quitLayer;                                   // 退出屏蔽层

@@ -100,11 +100,13 @@ void Torchwood::judgeTorchwoodAndPeaPosition()
 				++_playMusicMaxNumber < 2 ? PlayMusic::playMusic(rand() % 2 ? "firepea" : "firepea1") : nullptr;
 				bullet->setBulletOpacity();
 				bullet->setBulletIsUsed(true);
+				bullet->setBulletAttack(0);
 				
 				switch (bullet->getBulletType())
 				{
-				case BulletType::Pea:    createFirePea(bullet);  break;
-				case BulletType::IcePea: createPea(bullet);      break;
+				case BulletType::Pea:      createFirePea(bullet);        break;
+				case BulletType::IcePea:   createPea(bullet);            break;
+				case BulletType::FirePea:  createFirePeaSmoke(bullet);   break;
 				}
 			}
 		}
@@ -135,6 +137,18 @@ void Torchwood::createPea(Bullet* bullet)
 	pea->setTorchwoodTag(_plantAnimation->getTag());
 
 	BulletGroup.push_back(pea);
+}
+
+void Torchwood::createFirePeaSmoke(Bullet* bullet)
+{
+	auto smoke = SkeletonAnimation::createWithData(_global->userInformation->getAnimationData().find("DieFireSmoke")->second);
+	smoke->setPosition(bullet->getBulletPosition());
+	smoke->setAnimation(0, "animation", false);
+	smoke->setLocalZOrder(bullet->getBullet()->getLocalZOrder());
+	smoke->setScale(1.3f);
+	smoke->update(0);
+	smoke->runAction(Sequence::create(DelayTime::create(1.f), CallFunc::create([=]() {smoke->removeFromParent(); }), nullptr));
+	_node->addChild(smoke);
 }
 
 bool Torchwood::getPeaIsSameLineWithTorchwood(Bullet* bullet)

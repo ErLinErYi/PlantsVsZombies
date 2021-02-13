@@ -10,9 +10,11 @@
 #include "LZSMUpdateClient.h"
 #include "LZSMQuitScene.h"
 #include "LZSMOptionsSence.h"
+#include "LZSMUnlockDialogLayer.h"
 #include "../HelpScene/LZSHHelpScene.h"
 #include "../WorldScene/LZSMSelectWorldScene.h"
 #include "../LoadingScene/LZSLLoadingScene.h"
+#include "../GameScene/HammerZombies/LZSHammerZombiesScene.h"
 
 #include "Based/LZBPlayMusic.h"
 
@@ -24,7 +26,8 @@ MainMenu::MainMenu() :
 	_userText(nullptr),
 	_inputLayer(nullptr),
 	_quitLayer(nullptr),
-	_optionLayer(nullptr)
+	_optionLayer(nullptr),
+	_playMusic{false}
 {
 	/* 播放音乐 */
 	PlayMusic::changeBgMusic("mainmusic", true);
@@ -134,8 +137,12 @@ void MainMenu::playMusicBleepInGameButtons(MainMenuButton button)
 	{
 		switch (button)
 		{
-		case MainMenu::MainMenuButton::AdventureButton: 
+		case MainMenu::MainMenuButton::AdventureButton:
 			      _mainButton[ID]->setColor(Color3B::WHITE);       break;
+		case MainMenu::MainMenuButton::ChallengesButton:
+			if (checkHammerZombiesIsUnLock()) _mainButton[ID]->setColor(Color3B::WHITE);
+			else _mainButton[ID]->setColor(Color3B(110, 110, 110));
+			break;
 		default:  _mainButton[ID]->setColor(Color3B(110,110,110)); break;
 		}
 		/* 如果没有播放音乐 */
@@ -152,7 +159,11 @@ void MainMenu::playMusicBleepInGameButtons(MainMenuButton button)
 		switch (button)
 		{
 		case MainMenu::MainMenuButton::AdventureButton: 
-			      _mainButton[ID]->setColor(Color3B(150, 150, 150)); break;
+			      _mainButton[ID]->setColor(Color3B(180, 180, 180)); break;
+		case MainMenu::MainMenuButton::ChallengesButton:
+			if (checkHammerZombiesIsUnLock()) _mainButton[ID]->setColor(Color3B(180, 180, 180));
+			else _mainButton[ID]->setColor(Color3B(80, 80, 80));
+			break;
 		default:  _mainButton[ID]->setColor(Color3B(80, 80, 80));    break;
 		}
 	}
@@ -197,21 +208,21 @@ MainMenu::MainMenuButton MainMenu::checkCurInButtons()
 		(_cur.x >= 1450 && _cur.x <= 1750 && _cur.y >= 590 && _cur.y <= 610) || (_cur.x >= 1550 && _cur.x <= 1750 && _cur.y >= 570 && _cur.y <= 590) ||
 		(_cur.x >= 1660 && _cur.x <= 1750 && _cur.y >= 550 && _cur.y <= 570))
 	{
-		return MainMenuButton::SurvivalButton;
+		return MainMenuButton::ChallengesButton;
 	}
 	else if ((_cur.x >= 1220 && _cur.x <= 1730 && _cur.y >= 500 && _cur.y <= 535) || (_cur.x >= 1220 && _cur.x <= 1600 && _cur.y >= 535 && _cur.y <= 560) ||
 		(_cur.x >= 1220 && _cur.x <= 1450 && _cur.y >= 560 && _cur.y <= 590) || (_cur.x >= 1220 && _cur.x <= 1350 && _cur.y >= 590 && _cur.y <= 610) ||
 		(_cur.x >= 1350 && _cur.x <= 1730 && _cur.y >= 480 && _cur.y <= 500) || (_cur.x >= 1430 && _cur.x <= 1720 && _cur.y >= 460 && _cur.y <= 480) ||
 		(_cur.x >= 1520 && _cur.x <= 1720 && _cur.y >= 440 && _cur.y <= 460) || (_cur.x >= 1590 && _cur.x <= 1710 && _cur.y >= 420 && _cur.y <= 440))
 	{
-		return MainMenuButton::ChallengesButton;
+		return MainMenuButton::VasebreakerButton;
 	}
 	else if ((_cur.x >= 1230 && _cur.x <= 1300 && _cur.y >= 380 && _cur.y <= 485) || (_cur.x >= 1300 && _cur.x <= 1380 && _cur.y >= 360 && _cur.y <= 470) ||
 		(_cur.x >= 1380 && _cur.x <= 1400 && _cur.y >= 350 && _cur.y <= 460) || (_cur.x >= 1400 && _cur.x <= 1500 && _cur.y >= 330 && _cur.y <= 440) ||
 		(_cur.x >= 1500 && _cur.x <= 1550 && _cur.y >= 310 && _cur.y <= 430) || (_cur.x >= 1550 && _cur.x <= 1650 && _cur.y >= 290 && _cur.y <= 410) ||
 		(_cur.x >= 1650 && _cur.x <= 1690 && _cur.y >= 280 && _cur.y <= 400))
 	{
-		return MainMenuButton::VasebreakerButton;
+		return MainMenuButton::SurvivalButton;
 	}
 	else
 	{
@@ -307,6 +318,12 @@ void MainMenu::createFlowers(const float& Scale, const Vec2& vec2, const std::st
 	_director->getEventDispatcher()->addEventListenerWithSceneGraphPriority(listener, Flower);
 }
 
+bool MainMenu::checkHammerZombiesIsUnLock()
+{
+	return UserData::getInstance()->openIntUserData(const_cast<char*>(StringUtils::format(
+		_global->userInformation->getSystemCaveFileName().c_str(), 1).c_str())) > UnlockDialogLayer::unlockNeedNumbers;
+}
+
 void MainMenu::createAnimation()
 {
 	/* 创建小精灵动画 */
@@ -388,10 +405,10 @@ void MainMenu::createMouseListener()
 		}
 		switch (checkCurInButtons())
 		{
-		case MainMenuButton::AdventureButton:    _mainButton[1]->setPosition(Vec2(902, 828));  /* 冒险模式 */    break;
-		case MainMenuButton::SurvivalButton:     _mainButton[2]->setPosition(Vec2(882, 648));  /* 解迷模式 */    break;
-		case MainMenuButton::ChallengesButton:   _mainButton[3]->setPosition(Vec2(872, 508));  /* 玩玩小游戏 */  break;
-		case MainMenuButton::VasebreakerButton:  _mainButton[4]->setPosition(Vec2(852, 383));  /* 生存模式 */    break;
+		case MainMenuButton::AdventureButton:     _mainButton[1]->setPosition(Vec2(902, 828));                            /* 冒险模式 */    break;
+		case MainMenuButton::ChallengesButton:    _mainButton[2]->setPosition(Vec2(882, 648));  beginHammerZombiesGame(); /* 解迷模式 */    break;
+		case MainMenuButton::VasebreakerButton:   _mainButton[3]->setPosition(Vec2(872, 508));                            /* 玩玩小游戏 */  break;
+		case MainMenuButton::SurvivalButton:      _mainButton[4]->setPosition(Vec2(852, 383));                            /* 生存模式 */    break;
 		}
 	};
 
@@ -400,10 +417,10 @@ void MainMenu::createMouseListener()
 	{
 		switch (this->checkCurInButtons())
 		{
-		case MainMenuButton::AdventureButton:   _mainButton[1]->setPosition(Vec2(900, 830));beginAdventureGame();   /* 冒险模式 */   break;
-		case MainMenuButton::SurvivalButton:    _mainButton[2]->setPosition(Vec2(880, 650));beginSurvivalGame();    /* 解迷模式 */   break;
-		case MainMenuButton::ChallengesButton:  _mainButton[3]->setPosition(Vec2(870, 510));beginChallengesGame();  /* 玩玩小游戏 */ break;
-		case MainMenuButton::VasebreakerButton: _mainButton[4]->setPosition(Vec2(850, 385));beginVasebreakerGame(); /* 生存模式 */   break;
+		case MainMenuButton::AdventureButton:    _mainButton[1]->setPosition(Vec2(900, 830)); beginAdventureGame();     /* 冒险模式 */   break;
+		case MainMenuButton::ChallengesButton:   _mainButton[2]->setPosition(Vec2(880, 650));                           /* 解迷模式 */   break;
+		case MainMenuButton::VasebreakerButton:  _mainButton[3]->setPosition(Vec2(870, 510)); beginVasebreakerGame();   /* 玩玩小游戏 */ break;
+		case MainMenuButton::SurvivalButton:     _mainButton[4]->setPosition(Vec2(850, 385)); beginSurvivalGame();      /* 生存模式 */   break;
 		}
 	};
 
@@ -632,17 +649,30 @@ void MainMenu::beginAdventureGame()
 	Director::getInstance()->replaceScene(TransitionCrossFade::create(0.5f, SelectWorldScene::createScene()));
 }
 
-void MainMenu::beginSurvivalGame()
+void MainMenu::beginHammerZombiesGame()
 {
-	Application::getInstance()->openURL(_global->userInformation->getGameText().find("官方网址")->second->text);
-}
-
-void MainMenu::beginChallengesGame()
-{
-	Application::getInstance()->openURL(_global->userInformation->getGameText().find("官方网址")->second->text);
+	if (checkHammerZombiesIsUnLock())
+	{
+		Director::getInstance()->replaceScene(TransitionFade::create(0.5f, HammerZombiesScene::create()));
+	}
+	else
+	{
+		setMouseListenerEnable(false);
+		auto lock = UnlockDialogLayer::create();
+		if (lock)
+		{
+			lock->setMouseListener(_mouse);
+			this->addChild(lock, 1, "_lockLayer");
+		}
+	}
 }
 
 void MainMenu::beginVasebreakerGame()
+{
+	Application::getInstance()->openURL(_global->userInformation->getGameText().find("官方网址")->second->text);
+}
+
+void MainMenu::beginSurvivalGame()
 {
 	Application::getInstance()->openURL(_global->userInformation->getGameText().find("官方网址")->second->text);
 }

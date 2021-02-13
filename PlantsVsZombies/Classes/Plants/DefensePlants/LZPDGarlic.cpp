@@ -77,36 +77,38 @@ void Garlic::zombieEatPlant(Zombies* zombie)
 		if (zombie->getZombieIsSurvive() && !zombie->getZombieIsEat())
 		{
 			const string eateffect[3] = { "chomp","chomp2","chompsoft" };
-			zombie->setZombieEatPlantNumber(_plantNumber);
+			PlayMusic::playMusic(eateffect[rand() % 3]);
+			
+			//zombie->setZombieEatPlantNumber(_plantNumber);
 			zombie->setZombieStop();
 			zombie->setZombieIsEat(true);
+			zombie->setZombieIsEatGarlic(true);
 			zombie->getZombieAnimation()->setAnimation(0, "Zombies_Eat", true);
-			zombie->getZombieAnimation()->setColor(Color3B(181, 230, 29));
-
-			_healthPoint -= 100;
-
-			PlayMusic::playMusic(eateffect[rand() % 3]);
-			setPlantHurtBlink();
-
 			zombie->getZombieAnimation()->runAction(Sequence::create(DelayTime::create(1.0f),
 				CallFunc::create([=]()
 					{
-						rand() % 2 == 0 ? PlayMusic::playMusic("squash_hmm") : PlayMusic::playMusic("squash_hmm2");
-						auto timeScale = zombie->getZombieAnimation()->getTimeScale();
-						zombie->getZombieAnimation()->setTimeScale(0);
+						effectZombies(zombie);
+					}), nullptr));
+		}
+	}
+}
 
-						if (zombie->getZombieCurrentBloodVolume() > 0)
-						{
-							changeZombiePositionY(zombie);
+void Garlic::effectZombies(Zombies* zombie)
+{
+	if (zombie)
+	{
+		PlayMusic::playMusic(rand() % 2 ? "yuck" : "yuck2");
+		reducePlantHealthPoint(100 - 30 * zombie->getZombieCurrentBloodProportionBloodPrecent());
 
-							zombie->getZombieAnimation()->runAction(Sequence::create(DelayTime::create(0.5f),
-								CallFunc::create([=]()
-									{
-										zombie->getZombieAnimation()->setColor(Color3B::WHITE);
-										zombie->getZombieAnimation()->setTimeScale(timeScale);
-										zombieRecoveryMove(zombie);
-									}), nullptr));
-						}
+		if (zombie->getZombieCurrentBloodVolume() > 0)
+		{
+			changeZombiePositionY(zombie);
+			zombieRecoveryMove(zombie);
+			zombie->getZombieAnimation()->setColor(Color3B(181, 230, 29));
+			zombie->getZombieAnimation()->runAction(Sequence::create(DelayTime::create(0.5f),
+				CallFunc::create([=]()
+					{
+						zombie->getZombieAnimation()->setColor(Color3B::WHITE);
 					}), nullptr));
 		}
 	}
@@ -114,10 +116,10 @@ void Garlic::zombieEatPlant(Zombies* zombie)
 
 void Garlic::zombieRecoveryMove(Zombies* zombie)
 {
-	if (zombie->getZombieEatPlantNumber() == _plantNumber &&   /* 僵尸是吃的该植物 */
-		zombie->getZombieIsEat() && zombie->getZombieIsStop()) /* 僵尸正在吃植物 && 僵尸正在停止移动 */
+	if (zombie->getZombieIsEat() && zombie->getZombieIsStop()) /* 僵尸正在吃植物 && 僵尸正在停止移动 */
 	{
 		zombie->setZombieIsEat(false);
+		zombie->setZombieIsEatGarlic(false);
 		if (!zombie->getZombieIsPlayDieAnimation()) /* 僵尸没有播放死亡动画 */
 		{
 			zombie->getZombieAnimation()->setMix("Zombies_Eat", Zombies::getZombieAniamtionName(zombie->getZombieType()), 0.5f);

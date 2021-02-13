@@ -46,6 +46,7 @@ private:
 private:
 	void createMordernBackgroundImage();
 	void createFireEffect(Sprite* name);
+	void showPreviewZombies();
 	void createMordernPreviewZombies();
 	void setBackgroundImagePosition();
 	void createSnowParticle();

@@ -18,16 +18,16 @@ GSBackgroundLayer::GSBackgroundLayer():
 {
 }
 
+GSBackgroundLayer::~GSBackgroundLayer()
+{
+	if (gameType)delete gameType;
+}
+
 void GSBackgroundLayer::backgroundRunAction()
 {
 	Vec2 begin[4] = { Vec2(2,2),Vec2(-2,2),Vec2(2,-2),Vec2(-2,-2) };
 	auto move = MoveBy::create(0.1f, begin[rand() % 4]);
 	backgroundLayerInformation->runAction(Sequence::create(move, move->reverse(), move, move->reverse(), nullptr));
-}
-
-GSBackgroundLayer::~GSBackgroundLayer()
-{
-	if (gameType)delete gameType;
 }
 
 bool GSBackgroundLayer::init()

@@ -14,10 +14,10 @@ CommonDoorFlagZombies::CommonDoorFlagZombies(Node* node)
 	_attackBodySoundEffectType = 1;
 	_bloodVolume = 200;
 	_headShieldVolume = 0;
-	_bodyShieldVolume = 1000;
+	_bodyShieldVolume = 1200;
 	_currentBloodVolume = 200;
 	_currentHeadShieldVolume = 0;
-	_currentBodyShieldVolume = 1000;
+	_currentBodyShieldVolume = 1200;
 	_speed = 40;
 	_currentSpeed = 40;
 	_isHaveShield = true;

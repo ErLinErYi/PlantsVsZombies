@@ -13,11 +13,11 @@ BucketDoorFlagZombies::BucketDoorFlagZombies(Node* node)
 	_attackHeadSoundEffectType = 1;
 	_attackBodySoundEffectType = 1;
 	_bloodVolume = 200;
-	_headShieldVolume = 1000;
-	_bodyShieldVolume = 1000;
+	_headShieldVolume = 1200;
+	_bodyShieldVolume = 1200;
 	_currentBloodVolume = 200;
-	_currentHeadShieldVolume = 1000;
-	_currentBodyShieldVolume = 1000;
+	_currentHeadShieldVolume = 1200;
+	_currentBodyShieldVolume = 1200;
 	_speed = 35;
 	_currentSpeed = 35;
 	_isHaveShield = true;

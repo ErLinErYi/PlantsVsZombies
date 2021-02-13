@@ -8,6 +8,7 @@
 #include "LZPEBWinterMelonBullet.h"
 #include "Zombies/LZZZombies.h"
 #include "Scenes/GameScene/LZSGData.h"
+#include "Based/LZBPlayMusic.h"
 
 WinterMelonBullet::WinterMelonBullet(Node* node)
 {
@@ -41,7 +42,7 @@ void WinterMelonBullet::bulletAndZombiesCollision()
 		if (!_isUsed && zombie->getZombieIsSurvive() &&                                           /* 没有使用 && 僵尸没有死亡 */
 			getBulletIsSameLineWithZombie(zombie) && getBulletIsEncounterWithZombie(zombie))      /* 子弹与僵尸同一行 && 子弹与僵尸碰撞 */
 		{
-			selectSoundEffect(zombie->getZombieHeadAttackSoundEffect());
+			playSoundEffect(SoundEffectType::watermelon);
 
 			bulletAttackHurtZombies(zombie);   /* 僵尸减少生命值 */
 			_bulletAnimation->setOpacity(0);
@@ -63,10 +64,11 @@ void WinterMelonBullet::bulletAttackHurtZombies(Zombies* zombie)
 
 void WinterMelonBullet::winterMelonExplodeEffect(Zombies* zombie)
 {
-	zombie->setZombieTimerTime(10);
+	zombie->setZombieTimerTime(10, true);
 
 	if (!zombie->getZombieIsFrozen())//判断是否已经被减速
 	{
+		PlayMusic::playMusic("frozen");
 		zombie->setZombieActionSlow();
 		zombie->createZombieTimer();
 	}

@@ -8,13 +8,16 @@
 #pragma once
 #include "cocos2d.h"
 #include "ui/UIScrollView.h"
+#include "spine/spine.h"
+#include "spine/spine-cocos2dx.h"
 
 using namespace cocos2d;
+using namespace spine;
 
 class MouseEventControl
 {
 public :
 	static void mouseScrollControlListener(ui::ScrollView* scrollview, 
 		float move, ui::ScrollView::Direction direction, float time = 0.5f);
-	static void goodsRecovery(Node* node);
+	static void goodsRecovery(Node* node, SkeletonAnimation* animation = nullptr);
 };

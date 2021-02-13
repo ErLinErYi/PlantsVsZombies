@@ -22,11 +22,11 @@ CC_CONSTRUCTOR_ACCESS:
 	virtual bool init();
 
 public:
-	void createTimer();
+	virtual void createTimer();
 
 public:
 	static int breakThroughTime;
 
-private:
+protected:
 	Global* _global;
 };

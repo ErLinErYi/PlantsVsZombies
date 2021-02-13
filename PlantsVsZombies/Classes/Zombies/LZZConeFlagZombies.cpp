@@ -13,10 +13,10 @@ ConeFlagZombies::ConeFlagZombies(Node* node)
 	_attackHeadSoundEffectType = 2;
 	_attackBodySoundEffectType = 0;
 	_bloodVolume = 200;
-	_headShieldVolume = 500;
+	_headShieldVolume = 600;
 	_bodyShieldVolume = 0;
 	_currentBloodVolume = 200;
-	_currentHeadShieldVolume = 500;
+	_currentHeadShieldVolume = 600;
 	_currentBodyShieldVolume = 0;
 	_speed = 40;
 	_currentSpeed = 40;

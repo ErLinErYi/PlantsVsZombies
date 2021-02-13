@@ -27,6 +27,7 @@ private:
 	bool getPlantIsSurvive() const override;
 	SkeletonAnimation* showPlantAnimationAndText() override;
 	void changeZombiePositionY(Zombies* zombie);
+	void effectZombies(Zombies* zombie);
 
 private:
 	int _canEatNumbers;             // 可以被吃的次数

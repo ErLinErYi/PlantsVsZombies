@@ -58,6 +58,12 @@
     <Filter Include="Class\Scenes\SelectPlantsScene\SurvivalSelectScene">
       <UniqueIdentifier>{07bc8c1a-d9fe-4ba7-a28b-fd126690f3ae}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Class\Scenes\GameScene\HammerZombies">
+      <UniqueIdentifier>{e2a53c3d-1015-479a-aff9-fec2f5e5cc52}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Class\Scenes\GameScene\BigMap">
+      <UniqueIdentifier>{ae171f0f-3fbc-4fbf-8551-2ec701062467}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ResourceCompile Include="game.rc">
@@ -382,6 +388,42 @@
     </ClCompile>
     <ClCompile Include="..\Classes\Plants\EmissionPlants\Bullet\LZPEBWinterMelonBullet.cpp">
       <Filter>Class\Plants\EmissionPlants\Bullet</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Classes\Plants\EmissionPlants\LZPECatTail.cpp">
+      <Filter>Class\Plants\EmissionPlants</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Classes\Plants\EmissionPlants\Bullet\LZPEBCatTailBullet.cpp">
+      <Filter>Class\Plants\EmissionPlants\Bullet</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Classes\Scenes\GameScene\HammerZombies\LZSHammerZombiesScene.cpp">
+      <Filter>Class\Scenes\GameScene\HammerZombies</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Classes\Scenes\GameScene\HammerZombies\LZSHBackGroundLayer.cpp">
+      <Filter>Class\Scenes\GameScene\HammerZombies</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Classes\Scenes\GameScene\HammerZombies\LZSHInformationLayer.cpp">
+      <Filter>Class\Scenes\GameScene\HammerZombies</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Classes\Scenes\GameScene\HammerZombies\LZSHButtonLayer.cpp">
+      <Filter>Class\Scenes\GameScene\HammerZombies</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Classes\Scenes\GameScene\HammerZombies\LZSHControlLayer.cpp">
+      <Filter>Class\Scenes\GameScene\HammerZombies</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Classes\Scenes\GameScene\HammerZombies\LZSHAnimationLayer.cpp">
+      <Filter>Class\Scenes\GameScene\HammerZombies</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Classes\Scenes\GameScene\HammerZombies\LZSHGameEndLayer.cpp">
+      <Filter>Class\Scenes\GameScene\HammerZombies</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Classes\Scenes\GameScene\HammerZombies\LZSHGameTimerLayer.cpp">
+      <Filter>Class\Scenes\GameScene\HammerZombies</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Classes\Scenes\GameScene\HammerZombies\LZSHPauseQuiteLayer.cpp">
+      <Filter>Class\Scenes\GameScene\HammerZombies</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Classes\Scenes\MainMenuScene\LZSMUnlockDialogLayer.cpp">
+      <Filter>Class\Scenes\MainMenuScene</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -714,6 +756,42 @@
     </ClInclude>
     <ClInclude Include="..\Classes\Plants\EmissionPlants\Bullet\LZPEBWinterMelonBullet.h">
       <Filter>Class\Plants\EmissionPlants\Bullet</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Classes\Plants\EmissionPlants\LZPECatTail.h">
+      <Filter>Class\Plants\EmissionPlants</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Classes\Plants\EmissionPlants\Bullet\LZPEBCatTailBullet.h">
+      <Filter>Class\Plants\EmissionPlants\Bullet</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Classes\Scenes\GameScene\HammerZombies\LZSHammerZombiesScene.h">
+      <Filter>Class\Scenes\GameScene\HammerZombies</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Classes\Scenes\GameScene\HammerZombies\LZSHBackGroundLayer.h">
+      <Filter>Class\Scenes\GameScene\HammerZombies</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Classes\Scenes\GameScene\HammerZombies\LZSHInformationLayer.h">
+      <Filter>Class\Scenes\GameScene\HammerZombies</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Classes\Scenes\GameScene\HammerZombies\LZSHButtonLayer.h">
+      <Filter>Class\Scenes\GameScene\HammerZombies</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Classes\Scenes\GameScene\HammerZombies\LZSHControlLayer.h">
+      <Filter>Class\Scenes\GameScene\HammerZombies</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Classes\Scenes\GameScene\HammerZombies\LZSHAnimationLayer.h">
+      <Filter>Class\Scenes\GameScene\HammerZombies</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Classes\Scenes\GameScene\HammerZombies\LZSHGameEndLayer.h">
+      <Filter>Class\Scenes\GameScene\HammerZombies</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Classes\Scenes\GameScene\HammerZombies\LZSHGameTimerLayer.h">
+      <Filter>Class\Scenes\GameScene\HammerZombies</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Classes\Scenes\GameScene\HammerZombies\LZSHPauseQuiteLayer.h">
+      <Filter>Class\Scenes\GameScene\HammerZombies</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Classes\Scenes\MainMenuScene\LZSMUnlockDialogLayer.h">
+      <Filter>Class\Scenes\MainMenuScene</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>

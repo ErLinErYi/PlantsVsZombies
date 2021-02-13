@@ -12,10 +12,10 @@ SnowZombies::SnowZombies(Node* node)
 	_node = node;
 	_attackHeadSoundEffectType = 0;
 	_attackBodySoundEffectType = 0;
-	_bloodVolume = 1600;
+	_bloodVolume = 1800;
 	_headShieldVolume = 0;
 	_bodyShieldVolume = 0;
-	_currentBloodVolume = 1600;
+	_currentBloodVolume = 1800;
 	_currentHeadShieldVolume = 0;
 	_currentBodyShieldVolume = 0;
 	_speed = 25;

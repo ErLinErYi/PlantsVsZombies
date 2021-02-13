@@ -21,6 +21,8 @@ Pea::Pea(Node* node) :
 	_node = node;
 	_attack = 20;
 	_bulletType = BulletType::Pea;
+
+	srand(time(nullptr));
 }
 
 Pea::~Pea()
@@ -111,6 +113,7 @@ bool Pea::getZombieInExplodeRange(Zombies* zombie)
 void Pea::createPeaExplode()
 {
 	static string Animation[] = { {"Pea_Explode_1"},{"Pea_Explode_2"},{"Pea_Explode_3"},{"Pea_Explode_4"}};
+	
 
 	auto peaExplode = SkeletonAnimation::createWithData(_global->userInformation->getAnimationData().find("PeaExplode")->second);
 	peaExplode->setPosition(getBulletPosition() - Vec2(25, 0));
@@ -120,10 +123,31 @@ void Pea::createPeaExplode()
 	peaExplode->setLocalZOrder(_bulletAnimation->getLocalZOrder());
 	_node->addChild(peaExplode);
 
-	peaExplode->runAction(Sequence::create(DelayTime::create(0.8f), CallFunc::create([peaExplode]()
+	peaExplode->runAction(Sequence::create(DelayTime::create(0.8f),
+		CallFunc::create([peaExplode]()
 		{
 			peaExplode->removeFromParent();
 		}), nullptr));
+
+	if (!(rand() % 3)) createExplodeEffect();
+}
+
+void Pea::createExplodeEffect()
+{
+	auto effect = SkeletonAnimation::createWithData(_global->userInformation->getAnimationData().find("ExplodeEffect")->second);
+	effect->setAnimation(0, "effect", false);
+	effect->setPosition(getBulletPosition());
+	effect->setLocalZOrder(_bulletAnimation->getLocalZOrder());
+	effect->setScale(2.0f);
+	effect->update(0);
+	effect->setOpacity(200);
+	_node->addChild(effect);
+
+	effect->runAction(Sequence::create(DelayTime::create(0.8f),
+		CallFunc::create([effect]()
+			{
+				effect->removeFromParent();
+			}), nullptr));
 }
 
 void Pea::setPeaDirectionType(PeaDirectionType type)

@@ -67,7 +67,7 @@ void StarFruitBullet::setBulletAction(StarFruitBulletDirection action)
 	_bulletAnimation->runAction(RepeatForever::create(Sequence::create(DelayTime::create(0.02f),
 		CallFunc::create([=]()
 			{
-				if (_locationY - _bulletAnimation->getPositionY() > _distance) /* 第一次间隔69进行设置localZorder */
+				if (fabs(_locationY - _bulletAnimation->getPositionY()) > _distance) /* 第一次间隔69进行设置localZorder */
 				{
 					auto order = _bulletAnimation->getLocalZOrder();
 					if (order > 0 && order < 100)
@@ -131,24 +131,20 @@ void StarFruitBullet::attackZombies(Zombies* zombie)
 
 void StarFruitBullet::createBulletExplode(Zombies* zombie)
 {
-	auto iter = _global->userInformation->getAnimationData().find("StarFruitBulletFracture");
-	if (iter != _global->userInformation->getAnimationData().end())
-	{
-		auto explode = SkeletonAnimation::createWithData(iter->second);
-		explode->setAnimation(0, "Fracture", false);
-		explode->setPosition(zombie->getZombieAnimation()->getPosition() + Vec2(0, 80));
-		explode->setLocalZOrder(100);
-		explode->setScale(0.5f);
-		explode->setScaleX(rand() % 2 ? -0.5 : 0.5);
-		explode->update(0);
-		_node->addChild(explode);
+	auto explode = SkeletonAnimation::createWithData(_global->userInformation->getAnimationData().find("StarFruitBulletFracture")->second);
+	explode->setAnimation(0, "Fracture", false);
+	explode->setPosition(zombie->getZombieAnimation()->getPosition() + Vec2(0, 80));
+	explode->setLocalZOrder(100);
+	explode->setScale(0.5f);
+	explode->setScaleX(rand() % 2 ? -0.5 : 0.5);
+	explode->update(0);
+	_node->addChild(explode);
 
-		explode->runAction(Sequence::create(DelayTime::create(1.1f), 
-			CallFunc::create([explode]()
-				{
-					explode->removeFromParent();
-				}), nullptr));
-	}
+	explode->runAction(Sequence::create(DelayTime::create(1.1f),
+		CallFunc::create([explode]()
+			{
+				explode->removeFromParent();
+			}), nullptr));
 }
 
 void StarFruitBullet::caveBulletInformation(rapidjson::Value& object, rapidjson::Document::AllocatorType& allocator)

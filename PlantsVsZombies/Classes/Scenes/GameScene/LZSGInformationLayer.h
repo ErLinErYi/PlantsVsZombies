@@ -17,37 +17,37 @@ class GSInformationLayer :public Layer
 {
 public:
 	CREATE_FUNC(GSInformationLayer);
-	void addLayer(Node* node, const int order, const string& name) { node->addChild(this, order, name); }
-	void updateZombiesDieNumbers();
-	void updateCoinNumbers();
-	void updateSunNumbers();
-	void updateProgressBar(const int& zombiesAppearFrequency);
-	void updateProgressBar(const int& zombiesAppearFrequency,const int& maxFrequency);
-	bool updateProgressBarFlag();
-	bool updateProgressBarFlag(const int& id);
-	void updateProgressBarFinalFlag();
-	void updateProgressBarHead();
-	void sunNumberTextWarning();
-	void createPromptText();
-	void setProgressBarPercent(const float precent);
-	float getProgressBarPercent() const;
-	void setProgressBarLastPercent(const float precent);
-	float getProgressBarLastPercent() const;
+	virtual void addLayer(Node* node, const int order, const string& name) { node->addChild(this, order, name); }
+	virtual void updateZombiesDieNumbers();
+	virtual void updateCoinNumbers();
+	virtual void updateSunNumbers();
+	virtual void updateProgressBar(const int& zombiesAppearFrequency);
+	virtual void updateProgressBar(const int& zombiesAppearFrequency,const int& maxFrequency);
+	virtual bool updateProgressBarFlag();
+	virtual bool updateProgressBarFlag(const int& id);
+	virtual void updateProgressBarFinalFlag();
+	virtual void updateProgressBarHead();
+	virtual void sunNumberTextWarning();
+	virtual void createPromptText();
+	virtual void setProgressBarPercent(const float precent);
+	virtual float getProgressBarPercent() const;
+	virtual void setProgressBarLastPercent(const float precent);
+	virtual float getProgressBarLastPercent() const;
 
 CC_CONSTRUCTOR_ACCESS:
 	GSInformationLayer();
 	~GSInformationLayer();
 	virtual bool init();
 
-private:
-	void showUserText();
-	void showProgressBar();
-	void showZombiesDieNumbers();
-	void showCoinNumbers();
-	void showSunNumbers();
-	void showPromptMuchZombiesText(const string& textName);
+protected:
+	virtual void showUserText();
+	virtual void showProgressBar();
+	virtual void showZombiesDieNumbers();
+	virtual void showCoinNumbers();
+	virtual void showSunNumbers();
+	virtual void showPromptMuchZombiesText(const string& textName);
 	
-private:
+protected:
 	float _levelLastPrecent;            // 进度条上一次进度
 	Text* _zombiesDieText;              // 僵尸死亡数文本
 	Text* _coinNumbersText;             // 金币数文本

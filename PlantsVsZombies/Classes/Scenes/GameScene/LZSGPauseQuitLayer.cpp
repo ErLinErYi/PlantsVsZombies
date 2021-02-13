@@ -27,7 +27,7 @@ string GSPauseQuitLayer::_layerName[] =
 	"controlLayer","informationLayer","goodsLayer","gameTimerLayer"
 };
 
-int GSPauseQuitLayer::_pauseNumbers = 0;
+bool GSPauseQuitLayer::_isPause = false;
 
 GSPauseQuitLayer::GSPauseQuitLayer() :
   _promptLayer(nullptr)
@@ -37,7 +37,7 @@ GSPauseQuitLayer::GSPauseQuitLayer() :
 
 GSPauseQuitLayer::~GSPauseQuitLayer()
 {
-	_pauseNumbers = 0;
+	_isPause = false;
 }
 
 Layer* GSPauseQuitLayer::addLayer()
@@ -56,33 +56,31 @@ void GSPauseQuitLayer::pauseLayer()
 			return;
 	}
 	PlayMusic::stopMusic();
-	++_pauseNumbers;
+	_isPause = true;
 }
 
 void GSPauseQuitLayer::resumeLayer()
 {
-	if (!--_pauseNumbers)
+	auto director = Director::getInstance()->getRunningScene();
+	for (auto& name : _layerName)
 	{
-		auto director = Director::getInstance()->getRunningScene();
-		for (auto &name : _layerName)
-		{
-			if (director->getChildByName(name))
-				director->getChildByName(name)->onEnter();
-			else
-				return;
-		}
-		PlayMusic::resumeMusic();
+		if (director->getChildByName(name))
+			director->getChildByName(name)->onEnter();
+		else
+			return;
 	}
+	PlayMusic::resumeMusic();
+	_isPause = false;
 }
 
-void GSPauseQuitLayer::setPauseNumbers(const int number)
+void GSPauseQuitLayer::setPause(const bool pause)
 {
-	_pauseNumbers = number;
+	_isPause = pause;
 }
 
-int GSPauseQuitLayer::getPauseNumbers()
+bool GSPauseQuitLayer::getIsPause()
 {
-	return _pauseNumbers;
+	return _isPause;
 }
 
 bool GSPauseQuitLayer::init()

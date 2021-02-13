@@ -24,8 +24,8 @@ class GSGameEndLayer :public Dialog
 public:
     CREATE_FUNC(GSGameEndLayer);
     static void judgeBreakThroughAboutJumpLevel();
-    void successfullEntry();
-    void breakThrough(GameTypes gameType);
+    virtual void successfullEntry();
+    virtual void breakThrough(GameTypes gameType);
 
 CC_CONSTRUCTOR_ACCESS:
     GSGameEndLayer();
@@ -34,17 +34,15 @@ CC_CONSTRUCTOR_ACCESS:
 
 protected:
     virtual void caveLevelNumber();
+    virtual void showFailDialog(GameTypes gameType);
+    virtual void showFailText();
+    virtual void carsToCoins();
+    virtual void rewardCoin(Button* button);
+    virtual void coinAction(const Vec2& position, const int id, const bool big = false);
+    virtual void rewardThing();
+    virtual void quitScene();
 
-private:
-    void showFailDialog(GameTypes gameType);
-    void showFailText();
-    void carsToCoins();
-    void rewardCoin(Button* button);
-    void coinAction(const Vec2& position, const int id, const bool big = false);
-    void rewardThing();
-    void quitScene();
-
-private:
+protected:
     Global* _global;
     UserWinRequirement* _userWinRequirement;
     OpenLevelData* _openLevelData;

@@ -48,7 +48,6 @@ void OpenCaveGameScene::onEnter()
 {
 	Scene::onEnter();
 
-	GSPauseQuitLayer::setPauseNumbers(0);
 	GSPauseQuitLayer::pauseLayer();
 	_director->getRunningScene()->addChild(GSPauseQuitLayer::addLayer(), 10, "pauseLayer");
 	

@@ -27,8 +27,8 @@ public:
 	static Layer* addLayer();
 	static void pauseLayer();
 	static void resumeLayer();
-	static void setPauseNumbers(const int number);
-	static int getPauseNumbers();
+	static void setPause(const bool pause);
+	static bool getIsPause();
 	
 CC_CONSTRUCTOR_ACCESS:
 	GSPauseQuitLayer();
@@ -39,21 +39,17 @@ protected:
 	virtual void createButton(const Vec2& vec2, const std::string name, PauseQuitLayer_Button type);
 	virtual void createDialog() override;
 	virtual void popSceneAnimation();
-
-private:
-	void showPrompt();
-	void openHandBook();
-	void setRestart();
-	void setQuitGame();
-	void keyDescription();
-	void returnGame();
+	virtual void showPrompt();
+	virtual void openHandBook();
+	virtual void setRestart();
+	virtual void setQuitGame();
+	virtual void keyDescription();
+	virtual void returnGame();
 
 protected:
 	EventListenerTouchOneByOne* _touchListener;
-
-private:
 	LayerColor* _promptLayer;
-	static int _pauseNumbers;
+	static bool _isPause;
 	static string _layerName[7];
 	char* _levelName;
 };

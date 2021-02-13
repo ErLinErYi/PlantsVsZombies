@@ -31,6 +31,7 @@ private:
 	bool getBulletIsPea(Bullet* bullet);                   // 获取子弹是否是豌豆
 	void createFirePea(Bullet* bullet);
 	void createPea(Bullet* bullet);
+	void createFirePeaSmoke(Bullet* bullet);
 	
 private:
 	int _playMusicMaxNumber;

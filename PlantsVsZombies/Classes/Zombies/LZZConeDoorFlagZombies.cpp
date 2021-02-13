@@ -13,11 +13,11 @@ ConeDoorFlagZombies::ConeDoorFlagZombies(Node* node)
 	_attackHeadSoundEffectType = 2;
 	_attackBodySoundEffectType = 1;
 	_bloodVolume = 200;
-	_headShieldVolume = 500;
-	_bodyShieldVolume = 1000;
+	_headShieldVolume = 600;
+	_bodyShieldVolume = 1200;
 	_currentBloodVolume = 200;
-	_currentHeadShieldVolume = 500;
-	_currentBodyShieldVolume = 1000;
+	_currentHeadShieldVolume = 600;
+	_currentBodyShieldVolume = 1200;
 	_speed = 36;
 	_currentSpeed = 36;
 	_isHaveShield = true;

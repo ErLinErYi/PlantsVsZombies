@@ -8,6 +8,7 @@
 #include "LZPBIceBergLettuce.h"
 #include "Zombies/LZZZombies.h"
 #include "Scenes/GameScene/LZSGData.h"
+#include "Based/LZBPlayMusic.h"
 
 IceBergLettuce::IceBergLettuce(Node* node):
 	_isHaveZombies(false),
@@ -116,6 +117,7 @@ void IceBergLettuce::plantExplode(Zombies* zombie)
 	{
 		if (!_isHaveZombies)
 		{
+			PlayMusic::playMusic("frozen");
 			_isHaveZombies = true;
 			_excludeZombie = zombie;
 			_excludeZombieZorder = zombie->getZombieAnimation()->getLocalZOrder() + 1;
@@ -161,7 +163,7 @@ void IceBergLettuce::explodeEffectZombies(const float time)
 
 void IceBergLettuce::setZombiesActionStop(Zombies* zombie,const int &time)
 {
-	if (zombie->getZombieType() != ZombiesType::SnowZombies)
+	if (zombie && zombie->getZombieType() != ZombiesType::SnowZombies)
 	{
 		zombie->setZombieActionStop();
 		zombie->createZombieTimer();

@@ -32,7 +32,7 @@ void MouseEventControl::mouseScrollControlListener(ui::ScrollView* scrollview, f
 		scrollview->scrollToPercentHorizontal(offset, time, true);
 }
 
-void MouseEventControl::goodsRecovery(Node* node)
+void MouseEventControl::goodsRecovery(Node* node, SkeletonAnimation* animation)
 {
 	auto linster = EventListenerTouchOneByOne::create();
 	linster->onTouchBegan = [=](Touch* t, Event* e)
@@ -54,11 +54,23 @@ void MouseEventControl::goodsRecovery(Node* node)
 
 		for (auto coin : CoinsGroup)
 		{
-			if (coin->getCoin()->getBoundingBox().containsPoint(p) && coin->getEnable())
+			if (animation)
 			{
-				PlayMusic::playMusic("coin");
-				Coin::coinRecoveryAction(coin);
-				break;
+				if (coin->getCoin()->getBoundingBox().intersectsRect(animation->getBoundingBox()) && coin->getEnable())
+				{
+					PlayMusic::playMusic("coin");
+					Coin::coinRecoveryAction(coin);
+					break;
+				}
+			}
+			else
+			{
+				if (coin->getCoin()->getBoundingBox().containsPoint(p) && coin->getEnable())
+				{
+					PlayMusic::playMusic("coin");
+					Coin::coinRecoveryAction(coin);
+					break;
+				}
 			}
 		}
 		return true;

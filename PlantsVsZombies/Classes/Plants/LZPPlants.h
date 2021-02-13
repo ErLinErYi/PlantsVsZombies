@@ -15,7 +15,7 @@
 
 #define INIT Vec2(-1000,-1000)
 #define NOINITIALIZATION  -1
-#define PLANTSNUMBERS 23
+#define PLANTSNUMBERS 24
 
 using namespace spine;
 using namespace cocos2d;
@@ -47,6 +47,7 @@ enum class PlantsType
 	StarFruit,          /* —ÓÃ“ */
 	WinterMelonPult,    /* ±˘πœÕ∂ ÷ */
 	Citron,             /* ¿Î◊”‘µ */
+	CatTail,            /* œ„∆— */
 	GloomShroom,        /* ”«”ÙπΩ */
 	//...
 	None = 25

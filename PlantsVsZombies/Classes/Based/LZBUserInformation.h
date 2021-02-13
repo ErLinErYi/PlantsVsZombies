@@ -22,7 +22,8 @@ enum class WorldName
 	Mordern = 0,
 	DarkAges,
 	NeonMixtapeTour,
-	FrostibiteCaves
+	FrostibiteCaves,
+	None
 };
 
 /* 用户选择的卡牌存储 */

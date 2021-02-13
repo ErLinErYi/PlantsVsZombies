@@ -37,9 +37,9 @@ private:
 	{
 		NullButton = 0,
 		AdventureButton,
-		SurvivalButton,
 		ChallengesButton,
-		VasebreakerButton
+		VasebreakerButton,
+		SurvivalButton,
 	};
 
 	MainMenuButton checkCurInButtons();                           /* 判断鼠标光标位置*/
@@ -52,9 +52,9 @@ private:
 
 	/*游戏选择函数*/
 	void beginAdventureGame();                                    /* 冒险模式 */
-	void beginSurvivalGame();                                     /* 玩玩小游戏 */
-	void beginChallengesGame();                                   /* 解谜模式 */
-	void beginVasebreakerGame();                                  /* 生存模式 */
+	void beginHammerZombiesGame();                                /* 玩玩小游戏 */
+	void beginVasebreakerGame();                                  /* 解谜模式 */
+	void beginSurvivalGame();                                     /* 生存模式 */
 
 	/*回调函数*/
 	void menuHelpCallBack(Ref* pSender);                          /* 帮助 */
@@ -72,11 +72,12 @@ private:
 	void createAnimation();                                       /* 创建动画 */
 	void createFlowers();                                         /* 创建花朵 */
 	void createFlowers(const float& Scale, const Vec2& vec2, const std::string& fileName, const int& ID);
+	bool checkHammerZombiesIsUnLock();                            /* 检查锤僵尸游戏是否解锁 */
 
 	void setMouseListenerEnable(bool isEnable) { _mouse->setEnabled(isEnable); }
 
 private:
-	bool _playMusic[8] = { false };          /* 音乐是否播放 */
+	bool _playMusic[8];                      /* 音乐是否播放 */
 	Vec2 _cur;                               /* 鼠标光标位置 */
 	Text* _userText;                         /* 储存用户名字 */
 	Node* _userNameActionParent;             /* 用户名称动作parent */

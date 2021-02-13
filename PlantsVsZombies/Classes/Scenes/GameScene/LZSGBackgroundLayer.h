@@ -25,13 +25,13 @@ CC_CONSTRUCTOR_ACCESS:
 	~GSBackgroundLayer();
 	virtual bool init();
 
-private:
-	void setBackgroundImagePosition();
-	void showGameType();
+protected:
+	virtual void setBackgroundImagePosition();
+	virtual void showGameType();
 
 public:
 	GameType* gameType;
 
-private:
+protected:
 	Global* _global;
 };

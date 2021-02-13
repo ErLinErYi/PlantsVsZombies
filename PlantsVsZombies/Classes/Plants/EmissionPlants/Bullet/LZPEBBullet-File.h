@@ -15,3 +15,4 @@
 #include "Plants/EmissionPlants/Bullet/LZPEBStarFruitBullet.h"
 #include "Plants/EmissionPlants/Bullet/LZPEBWaterMelonBullet.h"
 #include "Plants/EmissionPlants/Bullet/LZPEBWinterMelonBullet.h"
+#include "Plants/EmissionPlants/Bullet/LZPEBCatTailBullet.h"

@@ -26,34 +26,34 @@ class GSAnimationLayer :public Layer
 public:
 	CREATE_FUNC(GSAnimationLayer);
 	static GSAnimationLayer* create(Node* node);
-	Plants* createDifferentPlants(PlantsType plantsType);
-	Zombies* createDifferentZombies(ZombiesType zombiesType, Node* node = nullptr);
-	Bullet* createDifferentBullet(BulletType bulletType);
-	void addLayer(Node* node, const int order, const string& name) { node->addChild(this, order, name);}
-	void plantPlants();
-	void deletePlants();
-	void createZombies();
-	void createZombiesOnSurvival();
-	GSAnimationLayer* getAnimationLayer();
+	static Zombies* createDifferentZombies(ZombiesType zombiesType, Node* node);
+	static Plants* createDifferentPlants(PlantsType plantsType, Node* node);
+	static Bullet* createDifferentBullet(BulletType bulletType, Node* node);
+	virtual void addLayer(Node* node, const int order, const string& name) { node->addChild(this, order, name);}
+	virtual void plantPlants();
+	virtual void deletePlants();
+	virtual void createZombies();
+	virtual void createZombiesOnSurvival();
+	virtual GSAnimationLayer* getAnimationLayer();
 
 CC_CONSTRUCTOR_ACCESS:
 	GSAnimationLayer(Node* node = nullptr);
 	~GSAnimationLayer();
 	virtual bool init();
 
-private:
-	void createRandomSuns();
-	void showCars();
-	void gameMainLoop(float delta);
-	void zombiesEventUpdate(float delta);
-	void plantsEventUpdate();
-	void plantsDeleteUpdate(map<int,Plants*>::iterator& plant);
-	void bulletEventUpdate();
-	void sunsDeleteUpdate();
-	void coinDeleteUpdate();
-	void carsEventUpdate();
+protected:
+	virtual void createRandomSuns();
+	virtual void showCars();
+	virtual void gameMainLoop(float delta);
+	virtual void zombiesEventUpdate(float delta);
+	virtual void plantsEventUpdate();
+	virtual void plantsDeleteUpdate(map<int,Plants*>::iterator& plant);
+	virtual void bulletEventUpdate();
+	virtual void sunsDeleteUpdate();
+	virtual void coinDeleteUpdate();
+	virtual void carsEventUpdate();
 	
-private:
+protected:
 	Global* _global;
 	Node* _gameScene;
 	SunFlower* _randomSuns;

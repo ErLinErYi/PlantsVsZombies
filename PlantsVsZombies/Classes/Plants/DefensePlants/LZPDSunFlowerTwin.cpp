@@ -91,6 +91,7 @@ void SunFlowerTwin::playAnimation()
 
 void SunFlowerTwin::createSuns()
 {
+	PlayMusic::playMusic("sunFlowerTwinSkill");
 	PlayMusic::playMusic(rand() % 2 == 0 ? "throw" : "throw2");
 	
 	Vec2 pos[2]{ Vec2(-30,30),Vec2(30,30) };

@@ -28,7 +28,8 @@ enum class BulletType
 	CitronBullet,
 	StarFruitBullet,
 	WaterMelonBullet,
-	WinterMelonBullet
+	WinterMelonBullet,
+	CatTailBullet
 };
 
 enum class SoundEffectType
@@ -36,7 +37,8 @@ enum class SoundEffectType
 	kernelpult = 0,
 	plastichit,
 	shieldhit,
-	firepea
+	firepea,
+	watermelon
 };
 
 class Bullet

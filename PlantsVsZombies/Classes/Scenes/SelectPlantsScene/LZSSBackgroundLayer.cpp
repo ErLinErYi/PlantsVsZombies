@@ -31,6 +31,7 @@ bool SPSBackgroundLayer::init()
 
 	/* ´´½¨±³¾° */
 	createBackGroundEffect();
+	showPreviewZombies();
 
 	setBackgroundImagePosition();
 
@@ -43,6 +44,24 @@ void SPSBackgroundLayer::createBackGroundEffect()
 	{
 	case WorldName::Mordern:
 		createMordernBackgroundImage();
+		break;
+	case WorldName::DarkAges:
+		createFireEffect(_global->userInformation->getBackground());
+		break;
+	case WorldName::NeonMixtapeTour:
+		break;
+	case WorldName::FrostibiteCaves:
+		break;
+	default:
+		break;
+	}
+}
+
+void SPSBackgroundLayer::showPreviewZombies()
+{
+	switch (_global->userInformation->getSelectWorldName())
+	{
+	case WorldName::Mordern:
 		createMordernPreviewZombies();
 		break;
 	case WorldName::DarkAges:
@@ -51,6 +70,8 @@ void SPSBackgroundLayer::createBackGroundEffect()
 	case WorldName::NeonMixtapeTour:
 		break;
 	case WorldName::FrostibiteCaves:
+		break;
+	default:
 		break;
 	}
 	sortZombiesPosition();
@@ -123,11 +144,12 @@ void SPSBackgroundLayer::createMordernPreviewZombies()
 		_previewZombies.size() < 15 ? k = n(_random) + 1 : k = 1;
 		for (int j = 0; j < k; ++j)
 		{
-			auto zombies = animationLayerInformation->createDifferentZombies(static_cast<ZombiesType>(type.at(i)), this);
+			auto zombies = GSAnimationLayer::createDifferentZombies(static_cast<ZombiesType>(type.at(i)), this);
 			zombies->setZombiePosition(getPreviewZombiesPosition(n1, n2));
 			zombies->setZombieTag(_previewZombiesTag++);
 			zombies->createPreviewZombie();
 			zombies->setZombieAttributeForGameType();
+			zombies->setZombieOpacity(255);
 
 			PreviewZombies previewzombies{};
 			previewzombies.animation = zombies->getZombieAnimation();

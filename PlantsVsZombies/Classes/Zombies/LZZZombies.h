@@ -54,6 +54,9 @@ enum class ShieldType
 class Zombies :public Node
 {
 public:
+	static bool compare (Zombies* a, Zombies* b) {
+		return a->_zombieRow < b->_zombieRow;
+	}
 	/**
 	 *获取各种僵尸种类动画名称
 	 */
@@ -63,6 +66,7 @@ public:
 	 *删除僵尸
 	 */
 	static void zombiesDeleteUpdate(list<Zombies*>::iterator& zombie);
+	static void zombiesDeleteUpdateNotRecordDieNumbers(list<Zombies*>::iterator& zombie);
 
 	/**
 	 *获取僵尸数量
@@ -140,7 +144,7 @@ public:
 	/**
 	 * 市设置僵尸恢复运动速度 
 	 */
-	void setZombieActionRecovery();
+	void setZombieActionRecovery(bool slow = false);
 
 	/**
 	 * 设置僵尸动作停止
@@ -279,7 +283,7 @@ public:
 	/**
 	 *设置僵尸是否被冻住  
 	 */
-	virtual void setZombieIsFrozen(const bool isFrozen);
+	virtual void setZombieIsFrozen(const int isFrozen);
 
 	/**
 	 *设置僵尸受伤闪烁
@@ -290,6 +294,11 @@ public:
 	 *设置僵尸大小
 	 */
 	virtual void setZombieScale();
+
+	/**
+	 * 设置僵尸是否吃大蒜 
+	 */
+	virtual void setZombieIsEatGarlic(const bool isEatGarlic);
 
 	/**
 	 * 获取僵尸所在行 
@@ -304,7 +313,12 @@ public:
 	/**
 	 *设置僵尸定时器时间  
 	 */
-	virtual void setZombieTimerTime(const int timerTime);
+	virtual void setZombieTimerTime(const int timerTime, bool slow = false);
+
+	/**
+	 * 设置 僵尸不同关卡的属性失效
+	 */
+	virtual void setZombieAttributeForGameTypeInvalid(const bool invalid);
 
 	/**
 	 *获取僵尸动画
@@ -414,12 +428,12 @@ public:
 	/**
      *获取定时器时间  
 	 */
-	virtual int& getZombieTimerTime();
+	virtual int& getZombieTimerTime(bool slow = false);
 
 	/**
 	 *获取僵尸是否被冻住  
 	 */
-	virtual bool getZombieIsFrozen() const;
+	virtual int getZombieIsFrozen() const;
 
 	/**
 	 *获取僵尸种类
@@ -465,6 +479,11 @@ public:
 	 *获取僵尸头部护盾类型
 	 */
 	ShieldType getZombieHeadShieldType()const;
+
+	/**
+	 * 获取僵尸是否吃大蒜
+	 */
+	virtual bool getZombieIsEatGarlic() const;
 
 	/**
 	 *播放僵尸灰烬动画
@@ -609,7 +628,9 @@ protected:
 	int _headShieldAnimationId;               // 头部护盾动画编号
 	int _zombieTag;                           // 僵尸编号(暂未使用)
 	int _zombieRow;                           // 僵尸所在行
-	int _timerTime;                           // 定时器时间
+	int _timerTimeSlow;                       // 记录减缓运动时间
+	int _timerTimeStop;                       // 记录停止运动时间
+	int _isFrozen;                            // 是否被冻住减速（冰莴苣，寒冰射手，冰瓜投手）
 	float _timeScale;                         // 播放速度
 	float _bloodVolume;                       // 血量
 	float _headShieldVolume;                  // 护盾血量
@@ -631,7 +652,7 @@ protected:
 	bool _isCreateTimer;                      // 是否创建定时器
 	bool _isStrikeFly;                        // 是否击飞(离子缘）
 	bool _isReserveKill;                      // 是否被预定杀死（大嘴花）
-	bool _isFrozen;                           // 是否被冻住（寒冰射手，冰莴苣）
+	bool _gameTypeInvalid;                    // 游戏属性是否失效
 	string _zombieAnimationName;              // 僵尸动画名字
 	Vec2 _position;                           // 位置
 	Node* _node;                              // 节点

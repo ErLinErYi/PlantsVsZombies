@@ -591,7 +591,8 @@ void UserData::caveLevelZombiesData(char* key)
 			object.AddMember("ZombiePositionX", zombie->getZombieAnimation()->getPositionX(), allocator);
 			object.AddMember("ZombiePositionY", zombie->getZombieAnimation()->getPositionY(), allocator);
 			object.AddMember("ZombieCurrentSpeed", zombie->getZombieCurrentSpeed(), allocator);
-			object.AddMember("ZombieTimerTime", zombie->getZombieTimerTime(), allocator);
+			object.AddMember("ZombieTimerTimeSlow", zombie->getZombieTimerTime(true), allocator);
+			object.AddMember("ZombieTimerTimeStop", zombie->getZombieTimerTime(), allocator);
 			object.AddMember("ZombieInRow", zombie->getZombieInRow(), allocator);
 			object.AddMember("ZombieIsFrozen", zombie->getZombieIsFrozen(), allocator);
 			object.AddMember("ZombieLocalZOrder", zombie->getZombieAnimation()->getLocalZOrder(), allocator);
@@ -881,7 +882,7 @@ void UserData::openLevelPlantsData(char* key)
 	for (int i = 1; i <= plantsNumbers; ++i)
 	{
 		auto type = static_cast<PlantsType>((*_levelDataDocument)[key]["Plants"][to_string(i).c_str()]["PlantsType"].GetInt());
-		auto plants = animationLayerInformation->createDifferentPlants(type);
+		auto plants = GSAnimationLayer::createDifferentPlants(type, animationLayerInformation);
 		plants->setPlantPosition(Vec2(
 			(*_levelDataDocument)[key]["Plants"][to_string(i).c_str()]["PlantsPositionX"].GetFloat(),
 			(*_levelDataDocument)[key]["Plants"][to_string(i).c_str()]["PlantsPositionY"].GetFloat()));
@@ -925,8 +926,8 @@ void UserData::openLevelZombiesData(char* key)
 	auto zombiesNumbers = (*_levelDataDocument)[key]["Zombies"]["ZombiesNumber"].GetInt();
 	for (int i = 1; i <= zombiesNumbers; ++i)
 	{
-		auto zombies = animationLayerInformation->createDifferentZombies(
-			static_cast<ZombiesType>((*_levelDataDocument)[key]["Zombies"][to_string(i).c_str()]["ZombieType"].GetInt()));
+		auto zombies = GSAnimationLayer::createDifferentZombies(
+			static_cast<ZombiesType>((*_levelDataDocument)[key]["Zombies"][to_string(i).c_str()]["ZombieType"].GetInt()), animationLayerInformation);
 
 		zombies->setZombiePosition(Vec2(
 			(*_levelDataDocument)[key]["Zombies"][to_string(i).c_str()]["ZombiePositionX"].GetFloat(),
@@ -944,9 +945,10 @@ void UserData::openLevelZombiesData(char* key)
 		zombies->setZombieCurrentHeadShieldVolume((*_levelDataDocument)[key]["Zombies"][to_string(i).c_str()]["ZombieCurrentHeadShieldVolume"].GetFloat());
 		zombies->getZombieAnimation()->setOpacity((*_levelDataDocument)[key]["Zombies"][to_string(i).c_str()]["ZombieOpacity"].GetInt());
 		zombies->getZombieAnimation()->getChildByName("shadow")->setOpacity(zombies->getZombieAnimation()->getOpacity());
-		zombies->setZombieIsFrozen((*_levelDataDocument)[key]["Zombies"][to_string(i).c_str()]["ZombieIsFrozen"].GetBool());
+		zombies->setZombieIsFrozen((*_levelDataDocument)[key]["Zombies"][to_string(i).c_str()]["ZombieIsFrozen"].GetInt());
 		zombies->setZombieCurrentSpeed((*_levelDataDocument)[key]["Zombies"][to_string(i).c_str()]["ZombieCurrentSpeed"].GetFloat());
-		zombies->setZombieTimerTime((*_levelDataDocument)[key]["Zombies"][to_string(i).c_str()]["ZombieTimerTime"].GetInt());
+		zombies->setZombieTimerTime((*_levelDataDocument)[key]["Zombies"][to_string(i).c_str()]["ZombieTimerTimeSlow"].GetInt(), true);
+		zombies->setZombieTimerTime((*_levelDataDocument)[key]["Zombies"][to_string(i).c_str()]["ZombieTimerTimeStop"].GetInt());
 
 		zombies->setZombieIsShowLoseLimbsAnimation(false);
 		zombies->setZombieIsShowLoseShieldAnimation(false);
@@ -1053,7 +1055,7 @@ void UserData::openLevelBulletData(char* key)
 	for (int i = 1; i <= bulletNumbers; ++i)
 	{
 		auto type = static_cast<BulletType>((*_levelDataDocument)[key]["Bullet"][to_string(i).c_str()]["BulletType"].GetInt());
-		auto bullet = animationLayerInformation->createDifferentBullet(type);
+		auto bullet = GSAnimationLayer::createDifferentBullet(type, animationLayerInformation);
 		bullet->readBulletInformation(_levelDataDocument, key, i);
 		bullet->setBulletInRow((*_levelDataDocument)[key]["Bullet"][to_string(i).c_str()]["bulletInRow"].GetInt());
 		bullet->createBullet();

@@ -94,7 +94,7 @@ void PlantsCardUnlock::showUnlockPlant()
 	emitter->setAutoRemoveOnFinish(true);
 	Director::getInstance()->getRunningScene()->addChild(emitter, 6);
 
-	_plant = animationLayerInformation->createDifferentPlants(unlockPlantsCard.back());
+	_plant = GSAnimationLayer::createDifferentPlants(unlockPlantsCard.back(), animationLayerInformation);
 	_plant->setPlantNode(_plantsCardUnlockDialog);
 	_plant->setPlantPosition(Vec2(_plantsCardUnlockDialog->getContentSize().width / 2.f, 70));
 	_plant->createPlantAnimation();

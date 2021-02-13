@@ -200,7 +200,7 @@ void SPSSpriteLayer::createPlantsCards()
 				_plantsCards.insert(pair<PlantsType, Button*>(plantsCardInformation[4 * i + j].type, card));
 
 				controlPlantCanSelect(card, 4 * i + j);              /* 控制植物是否可以选择 */
-				showPlantsInformation(card, true);        /* 显示植物信息 */
+				showPlantsInformation(card, true);                   /* 显示植物信息 */
 				createButtonHoverEffect(card);                       /* 鼠标悬停效果 */
 			}
 		}
@@ -254,11 +254,15 @@ void SPSSpriteLayer::createMoveButton(Button* button, const Vec2& vec2)
 	moveCard->setTitleColor(Color3B::RED);
 	moveCard->setTitleFontSize(25);
 	moveCard->setTag(button->getTag());
-	moveCard->runAction(MoveTo::create(0.2f, Vec2(105, 1008 - 103 * seedBankButton.size())));
+	moveCard->setEnabled(false);
+	moveCard->setBright(true);
 	this->addChild(moveCard);
+	moveCard->runAction(Sequence::create(
+		MoveTo::create(0.35f, Vec2(105, 1008 - 103 * seedBankButton.size())), 
+		CallFunc::create([moveCard]() {moveCard->setEnabled(true); }), nullptr));
 
 	showPlantsInformation(moveCard);   // 显示信息
-	createButtonHoverEffect(moveCard);           // 鼠标悬停信息
+	createButtonHoverEffect(moveCard); // 鼠标悬停信息
 
 	/* 存储到卡牌栏中 */
 	UserSelectCard seed_bank_button{};
@@ -563,7 +567,7 @@ void SPSSpriteLayer::createAnimationAndText(PlantsType type)
 		_plant = nullptr;
 	}
 
-	_plant = animationLayerInformation->createDifferentPlants(type);
+	_plant = GSAnimationLayer::createDifferentPlants(type, animationLayerInformation);
 	_plantsAnimation = _plant->showPlantAnimationAndText();
 	if (_plantsAnimation) _seedChooser->addChild(_plantsAnimation, 2);
 }

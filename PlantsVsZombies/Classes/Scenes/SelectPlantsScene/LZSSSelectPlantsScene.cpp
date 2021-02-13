@@ -177,8 +177,6 @@ void SelectPlantsScene::replaceScene()
 	_global->userInformation->setUserSelectCrads(_spriteLayer->seedBankButton);
 	_global->userInformation->setSunNumbers(100); //设定初始阳光数 
 
-	GSPauseQuitLayer::setPauseNumbers(0);
-
 	if (_global->userInformation->getIsEaseAnimation() == ui::CheckBox::EventType::SELECTED)
 		Director::getInstance()->replaceScene(TransitionFade::create(1.f, GameScene::createScene()));
 	else
