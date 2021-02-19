@@ -13,14 +13,12 @@
 #include "Zombies/LZZCommonZombies.h"
 
 GSBackgroundLayer::GSBackgroundLayer():
-	_global(Global::getInstance()),
-	gameType(nullptr)
+	_global(Global::getInstance())
 {
 }
 
 GSBackgroundLayer::~GSBackgroundLayer()
 {
-	if (gameType)delete gameType;
 }
 
 void GSBackgroundLayer::backgroundRunAction()
@@ -37,9 +35,6 @@ bool GSBackgroundLayer::init()
 	createBackGroundEffect();
 
 	setBackgroundImagePosition();
-
-	showGameType();
-
 	return true;
 }
 
@@ -53,10 +48,4 @@ void GSBackgroundLayer::setBackgroundImagePosition()
 		background->setPosition(Vec2(-220, 0));
 		this->addChild(background);
     }
-}
-
-void GSBackgroundLayer::showGameType()
-{
-	gameType = new GameType(this);
-	gameType->createGameType();
 }

@@ -130,8 +130,6 @@ bool StarFruit::zombieInObliqueDirection(float& disX, float& disY)
 
 void StarFruit::createBullet()
 {
-	_isCreateBullet = true;
-
 	for (int i = 0; i < 5; ++i)
 	{
 		_bulletAnimation = new StarFruitBullet(_node);

@@ -465,6 +465,24 @@ enum class GlyphCollection {
     CUSTOM
 };
 
+enum class Overflow
+{
+	//In NONE mode, the dimensions is (0,0) and the content size will change dynamically to fit the label.
+	NONE,
+	/**
+	 *In CLAMP mode, when label content goes out of the bounding box, it will be clipped.
+	 */
+	CLAMP,
+	/**
+	 * In SHRINK mode, the font size will change dynamically to adapt the content size.
+	 */
+	SHRINK,
+	/**
+	 *In RESIZE_HEIGHT mode, you can only change the width of label and the height is changed automatically.
+	 */
+	RESIZE_HEIGHT
+};
+
 // Types for animation in particle systems
 
 /** @struct T2F_Quad

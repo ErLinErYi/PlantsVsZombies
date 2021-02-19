@@ -9,6 +9,7 @@
 
 #include "Zombies/LZZZombies.h"
 #include "Scenes/GameScene/LZSGData.h"
+#include "Scenes/GameScene/LZSGBackgroundLayer.h"
 #include "Based/LZBPlayMusic.h"
 
 int Plants::plantNumber = -1;
@@ -248,6 +249,14 @@ void Plants::setPlantScale()
 	_plantAnimation->setScale(_plantAnimation->getScale() + (4 - _plantTag / 10) / 20.f);
 }
 
+void Plants::setPlantRemoveFromMap()
+{
+	setPlantHealthPoint(0);
+	setPlantVisible(false);
+	_plantAnimation->setTimeScale(0);
+	_plantAnimation->stopAllActions();
+}
+
 bool Plants::getPlantIsSurvive() const
 {
 	if (_healthPoint > 0 && _plantAnimation->isVisible())
@@ -291,26 +300,43 @@ void Plants::zombieEatPlant(Zombies* zombie)
 		Plants::getZombieIsEncounterPlant(zombie)&&                              /* ½©Ê¬Óöµ½Ö²Îï */
 		zombie->getZombieType() != ZombiesType::SnowZombies)                     /* ½©Ê¬²»ÊÇÑ©ÈË½©Ê¬ */
 	{
-		if (zombie->getZombieIsSurvive() && !zombie->getZombieIsEat() && !zombie->getZombieIsFrozen())
+		if (zombie->getZombieIsSurvive() && !zombie->getZombieIsEat() && zombie->getZombieIsFrozen() != 2)
 		{
-			const string eateffect[3] = { "chomp","chomp2","chompsoft" };
 			zombie->setZombieEatPlantNumber(_plantNumber);
 			zombie->setZombieStop();
 			zombie->setZombieIsEat(true);
-			zombie->getZombieAnimation()->setAnimation(0,
-				zombie->getZombieType() == ZombiesType::LmpZombies ? "Zombies_Eat" : rand() % 4 ? "Zombies_Eat" : "Zombies_Eat1", true);
-			zombie->getZombieAnimation()->setEventListener([this, eateffect, zombie](spTrackEntry* entry, spEvent* event)
-				{
-					if (!strcmp(event->data->name, "eat") && zombie->getZombieIsSurvive())
+
+			if (zombie->getZombieType() == ZombiesType::GargantuarZombies)
+			{
+				zombie->getZombieAnimation()->setAnimation(0, "Zombies_Attack", true);
+				zombie->getZombieAnimation()->setEventListener([this, zombie](spTrackEntry* entry, spEvent* event)
 					{
-						if (event->intValue == 1)
+						if (!strcmp(event->data->name, "attack") && zombie->getZombieIsSurvive())
 						{
-							PlayMusic::playMusic(eateffect[rand() % 3]);
-							reducePlantHealthPoint(100 - 30 * zombie->getZombieCurrentBloodProportionBloodPrecent());
-							setPlantHurtBlink();
+							PlayMusic::playMusic("gargantuar_thump");
+							GSBackgroundLayer::backgroundRunAction();
+							setPlantHealthPoint(0);
 						}
-					}
-				});
+					});
+			}
+			else
+			{
+				const string eateffect[3] = { "chomp","chomp2","chompsoft" };
+				zombie->getZombieAnimation()->setAnimation(0,
+					zombie->getZombieType() == ZombiesType::LmpZombies ? "Zombies_Eat" : rand() % 4 ? "Zombies_Eat" : "Zombies_Eat1", true);
+				zombie->getZombieAnimation()->setEventListener([this, eateffect, zombie](spTrackEntry* entry, spEvent* event)
+					{
+						if (!strcmp(event->data->name, "eat") && zombie->getZombieIsSurvive())
+						{
+							if (event->intValue == 1)
+							{
+								PlayMusic::playMusic(eateffect[rand() % 3]);
+								reducePlantHealthPoint(100 - 30 * zombie->getZombieCurrentBloodProportionBloodPrecent());
+								setPlantHurtBlink();
+							}
+						}
+					});
+			}
 		}
 	}
 }
@@ -320,17 +346,21 @@ void Plants::zombieRecoveryMove(Zombies* zombie)
 	if (!getPlantIsSurvive() && zombie->getZombieEatPlantNumber() == _plantNumber &&  /* Ö²ÎïËÀÍö && ½©Ê¬ÊÇ³ÔµÄ¸ÃÖ²Îï */
 		zombie->getZombieIsEat() && zombie->getZombieIsStop()) /* ½©Ê¬ÕýÔÚ³ÔÖ²Îï && ½©Ê¬ÕýÔÚÍ£Ö¹ÒÆ¶¯ */
 	{
-		setPlantVisible(false);
-		_plantAnimation->stopAllActions();
-		_plantAnimation->setTimeScale(0);
+		setPlantRemoveFromMap();
 		getPlantType() != PlantsType::PotatoMine ? PlayMusic::playMusic("gulp") : nullptr;
 
 		zombie->setZombieIsEat(false);
 		if (!zombie->getZombieIsPlayDieAnimation()) /* ½©Ê¬Ã»ÓÐ²¥·ÅËÀÍö¶¯»­ */
 		{
-			zombie->getZombieAnimation()->setMix("Zombies_Eat", Zombies::getZombieAniamtionName(zombie->getZombieType()), 0.5f);
-			zombie->getZombieAnimation()->setAnimation(0, Zombies::getZombieAniamtionName(zombie->getZombieType()), true);
-			//zombie->update(0.35f + (rand() % 10) / 100.f);
+			if (zombie->getZombieType() == ZombiesType::GargantuarZombies)
+			{
+				zombie->getZombieAnimation()->addAnimation(0, "Zombies_Walk", true);
+			}
+			else
+			{
+				zombie->getZombieAnimation()->setMix("Zombies_Eat", Zombies::getZombieAniamtionName(zombie->getZombieType()), 0.5f);
+				zombie->getZombieAnimation()->setAnimation(0, Zombies::getZombieAniamtionName(zombie->getZombieType()), true);
+			}
 			zombie->setZombieCurrentSpeed(zombie->getZombieSpeed());
 		}
 	}

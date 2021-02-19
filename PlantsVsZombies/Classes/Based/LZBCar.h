@@ -19,9 +19,11 @@ public:
 	void setParent(Node* node);
 	void setScale(const float& scale);
 	void setLive(bool isLive);
+	void setInRow(int row);
+	int getInRow();
 	bool getLive() const;
 	int getCarTag() const;
-	Sprite* getCar() const;
+	Sprite* getCar();
 	void createCarListener();
 	void carStartUp();
 	
@@ -34,13 +36,14 @@ private:
 	void createAppearSpecialEffect();
 	bool getZombieIsSameLineWithCar(Zombies* zombie) const;
 	bool getzombieIsEncounterCar(Zombies* zombie) const;
-	int getZOrder(const float& pos_y) const;
+	int getZOrder() const;
 
 private:
 	Sprite* _carImage;    // 小车图片
 	Vec2 _position;       // 位置
 	bool _isLive;         // 是否激活
 	int _tag;             // 标记
+	int _row;             // 所在行
 	int _carState;        // 小车状态
 	float _scale;         // 大小
 	Node* _node;          // 父节点

@@ -6,7 +6,7 @@
  */
 
 #include "LZSGGameResultJudgement.h"
-#include "LZSGBackgroundLayer.h"
+#include "LZSGInformationLayer.h"
 
 #include "Scenes/GameScene/LZSGData.h"
 #include "Zombies/LZZZombies.h"
@@ -38,7 +38,7 @@ GameTypes GSGameResultJudgement::judgeUserIsWin()
 		switch (static_cast<GameTypes>(_levelData->getGameType().at(i)))
 		{
 		case GameTypes::AtLeastSunNumbers:
-			if (_levelData->getAtLeastSunNumbers() > backgroundLayerInformation->gameType->getSunNumberRequriement()->allSunNumbers)
+			if (_levelData->getAtLeastSunNumbers() > informationLayerInformation->gameType->getSunNumberRequriement()->allSunNumbers)
 			{
 				return GameTypes::AtLeastSunNumbers;
 			}

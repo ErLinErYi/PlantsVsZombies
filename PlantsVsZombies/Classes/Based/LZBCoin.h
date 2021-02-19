@@ -22,7 +22,7 @@ public:
     void setCoinLocalZOrder(const int loaclZOrder);
     SkeletonAnimation* getCoin();
     bool getEnable() const;
-    void releaseCoin() const;
+    void releaseCoin();
     static void coinRecoveryAction(Coin* coin);
     static void deleteCoin(list<Coin*>::iterator& coin);
 

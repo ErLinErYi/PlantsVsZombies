@@ -48,8 +48,8 @@ public:
 	/**
 	 *使每一行的僵尸等概率出现
 	 */
-	int getEqualProbabilityForRow();
-
+	int getEqualProbabilityForRow(int maxRow = 4);
+	
 	/**
 	 *设置僵尸出现波数
 	 * 1.传递参数设置
@@ -103,7 +103,8 @@ CC_CONSTRUCTOR_ACCESS:
 	~ZombiesAppearControl();
 
 public:
-	static unsigned int zombiesPosition[5];    // 僵尸位置
+	static unsigned int zombiesPosition[5];           // 僵尸位置
+	static unsigned int zombiesPositionBigMap[10];    // 僵尸位置
 
 private:
 	int _zombiesAppearFrequency;               // 僵尸出现波次

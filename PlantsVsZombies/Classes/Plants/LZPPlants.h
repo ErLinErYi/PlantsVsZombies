@@ -187,6 +187,11 @@ public:
 	virtual void setPlantScale();
 
 	/**
+	 * 从地图上删除植物 
+	 */
+	virtual void setPlantRemoveFromMap();
+
+	/**
 	 *获取植物标记
 	 */
 	virtual int getPlantTag() const { return _plantTag; }

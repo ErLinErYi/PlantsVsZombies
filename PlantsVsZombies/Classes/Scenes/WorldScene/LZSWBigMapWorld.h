@@ -1,22 +1,21 @@
 /**
- *Copyright (c) 2019 LZ.All Right Reserved
+ *Copyright (c) 2020 LZ.All Right Reserved
  *Author : LZ
  *Date: 2020.4.17
  *Email: 2117610943@qq.com
  */
 
 #pragma once
-#include "LZSMModernWorld.h"
+#include "LZSWModernWorld.h"
 
-class MirrorModernWorld :public ModernWorld
+class BigMapWorld :public ModernWorld
 {
 public:
-    CREATE_FUNC(MirrorModernWorld);
-    static Scene* createScene();
-
+    CREATE_FUNC(BigMapWorld);
+   
 CC_CONSTRUCTOR_ACCESS:
-    MirrorModernWorld();
-    ~MirrorModernWorld();
+    BigMapWorld();
+    ~BigMapWorld();
     virtual void onEnter() override;
 
 protected:
@@ -26,7 +25,4 @@ protected:
     virtual void createButtonListener(ui::Button* button, const int& ID) override;
     virtual void setLevelVisible(Node* node) override;
     virtual void createGoBack() override;
-
-private:
-    static bool _isPopEnter;
 };

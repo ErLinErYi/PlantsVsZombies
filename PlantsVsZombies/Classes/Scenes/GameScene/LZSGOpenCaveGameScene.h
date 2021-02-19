@@ -17,18 +17,17 @@ class OpenCaveGameScene :public GameScene
 {
 public:
 	CREATE_FUNC(OpenCaveGameScene);
-	static Scene* createScene();
-
+	
 CC_CONSTRUCTOR_ACCESS:
 	OpenCaveGameScene();
 	~OpenCaveGameScene();
 	virtual bool init() override;
 	virtual void onEnter() override;
 	
-private:
-	void openLevelData();
+protected:
+	virtual void openLevelData();
 
-private:
+protected:
 	Global* _global;
 	Director* _director;
 	char* _levelName;

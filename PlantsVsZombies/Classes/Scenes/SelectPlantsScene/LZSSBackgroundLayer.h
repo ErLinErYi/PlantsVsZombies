@@ -29,9 +29,6 @@ CC_CONSTRUCTOR_ACCESS:
 	virtual bool init();
 
 protected:
-	virtual void createBackGroundEffect();
-
-private:
 	/* ‘§¿¿Ω© ¨ */
 	typedef struct
 	{
@@ -43,18 +40,19 @@ private:
 
 	using UID = uniform_int_distribution<unsigned>;
 
-private:
-	void createMordernBackgroundImage();
-	void createFireEffect(Sprite* name);
-	void showPreviewZombies();
-	void createMordernPreviewZombies();
-	void setBackgroundImagePosition();
-	void createSnowParticle();
-	void sortZombiesPosition();
-	Vec2 getPreviewZombiesPosition(UID& n1, UID& n2);
+protected:
+	virtual void createBackGroundEffect();
+	virtual void createMordernBackgroundImage();
+	virtual void createFireEffect(Sprite* name);
+	virtual void showPreviewZombies();
+	virtual void createMordernPreviewZombies();
+	virtual void setBackgroundImagePosition();
+	virtual void createSnowParticle();
+	virtual void sortZombiesPosition();
+	virtual Vec2 getPreviewZombiesPosition(UID& n1, UID& n2);
 	static bool cmp(PreviewZombies& a, PreviewZombies& b);
 
-private:
+protected:
 	int _previewZombiesTag;      // ‘§¿¿Ω© ¨±‡∫≈
 	Global* _global;
 	OpenLevelData* _openLevelData;

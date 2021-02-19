@@ -46,7 +46,7 @@ void WinterMelonBullet::bulletAndZombiesCollision()
 
 			bulletAttackHurtZombies(zombie);   /* ½©Ê¬¼õÉÙÉúÃüÖµ */
 			_bulletAnimation->setOpacity(0);
-
+			
 			createExplodeAnimation("WinterMelon", "WinterMelon_Explode", 1.5f);
 
 			setBulletIsUsed(true);

@@ -19,23 +19,27 @@ class OpenLevelData;
 enum class ZombiesType;
 enum class PlantsType;
 
-
 /* 游戏地图 */
 struct GameMapInformation
 {
-	GameMapInformation();
-	int plantsMap[6][10];              /* 植物种植地图 */
+	GameMapInformation(unsigned int row = 5, unsigned int column = 9);
+	void GameMapInit();
+	int plantsMap[10][18];             /* 植物种植地图 */
 	unsigned int rowNumbers;           /* 行数 */
 	unsigned int columnNumbers;        /* 列数 */
+	unsigned int mapLeft;              /* 地图左边位置 */
+	unsigned int mapRight;             /* 地图右边位置 */
+	unsigned int mapTop;               /* 地图上边位置 */
+	unsigned int mapBottom;            /* 地图下边位置 */
 };
 
 class GSControlLayer :public Layer
 {
 public:
 	CREATE_FUNC(GSControlLayer);
-	void addLayer(Node* node, const int order, const string& name) { node->addChild(this, order, name); }
+	virtual void addLayer(Node* node, const int order, const string& name) { node->addChild(this, order, name); }
 	static void setPlantMapCanPlant(const unsigned int colum, const unsigned int row);
-	void updateFlag();
+	virtual void updateFlag();
 
 CC_CONSTRUCTOR_ACCESS:
 	GSControlLayer();
@@ -55,6 +59,9 @@ protected:
 	virtual void createMouseListener();                                                 /* 创建鼠标 */
 	virtual void mouseMoveControl();                                                    /* 鼠标移动控制 */
 	virtual void mouseDownControl(EventMouse* eventmouse = nullptr);                    /* 鼠标按下控制 */
+	virtual void mouseLeftButtonDownControl();                                          /* 鼠标左键按下控制 */
+	virtual void mouseRightButtonDownControl();                                         /* 鼠标右键键按下控制 */
+	virtual void mouseMiddleButtonDownControl();                                        /* 鼠标中键键按下控制 */
 	virtual void createPlantsCardListener();                                            /* 创建植物卡牌监听 */
 	virtual void showSelectedButtonHoverEffect();                                       /* 显示卡牌鼠标悬停效果 */
 	virtual void selectPlantsPreviewImage();                                            /* 选择植物预览图片 */
@@ -69,22 +76,19 @@ protected:
 	virtual void setGameEnd();                                                          /* 设置游戏结束 */
 	
 public:
-	Vec2 _cur,_touch;                                    // 鼠标坐标 
+	Vec2 _cur;                                           // 鼠标坐标 
 	Vec2 _plantsPosition;                                // 植物种植坐标
-	EventMouse* _touchMouse;                             // 触摸鼠标
 	PlantsType _selectPlantsTag;                         // 所选植物标记
-	GameMapInformation* _gameMapInformation;             // 游戏地图信息
+	GameMapInformation* gameMapInformation;              // 游戏地图信息
 	ZombiesAppearControl* _zombiesAppearControl;         // 僵尸出现计算
 
 protected:
 	Sprite* _plantPreviewImage;                          // 植物预览图片
 	Sprite* _plantCurImage;                              // 植物鼠标图片
 	Global* _global;                                     // 全局单例
-	Node* _animationLayer;                               // 游戏层
 	GSGameEndLayer* _gameEndShieldLayer;                 // 游戏结束屏蔽层
 	OpenLevelData* _openLevelData;                       // 关卡数据单例
 	vector<int> _levelData;                              // 临时关卡数据
-
-private:
 	EventListenerMouse* _listener;                       // 鼠标监听 
+	bool _isShowEggScene;                                // 是否显示
 };

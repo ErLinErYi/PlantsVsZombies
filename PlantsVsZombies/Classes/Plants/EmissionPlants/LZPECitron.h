@@ -37,4 +37,5 @@ private:
 	int _attackInterval;              // 攻击间隔
 	int _animationId;                 // 动画编号
 	bool _readyFinished;              // 准备完成
+	bool _isCreateBullet;             // 是否创建子弹
 };

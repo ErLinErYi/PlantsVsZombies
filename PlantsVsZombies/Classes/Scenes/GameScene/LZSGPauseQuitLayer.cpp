@@ -10,10 +10,11 @@
 #include "LZSGGameScene.h"
 #include "LZSGData.h"
 
+#include "BigMap/LZSBBigMapGameScene.h"
+
 #include "../SelectPlantsScene/LZSSSelectPlantsScene.h"
-#include "../SelectPlantsScene/LZSSMirrorSelectPlantsScene.h"
-#include "../WorldScene/LZSMModernWorld.h"
-#include "../WorldScene/LZSMMirrorModernWorld.h"
+#include "../WorldScene/LZSWModernWorld.h"
+#include "../WorldScene/LZSWBigMapWorld.h"
 
 #include "spine/spine-cocos2dx.h"
 #include "Based/LZBUserData.h"
@@ -40,20 +41,20 @@ GSPauseQuitLayer::~GSPauseQuitLayer()
 	_isPause = false;
 }
 
-Layer* GSPauseQuitLayer::addLayer()
-{
-	return GSPauseQuitLayer::create();
-}
-
 void GSPauseQuitLayer::pauseLayer()
 {
 	auto director = Director::getInstance()->getRunningScene();
+
+	if (BigMapGameScene::scrollView)
+	{
+		if (director->getChildByName("scrollView"))
+			director->getChildByName("scrollView")->onExit();
+	}
+
 	for (auto &name : _layerName)
 	{
 		if (director->getChildByName(name))
 			director->getChildByName(name)->onExit();
-		else
-			return;
 	}
 	PlayMusic::stopMusic();
 	_isPause = true;
@@ -62,12 +63,17 @@ void GSPauseQuitLayer::pauseLayer()
 void GSPauseQuitLayer::resumeLayer()
 {
 	auto director = Director::getInstance()->getRunningScene();
+
+	if (BigMapGameScene::scrollView)
+	{
+		if (director->getChildByName("scrollView"))
+			director->getChildByName("scrollView")->onEnter();
+	}
+
 	for (auto& name : _layerName)
 	{
 		if (director->getChildByName(name))
 			director->getChildByName(name)->onEnter();
-		else
-			return;
 	}
 	PlayMusic::resumeMusic();
 	_isPause = false;
@@ -195,13 +201,12 @@ void GSPauseQuitLayer::showPrompt()
 	prompt->setOpacity(200);
 	_promptLayer->addChild(prompt);
 
-	auto Close = ui::Button::create("CloseDown.png", "Close.png", "", TextureResType::PLIST);
-	Close->setPosition(Vec2(1510, 422));
-	Close->setScale(0.6f);
-	Close->setScaleY(0.58f);
-	prompt->addChild(Close);
-
-	Close->addTouchEventListener([=](Ref* sender, ui::Widget::TouchEventType type)
+	auto close = ui::Button::create("CloseDown.png", "Close.png", "", TextureResType::PLIST);
+	close->setPosition(Vec2(1510, 422));
+	close->setScale(0.6f);
+	close->setScaleY(0.58f);
+	prompt->addChild(close);
+	close->addTouchEventListener([=](Ref* sender, ui::Widget::TouchEventType type)
 		{
 			switch (type)
 			{
@@ -213,6 +218,17 @@ void GSPauseQuitLayer::showPrompt()
 				break;
 			}
 		});
+
+	auto text = Text::create();
+	text->setFontName(GAME_FONT_NAME_1);
+	text->setFontSize(_global->userInformation->getGameText().find("按键信息")->second->fontsize);
+	text->setColor(Color3B::WHITE);
+	text->setTextAreaSize(Size(1800, 300));
+	text->setTextHorizontalAlignment(TextHAlignment::LEFT);
+	text->setTextVerticalAlignment(TextVAlignment::TOP);
+	text->setPosition(Vec2(960, 150));
+	text->setString(_global->userInformation->getGameText().find("按键信息")->second->text);
+	_promptLayer->addChild(text);
 }
 
 void GSPauseQuitLayer::openHandBook()
@@ -226,7 +242,7 @@ void GSPauseQuitLayer::setRestart()
 	UserData::getInstance()->caveUserData("BREAKTHROUGH", ++_global->userInformation->getBreakThroughNumbers());
 	GSGameEndLayer::judgeBreakThroughAboutJumpLevel();
 	
-	_director->replaceScene(TransitionFade::create(1.0f, SelectPlantsScene::createScene()));
+	_director->replaceScene(TransitionFade::create(1.0f, SelectPlantsScene::create()));
 
 	UserData::getInstance()->createNewLevelDataDocument();
 	UserData::getInstance()->removeLevelData(_levelName);

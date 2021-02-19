@@ -127,7 +127,6 @@ void CherryBomb::explodeHurtZombies()
 
 			if (!zombie->getZombieIsSurvive())
 			{
-				zombie->setZombieOpacity(0);
 				zombie->setZombieVisible(false);
 				zombie->playZombiesAshesAnimation();
 			}
@@ -145,7 +144,7 @@ void CherryBomb::showExplodeAnimation()
 	cherryBomb_Explode->setPosition(_plantAnimation->getPosition());
 	cherryBomb_Explode->setAnimation(0, "CherryBomb_Explode", false);
 	cherryBomb_Explode->setScale(1.5f);
-	cherryBomb_Explode->setLocalZOrder(_plantAnimation->getLocalZOrder() + 10); // 植物绘制顺序加10正好等于僵尸绘制顺序 ，爆炸就可以覆盖到僵尸上面
+	cherryBomb_Explode->setLocalZOrder(_plantAnimation->getLocalZOrder() + 100); // 植物绘制顺序加10正好等于僵尸绘制顺序 ，爆炸就可以覆盖到僵尸上面
 	_node->addChild(cherryBomb_Explode);
 
 	cherryBomb_Explode->setEventListener([cherryBomb_Explode](spTrackEntry* entry, spEvent* event)

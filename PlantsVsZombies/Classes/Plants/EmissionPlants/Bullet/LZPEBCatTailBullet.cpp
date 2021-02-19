@@ -7,6 +7,7 @@
 #include "LZPEBCatTailBullet.h"
 #include "Zombies/LZZZombies.h"
 #include "Scenes/GameScene/LZSGData.h"
+#include "Scenes/GameScene/LZSGControlLayer.h"
 #include <cocos/editor-support/spine/extension.h>
 
 CatTailBullet::CatTailBullet(Node* node):
@@ -31,8 +32,8 @@ void CatTailBullet::createBullet()
     bulletInit("CatTailBullet", "CatTailBullet_Normal");
     _bulletAnimation->setPosition(_position + Vec2(70, 85));
     _bulletAnimation->setScale(0.6f);
-    _bulletAnimation->setLocalZOrder(_bulletAnimation->getLocalZOrder() - 3);
-    createShadow();
+    _bulletAnimation->setLocalZOrder(_bulletAnimation->getLocalZOrder() - 100);
+    //createShadow();
     createListener();
 }
 
@@ -42,12 +43,12 @@ void CatTailBullet::createListener()
     _bulletAnimation->runAction(RepeatForever::create(Sequence::create(DelayTime::create(0.02f),
         CallFunc::create([=]()
             {
-                if (fabs(_locationY - _bulletAnimation->getPositionY()) > _distanceY) /* 第一次间隔69进行设置localZorder */
+                if (fabs(_locationY - _bulletAnimation->getPositionY()) > _distanceY) /* 第一次间隔进行设置localZorder */
                 {
                     auto order = _bulletAnimation->getLocalZOrder();
-                    if (order > 0 && order < 100)
+                    if (order > 0 && order < 5070)
                     {
-                        _bulletAnimation->setLocalZOrder(order + (_locationY > _bulletAnimation->getPositionY() ? 20 : -20));
+                        _bulletAnimation->setLocalZOrder(order + (_locationY > _bulletAnimation->getPositionY() ? 100 : -100));
                     }
                     _locationY = _bulletAnimation->getPositionY();
 
@@ -59,29 +60,18 @@ void CatTailBullet::createListener()
 void CatTailBullet::createShadow()
 { 
     auto shadow = Sprite::createWithSpriteFrameName("plantshadow.png");
-    shadow->setName("shadow");
     shadow->setOpacity(180);
+    shadow->setName("shadow");
+    shadow->setIgnoreAnchorPointForPosition(true);
     shadow->setScale(0.6f);
-    shadow->setPosition(_bulletAnimation->getPosition() + Vec2(0, -120));
+    shadow->setPosition(Vec2(0, -120));
     shadow->setLocalZOrder(_bulletAnimation->getLocalZOrder());
-    _node->addChild(shadow);
+    _bulletAnimation->addChild(shadow);
     shadow->runAction(RepeatForever::create(Sequence::create(
         CallFunc::create([=]()
             {
-                shadow->setPosition(_bulletAnimation->getPosition() + Vec2(0, -120));
-            }), DelayTime::create(0.01f),
-                CallFunc::create([=]()
-                    {
-                        if (!_bulletAnimation->getOpacity())
-                        {
-                            shadow->removeFromParent();
-                        }
-                    }), nullptr)));
-    shadow->runAction(Sequence::create(DelayTime::create(5.0f),
-        CallFunc::create([shadow]()
-            {
-                shadow->removeFromParent();
-            }), nullptr));
+                shadow->setPosition(Vec2(0, -120));
+            }), DelayTime::create(0.02f), nullptr)));
 }
 
 void CatTailBullet::bulletAndZombiesCollision()
@@ -210,15 +200,19 @@ CatTailBullet::RatateDirtection CatTailBullet::calculateDirection(Vec2 vec2)
 
 bool CatTailBullet::bulletIsInMap()
 {
-    return (_bulletAnimation->getPosition() < Vec2(1710, 970) && _bulletAnimation->getPosition() > Vec2(570, 110));
+    return (_bulletAnimation->getPosition() <
+        Vec2(controlLayerInformation->gameMapInformation->mapRight,
+            controlLayerInformation->gameMapInformation->mapTop + 160) &&
+        _bulletAnimation->getPosition() >
+        Vec2(controlLayerInformation->gameMapInformation->mapLeft,
+            controlLayerInformation->gameMapInformation->mapBottom));
 }
 
 void CatTailBullet::createBulletExplode(Zombies* zombie)
 {
     _bulletAnimation->setLocalZOrder(zombie->getZombieAnimation()->getLocalZOrder() + 1);
-    _bulletAnimation->setOpacity(0);
-    _bulletAnimation->runAction(Sequence::create(DelayTime::create(1.f), CallFunc::create([this]() {_bulletAnimation->setVisible(false); }), nullptr));
-
+    _bulletAnimation->setVisible(false);
+   
     auto explode= SkeletonAnimation::createWithData(_global->userInformation->getAnimationData().find("CatTailBullet")->second);
 	explode->setAnimation(0, "CatTailBullet_Explode", false);
     explode->setPosition(zombie->getZombieAnimation()->getPosition() + Vec2(0, 80));

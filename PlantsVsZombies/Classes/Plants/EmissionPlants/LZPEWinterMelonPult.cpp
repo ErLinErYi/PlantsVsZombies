@@ -73,8 +73,6 @@ void WinterMelonPult::plantAttack(Zombies* zombie)
 
 void WinterMelonPult::createBullet()
 {
-	_isCreateBullet = true;
-
 	_bulletAnimation = new WinterMelonBullet(_node);
 	_bulletAnimation->setBulletPosition(_position + Vec2(0, 20));
 	_bulletAnimation->setBulletInRow(_rowAndColumn.y);

@@ -83,7 +83,7 @@ void OptionsMenu::createDialog()
 					PlayMusic::playMusic("gravebutton");
 					break;
 				case Widget::TouchEventType::ENDED:
-					Director::getInstance()->pushScene(TransitionFade::create(0.5f, GameEasterEggs::createScene()));
+					Director::getInstance()->pushScene(TransitionFade::create(0.5f, GameEasterEggs::create()));
 					break;
 				}
 			});

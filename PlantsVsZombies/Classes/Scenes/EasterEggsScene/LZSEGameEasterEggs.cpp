@@ -21,11 +21,6 @@ GameEasterEggs::~GameEasterEggs()
 {
 }
 
-Scene* GameEasterEggs::createScene()
-{
-	return GameEasterEggs::create();
-}
-
 bool GameEasterEggs::init()
 {
 	if (!Scene::init())return false;

@@ -10,8 +10,8 @@
 
 EmissionPlants::EmissionPlants():
     _isChanged(false)
-,   _isCreateBullet(false)
 ,   _isHaveZombies(false)
+,   _isReadFileData(false)
 ,   _bulletAnimation(nullptr)
 {
 }
@@ -26,7 +26,7 @@ void EmissionPlants::createListener(std::string animationName, std::string actio
         {
             if (!actionName.compare(event->data->name))
             {
-                if (!_isCreateBullet)
+                if (!_isReadFileData)
                 {
                     rand() % 2 == 0 ? PlayMusic::playMusic("throw") : PlayMusic::playMusic("throw2");
                     createBullet();
@@ -38,7 +38,7 @@ void EmissionPlants::createListener(std::string animationName, std::string actio
         {
             if (!animationName.compare(entry->animation->name))
             {
-                _isCreateBullet = false;
+                _isReadFileData = false;
             }
         });
 }
@@ -46,11 +46,10 @@ void EmissionPlants::createListener(std::string animationName, std::string actio
 void EmissionPlants::cavePlantInformation(rapidjson::Value& object, rapidjson::Document::AllocatorType& allocator)
 {
     object.AddMember("isChanged", _isChanged, allocator);
-    object.AddMember("isCreateBullet", _isCreateBullet, allocator);
 }
 
 void EmissionPlants::readPlantInforamtion(rapidjson::Document* levelDataDocument, char* key, int i)
 {
+    _isReadFileData = true;
     _isChanged = (*levelDataDocument)[key]["Plants"][to_string(i).c_str()]["isChanged"].GetBool();
-    _isCreateBullet = (*levelDataDocument)[key]["Plants"][to_string(i).c_str()]["isCreateBullet"].GetBool();
 }

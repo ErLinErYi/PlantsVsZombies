@@ -14,18 +14,17 @@ public:
 	virtual bool init() override;
 
 CC_CONSTRUCTOR_ACCESS:
-	UnlockDialogLayer(): _lockDialog(nullptr){}
+	UnlockDialogLayer();
 
-private:
-	void createDiglog();	/* 创建对话框 */
-	void createButtons();   /* 创建按钮 */
-	void deleteDialog();    /* 删除对话框 */
-	void createText();
+protected:
+	virtual void createDiglog();	/* 创建对话框 */
+	virtual void createButtons();   /* 创建按钮 */
+	virtual void deleteDialog();    /* 删除对话框 */
+	virtual void createText();
 
 public:
 	static unsigned int unlockNeedNumbers;
 
-private:
+protected:
 	Sprite* _lockDialog;    /* 对话框 */
 };
-

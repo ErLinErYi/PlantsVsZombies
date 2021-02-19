@@ -28,7 +28,7 @@ void AcidLemonBullet::createBullet()
 
 	_bulletAnimation->setPosition(_position + Vec2(70, 90));
 	_bulletAnimation->setScale(0.9f);
-	_bulletAnimation->runAction(Sequence::create(MoveBy::create(2.0f, Vec2(2000, rand() % 31 - 15)),
+	_bulletAnimation->runAction(Sequence::create(MoveBy::create(8.0f, Vec2(8000, rand() % 31 - 15)),
 		CallFunc::create([this]()
 			{
 				_bulletAnimation->setVisible(false);

@@ -24,7 +24,6 @@ class ModernWorld :public Scene
 {
 public:
 	CREATE_FUNC(ModernWorld);
-	static Scene* createScene();
 	static void setPopEnter(const bool isPopEnter);
 
 CC_CONSTRUCTOR_ACCESS:
@@ -40,6 +39,7 @@ protected:
 	virtual ui::Button* createButton(Node* node, const std::string& name, const Vec2& position);
 	virtual void createScrollView();
 	virtual void createGoBack();
+	virtual string getScrollViewPositionString();
 	void showLevels();
 	void createBackground();
 	void addScrollView(const int id);
@@ -59,7 +59,5 @@ protected:
 	float _worldPosition;                 /* 世界初始位置 */
 	float _worldRollingDistance;          /* 计算鼠标滚动距离 */
 	list<Button*> _levelButton;
-
-private:
 	static bool _isPopEnter;
 };

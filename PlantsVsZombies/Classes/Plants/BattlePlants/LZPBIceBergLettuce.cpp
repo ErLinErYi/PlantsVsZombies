@@ -124,7 +124,7 @@ void IceBergLettuce::plantExplode(Zombies* zombie)
 			_excludeZombiePosition = zombie->getZombieAnimation()->getPosition() - Vec2(30, 10);
 
 			_plantAnimation->setAnimation(0, "IceBergLettuce_Skill", false);
-			_plantAnimation->setLocalZOrder(_plantAnimation->getLocalZOrder() + 10);
+			_plantAnimation->setLocalZOrder(_plantAnimation->getLocalZOrder() + 100);
 		}
 	}
 }

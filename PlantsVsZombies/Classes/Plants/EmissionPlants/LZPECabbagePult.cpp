@@ -130,8 +130,6 @@ void CabbagePult::plantAttack(Zombies* zombie, const string& animationName)
 
 void CabbagePult::createBullet()
 {
-	_isCreateBullet = true;
-
 	_bulletAnimation = new Cabbage(_node);
 	_bulletAnimation->setBulletPosition(_position);
 	_bulletAnimation->setBulletInRow(_rowAndColumn.y);

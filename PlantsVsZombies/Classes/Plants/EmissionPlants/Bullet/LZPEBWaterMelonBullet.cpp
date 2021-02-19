@@ -45,7 +45,7 @@ void WaterMelonBullet::bulletAndZombiesCollision()
 
 			bulletAttackHurtZombies(zombie);   /* ½©Ê¬¼õÉÙÉúÃüÖµ */
 			_bulletAnimation->setOpacity(0);
-
+			
 			createExplodeAnimation("WaterMelon","WaterMelon_Explode");
 
 			setBulletIsUsed(true);

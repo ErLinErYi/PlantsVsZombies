@@ -90,8 +90,6 @@ void IcePeaShooter::createBullet()
 {
 	PlayMusic::playMusic("snow_pea_sparkles");
 
-	_isCreateBullet = true;
-
 	_bulletAnimation = new IcePea(_node);
 	_bulletAnimation->setBulletPosition(_position);
 	_bulletAnimation->setBulletInRow(_rowAndColumn.y);

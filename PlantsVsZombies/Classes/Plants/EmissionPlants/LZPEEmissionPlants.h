@@ -27,7 +27,7 @@ protected:
 
 protected:
     bool _isChanged;           // 是否改变为攻击形态
-    bool _isCreateBullet;      // 是否创建子弹
     bool _isHaveZombies;       // 是否有僵尸
+    bool _isReadFileData;      // 是否读取文件数据
     Bullet* _bulletAnimation;  // 子弹动画
 };

@@ -2,6 +2,7 @@
 
 #include "Zombies/LZZZombies.h"
 #include "Scenes/GameScene/LZSGData.h"
+#include "Scenes/GameScene/LZSGControlLayer.h"
 #include "Based/LZBPlayMusic.h"
 
 Car::Car(Node* node) :
@@ -9,6 +10,7 @@ Car::Car(Node* node) :
 	_position(Vec2::ZERO),
 	_isLive(false),
 	_tag(-1),
+	_row(-1),
 	_carState(1),
 	_scale(0),
 	_node(node),
@@ -36,7 +38,7 @@ void Car::showCar()
 {
 	_carImage= Sprite::createWithSpriteFrameName("Car.png");
 	_carImage->setPosition(_position);
-	_carImage->setLocalZOrder(getZOrder(_position.y));
+	_carImage->setLocalZOrder(getZOrder());
 	_carImage->setScale(_scale);
 	_node->addChild(_carImage);
 
@@ -72,6 +74,16 @@ void Car::setLive(bool isLive)
 	_isLive = isLive;
 }
 
+void Car::setInRow(int row)
+{
+	_row = row;
+}
+
+int Car::getInRow()
+{
+	return _row;
+}
+
 bool Car::getLive() const
 {
 	return _isLive;
@@ -82,7 +94,7 @@ int Car::getCarTag() const
 	return _carImage->getTag();
 }
 
-Sprite* Car::getCar() const
+Sprite* Car::getCar()
 {
 	return _carImage;
 }
@@ -97,7 +109,10 @@ void Car::createCarListener()
 			_isLive = true;
 
 			zombie->setZombieDeath(true);
-			zombie->setZombieVisible(false);
+			if (zombie->getZombieType() != ZombiesType::GargantuarZombies)
+			{
+				zombie->setZombieVisible(false);
+			}
 		}
 	}
 
@@ -112,14 +127,15 @@ void Car::carStartUp()
 		{
 			_carState = 2;
 			PlayMusic::playMusic("lawnmower");
-			_carImage->runAction(MoveBy::create(2.5f, Vec2(1900, 0)));
+			_carImage->runAction(MoveBy::create(10.f, Vec2(7600, 0)));
 		}
 	}
 }
 
 void Car::deleteCar(list<Car*>::iterator& car)
 {
-	if ((*car)->getCar()->getPositionX() > 2100)
+	if ((*car)->getCar()->getPositionX() > 
+		controlLayerInformation->gameMapInformation->mapRight + 500)
 	{
 		(*car)->getCar()->removeFromParent();
 		delete* car;
@@ -154,7 +170,7 @@ void Car::createAppearSpecialEffect()
 
 bool Car::getZombieIsSameLineWithCar(Zombies* zombie) const
 {
-	return fabs((zombie->getZombieAnimation()->getPositionY() + 50) - _carImage->getPositionY()) <= 10 ? true : false;
+	return zombie->getZombieInRow() == _row;
 }
 
 bool Car::getzombieIsEncounterCar(Zombies* zombie) const
@@ -162,16 +178,8 @@ bool Car::getzombieIsEncounterCar(Zombies* zombie) const
 	return zombie->getZombieAnimation()->getPositionX() - 80 < _carImage->getPositionX() ? true : false;
 }
 
-int Car::getZOrder(const float& pos_y) const
+int Car::getZOrder() const
 {
-	int const pos[5] = { 732,594,456,318,180 };
-	for (int i = 0; i < 5; ++i)
-	{
-		if (pos[i] == pos_y)
-		{
-			return (i + 1) * 20 - 9;
-		}
-	}
-	return 0;
+	return (50 - _row) * 100 + 90;
 }
 

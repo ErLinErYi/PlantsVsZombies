@@ -216,8 +216,10 @@ Button* SPSSpriteLayer::createButtons(const Vec2& vec2, int priority)
 		{
 			switch (type)
 			{
-			case ui::Widget::TouchEventType::BEGAN: PlayMusic::playMusic("tap");                   break;
-			case ui::Widget::TouchEventType::ENDED: plantsCardButtonEvent(button, vec2); break;
+			case ui::Widget::TouchEventType::ENDED:
+				PlayMusic::playMusic("tap");
+				plantsCardButtonEvent(button, vec2);
+				break;
 			}
 		});
 	_plantCardScrollView->addChild(button);
@@ -250,7 +252,8 @@ void SPSSpriteLayer::createMoveButton(Button* button, const Vec2& vec2)
 {
 	/* ´´½¨ÒÆ¶¯¿¨ÅÆ */
 	auto moveCard = ui::Button::create("SeedPacket_Larger.png", "SeedPacket_Larger.png", "", TextureResType::PLIST);
-	moveCard->setPosition(Vec2(vec2.x + 205, _plantCardScrollView->getInnerContainerSize().height - moveCard->getContentSize().height - vec2.y - 40 + calculateScrollDistance()));
+	moveCard->setPosition(Vec2(vec2.x + 205, _plantCardScrollView->getInnerContainerSize().
+		height - moveCard->getContentSize().height - vec2.y - 40 + calculateScrollDistance()));
 	moveCard->setTitleColor(Color3B::RED);
 	moveCard->setTitleFontSize(25);
 	moveCard->setTag(button->getTag());
@@ -275,8 +278,10 @@ void SPSSpriteLayer::createMoveButton(Button* button, const Vec2& vec2)
 		{
 			switch (type)
 			{
-			case ui::Widget::TouchEventType::BEGAN: PlayMusic::playMusic("tap2"); break;
-			case ui::Widget::TouchEventType::ENDED: plantsMoveCardButtonEvent(button, moveCard, vec2, plantCardRollingDistanceLast); break;
+			case ui::Widget::TouchEventType::ENDED: 
+				PlayMusic::playMusic("tap2");
+				plantsMoveCardButtonEvent(button, moveCard, vec2, plantCardRollingDistanceLast);
+				break;
 			}
 		});
 }
@@ -347,12 +352,15 @@ void SPSSpriteLayer::preLoadText()
 	{
 		animationText[i] = Text::create("", GAME_FONT_NAME_1, 30);
 		animationText[i]->setName("AnimationText");
+		animationText[i]->enableShadow(Color4B::GRAY, Size(2, -2), 1);
 		animationText[i]->enableOutline(Color4B(0, 255, 255, 255));
-		animationText[i]->enableShadow(Color4B::GRAY, Size(4, -4), 1);
+		animationText[i]->setLineBreakWithoutSpace(true);
 		switch (i)
 		{
 		case 0:  _seedChooser->addChild(animationText[i]);            break;
-		default: plantCardTextScrollView->addChild(animationText[i]); break;
+		default: 
+			animationText[i]->setTextAreaSize(Size(395, 800));
+			plantCardTextScrollView->addChild(animationText[i]);      break;
 		}
 	}
 }
@@ -539,7 +547,6 @@ void SPSSpriteLayer::controlPlantCanSelect(Button* button, int priority)
 void SPSSpriteLayer::createPlantsText(const unsigned int& ID, const std::string& name, const Vec2& vec2, const float& fontsize, Color3B color, bool AnchorPoint)
 {
 	animationText[ID]->setString(name);
-	ID != 0 ? animationText[ID]->setTextAreaSize(Size(400, 800)) : nullptr;
 	animationText[ID]->setFontSize(fontsize);
 	animationText[ID]->setColor(color);
 	plantCardTextScrollView->scrollToTop(0.1f, true);

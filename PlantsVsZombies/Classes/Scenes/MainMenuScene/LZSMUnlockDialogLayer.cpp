@@ -10,6 +10,11 @@
 
 unsigned int UnlockDialogLayer::unlockNeedNumbers = 10;
 
+UnlockDialogLayer::UnlockDialogLayer():
+	_lockDialog(nullptr)
+{
+	unlockNeedNumbers = 10;
+}
 bool UnlockDialogLayer::init()
 {
 	if (!LayerColor::initWithColor(Color4B(0, 0, 0, 180)))return false;
@@ -45,10 +50,8 @@ void UnlockDialogLayer::createButtons()
 		{
 			switch (type)
 			{
-			case Widget::TouchEventType::BEGAN:
-				PlayMusic::playMusic("gravebutton");
-				break;
 			case Widget::TouchEventType::ENDED:
+				PlayMusic::playMusic("gravebutton");
 				deleteDialog();
 				break;
 			}

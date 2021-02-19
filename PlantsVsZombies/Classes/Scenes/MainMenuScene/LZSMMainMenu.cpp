@@ -12,7 +12,7 @@
 #include "LZSMOptionsSence.h"
 #include "LZSMUnlockDialogLayer.h"
 #include "../HelpScene/LZSHHelpScene.h"
-#include "../WorldScene/LZSMSelectWorldScene.h"
+#include "../WorldScene/LZSWSelectWorldScene.h"
 #include "../LoadingScene/LZSLLoadingScene.h"
 #include "../GameScene/HammerZombies/LZSHammerZombiesScene.h"
 
@@ -320,8 +320,9 @@ void MainMenu::createFlowers(const float& Scale, const Vec2& vec2, const std::st
 
 bool MainMenu::checkHammerZombiesIsUnLock()
 {
-	return UserData::getInstance()->openIntUserData(const_cast<char*>(StringUtils::format(
-		_global->userInformation->getSystemCaveFileName().c_str(), 1).c_str())) > UnlockDialogLayer::unlockNeedNumbers;
+	return UserData::getInstance()->openIntUserData(const_cast<char*>(
+		StringUtils::format(_global->userInformation->getSystemCaveFileName().c_str(), 1).c_str())) >
+		static_cast<int>(UnlockDialogLayer::unlockNeedNumbers);
 }
 
 void MainMenu::createAnimation()
@@ -500,9 +501,9 @@ void MainMenu::createMainSprite()
 		i == 5 ? this->addChild(_sprite[number[i - 1]], 1) : this->addChild(_sprite[number[i - 1]]);
 	}
 
-	_sprite[1]->runAction(MoveBy::create(0.5f, Vec2(0, 60)));
-	_sprite[2]->runAction(MoveBy::create(0.5f, Vec2(0, 60)));
-	_sprite[3]->runAction(MoveBy::create(0.5f, Vec2(0, 1000)));
+	_sprite[1]->runAction(EaseSineOut::create(MoveBy::create(0.5f, Vec2(0, 60))));
+	_sprite[2]->runAction(EaseSineOut::create(MoveBy::create(0.5f, Vec2(0, 60))));
+	_sprite[3]->runAction(EaseSineOut::create(MoveBy::create(0.5f, Vec2(0, 1000))));
 	_sprite[4]->runAction(Sequence::create(DelayTime::create(0.8f), EaseElasticOut::create(MoveBy::create(1.0f, Vec2(0, -400))), nullptr));
 	_sprite[5]->runAction(Sequence::create(DelayTime::create(0.8f), EaseElasticOut::create(MoveBy::create(1.15f, Vec2(0, -440))), nullptr));
 

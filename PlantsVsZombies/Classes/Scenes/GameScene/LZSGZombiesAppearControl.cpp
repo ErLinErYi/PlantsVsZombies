@@ -8,6 +8,7 @@
 #include "LZSGZombiesAppearControl.h"
 
 unsigned int ZombiesAppearControl::zombiesPosition[] = { 130,268,406,544,682 };
+unsigned int ZombiesAppearControl::zombiesPositionBigMap[] = { 255,391,527,663,799,935,1071,1207,1343,1479 };
 
 ZombiesAppearControl::ZombiesAppearControl() :
   _zombiesAppearFrequency(0)
@@ -80,11 +81,11 @@ double ZombiesAppearControl::getTime() const
 	return _time;
 }
 
-int ZombiesAppearControl::getEqualProbabilityForRow()
+int ZombiesAppearControl::getEqualProbabilityForRow(int maxRow)
 {
-	uniform_int_distribution<unsigned>number(0, 4);
+	uniform_int_distribution<unsigned>number(0, maxRow);
 
-	if (_judgeZombieRow.size() == 5)
+	if (_judgeZombieRow.size() == maxRow + 1)
 	{
 		_judgeZombieRow.clear();
 	}

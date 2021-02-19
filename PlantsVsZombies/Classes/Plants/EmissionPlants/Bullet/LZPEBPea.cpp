@@ -43,15 +43,15 @@ void Pea::setBulletAction()
 	switch (_peaDirectionType)
 	{
 	case Pea::PeaDirectionType::Up:
-		action = Sequence::create(MoveBy::create(_actionTime, _initPostion[0]), MoveBy::create(2.7f, Vec2(1800, rand() % 21 - 10)), nullptr);
+		action = Sequence::create(MoveBy::create(_actionTime, _initPostion[0]), MoveBy::create(10.f, Vec2(7000, rand() % 21 - 10)), nullptr);
 		createShadow(Vec2(0, 10));
 		break;
 	case Pea::PeaDirectionType::Normal:
-		action = MoveBy::create(3.0f, Vec2(2000, rand() % 41 - 20));
+		action = MoveBy::create(10.0f, Vec2(7000, rand() % 41 - 20));
 		createShadow();
 		break;
 	case Pea::PeaDirectionType::Down:
-		action = Sequence::create(MoveBy::create(_actionTime, _initPostion[1]), MoveBy::create(2.7f, Vec2(1800, rand() % 21 - 10)), nullptr);
+		action = Sequence::create(MoveBy::create(_actionTime, _initPostion[1]), MoveBy::create(10.f, Vec2(7000, rand() % 21 - 10)), nullptr);
 		createShadow(Vec2(0, -10));
 		break;
 	}

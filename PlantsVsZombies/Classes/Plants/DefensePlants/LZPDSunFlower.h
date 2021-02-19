@@ -49,7 +49,7 @@ public:
 	void setEnable(bool isUsed);
 	int getSunTag() const;
 	bool getEnable() const;
-	void releaseSun() const;
+	void releaseSun();
 	float calculateMoveTime();
 	SkeletonAnimation* getSun();
 	static void deleteSun(list<Sun*>::iterator& sun);

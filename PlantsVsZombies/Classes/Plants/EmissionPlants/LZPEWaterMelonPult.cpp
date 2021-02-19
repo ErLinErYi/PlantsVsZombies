@@ -74,8 +74,6 @@ void WaterMelonPult::plantAttack(Zombies* zombie)
 
 void WaterMelonPult::createBullet()
 {
-	_isCreateBullet = true;
-
 	_bulletAnimation = new WaterMelonBullet(_node);
 	_bulletAnimation->setBulletPosition(_position + Vec2(0, 20));
 	_bulletAnimation->setBulletInRow(_rowAndColumn.y);

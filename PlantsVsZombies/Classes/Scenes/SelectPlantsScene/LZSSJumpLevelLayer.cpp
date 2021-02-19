@@ -10,7 +10,7 @@
 #include "Based/LZBPlayMusic.h"
 #include "Based/LZBUserData.h"
 
-#include "Scenes/WorldScene/LZSMModernWorld.h"
+#include "Scenes/WorldScene/LZSWModernWorld.h"
 
 SPSJumpLevelLayer::SPSJumpLevelLayer():
 	_jumpLevelDialog(nullptr),

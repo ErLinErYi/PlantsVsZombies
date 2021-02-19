@@ -6,10 +6,12 @@
  *Email: 2117610943@qq.com
  */
 
-#include "LZSMModernWorld.h"
-#include "LZSMMirrorModernWorld.h"
-#include "LZSMSelectWorldScene.h"
+#include "LZSWModernWorld.h"
+#include "LZSWBigMapWorld.h"
+#include "LZSWSelectWorldScene.h"
+#include "LZSWUnlockDialogLayer.h"
 #include "../MainMenuScene/LZSMMainMenu.h"
+#include "../MainMenuScene/LZSMUnlockDialogLayer.h"
 
 #include "Based/LZBGlobalVariable.h"
 #include "Based/LZBUserData.h"
@@ -196,7 +198,7 @@ void SelectWorldScene::createScrollView()
 	_scrollView->setBounceEnabled(true);
 	_scrollView->setDirection(ui::ScrollView::Direction::HORIZONTAL);
 	_scrollView->setContentSize(size);
-	_scrollView->setInnerContainerSize(Size(2700, size.height));
+	_scrollView->setInnerContainerSize(Size(3500, size.height));
 	_scrollView->setPosition(Vec2(0, 0));
 	_scrollView->jumpToPercentHorizontal(_selectWorldPosition);
 	this->addChild(_scrollView);
@@ -204,26 +206,31 @@ void SelectWorldScene::createScrollView()
 
 void SelectWorldScene::showDifferentWorlds()
 {
-	const string worldImageName[] = { {"World1"},{"World12"} ,{"World3"} ,{"World4"} ,{"World5"} ,{"World6"} ,{"World7"} ,{"World8"} ,{"World9"} ,{"World10"} ,{"World11"},{"World12"} };
-	const string worldName[] = { {"现代世界"},{"尽请期待"} ,{"黑暗时代"} ,{"海盗港湾"} ,{"狂野西部"} ,{"冰河世纪"} ,{"未来世界"} ,{"侏罗纪世界"} ,{"大浪沙滩"} ,{"魔音时代"} ,{"失落之城"},{"尽情期待"} };
-	for (int i = 0; i < 2; ++i)
+	const string worldImageName[] = { {"World1"},{"World2"} ,{"World12"} ,{"World4"} ,{"World5"} ,{"World6"} ,{"World7"} ,{"World8"} ,{"World9"} ,{"World10"} ,{"World11"},{"World12"} };
+	const string worldName[] = { {"现代世界"},{"大地图世界"} ,{"尽请期待"} ,{"海盗港湾"} ,{"狂野西部"} ,{"冰河世纪"} ,{"未来世界"} ,{"侏罗纪世界"} ,{"大浪沙滩"} ,{"魔音时代"} ,{"失落之城"},{"尽请期待"} };
+	for (int i = 0; i < 3; ++i)
 	{
 		_world[i] = ui::Button::create(worldImageName[i] + ".png", "", "", TextureResType::PLIST);
 		_world[i]->setPosition(Vec2(1000 + 800 * i, _backgroundSize.height / 2.0f));
-		_world[i]->setScale(1.7f);
+		_world[i]->setScale(i == 1 ? 1.f : 1.7f);
 		if (_global->userInformation->getMainToWorld()) _world[i]->setEnabled(false);
 		_scrollView->addChild(_world[i]);
 
 		auto worldname = Text::create();
-		worldname->setPosition((Vec2)(_world[i]->getContentSize() / 2.0f) - Vec2(0, 100));
+		worldname->setPosition(Vec2(1000 + 800 * i, _backgroundSize.height / 2.0f));
 		worldname->setFontName(GAME_FONT_NAME_1);
 		worldname->setFontSize(_global->userInformation->getGameText().find(worldName[i])->second->fontsize);
 		worldname->setColor(Color3B(0, 255, 255));
 		worldname->setString(_global->userInformation->getGameText().find(worldName[i])->second->text);
-		worldname->enableGlow(Color4B::BLUE);
-		_world[i]->addChild(worldname);
+		worldname->enableGlow(Color4B::MAGENTA);
+		worldname->setScale(1.2f);
+		_scrollView->addChild(worldname);
 
-		if (i > 1)
+		if (i == 1&& !checkWorldUnlock())
+		{
+			_world[i]->setColor(Color3B::BLACK);
+		}
+		if (i >= 2)
 		{
 			_world[i]->setEnabled(false);
 			worldname->setString(_global->userInformation->getGameText().find("尽请期待")->second->text);
@@ -233,29 +240,40 @@ void SelectWorldScene::showDifferentWorlds()
 			{
 				switch (type)
 				{
-				case ui::Widget::TouchEventType::BEGAN:
-					PlayMusic::playMusic("tap");
-					break;
 				case ui::Widget::TouchEventType::ENDED:
+					PlayMusic::playMusic("tap");
 					switch (i)
 					{
 					case 0:
 						_global->userInformation->setIsMirrorScene(false);
 						_global->userInformation->setSelectWorldName(WorldName::Mordern); /* 初始化背景 */
-						Director::getInstance()->replaceScene(TransitionFade::create(1.f, ModernWorld::createScene()));
+						Director::getInstance()->replaceScene(TransitionFade::create(1.f, ModernWorld::create()));
 						break;
 					case 1:
-						//_global->userInformation->setIsMirrorScene(true);
-						//_global->userInformation->setSelectWorldName(WorldName::Mordern); /* 初始化背景 */
-						//Director::getInstance()->replaceScene(TransitionFade::create(1.0f, MirrorModernWorld::createScene()));
+						if (checkWorldUnlock())
+						{
+							_global->userInformation->setIsMirrorScene(false);
+							_global->userInformation->setSelectWorldName(WorldName::Mordern); /* 初始化背景 */
+							Director::getInstance()->replaceScene(TransitionFade::create(1.0f, BigMapWorld::create()));
+						}
+						else
+						{
+							this->addChild(WUnlockDialogLayer::create());
+						}
 						break;
 					default:
 						break;
 					}
 					break;
 				}
-				UserData::getInstance()->caveUserData("SELECTWORLDPOSITION",
-					_scrollView->getScrolledPercentHorizontal());
+				UserData::getInstance()->caveUserData("SELECTWORLDPOSITION", _scrollView->getScrolledPercentHorizontal());
 			});
 	}
+}
+
+bool SelectWorldScene::checkWorldUnlock()
+{
+	return UserData::getInstance()->openIntUserData(const_cast<char*>(
+		StringUtils::format(_global->userInformation->getSystemCaveFileName().c_str(), 1).c_str())) >
+		static_cast<int>(WUnlockDialogLayer::unlockNeedNumbers);
 }

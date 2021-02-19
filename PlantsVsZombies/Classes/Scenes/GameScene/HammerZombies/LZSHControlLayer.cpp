@@ -53,6 +53,7 @@ bool HControlLayer::init()
 void HControlLayer::initData()
 {
 	srand(time(nullptr));
+	gameMapInformation = new GameMapInformation();
 	_zombiesAppearControl = new ZombiesAppearControl();
 }
 
@@ -336,7 +337,7 @@ void HControlLayer::calculateZombiesData()
 {
 	_currentLevelNumber = max(UserData::getInstance()->openIntUserData("HAMMERZOMBIES_LEVEL_NUMBER"), 1);
 	_maxFrequencyNumbers += min(static_cast<int>(_currentLevelNumber / 2), 40);
-	_zombiesTypeNumbers = min(static_cast<int>(_zombiesTypeNumbers + _currentLevelNumber / 3), 14);
+	_zombiesTypeNumbers = min(static_cast<int>(_zombiesTypeNumbers + _currentLevelNumber / 3), 15);
 	_currentLevelZombiesSpeed += _currentLevelNumber * 0.02f;
 	_attack = hammerInformation[HButtonLayer::selectedHammer].lowAttack + min(hammerInformation[HButtonLayer::selectedHammer].HigtAttack,
 		hammerInformation[HButtonLayer::selectedHammer].lowAttack + _currentLevelNumber * 15);

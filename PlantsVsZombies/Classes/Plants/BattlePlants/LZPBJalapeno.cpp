@@ -88,7 +88,7 @@ void Jalapeno::showExplodeAnimation()
 		jalapenoFire->setPosition(Vec2(GRASS_POSITION_LEFT + 122 * i + 60, _plantAnimation->getPositionY() - 10));
 		jalapenoFire->setAnimation(0, "animation", false);
 		jalapenoFire->setScaleY(3.0f);
-		jalapenoFire->setLocalZOrder(_plantAnimation->getLocalZOrder() + 10); // 植物绘制顺序加10正好等于僵尸绘制顺序 ，爆炸就可以覆盖到僵尸上面
+		jalapenoFire->setLocalZOrder(_plantAnimation->getLocalZOrder() + 100); // 植物绘制顺序加10正好等于僵尸绘制顺序 ，爆炸就可以覆盖到僵尸上面
 		jalapenoFire->runAction(Sequence::create(DelayTime::create(2),
 			CallFunc::create([jalapenoFire]()
 				{

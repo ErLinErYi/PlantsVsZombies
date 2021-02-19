@@ -112,8 +112,6 @@ void AcidLemonShooter::plantRecovery(const string& plantAnimation)
 
 void AcidLemonShooter::createBullet()
 {
-	_isCreateBullet = true;
-
 	_bulletAnimation = new AcidLemonBullet(_node);
 	_bulletAnimation->setBulletPosition(_position);
 	_bulletAnimation->setBulletInRow(_rowAndColumn.y);

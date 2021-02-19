@@ -32,7 +32,7 @@ void CitronBullet::createBullet()
 
 	_bulletAnimation->setPosition(_position + Vec2(0, 70));
 	_bulletAnimation->setScale(1.7f);
-	_bulletAnimation->runAction(Sequence::create(MoveBy::create(4.0f, Vec2(2000, 0)),
+	_bulletAnimation->runAction(Sequence::create(MoveBy::create(16.0f, Vec2(8000, 0)),
 		CallFunc::create([this]()
 			{
 				_bulletAnimation->setVisible(false);

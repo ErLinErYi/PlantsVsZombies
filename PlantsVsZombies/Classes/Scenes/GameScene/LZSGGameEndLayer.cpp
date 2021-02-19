@@ -11,8 +11,9 @@
 #include "LZSGPauseQuitLayer.h"
 #include "LZSGGameTimerLayer.h"
 
-#include "../WorldScene/LZSMModernWorld.h"
-#include "../WorldScene/LZSMMirrorModernWorld.h"
+#include "BigMap/LZSBBigMapGameScene.h"
+#include "../WorldScene/LZSWModernWorld.h"
+#include "../WorldScene/LZSWBigMapWorld.h"
 #include "../SelectPlantsScene/LZSSControlLayer.h"
 #include "Based/LZBGlobalVariable.h"
 #include "Based/LZBUserWinRequirement.h"
@@ -57,6 +58,7 @@ void GSGameEndLayer::judgeBreakThroughAboutJumpLevel()
 
 void GSGameEndLayer::successfullEntry()
 {
+	GSPauseQuitLayer::pauseLayer();
 	Director::getInstance()->getScheduler()->setTimeScale(1.0f); /* »Ö¸´²¥·Å±¶Êý */
 	Director::getInstance()->getOpenGLView()->setCursor("resources/images/System/cursor.png", Point::ANCHOR_TOP_LEFT);
 	UserData::getInstance()->createNewLevelDataDocument();
@@ -215,7 +217,14 @@ void GSGameEndLayer::carsToCoins()
 					cars->getCar()->runAction(Sequence::create( 
 						Spawn::create(ScaleTo::create(0.2f, 0), FadeOut::create(0.2f), nullptr), nullptr));
 					cars->getCar()->setVisible(false);
-					coinAction(cars->getCar()->getPosition(), 0, true);
+
+					auto pos = cars->getCar()->getPosition();
+					if (BigMapGameScene::scrollView)
+					{
+						auto offset = BigMapGameScene::scrollView->getContentOffset();
+						pos = Vec2(pos.x - fabs(offset.x), pos.y - fabs(offset.y));
+					}
+					coinAction(pos, 0, true);
 				}), nullptr));
 		}
 	}
@@ -277,6 +286,7 @@ void GSGameEndLayer::coinAction(const Vec2& position, const int id, const bool b
 	auto coin = SkeletonAnimation::createWithData(_global->userInformation->getAnimationData().find("coin")->second);
 	coin->setPosition(position);
 	coin->setScale(0.05f);
+	coin->update(0);
 	this->addChild(coin);
 
 	auto callFunc = CallFunc::create([=]()

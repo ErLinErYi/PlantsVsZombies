@@ -173,6 +173,15 @@ public:
     Type getType() const;
 
     /**
+    * Change the label's Overflow type, currently only TTF and BMFont support all the valid Overflow type.
+    * Char Map font supports all the Overflow type except for SHRINK, because we can't measure it's font size.
+    * System font only support Overflow::Normal and Overflow::RESIZE_HEIGHT.
+    *
+    * @param overflow   see `Overflow`
+    */
+    void setOverflow(Overflow overflow);
+
+    /**
      * Sets the touch scale enabled of label.
      *
      * @param enabled Touch scale enabled of label.
@@ -211,7 +220,14 @@ public:
      * @param size The text rendering area size.
      *
      */
-    void setTextAreaSize(const Size &size);
+    void setTextAreaSize(const Size& size, bool change = false);
+
+    /**
+     * Specify what happens when a line is too long for Label.
+     *
+     * @param breakWithoutSpace Lines are automatically broken between words if this value is false.
+     */
+    void setLineBreakWithoutSpace(bool breakWithoutSpace);
 
     /** Return the text rendering area size.
      *

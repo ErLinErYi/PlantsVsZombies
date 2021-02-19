@@ -30,7 +30,6 @@ CC_CONSTRUCTOR_ACCESS:
 protected:
 	virtual void caveBulletInformation(rapidjson::Value& object, rapidjson::Document::AllocatorType& allocator) override;
 	virtual void readBulletInformation(rapidjson::Document* levelDataDocument, char* key, int i) override;
-	virtual void readBulletAnimationInformation(rapidjson::Document* levelDataDocument, char* key, int i) override;
 	virtual void bulletAttackHurtZombies(Zombies* zombie) override;
 	virtual void createListener(const string& actionName, float scale = 0.8f);
 	virtual void createExplodeAnimation(const string& animationName, const string& actionName, const float scale = 0.6f);

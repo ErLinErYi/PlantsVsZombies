@@ -363,7 +363,7 @@ void UserInformation::setUserCaveFileNumber(const int number)
 
 void UserInformation::setKillZombiesNumbers(const int number)
 {
-    _killZombiesNumbers = number;
+    number <= 999999999 ? _killZombiesNumbers = number : _killZombiesNumbers = 999999999;
 }
 
 void UserInformation::setUsePlantsNumbers(const int number)
@@ -383,7 +383,7 @@ void UserInformation::setSunNumbers(const int number)
 
 void UserInformation::setCoinNumbers(const int number)
 {
-    number <= 99999999 ? _coinNumbers = number : _coinNumbers = 99999999;
+    number <= 999999999 ? _coinNumbers = number : _coinNumbers = 999999999;
 }
 
 void UserInformation::setFps(const int fps)

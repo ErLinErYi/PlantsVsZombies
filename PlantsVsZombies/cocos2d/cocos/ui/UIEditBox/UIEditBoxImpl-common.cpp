@@ -90,7 +90,7 @@ void EditBoxImplCommon::initInactiveLabels(const Size& size)
 
     _label = Label::create();
     _label->setAnchorPoint(Vec2(0,1));
-    _label->setOverflow(Label::Overflow::CLAMP);
+    _label->setOverflow(Overflow::CLAMP);
     _label->setVisible(false);
     _editBox->addChild(_label, kLabelZOrder);
     

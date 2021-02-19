@@ -1,4 +1,8 @@
 #include "Based/LZBGameType.h"
+#include "Scenes/GameScene/LZSGData.h"
+#include "Scenes/GameScene/LZSGDefine.h"
+#include "Scenes/GameScene/LZSGBackgroundLayer.h"
+#include "Scenes/GameScene/LZSGControlLayer.h"
 
 SunNumberRequriement::SunNumberRequriement():
 	allSunNumbersText(nullptr)
@@ -43,12 +47,12 @@ void GameType::createGameType()
 		case GameTypes::AtLeastSunNumbers:
 		{
 			auto ShowNumber = Sprite::createWithSpriteFrameName("ShowNumber.png");
-			ShowNumber->setPosition(Vec2(690, 1010));
+			ShowNumber->setPosition(Vec2(690, 1025));
 			ShowNumber->setScaleX(1.2f);
 			_node->addChild(ShowNumber);
 
 			auto LackSun = Sprite::createWithSpriteFrameName("LackSun.png");
-			LackSun->setPosition(Vec2(590, 1010));
+			LackSun->setPosition(Vec2(590, 1025));
 			LackSun->setName("LackSun");
 			_node->addChild(LackSun);
 
@@ -59,11 +63,11 @@ void GameType::createGameType()
 		case GameTypes::UserPlantsNumbers:
 		{
 			auto ShowNumber = Sprite::createWithSpriteFrameName("ShowNumber.png");
-			ShowNumber->setPosition(Vec2(735, 1010));
+			ShowNumber->setPosition(Vec2(735, 1025));
 			_node->addChild(ShowNumber);
 
 			auto PlantsNumbers = Sprite::createWithSpriteFrameName("MorePlants.png");
-			PlantsNumbers->setPosition(Vec2(640, 1010));
+			PlantsNumbers->setPosition(Vec2(640, 1025));
 			PlantsNumbers->setName("MorePlants");
 			_node->addChild(PlantsNumbers);
 
@@ -76,21 +80,22 @@ void GameType::createGameType()
 			auto Flowers = Sprite::createWithSpriteFrameName("Flowers.png");
 			Flowers->setPosition(Vec2(_levelData->getFlowerPosition(), 600));
 			Flowers->setScaleY(1.2f);
-			_node->addChild(Flowers);
+			backgroundLayerInformation->addChild(Flowers);
 			auto Flowers1 = Sprite::createWithSpriteFrameName("Flowers.png");
 			Flowers1->setPosition(Vec2(_levelData->getFlowerPosition(), 300));
 			Flowers1->setScaleY(1.2f);
-			_node->addChild(Flowers1);
+			backgroundLayerInformation->addChild(Flowers1);
 		}
 			break;
 		case GameTypes::NoPlants:
 		{
 			for (auto sp : _levelData->getNoPlantsPosition())
 			{
-				auto Plants = SkeletonAnimation::createWithData(_global->userInformation->getAnimationData().find("Impurity")->second);
-				Plants->setPosition(Vec2(570 + 122 * sp.x + 60, 110 + 138 * (sp.y + 1) - 90));
-				Plants->setAnimation(0, "animation", true);
-				_node->addChild(Plants);
+				auto impurity = SkeletonAnimation::createWithData(_global->userInformation->getAnimationData().find("Impurity")->second);
+				impurity->setPosition(Vec2(570 + 122 * sp.x + 60, 110 + 138 * (sp.y + 1) - 90));
+				impurity->setAnimation(0, "animation", true);
+				impurity->update(0);
+				backgroundLayerInformation->addChild(impurity);
 			}
 		}
 			break;
@@ -162,7 +167,11 @@ void GameType::showNumbers(const int& ID)
 		_sunNumberRequriement->allSunNumbersText = Text::create();
 		_sunNumberRequriement->allSunNumbersText->setFontSize(30);
 		_sunNumberRequriement->allSunNumbersText->setFontName(GAME_FONT_NAME_2);
-		_sunNumberRequriement->allSunNumbersText->setPosition(Vec2(700, 1012));
+		_sunNumberRequriement->allSunNumbersText->setPosition(Vec2(700, 1025));
+		_sunNumberRequriement->allSunNumbersText->setTextAreaSize(Size(150, 25));
+		_sunNumberRequriement->allSunNumbersText->setOverflow(Overflow::SHRINK);
+		_sunNumberRequriement->allSunNumbersText->setTextHorizontalAlignment(TextHAlignment::CENTER);
+		_sunNumberRequriement->allSunNumbersText->setTextVerticalAlignment(TextVAlignment::CENTER);
 		_sunNumberRequriement->allSunNumbersText->setAnchorPoint(Vec2(0.5f, 0.5f));
 		_sunNumberRequriement->allSunNumbersText->setColor(Color3B::YELLOW);
 		_sunNumberRequriement->atLeastSunNumbers = _openlevelData->readLevelData(_openlevelData->getLevelNumber())->getAtLeastSunNumbers();
@@ -175,7 +184,11 @@ void GameType::showNumbers(const int& ID)
 		_plantsRequriement->palntsNumbersText= Text::create();
 		_plantsRequriement->palntsNumbersText->setFontSize(30);
 		_plantsRequriement->palntsNumbersText->setFontName(GAME_FONT_NAME_2);
-		_plantsRequriement->palntsNumbersText->setPosition(Vec2(737, 1012));
+		_plantsRequriement->palntsNumbersText->setPosition(Vec2(737, 1025));
+		_plantsRequriement->palntsNumbersText->setTextAreaSize(Size(150, 25));
+		_plantsRequriement->palntsNumbersText->setOverflow(Overflow::SHRINK);
+		_plantsRequriement->palntsNumbersText->setTextHorizontalAlignment(TextHAlignment::CENTER);
+		_plantsRequriement->palntsNumbersText->setTextVerticalAlignment(TextVAlignment::CENTER);
 		_plantsRequriement->palntsNumbersText->setAnchorPoint(Vec2(0.5f, 0.5f));
 		_plantsRequriement->palntsNumbersText->setColor(Color3B::YELLOW);
 		_plantsRequriement->surPlusPlantsNumbers = _openlevelData->readLevelData(_openlevelData->getLevelNumber())->getUsePlantsNumbers();
@@ -197,6 +210,7 @@ void GameType::updateNumbers(const int& ID)
 	{
 		_sunNumberRequriement->allSunNumbersText->setString(
 			to_string(_sunNumberRequriement->atLeastSunNumbers) + "/" + to_string(_sunNumberRequriement->allSunNumbers));
+		_sunNumberRequriement->allSunNumbersText->setTextAreaSize(Size(160, 25));
 
 		if (!_sunNumberRequriement->isUpdateImage && _sunNumberRequriement->allSunNumbers >=
 			_openlevelData->readLevelData(_openlevelData->getLevelNumber())->getAtLeastSunNumbers())
@@ -212,6 +226,7 @@ void GameType::updateNumbers(const int& ID)
 	{
 		_plantsRequriement->palntsNumbersText->setString(
 			to_string(_plantsRequriement->userPlantsNumbers) + " / " + to_string(_plantsRequriement->surPlusPlantsNumbers));
+		_plantsRequriement->palntsNumbersText->setTextAreaSize(Size(150, 25));
 
 		if (!_plantsRequriement->isUpdateImage && _plantsRequriement->surPlusPlantsNumbers <= 0)
 		{

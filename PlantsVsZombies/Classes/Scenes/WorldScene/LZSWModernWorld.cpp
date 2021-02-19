@@ -6,8 +6,8 @@
  *Email: 2117610943@qq.com
  */
 
-#include "LZSMModernWorld.h"
-#include "LZSMSelectWorldScene.h"
+#include "LZSWModernWorld.h"
+#include "LZSWSelectWorldScene.h"
 #include "Scenes/SelectPlantsScene/LZSSBackgroundLayer.h"
 #include "Scenes/SelectPlantsScene/LZSSSelectPlantsScene.h"
 #include "Scenes/SelectPlantsScene/SurvivalSelectScene/LZSSSSurvivalSelectScene.h"
@@ -27,22 +27,21 @@ ModernWorld::ModernWorld():
 	_backgroundSize(_director->getWinSize()),
 	_parallax(nullptr),
 	_scrollView(nullptr),
-	_level(0)
+	_level(0),
+	_worldPosition(0)
 {
 	srand(time(nullptr));
 
-	_worldPosition = UserData::getInstance()->openDoubleUserData(
-		_global->userInformation->getGameDifficulty() ? "WORLD_1_POSITION_DIF" : "WORLD_1_POSITION");
+	_global->userInformation->setCurrentPlayWorldTag(0);
+	_global->userInformation->setCurrentPlayWorldName(_global->userInformation->getGameText().find(" - 现代世界 - ")->second->text);
+	_worldPosition = UserData::getInstance()->openDoubleUserData(const_cast<char*>(getScrollViewPositionString().c_str()));
+
+	_isPopEnter = false;
 }
 
 ModernWorld::~ModernWorld()
 {
 	_isPopEnter = false;
-}
-
-Scene* ModernWorld::createScene()
-{
-	return ModernWorld::create();
 }
 
 void ModernWorld::setPopEnter(const bool isPopEnter)
@@ -76,7 +75,7 @@ void ModernWorld::onEnter()
 		layer->runAction(Sequence::create(DelayTime::create(0.1f),
 			CallFunc::create([=]()
 				{
-					Director::getInstance()->replaceScene(TransitionFade::create(0.5f, ModernWorld::createScene()));
+					Director::getInstance()->replaceScene(TransitionFade::create(0.5f, ModernWorld::create()));
 				}), nullptr));
 	}
 
@@ -144,7 +143,8 @@ void ModernWorld::createScrollView()
 	_scrollView->setBounceEnabled(true);
 	_scrollView->setDirection(ui::ScrollView::Direction::HORIZONTAL);
 	_scrollView->setContentSize(size);
-	_scrollView->setInnerContainerSize(Size(1920 + 600 * _global->userInformation->getUserSelectWorldData().at(0)->levels, size.height));//1920+600*52
+	_scrollView->setInnerContainerSize(Size(1920 + 600 * 
+		_global->userInformation->getUserSelectWorldData().at(0)->levels, size.height));//1920+600*52
 	_scrollView->setPosition(Vec2(0, 0));
 	_scrollView->jumpToPercentHorizontal(_worldPosition);
 	this->addChild(_scrollView);
@@ -638,7 +638,7 @@ void ModernWorld::readWorldLevel()
 		OpenLevelData::getInstance()->openLevelsData(
 			_global->userInformation->getTextPath().find(
 				_global->userInformation->getGameDifficulty() ?
-				"GAMEWORLD_1DATAS_DIF" : "GAMEWORLD_1DATAS")->second);
+				"GameDataModernWorldDif" : "GameDataModernWorld")->second);
 		_global->userInformation->getUserSelectWorldData().at(0)->isReadWoldInformation = true;
 	}
 
@@ -672,11 +672,7 @@ void ModernWorld::createGoBack()
 				PlayMusic::playMusic("gravebutton");
 				break;
 			case ui::Widget::TouchEventType::ENDED:
-
-				UserData::getInstance()->caveUserData(
-					_global->userInformation->getGameDifficulty() ? "WORLD_1_POSITION_DIF" : "WORLD_1_POSITION",
-					_scrollView->getScrolledPercentHorizontal()); /* 记录位置 */
-
+				UserData::getInstance()->caveUserData(const_cast<char*>(getScrollViewPositionString().c_str()),_scrollView->getScrolledPercentHorizontal()); /* 记录位置 */
 				_global->userInformation->setMainToWorld(false);
 				Director::getInstance()->replaceScene(TransitionFade::create(0.5f, SelectWorldScene::createScene()));
 				break;
@@ -684,12 +680,15 @@ void ModernWorld::createGoBack()
 		});
 }
 
+string ModernWorld::getScrollViewPositionString()
+{
+	auto str= to_string(_global->userInformation->getCurrentPlayWorldTag()).
+		append(_global->userInformation->getGameDifficulty() ? "WORLD_POSITION_DIF" : "WORLD_POSITION");
+	return str;
+}
+
 void ModernWorld::playLevelGameAndCaveThings(const int id)
 {
-	UserData::getInstance()->caveUserData(
-		_global->userInformation->getGameDifficulty() ? "WORLD_1_POSITION_DIF" : "WORLD_1_POSITION",
-		_scrollView->getScrolledPercentHorizontal()); /* 记录位置 */
-
 	string levelName("Level_" + to_string(id));
 	
 	//读取关卡信息
@@ -697,9 +696,8 @@ void ModernWorld::playLevelGameAndCaveThings(const int id)
 	OpenLevelData::getInstance()->setLevelNumber(id);
 
 	_global->userInformation->setCurrentPlayLevels(id);
-	_global->userInformation->setCurrentPlayWorldTag(0);
-	_global->userInformation->setCurrentPlayWorldName(_global->userInformation->getGameText().find(" - 现代世界 - ")->second->text);
-
+	
+	UserData::getInstance()->caveUserData(const_cast<char*>(getScrollViewPositionString().c_str()), _scrollView->getScrolledPercentHorizontal()); /* 记录位置 */
 	UserData::getInstance()->createNewLevelDataDocument();
 	if (UserData::getInstance()->isHaveLevelData(_global->userInformation->getCurrentCaveFileLevelWorldName()))
 	{
@@ -710,9 +708,9 @@ void ModernWorld::playLevelGameAndCaveThings(const int id)
 			CallFunc::create([=]()
 				{
 					layer->removeFromParent();
-					Director::getInstance()->pushScene(OpenCaveGameScene::createScene());
+					Director::getInstance()->pushScene(OpenCaveGameScene::create());
 				}), nullptr));
 	}
 	else
-		Director::getInstance()->pushScene(TransitionFade::create(1.0f, SelectPlantsScene::createScene()));
+		Director::getInstance()->pushScene(TransitionFade::create(1.0f, SelectPlantsScene::create()));
 }

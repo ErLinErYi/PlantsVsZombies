@@ -64,6 +64,9 @@
     <Filter Include="Class\Scenes\GameScene\BigMap">
       <UniqueIdentifier>{ae171f0f-3fbc-4fbf-8551-2ec701062467}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Class\Scenes\SelectPlantsScene\BigMap">
+      <UniqueIdentifier>{960fabe8-0cb8-48ba-a8f8-d871aa1e7ca3}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ResourceCompile Include="game.rc">
@@ -254,9 +257,6 @@
     <ClCompile Include="..\Classes\Scenes\SelectPlantsScene\SurvivalSelectScene\LZSSSSurvivalSelectScene.cpp">
       <Filter>Class\Scenes\SelectPlantsScene\SurvivalSelectScene</Filter>
     </ClCompile>
-    <ClCompile Include="..\Classes\Scenes\SelectPlantsScene\LZSSMirrorSelectPlantsScene.cpp">
-      <Filter>Class\Scenes\SelectPlantsScene</Filter>
-    </ClCompile>
     <ClCompile Include="..\Classes\Scenes\SelectPlantsScene\LZSSSelectPlantsScene.cpp">
       <Filter>Class\Scenes\SelectPlantsScene</Filter>
     </ClCompile>
@@ -277,12 +277,6 @@
     </ClCompile>
     <ClCompile Include="..\Classes\Scenes\SelectPlantsScene\LZSSSpriteLayer.cpp">
       <Filter>Class\Scenes\SelectPlantsScene</Filter>
-    </ClCompile>
-    <ClCompile Include="..\Classes\Scenes\WorldScene\LZSMSelectWorldScene.cpp">
-      <Filter>Class\Scenes\WorldScene</Filter>
-    </ClCompile>
-    <ClCompile Include="..\Classes\Scenes\WorldScene\LZSMModernWorld.cpp">
-      <Filter>Class\Scenes\WorldScene</Filter>
     </ClCompile>
     <ClCompile Include="..\Classes\Zombies\LZZBucketDoorFlagZombies.cpp">
       <Filter>Class\Zombies</Filter>
@@ -331,9 +325,6 @@
     </ClCompile>
     <ClCompile Include="..\Classes\LZPlantsVsZombies.cpp">
       <Filter>Class</Filter>
-    </ClCompile>
-    <ClCompile Include="..\Classes\Scenes\WorldScene\LZSMMirrorModernWorld.cpp">
-      <Filter>Class\Scenes\WorldScene</Filter>
     </ClCompile>
     <ClCompile Include="..\Classes\Scenes\LoadingScene\LZSLSelectLanguageLayer.cpp">
       <Filter>Class\Scenes\LoadingScene</Filter>
@@ -424,6 +415,54 @@
     </ClCompile>
     <ClCompile Include="..\Classes\Scenes\MainMenuScene\LZSMUnlockDialogLayer.cpp">
       <Filter>Class\Scenes\MainMenuScene</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Classes\Scenes\GameScene\BigMap\LZSBBackgroundLayer.cpp">
+      <Filter>Class\Scenes\GameScene\BigMap</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Classes\Scenes\SelectPlantsScene\BigMap\LZSBSelectPlantsScene.cpp">
+      <Filter>Class\Scenes\SelectPlantsScene\BigMap</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Classes\Scenes\SelectPlantsScene\BigMap\LZSSBBackgroundLayer.cpp">
+      <Filter>Class\Scenes\SelectPlantsScene\BigMap</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Classes\Scenes\WorldScene\LZSWBigMapWorld.cpp">
+      <Filter>Class\Scenes\WorldScene</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Classes\Scenes\WorldScene\LZSWModernWorld.cpp">
+      <Filter>Class\Scenes\WorldScene</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Classes\Scenes\WorldScene\LZSWSelectWorldScene.cpp">
+      <Filter>Class\Scenes\WorldScene</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Classes\Scenes\SelectPlantsScene\LZSSMirrorSelectPlantsScene.cpp">
+      <Filter>Class\Scenes\SelectPlantsScene</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Classes\Scenes\GameScene\BigMap\LZSBBigMapGameScene.cpp">
+      <Filter>Class\Scenes\GameScene\BigMap</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Classes\Scenes\GameScene\BigMap\LZSBControlLayer.cpp">
+      <Filter>Class\Scenes\GameScene\BigMap</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Classes\Scenes\GameScene\BigMap\LZSBAnimationLayer.cpp">
+      <Filter>Class\Scenes\GameScene\BigMap</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Classes\Scenes\GameScene\BigMap\LZSBInformationLayer.cpp">
+      <Filter>Class\Scenes\GameScene\BigMap</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Classes\Scenes\GameScene\BigMap\LZSBPauseQuitLayer.cpp">
+      <Filter>Class\Scenes\GameScene\BigMap</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Classes\Scenes\GameScene\BigMap\LZSBButtonLayer.cpp">
+      <Filter>Class\Scenes\GameScene\BigMap</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Classes\Scenes\GameScene\BigMap\LZSBOpenCaveGameScene.cpp">
+      <Filter>Class\Scenes\GameScene\BigMap</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Classes\Scenes\WorldScene\LZSWUnlockDialogLayer.cpp">
+      <Filter>Class\Scenes\WorldScene</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Classes\Zombies\LZGargantuarZombies.cpp">
+      <Filter>Class\Zombies</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -619,9 +658,6 @@
     <ClInclude Include="..\Classes\Scenes\SelectPlantsScene\SurvivalSelectScene\LZSSSSurvivalSelectScene.h">
       <Filter>Class\Scenes\SelectPlantsScene\SurvivalSelectScene</Filter>
     </ClInclude>
-    <ClInclude Include="..\Classes\Scenes\SelectPlantsScene\LZSSMirrorSelectPlantsScene.h">
-      <Filter>Class\Scenes\SelectPlantsScene</Filter>
-    </ClInclude>
     <ClInclude Include="..\Classes\Scenes\SelectPlantsScene\LZSSSelectPlantsScene.h">
       <Filter>Class\Scenes\SelectPlantsScene</Filter>
     </ClInclude>
@@ -642,12 +678,6 @@
     </ClInclude>
     <ClInclude Include="..\Classes\Scenes\SelectPlantsScene\LZSSSpriteLayer.h">
       <Filter>Class\Scenes\SelectPlantsScene</Filter>
-    </ClInclude>
-    <ClInclude Include="..\Classes\Scenes\WorldScene\LZSMSelectWorldScene.h">
-      <Filter>Class\Scenes\WorldScene</Filter>
-    </ClInclude>
-    <ClInclude Include="..\Classes\Scenes\WorldScene\LZSMModernWorld.h">
-      <Filter>Class\Scenes\WorldScene</Filter>
     </ClInclude>
     <ClInclude Include="..\Classes\Zombies\LZZBucketDoorFlagZombies.h">
       <Filter>Class\Zombies</Filter>
@@ -699,9 +729,6 @@
     </ClInclude>
     <ClInclude Include="..\Classes\LZPlantsVsZombies.h">
       <Filter>Class</Filter>
-    </ClInclude>
-    <ClInclude Include="..\Classes\Scenes\WorldScene\LZSMMirrorModernWorld.h">
-      <Filter>Class\Scenes\WorldScene</Filter>
     </ClInclude>
     <ClInclude Include="..\Classes\Scenes\LoadingScene\LZSLSelectLanguageLayer.h">
       <Filter>Class\Scenes\LoadingScene</Filter>
@@ -792,6 +819,54 @@
     </ClInclude>
     <ClInclude Include="..\Classes\Scenes\MainMenuScene\LZSMUnlockDialogLayer.h">
       <Filter>Class\Scenes\MainMenuScene</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Classes\Scenes\GameScene\BigMap\LZSBBackgroundLayer.h">
+      <Filter>Class\Scenes\GameScene\BigMap</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Classes\Scenes\SelectPlantsScene\BigMap\LZSBSelectPlantsScene.h">
+      <Filter>Class\Scenes\SelectPlantsScene\BigMap</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Classes\Scenes\SelectPlantsScene\BigMap\LZSSBBackgroundLayer.h">
+      <Filter>Class\Scenes\SelectPlantsScene\BigMap</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Classes\Scenes\WorldScene\LZSWBigMapWorld.h">
+      <Filter>Class\Scenes\WorldScene</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Classes\Scenes\WorldScene\LZSWModernWorld.h">
+      <Filter>Class\Scenes\WorldScene</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Classes\Scenes\WorldScene\LZSWSelectWorldScene.h">
+      <Filter>Class\Scenes\WorldScene</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Classes\Scenes\SelectPlantsScene\LZSSMirrorSelectPlantsScene.h">
+      <Filter>Class\Scenes\SelectPlantsScene</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Classes\Scenes\GameScene\BigMap\LZSBBigMapGameScene.h">
+      <Filter>Class\Scenes\GameScene\BigMap</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Classes\Scenes\GameScene\BigMap\LZSBControlLayer.h">
+      <Filter>Class\Scenes\GameScene\BigMap</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Classes\Scenes\GameScene\BigMap\LZSBAnimationLayer.h">
+      <Filter>Class\Scenes\GameScene\BigMap</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Classes\Scenes\GameScene\BigMap\LZSBInformationLayer.h">
+      <Filter>Class\Scenes\GameScene\BigMap</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Classes\Scenes\GameScene\BigMap\LZSBPauseQuitLayer.h">
+      <Filter>Class\Scenes\GameScene\BigMap</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Classes\Scenes\GameScene\BigMap\LZSBButtonLayer.h">
+      <Filter>Class\Scenes\GameScene\BigMap</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Classes\Scenes\GameScene\BigMap\LZSBOpenCaveGameScene.h">
+      <Filter>Class\Scenes\GameScene\BigMap</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Classes\Scenes\WorldScene\LZSWUnlockDialogLayer.h">
+      <Filter>Class\Scenes\WorldScene</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Classes\Zombies\LZGargantuarZombies.h">
+      <Filter>Class\Zombies</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>

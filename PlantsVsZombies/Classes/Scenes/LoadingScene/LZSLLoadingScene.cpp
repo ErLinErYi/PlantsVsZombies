@@ -334,7 +334,7 @@ void LoadingScene::showTileAndLoadingBar()
 
 	/* 让精灵运动起来 */
 	_sprite[4]->runAction(Sequence::create(
-		MoveTo::create(0.5f, Vec2(size.width / 2, 150)), 
+		EaseSineOut::create(MoveTo::create(0.5f, Vec2(size.width / 2, 150))),
 		CallFuncN::create(CC_CALLBACK_1(LoadingScene::runLoGoCallBack, this, 4)), NULL));
 	_sprite[6]->runAction(RepeatForever::create(
 		Sequence::create(MoveTo::create(1.0f, Vec2(SpriteSize.width, 0)), DelayTime::create(2.0f),
@@ -342,7 +342,7 @@ void LoadingScene::showTileAndLoadingBar()
 			{
 				_sprite[6]->setPosition(Vec2(-SpriteSize.width, 0));
 			}), nullptr)));
-	clippingNode->runAction(MoveTo::create(0.5f, Vec2(size.width / 2, 900)));
+	clippingNode->runAction(EaseBounceOut::create(MoveTo::create(0.5f, Vec2(size.width / 2, 900))));
 
 	/* 加到场景中 */
 	this->addChild(_sprite[4]);

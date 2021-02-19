@@ -24,7 +24,6 @@ class GSPauseQuitLayer :public OptionsMenu
 {
 public:
 	CREATE_FUNC(GSPauseQuitLayer);
-	static Layer* addLayer();
 	static void pauseLayer();
 	static void resumeLayer();
 	static void setPause(const bool pause);

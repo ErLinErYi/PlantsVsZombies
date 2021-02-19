@@ -142,10 +142,14 @@ ui::Text* SPSControlLayer::showCoinNumbers(Node* node)
 	node->addChild(coinBank);
 
 	auto coinNumbersText = ui::Text::create(to_string(Global::getInstance()->userInformation->getCoinNumbers()), GAME_FONT_NAME_2, 35);
-	coinNumbersText->setPosition(Vec2(185, 36));
+	coinNumbersText->setPosition(Vec2(195, 36));
+	coinNumbersText->setTextAreaSize(Size(230, coinBank->getContentSize().height - 40));
+	coinNumbersText->setTextHorizontalAlignment(TextHAlignment::CENTER);
+	coinNumbersText->setTextVerticalAlignment(TextVAlignment::CENTER);
 	coinNumbersText->setAnchorPoint(Vec2(0.5f, 0.5f));
 	coinNumbersText->setColor(Color3B::YELLOW);
 	coinNumbersText->enableGlow(Color4B(0, 255, 255, 255));
+	coinNumbersText->setOverflow(Overflow::SHRINK);
 	coinBank->addChild(coinNumbersText);
 
 	return coinNumbersText;
@@ -159,9 +163,13 @@ ui::Text* SPSControlLayer::showDieZombiesNumbers(Node* node)
 	node->addChild(zombiesDie);
 
 	auto zombiesDieText = Text::create(to_string(Global::getInstance()->userInformation->getKillZombiesNumbers()), GAME_FONT_NAME_2, 30);
-	zombiesDieText->setPosition(Vec2(130, 30));
+	zombiesDieText->setPosition(Vec2(135, 30));
+	zombiesDieText->setTextAreaSize(Size(140, zombiesDie->getContentSize().height - 40));
+	zombiesDieText->setTextHorizontalAlignment(TextHAlignment::CENTER);
+	zombiesDieText->setTextVerticalAlignment(TextVAlignment::CENTER);
 	zombiesDieText->setColor(Color3B(190, 0, 190));
 	zombiesDieText->enableGlow(Color4B(0, 255, 255, 255));
+	zombiesDieText->setOverflow(Overflow::SHRINK);
 	zombiesDie->addChild(zombiesDieText);
 
 	return zombiesDieText;

@@ -186,15 +186,20 @@ Text::Type Text::getType() const
     return _type;
 }
 
-void Text::setTextAreaSize(const Size &size)
+void Text::setTextAreaSize(const Size& size, bool change)
 {
-    _labelRenderer->setDimensions(size.width,size.height);
+    _labelRenderer->setDimensions(size.width, size.height, change);
     if (!_ignoreSize)
     {
-        _customSize=size;
+        _customSize = size;
     }
     updateContentSizeWithTextureSize(_labelRenderer->getContentSize());
     _labelRendererAdaptDirty = true;
+}
+
+void Text::setLineBreakWithoutSpace(bool breakWithoutSpace)
+{
+    _labelRenderer->setLineBreakWithoutSpace(breakWithoutSpace);
 }
 
 const Size& Text::getTextAreaSize()const
@@ -230,6 +235,11 @@ void Text::setTextColor(const Color4B color)
 const Color4B& Text::getTextColor() const
 {
     return _labelRenderer->getTextColor();
+}
+
+void Text::setOverflow(Overflow overflow)
+{
+    _labelRenderer->setOverflow(overflow);
 }
 
 void Text::setTouchScaleChangeEnabled(bool enable)

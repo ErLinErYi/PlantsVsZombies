@@ -21,3 +21,4 @@
 #include "Zombies/LZZConeDoorFlagZombies.h"
 #include "Zombies/LZZBucketDoorFlagZombies.h"
 #include "Zombies/LZZSnowZombies.h"
+#include "Zombies/LZGargantuarZombies.h"

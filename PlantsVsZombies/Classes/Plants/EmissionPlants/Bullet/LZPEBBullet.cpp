@@ -9,6 +9,7 @@
 
 #include "Zombies/LZZZombies.h"
 #include "Scenes/GameScene/LZSGData.h"
+#include "Scenes/GameScene/LZSGControlLayer.h"
 #include "Based/LZBPlayMusic.h"
 
 Bullet::Bullet() :
@@ -150,6 +151,17 @@ void Bullet::bulletAttackHurtZombies(Zombies* zombie)
 	}
 }
 
+void Bullet::bulletOutMapSetInvisible()
+{
+	auto pos = _bulletAnimation->getPosition();
+	if (pos.x > controlLayerInformation->gameMapInformation->mapRight + 600 ||
+		pos.y > controlLayerInformation->gameMapInformation->mapTop + 600 ||
+		pos.x < 0 || pos.y < 0)
+	{
+		_bulletAnimation->setVisible(false);
+	}
+}
+
 string& Bullet::getBulletName()
 {
 	return _bulletName;
@@ -157,12 +169,13 @@ string& Bullet::getBulletName()
 
 float Bullet::getZOrder() const
 {
-	return 4 * 20 + 12 - _bulletRow * 20;
+	return (50 - _bulletRow) * 100 + 70;
 }
 
-void Bullet::releaseBullet() const
+void Bullet::releaseBullet()
 {
 	_bulletAnimation->removeFromParent();
+	_bulletAnimation = nullptr;
 }
 
 Vec2 Bullet::getBulletPosition() const

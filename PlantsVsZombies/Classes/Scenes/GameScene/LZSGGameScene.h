@@ -19,7 +19,6 @@ class GameScene :public SelectPlantsScene
 {
 public:
 	CREATE_FUNC(GameScene);
-	static Scene* createScene();
 
 CC_CONSTRUCTOR_ACCESS:
 	GameScene();

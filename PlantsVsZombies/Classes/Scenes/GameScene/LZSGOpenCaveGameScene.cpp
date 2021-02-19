@@ -22,11 +22,6 @@ OpenCaveGameScene::~OpenCaveGameScene()
 	_global->userInformation->setIsReadFileData(false);
 }
 
-Scene* OpenCaveGameScene::createScene()
-{
-	return OpenCaveGameScene::create();
-}
-
 bool OpenCaveGameScene::init()
 {
 	if (!Scene::init())return false;
@@ -49,7 +44,7 @@ void OpenCaveGameScene::onEnter()
 	Scene::onEnter();
 
 	GSPauseQuitLayer::pauseLayer();
-	_director->getRunningScene()->addChild(GSPauseQuitLayer::addLayer(), 10, "pauseLayer");
+	_director->getRunningScene()->addChild(GSPauseQuitLayer::create(), 10, "pauseLayer");
 	
 	auto layer = LayerColor::create(Color4B(0, 0, 0, 255));
 	layer->setGlobalZOrder(2);

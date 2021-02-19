@@ -34,11 +34,6 @@ SelectPlantsScene::~SelectPlantsScene()
 {
 }
 
-Scene* SelectPlantsScene::createScene()
-{
-	return SelectPlantsScene::create();
-}
-
 bool SelectPlantsScene::init()
 {
 	if (!Scene::init())return false;
@@ -69,7 +64,7 @@ void SelectPlantsScene::createBackgroundLayer()
 	_scrollView->runAction(Sequence::create(DelayTime::create(1.0f),
 		CallFunc::create([&]()
 			{
-				_scrollView->setContentOffsetInDuration(Vec2(-1010, 0), 2.5f);
+				_scrollView->setContentOffsetInDuration(Vec2(-1010, 0), 2.5f, 1);
 			}), nullptr));
 	this->addChild(_scrollView);
 }
@@ -137,7 +132,7 @@ void SelectPlantsScene::controlShowRequirement()
 
 void SelectPlantsScene::selectPlantsCallBack()
 {
-	_scrollView->setContentOffsetInDuration(Vec2(-220, 0), 2.0f);//设置滚动方向与时间
+	_scrollView->setContentOffsetInDuration(Vec2(-220, 0), 2.0f, 1);//设置滚动方向与时间
 
 	_eventType = SPSEventType::playGame;
 }
@@ -178,7 +173,7 @@ void SelectPlantsScene::replaceScene()
 	_global->userInformation->setSunNumbers(100); //设定初始阳光数 
 
 	if (_global->userInformation->getIsEaseAnimation() == ui::CheckBox::EventType::SELECTED)
-		Director::getInstance()->replaceScene(TransitionFade::create(1.f, GameScene::createScene()));
+		Director::getInstance()->replaceScene(TransitionFade::create(1.f, GameScene::create()));
 	else
-		Director::getInstance()->replaceScene(GameScene::createScene());
+		Director::getInstance()->replaceScene(GameScene::create());
 }

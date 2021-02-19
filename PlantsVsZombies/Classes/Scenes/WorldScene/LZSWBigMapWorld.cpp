@@ -1,42 +1,38 @@
 /**
- *Copyright (c) 2019 LZ.All Right Reserved
+ *Copyright (c) 2020 LZ.All Right Reserved
  *Author : LZ
  *Date: 2020.4.17
  *Email: 2117610943@qq.com
  */
 
-#include "LZSMMirrorModernWorld.h"
-#include "LZSMSelectWorldScene.h"
+#include "LZSWBigMapWorld.h"
+#include "LZSWSelectWorldScene.h"
 #include "Based/LZBLevelData.h"
 #include "Based/LZBUserData.h"
 #include "Based/LZBPlayMusic.h"
-#include "Scenes/GameScene/LZSGOpenCaveGameScene.h"
-#include "../SelectPlantsScene/LZSSMirrorSelectPlantsScene.h"
+#include "Scenes/GameScene/BigMap/LZSBOpenCaveGameScene.h"
+#include "Scenes/SelectPlantsScene/BigMap/LZSBSelectPlantsScene.h"
 
-bool MirrorModernWorld::_isPopEnter = false;
-
-MirrorModernWorld::MirrorModernWorld()
+BigMapWorld::BigMapWorld()
 {
-    _worldPosition = UserData::getInstance()->openDoubleUserData(
-        _global->userInformation->getGameDifficulty() ? "WORLD_2_POSITION_DIF" : "WORLD_2_POSITION");
-
-    /* 播放音乐 */
     PlayMusic::changeBgMusic("mainmusic2", true);
+
+    _global->userInformation->setCurrentPlayWorldTag(1);
+    _global->userInformation->setCurrentPlayWorldName(" - 大地图模式 - ");
+    _worldPosition = UserData::getInstance()->openDoubleUserData(const_cast<char*>(getScrollViewPositionString().c_str()));
+
+    _isPopEnter = false;
 }
 
-MirrorModernWorld::~MirrorModernWorld()
+BigMapWorld::~BigMapWorld()
 {
     _isPopEnter = false;
 }
 
-Scene* MirrorModernWorld::createScene()
-{
-    return MirrorModernWorld::create();
-}
-
-void MirrorModernWorld::onEnter()
+void BigMapWorld::onEnter()
 {
     Scene::onEnter();
+
     if (_isPopEnter)
     {
         _isPopEnter = false;
@@ -45,19 +41,20 @@ void MirrorModernWorld::onEnter()
         layer->runAction(Sequence::create(DelayTime::create(0.1f),
             CallFunc::create([=]()
                 {
-                    Director::getInstance()->replaceScene(TransitionFade::create(0.5f, MirrorModernWorld::createScene()));
+                    Director::getInstance()->replaceScene(TransitionFade::create(0.5f, BigMapWorld::create()));
                 }), nullptr));
     }
 }
 
-void MirrorModernWorld::createScrollView()
+void BigMapWorld::createScrollView()
 {
     auto size = Director::getInstance()->getVisibleSize();
     _scrollView = ui::ScrollView::create();
     _scrollView->setBounceEnabled(true);
     _scrollView->setDirection(ui::ScrollView::Direction::HORIZONTAL);
     _scrollView->setContentSize(size);
-    _scrollView->setInnerContainerSize(Size(33100, size.height));
+    _scrollView->setInnerContainerSize(Size(1920 + 600 *
+        _global->userInformation->getUserSelectWorldData().at(1)->levels, size.height));//1920+600*52
     _scrollView->setPosition(Vec2(0, 0));
     _scrollView->jumpToPercentHorizontal(_worldPosition);
     this->addChild(_scrollView);
@@ -67,7 +64,7 @@ void MirrorModernWorld::createScrollView()
     addScrollView(1);
 }
 
-void MirrorModernWorld::readWorldLevel()
+void BigMapWorld::readWorldLevel()
 {
     /* 读取该世界关卡数据 */
     if (!_global->userInformation->getUserSelectWorldData().at(1)->isReadWoldInformation)
@@ -75,7 +72,7 @@ void MirrorModernWorld::readWorldLevel()
         OpenLevelData::getInstance()->openLevelsData(
             _global->userInformation->getTextPath().find(
                 _global->userInformation->getGameDifficulty() ?
-                "GAMEWORLD_1DATAS_DIF" : "GAMEWORLD_1DATAS")->second);
+                "GameDataModernWorldDIF" : "GameDataModernWorld")->second);
         _global->userInformation->getUserSelectWorldData().at(1)->isReadWoldInformation = true;
     }
 
@@ -94,7 +91,7 @@ void MirrorModernWorld::readWorldLevel()
     }
 }
 
-ui::Button* MirrorModernWorld::createButton(Node* node, const std::string& name, const Vec2& position)
+ui::Button* BigMapWorld::createButton(Node* node, const std::string& name, const Vec2& position)
 {
     auto sprite4 = ui::Button::create(name + ".png", "", "", TextureResType::PLIST);
     sprite4->setPosition(position);
@@ -143,7 +140,7 @@ ui::Button* MirrorModernWorld::createButton(Node* node, const std::string& name,
     return sprite4;
 }
 
-void MirrorModernWorld::createButtonListener(ui::Button* button, const int& ID)
+void BigMapWorld::createButtonListener(ui::Button* button, const int& ID)
 {
     button->addTouchEventListener([=](Ref* sender, ui::Widget::TouchEventType type)
         {
@@ -154,26 +151,36 @@ void MirrorModernWorld::createButtonListener(ui::Button* button, const int& ID)
                 break;
             case ui::Widget::TouchEventType::ENDED:
 
-                UserData::getInstance()->caveUserData(
-                    _global->userInformation->getGameDifficulty() ? "WORLD_2_POSITION_DIF" : "WORLD_2_POSITION",
-                    _scrollView->getScrolledPercentHorizontal()); /* 记录位置 */
-
                 //读取关卡信息
                 OpenLevelData::getInstance()->createLevelData(ID, StringUtils::format("Level_%d", ID).c_str());
                 OpenLevelData::getInstance()->setLevelNumber(ID);
 
                 _global->userInformation->setCurrentPlayLevels(ID);
-                _global->userInformation->setCurrentPlayWorldTag(1);
-                _global->userInformation->setCurrentPlayWorldName(" - 镜像世界 - ");
 
-                Director::getInstance()->pushScene(TransitionFade::create(1.0f, MirrorSelectPlantsScene::createScene()));
+                UserData::getInstance()->caveUserData(const_cast<char*>(getScrollViewPositionString().c_str()), 
+                    _scrollView->getScrolledPercentHorizontal()); /* 记录位置 */
+                UserData::getInstance()->createNewLevelDataDocument();
+                if (UserData::getInstance()->isHaveLevelData(_global->userInformation->getCurrentCaveFileLevelWorldName()))
+                {
+                    auto layer = LayerColor::create(Color4B(0, 0, 0, 0));
+                    layer->setGlobalZOrder(2);
+                    this->addChild(layer);
+                    layer->runAction(Sequence::create(FadeIn::create(0.5f),
+                        CallFunc::create([=]()
+                            {
+                                layer->removeFromParent();
+                                Director::getInstance()->pushScene(BMOpenCaveGameScene::create());
+                            }), nullptr));
+                }
+                else
+                    Director::getInstance()->pushScene(TransitionFade::create(1.0f, BSelectPlantsScene::create()));
 
                 break;
             }
         });
 }
 
-void MirrorModernWorld::setLevelVisible(Node* node)
+void BigMapWorld::setLevelVisible(Node* node)
 {
     if (_global->userInformation->getUserSelectWorldData().at(1)->levels < _level - 1)
     {
@@ -191,7 +198,7 @@ void MirrorModernWorld::setLevelVisible(Node* node)
     }
 }
 
-void MirrorModernWorld::createGoBack()
+void BigMapWorld::createGoBack()
 {
     auto back = ui::Button::create("back.png", "back1.png", "", TextureResType::PLIST);
     back->setScale(0.7f);
@@ -208,8 +215,7 @@ void MirrorModernWorld::createGoBack()
                 break;
             case ui::Widget::TouchEventType::ENDED:
 
-                UserData::getInstance()->caveUserData(
-                    _global->userInformation->getGameDifficulty() ? "WORLD_2_POSITION_DIF" : "WORLD_2_POSITION",
+                UserData::getInstance()->caveUserData(const_cast<char*>(getScrollViewPositionString().c_str()),
                     _scrollView->getScrolledPercentHorizontal()); /* 记录位置 */
 
                 _global->userInformation->setMainToWorld(false);

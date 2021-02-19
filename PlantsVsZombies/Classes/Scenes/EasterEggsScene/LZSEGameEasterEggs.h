@@ -23,7 +23,6 @@ class VideoPlayer;
 class GameEasterEggs :public Scene
 {
 public:
-	static Scene* createScene();             /* ´´½¨³¡¾° */
 	CREATE_FUNC(GameEasterEggs);
 
 CC_CONSTRUCTOR_ACCESS:

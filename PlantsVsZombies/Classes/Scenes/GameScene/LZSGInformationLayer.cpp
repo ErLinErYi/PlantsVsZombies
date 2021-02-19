@@ -17,6 +17,7 @@ GSInformationLayer::GSInformationLayer():
 ,	_coinNumbersText(nullptr)
 ,	_sunNumbersText(nullptr)
 ,	_progressBar(nullptr)
+,    gameType(nullptr)
 ,	_global(Global::getInstance())
 ,	_openLevelData(OpenLevelData::getInstance())
 {
@@ -24,6 +25,7 @@ GSInformationLayer::GSInformationLayer():
 
 GSInformationLayer::~GSInformationLayer()
 {
+	if (gameType)delete gameType;
 }
 
 bool GSInformationLayer::init()
@@ -35,6 +37,7 @@ bool GSInformationLayer::init()
 	showZombiesDieNumbers();
 	showCoinNumbers();
 	showSunNumbers();
+	showGameType();
 
 	return true;
 }
@@ -53,6 +56,7 @@ void GSInformationLayer::showUserText()
 	username->setFontSize(30);
 	username->setColor(Color3B(0, 255, 255));
 	username->enableGlow(Color4B::ORANGE);
+	username->setName("userName");
 	username->setPosition(Vec2(Director::getInstance()->getWinSize().width / 2.0f, 850));
 	this->addChild(username);
 }
@@ -111,6 +115,7 @@ void GSInformationLayer::showZombiesDieNumbers()
 void GSInformationLayer::updateZombiesDieNumbers()
 {
 	_zombiesDieText->setString(to_string(_global->userInformation->getKillZombiesNumbers()));
+	_zombiesDieText->setTextAreaSize(Size(140, _zombiesDieText->getParent()->getContentSize().height - 40), true);
 }
 
 void GSInformationLayer::showCoinNumbers()
@@ -123,6 +128,7 @@ void GSInformationLayer::showCoinNumbers()
 void GSInformationLayer::updateCoinNumbers()
 {
 	_coinNumbersText->setString(to_string(_global->userInformation->getCoinNumbers()));
+	_coinNumbersText->setTextAreaSize(Size(230, _coinNumbersText->getContentSize().height - 40), true);
 }
 
 void GSInformationLayer::showSunNumbers()
@@ -134,17 +140,23 @@ void GSInformationLayer::showSunNumbers()
 	sunBank->setPosition(Vec2(235, 1080));
 	this->addChild(sunBank);
 
-	_sunNumbersText = ui::Text::create();
-	_sunNumbersText->setFontSize(45);
-	_sunNumbersText->setFontName(GAME_FONT_NAME_2);
+	_sunNumbersText = ui::Text::create(to_string(_global->userInformation->getSunNumbers()), GAME_FONT_NAME_2, 45);
+	_sunNumbersText->setTextAreaSize(Size(170, sunBank->getContentSize().height - 50));
+	_sunNumbersText->setTextHorizontalAlignment(TextHAlignment::CENTER);
+	_sunNumbersText->setTextVerticalAlignment(TextVAlignment::CENTER);
 	_sunNumbersText->setPosition(Vec2(215, 65));
 	_sunNumbersText->setAnchorPoint(Vec2(0.5f, 0.5f));
 	_sunNumbersText->setColor(Color3B(255, 127, 39));
 	_sunNumbersText->enableGlow(Color4B(0, 255, 255, 255));
+	_sunNumbersText->setOverflow(Overflow::SHRINK);
 	_sunNumbersText->setName("SunNumbersText");
 	sunBank->addChild(_sunNumbersText);
+}
 
-	updateSunNumbers();
+void GSInformationLayer::showGameType()
+{
+	gameType = new GameType(this);
+	gameType->createGameType();
 }
 
 void GSInformationLayer::showPromptMuchZombiesText(const string& textName)
@@ -218,6 +230,7 @@ void GSInformationLayer::updateSunNumbers()
 	sun->runAction(Sequence::create(DelayTime::create(0.15f), CallFunc::create([sun]() {sun->removeFromParent(); }), nullptr));
 
 	_sunNumbersText->setString(to_string(_global->userInformation->getSunNumbers()));
+	_sunNumbersText->setTextAreaSize(Size(170, _sunNumbersText->getParent()->getContentSize().height - 50), true);
 }
 
 void GSInformationLayer::updateProgressBar(const int& zombiesAppearFrequency)

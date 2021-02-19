@@ -694,12 +694,12 @@ void Label::setMaxLineWidth(float maxLineWidth)
     }
 }
 
-void Label::setDimensions(float width, float height)
+void Label::setDimensions(float width, float height, bool change)
 {
     if(_overflow == Overflow::RESIZE_HEIGHT){
         height = 0;
     }
-    if (height != _labelHeight || width != _labelWidth)
+    if (change || height != _labelHeight || width != _labelWidth)
     {
         _labelWidth = width;
         _labelHeight = height;
@@ -709,7 +709,7 @@ void Label::setDimensions(float width, float height)
         _maxLineWidth = width;
         _contentDirty = true;
 
-        if(_overflow == Overflow::SHRINK){
+        if (_overflow == Overflow::SHRINK) {
             if (_originalFontSize > 0) {
                 this->restoreFontSize();
             }
@@ -2186,7 +2186,7 @@ void Label::rescaleWithOriginalFontSize()
     }
 }
 
-Label::Overflow Label::getOverflow()const
+Overflow Label::getOverflow()const
 {
     return _overflow;
 }

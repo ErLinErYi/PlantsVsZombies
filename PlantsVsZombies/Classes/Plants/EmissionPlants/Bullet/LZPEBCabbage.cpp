@@ -55,7 +55,8 @@ void Cabbage::createListener(const string& actionName, float scale)
 			{
 				if (_bulletAnimation->getOpacity()) /* 如果没有隐藏说明没有击中僵尸 */
 				{
-					playSoundEffect(SoundEffectType::kernelpult);
+					playSoundEffect(_bulletType == BulletType::Cabbage ?
+						SoundEffectType::kernelpult : SoundEffectType::watermelon);
 				}
 				_bulletAnimation->setScale(scale);
 				_bulletAnimation->setAnimation(0, actionName, false);
@@ -141,29 +142,23 @@ Vec2 Cabbage::calculateZombiePosition()
 void Cabbage::createShadow(float scale)
 {
 	/* 创建影子 */
-	auto shadow = Sprite::createWithSpriteFrameName("plantshadow.png");
-	shadow->setPosition(Vec2(_initPosition.x, _position.y));
-	shadow->setLocalZOrder(getZOrder());
-	shadow->setOpacity(180);
-	shadow->setName("shadow");
-	shadow->setScale(scale);
-	_node->addChild(shadow);
-	shadow->runAction(RepeatForever::create(Sequence::create(
+	auto bulletShadow = Sprite::createWithSpriteFrameName("plantshadow.png");
+	bulletShadow->setPosition(Vec2(_initPosition.x, _position.y));
+	bulletShadow->setLocalZOrder(getZOrder());
+	bulletShadow->setOpacity(180);
+	bulletShadow->setName("shadow");
+	bulletShadow->setScale(scale);
+	_node->addChild(bulletShadow);
+	bulletShadow->runAction(RepeatForever::create(Sequence::create(
 		CallFunc::create([=]()
 			{
-				shadow->setPositionX(_bulletAnimation->getPositionX());
-			}), DelayTime::create(0.01f),
+				bulletShadow->setPositionX(_bulletAnimation->getPositionX());
+			}), DelayTime::create(0.02f),nullptr)));
+
+	bulletShadow->runAction(Sequence::create(DelayTime::create(_actionTime), 
 		CallFunc::create([=]() 
 			{
-				if (!_bulletAnimation->getOpacity())
-				{
-					shadow->removeFromParent();
-				}
-			}), nullptr)));
-	shadow->runAction(Sequence::create(DelayTime::create(1.0f),
-		CallFunc::create([shadow]()
-			{
-				shadow->removeFromParent();
+				bulletShadow->removeFromParent();
 			}), nullptr));
 }
 
@@ -176,6 +171,7 @@ void Cabbage::createExplodeAnimation(const string& animationName, const string& 
 	cabbageExplode->setLocalZOrder(_bulletAnimation->getLocalZOrder());
 	cabbageExplode->setPosition(_bulletAnimation->getPosition());
 	cabbageExplode->setAnchorPoint(Vec2(0, 0));
+	cabbageExplode->update(0);
 	cabbageExplode->runAction(Sequence::create(DelayTime::create(1.4f),
 		CallFunc::create([cabbageExplode]()
 			{
@@ -279,9 +275,4 @@ void Cabbage::readBulletInformation(rapidjson::Document* levelDataDocument, char
 	setBulletPosition(Vec2(
 		(*levelDataDocument)[key]["Bullet"][to_string(i).c_str()]["cabbageInitialPositionX"].GetFloat(),
 		(*levelDataDocument)[key]["Bullet"][to_string(i).c_str()]["cabbageInitialPositionY"].GetFloat()));
-}
-
-void Cabbage::readBulletAnimationInformation(rapidjson::Document* levelDataDocument, char* key, int i)
-{
-	_node->getChildByName("shadow")->setOpacity(_bulletAnimation->getOpacity());
 }

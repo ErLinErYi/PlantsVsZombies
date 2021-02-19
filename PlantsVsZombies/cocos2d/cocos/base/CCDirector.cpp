@@ -1301,14 +1301,18 @@ void Director::showStats()
         // to make the FPS stable
         if (_accumDt > CC_DIRECTOR_STATS_INTERVAL)
         {
-            //sprintf(buffer, "%.1f / %.3f", _frames / _accumDt, _secondsPerFrame);
+#if _DEBUG
+            sprintf(buffer, "%.1f / %.3f", _frames / _accumDt, _secondsPerFrame);
+#else
 			sprintf(buffer, "FPS : %.1f", _frames / _accumDt);
+#endif
             _FPSLabel->setString(buffer);
             _accumDt = 0;
             _frames = 0;
         }
 
-       /* auto currentCalls = (unsigned long)_renderer->getDrawnBatches();
+#if _DEBUG
+       auto currentCalls = (unsigned long)_renderer->getDrawnBatches();
         auto currentVerts = (unsigned long)_renderer->getDrawnVertices();
         if( currentCalls != prevCalls ) {
             sprintf(buffer, "GL calls:%6lu", currentCalls);
@@ -1320,11 +1324,13 @@ void Director::showStats()
             sprintf(buffer, "GL verts:%6lu", currentVerts);
             _drawnVerticesLabel->setString(buffer);
             prevVerts = currentVerts;
-        }*/
-
+        }
+#endif
         const Mat4& identity = Mat4::IDENTITY;
-        //_drawnVerticesLabel->visit(_renderer, identity, 0);
-        //_drawnBatchesLabel->visit(_renderer, identity, 0);
+#if _DEBUG
+        _drawnVerticesLabel->visit(_renderer, identity, 0);
+        _drawnBatchesLabel->visit(_renderer, identity, 0);
+#endif
         _FPSLabel->visit(_renderer, identity, 0);
     }
 }
@@ -1334,7 +1340,7 @@ void Director::calculateMPF()
     static float prevSecondsPerFrame = 0;
     static const float MPF_FILTER = 0.10f;
 
-    _secondsPerFrame = _deltaTime * MPF_FILTER + (1-MPF_FILTER) * prevSecondsPerFrame;
+    _secondsPerFrame = _deltaTime * MPF_FILTER + (1 - MPF_FILTER) * prevSecondsPerFrame;
     prevSecondsPerFrame = _secondsPerFrame;
 }
 

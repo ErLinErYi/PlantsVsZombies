@@ -17,6 +17,7 @@
 #include "Scenes/GameScene/LZSGZombiesAppearControl.h"
 #include "Scenes/GameScene/LZSGInformationLayer.h"
 #include "Scenes/GameScene/LZSGBackgroundLayer.h"
+#include "Scenes/GameScene/BigMap/LZSBBigMapGameScene.h"
 #include "Scenes/SelectPlantsScene/LZSSSelectPlantsScene.h"
 #include "Plants/LZPPlants.h"
 #include "Plants/LZPPlants-Files.h"
@@ -687,6 +688,7 @@ void UserData::caveLevelCarData(char* key)
 		object.AddMember("Live", car->getLive(), allocator);
 		object.AddMember("PositionX", car->getCar()->getPositionX(), allocator);
 		object.AddMember("PositionY", car->getCar()->getPositionY(), allocator);
+		object.AddMember("CarRow", car->getInRow(), allocator);
 		
 		(*_levelDataDocument)[key]["Car"].AddMember(numberToString(++carsNumber, allocator), object, _levelDataDocument->GetAllocator());
 	}
@@ -701,15 +703,16 @@ void UserData::caveLevelBulletData(char* key)
 
 	for (auto bullet : BulletGroup)
 	{
-		if (!bullet->getBulletIsUsed() && bullet->getBulletVisible() && bullet->getBulletPosition().x < 2000)
+		if (!bullet->getBulletIsUsed() && bullet->getBulletVisible() && bullet->getBullet()->getOpacity() >= 255 &&
+			bullet->getBulletPosition().x < controlLayerInformation->gameMapInformation->mapRight + 300)
 		{
 			rapidjson::Value object(rapidjson::kObjectType);
 
 			object.AddMember("BulletType", static_cast<int>(bullet->getBulletType()), allocator);
 			object.AddMember("PositionX", bullet->getBullet()->getPositionX(), allocator);
 			object.AddMember("PositionY", bullet->getBullet()->getPositionY(), allocator);
-			object.AddMember("BulletOpcity", static_cast<int>(bullet->getBullet()->getOpacity()), allocator);
-			object.AddMember("BulletAnimationTime",bullet->getBullet()->getCurrent()->animationLast, allocator);
+			//object.AddMember("BulletOpcity", static_cast<int>(bullet->getBullet()->getOpacity()), allocator);
+			object.AddMember("BulletAnimationTime", bullet->getBullet()->getCurrent()->animationLast, allocator);
 			object.AddMember("BulletAnimationTimeScale", bullet->getBullet()->getTimeScale(), allocator);
 			object.AddMember("bulletInRow", bullet->getBulletInRow(), allocator);
 			object.AddMember("LocalZOrder", bullet->getBullet()->getLocalZOrder(), allocator);
@@ -769,8 +772,8 @@ void UserData::caveLevelOtherData(char* key)
 	rapidjson::Value object(rapidjson::kObjectType);
 
 	object.AddMember("SunNumbers", _global->userInformation->getSunNumbers(), allocator);
-	object.AddMember("SurSunNumbers", backgroundLayerInformation->gameType->getSunNumberRequriement()->allSunNumbers, allocator);
-	object.AddMember("SurPlusPlantsNumbers", backgroundLayerInformation->gameType->getPlantsRequriement()->surPlusPlantsNumbers, allocator);
+	object.AddMember("SurSunNumbers", informationLayerInformation->gameType->getSunNumberRequriement()->allSunNumbers, allocator);
+	object.AddMember("SurPlusPlantsNumbers", informationLayerInformation->gameType->getPlantsRequriement()->surPlusPlantsNumbers, allocator);
 	object.AddMember("ZombiesAppearFrequency", controlLayerInformation->_zombiesAppearControl->getZombiesAppearFrequency(), allocator);
 	object.AddMember("ZombiesAppearTime", controlLayerInformation->_zombiesAppearControl->getTime(), allocator);
 	object.AddMember("IsBegin", controlLayerInformation->_zombiesAppearControl->getIsBegin(), allocator);
@@ -778,6 +781,12 @@ void UserData::caveLevelOtherData(char* key)
 	object.AddMember("LastFrequencyZombiesWasDeath", controlLayerInformation->_zombiesAppearControl->getLastFrequencyZombiesWasDeath(), allocator);
 	object.AddMember("ProgressBarPercent", informationLayerInformation->getProgressBarPercent(), allocator);
 	object.AddMember("ProgressBarLastPercent", informationLayerInformation->getProgressBarLastPercent(), allocator);
+
+	if (BigMapGameScene::scrollView)
+	{
+		object.AddMember("BigMapOffsetX", BigMapGameScene::scrollView->getContentOffset().x, allocator);
+		object.AddMember("BigMapOffsetY", BigMapGameScene::scrollView->getContentOffset().y, allocator);
+	}
 
 	(*_levelDataDocument)[key].AddMember("OtherData", object, _levelDataDocument->GetAllocator());
 }
@@ -903,7 +912,7 @@ void UserData::openLevelPlantsData(char* key)
 
 		PlantsGroup.insert(pair<int, Plants*>((*_levelDataDocument)[key]["Plants"][to_string(i).c_str()]["PlantsTag"].GetInt(), plants));
 		
-		controlLayerInformation->_gameMapInformation->plantsMap[plants->getPlantRow()][plants->getPlantColumn()] = static_cast<unsigned int>(type);/* 地图记录种植的植物 */
+		controlLayerInformation->gameMapInformation->plantsMap[plants->getPlantRow()][plants->getPlantColumn()] = static_cast<unsigned int>(type);/* 地图记录种植的植物 */
 	}
 }
 
@@ -1020,7 +1029,7 @@ void UserData::openLevelCoinData(char* key)
 	auto coinNumbers = (*_levelDataDocument)[key]["Coin"]["CoinNumbers"].GetInt();
 	for (int i = 1; i <= coinNumbers; ++i)
 	{
-		auto coin = new Coin(animationLayerInformation->getAnimationLayer());
+		auto coin = new Coin(goodsLayerInformation);
 		coin->setPosition(Vec2(
 			(*_levelDataDocument)[key]["Coin"][to_string(i).c_str()]["PositionX"].GetFloat(),
 			(*_levelDataDocument)[key]["Coin"][to_string(i).c_str()]["PositionY"].GetFloat()));
@@ -1037,8 +1046,8 @@ void UserData::openLevelCarData(char* key)
 	for (int i = 1; i <= carNumbers; ++i)
 	{
 		auto car = new Car(animationLayerInformation->getAnimationLayer());
-		auto live = (*_levelDataDocument)[key]["Car"][to_string(i).c_str()]["Live"].GetBool();
-		car->setLive(live);
+		car->setLive((*_levelDataDocument)[key]["Car"][to_string(i).c_str()]["Live"].GetBool());
+		car->setInRow((*_levelDataDocument)[key]["Car"][to_string(i).c_str()]["CarRow"].GetInt());
 		car->setPosition(Vec2(
 			(*_levelDataDocument)[key]["Car"][to_string(i).c_str()]["PositionX"].GetFloat(),
 			(*_levelDataDocument)[key]["Car"][to_string(i).c_str()]["PositionY"].GetFloat()));
@@ -1063,7 +1072,7 @@ void UserData::openLevelBulletData(char* key)
 		openLevelBulletAnimationData(key, to_string(i).c_str(), bullet);
 
 		bullet->getBullet()->setLocalZOrder((*_levelDataDocument)[key]["Bullet"][to_string(i).c_str()]["LocalZOrder"].GetInt());
-		bullet->getBullet()->setOpacity((*_levelDataDocument)[key]["Bullet"][to_string(i).c_str()]["BulletOpcity"].GetInt());
+		//bullet->getBullet()->setOpacity((*_levelDataDocument)[key]["Bullet"][to_string(i).c_str()]["BulletOpcity"].GetInt());
 		bullet->getBullet()->update((*_levelDataDocument)[key]["Bullet"][to_string(i).c_str()]["BulletAnimationTime"].GetFloat());
 		bullet->getBullet()->setTimeScale((*_levelDataDocument)[key]["Bullet"][to_string(i).c_str()]["BulletAnimationTimeScale"].GetFloat());
 		bullet->readBulletAnimationInformation(_levelDataDocument, key, i);
@@ -1117,11 +1126,18 @@ void UserData::openLevelOtherData(char* key)
 		(*_levelDataDocument)[key]["OtherData"]["SunNumbers"].GetInt());
 	informationLayerInformation->updateSunNumbers();
 
-	backgroundLayerInformation->gameType->getSunNumberRequriement()->allSunNumbers =
+	informationLayerInformation->gameType->getSunNumberRequriement()->allSunNumbers =
 		(*_levelDataDocument)[key]["OtherData"]["SurSunNumbers"].GetInt();
-	backgroundLayerInformation->gameType->getPlantsRequriement()->surPlusPlantsNumbers =
+	informationLayerInformation->gameType->getPlantsRequriement()->surPlusPlantsNumbers =
 		(*_levelDataDocument)[key]["OtherData"]["SurPlusPlantsNumbers"].GetInt();
-	backgroundLayerInformation->gameType->updateRequirementNumbers();
+	informationLayerInformation->gameType->updateRequirementNumbers();
+
+	if (BigMapGameScene::scrollView)
+	{
+		BigMapGameScene::scrollView->setContentOffset(Vec2(
+			(*_levelDataDocument)[key]["OtherData"]["BigMapOffsetX"].GetFloat(),
+			(*_levelDataDocument)[key]["OtherData"]["BigMapOffsetY"].GetFloat()));
+	}
 }
 
 void UserData::openSurvivalOtherData(char* key)
@@ -1164,7 +1180,7 @@ rapidjson::Value UserData::numberAddString(int number, string sstr, rapidjson::D
 
 void UserData::replaceScene()
 {
-	Director::getInstance()->replaceScene(TransitionFade::create(1.0f, SelectPlantsScene::createScene()));
+	Director::getInstance()->replaceScene(TransitionFade::create(1.0f, SelectPlantsScene::create()));
 }
 
 #ifndef DLLTEST

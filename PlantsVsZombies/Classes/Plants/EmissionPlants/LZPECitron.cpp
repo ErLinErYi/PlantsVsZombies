@@ -16,6 +16,7 @@ Citron::Citron(Node* node):
 	_attackInterval(0)
 ,   _animationId(0)
 ,   _readyFinished(false)
+,   _isCreateBullet(false)
 {
 	_node = node;
 	_plantImage = nullptr;

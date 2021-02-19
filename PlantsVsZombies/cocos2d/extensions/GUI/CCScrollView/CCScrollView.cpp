@@ -28,6 +28,7 @@
 #include "2d/CCActionInstant.h"
 #include "2d/CCActionInterval.h"
 #include "2d/CCActionTween.h"
+#include "2d/CCActionEase.h"
 #include "base/CCDirector.h"
 #include "base/CCEventDispatcher.h"
 #include "renderer/CCRenderer.h"
@@ -240,14 +241,23 @@ void ScrollView::setContentOffset(Vec2 offset, bool animated/* = false*/)
     }
 }
 
-void ScrollView::setContentOffsetInDuration(Vec2 offset, float dt)
+void ScrollView::setContentOffsetInDuration(Vec2 offset, float dt, int action)
 {
     FiniteTimeAction *scroll, *expire;
     
     if (_animatedScrollAction) {
         stopAnimatedContentOffset();
     }
-    scroll = MoveTo::create(dt, offset);
+	if (action == 0) {
+		scroll = MoveTo::create(dt, offset);
+	}
+	else if (action == 1) {
+		scroll = EaseExponentialInOut::create(MoveTo::create(dt, offset));
+	}
+	else {
+		scroll = EaseSineInOut::create(MoveTo::create(dt, offset));
+	}
+   
     expire = CallFuncN::create(CC_CALLBACK_1(ScrollView::stoppedAnimatedScroll,this));
     _animatedScrollAction = _container->runAction(Sequence::create(scroll, expire, nullptr));
     _animatedScrollAction->retain();

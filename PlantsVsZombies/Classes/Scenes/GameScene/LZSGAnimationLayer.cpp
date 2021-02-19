@@ -120,6 +120,7 @@ Zombies* GSAnimationLayer::createDifferentZombies(ZombiesType zombiesType, Node*
 	case ZombiesType::ConeDoorFlagZombies:    zombies = new ConeDoorFlagZombies(node);    break;
 	case ZombiesType::BucketDoorFlagZombies:  zombies = new BucketDoorFlagZombies(node);  break;
 	case ZombiesType::SnowZombies:            zombies = new SnowZombies(node);            break;
+	case ZombiesType::GargantuarZombies:      zombies = new GargantuarZombies(node);      break;
 	default: break;
 	}
 	return zombies;
@@ -157,13 +158,10 @@ void GSAnimationLayer::deletePlants()
 	auto multimap_iter = PlantsGroup.equal_range(SET_TAG(controlLayerInformation->_plantsPosition));
 	for (auto &plant = multimap_iter.first; plant != multimap_iter.second; ++plant)
 	{
-		plant->second->setPlantHealthPoint(0);
-		plant->second->setPlantVisible(false);
-		plant->second->getPlantAnimation()->setTimeScale(0);
-		plant->second->getPlantAnimation()->stopAllActions();
+		plant->second->setPlantRemoveFromMap();
 	}
 
-	controlLayerInformation->_gameMapInformation->plantsMap[static_cast<int>(
+	controlLayerInformation->gameMapInformation->plantsMap[static_cast<int>(
 		controlLayerInformation->_plantsPosition.y)][static_cast<int>(controlLayerInformation->_plantsPosition.x)] = NO_PLANTS;
 }
 
@@ -214,15 +212,15 @@ void GSAnimationLayer::showCars()
 {
 	if (!_global->userInformation->getIsReadFileData())
 	{
-		const int carpositions[5] = { 180,318,456,594,732 };
-		for (int i = 0; i < 5; i++)
+		for (int i = 0; i < 5; ++i)
 		{
 			this->runAction(Sequence::create(DelayTime::create(0.5f + 0.1 * i), CallFunc::create([=]()
 				{
 					PlayMusic::playMusic("plastichit2");
 
 					auto car = new Car(this);
-					car->setPosition(Vec2(455, carpositions[i]));
+					car->setPosition(Vec2(455, 180 + 138 * i));
+					car->setInRow(i);
 					car->showCar();
 
 					CarsGroup.push_back(car);
@@ -301,7 +299,7 @@ void GSAnimationLayer::bulletEventUpdate()
 	for (auto bullet = BulletGroup.begin(); bullet != BulletGroup.end();)
 	{
 		(*bullet)->bulletAndZombiesCollision();
-		
+		(*bullet)->bulletOutMapSetInvisible();
 		Bullet::bulletDeleteUpdate(bullet);
 	}
 }

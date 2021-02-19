@@ -9,7 +9,7 @@
 #include "LZSHHelpScene.h"
 #include "Scenes/MainMenuScene/LZSMMainMenu.h"
 #include "Scenes/EasterEggsScene/LZSEGameEasterEggs.h"
-#include "Scenes/WorldScene/LZSMSelectWorldScene.h"
+#include "Scenes/WorldScene/LZSWSelectWorldScene.h"
 #include "Based/LZBPlayMusic.h"
 #include "Based/LZBMouseEventControl.h"
 

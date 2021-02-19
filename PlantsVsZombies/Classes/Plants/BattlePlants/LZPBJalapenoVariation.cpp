@@ -75,7 +75,7 @@ void JalapenoVariation::showExplodeAnimation()
 		auto jalapenoFire = SkeletonAnimation::createWithData(_global->userInformation->getAnimationData().find("Jalapeno_Fire")->second);
 		jalapenoFire->setPosition(Vec2(_plantAnimation->getPositionX() + 5, GRASS_POSITION_BOTTOM + 138 * (i + 1) - 140));
 		jalapenoFire->setAnimation(0, "animation", false);
-		jalapenoFire->setLocalZOrder(90 - i * 20);
+		jalapenoFire->setLocalZOrder((50 - i) * 100 + 50 - i + 100);
 		jalapenoFire->setScale(0.85f, 3.0f);
 		jalapenoFire->runAction(Sequence::create(DelayTime::create(2),
 			CallFunc::create([jalapenoFire]()

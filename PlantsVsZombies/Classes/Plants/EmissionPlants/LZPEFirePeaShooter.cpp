@@ -87,8 +87,6 @@ void FirePeaShooter::plantAttack(Zombies* zombie)
 
 void FirePeaShooter::createBullet()
 {
-	_isCreateBullet = true;
-
 	_bulletAnimation = new FirePea(_node);
 	_bulletAnimation->setBulletPosition(_position);
 	_bulletAnimation->setBulletInRow(_rowAndColumn.y);

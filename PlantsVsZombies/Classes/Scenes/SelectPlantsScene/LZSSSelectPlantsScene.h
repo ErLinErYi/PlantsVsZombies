@@ -24,7 +24,6 @@ class SPSControlLayer;
 class SelectPlantsScene :public Scene
 {
 public:
-	static Scene* createScene(); 
 	CREATE_FUNC(SelectPlantsScene);
 
 CC_CONSTRUCTOR_ACCESS:

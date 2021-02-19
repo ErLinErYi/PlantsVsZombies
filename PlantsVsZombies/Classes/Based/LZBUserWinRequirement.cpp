@@ -3,7 +3,7 @@
 #include "Based/LZBGameType.h"
 #include "Based/LZBDialog.h"
 
-#include "Scenes/WorldScene/LZSMModernWorld.h"
+#include "Scenes/WorldScene/LZSWModernWorld.h"
 
 UserWinRequirement::UserWinRequirement(Node* node):
 	_node(node),

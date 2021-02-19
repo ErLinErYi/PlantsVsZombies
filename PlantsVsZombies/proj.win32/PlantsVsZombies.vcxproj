@@ -87,7 +87,7 @@
       <PrecompiledHeader>
       </PrecompiledHeader>
       <WarningLevel>Level3</WarningLevel>
-      <DebugInformationFormat>EditAndContinue</DebugInformationFormat>
+      <DebugInformationFormat>OldStyle</DebugInformationFormat>
       <DisableSpecificWarnings>4267;4251;4244;%(DisableSpecificWarnings)</DisableSpecificWarnings>
       <MultiProcessorCompilation>true</MultiProcessorCompilation>
     </ClCompile>
@@ -235,6 +235,14 @@ xcopy "$(ProjectDir)..\Resources" "$(OutDir)" /D /E /I /F /Y
     <ClCompile Include="..\Classes\Plants\EmissionPlants\LZPEWinterMelonPult.cpp" />
     <ClCompile Include="..\Classes\Plants\LZPPlants.cpp" />
     <ClCompile Include="..\Classes\Scenes\EasterEggsScene\LZSEGameEasterEggs.cpp" />
+    <ClCompile Include="..\Classes\Scenes\GameScene\BigMap\LZSBAnimationLayer.cpp" />
+    <ClCompile Include="..\Classes\Scenes\GameScene\BigMap\LZSBBackgroundLayer.cpp" />
+    <ClCompile Include="..\Classes\Scenes\GameScene\BigMap\LZSBBigMapGameScene.cpp" />
+    <ClCompile Include="..\Classes\Scenes\GameScene\BigMap\LZSBButtonLayer.cpp" />
+    <ClCompile Include="..\Classes\Scenes\GameScene\BigMap\LZSBControlLayer.cpp" />
+    <ClCompile Include="..\Classes\Scenes\GameScene\BigMap\LZSBInformationLayer.cpp" />
+    <ClCompile Include="..\Classes\Scenes\GameScene\BigMap\LZSBOpenCaveGameScene.cpp" />
+    <ClCompile Include="..\Classes\Scenes\GameScene\BigMap\LZSBPauseQuitLayer.cpp" />
     <ClCompile Include="..\Classes\Scenes\GameScene\HammerZombies\LZSHammerZombiesScene.cpp" />
     <ClCompile Include="..\Classes\Scenes\GameScene\HammerZombies\LZSHAnimationLayer.cpp" />
     <ClCompile Include="..\Classes\Scenes\GameScene\HammerZombies\LZSHBackGroundLayer.cpp" />
@@ -271,6 +279,8 @@ xcopy "$(ProjectDir)..\Resources" "$(OutDir)" /D /E /I /F /Y
     <ClCompile Include="..\Classes\Scenes\MainMenuScene\LZSMQuitScene.cpp" />
     <ClCompile Include="..\Classes\Scenes\MainMenuScene\LZSMUnlockDialogLayer.cpp" />
     <ClCompile Include="..\Classes\Scenes\MainMenuScene\LZSMUpdateClient.cpp" />
+    <ClCompile Include="..\Classes\Scenes\SelectPlantsScene\BigMap\LZSSBBackgroundLayer.cpp" />
+    <ClCompile Include="..\Classes\Scenes\SelectPlantsScene\BigMap\LZSBSelectPlantsScene.cpp" />
     <ClCompile Include="..\Classes\Scenes\SelectPlantsScene\LZSSMirrorSelectPlantsScene.cpp" />
     <ClCompile Include="..\Classes\Scenes\SelectPlantsScene\LZSSBackgroundLayer.cpp" />
     <ClCompile Include="..\Classes\Scenes\SelectPlantsScene\LZSSControlLayer.cpp" />
@@ -281,9 +291,11 @@ xcopy "$(ProjectDir)..\Resources" "$(OutDir)" /D /E /I /F /Y
     <ClCompile Include="..\Classes\Scenes\SelectPlantsScene\LZSSRequriementLayer.cpp" />
     <ClCompile Include="..\Classes\Scenes\SelectPlantsScene\LZSSSpriteLayer.cpp" />
     <ClCompile Include="..\Classes\Scenes\SelectPlantsScene\SurvivalSelectScene\LZSSSSurvivalSelectScene.cpp" />
-    <ClCompile Include="..\Classes\Scenes\WorldScene\LZSMMirrorModernWorld.cpp" />
-    <ClCompile Include="..\Classes\Scenes\WorldScene\LZSMSelectWorldScene.cpp" />
-    <ClCompile Include="..\Classes\Scenes\WorldScene\LZSMModernWorld.cpp" />
+    <ClCompile Include="..\Classes\Scenes\WorldScene\LZSWBigMapWorld.cpp" />
+    <ClCompile Include="..\Classes\Scenes\WorldScene\LZSWSelectWorldScene.cpp" />
+    <ClCompile Include="..\Classes\Scenes\WorldScene\LZSWModernWorld.cpp" />
+    <ClCompile Include="..\Classes\Scenes\WorldScene\LZSWUnlockDialogLayer.cpp" />
+    <ClCompile Include="..\Classes\Zombies\LZGargantuarZombies.cpp" />
     <ClCompile Include="..\Classes\Zombies\LZZBucketDoorFlagZombies.cpp" />
     <ClCompile Include="..\Classes\Zombies\LZZBucketDoorZombies.cpp" />
     <ClCompile Include="..\Classes\Zombies\LZZBucketFlagZombies.cpp" />
@@ -357,6 +369,14 @@ xcopy "$(ProjectDir)..\Resources" "$(OutDir)" /D /E /I /F /Y
     <ClInclude Include="..\Classes\Plants\LZPPlants-Files.h" />
     <ClInclude Include="..\Classes\Plants\LZPPlants.h" />
     <ClInclude Include="..\Classes\Scenes\EasterEggsScene\LZSEGameEasterEggs.h" />
+    <ClInclude Include="..\Classes\Scenes\GameScene\BigMap\LZSBAnimationLayer.h" />
+    <ClInclude Include="..\Classes\Scenes\GameScene\BigMap\LZSBBackgroundLayer.h" />
+    <ClInclude Include="..\Classes\Scenes\GameScene\BigMap\LZSBBigMapGameScene.h" />
+    <ClInclude Include="..\Classes\Scenes\GameScene\BigMap\LZSBButtonLayer.h" />
+    <ClInclude Include="..\Classes\Scenes\GameScene\BigMap\LZSBControlLayer.h" />
+    <ClInclude Include="..\Classes\Scenes\GameScene\BigMap\LZSBInformationLayer.h" />
+    <ClInclude Include="..\Classes\Scenes\GameScene\BigMap\LZSBOpenCaveGameScene.h" />
+    <ClInclude Include="..\Classes\Scenes\GameScene\BigMap\LZSBPauseQuitLayer.h" />
     <ClInclude Include="..\Classes\Scenes\GameScene\HammerZombies\LZSHammerZombiesScene.h" />
     <ClInclude Include="..\Classes\Scenes\GameScene\HammerZombies\LZSHAnimationLayer.h" />
     <ClInclude Include="..\Classes\Scenes\GameScene\HammerZombies\LZSHBackGroundLayer.h" />
@@ -394,6 +414,8 @@ xcopy "$(ProjectDir)..\Resources" "$(OutDir)" /D /E /I /F /Y
     <ClInclude Include="..\Classes\Scenes\MainMenuScene\LZSMQuitScene.h" />
     <ClInclude Include="..\Classes\Scenes\MainMenuScene\LZSMUnlockDialogLayer.h" />
     <ClInclude Include="..\Classes\Scenes\MainMenuScene\LZSMUpdateClient.h" />
+    <ClInclude Include="..\Classes\Scenes\SelectPlantsScene\BigMap\LZSSBBackgroundLayer.h" />
+    <ClInclude Include="..\Classes\Scenes\SelectPlantsScene\BigMap\LZSBSelectPlantsScene.h" />
     <ClInclude Include="..\Classes\Scenes\SelectPlantsScene\LZSSMirrorSelectPlantsScene.h" />
     <ClInclude Include="..\Classes\Scenes\SelectPlantsScene\LZSSBackgroundLayer.h" />
     <ClInclude Include="..\Classes\Scenes\SelectPlantsScene\LZSSControlLayer.h" />
@@ -404,9 +426,11 @@ xcopy "$(ProjectDir)..\Resources" "$(OutDir)" /D /E /I /F /Y
     <ClInclude Include="..\Classes\Scenes\SelectPlantsScene\LZSSRequriementLayer.h" />
     <ClInclude Include="..\Classes\Scenes\SelectPlantsScene\LZSSSpriteLayer.h" />
     <ClInclude Include="..\Classes\Scenes\SelectPlantsScene\SurvivalSelectScene\LZSSSSurvivalSelectScene.h" />
-    <ClInclude Include="..\Classes\Scenes\WorldScene\LZSMMirrorModernWorld.h" />
-    <ClInclude Include="..\Classes\Scenes\WorldScene\LZSMSelectWorldScene.h" />
-    <ClInclude Include="..\Classes\Scenes\WorldScene\LZSMModernWorld.h" />
+    <ClInclude Include="..\Classes\Scenes\WorldScene\LZSWBigMapWorld.h" />
+    <ClInclude Include="..\Classes\Scenes\WorldScene\LZSWSelectWorldScene.h" />
+    <ClInclude Include="..\Classes\Scenes\WorldScene\LZSWModernWorld.h" />
+    <ClInclude Include="..\Classes\Scenes\WorldScene\LZSWUnlockDialogLayer.h" />
+    <ClInclude Include="..\Classes\Zombies\LZGargantuarZombies.h" />
     <ClInclude Include="..\Classes\Zombies\LZZBucketDoorFlagZombies.h" />
     <ClInclude Include="..\Classes\Zombies\LZZBucketDoorZombies.h" />
     <ClInclude Include="..\Classes\Zombies\LZZBucketFlagZombies.h" />

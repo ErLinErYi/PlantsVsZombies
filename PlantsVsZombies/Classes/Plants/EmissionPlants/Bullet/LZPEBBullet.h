@@ -169,6 +169,11 @@ public:
 	virtual void bulletAttackHurtZombies(Zombies* zombie);
 
 	/**
+	 * 子弹离开地图设置不可见
+	 */
+	virtual void bulletOutMapSetInvisible();
+
+	/**
 	 *静态方法删除子弹
 	 */
 	static void bulletDeleteUpdate(list<Bullet*>::iterator& bullet);
@@ -196,7 +201,7 @@ protected:
 	virtual float getZOrder() const;
 
 private:
-	void releaseBullet() const;
+	void releaseBullet();
 
 protected:
 	SkeletonAnimation* _bulletAnimation;  // 动画

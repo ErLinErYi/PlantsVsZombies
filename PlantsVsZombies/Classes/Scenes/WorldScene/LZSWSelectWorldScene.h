@@ -34,6 +34,7 @@ private:
 	void createMouseListener();
     void createGoBack();
 	void createSelectDifficulty();
+	bool checkWorldUnlock();
 	
 private:
 	Size _backgroundSize;

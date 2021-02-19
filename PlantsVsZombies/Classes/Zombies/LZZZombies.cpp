@@ -11,6 +11,7 @@
 #include "Scenes/GameScene/LZSGInformationLayer.h"
 #include "Scenes/GameScene/LZSGGameResultJudgement.h"
 #include "Scenes/GameScene/LZSGGameEndLayer.h"
+#include "Scenes/GameScene/LZSGControlLayer.h"
 #include "Scenes/GameScene/LZSGData.h"
 
 #include "Based/LZBCoin.h"
@@ -307,9 +308,8 @@ void Zombies::rewardCoin(SkeletonAnimation* zombies)
 {
 	if (rand() % 100 < 5)
 	{
-		auto coin = new Coin(zombies->getParent());
-		coin->setPosition(zombies->getPosition());
-		coin->setCoinLocalZOrder(zombies->getLocalZOrder() + 100);
+		auto coin = new Coin(goodsLayerInformation);
+		coin->setPosition(zombies->getPosition());	
 		coin->createCoin();
 
 		CoinsGroup.push_back(coin);
@@ -392,41 +392,32 @@ void Zombies::setZombieHurtBlink()
 	{
 		_highLightFinished = true;
 
-		if (_zombiesAnimation->getColor() != Color3B::WHITE && !_redWarning)
-		{
-			auto& color = _zombiesAnimation->getColor();
-			_zombiesAnimation->runAction(Sequence::create(TintTo::create(0.15f, Color3B::WHITE), TintTo::create(0.15f, color),
-				CallFunc::create([=]() {_highLightFinished = false; }), nullptr));
-		}
-		else
-		{
-			auto action = Repeat::create(Sequence::create(
-				CallFunc::create([this]()
-					{
-						_highLightIntensity -= 0.03f;
-						_highLightGLProgramState->setUniformFloat("intensity", _highLightIntensity);
-					}), DelayTime::create(0.02f), nullptr), 10);
+		auto action = Repeat::create(Sequence::create(
+			CallFunc::create([this]()
+				{
+					_highLightIntensity -= 0.03f;
+					_highLightGLProgramState->setUniformFloat("intensity", _highLightIntensity);
+				}), DelayTime::create(0.02f), nullptr), 10);
 
-			_zombiesAnimation->runAction(Sequence::create(
-				CallFunc::create([this]()
-					{
-						_zombiesAnimation->setGLProgram(_highLightGLProgram);
-						_highLightGLProgramState = _zombiesAnimation->getGLProgramState();
-						_highLightGLProgramState->setUniformFloat("intensity", _highLightIntensity);
-					}), DelayTime::create(0.15f),
-						CallFunc::create([this]()
-							{
-								_zombiesAnimation->setGLProgram(_normalGLProgram);
-								_highLightIntensity = 0.3f;
-								_highLightFinished = false;
-							}), nullptr));
-		}
+		_zombiesAnimation->runAction(Sequence::create(
+			CallFunc::create([this]()
+				{
+					_zombiesAnimation->setGLProgram(_highLightGLProgram);
+					_highLightGLProgramState = _zombiesAnimation->getGLProgramState();
+					_highLightGLProgramState->setUniformFloat("intensity", _highLightIntensity);
+				}), DelayTime::create(0.15f),
+					CallFunc::create([this]()
+						{
+							_zombiesAnimation->setGLProgram(_normalGLProgram);
+							_highLightIntensity = 0.3f;
+							_highLightFinished = false;
+						}), nullptr));
 	}
 }
 
 void Zombies::setZombieScale()
 {
-	_zombiesAnimation->setScale(_zombiesAnimation->getScale() + (getZombieLocalZOrder() + 10) / 20 / 40.f);
+	//_zombiesAnimation->setScale(_zombiesAnimation->getScale() + (getZombieLocalZOrder() + 10) / 20 / 40.f);
 }
 
 void Zombies::setZombieIsEatGarlic(const bool isEatGarlic)
@@ -472,7 +463,8 @@ float Zombies::getZombiePositionY() const
 
 bool Zombies::getZombieIsEnterMap() const
 {
-	return _zombiesAnimation->getPositionX() < 1680 ? true : false;
+	return _zombiesAnimation->getPositionX() < 
+		controlLayerInformation->gameMapInformation->mapRight ? true : false;
 }
 
 float Zombies::getZombieCurrentBodyShieldVolume() const
@@ -654,7 +646,7 @@ void Zombies::setZombieEatPlantNumber(const int& number)
 
 float Zombies::getZombieLocalZOrder() const
 {
-	return 90 - _zombieRow * 20;
+	return (50 - _zombieRow) * 100 + 60;
 }
 
 void Zombies::zombiesNumbersChange(const string& name)

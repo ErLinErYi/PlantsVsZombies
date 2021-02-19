@@ -113,8 +113,6 @@ void PeaShooter::plantRecovery(const string& plantAnimation)
 
 void PeaShooter::createBullet()
 {
-	_isCreateBullet = true;
-
 	_bulletAnimation= new Pea(_node);
 	_bulletAnimation->setBulletPosition(_position);
 	_bulletAnimation->setBulletInRow(_rowAndColumn.y);

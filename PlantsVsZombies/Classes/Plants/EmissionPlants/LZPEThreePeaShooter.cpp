@@ -92,8 +92,6 @@ bool ThreePeaShooter::getZombieIsSameLineWithPlant(Zombies* zombie)
 
 void ThreePeaShooter::createBullet()
 {
-	_isCreateBullet = true;
-
 	for (int i = 0; i < 3; ++i)
 	{
 		_bulletAnimation = new Pea(_node);

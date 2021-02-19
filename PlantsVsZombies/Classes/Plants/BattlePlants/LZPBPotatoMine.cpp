@@ -127,7 +127,7 @@ void PotatoMine::plantExplode()
 		_isReadFile ? nullptr : _plantAnimation->setAnimation(0, "PotatoMine_Blast", false);
 		_plantAnimation->setAnchorPoint(Vec2::ANCHOR_MIDDLE);
 		_plantAnimation->setScale(1.2f);
-		_plantAnimation->setLocalZOrder(_plantAnimation->getLocalZOrder() + 3);
+		_plantAnimation->setLocalZOrder(_plantAnimation->getLocalZOrder() + 100);
 		_plantAnimation->setEventListener([=](spTrackEntry* entry, spEvent* event)
 			{
 				if (strcmp(event->data->name, "BlastBegin") == 0)
@@ -194,7 +194,7 @@ void PotatoMine::explodeHurtZombies()
 		{
 			hurtZombies(zombie);
 
-			if (!zombie->getZombieIsSurvive())
+			if (!zombie->getZombieIsSurvive() && zombie->getZombieType() != ZombiesType::GargantuarZombies)
 			{
 				zombie->setZombieOpacity(0);
 				zombie->setZombieVisible(false);

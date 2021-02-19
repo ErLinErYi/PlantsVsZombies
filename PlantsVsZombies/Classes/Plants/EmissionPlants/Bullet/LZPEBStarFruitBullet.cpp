@@ -50,11 +50,11 @@ void StarFruitBullet::setBulletAction(StarFruitBulletDirection action)
 	_direction = action;
 	switch (action)
 	{
-	case StarFruitBullet::StarFruitBulletDirection::Up:                time = 2.8f, actionX = 0,              actionY = 1000;      break;
-	case StarFruitBullet::StarFruitBulletDirection::Down:              time = 2.8f, actionX = 0,              actionY = -1000;     break;
-	case StarFruitBullet::StarFruitBulletDirection::Rear:              time = 2.8f, actionX = -1000,          actionY = 0;         break;
-	case StarFruitBullet::StarFruitBulletDirection::DiagonallyAbove:   time = 4.0f, actionX = 1000 * sqrt(3), actionY = 1000;      break;
-	case StarFruitBullet::StarFruitBulletDirection::ObliquelyBelow:    time = 4.0f, actionX = 1000 * sqrt(3), actionY = -1000;     break;
+	case StarFruitBullet::StarFruitBulletDirection::Up:                time = 16.8f, actionX = 0,              actionY = 6000;      break;
+	case StarFruitBullet::StarFruitBulletDirection::Down:              time = 16.8f, actionX = 0,              actionY = -6000;     break;
+	case StarFruitBullet::StarFruitBulletDirection::Rear:              time = 16.8f, actionX = -6000,          actionY = 0;         break;
+	case StarFruitBullet::StarFruitBulletDirection::DiagonallyAbove:   time = 24.0f, actionX = 6000 * sqrt(3), actionY = 6000;      break;
+	case StarFruitBullet::StarFruitBulletDirection::ObliquelyBelow:    time = 24.0f, actionX = 6000 * sqrt(3), actionY = -6000;     break;
 	}
 
 	_bulletAnimation->runAction(Sequence::create(MoveBy::create(time, Vec2(actionX, actionY)),
@@ -70,9 +70,9 @@ void StarFruitBullet::setBulletAction(StarFruitBulletDirection action)
 				if (fabs(_locationY - _bulletAnimation->getPositionY()) > _distance) /* 第一次间隔69进行设置localZorder */
 				{
 					auto order = _bulletAnimation->getLocalZOrder();
-					if (order > 0 && order < 100)
+					if (order > 0 && order < 5070)
 					{
-						_bulletAnimation->setLocalZOrder(order + (_locationY > _bulletAnimation->getPositionY() ? 20 : -20));
+						_bulletAnimation->setLocalZOrder(order + (_locationY > _bulletAnimation->getPositionY() ? 100 : -100));
 					}
 					_locationY = _bulletAnimation->getPositionY();
 
@@ -134,7 +134,7 @@ void StarFruitBullet::createBulletExplode(Zombies* zombie)
 	auto explode = SkeletonAnimation::createWithData(_global->userInformation->getAnimationData().find("StarFruitBulletFracture")->second);
 	explode->setAnimation(0, "Fracture", false);
 	explode->setPosition(zombie->getZombieAnimation()->getPosition() + Vec2(0, 80));
-	explode->setLocalZOrder(100);
+	explode->setLocalZOrder(5100);
 	explode->setScale(0.5f);
 	explode->setScaleX(rand() % 2 ? -0.5 : 0.5);
 	explode->update(0);

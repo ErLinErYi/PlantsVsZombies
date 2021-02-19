@@ -733,18 +733,18 @@ void GLViewImpl::onGLFWError(int errorID, const char* errorDesc)
 
 void GLViewImpl::onGLFWMouseCallBack(GLFWwindow* /*window*/, int button, int action, int /*modify*/)
 {
-    if(GLFW_MOUSE_BUTTON_LEFT == button)
+    if (GLFW_MOUSE_BUTTON_LEFT == button || GLFW_MOUSE_BUTTON_RIGHT == button)
     {
-        if(GLFW_PRESS == action)
+        if (GLFW_PRESS == action)
         {
             _captured = true;
-            if (this->getViewPortRect().equals(Rect::ZERO) || this->getViewPortRect().containsPoint(Vec2(_mouseX,_mouseY)))
+            if (this->getViewPortRect().equals(Rect::ZERO) || this->getViewPortRect().containsPoint(Vec2(_mouseX, _mouseY)))
             {
                 intptr_t id = 0;
                 this->handleTouchesBegin(1, &id, &_mouseX, &_mouseY);
             }
         }
-        else if(GLFW_RELEASE == action)
+        else if (GLFW_RELEASE == action)
         {
             if (_captured)
             {

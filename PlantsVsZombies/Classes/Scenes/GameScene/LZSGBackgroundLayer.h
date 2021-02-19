@@ -18,7 +18,7 @@ class GSBackgroundLayer :public SPSBackgroundLayer
 public:
 	CREATE_FUNC(GSBackgroundLayer);
 	static void backgroundRunAction();
-	void addLayer(Node* node, const int order, const string& name) { node->addChild(this, order, name); }
+	virtual void addLayer(Node* node, const int order, const string& name) { node->addChild(this, order, name); }
 
 CC_CONSTRUCTOR_ACCESS:
 	GSBackgroundLayer();
@@ -27,10 +27,6 @@ CC_CONSTRUCTOR_ACCESS:
 
 protected:
 	virtual void setBackgroundImagePosition();
-	virtual void showGameType();
-
-public:
-	GameType* gameType;
 
 protected:
 	Global* _global;

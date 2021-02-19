@@ -48,7 +48,6 @@ void CatTail::createPlantAnimation()
 {
 	_plantAnimation = plantInit("CatTail", "CatTail_Normal");
 	_plantAnimation->setAnchorPoint(Vec2::ANCHOR_MIDDLE);
-	_plantAnimation->setTimeScale(1.f);
 	_plantAnimation->setScale(1.1f);
 	_node->addChild(_plantAnimation);
 
@@ -111,8 +110,6 @@ void CatTail::plantRecovery(const string& plantAnimation)
 
 void CatTail::createBullet()
 {
-	_isCreateBullet = true;
-
 	_bulletAnimation = new CatTailBullet(_node);
 	_bulletAnimation->setBulletPosition(_position + Vec2(-65, 65));
 	_bulletAnimation->setBulletInRow(_rowAndColumn.y);

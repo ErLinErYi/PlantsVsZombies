@@ -40,7 +40,8 @@ enum class ZombiesType
 	CommonDoorFlagZombies,
 	ConeDoorFlagZombies,
 	BucketDoorFlagZombies,
-	SnowZombies
+	SnowZombies,
+	GargantuarZombies
 };
 
 enum class ShieldType
@@ -142,7 +143,7 @@ public:
 	void setZombieActionSlow();
 
 	/**
-	 * 市设置僵尸恢复运动速度 
+	 * 设置僵尸恢复运动速度 
 	 */
 	void setZombieActionRecovery(bool slow = false);
 

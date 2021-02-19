@@ -13,6 +13,8 @@
 using namespace cocos2d;
 using namespace cocos2d::ui;
 
+class GameType;
+
 class GSInformationLayer :public Layer
 {
 public:
@@ -45,8 +47,12 @@ protected:
 	virtual void showZombiesDieNumbers();
 	virtual void showCoinNumbers();
 	virtual void showSunNumbers();
+	virtual void showGameType();
 	virtual void showPromptMuchZombiesText(const string& textName);
 	
+public:
+	GameType* gameType;
+
 protected:
 	float _levelLastPrecent;            // 进度条上一次进度
 	Text* _zombiesDieText;              // 僵尸死亡数文本

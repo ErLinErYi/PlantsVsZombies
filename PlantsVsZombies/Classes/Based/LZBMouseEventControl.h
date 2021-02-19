@@ -20,4 +20,7 @@ public :
 	static void mouseScrollControlListener(ui::ScrollView* scrollview, 
 		float move, ui::ScrollView::Direction direction, float time = 0.5f);
 	static void goodsRecovery(Node* node, SkeletonAnimation* animation = nullptr);
+
+private:
+	static void goodsRecovery(Point point, SkeletonAnimation* animation);
 };

@@ -24,7 +24,7 @@ void SGSSurvivalControlLayer::judgeLevelIsFinished()
 	{
 		CURSOR_VISIBLE(true);
 
-		_director->pushScene(SelectPlantsScene::createScene());
+		_director->pushScene(SelectPlantsScene::create());
 	}
 }
 
