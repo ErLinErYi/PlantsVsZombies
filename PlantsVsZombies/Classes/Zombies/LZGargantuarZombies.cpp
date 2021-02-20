@@ -6,8 +6,8 @@
  */
 
 #include "LZGargantuarZombies.h"
-#include "Scenes/GameScene/LZSGBackgroundLayer.h"
-#include "Based/LZBPlayMusic.h"
+#include "Scenes/GameScenes/Adventure/GameScene/LZAGSBackgroundLayer.h"
+#include "Based/LZPlayMusic.h"
 
 GargantuarZombies::GargantuarZombies(Node* node)
 {

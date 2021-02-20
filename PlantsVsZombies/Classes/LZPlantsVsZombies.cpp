@@ -9,7 +9,7 @@
 
 #include "cocos2d.h"
 #include "LZPlantsVsZombies.h"
-#include "Based/LZBAppDelegate.h"
+#include "Based/LZAppDelegate.h"
 
 #include <powrprof.h>
 #pragma comment(lib,"powrprof.lib")

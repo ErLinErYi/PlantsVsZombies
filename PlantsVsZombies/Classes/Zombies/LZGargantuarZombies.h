@@ -6,7 +6,7 @@
  */
 
 #pragma once
-#include "LZZZombies.h"
+#include "LZZombies.h"
 
 class GargantuarZombies :public Zombies
 {

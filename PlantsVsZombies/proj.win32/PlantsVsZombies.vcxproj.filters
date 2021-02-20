@@ -13,9 +13,6 @@
     <Filter Include="Class\Scenes">
       <UniqueIdentifier>{ff93a335-7aee-40d4-b0fe-5ad2c5421ee3}</UniqueIdentifier>
     </Filter>
-    <Filter Include="Class\Scenes\SelectPlantsScene">
-      <UniqueIdentifier>{3262196a-0c86-4807-a2fd-edcb4833f0aa}</UniqueIdentifier>
-    </Filter>
     <Filter Include="Class\Scenes\LoadingScene">
       <UniqueIdentifier>{ab41eaa2-11dd-4c8a-b390-80bce3726816}</UniqueIdentifier>
     </Filter>
@@ -27,12 +24,6 @@
     </Filter>
     <Filter Include="Class\Scenes\MainMenuScene">
       <UniqueIdentifier>{b0039043-07b8-4e21-8a7b-f31cdb15cb5e}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="Class\Scenes\WorldScene">
-      <UniqueIdentifier>{98aa41e0-f9dc-4adb-a116-5d45eb6355d9}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="Class\Scenes\GameScene">
-      <UniqueIdentifier>{753768f8-0a45-43e2-b4f5-fea9802d4856}</UniqueIdentifier>
     </Filter>
     <Filter Include="Class\Plants">
       <UniqueIdentifier>{f8ef0ba3-b2e7-44e4-8ae7-66d2e469924a}</UniqueIdentifier>
@@ -52,20 +43,50 @@
     <Filter Include="Class\Based">
       <UniqueIdentifier>{2f5f84c2-26a2-4a6f-ac7e-3dca217d7207}</UniqueIdentifier>
     </Filter>
-    <Filter Include="Class\Scenes\GameScene\SurvivalScene">
-      <UniqueIdentifier>{9e77df16-359c-43af-99ba-6f16b27c4bdb}</UniqueIdentifier>
+    <Filter Include="Class\Scenes\GameScenes">
+      <UniqueIdentifier>{37b73b57-98d9-41c9-bafb-71fbdbd2bd11}</UniqueIdentifier>
     </Filter>
-    <Filter Include="Class\Scenes\SelectPlantsScene\SurvivalSelectScene">
-      <UniqueIdentifier>{07bc8c1a-d9fe-4ba7-a28b-fd126690f3ae}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="Class\Scenes\GameScene\HammerZombies">
-      <UniqueIdentifier>{e2a53c3d-1015-479a-aff9-fec2f5e5cc52}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="Class\Scenes\GameScene\BigMap">
+    <Filter Include="Class\Scenes\GameScenes\BigMap">
       <UniqueIdentifier>{ae171f0f-3fbc-4fbf-8551-2ec701062467}</UniqueIdentifier>
     </Filter>
-    <Filter Include="Class\Scenes\SelectPlantsScene\BigMap">
+    <Filter Include="Class\Scenes\GameScenes\HammerZombies">
+      <UniqueIdentifier>{e2a53c3d-1015-479a-aff9-fec2f5e5cc52}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Class\Scenes\GameScenes\Adventure">
+      <UniqueIdentifier>{c8f5aa84-ebe2-485a-a451-0274732b002d}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Class\Scenes\GameScenes\Adventure\GameScene">
+      <UniqueIdentifier>{753768f8-0a45-43e2-b4f5-fea9802d4856}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Class\Scenes\GameScenes\Adventure\SelectPlantsScene">
+      <UniqueIdentifier>{3262196a-0c86-4807-a2fd-edcb4833f0aa}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Class\Scenes\GameScenes\Adventure\WorldScene">
+      <UniqueIdentifier>{6bd53b75-9c2b-4ab8-b5de-a9235ecbb112}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Class\Scenes\GameScenes\BigMap\WorldScene">
+      <UniqueIdentifier>{5630ddf9-3f4f-4998-bc1f-d6db6cbd819c}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Class\Scenes\GameScenes\BigMap\GameScene">
+      <UniqueIdentifier>{efa57806-787c-44c4-b82a-e80ba74aa8ca}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Class\Scenes\GameScenes\BigMap\SelectPlantsScene">
       <UniqueIdentifier>{960fabe8-0cb8-48ba-a8f8-d871aa1e7ca3}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Class\Scenes\GameScenes\HammerZombies\GameScene">
+      <UniqueIdentifier>{d60eb052-819d-47f8-85db-5f3f46dc4617}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Class\Scenes\GameScenes\Survival">
+      <UniqueIdentifier>{8ec8a052-7a81-480b-bd9d-561ce204db3c}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Class\Scenes\GameScenes\Survival\GameScene">
+      <UniqueIdentifier>{9e77df16-359c-43af-99ba-6f16b27c4bdb}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Class\Scenes\GameScenes\Survival\SelectPlantsScene">
+      <UniqueIdentifier>{07bc8c1a-d9fe-4ba7-a28b-fd126690f3ae}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Class\Scenes\SelectWorldScene">
+      <UniqueIdentifier>{98aa41e0-f9dc-4adb-a116-5d45eb6355d9}</UniqueIdentifier>
     </Filter>
   </ItemGroup>
   <ItemGroup>
@@ -77,796 +98,796 @@
     <Image Include="res\PlantsVsZombies.ico" />
   </ItemGroup>
   <ItemGroup>
-    <ClCompile Include="..\Classes\Based\LZBCar.cpp">
-      <Filter>Class\Based</Filter>
-    </ClCompile>
-    <ClCompile Include="..\Classes\Based\LZBAppDelegate.cpp">
-      <Filter>Class\Based</Filter>
-    </ClCompile>
-    <ClCompile Include="..\Classes\Based\LZBCoin.cpp">
-      <Filter>Class\Based</Filter>
-    </ClCompile>
-    <ClCompile Include="..\Classes\Based\LZBDialog.cpp">
-      <Filter>Class\Based</Filter>
-    </ClCompile>
-    <ClCompile Include="..\Classes\Based\LZBGameType.cpp">
-      <Filter>Class\Based</Filter>
-    </ClCompile>
-    <ClCompile Include="..\Classes\Based\LZBGlobalVariable.cpp">
-      <Filter>Class\Based</Filter>
-    </ClCompile>
-    <ClCompile Include="..\Classes\Based\LZBLevelData.cpp">
-      <Filter>Class\Based</Filter>
-    </ClCompile>
-    <ClCompile Include="..\Classes\Based\LZBPlayMusic.cpp">
-      <Filter>Class\Based</Filter>
-    </ClCompile>
-    <ClCompile Include="..\Classes\Based\LZBUserData.cpp">
-      <Filter>Class\Based</Filter>
-    </ClCompile>
-    <ClCompile Include="..\Classes\Based\LZBUserInformation.cpp">
-      <Filter>Class\Based</Filter>
-    </ClCompile>
-    <ClCompile Include="..\Classes\Based\LZBUserWinRequirement.cpp">
-      <Filter>Class\Based</Filter>
-    </ClCompile>
-    <ClCompile Include="..\Classes\Based\LZBVideoPlayer.cpp">
-      <Filter>Class\Based</Filter>
-    </ClCompile>
-    <ClCompile Include="..\Classes\Plants\BattlePlants\LZPBBattlePlants.cpp">
-      <Filter>Class\Plants\BattlePlants</Filter>
-    </ClCompile>
-    <ClCompile Include="..\Classes\Plants\BattlePlants\LZPBCherryBomb.cpp">
-      <Filter>Class\Plants\BattlePlants</Filter>
-    </ClCompile>
-    <ClCompile Include="..\Classes\Plants\BattlePlants\LZPBJalapeno.cpp">
-      <Filter>Class\Plants\BattlePlants</Filter>
-    </ClCompile>
-    <ClCompile Include="..\Classes\Plants\BattlePlants\LZPBPotatoMine.cpp">
-      <Filter>Class\Plants\BattlePlants</Filter>
-    </ClCompile>
-    <ClCompile Include="..\Classes\Plants\BattlePlants\LZPBSpikeweed.cpp">
-      <Filter>Class\Plants\BattlePlants</Filter>
-    </ClCompile>
-    <ClCompile Include="..\Classes\Plants\DefensePlants\LZPDGarlic.cpp">
-      <Filter>Class\Plants\DefensePlants</Filter>
-    </ClCompile>
-    <ClCompile Include="..\Classes\Plants\DefensePlants\LZPDSunFlower.cpp">
-      <Filter>Class\Plants\DefensePlants</Filter>
-    </ClCompile>
-    <ClCompile Include="..\Classes\Plants\DefensePlants\LZPDTorchwood.cpp">
-      <Filter>Class\Plants\DefensePlants</Filter>
-    </ClCompile>
-    <ClCompile Include="..\Classes\Plants\DefensePlants\LZPDWallNut.cpp">
-      <Filter>Class\Plants\DefensePlants</Filter>
-    </ClCompile>
-    <ClCompile Include="..\Classes\Plants\EmissionPlants\Bullet\LZPEBAcidLemonBullet.cpp">
-      <Filter>Class\Plants\EmissionPlants\Bullet</Filter>
-    </ClCompile>
-    <ClCompile Include="..\Classes\Plants\EmissionPlants\Bullet\LZPEBBullet.cpp">
-      <Filter>Class\Plants\EmissionPlants\Bullet</Filter>
-    </ClCompile>
-    <ClCompile Include="..\Classes\Plants\EmissionPlants\Bullet\LZPEBCabbage.cpp">
-      <Filter>Class\Plants\EmissionPlants\Bullet</Filter>
-    </ClCompile>
-    <ClCompile Include="..\Classes\Plants\EmissionPlants\Bullet\LZPEBCitronBullet.cpp">
-      <Filter>Class\Plants\EmissionPlants\Bullet</Filter>
-    </ClCompile>
-    <ClCompile Include="..\Classes\Plants\EmissionPlants\Bullet\LZPEBFirePea.cpp">
-      <Filter>Class\Plants\EmissionPlants\Bullet</Filter>
-    </ClCompile>
-    <ClCompile Include="..\Classes\Plants\EmissionPlants\Bullet\LZPEBPea.cpp">
-      <Filter>Class\Plants\EmissionPlants\Bullet</Filter>
-    </ClCompile>
-    <ClCompile Include="..\Classes\Plants\EmissionPlants\LZPEAcidLemon.cpp">
-      <Filter>Class\Plants\EmissionPlants</Filter>
-    </ClCompile>
-    <ClCompile Include="..\Classes\Plants\EmissionPlants\LZPECabbagePult.cpp">
-      <Filter>Class\Plants\EmissionPlants</Filter>
-    </ClCompile>
-    <ClCompile Include="..\Classes\Plants\EmissionPlants\LZPECitron.cpp">
-      <Filter>Class\Plants\EmissionPlants</Filter>
-    </ClCompile>
-    <ClCompile Include="..\Classes\Plants\EmissionPlants\LZPEEmissionPlants.cpp">
-      <Filter>Class\Plants\EmissionPlants</Filter>
-    </ClCompile>
-    <ClCompile Include="..\Classes\Plants\EmissionPlants\LZPEFirePeaShooter.cpp">
-      <Filter>Class\Plants\EmissionPlants</Filter>
-    </ClCompile>
-    <ClCompile Include="..\Classes\Plants\EmissionPlants\LZPEPeaShooter.cpp">
-      <Filter>Class\Plants\EmissionPlants</Filter>
-    </ClCompile>
-    <ClCompile Include="..\Classes\Plants\LZPPlants.cpp">
-      <Filter>Class\Plants</Filter>
-    </ClCompile>
-    <ClCompile Include="..\Classes\Scenes\EasterEggsScene\LZSEGameEasterEggs.cpp">
-      <Filter>Class\Scenes\EasterEggsScene</Filter>
-    </ClCompile>
-    <ClCompile Include="..\Classes\Scenes\GameScene\SurvivalGameScene\LZSGSSurvivalControlLayer.cpp">
-      <Filter>Class\Scenes\GameScene\SurvivalScene</Filter>
-    </ClCompile>
-    <ClCompile Include="..\Classes\Scenes\GameScene\SurvivalGameScene\LZSGSSurvivalGameScene.cpp">
-      <Filter>Class\Scenes\GameScene\SurvivalScene</Filter>
-    </ClCompile>
-    <ClCompile Include="..\Classes\Scenes\GameScene\LZSGGameScene.cpp">
-      <Filter>Class\Scenes\GameScene</Filter>
-    </ClCompile>
-    <ClCompile Include="..\Classes\Scenes\GameScene\LZSGAnimationLayer.cpp">
-      <Filter>Class\Scenes\GameScene</Filter>
-    </ClCompile>
-    <ClCompile Include="..\Classes\Scenes\GameScene\LZSGData.cpp">
-      <Filter>Class\Scenes\GameScene</Filter>
-    </ClCompile>
-    <ClCompile Include="..\Classes\Scenes\GameScene\LZSGControlLayer.cpp">
-      <Filter>Class\Scenes\GameScene</Filter>
-    </ClCompile>
-    <ClCompile Include="..\Classes\Scenes\GameScene\LZSGButtonLayer.cpp">
-      <Filter>Class\Scenes\GameScene</Filter>
-    </ClCompile>
-    <ClCompile Include="..\Classes\Scenes\GameScene\LZSGBackgroundLayer.cpp">
-      <Filter>Class\Scenes\GameScene</Filter>
-    </ClCompile>
-    <ClCompile Include="..\Classes\Scenes\GameScene\LZSGGameEndLayer.cpp">
-      <Filter>Class\Scenes\GameScene</Filter>
-    </ClCompile>
-    <ClCompile Include="..\Classes\Scenes\GameScene\LZSGGameResultJudgement.cpp">
-      <Filter>Class\Scenes\GameScene</Filter>
-    </ClCompile>
-    <ClCompile Include="..\Classes\Scenes\GameScene\LZSGInformationLayer.cpp">
-      <Filter>Class\Scenes\GameScene</Filter>
-    </ClCompile>
-    <ClCompile Include="..\Classes\Scenes\GameScene\LZSGPauseLayer.cpp">
-      <Filter>Class\Scenes\GameScene</Filter>
-    </ClCompile>
-    <ClCompile Include="..\Classes\Scenes\GameScene\LZSGPauseQuitLayer.cpp">
-      <Filter>Class\Scenes\GameScene</Filter>
-    </ClCompile>
-    <ClCompile Include="..\Classes\Scenes\GameScene\LZSGRequirementLayer.cpp">
-      <Filter>Class\Scenes\GameScene</Filter>
-    </ClCompile>
-    <ClCompile Include="..\Classes\Scenes\GameScene\LZSGZombiesAppearControl.cpp">
-      <Filter>Class\Scenes\GameScene</Filter>
-    </ClCompile>
-    <ClCompile Include="..\Classes\Scenes\GameScene\LZSGMirrorGameScene.cpp">
-      <Filter>Class\Scenes\GameScene</Filter>
-    </ClCompile>
-    <ClCompile Include="..\Classes\Scenes\GameScene\LZSGOpenCaveGameScene.cpp">
-      <Filter>Class\Scenes\GameScene</Filter>
-    </ClCompile>
-    <ClCompile Include="..\Classes\Scenes\HelpScene\LZSHHelpScene.cpp">
-      <Filter>Class\Scenes\HelpScene</Filter>
-    </ClCompile>
-    <ClCompile Include="..\Classes\Scenes\LoadingScene\LZSLLoadingScene.cpp">
-      <Filter>Class\Scenes\LoadingScene</Filter>
-    </ClCompile>
-    <ClCompile Include="..\Classes\Scenes\MainMenuScene\LZSMInputDataScene.cpp">
-      <Filter>Class\Scenes\MainMenuScene</Filter>
-    </ClCompile>
-    <ClCompile Include="..\Classes\Scenes\MainMenuScene\LZSMMainMenu.cpp">
-      <Filter>Class\Scenes\MainMenuScene</Filter>
-    </ClCompile>
-    <ClCompile Include="..\Classes\Scenes\MainMenuScene\LZSMOptionsSence.cpp">
-      <Filter>Class\Scenes\MainMenuScene</Filter>
-    </ClCompile>
-    <ClCompile Include="..\Classes\Scenes\MainMenuScene\LZSMQuitScene.cpp">
-      <Filter>Class\Scenes\MainMenuScene</Filter>
-    </ClCompile>
-    <ClCompile Include="..\Classes\Scenes\MainMenuScene\LZSMUpdateClient.cpp">
-      <Filter>Class\Scenes\MainMenuScene</Filter>
-    </ClCompile>
-    <ClCompile Include="..\Classes\Scenes\SelectPlantsScene\SurvivalSelectScene\LZSSSSurvivalSelectScene.cpp">
-      <Filter>Class\Scenes\SelectPlantsScene\SurvivalSelectScene</Filter>
-    </ClCompile>
-    <ClCompile Include="..\Classes\Scenes\SelectPlantsScene\LZSSSelectPlantsScene.cpp">
-      <Filter>Class\Scenes\SelectPlantsScene</Filter>
-    </ClCompile>
-    <ClCompile Include="..\Classes\Scenes\SelectPlantsScene\LZSSControlLayer.cpp">
-      <Filter>Class\Scenes\SelectPlantsScene</Filter>
-    </ClCompile>
-    <ClCompile Include="..\Classes\Scenes\SelectPlantsScene\LZSSBackgroundLayer.cpp">
-      <Filter>Class\Scenes\SelectPlantsScene</Filter>
-    </ClCompile>
-    <ClCompile Include="..\Classes\Scenes\SelectPlantsScene\LZSSJumpLevelLayer.cpp">
-      <Filter>Class\Scenes\SelectPlantsScene</Filter>
-    </ClCompile>
-    <ClCompile Include="..\Classes\Scenes\SelectPlantsScene\LZSSQuitLayer.cpp">
-      <Filter>Class\Scenes\SelectPlantsScene</Filter>
-    </ClCompile>
-    <ClCompile Include="..\Classes\Scenes\SelectPlantsScene\LZSSRequriementLayer.cpp">
-      <Filter>Class\Scenes\SelectPlantsScene</Filter>
-    </ClCompile>
-    <ClCompile Include="..\Classes\Scenes\SelectPlantsScene\LZSSSpriteLayer.cpp">
-      <Filter>Class\Scenes\SelectPlantsScene</Filter>
-    </ClCompile>
-    <ClCompile Include="..\Classes\Zombies\LZZBucketDoorFlagZombies.cpp">
-      <Filter>Class\Zombies</Filter>
-    </ClCompile>
-    <ClCompile Include="..\Classes\Zombies\LZZBucketDoorZombies.cpp">
-      <Filter>Class\Zombies</Filter>
-    </ClCompile>
-    <ClCompile Include="..\Classes\Zombies\LZZBucketFlagZombies.cpp">
-      <Filter>Class\Zombies</Filter>
-    </ClCompile>
-    <ClCompile Include="..\Classes\Zombies\LZZBucketZombies.cpp">
-      <Filter>Class\Zombies</Filter>
-    </ClCompile>
-    <ClCompile Include="..\Classes\Zombies\LZZCommonDoorFlagZombies.cpp">
-      <Filter>Class\Zombies</Filter>
-    </ClCompile>
-    <ClCompile Include="..\Classes\Zombies\LZZCommonDoorZombies.cpp">
-      <Filter>Class\Zombies</Filter>
-    </ClCompile>
-    <ClCompile Include="..\Classes\Zombies\LZZCommonFlagZombies.cpp">
-      <Filter>Class\Zombies</Filter>
-    </ClCompile>
-    <ClCompile Include="..\Classes\Zombies\LZZCommonZombies.cpp">
-      <Filter>Class\Zombies</Filter>
-    </ClCompile>
-    <ClCompile Include="..\Classes\Zombies\LZZConeDoorFlagZombies.cpp">
-      <Filter>Class\Zombies</Filter>
-    </ClCompile>
-    <ClCompile Include="..\Classes\Zombies\LZZConeDoorZombies.cpp">
-      <Filter>Class\Zombies</Filter>
-    </ClCompile>
-    <ClCompile Include="..\Classes\Zombies\LZZConeFlagZombies.cpp">
-      <Filter>Class\Zombies</Filter>
-    </ClCompile>
-    <ClCompile Include="..\Classes\Zombies\LZZConeZombies.cpp">
-      <Filter>Class\Zombies</Filter>
-    </ClCompile>
-    <ClCompile Include="..\Classes\Zombies\LZZLmpZombies.cpp">
-      <Filter>Class\Zombies</Filter>
-    </ClCompile>
-    <ClCompile Include="..\Classes\Zombies\LZZSnowZombies.cpp">
-      <Filter>Class\Zombies</Filter>
-    </ClCompile>
-    <ClCompile Include="..\Classes\Zombies\LZZZombies.cpp">
-      <Filter>Class\Zombies</Filter>
-    </ClCompile>
     <ClCompile Include="..\Classes\LZPlantsVsZombies.cpp">
       <Filter>Class</Filter>
-    </ClCompile>
-    <ClCompile Include="..\Classes\Scenes\LoadingScene\LZSLSelectLanguageLayer.cpp">
-      <Filter>Class\Scenes\LoadingScene</Filter>
-    </ClCompile>
-    <ClCompile Include="..\Classes\Plants\BattlePlants\LZPBChomper.cpp">
-      <Filter>Class\Plants\BattlePlants</Filter>
-    </ClCompile>
-    <ClCompile Include="..\Classes\Plants\EmissionPlants\LZPEIcePeaShooter.cpp">
-      <Filter>Class\Plants\EmissionPlants</Filter>
-    </ClCompile>
-    <ClCompile Include="..\Classes\Plants\EmissionPlants\Bullet\LZPEBIcePea.cpp">
-      <Filter>Class\Plants\EmissionPlants\Bullet</Filter>
-    </ClCompile>
-    <ClCompile Include="..\Classes\Scenes\GameScene\LZSGGameTimerLayer.cpp">
-      <Filter>Class\Scenes\GameScene</Filter>
-    </ClCompile>
-    <ClCompile Include="..\Classes\Plants\BattlePlants\LZPBGloomShroom.cpp">
-      <Filter>Class\Plants\BattlePlants</Filter>
-    </ClCompile>
-    <ClCompile Include="..\Classes\Plants\BattlePlants\LZPBJalapenoVariation.cpp">
-      <Filter>Class\Plants\BattlePlants</Filter>
-    </ClCompile>
-    <ClCompile Include="..\Classes\Based\LZBMouseEventControl.cpp">
-      <Filter>Class\Based</Filter>
-    </ClCompile>
-    <ClCompile Include="..\Classes\Plants\EmissionPlants\LZPEStarFruit.cpp">
-      <Filter>Class\Plants\EmissionPlants</Filter>
-    </ClCompile>
-    <ClCompile Include="..\Classes\Plants\EmissionPlants\Bullet\LZPEBStarFruitBullet.cpp">
-      <Filter>Class\Plants\EmissionPlants\Bullet</Filter>
-    </ClCompile>
-    <ClCompile Include="..\Classes\Plants\EmissionPlants\LZPEThreePeaShooter.cpp">
-      <Filter>Class\Plants\EmissionPlants</Filter>
-    </ClCompile>
-    <ClCompile Include="..\Classes\Plants\BattlePlants\LZPBIceBergLettuce.cpp">
-      <Filter>Class\Plants\BattlePlants</Filter>
-    </ClCompile>
-    <ClCompile Include="..\Classes\Scenes\SelectPlantsScene\LZSSPlantSCardUnlockLayer.cpp">
-      <Filter>Class\Scenes\SelectPlantsScene</Filter>
-    </ClCompile>
-    <ClCompile Include="..\Classes\Plants\EmissionPlants\LZPEWaterMelonPult.cpp">
-      <Filter>Class\Plants\EmissionPlants</Filter>
-    </ClCompile>
-    <ClCompile Include="..\Classes\Plants\EmissionPlants\LZPEWinterMelonPult.cpp">
-      <Filter>Class\Plants\EmissionPlants</Filter>
-    </ClCompile>
-    <ClCompile Include="..\Classes\Plants\DefensePlants\LZPDSunFlowerTwin.cpp">
-      <Filter>Class\Plants\DefensePlants</Filter>
-    </ClCompile>
-    <ClCompile Include="..\Classes\Plants\EmissionPlants\Bullet\LZPEBWaterMelonBullet.cpp">
-      <Filter>Class\Plants\EmissionPlants\Bullet</Filter>
-    </ClCompile>
-    <ClCompile Include="..\Classes\Plants\EmissionPlants\Bullet\LZPEBWinterMelonBullet.cpp">
-      <Filter>Class\Plants\EmissionPlants\Bullet</Filter>
-    </ClCompile>
-    <ClCompile Include="..\Classes\Plants\EmissionPlants\LZPECatTail.cpp">
-      <Filter>Class\Plants\EmissionPlants</Filter>
-    </ClCompile>
-    <ClCompile Include="..\Classes\Plants\EmissionPlants\Bullet\LZPEBCatTailBullet.cpp">
-      <Filter>Class\Plants\EmissionPlants\Bullet</Filter>
-    </ClCompile>
-    <ClCompile Include="..\Classes\Scenes\GameScene\HammerZombies\LZSHammerZombiesScene.cpp">
-      <Filter>Class\Scenes\GameScene\HammerZombies</Filter>
-    </ClCompile>
-    <ClCompile Include="..\Classes\Scenes\GameScene\HammerZombies\LZSHBackGroundLayer.cpp">
-      <Filter>Class\Scenes\GameScene\HammerZombies</Filter>
-    </ClCompile>
-    <ClCompile Include="..\Classes\Scenes\GameScene\HammerZombies\LZSHInformationLayer.cpp">
-      <Filter>Class\Scenes\GameScene\HammerZombies</Filter>
-    </ClCompile>
-    <ClCompile Include="..\Classes\Scenes\GameScene\HammerZombies\LZSHButtonLayer.cpp">
-      <Filter>Class\Scenes\GameScene\HammerZombies</Filter>
-    </ClCompile>
-    <ClCompile Include="..\Classes\Scenes\GameScene\HammerZombies\LZSHControlLayer.cpp">
-      <Filter>Class\Scenes\GameScene\HammerZombies</Filter>
-    </ClCompile>
-    <ClCompile Include="..\Classes\Scenes\GameScene\HammerZombies\LZSHAnimationLayer.cpp">
-      <Filter>Class\Scenes\GameScene\HammerZombies</Filter>
-    </ClCompile>
-    <ClCompile Include="..\Classes\Scenes\GameScene\HammerZombies\LZSHGameEndLayer.cpp">
-      <Filter>Class\Scenes\GameScene\HammerZombies</Filter>
-    </ClCompile>
-    <ClCompile Include="..\Classes\Scenes\GameScene\HammerZombies\LZSHGameTimerLayer.cpp">
-      <Filter>Class\Scenes\GameScene\HammerZombies</Filter>
-    </ClCompile>
-    <ClCompile Include="..\Classes\Scenes\GameScene\HammerZombies\LZSHPauseQuiteLayer.cpp">
-      <Filter>Class\Scenes\GameScene\HammerZombies</Filter>
-    </ClCompile>
-    <ClCompile Include="..\Classes\Scenes\MainMenuScene\LZSMUnlockDialogLayer.cpp">
-      <Filter>Class\Scenes\MainMenuScene</Filter>
-    </ClCompile>
-    <ClCompile Include="..\Classes\Scenes\GameScene\BigMap\LZSBBackgroundLayer.cpp">
-      <Filter>Class\Scenes\GameScene\BigMap</Filter>
-    </ClCompile>
-    <ClCompile Include="..\Classes\Scenes\SelectPlantsScene\BigMap\LZSBSelectPlantsScene.cpp">
-      <Filter>Class\Scenes\SelectPlantsScene\BigMap</Filter>
-    </ClCompile>
-    <ClCompile Include="..\Classes\Scenes\SelectPlantsScene\BigMap\LZSSBBackgroundLayer.cpp">
-      <Filter>Class\Scenes\SelectPlantsScene\BigMap</Filter>
-    </ClCompile>
-    <ClCompile Include="..\Classes\Scenes\WorldScene\LZSWBigMapWorld.cpp">
-      <Filter>Class\Scenes\WorldScene</Filter>
-    </ClCompile>
-    <ClCompile Include="..\Classes\Scenes\WorldScene\LZSWModernWorld.cpp">
-      <Filter>Class\Scenes\WorldScene</Filter>
-    </ClCompile>
-    <ClCompile Include="..\Classes\Scenes\WorldScene\LZSWSelectWorldScene.cpp">
-      <Filter>Class\Scenes\WorldScene</Filter>
-    </ClCompile>
-    <ClCompile Include="..\Classes\Scenes\SelectPlantsScene\LZSSMirrorSelectPlantsScene.cpp">
-      <Filter>Class\Scenes\SelectPlantsScene</Filter>
-    </ClCompile>
-    <ClCompile Include="..\Classes\Scenes\GameScene\BigMap\LZSBBigMapGameScene.cpp">
-      <Filter>Class\Scenes\GameScene\BigMap</Filter>
-    </ClCompile>
-    <ClCompile Include="..\Classes\Scenes\GameScene\BigMap\LZSBControlLayer.cpp">
-      <Filter>Class\Scenes\GameScene\BigMap</Filter>
-    </ClCompile>
-    <ClCompile Include="..\Classes\Scenes\GameScene\BigMap\LZSBAnimationLayer.cpp">
-      <Filter>Class\Scenes\GameScene\BigMap</Filter>
-    </ClCompile>
-    <ClCompile Include="..\Classes\Scenes\GameScene\BigMap\LZSBInformationLayer.cpp">
-      <Filter>Class\Scenes\GameScene\BigMap</Filter>
-    </ClCompile>
-    <ClCompile Include="..\Classes\Scenes\GameScene\BigMap\LZSBPauseQuitLayer.cpp">
-      <Filter>Class\Scenes\GameScene\BigMap</Filter>
-    </ClCompile>
-    <ClCompile Include="..\Classes\Scenes\GameScene\BigMap\LZSBButtonLayer.cpp">
-      <Filter>Class\Scenes\GameScene\BigMap</Filter>
-    </ClCompile>
-    <ClCompile Include="..\Classes\Scenes\GameScene\BigMap\LZSBOpenCaveGameScene.cpp">
-      <Filter>Class\Scenes\GameScene\BigMap</Filter>
-    </ClCompile>
-    <ClCompile Include="..\Classes\Scenes\WorldScene\LZSWUnlockDialogLayer.cpp">
-      <Filter>Class\Scenes\WorldScene</Filter>
     </ClCompile>
     <ClCompile Include="..\Classes\Zombies\LZGargantuarZombies.cpp">
       <Filter>Class\Zombies</Filter>
     </ClCompile>
+    <ClCompile Include="..\Classes\Scenes\GameScenes\HammerZombies\GameScene\LZHAnimationLayer.cpp">
+      <Filter>Class\Scenes\GameScenes\HammerZombies\GameScene</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Classes\Scenes\GameScenes\HammerZombies\GameScene\LZHBackGroundLayer.cpp">
+      <Filter>Class\Scenes\GameScenes\HammerZombies\GameScene</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Classes\Scenes\GameScenes\HammerZombies\GameScene\LZHButtonLayer.cpp">
+      <Filter>Class\Scenes\GameScenes\HammerZombies\GameScene</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Classes\Scenes\GameScenes\HammerZombies\GameScene\LZHControlLayer.cpp">
+      <Filter>Class\Scenes\GameScenes\HammerZombies\GameScene</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Classes\Scenes\GameScenes\HammerZombies\GameScene\LZHGameEndLayer.cpp">
+      <Filter>Class\Scenes\GameScenes\HammerZombies\GameScene</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Classes\Scenes\GameScenes\HammerZombies\GameScene\LZHGameTimerLayer.cpp">
+      <Filter>Class\Scenes\GameScenes\HammerZombies\GameScene</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Classes\Scenes\GameScenes\HammerZombies\GameScene\LZHInformationLayer.cpp">
+      <Filter>Class\Scenes\GameScenes\HammerZombies\GameScene</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Classes\Scenes\GameScenes\HammerZombies\GameScene\LZHPauseQuiteLayer.cpp">
+      <Filter>Class\Scenes\GameScenes\HammerZombies\GameScene</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Classes\Scenes\GameScenes\Survival\GameScene\LZSSurvivalControlLayer.cpp">
+      <Filter>Class\Scenes\GameScenes\Survival\GameScene</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Classes\Scenes\GameScenes\Survival\GameScene\LZSSurvivalGameScene.cpp">
+      <Filter>Class\Scenes\GameScenes\Survival\GameScene</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Classes\Scenes\GameScenes\Survival\SelectPlantsScene\LZSSurvivalSelectScene.cpp">
+      <Filter>Class\Scenes\GameScenes\Survival\SelectPlantsScene</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Classes\Based\LZAppDelegate.cpp">
+      <Filter>Class\Based</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Classes\Based\LZCar.cpp">
+      <Filter>Class\Based</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Classes\Based\LZCoin.cpp">
+      <Filter>Class\Based</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Classes\Based\LZDialog.cpp">
+      <Filter>Class\Based</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Classes\Based\LZGameType.cpp">
+      <Filter>Class\Based</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Classes\Based\LZGlobalVariable.cpp">
+      <Filter>Class\Based</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Classes\Based\LZLevelData.cpp">
+      <Filter>Class\Based</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Classes\Based\LZMouseEventControl.cpp">
+      <Filter>Class\Based</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Classes\Based\LZPlayMusic.cpp">
+      <Filter>Class\Based</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Classes\Based\LZUserData.cpp">
+      <Filter>Class\Based</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Classes\Based\LZUserInformation.cpp">
+      <Filter>Class\Based</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Classes\Based\LZUserWinRequirement.cpp">
+      <Filter>Class\Based</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Classes\Based\LZVideoPlayer.cpp">
+      <Filter>Class\Based</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Classes\Plants\LZPlants.cpp">
+      <Filter>Class\Plants</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Classes\Plants\BattlePlants\LZBattlePlants.cpp">
+      <Filter>Class\Plants\BattlePlants</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Classes\Plants\BattlePlants\LZCherryBomb.cpp">
+      <Filter>Class\Plants\BattlePlants</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Classes\Plants\BattlePlants\LZChomper.cpp">
+      <Filter>Class\Plants\BattlePlants</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Classes\Plants\BattlePlants\LZGloomShroom.cpp">
+      <Filter>Class\Plants\BattlePlants</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Classes\Plants\BattlePlants\LZIceBergLettuce.cpp">
+      <Filter>Class\Plants\BattlePlants</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Classes\Plants\BattlePlants\LZJalapeno.cpp">
+      <Filter>Class\Plants\BattlePlants</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Classes\Plants\BattlePlants\LZJalapenoVariation.cpp">
+      <Filter>Class\Plants\BattlePlants</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Classes\Plants\BattlePlants\LZPotatoMine.cpp">
+      <Filter>Class\Plants\BattlePlants</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Classes\Plants\BattlePlants\LZSpikeweed.cpp">
+      <Filter>Class\Plants\BattlePlants</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Classes\Plants\DefensePlants\LZGarlic.cpp">
+      <Filter>Class\Plants\DefensePlants</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Classes\Plants\DefensePlants\LZSunFlower.cpp">
+      <Filter>Class\Plants\DefensePlants</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Classes\Plants\DefensePlants\LZSunFlowerTwin.cpp">
+      <Filter>Class\Plants\DefensePlants</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Classes\Plants\DefensePlants\LZTorchwood.cpp">
+      <Filter>Class\Plants\DefensePlants</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Classes\Plants\DefensePlants\LZWallNut.cpp">
+      <Filter>Class\Plants\DefensePlants</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Classes\Plants\EmissionPlants\Bullet\LZAcidLemonBullet.cpp">
+      <Filter>Class\Plants\EmissionPlants\Bullet</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Classes\Plants\EmissionPlants\Bullet\LZBullet.cpp">
+      <Filter>Class\Plants\EmissionPlants\Bullet</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Classes\Plants\EmissionPlants\Bullet\LZCabbage.cpp">
+      <Filter>Class\Plants\EmissionPlants\Bullet</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Classes\Plants\EmissionPlants\Bullet\LZCatTailBullet.cpp">
+      <Filter>Class\Plants\EmissionPlants\Bullet</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Classes\Plants\EmissionPlants\Bullet\LZCitronBullet.cpp">
+      <Filter>Class\Plants\EmissionPlants\Bullet</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Classes\Plants\EmissionPlants\Bullet\LZFirePea.cpp">
+      <Filter>Class\Plants\EmissionPlants\Bullet</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Classes\Plants\EmissionPlants\Bullet\LZIcePea.cpp">
+      <Filter>Class\Plants\EmissionPlants\Bullet</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Classes\Plants\EmissionPlants\Bullet\LZPea.cpp">
+      <Filter>Class\Plants\EmissionPlants\Bullet</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Classes\Plants\EmissionPlants\Bullet\LZStarFruitBullet.cpp">
+      <Filter>Class\Plants\EmissionPlants\Bullet</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Classes\Plants\EmissionPlants\Bullet\LZWaterMelonBullet.cpp">
+      <Filter>Class\Plants\EmissionPlants\Bullet</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Classes\Plants\EmissionPlants\Bullet\LZWinterMelonBullet.cpp">
+      <Filter>Class\Plants\EmissionPlants\Bullet</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Classes\Plants\EmissionPlants\LZAcidLemon.cpp">
+      <Filter>Class\Plants\EmissionPlants</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Classes\Plants\EmissionPlants\LZCabbagePult.cpp">
+      <Filter>Class\Plants\EmissionPlants</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Classes\Plants\EmissionPlants\LZCatTail.cpp">
+      <Filter>Class\Plants\EmissionPlants</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Classes\Plants\EmissionPlants\LZCitron.cpp">
+      <Filter>Class\Plants\EmissionPlants</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Classes\Plants\EmissionPlants\LZEmissionPlants.cpp">
+      <Filter>Class\Plants\EmissionPlants</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Classes\Plants\EmissionPlants\LZFirePeaShooter.cpp">
+      <Filter>Class\Plants\EmissionPlants</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Classes\Plants\EmissionPlants\LZIcePeaShooter.cpp">
+      <Filter>Class\Plants\EmissionPlants</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Classes\Plants\EmissionPlants\LZPeaShooter.cpp">
+      <Filter>Class\Plants\EmissionPlants</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Classes\Plants\EmissionPlants\LZStarFruit.cpp">
+      <Filter>Class\Plants\EmissionPlants</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Classes\Plants\EmissionPlants\LZThreePeaShooter.cpp">
+      <Filter>Class\Plants\EmissionPlants</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Classes\Plants\EmissionPlants\LZWaterMelonPult.cpp">
+      <Filter>Class\Plants\EmissionPlants</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Classes\Plants\EmissionPlants\LZWinterMelonPult.cpp">
+      <Filter>Class\Plants\EmissionPlants</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Classes\Scenes\EasterEggsScene\LZGameEasterEggs.cpp">
+      <Filter>Class\Scenes\EasterEggsScene</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Classes\Scenes\HelpScene\LZHelpScene.cpp">
+      <Filter>Class\Scenes\HelpScene</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Classes\Scenes\LoadingScene\LZLoadingScene.cpp">
+      <Filter>Class\Scenes\LoadingScene</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Classes\Scenes\LoadingScene\LZSelectLanguageLayer.cpp">
+      <Filter>Class\Scenes\LoadingScene</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Classes\Scenes\MainMenuScene\LZInputDataScene.cpp">
+      <Filter>Class\Scenes\MainMenuScene</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Classes\Scenes\MainMenuScene\LZMainMenu.cpp">
+      <Filter>Class\Scenes\MainMenuScene</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Classes\Scenes\MainMenuScene\LZOptionsSence.cpp">
+      <Filter>Class\Scenes\MainMenuScene</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Classes\Scenes\MainMenuScene\LZQuitScene.cpp">
+      <Filter>Class\Scenes\MainMenuScene</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Classes\Scenes\MainMenuScene\LZUpdateClient.cpp">
+      <Filter>Class\Scenes\MainMenuScene</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Classes\Zombies\LZBucketDoorFlagZombies.cpp">
+      <Filter>Class\Zombies</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Classes\Zombies\LZBucketDoorZombies.cpp">
+      <Filter>Class\Zombies</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Classes\Zombies\LZBucketFlagZombies.cpp">
+      <Filter>Class\Zombies</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Classes\Zombies\LZBucketZombies.cpp">
+      <Filter>Class\Zombies</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Classes\Zombies\LZCommonDoorFlagZombies.cpp">
+      <Filter>Class\Zombies</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Classes\Zombies\LZCommonDoorZombies.cpp">
+      <Filter>Class\Zombies</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Classes\Zombies\LZCommonFlagZombies.cpp">
+      <Filter>Class\Zombies</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Classes\Zombies\LZCommonZombies.cpp">
+      <Filter>Class\Zombies</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Classes\Zombies\LZConeDoorFlagZombies.cpp">
+      <Filter>Class\Zombies</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Classes\Zombies\LZConeDoorZombies.cpp">
+      <Filter>Class\Zombies</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Classes\Zombies\LZConeFlagZombies.cpp">
+      <Filter>Class\Zombies</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Classes\Zombies\LZConeZombies.cpp">
+      <Filter>Class\Zombies</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Classes\Zombies\LZLmpZombies.cpp">
+      <Filter>Class\Zombies</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Classes\Zombies\LZSnowZombies.cpp">
+      <Filter>Class\Zombies</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Classes\Zombies\LZZombies.cpp">
+      <Filter>Class\Zombies</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Classes\Scenes\GameScenes\Adventure\WorldScene\LZModernWorld.cpp">
+      <Filter>Class\Scenes\GameScenes\Adventure\WorldScene</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Classes\Scenes\GameScenes\BigMap\WorldScene\LZBigMapWorld.cpp">
+      <Filter>Class\Scenes\GameScenes\BigMap\WorldScene</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Classes\Scenes\GameScenes\HammerZombies\GameScene\LZHammerZombiesScene.cpp">
+      <Filter>Class\Scenes\GameScenes\HammerZombies\GameScene</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Classes\Scenes\GameScenes\BigMap\SelectPlantsScene\LZBMSPSBackgroundLayer.cpp">
+      <Filter>Class\Scenes\GameScenes\BigMap\SelectPlantsScene</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Classes\Scenes\GameScenes\BigMap\SelectPlantsScene\LZBMSelectPlantsScene.cpp">
+      <Filter>Class\Scenes\GameScenes\BigMap\SelectPlantsScene</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Classes\Scenes\GameScenes\BigMap\GameScene\LZBMGSPauseQuitLayer.cpp">
+      <Filter>Class\Scenes\GameScenes\BigMap\GameScene</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Classes\Scenes\GameScenes\BigMap\GameScene\LZBMGSOpenCaveGameScene.cpp">
+      <Filter>Class\Scenes\GameScenes\BigMap\GameScene</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Classes\Scenes\GameScenes\BigMap\GameScene\LZBMGSInformationLayer.cpp">
+      <Filter>Class\Scenes\GameScenes\BigMap\GameScene</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Classes\Scenes\GameScenes\BigMap\GameScene\LZBMGSControlLayer.cpp">
+      <Filter>Class\Scenes\GameScenes\BigMap\GameScene</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Classes\Scenes\GameScenes\BigMap\GameScene\LZBMGSButtonLayer.cpp">
+      <Filter>Class\Scenes\GameScenes\BigMap\GameScene</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Classes\Scenes\GameScenes\BigMap\GameScene\LZBigMapGameScene.cpp">
+      <Filter>Class\Scenes\GameScenes\BigMap\GameScene</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Classes\Scenes\GameScenes\BigMap\GameScene\LZBMGSBackgroundLayer.cpp">
+      <Filter>Class\Scenes\GameScenes\BigMap\GameScene</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Classes\Scenes\GameScenes\BigMap\GameScene\LZBMGSAnimationLayer.cpp">
+      <Filter>Class\Scenes\GameScenes\BigMap\GameScene</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Classes\Scenes\GameScenes\Adventure\GameScene\LZAGSButtonLayer.cpp">
+      <Filter>Class\Scenes\GameScenes\Adventure\GameScene</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Classes\Scenes\GameScenes\Adventure\GameScene\LZAGSControlLayer.cpp">
+      <Filter>Class\Scenes\GameScenes\Adventure\GameScene</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Classes\Scenes\GameScenes\Adventure\GameScene\LZAGSData.cpp">
+      <Filter>Class\Scenes\GameScenes\Adventure\GameScene</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Classes\Scenes\GameScenes\Adventure\GameScene\LZAGSGameEndLayer.cpp">
+      <Filter>Class\Scenes\GameScenes\Adventure\GameScene</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Classes\Scenes\GameScenes\Adventure\GameScene\LZAGSGameResultJudgement.cpp">
+      <Filter>Class\Scenes\GameScenes\Adventure\GameScene</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Classes\Scenes\GameScenes\Adventure\GameScene\LZAGameScene.cpp">
+      <Filter>Class\Scenes\GameScenes\Adventure\GameScene</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Classes\Scenes\GameScenes\Adventure\GameScene\LZAGSGameTimerLayer.cpp">
+      <Filter>Class\Scenes\GameScenes\Adventure\GameScene</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Classes\Scenes\GameScenes\Adventure\GameScene\LZAGSBackgroundLayer.cpp">
+      <Filter>Class\Scenes\GameScenes\Adventure\GameScene</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Classes\Scenes\GameScenes\Adventure\GameScene\LZAGSInformationLayer.cpp">
+      <Filter>Class\Scenes\GameScenes\Adventure\GameScene</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Classes\Scenes\GameScenes\Adventure\GameScene\LZAGSMirrorGameScene.cpp">
+      <Filter>Class\Scenes\GameScenes\Adventure\GameScene</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Classes\Scenes\GameScenes\Adventure\GameScene\LZAGSOpenCaveGameScene.cpp">
+      <Filter>Class\Scenes\GameScenes\Adventure\GameScene</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Classes\Scenes\GameScenes\Adventure\GameScene\LZAGSPauseLayer.cpp">
+      <Filter>Class\Scenes\GameScenes\Adventure\GameScene</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Classes\Scenes\GameScenes\Adventure\GameScene\LZAGSPauseQuitLayer.cpp">
+      <Filter>Class\Scenes\GameScenes\Adventure\GameScene</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Classes\Scenes\GameScenes\Adventure\GameScene\LZAGSRequirementLayer.cpp">
+      <Filter>Class\Scenes\GameScenes\Adventure\GameScene</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Classes\Scenes\GameScenes\Adventure\GameScene\LZAGSZombiesAppearControl.cpp">
+      <Filter>Class\Scenes\GameScenes\Adventure\GameScene</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Classes\Scenes\GameScenes\Adventure\SelectPlantsScene\LZASPSBackgroundLayer.cpp">
+      <Filter>Class\Scenes\GameScenes\Adventure\SelectPlantsScene</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Classes\Scenes\GameScenes\Adventure\SelectPlantsScene\LZASPSControlLayer.cpp">
+      <Filter>Class\Scenes\GameScenes\Adventure\SelectPlantsScene</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Classes\Scenes\GameScenes\Adventure\SelectPlantsScene\LZASPSJumpLevelLayer.cpp">
+      <Filter>Class\Scenes\GameScenes\Adventure\SelectPlantsScene</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Classes\Scenes\GameScenes\Adventure\SelectPlantsScene\LZASPSMirrorSelectPlantsScene.cpp">
+      <Filter>Class\Scenes\GameScenes\Adventure\SelectPlantsScene</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Classes\Scenes\GameScenes\Adventure\SelectPlantsScene\LZASPSPlantSCardUnlockLayer.cpp">
+      <Filter>Class\Scenes\GameScenes\Adventure\SelectPlantsScene</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Classes\Scenes\GameScenes\Adventure\SelectPlantsScene\LZASPSQuitLayer.cpp">
+      <Filter>Class\Scenes\GameScenes\Adventure\SelectPlantsScene</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Classes\Scenes\GameScenes\Adventure\SelectPlantsScene\LZASPSRequriementLayer.cpp">
+      <Filter>Class\Scenes\GameScenes\Adventure\SelectPlantsScene</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Classes\Scenes\GameScenes\Adventure\SelectPlantsScene\LZASelectPlantsScene.cpp">
+      <Filter>Class\Scenes\GameScenes\Adventure\SelectPlantsScene</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Classes\Scenes\GameScenes\Adventure\SelectPlantsScene\LZASPSSpriteLayer.cpp">
+      <Filter>Class\Scenes\GameScenes\Adventure\SelectPlantsScene</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Classes\Scenes\GameScenes\Adventure\GameScene\LZAGSAnimationLayer.cpp">
+      <Filter>Class\Scenes\GameScenes\Adventure\GameScene</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Classes\Scenes\SelectWorldScene\LZSelectWorldScene.cpp">
+      <Filter>Class\Scenes\SelectWorldScene</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Classes\Scenes\MainMenuScene\LZUnlockDialogLayer.cpp">
+      <Filter>Class\Scenes\MainMenuScene</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Classes\Scenes\SelectWorldScene\LZSWSUnlockDialogLayer.cpp">
+      <Filter>Class\Scenes\SelectWorldScene</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="..\Classes\Based\LZBCar.h">
-      <Filter>Class\Based</Filter>
-    </ClInclude>
-    <ClInclude Include="..\Classes\Based\LZBAppDelegate.h">
-      <Filter>Class\Based</Filter>
-    </ClInclude>
-    <ClInclude Include="..\Classes\Based\LZBCoin.h">
-      <Filter>Class\Based</Filter>
-    </ClInclude>
-    <ClInclude Include="..\Classes\Based\LZBDialog.h">
-      <Filter>Class\Based</Filter>
-    </ClInclude>
-    <ClInclude Include="..\Classes\Based\LZBGameType.h">
-      <Filter>Class\Based</Filter>
-    </ClInclude>
-    <ClInclude Include="..\Classes\Based\LZBGlobalVariable.h">
-      <Filter>Class\Based</Filter>
-    </ClInclude>
-    <ClInclude Include="..\Classes\Based\LZBLevelData.h">
-      <Filter>Class\Based</Filter>
-    </ClInclude>
-    <ClInclude Include="..\Classes\Based\LZBlibpvz.h">
-      <Filter>Class\Based</Filter>
-    </ClInclude>
-    <ClInclude Include="..\Classes\Based\LZBPlayMusic.h">
-      <Filter>Class\Based</Filter>
-    </ClInclude>
-    <ClInclude Include="..\Classes\Based\LZBUserData.h">
-      <Filter>Class\Based</Filter>
-    </ClInclude>
-    <ClInclude Include="..\Classes\Based\LZBUserInformation.h">
-      <Filter>Class\Based</Filter>
-    </ClInclude>
-    <ClInclude Include="..\Classes\Based\LZBUserWinRequirement.h">
-      <Filter>Class\Based</Filter>
-    </ClInclude>
-    <ClInclude Include="..\Classes\Based\LZBVideoPlayer.h">
-      <Filter>Class\Based</Filter>
-    </ClInclude>
-    <ClInclude Include="..\Classes\Plants\BattlePlants\LZPBBattlePlants.h">
-      <Filter>Class\Plants\BattlePlants</Filter>
-    </ClInclude>
-    <ClInclude Include="..\Classes\Plants\BattlePlants\LZPBCherryBomb.h">
-      <Filter>Class\Plants\BattlePlants</Filter>
-    </ClInclude>
-    <ClInclude Include="..\Classes\Plants\BattlePlants\LZPBJalapeno.h">
-      <Filter>Class\Plants\BattlePlants</Filter>
-    </ClInclude>
-    <ClInclude Include="..\Classes\Plants\BattlePlants\LZPBPotatoMine.h">
-      <Filter>Class\Plants\BattlePlants</Filter>
-    </ClInclude>
-    <ClInclude Include="..\Classes\Plants\BattlePlants\LZPBSpikeweed.h">
-      <Filter>Class\Plants\BattlePlants</Filter>
-    </ClInclude>
-    <ClInclude Include="..\Classes\Plants\DefensePlants\LZPDGarlic.h">
-      <Filter>Class\Plants\DefensePlants</Filter>
-    </ClInclude>
-    <ClInclude Include="..\Classes\Plants\DefensePlants\LZPDSunFlower.h">
-      <Filter>Class\Plants\DefensePlants</Filter>
-    </ClInclude>
-    <ClInclude Include="..\Classes\Plants\DefensePlants\LZPDTorchwood.h">
-      <Filter>Class\Plants\DefensePlants</Filter>
-    </ClInclude>
-    <ClInclude Include="..\Classes\Plants\DefensePlants\LZPDWallNut.h">
-      <Filter>Class\Plants\DefensePlants</Filter>
-    </ClInclude>
-    <ClInclude Include="..\Classes\Plants\EmissionPlants\Bullet\LZPEBAcidLemonBullet.h">
-      <Filter>Class\Plants\EmissionPlants\Bullet</Filter>
-    </ClInclude>
-    <ClInclude Include="..\Classes\Plants\EmissionPlants\Bullet\LZPEBBullet.h">
-      <Filter>Class\Plants\EmissionPlants\Bullet</Filter>
-    </ClInclude>
-    <ClInclude Include="..\Classes\Plants\EmissionPlants\Bullet\LZPEBBullet-File.h">
-      <Filter>Class\Plants\EmissionPlants\Bullet</Filter>
-    </ClInclude>
-    <ClInclude Include="..\Classes\Plants\EmissionPlants\Bullet\LZPEBCabbage.h">
-      <Filter>Class\Plants\EmissionPlants\Bullet</Filter>
-    </ClInclude>
-    <ClInclude Include="..\Classes\Plants\EmissionPlants\Bullet\LZPEBCitronBullet.h">
-      <Filter>Class\Plants\EmissionPlants\Bullet</Filter>
-    </ClInclude>
-    <ClInclude Include="..\Classes\Plants\EmissionPlants\Bullet\LZPEBFirePea.h">
-      <Filter>Class\Plants\EmissionPlants\Bullet</Filter>
-    </ClInclude>
-    <ClInclude Include="..\Classes\Plants\EmissionPlants\Bullet\LZPEBPea.h">
-      <Filter>Class\Plants\EmissionPlants\Bullet</Filter>
-    </ClInclude>
-    <ClInclude Include="..\Classes\Plants\EmissionPlants\LZPEAcidLemon.h">
-      <Filter>Class\Plants\EmissionPlants</Filter>
-    </ClInclude>
-    <ClInclude Include="..\Classes\Plants\EmissionPlants\LZPECabbagePult.h">
-      <Filter>Class\Plants\EmissionPlants</Filter>
-    </ClInclude>
-    <ClInclude Include="..\Classes\Plants\EmissionPlants\LZPECitron.h">
-      <Filter>Class\Plants\EmissionPlants</Filter>
-    </ClInclude>
-    <ClInclude Include="..\Classes\Plants\EmissionPlants\LZPEEmissionPlants.h">
-      <Filter>Class\Plants\EmissionPlants</Filter>
-    </ClInclude>
-    <ClInclude Include="..\Classes\Plants\EmissionPlants\LZPEFirePeaShooter.h">
-      <Filter>Class\Plants\EmissionPlants</Filter>
-    </ClInclude>
-    <ClInclude Include="..\Classes\Plants\EmissionPlants\LZPEPeaShooter.h">
-      <Filter>Class\Plants\EmissionPlants</Filter>
-    </ClInclude>
-    <ClInclude Include="..\Classes\Plants\LZPPlants.h">
-      <Filter>Class\Plants</Filter>
-    </ClInclude>
-    <ClInclude Include="..\Classes\Plants\LZPPlants-Files.h">
-      <Filter>Class\Plants</Filter>
-    </ClInclude>
-    <ClInclude Include="..\Classes\Scenes\EasterEggsScene\LZSEGameEasterEggs.h">
-      <Filter>Class\Scenes\EasterEggsScene</Filter>
-    </ClInclude>
-    <ClInclude Include="..\Classes\Scenes\GameScene\SurvivalGameScene\LZSGSSurvivalControlLayer.h">
-      <Filter>Class\Scenes\GameScene\SurvivalScene</Filter>
-    </ClInclude>
-    <ClInclude Include="..\Classes\Scenes\GameScene\SurvivalGameScene\LZSGSSurvivalGameScene.h">
-      <Filter>Class\Scenes\GameScene\SurvivalScene</Filter>
-    </ClInclude>
-    <ClInclude Include="..\Classes\Scenes\GameScene\LZSGGameScene.h">
-      <Filter>Class\Scenes\GameScene</Filter>
-    </ClInclude>
-    <ClInclude Include="..\Classes\Scenes\GameScene\LZSGDefine.h">
-      <Filter>Class\Scenes\GameScene</Filter>
-    </ClInclude>
-    <ClInclude Include="..\Classes\Scenes\GameScene\LZSGData.h">
-      <Filter>Class\Scenes\GameScene</Filter>
-    </ClInclude>
-    <ClInclude Include="..\Classes\Scenes\GameScene\LZSGControlLayer.h">
-      <Filter>Class\Scenes\GameScene</Filter>
-    </ClInclude>
-    <ClInclude Include="..\Classes\Scenes\GameScene\LZSGButtonLayer.h">
-      <Filter>Class\Scenes\GameScene</Filter>
-    </ClInclude>
-    <ClInclude Include="..\Classes\Scenes\GameScene\LZSGBackgroundLayer.h">
-      <Filter>Class\Scenes\GameScene</Filter>
-    </ClInclude>
-    <ClInclude Include="..\Classes\Scenes\GameScene\LZSGAnimationLayer.h">
-      <Filter>Class\Scenes\GameScene</Filter>
-    </ClInclude>
-    <ClInclude Include="..\Classes\Scenes\GameScene\LZSGGameEndLayer.h">
-      <Filter>Class\Scenes\GameScene</Filter>
-    </ClInclude>
-    <ClInclude Include="..\Classes\Scenes\GameScene\LZSGGameResultJudgement.h">
-      <Filter>Class\Scenes\GameScene</Filter>
-    </ClInclude>
-    <ClInclude Include="..\Classes\Scenes\GameScene\LZSGInformationLayer.h">
-      <Filter>Class\Scenes\GameScene</Filter>
-    </ClInclude>
-    <ClInclude Include="..\Classes\Scenes\GameScene\LZSGPauseLayer.h">
-      <Filter>Class\Scenes\GameScene</Filter>
-    </ClInclude>
-    <ClInclude Include="..\Classes\Scenes\GameScene\LZSGPauseQuitLayer.h">
-      <Filter>Class\Scenes\GameScene</Filter>
-    </ClInclude>
-    <ClInclude Include="..\Classes\Scenes\GameScene\LZSGRequirementLayer.h">
-      <Filter>Class\Scenes\GameScene</Filter>
-    </ClInclude>
-    <ClInclude Include="..\Classes\Scenes\GameScene\LZSGZombiesAppearControl.h">
-      <Filter>Class\Scenes\GameScene</Filter>
-    </ClInclude>
-    <ClInclude Include="..\Classes\Scenes\GameScene\LZSGMirrorGameScene.h">
-      <Filter>Class\Scenes\GameScene</Filter>
-    </ClInclude>
-    <ClInclude Include="..\Classes\Scenes\GameScene\LZSGOpenCaveGameScene.h">
-      <Filter>Class\Scenes\GameScene</Filter>
-    </ClInclude>
-    <ClInclude Include="..\Classes\Scenes\HelpScene\LZSHHelpScene.h">
-      <Filter>Class\Scenes\HelpScene</Filter>
-    </ClInclude>
-    <ClInclude Include="..\Classes\Scenes\LoadingScene\LZSLLoadingScene.h">
-      <Filter>Class\Scenes\LoadingScene</Filter>
-    </ClInclude>
-    <ClInclude Include="..\Classes\Scenes\MainMenuScene\LZSMInputDataScene.h">
-      <Filter>Class\Scenes\MainMenuScene</Filter>
-    </ClInclude>
-    <ClInclude Include="..\Classes\Scenes\MainMenuScene\LZSMMainMenu.h">
-      <Filter>Class\Scenes\MainMenuScene</Filter>
-    </ClInclude>
-    <ClInclude Include="..\Classes\Scenes\MainMenuScene\LZSMOptionsSence.h">
-      <Filter>Class\Scenes\MainMenuScene</Filter>
-    </ClInclude>
-    <ClInclude Include="..\Classes\Scenes\MainMenuScene\LZSMQuitScene.h">
-      <Filter>Class\Scenes\MainMenuScene</Filter>
-    </ClInclude>
-    <ClInclude Include="..\Classes\Scenes\MainMenuScene\LZSMUpdateClient.h">
-      <Filter>Class\Scenes\MainMenuScene</Filter>
-    </ClInclude>
-    <ClInclude Include="..\Classes\Scenes\SelectPlantsScene\SurvivalSelectScene\LZSSSSurvivalSelectScene.h">
-      <Filter>Class\Scenes\SelectPlantsScene\SurvivalSelectScene</Filter>
-    </ClInclude>
-    <ClInclude Include="..\Classes\Scenes\SelectPlantsScene\LZSSSelectPlantsScene.h">
-      <Filter>Class\Scenes\SelectPlantsScene</Filter>
-    </ClInclude>
-    <ClInclude Include="..\Classes\Scenes\SelectPlantsScene\LZSSBackgroundLayer.h">
-      <Filter>Class\Scenes\SelectPlantsScene</Filter>
-    </ClInclude>
-    <ClInclude Include="..\Classes\Scenes\SelectPlantsScene\LZSSControlLayer.h">
-      <Filter>Class\Scenes\SelectPlantsScene</Filter>
-    </ClInclude>
-    <ClInclude Include="..\Classes\Scenes\SelectPlantsScene\LZSSJumpLevelLayer.h">
-      <Filter>Class\Scenes\SelectPlantsScene</Filter>
-    </ClInclude>
-    <ClInclude Include="..\Classes\Scenes\SelectPlantsScene\LZSSQuitLayer.h">
-      <Filter>Class\Scenes\SelectPlantsScene</Filter>
-    </ClInclude>
-    <ClInclude Include="..\Classes\Scenes\SelectPlantsScene\LZSSRequriementLayer.h">
-      <Filter>Class\Scenes\SelectPlantsScene</Filter>
-    </ClInclude>
-    <ClInclude Include="..\Classes\Scenes\SelectPlantsScene\LZSSSpriteLayer.h">
-      <Filter>Class\Scenes\SelectPlantsScene</Filter>
-    </ClInclude>
-    <ClInclude Include="..\Classes\Zombies\LZZBucketDoorFlagZombies.h">
-      <Filter>Class\Zombies</Filter>
-    </ClInclude>
-    <ClInclude Include="..\Classes\Zombies\LZZBucketDoorZombies.h">
-      <Filter>Class\Zombies</Filter>
-    </ClInclude>
-    <ClInclude Include="..\Classes\Zombies\LZZBucketFlagZombies.h">
-      <Filter>Class\Zombies</Filter>
-    </ClInclude>
-    <ClInclude Include="..\Classes\Zombies\LZZBucketZombies.h">
-      <Filter>Class\Zombies</Filter>
-    </ClInclude>
-    <ClInclude Include="..\Classes\Zombies\LZZCommonDoorFlagZombies.h">
-      <Filter>Class\Zombies</Filter>
-    </ClInclude>
-    <ClInclude Include="..\Classes\Zombies\LZZCommonDoorZombies.h">
-      <Filter>Class\Zombies</Filter>
-    </ClInclude>
-    <ClInclude Include="..\Classes\Zombies\LZZCommonFlagZombies.h">
-      <Filter>Class\Zombies</Filter>
-    </ClInclude>
-    <ClInclude Include="..\Classes\Zombies\LZZCommonZombies.h">
-      <Filter>Class\Zombies</Filter>
-    </ClInclude>
-    <ClInclude Include="..\Classes\Zombies\LZZConeDoorFlagZombies.h">
-      <Filter>Class\Zombies</Filter>
-    </ClInclude>
-    <ClInclude Include="..\Classes\Zombies\LZZConeDoorZombies.h">
-      <Filter>Class\Zombies</Filter>
-    </ClInclude>
-    <ClInclude Include="..\Classes\Zombies\LZZConeFlagZombies.h">
-      <Filter>Class\Zombies</Filter>
-    </ClInclude>
-    <ClInclude Include="..\Classes\Zombies\LZZConeZombies.h">
-      <Filter>Class\Zombies</Filter>
-    </ClInclude>
-    <ClInclude Include="..\Classes\Zombies\LZZLmpZombies.h">
-      <Filter>Class\Zombies</Filter>
-    </ClInclude>
-    <ClInclude Include="..\Classes\Zombies\LZZSnowZombies.h">
-      <Filter>Class\Zombies</Filter>
-    </ClInclude>
-    <ClInclude Include="..\Classes\Zombies\LZZZombies.h">
-      <Filter>Class\Zombies</Filter>
-    </ClInclude>
-    <ClInclude Include="..\Classes\Zombies\LZZZombies-Files.h">
-      <Filter>Class\Zombies</Filter>
-    </ClInclude>
     <ClInclude Include="..\Classes\LZPlantsVsZombies.h">
       <Filter>Class</Filter>
     </ClInclude>
-    <ClInclude Include="..\Classes\Scenes\LoadingScene\LZSLSelectLanguageLayer.h">
-      <Filter>Class\Scenes\LoadingScene</Filter>
-    </ClInclude>
-    <ClInclude Include="..\Classes\Plants\BattlePlants\LZPBChomper.h">
-      <Filter>Class\Plants\BattlePlants</Filter>
-    </ClInclude>
-    <ClInclude Include="..\Classes\Plants\EmissionPlants\LZPEIcePeaShooter.h">
-      <Filter>Class\Plants\EmissionPlants</Filter>
-    </ClInclude>
-    <ClInclude Include="..\Classes\Plants\EmissionPlants\Bullet\LZPEBIcePea.h">
-      <Filter>Class\Plants\EmissionPlants\Bullet</Filter>
-    </ClInclude>
-    <ClInclude Include="..\Classes\Scenes\GameScene\LZSGGameTimerLayer.h">
-      <Filter>Class\Scenes\GameScene</Filter>
-    </ClInclude>
-    <ClInclude Include="..\Classes\Plants\BattlePlants\LZPBGloomShroom.h">
-      <Filter>Class\Plants\BattlePlants</Filter>
-    </ClInclude>
-    <ClInclude Include="..\Classes\Plants\BattlePlants\LZPBJalapenoVariation.h">
-      <Filter>Class\Plants\BattlePlants</Filter>
-    </ClInclude>
-    <ClInclude Include="..\Classes\Based\LZBMouseEventControl.h">
-      <Filter>Class\Based</Filter>
-    </ClInclude>
-    <ClInclude Include="..\Classes\Plants\EmissionPlants\LZPEStarFruit.h">
-      <Filter>Class\Plants\EmissionPlants</Filter>
-    </ClInclude>
-    <ClInclude Include="..\Classes\Plants\EmissionPlants\Bullet\LZPEBStarFruitBullet.h">
-      <Filter>Class\Plants\EmissionPlants\Bullet</Filter>
-    </ClInclude>
-    <ClInclude Include="..\Classes\Plants\EmissionPlants\LZPEThreePeaShooter.h">
-      <Filter>Class\Plants\EmissionPlants</Filter>
-    </ClInclude>
-    <ClInclude Include="..\Classes\Plants\BattlePlants\LZPBIceBergLettuce.h">
-      <Filter>Class\Plants\BattlePlants</Filter>
-    </ClInclude>
-    <ClInclude Include="..\Classes\Scenes\SelectPlantsScene\LZSSPlantSCardUnlockLayer.h">
-      <Filter>Class\Scenes\SelectPlantsScene</Filter>
-    </ClInclude>
-    <ClInclude Include="..\Classes\Plants\EmissionPlants\LZPEWaterMelonPult.h">
-      <Filter>Class\Plants\EmissionPlants</Filter>
-    </ClInclude>
-    <ClInclude Include="..\Classes\Plants\EmissionPlants\LZPEWinterMelonPult.h">
-      <Filter>Class\Plants\EmissionPlants</Filter>
-    </ClInclude>
-    <ClInclude Include="..\Classes\Plants\DefensePlants\LZPDSunFlowerTwin.h">
-      <Filter>Class\Plants\DefensePlants</Filter>
-    </ClInclude>
-    <ClInclude Include="..\Classes\Plants\EmissionPlants\Bullet\LZPEBWaterMelonBullet.h">
-      <Filter>Class\Plants\EmissionPlants\Bullet</Filter>
-    </ClInclude>
-    <ClInclude Include="..\Classes\Plants\EmissionPlants\Bullet\LZPEBWinterMelonBullet.h">
-      <Filter>Class\Plants\EmissionPlants\Bullet</Filter>
-    </ClInclude>
-    <ClInclude Include="..\Classes\Plants\EmissionPlants\LZPECatTail.h">
-      <Filter>Class\Plants\EmissionPlants</Filter>
-    </ClInclude>
-    <ClInclude Include="..\Classes\Plants\EmissionPlants\Bullet\LZPEBCatTailBullet.h">
-      <Filter>Class\Plants\EmissionPlants\Bullet</Filter>
-    </ClInclude>
-    <ClInclude Include="..\Classes\Scenes\GameScene\HammerZombies\LZSHammerZombiesScene.h">
-      <Filter>Class\Scenes\GameScene\HammerZombies</Filter>
-    </ClInclude>
-    <ClInclude Include="..\Classes\Scenes\GameScene\HammerZombies\LZSHBackGroundLayer.h">
-      <Filter>Class\Scenes\GameScene\HammerZombies</Filter>
-    </ClInclude>
-    <ClInclude Include="..\Classes\Scenes\GameScene\HammerZombies\LZSHInformationLayer.h">
-      <Filter>Class\Scenes\GameScene\HammerZombies</Filter>
-    </ClInclude>
-    <ClInclude Include="..\Classes\Scenes\GameScene\HammerZombies\LZSHButtonLayer.h">
-      <Filter>Class\Scenes\GameScene\HammerZombies</Filter>
-    </ClInclude>
-    <ClInclude Include="..\Classes\Scenes\GameScene\HammerZombies\LZSHControlLayer.h">
-      <Filter>Class\Scenes\GameScene\HammerZombies</Filter>
-    </ClInclude>
-    <ClInclude Include="..\Classes\Scenes\GameScene\HammerZombies\LZSHAnimationLayer.h">
-      <Filter>Class\Scenes\GameScene\HammerZombies</Filter>
-    </ClInclude>
-    <ClInclude Include="..\Classes\Scenes\GameScene\HammerZombies\LZSHGameEndLayer.h">
-      <Filter>Class\Scenes\GameScene\HammerZombies</Filter>
-    </ClInclude>
-    <ClInclude Include="..\Classes\Scenes\GameScene\HammerZombies\LZSHGameTimerLayer.h">
-      <Filter>Class\Scenes\GameScene\HammerZombies</Filter>
-    </ClInclude>
-    <ClInclude Include="..\Classes\Scenes\GameScene\HammerZombies\LZSHPauseQuiteLayer.h">
-      <Filter>Class\Scenes\GameScene\HammerZombies</Filter>
-    </ClInclude>
-    <ClInclude Include="..\Classes\Scenes\MainMenuScene\LZSMUnlockDialogLayer.h">
-      <Filter>Class\Scenes\MainMenuScene</Filter>
-    </ClInclude>
-    <ClInclude Include="..\Classes\Scenes\GameScene\BigMap\LZSBBackgroundLayer.h">
-      <Filter>Class\Scenes\GameScene\BigMap</Filter>
-    </ClInclude>
-    <ClInclude Include="..\Classes\Scenes\SelectPlantsScene\BigMap\LZSBSelectPlantsScene.h">
-      <Filter>Class\Scenes\SelectPlantsScene\BigMap</Filter>
-    </ClInclude>
-    <ClInclude Include="..\Classes\Scenes\SelectPlantsScene\BigMap\LZSSBBackgroundLayer.h">
-      <Filter>Class\Scenes\SelectPlantsScene\BigMap</Filter>
-    </ClInclude>
-    <ClInclude Include="..\Classes\Scenes\WorldScene\LZSWBigMapWorld.h">
-      <Filter>Class\Scenes\WorldScene</Filter>
-    </ClInclude>
-    <ClInclude Include="..\Classes\Scenes\WorldScene\LZSWModernWorld.h">
-      <Filter>Class\Scenes\WorldScene</Filter>
-    </ClInclude>
-    <ClInclude Include="..\Classes\Scenes\WorldScene\LZSWSelectWorldScene.h">
-      <Filter>Class\Scenes\WorldScene</Filter>
-    </ClInclude>
-    <ClInclude Include="..\Classes\Scenes\SelectPlantsScene\LZSSMirrorSelectPlantsScene.h">
-      <Filter>Class\Scenes\SelectPlantsScene</Filter>
-    </ClInclude>
-    <ClInclude Include="..\Classes\Scenes\GameScene\BigMap\LZSBBigMapGameScene.h">
-      <Filter>Class\Scenes\GameScene\BigMap</Filter>
-    </ClInclude>
-    <ClInclude Include="..\Classes\Scenes\GameScene\BigMap\LZSBControlLayer.h">
-      <Filter>Class\Scenes\GameScene\BigMap</Filter>
-    </ClInclude>
-    <ClInclude Include="..\Classes\Scenes\GameScene\BigMap\LZSBAnimationLayer.h">
-      <Filter>Class\Scenes\GameScene\BigMap</Filter>
-    </ClInclude>
-    <ClInclude Include="..\Classes\Scenes\GameScene\BigMap\LZSBInformationLayer.h">
-      <Filter>Class\Scenes\GameScene\BigMap</Filter>
-    </ClInclude>
-    <ClInclude Include="..\Classes\Scenes\GameScene\BigMap\LZSBPauseQuitLayer.h">
-      <Filter>Class\Scenes\GameScene\BigMap</Filter>
-    </ClInclude>
-    <ClInclude Include="..\Classes\Scenes\GameScene\BigMap\LZSBButtonLayer.h">
-      <Filter>Class\Scenes\GameScene\BigMap</Filter>
-    </ClInclude>
-    <ClInclude Include="..\Classes\Scenes\GameScene\BigMap\LZSBOpenCaveGameScene.h">
-      <Filter>Class\Scenes\GameScene\BigMap</Filter>
-    </ClInclude>
-    <ClInclude Include="..\Classes\Scenes\WorldScene\LZSWUnlockDialogLayer.h">
-      <Filter>Class\Scenes\WorldScene</Filter>
-    </ClInclude>
     <ClInclude Include="..\Classes\Zombies\LZGargantuarZombies.h">
       <Filter>Class\Zombies</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Classes\Scenes\GameScenes\HammerZombies\GameScene\LZHAnimationLayer.h">
+      <Filter>Class\Scenes\GameScenes\HammerZombies\GameScene</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Classes\Scenes\GameScenes\HammerZombies\GameScene\LZHBackGroundLayer.h">
+      <Filter>Class\Scenes\GameScenes\HammerZombies\GameScene</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Classes\Scenes\GameScenes\HammerZombies\GameScene\LZHButtonLayer.h">
+      <Filter>Class\Scenes\GameScenes\HammerZombies\GameScene</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Classes\Scenes\GameScenes\HammerZombies\GameScene\LZHControlLayer.h">
+      <Filter>Class\Scenes\GameScenes\HammerZombies\GameScene</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Classes\Scenes\GameScenes\HammerZombies\GameScene\LZHGameEndLayer.h">
+      <Filter>Class\Scenes\GameScenes\HammerZombies\GameScene</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Classes\Scenes\GameScenes\HammerZombies\GameScene\LZHGameTimerLayer.h">
+      <Filter>Class\Scenes\GameScenes\HammerZombies\GameScene</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Classes\Scenes\GameScenes\HammerZombies\GameScene\LZHInformationLayer.h">
+      <Filter>Class\Scenes\GameScenes\HammerZombies\GameScene</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Classes\Scenes\GameScenes\HammerZombies\GameScene\LZHPauseQuiteLayer.h">
+      <Filter>Class\Scenes\GameScenes\HammerZombies\GameScene</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Classes\Scenes\GameScenes\Survival\GameScene\LZSSurvivalControlLayer.h">
+      <Filter>Class\Scenes\GameScenes\Survival\GameScene</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Classes\Scenes\GameScenes\Survival\GameScene\LZSSurvivalGameScene.h">
+      <Filter>Class\Scenes\GameScenes\Survival\GameScene</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Classes\Scenes\GameScenes\Survival\SelectPlantsScene\LZSSurvivalSelectScene.h">
+      <Filter>Class\Scenes\GameScenes\Survival\SelectPlantsScene</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Classes\Based\LZAppDelegate.h">
+      <Filter>Class\Based</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Classes\Based\LZCar.h">
+      <Filter>Class\Based</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Classes\Based\LZCoin.h">
+      <Filter>Class\Based</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Classes\Based\LZDialog.h">
+      <Filter>Class\Based</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Classes\Based\LZGlobalVariable.h">
+      <Filter>Class\Based</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Classes\Based\LZLevelData.h">
+      <Filter>Class\Based</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Classes\Based\LZLibpvz.h">
+      <Filter>Class\Based</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Classes\Based\LZMouseEventControl.h">
+      <Filter>Class\Based</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Classes\Based\LZPlayMusic.h">
+      <Filter>Class\Based</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Classes\Based\LZUserData.h">
+      <Filter>Class\Based</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Classes\Based\LZUserInformation.h">
+      <Filter>Class\Based</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Classes\Based\LZUserWinRequirement.h">
+      <Filter>Class\Based</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Classes\Based\LZVideoPlayer.h">
+      <Filter>Class\Based</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Classes\Plants\LZPlants-Files.h">
+      <Filter>Class\Plants</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Classes\Plants\LZPlants.h">
+      <Filter>Class\Plants</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Classes\Plants\BattlePlants\LZBattlePlants.h">
+      <Filter>Class\Plants\BattlePlants</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Classes\Plants\BattlePlants\LZCherryBomb.h">
+      <Filter>Class\Plants\BattlePlants</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Classes\Plants\BattlePlants\LZChomper.h">
+      <Filter>Class\Plants\BattlePlants</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Classes\Plants\BattlePlants\LZGloomShroom.h">
+      <Filter>Class\Plants\BattlePlants</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Classes\Plants\BattlePlants\LZIceBergLettuce.h">
+      <Filter>Class\Plants\BattlePlants</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Classes\Plants\BattlePlants\LZJalapeno.h">
+      <Filter>Class\Plants\BattlePlants</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Classes\Plants\BattlePlants\LZJalapenoVariation.h">
+      <Filter>Class\Plants\BattlePlants</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Classes\Plants\BattlePlants\LZPotatoMine.h">
+      <Filter>Class\Plants\BattlePlants</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Classes\Plants\BattlePlants\LZSpikeweed.h">
+      <Filter>Class\Plants\BattlePlants</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Classes\Plants\DefensePlants\LZGarlic.h">
+      <Filter>Class\Plants\DefensePlants</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Classes\Plants\DefensePlants\LZSunFlower.h">
+      <Filter>Class\Plants\DefensePlants</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Classes\Plants\DefensePlants\LZSunFlowerTwin.h">
+      <Filter>Class\Plants\DefensePlants</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Classes\Plants\DefensePlants\LZTorchwood.h">
+      <Filter>Class\Plants\DefensePlants</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Classes\Plants\DefensePlants\LZWallNut.h">
+      <Filter>Class\Plants\DefensePlants</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Classes\Plants\EmissionPlants\Bullet\LZAcidLemonBullet.h">
+      <Filter>Class\Plants\EmissionPlants\Bullet</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Classes\Plants\EmissionPlants\Bullet\LZBullet.h">
+      <Filter>Class\Plants\EmissionPlants\Bullet</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Classes\Plants\EmissionPlants\Bullet\LZBullet-File.h">
+      <Filter>Class\Plants\EmissionPlants\Bullet</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Classes\Plants\EmissionPlants\Bullet\LZCabbage.h">
+      <Filter>Class\Plants\EmissionPlants\Bullet</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Classes\Plants\EmissionPlants\Bullet\LZCatTailBullet.h">
+      <Filter>Class\Plants\EmissionPlants\Bullet</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Classes\Plants\EmissionPlants\Bullet\LZCitronBullet.h">
+      <Filter>Class\Plants\EmissionPlants\Bullet</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Classes\Plants\EmissionPlants\Bullet\LZFirePea.h">
+      <Filter>Class\Plants\EmissionPlants\Bullet</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Classes\Plants\EmissionPlants\Bullet\LZIcePea.h">
+      <Filter>Class\Plants\EmissionPlants\Bullet</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Classes\Plants\EmissionPlants\Bullet\LZPea.h">
+      <Filter>Class\Plants\EmissionPlants\Bullet</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Classes\Plants\EmissionPlants\Bullet\LZStarFruitBullet.h">
+      <Filter>Class\Plants\EmissionPlants\Bullet</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Classes\Plants\EmissionPlants\Bullet\LZWaterMelonBullet.h">
+      <Filter>Class\Plants\EmissionPlants\Bullet</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Classes\Plants\EmissionPlants\Bullet\LZWinterMelonBullet.h">
+      <Filter>Class\Plants\EmissionPlants\Bullet</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Classes\Plants\EmissionPlants\LZAcidLemon.h">
+      <Filter>Class\Plants\EmissionPlants</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Classes\Plants\EmissionPlants\LZCabbagePult.h">
+      <Filter>Class\Plants\EmissionPlants</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Classes\Plants\EmissionPlants\LZCatTail.h">
+      <Filter>Class\Plants\EmissionPlants</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Classes\Plants\EmissionPlants\LZCitron.h">
+      <Filter>Class\Plants\EmissionPlants</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Classes\Plants\EmissionPlants\LZEmissionPlants.h">
+      <Filter>Class\Plants\EmissionPlants</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Classes\Plants\EmissionPlants\LZFirePeaShooter.h">
+      <Filter>Class\Plants\EmissionPlants</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Classes\Plants\EmissionPlants\LZIcePeaShooter.h">
+      <Filter>Class\Plants\EmissionPlants</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Classes\Plants\EmissionPlants\LZPeaShooter.h">
+      <Filter>Class\Plants\EmissionPlants</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Classes\Plants\EmissionPlants\LZStarFruit.h">
+      <Filter>Class\Plants\EmissionPlants</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Classes\Plants\EmissionPlants\LZThreePeaShooter.h">
+      <Filter>Class\Plants\EmissionPlants</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Classes\Plants\EmissionPlants\LZWaterMelonPult.h">
+      <Filter>Class\Plants\EmissionPlants</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Classes\Plants\EmissionPlants\LZWinterMelonPult.h">
+      <Filter>Class\Plants\EmissionPlants</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Classes\Scenes\EasterEggsScene\LZGameEasterEggs.h">
+      <Filter>Class\Scenes\EasterEggsScene</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Classes\Scenes\HelpScene\LZHelpScene.h">
+      <Filter>Class\Scenes\HelpScene</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Classes\Scenes\LoadingScene\LZLoadingScene.h">
+      <Filter>Class\Scenes\LoadingScene</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Classes\Scenes\LoadingScene\LZSelectLanguageLayer.h">
+      <Filter>Class\Scenes\LoadingScene</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Classes\Scenes\MainMenuScene\LZInputDataScene.h">
+      <Filter>Class\Scenes\MainMenuScene</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Classes\Scenes\MainMenuScene\LZMainMenu.h">
+      <Filter>Class\Scenes\MainMenuScene</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Classes\Scenes\MainMenuScene\LZOptionsSence.h">
+      <Filter>Class\Scenes\MainMenuScene</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Classes\Scenes\MainMenuScene\LZQuitScene.h">
+      <Filter>Class\Scenes\MainMenuScene</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Classes\Scenes\MainMenuScene\LZUpdateClient.h">
+      <Filter>Class\Scenes\MainMenuScene</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Classes\Zombies\LZBucketDoorFlagZombies.h">
+      <Filter>Class\Zombies</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Classes\Zombies\LZBucketDoorZombies.h">
+      <Filter>Class\Zombies</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Classes\Zombies\LZBucketFlagZombies.h">
+      <Filter>Class\Zombies</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Classes\Zombies\LZBucketZombies.h">
+      <Filter>Class\Zombies</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Classes\Zombies\LZCommonDoorFlagZombies.h">
+      <Filter>Class\Zombies</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Classes\Zombies\LZCommonDoorZombies.h">
+      <Filter>Class\Zombies</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Classes\Zombies\LZCommonFlagZombies.h">
+      <Filter>Class\Zombies</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Classes\Zombies\LZCommonZombies.h">
+      <Filter>Class\Zombies</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Classes\Zombies\LZConeDoorFlagZombies.h">
+      <Filter>Class\Zombies</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Classes\Zombies\LZConeDoorZombies.h">
+      <Filter>Class\Zombies</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Classes\Zombies\LZConeFlagZombies.h">
+      <Filter>Class\Zombies</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Classes\Zombies\LZConeZombies.h">
+      <Filter>Class\Zombies</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Classes\Zombies\LZLmpZombies.h">
+      <Filter>Class\Zombies</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Classes\Zombies\LZSnowZombies.h">
+      <Filter>Class\Zombies</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Classes\Zombies\LZZombies.h">
+      <Filter>Class\Zombies</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Classes\Zombies\LZZombies-Files.h">
+      <Filter>Class\Zombies</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Classes\Based\LZGameType.h">
+      <Filter>Class\Based</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Classes\Scenes\GameScenes\Adventure\WorldScene\LZModernWorld.h">
+      <Filter>Class\Scenes\GameScenes\Adventure\WorldScene</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Classes\Scenes\GameScenes\BigMap\WorldScene\LZBigMapWorld.h">
+      <Filter>Class\Scenes\GameScenes\BigMap\WorldScene</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Classes\Scenes\GameScenes\HammerZombies\GameScene\LZHammerZombiesScene.h">
+      <Filter>Class\Scenes\GameScenes\HammerZombies\GameScene</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Classes\Scenes\GameScenes\BigMap\SelectPlantsScene\LZBMSPSBackgroundLayer.h">
+      <Filter>Class\Scenes\GameScenes\BigMap\SelectPlantsScene</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Classes\Scenes\GameScenes\BigMap\SelectPlantsScene\LZBMSelectPlantsScene.h">
+      <Filter>Class\Scenes\GameScenes\BigMap\SelectPlantsScene</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Classes\Scenes\GameScenes\BigMap\GameScene\LZBMGSPauseQuitLayer.h">
+      <Filter>Class\Scenes\GameScenes\BigMap\GameScene</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Classes\Scenes\GameScenes\BigMap\GameScene\LZBMGSOpenCaveGameScene.h">
+      <Filter>Class\Scenes\GameScenes\BigMap\GameScene</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Classes\Scenes\GameScenes\BigMap\GameScene\LZBMGSInformationLayer.h">
+      <Filter>Class\Scenes\GameScenes\BigMap\GameScene</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Classes\Scenes\GameScenes\BigMap\GameScene\LZBMGSControlLayer.h">
+      <Filter>Class\Scenes\GameScenes\BigMap\GameScene</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Classes\Scenes\GameScenes\BigMap\GameScene\LZBMGSButtonLayer.h">
+      <Filter>Class\Scenes\GameScenes\BigMap\GameScene</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Classes\Scenes\GameScenes\BigMap\GameScene\LZBigMapGameScene.h">
+      <Filter>Class\Scenes\GameScenes\BigMap\GameScene</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Classes\Scenes\GameScenes\BigMap\GameScene\LZBMGSBackgroundLayer.h">
+      <Filter>Class\Scenes\GameScenes\BigMap\GameScene</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Classes\Scenes\GameScenes\BigMap\GameScene\LZBMGSAnimationLayer.h">
+      <Filter>Class\Scenes\GameScenes\BigMap\GameScene</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Classes\Scenes\GameScenes\Adventure\GameScene\LZAGSButtonLayer.h">
+      <Filter>Class\Scenes\GameScenes\Adventure\GameScene</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Classes\Scenes\GameScenes\Adventure\GameScene\LZAGSControlLayer.h">
+      <Filter>Class\Scenes\GameScenes\Adventure\GameScene</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Classes\Scenes\GameScenes\Adventure\GameScene\LZAGSData.h">
+      <Filter>Class\Scenes\GameScenes\Adventure\GameScene</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Classes\Scenes\GameScenes\Adventure\GameScene\LZAGSDefine.h">
+      <Filter>Class\Scenes\GameScenes\Adventure\GameScene</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Classes\Scenes\GameScenes\Adventure\GameScene\LZAGSGameEndLayer.h">
+      <Filter>Class\Scenes\GameScenes\Adventure\GameScene</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Classes\Scenes\GameScenes\Adventure\GameScene\LZAGSGameResultJudgement.h">
+      <Filter>Class\Scenes\GameScenes\Adventure\GameScene</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Classes\Scenes\GameScenes\Adventure\GameScene\LZAGameScene.h">
+      <Filter>Class\Scenes\GameScenes\Adventure\GameScene</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Classes\Scenes\GameScenes\Adventure\GameScene\LZAGSGameTimerLayer.h">
+      <Filter>Class\Scenes\GameScenes\Adventure\GameScene</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Classes\Scenes\GameScenes\Adventure\GameScene\LZAGSBackgroundLayer.h">
+      <Filter>Class\Scenes\GameScenes\Adventure\GameScene</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Classes\Scenes\GameScenes\Adventure\GameScene\LZAGSInformationLayer.h">
+      <Filter>Class\Scenes\GameScenes\Adventure\GameScene</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Classes\Scenes\GameScenes\Adventure\GameScene\LZAGSMirrorGameScene.h">
+      <Filter>Class\Scenes\GameScenes\Adventure\GameScene</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Classes\Scenes\GameScenes\Adventure\GameScene\LZAGSOpenCaveGameScene.h">
+      <Filter>Class\Scenes\GameScenes\Adventure\GameScene</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Classes\Scenes\GameScenes\Adventure\GameScene\LZAGSPauseLayer.h">
+      <Filter>Class\Scenes\GameScenes\Adventure\GameScene</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Classes\Scenes\GameScenes\Adventure\GameScene\LZAGSPauseQuitLayer.h">
+      <Filter>Class\Scenes\GameScenes\Adventure\GameScene</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Classes\Scenes\GameScenes\Adventure\GameScene\LZAGSRequirementLayer.h">
+      <Filter>Class\Scenes\GameScenes\Adventure\GameScene</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Classes\Scenes\GameScenes\Adventure\GameScene\LZAGSZombiesAppearControl.h">
+      <Filter>Class\Scenes\GameScenes\Adventure\GameScene</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Classes\Scenes\GameScenes\Adventure\SelectPlantsScene\LZASPSBackgroundLayer.h">
+      <Filter>Class\Scenes\GameScenes\Adventure\SelectPlantsScene</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Classes\Scenes\GameScenes\Adventure\SelectPlantsScene\LZASPSControlLayer.h">
+      <Filter>Class\Scenes\GameScenes\Adventure\SelectPlantsScene</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Classes\Scenes\GameScenes\Adventure\SelectPlantsScene\LZASPSJumpLevelLayer.h">
+      <Filter>Class\Scenes\GameScenes\Adventure\SelectPlantsScene</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Classes\Scenes\GameScenes\Adventure\SelectPlantsScene\LZASPSMirrorSelectPlantsScene.h">
+      <Filter>Class\Scenes\GameScenes\Adventure\SelectPlantsScene</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Classes\Scenes\GameScenes\Adventure\SelectPlantsScene\LZASPSQuitLayer.h">
+      <Filter>Class\Scenes\GameScenes\Adventure\SelectPlantsScene</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Classes\Scenes\GameScenes\Adventure\SelectPlantsScene\LZASPSRequriementLayer.h">
+      <Filter>Class\Scenes\GameScenes\Adventure\SelectPlantsScene</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Classes\Scenes\GameScenes\Adventure\SelectPlantsScene\LZASelectPlantsScene.h">
+      <Filter>Class\Scenes\GameScenes\Adventure\SelectPlantsScene</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Classes\Scenes\GameScenes\Adventure\SelectPlantsScene\LZASPSSpriteLayer.h">
+      <Filter>Class\Scenes\GameScenes\Adventure\SelectPlantsScene</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Classes\Scenes\GameScenes\Adventure\GameScene\LZAGSAnimationLayer.h">
+      <Filter>Class\Scenes\GameScenes\Adventure\GameScene</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Classes\Scenes\GameScenes\Adventure\SelectPlantsScene\LZASPSPlantSCardUnlockLayer.h">
+      <Filter>Class\Scenes\GameScenes\Adventure\SelectPlantsScene</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Classes\Scenes\SelectWorldScene\LZSelectWorldScene.h">
+      <Filter>Class\Scenes\SelectWorldScene</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Classes\Scenes\MainMenuScene\LZUnlockDialogLayer.h">
+      <Filter>Class\Scenes\MainMenuScene</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Classes\Scenes\SelectWorldScene\LZSWSUnlockDialogLayer.h">
+      <Filter>Class\Scenes\SelectWorldScene</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
