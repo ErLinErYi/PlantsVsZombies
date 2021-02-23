@@ -1,4 +1,4 @@
-#include "LZAppDelegate.h"
+﻿#include "LZAppDelegate.h"
 #include "Scenes/LoadingScene/LZLoadingScene.h"
 #include "Based/LZUserInformation.h"
 
@@ -116,5 +116,31 @@ void AppDelegate::applicationWillEnterForeground()
 #elif USE_SIMPLE_AUDIO_ENGINE
     SimpleAudioEngine::getInstance()->resumeBackgroundMusic();
     SimpleAudioEngine::getInstance()->resumeAllEffects();
+#endif
+}
+
+void AppDelegate::applicationDidFocusCallBack()
+{
+#if USE_AUDIO_ENGINE
+    if (Director::getInstance()->getRunningScene()->getName().compare("GameScene"))
+    {
+        AudioEngine::resumeAll();
+    }
+#elif USE_SIMPLE_AUDIO_ENGINE
+    SimpleAudioEngine::getInstance()->resumeBackgroundMusic();
+    SimpleAudioEngine::getInstance()->resumeAllEffects();
+#endif
+}
+
+void AppDelegate::applicationDidUnFocusCallBack()
+{
+#if USE_AUDIO_ENGINE
+    if (Director::getInstance()->getRunningScene()->getName().compare("GameScene"))
+    {
+        AudioEngine::pauseAll();
+    }
+#elif USE_SIMPLE_AUDIO_ENGINE
+    SimpleAudioEngine::getInstance()->pauseBackgroundMusic();
+    SimpleAudioEngine::getInstance()->pauseAllEffects();
 #endif
 }

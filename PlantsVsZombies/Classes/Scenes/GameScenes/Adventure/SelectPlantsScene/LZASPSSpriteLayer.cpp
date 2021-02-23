@@ -208,7 +208,8 @@ void SPSSpriteLayer::createPlantsCards()
 
 Button* SPSSpriteLayer::createButtons(const Vec2& vec2, int priority)
 {
-	auto button = Button::create("SeedPacket_Larger.png", "SeedPacket_Larger.png", "", TextureResType::PLIST);
+	auto imageBg = "SeedPacket" + to_string(plantsCardInformation[priority].quality) + ".png";
+	auto button = Button::create(imageBg, imageBg, "", TextureResType::PLIST);
 	button->setPosition(Vec2(vec2.x, _plantCardScrollView->getInnerContainerSize().height - button->getContentSize().height / 2.f - vec2.y));
 	button->setTag(priority);
 	button->addTouchEventListener([=](Ref* sender, ui::Widget::TouchEventType type)
@@ -250,7 +251,8 @@ void SPSSpriteLayer::plantsCardButtonEvent(Button* button, Vec2 vec2)
 void SPSSpriteLayer::createMoveButton(Button* button, const Vec2& vec2)
 {
 	/* ´´½¨ÒÆ¶¯¿¨ÅÆ */
-	auto moveCard = ui::Button::create("SeedPacket_Larger.png", "SeedPacket_Larger.png", "", TextureResType::PLIST);
+	auto imageBg = "SeedPacket" + to_string(plantsCardInformation[button->getTag()].quality) + ".png";;
+	auto moveCard = ui::Button::create(imageBg, imageBg, "", TextureResType::PLIST);
 	moveCard->setPosition(Vec2(vec2.x + 205, _plantCardScrollView->getInnerContainerSize().
 		height - moveCard->getContentSize().height - vec2.y - 40 + calculateScrollDistance()));
 	moveCard->setTitleColor(Color3B::RED);

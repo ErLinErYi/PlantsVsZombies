@@ -248,7 +248,6 @@ void UpdateClient::downloadData()
 	_explanText->setString("");
 
 	_fileName = _global->userInformation->getGameText().find("资源名称")->second->text + UserInformation::getNewEditionName(true) + ".exe";
-	//const static string path = _global->userInformation->getGameText().find("存放路径")->second->text + sNameList;
 	static string path = FileUtils::getInstance()->fullPathForFilename("PlantsVsZombies.exe");
 	path = path.replace(path.rfind("PlantsVsZombies.exe"), sizeof("PlantsVsZombies.exe"), "") + _fileName;
 	_downloader->createDownloadFileTask(_global->userInformation->getGameText().find("资源网址")->second->text, path, _fileName);

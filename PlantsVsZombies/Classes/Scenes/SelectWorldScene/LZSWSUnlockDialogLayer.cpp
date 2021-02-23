@@ -8,11 +8,11 @@
 #include "LZSWSUnlockDialogLayer.h"
 #include "Based/LZPlayMusic.h"
 
-unsigned int SWSUnlockDialogLayer::unlockNeedNumbers = 50;
+unsigned int SWSUnlockDialogLayer::unlockNeedNumbers = 52;
 
 SWSUnlockDialogLayer::SWSUnlockDialogLayer()
 {
-	SWSUnlockDialogLayer::unlockNeedNumbers = 50;
+	SWSUnlockDialogLayer::unlockNeedNumbers = 52;
 }
 
 bool SWSUnlockDialogLayer::init()
@@ -41,7 +41,7 @@ void SWSUnlockDialogLayer::createDiglog()
 void SWSUnlockDialogLayer::createText()
 {
 	auto str = _global->userInformation->getGameText().find("大地图模式")->second;
-	auto information = Text::create(StringUtils::format(str->text.c_str(), 50), GAME_FONT_NAME_1, str->fontsize);
+	auto information = Text::create(StringUtils::format(str->text.c_str(), SWSUnlockDialogLayer::unlockNeedNumbers), GAME_FONT_NAME_1, str->fontsize);
 	information->setColor(Color3B::RED);
 	information->setTextVerticalAlignment(TextVAlignment::CENTER);
 	information->setTextHorizontalAlignment(TextHAlignment::CENTER);
@@ -50,7 +50,7 @@ void SWSUnlockDialogLayer::createText()
 	_lockDialog->addChild(information);
 
 	auto str1 = _global->userInformation->getGameText().find("此模式未解锁")->second;
-	auto information1 = Text::create(StringUtils::format(str1->text.c_str(), SWSUnlockDialogLayer::unlockNeedNumbers), GAME_FONT_NAME_1, str1->fontsize);
+	auto information1 = Text::create(str1->text, GAME_FONT_NAME_1, str1->fontsize);
 	information1->setColor(Color3B::RED);
 	information1->setPosition(Vec2(_lockDialog->getContentSize().width / 2.0f, _lockDialog->getContentSize().height / 2.0f + 80));
 	_lockDialog->addChild(information1);

@@ -1,4 +1,4 @@
-/**
+ï»¿/**
  *Copyright (c) 2021 LZ.All Right Reserved
  *Author : LZ
  *Date: 2021.2.14
@@ -75,7 +75,7 @@ void BMControlLayer::createSchedule()
 
 void BMControlLayer::calculatePlantPosition()
 {
-	/* Èç¹û²»ÔÚ·¶Î§ÄÚ£¬ÒÆ³ıµ½»­ÃæÍâ */
+	/* å¦‚æœä¸åœ¨èŒƒå›´å†…ï¼Œç§»é™¤åˆ°ç”»é¢å¤– */
 	if (GRASS_BIGMAP_OUTSIDE(addScrollViewOffset(_cur)))
 	{
 		_plantsPosition.x = 18;
@@ -108,14 +108,14 @@ void BMControlLayer::calculatePlantPosition()
 
 void BMControlLayer::createMouseListener()
 {
-	/* ´´½¨Êó±ê¼àÌı */
+	/* åˆ›å»ºé¼ æ ‡ç›‘å¬ */
 	_listener = EventListenerMouse::create();
 	_listener->setEnabled(false);
 
-	/* Êó±êÒÆ¶¯ */
+	/* é¼ æ ‡ç§»åŠ¨ */
 	_listener->onMouseMove = [&](Event* event)
 	{
-		/* »ñÈ¡Êó±êÎ»ÖÃ */
+		/* è·å–é¼ æ ‡ä½ç½® */
 		_cur = static_cast<EventMouse*>(event)->getLocationInView();
 		calculatePlantPosition();
 		mouseMoveControl();
@@ -123,7 +123,7 @@ void BMControlLayer::createMouseListener()
 		//changeScrollViewOffset();
 	};
 
-	/* Êó±ê°´ÏÂ */
+	/* é¼ æ ‡æŒ‰ä¸‹ */
 	_listener->onMouseDown = [&](Event* event)
 	{
 		_cur = static_cast<EventMouse*>(event)->getLocationInView();
@@ -208,7 +208,7 @@ void BMControlLayer::createPreviewPlants()
 {
 	CURSOR_VISIBLE(false)
 
-	Plants* previewPlants, * curPlants;/* Ô¤ÀÀÖ²Îï */
+	Plants* previewPlants, * curPlants;/* é¢„è§ˆæ¤ç‰© */
 	previewPlants = GSAnimationLayer::createDifferentPlants(_selectPlantsTag, animationLayerInformation);
 	curPlants = GSAnimationLayer::createDifferentPlants(_selectPlantsTag, animationLayerInformation);
 
@@ -225,12 +225,12 @@ void BMControlLayer::mouseDownControl(EventMouse* eventmouse)
 	switch (eventmouse->getMouseButton())
 	{
 	case EventMouse::MouseButton::BUTTON_RIGHT:
+		mouseRightButtonDownControl();
 		break;
 	case EventMouse::MouseButton::BUTTON_LEFT:
 		mouseLeftButtonDownControl();
 		break;
 	case EventMouse::MouseButton::BUTTON_MIDDLE:
-		mouseRightButtonDownControl();
 		break;
 	default:
 		break;
@@ -247,7 +247,7 @@ void BMControlLayer::mouseDownControl(EventMouse* eventmouse)
 
 void BMControlLayer::mouseMoveControl()
 {
-	/* Èç¹ûÊó±êÑ¡ÔñÁËÖ²Îï */
+	/* å¦‚æœé¼ æ ‡é€‰æ‹©äº†æ¤ç‰© */
 	if (buttonLayerInformation->mouseSelectImage->isSelectPlants)
 	{
 		int posX = static_cast<int>(_plantsPosition.x);
@@ -272,13 +272,13 @@ void BMControlLayer::mouseMoveControl()
 		_plantCurImage->setPosition(addScrollViewOffset(_cur) + Vec2(0, 30));
 	}
 
-	/* Êó±êÉÏÓĞ²ù×Ó */
+	/* é¼ æ ‡ä¸Šæœ‰é“²å­ */
 	if (buttonLayerInformation->mouseSelectImage->isSelectShovel)
 	{
-		/* Ñ­»·°ÑÖ²Îï»Ö¸´µ½Ô­À´µÄÑÕÉ« */
+		/* å¾ªç¯æŠŠæ¤ç‰©æ¢å¤åˆ°åŸæ¥çš„é¢œè‰² */
 		recoveryPlantsColor();
 
-		if (judgeMousePositionIsInMap() && judgeMousePositionHavePlant())  /* Èç¹ûÔÚµØÍ¼·¶Î§ÄÚ && ÖÖÓĞÖ²Îï */
+		if (judgeMousePositionIsInMap() && judgeMousePositionHavePlant())  /* å¦‚æœåœ¨åœ°å›¾èŒƒå›´å†… && ç§æœ‰æ¤ç‰© */
 		{
 			auto plant = animationLayerInformation->getChildByTag(SET_TAG(_plantsPosition));
 			if (plant)
@@ -291,7 +291,7 @@ void BMControlLayer::mouseMoveControl()
 
 void BMControlLayer::judgeLevelIsFinished()
 {
-	/* ¹Ø¿¨½áÊø */
+	/* å…³å¡ç»“æŸ */
 	if (ZombiesGroup.size() <= 0 && _zombiesAppearControl->getZombiesAppearFrequency() >=
 		_openLevelData->readLevelData(_openLevelData->getLevelNumber())->getZombiesFrequency())
 	{

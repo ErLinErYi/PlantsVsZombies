@@ -122,7 +122,7 @@ void ConeDoorZombies::setZombieBodyShieldThirdInjure(const string& oldName, cons
 		_bodyShieldAnimationId = 4;
 		_bodyShieldType = ShieldType::none;
 
-		_zombiesAnimation->addAnimation(0, "Zombies_Walk", true);
+		//_zombiesAnimation->addAnimation(0, "Zombies_Walk", true);
 	}
 }
 

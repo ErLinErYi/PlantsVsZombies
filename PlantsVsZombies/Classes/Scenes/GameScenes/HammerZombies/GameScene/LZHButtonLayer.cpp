@@ -106,7 +106,7 @@ void HButtonLayer::createHammerButton()
 
 	for (int i = 0; i < 7; ++i)
 	{
-		auto button = Button::create("SeedPacket_Larger.png", "SeedPacket_Larger.png", "", TextureResType::PLIST);
+		auto button = Button::create("SeedPacket3.png", "SeedPacket3.png", "", TextureResType::PLIST);
 		button->setPosition(Vec2(-90, 1030 - 100 * i));
 		button->setCascadeColorEnabled(true);
 		button->setTag(i);

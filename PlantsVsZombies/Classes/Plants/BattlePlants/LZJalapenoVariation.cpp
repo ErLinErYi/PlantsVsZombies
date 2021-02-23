@@ -9,6 +9,7 @@
 #include "Based/LZPlayMusic.h"
 #include "Scenes/GameScenes/Adventure/GameScene/LZAGSBackgroundLayer.h"
 #include "Scenes/GameScenes/Adventure/GameScene/LZAGSDefine.h"
+#include "Scenes/GameScenes/BigMap/GameScene/LZBigMapGameScene.h"
 #include "Zombies/LZZombies.h"
 
 JalapenoVariation::JalapenoVariation(Node* node)
@@ -70,14 +71,26 @@ void JalapenoVariation::showExplodeAnimation()
 
 	GSBackgroundLayer::backgroundRunAction();
 
-	for (int i = 4; i >= 0; --i)
+	int column = 4;
+	float hight = 138;
+	float bottom = GRASS_POSITION_BOTTOM;
+	float del = 140;
+	if (BigMapGameScene::scrollView)
+	{
+		column = 9;
+		hight = 136;
+		bottom = GRASS_BIGMAP_POSITION_BOTTOM;
+		del = 155;
+	}
+
+	for (int i = column; i >= 0; --i)
 	{
 		auto jalapenoFire = SkeletonAnimation::createWithData(_global->userInformation->getAnimationData().find("Jalapeno_Fire")->second);
-		jalapenoFire->setPosition(Vec2(_plantAnimation->getPositionX() + 5, GRASS_POSITION_BOTTOM + 138 * (i + 1) - 140));
+		jalapenoFire->setPosition(Vec2(_plantAnimation->getPositionX() + 5, bottom + hight * (i + 1) - del));
 		jalapenoFire->setAnimation(0, "animation", false);
 		jalapenoFire->setLocalZOrder((50 - i) * 100 + 50 - i + 100);
 		jalapenoFire->setScale(0.85f, 3.0f);
-		jalapenoFire->runAction(Sequence::create(DelayTime::create(2),
+		jalapenoFire->runAction(Sequence::create(DelayTime::create(2.f),
 			CallFunc::create([jalapenoFire]()
 				{
 					jalapenoFire->removeFromParent();

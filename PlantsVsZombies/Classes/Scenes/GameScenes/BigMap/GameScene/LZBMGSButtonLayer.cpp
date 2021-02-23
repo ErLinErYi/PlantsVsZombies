@@ -1,4 +1,4 @@
-/**
+ï»¿/**
  *Copyright (c) 2021 LZ.All Right Reserved
  *Author : LZ
  *Date: 2021.2.15
@@ -53,7 +53,7 @@ void BMButtonLayer::createKeyBoardListener()
 	{
 		switch (code)
 		{
-		case cocos2d::EventKeyboard::KeyCode::KEY_CAPITAL_W:                 /* ´óÐ¡Ð´w»òÕßÏòÉÏ¼ýÍ·¼ÓËÙ */
+		case cocos2d::EventKeyboard::KeyCode::KEY_CAPITAL_W:                 /* å¤§å°å†™wæˆ–è€…å‘ä¸Šç®­å¤´åŠ é€Ÿ */
 		case cocos2d::EventKeyboard::KeyCode::KEY_W:
 		case cocos2d::EventKeyboard::KeyCode::KEY_UP_ARROW:
 			this->runAction(RepeatForever::create(Sequence::create(
@@ -65,7 +65,7 @@ void BMButtonLayer::createKeyBoardListener()
 						changeScrollViewOffset();
 					}), DelayTime::create(0.02f), nullptr)));
 			break;
-		case cocos2d::EventKeyboard::KeyCode::KEY_CAPITAL_S:                /* ´óÐ¡Ð´s»òÕßÏòÏÂ¼ýÍ·¼õËÙ */
+		case cocos2d::EventKeyboard::KeyCode::KEY_CAPITAL_S:                /* å¤§å°å†™sæˆ–è€…å‘ä¸‹ç®­å¤´å‡é€Ÿ */
 		case cocos2d::EventKeyboard::KeyCode::KEY_S:
 		case cocos2d::EventKeyboard::KeyCode::KEY_DOWN_ARROW:
 			this->runAction(RepeatForever::create(Sequence::create(
@@ -110,7 +110,7 @@ void BMButtonLayer::createKeyBoardListener()
 	{
 		switch (code)
 		{
-		case cocos2d::EventKeyboard::KeyCode::KEY_SPACE:                     /* ¿Õ¸ñ¼üÔÝÍ£ */
+		case cocos2d::EventKeyboard::KeyCode::KEY_SPACE:                     /* ç©ºæ ¼é”®æš‚åœ */
 			PlayMusic::playMusic("pause");
 			GSPauseQuitLayer::pauseLayer();
 			_director->getRunningScene()->addChild(GSPauseLayer::addLayer(), 10);

@@ -57,18 +57,15 @@ void Cabbage::createListener(const string& actionName, float scale)
 				{
 					playSoundEffect(_bulletType == BulletType::Cabbage ?
 						SoundEffectType::kernelpult : SoundEffectType::watermelon);
+					_bulletAnimation->setScale(scale);
+					_bulletAnimation->setAnimation(0, actionName, false);
+					setBulletIsUsed(true);
 				}
-				_bulletAnimation->setScale(scale);
-				_bulletAnimation->setAnimation(0, actionName, false);
-			}), DelayTime::create(1.4f),
+			}), DelayTime::create(1.5f), FadeOut::create(0.5f),
 		CallFunc::create([this]()
-				{
-					_bulletAnimation->runAction(Sequence::create(FadeOut::create(0.2f),
-						CallFunc::create([this]()
-							{
-								_bulletAnimation->setVisible(false);
-							}), nullptr));
-				}), nullptr));
+			{
+				_bulletAnimation->setVisible(false);
+			}), nullptr));
 }
 
 void Cabbage::calculateInformationForReadFile()
@@ -172,14 +169,10 @@ void Cabbage::createExplodeAnimation(const string& animationName, const string& 
 	cabbageExplode->setPosition(_bulletAnimation->getPosition());
 	cabbageExplode->setAnchorPoint(Vec2(0, 0));
 	cabbageExplode->update(0);
-	cabbageExplode->runAction(Sequence::create(DelayTime::create(1.4f),
+	cabbageExplode->runAction(Sequence::create(DelayTime::create(1.5f),FadeOut::create(0.5f),
 		CallFunc::create([cabbageExplode]()
 			{
-				cabbageExplode->runAction(Sequence::create(FadeOut::create(0.2f),
-					CallFunc::create([cabbageExplode]()
-						{
-							cabbageExplode->removeFromParent();
-						}), nullptr));
+				cabbageExplode->removeFromParent();
 			}), nullptr));
 	_node->addChild(cabbageExplode);
 }

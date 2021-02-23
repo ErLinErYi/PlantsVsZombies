@@ -1,4 +1,4 @@
-/**
+ï»¿/**
  *Copyright (c) 2020 LZ.All Right Reserved
  *Author : LZ
  *Date: 2020.4.20
@@ -128,7 +128,7 @@ void UserData::flushSurvivalData()
 
 openUserDataReturnType UserData::openUserData()
 {
-	// Èç¹ûÓĞÕâ¸ö´æµµ
+	// å¦‚æœæœ‰è¿™ä¸ªå­˜æ¡£
 	if (_fileUtils->isFileExist(getUserDataFileName()))
 	{
 		if (_userData.empty()|| !_isAnewReadData)
@@ -174,7 +174,7 @@ openUserDataReturnType UserData::openUserData()
 
 openUserDataReturnType UserData::openLevelData()
 {
-	// Èç¹ûÓĞÕâ¸ö´æµµ
+	// å¦‚æœæœ‰è¿™ä¸ªå­˜æ¡£
 	if (_fileUtils->isFileExist(getLevelDataFileName()))
 	{
 #ifdef DEBUG
@@ -209,7 +209,7 @@ openUserDataReturnType UserData::openLevelData()
 
 openUserDataReturnType UserData::openSurvivalData()
 {
-	// Èç¹ûÓĞÕâ¸ö´æµµ
+	// å¦‚æœæœ‰è¿™ä¸ªå­˜æ¡£
 	if (_fileUtils->isFileExist(getSurvivalDataFileName()))
 	{
 #ifdef DEBUG
@@ -913,7 +913,7 @@ void UserData::openLevelPlantsData(char* key)
 
 		PlantsGroup.insert(pair<int, Plants*>((*_levelDataDocument)[key]["Plants"][to_string(i).c_str()]["PlantsTag"].GetInt(), plants));
 		
-		controlLayerInformation->gameMapInformation->plantsMap[plants->getPlantRow()][plants->getPlantColumn()] = static_cast<unsigned int>(type);/* µØÍ¼¼ÇÂ¼ÖÖÖ²µÄÖ²Îï */
+		controlLayerInformation->gameMapInformation->plantsMap[plants->getPlantRow()][plants->getPlantColumn()] = static_cast<unsigned int>(type);/* åœ°å›¾è®°å½•ç§æ¤çš„æ¤ç‰© */
 	}
 }
 

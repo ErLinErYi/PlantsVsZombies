@@ -68,6 +68,9 @@ public:
     virtual void setAnimationInterval(float interval) override;
     virtual void setAnimationInterval(float interval, SetIntervalReason reason) override;
 
+    virtual void applicationDidFocusCallBack() = 0;
+    virtual void applicationDidUnFocusCallBack() = 0;
+
     virtual LanguageType getCurrentLanguage();
 
     virtual const char * getCurrentLanguageCode();

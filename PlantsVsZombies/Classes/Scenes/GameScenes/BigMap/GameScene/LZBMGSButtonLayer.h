@@ -1,4 +1,4 @@
-/**
+ï»¿/**
  *Copyright (c) 2021 LZ.All Right Reserved
  *Author : LZ
  *Date: 2021.2.15
@@ -11,10 +11,6 @@ class BMButtonLayer :public GSButtonLayer
 {
 public:
 	CREATE_FUNC(BMButtonLayer);
-
-	/**
-	 *Ìí¼Óµ½Ö÷³¡¾°ÖÐ
-	 */
 	void addLayer(Node* node, const int order, const string& name) { node->addChild(this, order, name); }
 
 CC_CONSTRUCTOR_ACCESS:

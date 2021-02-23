@@ -63,7 +63,7 @@ CC_CONSTRUCTOR_ACCESS:
 	virtual bool init();
 
 public:
-	static Text* animationText[PLANTSNUMBERS];       /* 动画说明 */
+	static Text* animationText[PLANTSNUMBERS];        /* 动画说明 */
 	static bool isPlantIsCanSelect[PLANTSNUMBERS];    /* 是否可以选择该植物 */
 	static ui::ScrollView* plantCardTextScrollView;   /* 植物卡牌滚动视图 */
 	bool _selectFinished;                             /* 是否选择完成 */

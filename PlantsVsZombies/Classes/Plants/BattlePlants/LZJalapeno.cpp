@@ -1,4 +1,4 @@
-/**
+ï»¿/**
  *Copyright (c) 2020 LZ.All Right Reserved
  *Author : LZ
  *Date: 2020.2.6
@@ -11,6 +11,7 @@
 #include "Scenes/GameScenes/Adventure/GameScene/LZAGSData.h"
 #include "Scenes/GameScenes/Adventure/GameScene/LZAGSBackgroundLayer.h"
 #include "Scenes/GameScenes/Adventure/GameScene/LZAGSDefine.h"
+#include "Scenes/GameScenes/BigMap/GameScene/LZBigMapGameScene.h"
 #include "Based/LZPlayMusic.h"
 
 Jalapeno::Jalapeno(Node* node)
@@ -53,21 +54,21 @@ void Jalapeno::createPlantAnimation()
 	_plantAnimation->setTimeScale(1.5f);
 	_node->addChild(_plantAnimation);
 
-	// Ó°×Ó
+	// å½±å­
 	setPlantShadow(1.8f);
 
-	// ÄàÍÁ·É½¦¶¯»­
+	// æ³¥åœŸé£æº…åŠ¨ç”»
 	setPlantSoilSplashAnimation(0.8f);
 
-	// ÊÂ¼ş¼àÌı
+	// äº‹ä»¶ç›‘å¬
 	createListener();
 }
 
 void Jalapeno::plantExplode()
 {
-	if (!getPlantIsSurvive() || getPlantIsReadyExplode()) /* Ö²ÎïËÀÍö || Ö²Îï×¼±¸±¬Õ¨ */
+	if (!getPlantIsSurvive() || getPlantIsReadyExplode()) /* æ¤ç‰©æ­»äº¡ || æ¤ç‰©å‡†å¤‡çˆ†ç‚¸ */
 	{
-		if (!_isExplode) /* Èç¹ûÃ»ÓĞ±¬Õ¨ */
+		if (!_isExplode) /* å¦‚æœæ²¡æœ‰çˆ†ç‚¸ */
 		{
 			_isExplode = true;
 			explodeHurtZombies();
@@ -82,14 +83,26 @@ void Jalapeno::showExplodeAnimation()
 
 	GSBackgroundLayer::backgroundRunAction();
 
-	for (int i = 0; i < 9; i++)
+	unsigned int row = 9;
+	float left = GRASS_POSITION_LEFT;
+	float hight = 122;
+	float bottom = _plantAnimation->getPositionY() - 10;
+	if (BigMapGameScene::scrollView)
+	{
+		row = 18;
+		left = GRASS_BIGMAP_POSITION_LEFT;
+		hight = 121;
+		bottom = _plantAnimation->getPositionY() - 25;
+	}
+
+	for (unsigned int i = 0; i < row; i++)
 	{
 		auto jalapenoFire = SkeletonAnimation::createWithData(_global->userInformation->getAnimationData().find("Jalapeno_Fire")->second);
-		jalapenoFire->setPosition(Vec2(GRASS_POSITION_LEFT + 122 * i + 60, _plantAnimation->getPositionY() - 10));
+		jalapenoFire->setPosition(Vec2(left + hight * i + 60, bottom));
 		jalapenoFire->setAnimation(0, "animation", false);
 		jalapenoFire->setScaleY(3.0f);
-		jalapenoFire->setLocalZOrder(_plantAnimation->getLocalZOrder() + 100); // Ö²Îï»æÖÆË³Ğò¼Ó10ÕıºÃµÈÓÚ½©Ê¬»æÖÆË³Ğò £¬±¬Õ¨¾Í¿ÉÒÔ¸²¸Çµ½½©Ê¬ÉÏÃæ
-		jalapenoFire->runAction(Sequence::create(DelayTime::create(2),
+		jalapenoFire->setLocalZOrder(_plantAnimation->getLocalZOrder() + 100); // æ¤ç‰©ç»˜åˆ¶é¡ºåºåŠ 100æ­£å¥½ç­‰äºåƒµå°¸ç»˜åˆ¶é¡ºåº ï¼Œçˆ†ç‚¸å°±å¯ä»¥è¦†ç›–åˆ°åƒµå°¸ä¸Šé¢
+		jalapenoFire->runAction(Sequence::create(DelayTime::create(2.f),
 			CallFunc::create([jalapenoFire]()
 				{
 					jalapenoFire->removeFromParent();

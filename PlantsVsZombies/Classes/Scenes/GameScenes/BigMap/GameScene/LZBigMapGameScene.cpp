@@ -1,4 +1,4 @@
-/**
+ï»¿/**
  *Copyright (c) 2021 LZ.All Right Reserved
  *Author : LZ
  *Date: 2021.2.14
@@ -39,14 +39,15 @@ bool BigMapGameScene::init()
 void BigMapGameScene::showGameLayer()
 {
 	controlPlayMusic();
-	createScrollView();  // »¬¶¯²ã
-	backgroundLayer();   // ±³¾°²ã
-	informationLayer();  // ÐÅÏ¢²ã
-	buttonLayer();       // °´Å¥²ã
-	controlLayer();      // ¿ØÖÆ²ã
-	animationLayer();    // ¶¯»­²ã
-	goodsLayer();        // ÎïÆ·²ã
-	gameTimerLayer();    // Ê±¼ä²ã
+	createScrollView();  // æ»‘åŠ¨å±‚
+	backgroundLayer();   // èƒŒæ™¯å±‚
+	informationLayer();  // ä¿¡æ¯å±‚
+	buttonLayer();       // æŒ‰é’®å±‚
+	controlLayer();      // æŽ§åˆ¶å±‚
+	animationLayer();    // åŠ¨ç”»å±‚
+	goodsLayer();        // ç‰©å“å±‚
+	gameTimerLayer();    // æ—¶é—´å±‚
+	setName("GameScene");
 }
 
 void BigMapGameScene::createScrollView()
@@ -69,11 +70,12 @@ void BigMapGameScene::createScrollView()
 				scrollView->setTouchEnabled(true);
 			}), nullptr));
 
-	//´´½¨¹ö¶¯ÊÓÍ¼
+	//åˆ›å»ºæ»šåŠ¨è§†å›¾
 	scrollView = extension::ScrollView::create(_director->getWinSize(), _scrollLayer);
 	scrollView->setPosition(Vec2(0, 0));
 	scrollView->setBounceable(false);
 	scrollView->setTouchEnabled(false);
+	scrollView->setTouchMode(Touch::DispatchMode::ALL_AT_ONCE);
 	scrollView->setName("scrollView");
 	scrollView->setContentOffset(Vec2(0, -540));
 	this->addChild(scrollView);

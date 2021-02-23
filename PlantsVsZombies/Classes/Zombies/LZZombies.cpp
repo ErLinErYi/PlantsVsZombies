@@ -209,6 +209,9 @@ string Zombies::getZombieAniamtionName(ZombiesType zombiestype)
 	case ZombiesType::CommonDoorZombies:
 	case ZombiesType::ConeDoorZombies:
 	case ZombiesType::BucketDoorZombies: 
+	case ZombiesType::CommonDoorFlagZombies:
+	case ZombiesType::ConeDoorFlagZombies:
+	case ZombiesType::BucketDoorFlagZombies:
 		     name = "Zombies_Door_Walk"; break;
 	default: name = "Zombies_Walk"; break;
 	}

@@ -157,20 +157,20 @@ void Garlic::changeZombiePositionY(Zombies* zombie)
 	if (zombie->getZombieInRow() == 0)
 	{
 		zombie->getZombieAnimation()->runAction(MoveBy::create(0.5f, Vec2(-20, 138)));
-		zombie->getZombieAnimation()->setLocalZOrder(zombie->getZombieAnimation()->getLocalZOrder() - 20);
+		zombie->getZombieAnimation()->setLocalZOrder(zombie->getZombieAnimation()->getLocalZOrder() - 100);
 		zombie->setZombieInRow(1);
 	}
 	else if (zombie->getZombieInRow() == 4)
 	{
 		zombie->getZombieAnimation()->runAction(MoveBy::create(0.5f, Vec2(-20, -138)));
-		zombie->getZombieAnimation()->setLocalZOrder(zombie->getZombieAnimation()->getLocalZOrder() + 20);
+		zombie->getZombieAnimation()->setLocalZOrder(zombie->getZombieAnimation()->getLocalZOrder() + 100);
 		zombie->setZombieInRow(3);
 	}
 	else
 	{
 		auto number = rand() % 2;
 		zombie->getZombieAnimation()->runAction(MoveBy::create(0.5f, Vec2(-20, number ? -138 : 138)));
-		zombie->getZombieAnimation()->setLocalZOrder(zombie->getZombieAnimation()->getLocalZOrder() + (number ? 20 : -20));
+		zombie->getZombieAnimation()->setLocalZOrder(zombie->getZombieAnimation()->getLocalZOrder() + (number ? 100 : -100));
 		zombie->setZombieInRow(number ? zombie->getZombieInRow() - 1 : zombie->getZombieInRow() + 1);
 	}
 }

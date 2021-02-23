@@ -27,7 +27,7 @@
 
 #include "cocos2d.h"
 
-#define LZPVZNAME "PlantsVsZombies_1.3.0.0 (2021.02.02)"
+#define LZPVZNAME "PlantsVsZombies_1.3.0.2 beta(2021.02.23)"
 
 extern GUID scheme_default;
 /**
@@ -61,6 +61,18 @@ public:
     @param  the pointer of the application
     */
     virtual void applicationWillEnterForeground();
+
+    /**
+    @brief  Called when the application focus the window
+    @param  the pointer of the application
+    */
+    virtual void applicationDidFocusCallBack();
+
+    /**
+    @brief  Called when the application unfocus the window
+    @param  the pointer of the application
+    */
+    virtual void applicationDidUnFocusCallBack();
 };
 
 #endif // _APP_DELEGATE_H_

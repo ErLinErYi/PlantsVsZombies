@@ -954,10 +954,12 @@ void GLViewImpl::onGLFWWindowFocusCallback(GLFWwindow* /*window*/, int focused)
 {
     if (focused == GL_TRUE)
     {
+        Application::getInstance()->applicationDidFocusCallBack();
         Director::getInstance()->getEventDispatcher()->dispatchCustomEvent(GLViewImpl::EVENT_WINDOW_FOCUSED, nullptr);
     }
     else
     {
+        Application::getInstance()->applicationDidUnFocusCallBack();
         Director::getInstance()->getEventDispatcher()->dispatchCustomEvent(GLViewImpl::EVENT_WINDOW_UNFOCUSED, nullptr);
     }
 }

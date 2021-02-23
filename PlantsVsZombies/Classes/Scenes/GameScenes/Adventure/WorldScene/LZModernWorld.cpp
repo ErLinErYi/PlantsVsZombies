@@ -556,7 +556,8 @@ void ModernWorld::playProhibitMusic(Button* button)
 				PlayMusic::playMusic("tap");
 				break;
 			case ui::Widget::TouchEventType::ENDED:
-				_global->prohibitId = AudioEngine::play2d("resources/Music/prohibit.ogg");
+				_global->prohibitId = AudioEngine::play2d(
+					Global::getInstance()->userInformation->getMusicPath().find("prohibit")->second);
 				button->setEnabled(false);
 				break;
 			}

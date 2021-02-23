@@ -176,7 +176,7 @@ void LoadingScene::loadUserData()
 	_global->userInformation->setIsEaseAnimation(_userData->openBoolUserData("EASEANIMATION") ?
 		cocos2d::ui::CheckBox::EventType::SELECTED : cocos2d::ui::CheckBox::EventType::UNSELECTED);
 
-	changeFiles();
+	//changeFiles();
 }
 
 void LoadingScene::loadUserFileData()
@@ -570,7 +570,7 @@ int LoadingScene::openResourcesPath(map<string, string>& Path, const std::string
 void LoadingScene::throwException()
 {
 #if CC_TARGET_PLATFORM == CC_PLATFORM_WIN32
-	this->runAction(Sequence::create(DelayTime::create(30.f), CallFunc::create([=]()
+	this->runAction(Sequence::create(DelayTime::create(50.f), CallFunc::create([=]()
 		{
 			try
 			{
@@ -584,7 +584,7 @@ void LoadingScene::throwException()
 			catch (wstring str)
 			{
 				auto yon = MessageBoxW(_director->getOpenGLView()->getWin32Window(), str.c_str(), L"资源加载异常", MB_RETRYCANCEL);
-				if (yon == IDRETRY)
+				/*if (yon == IDRETRY)
 				{
 					TCHAR szPath[MAX_PATH];
 					GetModuleFileName(NULL, szPath, MAX_PATH);
@@ -598,7 +598,8 @@ void LoadingScene::throwException()
 				else
 				{
 					Director::getInstance()->end();
-				}
+				}*/
+				Director::getInstance()->end();
 			}
 		}), nullptr));
 #endif
