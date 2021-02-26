@@ -9,7 +9,7 @@
 #include "LZUserInformation.h"
 #include "LZGlobalVariable.h"
 
-const string UserInformation::_clientEdition = "1.3.0.2";
+const string UserInformation::_clientEdition = "1.3.0.4";
 string UserInformation::_editionName = "";
 bool UserInformation::_updateRequired = false;
 DWORD UserInformation::_screenDisplayFrequency = 0;

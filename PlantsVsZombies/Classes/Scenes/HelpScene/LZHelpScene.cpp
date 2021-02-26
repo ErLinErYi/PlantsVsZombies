@@ -59,7 +59,7 @@ void HelpScene::createText()
 
 	addScrollView();
 
-	FileUtils::getInstance()->getStringFromFile("resources/Text/history.reanim.compiled", [=](string history)
+	FileUtils::getInstance()->getStringFromFile("history.pak", [=](string history)
 		{
 			auto helptext = Label::createWithTTF(INFORMATION_TEXT + (history.empty() ? "\t\t\t\t\t\t\t\t\t\t\t\t\tÎÄ±¾¼ÓÔØÊ§°Ü£¡" : history), GAME_FONT_NAME_1, 35);
 			helptext->setAnchorPoint(Vec2::ANCHOR_MIDDLE_TOP);

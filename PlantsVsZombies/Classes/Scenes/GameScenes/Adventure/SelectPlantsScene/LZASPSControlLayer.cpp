@@ -125,7 +125,7 @@ void SPSControlLayer::showUserName()
 		StringUtils::format(_global->userInformation->getGameText().find("第 %d 天")->second->text.c_str(), 
 			_global->userInformation->getCurrentPlayLevels()));
 	username->setFontName(GAME_FONT_NAME_1);
-	username->setFontSize(_global->userInformation->getGameText().find("的时空冒险之旅")->second->fontsize);
+	username->setFontSize(_global->userInformation->getGameText().find("噩梦模式")->second->fontsize);
 	username->setColor(Color3B::YELLOW);
 	username->setName("username");
 	username->enableGlow(Color4B::ORANGE);

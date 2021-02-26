@@ -13,7 +13,8 @@
 
 Chomper::Chomper(Node* node):
 	_isCanEat(true)
-,   _chewTime(30)
+,   _chewTime(0)
+,   _attackZombie(nullptr)
 {
 	_node = node;
 	_plantImage = nullptr;
@@ -76,15 +77,36 @@ void Chomper::createListener()
 				{
 					_plantAnimation->addAnimation(0, "Chomper_Eat_Pharynx", false);
 					_plantAnimation->addAnimation(0, "Chomper_Normal", true);
-					_plantAnimation->setEventListener([=](spTrackEntry* entry, spEvent* event)
-						{
-							if (!strcmp(event->data->name, "Pharynx_Finished"))
-							{
-								_isCanEat = true;
-							}
-						});
+					_chewTime = 0;
 				}), nullptr));
 	}
+
+	_plantAnimation->setEventListener([=](spTrackEntry* entry, spEvent* event)
+		{
+			if (!strcmp(event->data->name, "Attack_Begin") && getPlantIsSurvive())
+			{
+				if (_attackZombie) // 如果僵尸存在
+				{
+					PlayMusic::playMusic("bigchomp");
+
+					if (!isCanKillZombieOnce(_attackZombie))
+					{
+						_combatEffecttiveness = 80;
+						hurtZombies(_attackZombie);
+					}
+					else
+					{
+						_attackZombie->setZombieVisible(false);
+						_attackZombie->getZombieAnimation()->setAnimation(0, "Zombies_Stand", true);
+					}
+				}
+			}
+
+			if (!strcmp(event->data->name, "Pharynx_Finished") && !_chewTime)
+			{
+				_isCanEat = true;
+			}
+		});
 }
 
 void Chomper::determineRelativePositionPlantsAndZombies()
@@ -107,16 +129,18 @@ void Chomper::plantAttack(Zombies* zombie)
 		if (_isCanEat) /* 当大嘴花可以吃僵尸 */
 		{ 
 			_isCanEat = false;
+			_attackZombie = zombie;
 
 			if (isCanKillZombieOnce(zombie) && !zombie->getZombieReserveKill()) /* 如果僵尸可以被一次杀死 && 僵尸没有被预定杀死 */
 			{
+				_chewTime = 30;
 				zombie->setZombieReserveKill(true); /* 僵尸已被预定杀死 */
 				zombieRelieveReserveKill(zombie);   /* 僵尸在一段时间后自动解除死亡锁定 */
-				chomperKillZombie(zombie);
+				chomperKillZombie();
 			}
 			else
 			{
-				chomperHurtZombie(zombie);
+				chomperHurtZombie();
 			}
 		}
 	}
@@ -139,57 +163,28 @@ bool Chomper::isCanKillZombieOnce(Zombies* zombie)
 	return false;
 }
 
-void Chomper::chomperKillZombie(Zombies* zombie)
+void Chomper::chomperKillZombie()
 {
 	_plantAnimation->setAnimation(0, "Chomper_Eat", false);
 	_plantAnimation->addAnimation(0, "Chomper_Eat_Chew", true);
-	_plantAnimation->setEventListener([=](spTrackEntry* entry, spEvent* event)
-		{
-			if (!strcmp(event->data->name, "Attack_Begin") && getPlantIsSurvive())
-			{
-				PlayMusic::playMusic("bigchomp");
-				zombie->setZombieVisible(false);
-				zombie->getZombieAnimation()->setAnimation(0, "Zombies_Stand", true);
-			}
-		});
-	_plantAnimation->runAction(Sequence::create(DelayTime::create(_chewTime),
-		CallFunc::create([=]()
-			{
-				_plantAnimation->addAnimation(0, "Chomper_Eat_Pharynx", false);
-				_plantAnimation->addAnimation(0, "Chomper_Normal", true);
-				_plantAnimation->setEventListener([=](spTrackEntry* entry, spEvent* event)
-					{
-						if (!strcmp(event->data->name, "Pharynx_Finished"))
-						{
-							_isCanEat = true;
-						}
-					});
-			}), nullptr));
-
 	_plantAnimation->runAction(Repeat::create(Sequence::create(DelayTime::create(1.0f),
 		CallFunc::create([=]()
 			{
 				if (--_chewTime < 0)_chewTime = 0;
 			}), nullptr), 30));
+	_plantAnimation->runAction(Sequence::create(DelayTime::create(_chewTime),
+		CallFunc::create([=]()
+			{
+				_plantAnimation->addAnimation(0, "Chomper_Eat_Pharynx", false);
+				_plantAnimation->addAnimation(0, "Chomper_Normal", true);
+			}), nullptr));
 }
 
-void Chomper::chomperHurtZombie(Zombies* zombie)
+void Chomper::chomperHurtZombie()
 {
 	_plantAnimation->setAnimation(0, "Chomper_Eat_Attack", false);
 	_plantAnimation->addAnimation(0, "Chomper_Normal", true);
-	_plantAnimation->setEventListener([=](spTrackEntry* entry, spEvent* event)
-		{
-			if (!isCanKillZombieOnce(zombie) && !strcmp(event->data->name, "Attack_Begin"))
-			{
-				PlayMusic::playMusic("bigchomp");
-				_combatEffecttiveness = 80;
-				hurtZombies(zombie);
-			}
-			if (!strcmp(event->data->name, "Attack_Finished"))
-			{
-				_isCanEat = true;
-			}
-		});
+	_isCanEat = true;
 }
 
 void Chomper::zombieRelieveReserveKill(Zombies* zombie)
@@ -233,7 +228,7 @@ void Chomper::cavePlantInformation(rapidjson::Value& object, rapidjson::Document
 void Chomper::readPlantInforamtion(rapidjson::Document* levelDataDocument, char* key, int i)
 {
 	_isCanEat = (*levelDataDocument)[key]["Plants"][to_string(i).c_str()]["IsCanEat"].GetBool();
-	if (_isCanEat)_chewTime = (*levelDataDocument)[key]["Plants"][to_string(i).c_str()]["ChewTime"].GetInt();
+	if (!_isCanEat)_chewTime = (*levelDataDocument)[key]["Plants"][to_string(i).c_str()]["ChewTime"].GetInt();
 
 	if ((*levelDataDocument)[key]["Plants"][to_string(i).c_str()]["AnimationNumber"].GetInt() > 1)
 	{

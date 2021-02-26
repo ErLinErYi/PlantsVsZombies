@@ -74,12 +74,12 @@ void Garlic::zombieEatPlant(Zombies* zombie)
 {
 	if (getPlantIsSurvive() && getZombieIsSameLineWithPlant(zombie) && Plants::getZombieIsEncounterPlant(zombie)) /* 植物存活 && 植物与僵尸在同一行 && 僵尸遇到植物 */
 	{
-		if (zombie->getZombieIsSurvive() && !zombie->getZombieIsEat())
+		if (zombie->getZombieIsSurvive() && !zombie->getZombieIsEat() && zombie->getZombieIsFrozen() != 2)
 		{
 			const string eateffect[3] = { "chomp","chomp2","chompsoft" };
 			PlayMusic::playMusic(eateffect[rand() % 3]);
-			
-			//zombie->setZombieEatPlantNumber(_plantNumber);
+
+			zombie->setZombieEatPlantNumber(_plantNumber);
 			zombie->setZombieStop();
 			zombie->setZombieIsEat(true);
 			zombie->setZombieIsEatGarlic(true);

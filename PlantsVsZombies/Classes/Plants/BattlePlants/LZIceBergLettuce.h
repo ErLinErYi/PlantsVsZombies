@@ -23,7 +23,6 @@ CC_CONSTRUCTOR_ACCESS:
 protected:
     virtual void createListener() override;
     virtual void plantExplode(Zombies* zombie);
-    virtual void explodeEffectZombies();
     virtual void explodeEffectZombies(const float time);
     virtual void setZombiesActionStop(Zombies* zombie, const int &time);
     virtual bool getZombieIsInExplodeRange(Zombies* zombie) override;

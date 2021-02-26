@@ -1020,7 +1020,6 @@ void Zombies::setZombieActionStop()
 	if ((_isFrozen == 0 || _isFrozen == 1) && !_isEatGarlic)
 	{
 		_isFrozen = 2;
-		_isEat = false;
 		_zombiesAnimation->setColor(Color3B(0, 162, 232));
 		_zombiesAnimation->setTimeScale(0);                                          /* 运动速度0 */
 		_currentSpeed = 0;                                                           /* 移动速度0 */
@@ -1036,6 +1035,7 @@ void Zombies::setZombieActionRecovery(bool slow)
 		_zombiesAnimation->setColor(Color3B::WHITE);
 		_zombiesAnimation->setTimeScale(_timeScale);
 		_currentSpeed = _speed;
+		_isEat = false;
 	}
 	else
 	{
@@ -1046,6 +1046,7 @@ void Zombies::setZombieActionRecovery(bool slow)
 			_zombiesAnimation->setColor(Color3B::WHITE);
 			_zombiesAnimation->setTimeScale(_timeScale);
 			_currentSpeed = _speed;
+			_isEat = false;
 		}
 	}
 }

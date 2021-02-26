@@ -80,7 +80,6 @@ void IceBergLettuce::createListener()
 					_isChanged = true;
 					setZombiesActionStop(_excludeZombie, 10);
 					explodeEffectZombies(0);
-					explodeEffectZombies();
 				}
 				else
 				{
@@ -93,7 +92,7 @@ void IceBergLettuce::createListener()
 		{
 			if (strcmp(entry->animation->name, "IceBergLettuce_Skill") == 0)
 			{
-				_plantAnimation->runAction(Sequence::create(DelayTime::create(0.5f),
+				_plantAnimation->runAction(Sequence::create(DelayTime::create(0.2f),
 					CallFunc::create([this]()
 						{
 							_plantAnimation->setVisible(false);
@@ -125,17 +124,6 @@ void IceBergLettuce::plantExplode(Zombies* zombie)
 
 			_plantAnimation->setAnimation(0, "IceBergLettuce_Skill", false);
 			_plantAnimation->setLocalZOrder(_plantAnimation->getLocalZOrder() + 100);
-		}
-	}
-}
-
-void IceBergLettuce::explodeEffectZombies()
-{
-	for (auto zombie : ZombiesGroup)
-	{
-		if (getZombieIsInExplodeRange(zombie) && zombie != _excludeZombie)
-		{
-			setZombiesActionStop(zombie, 4);
 		}
 	}
 }

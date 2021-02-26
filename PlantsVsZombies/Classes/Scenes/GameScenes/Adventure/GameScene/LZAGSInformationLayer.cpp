@@ -53,7 +53,7 @@ void GSInformationLayer::showUserText()
 		StringUtils::format(_global->userInformation->getGameText().find("第 %d 天")->second->text.c_str(),
 			_global->userInformation->getCurrentPlayLevels()));
 	username->setFontName(GAME_FONT_NAME_1);
-	username->setFontSize(30);
+	username->setFontSize(_global->userInformation->getGameText().find("的时空冒险之旅")->second->fontsize);
 	username->setColor(Color3B(0, 255, 255));
 	username->enableGlow(Color4B::ORANGE);
 	username->setName("userName");

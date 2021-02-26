@@ -35,11 +35,12 @@ private:
     void cavePlantInformation(rapidjson::Value& object, rapidjson::Document::AllocatorType& allocator) override;
     void readPlantInforamtion(rapidjson::Document* levelDataDocument, char* key, int i) override;
     bool isCanKillZombieOnce(Zombies* zombie);
-    void chomperKillZombie(Zombies* zombie);
-    void chomperHurtZombie(Zombies* zombie);
+    void chomperKillZombie();
+    void chomperHurtZombie();
     void zombieRelieveReserveKill(Zombies* zombie);
 
 private:
-    bool _isCanEat;      // 是否可以吃僵尸
-    int _chewTime;       // 大嘴花咀嚼时间
+    bool _isCanEat;           // 是否可以吃僵尸
+    int _chewTime;            // 大嘴花咀嚼时间
+    Zombies* _attackZombie;   // 被攻击僵尸
 };

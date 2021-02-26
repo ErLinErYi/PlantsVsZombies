@@ -361,7 +361,15 @@ void Plants::zombieRecoveryMove(Zombies* zombie)
 				zombie->getZombieAnimation()->setMix("Zombies_Eat", Zombies::getZombieAniamtionName(zombie->getZombieType()), 0.5f);
 				zombie->getZombieAnimation()->setAnimation(0, Zombies::getZombieAniamtionName(zombie->getZombieType()), true);
 			}
-			zombie->setZombieCurrentSpeed(zombie->getZombieSpeed());
+
+			if (zombie->getZombieIsFrozen() == 0)
+			{
+				zombie->setZombieCurrentSpeed(zombie->getZombieSpeed());
+			}
+			else if (zombie->getZombieIsFrozen() == 1)
+			{
+				zombie->setZombieCurrentSpeed(zombie->getZombieSpeed() / 2.f);
+			}
 		}
 	}
 }
