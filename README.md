@@ -14,7 +14,7 @@
 - 此游戏为仅供学习交流使用,不得用于商业用途，否则后果自负。
 - 目前有14种僵尸和13种植物，植物和僵尸的动画都是本人做的，由于做动画的能力有限，有些僵尸和植物动画不能实现.（动画使用Dragonbones/Spine制作）。
 - 如果发现程序有什么问题或者对游戏有什么建议可以发送到我的qq：2117610943或者Email：2117610943@qq.com。
-- [【可运行文件下载】](https://gitlz.gitee.io/lz)[【视频演示】](https://www.bilibili.com/video/BV1Bg4y1B7Pj)
+- [【可运行文件下载】](https://gitlz.gitee.io/lz)[【视频演示】](https://www.bilibili.com/video/BV1kh411Q7W5?share_source=copy_web)
 
 ## 项目类图
 ![ClassDiagram](https://gitee.com/GITLZ/PlantsVsZombies/raw/master/ClassDiagram.png)
