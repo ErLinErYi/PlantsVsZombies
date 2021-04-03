@@ -52,7 +52,8 @@ void UpdateClient::createDiglog()
 
 	createButton(_global->userInformation->getGameText().find("下载器下载")->second->text, Vec2(165, 100), Update_Button::下载器下载);
 	createButton(_global->userInformation->getGameText().find("直接下载")->second->text, Vec2(405, 100), Update_Button::直接下载);
-	createButton(_global->userInformation->getGameText().find("百度网盘下载")->second->text, Vec2(645, 100), Update_Button::百度网盘下载);
+	createButton(_global->userInformation->getGameText().find("网站下载")->second->text, Vec2(645, 100), Update_Button::网站下载);
+	//createButton(_global->userInformation->getGameText().find("百度网盘下载")->second->text, Vec2(645, 100), Update_Button::百度网盘下载);
 	//createButton(_global->userInformation->getGameText().find("腾讯微云下载")->second, Vec2(405, 100), Update_Button::腾讯微云下载);
 	createButton(_global->userInformation->getGameText().find("关闭游戏")->second->text, Vec2(885, 100), Update_Button::退出游戏);
 	createButton(_global->userInformation->getGameText().find("确定")->second->text, Vec2(520, 100), Update_Button::确定);
@@ -113,6 +114,9 @@ void UpdateClient::createButton(const std::string& name, Vec2& vec2, Update_Butt
 						_textScrollView = nullptr;
 					}
 					downloadData();
+					break;
+				case Update_Button::网站下载:
+					Application::getInstance()->openURL(_global->userInformation->getGameText().find("官方网址")->second->text);
 					break;
 				case Update_Button::退出游戏:
 					Director::getInstance()->end();

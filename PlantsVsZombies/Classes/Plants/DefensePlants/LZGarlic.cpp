@@ -104,12 +104,15 @@ void Garlic::effectZombies(Zombies* zombie)
 		{
 			changeZombiePositionY(zombie);
 			zombieRecoveryMove(zombie);
-			zombie->getZombieAnimation()->setColor(Color3B(181, 230, 29));
-			zombie->getZombieAnimation()->runAction(Sequence::create(DelayTime::create(0.5f),
-				CallFunc::create([=]()
-					{
-						zombie->getZombieAnimation()->setColor(Color3B::WHITE);
-					}), nullptr));
+			if (zombie->getZombieAnimation()->getColor() == Color3B::WHITE)
+			{
+				zombie->getZombieAnimation()->setColor(Color3B(181, 230, 29));
+				zombie->getZombieAnimation()->runAction(Sequence::create(DelayTime::create(0.5f),
+					CallFunc::create([=]()
+						{
+							zombie->getZombieAnimation()->setColor(Color3B::WHITE);
+						}), nullptr));
+			}
 		}
 	}
 }

@@ -13,7 +13,7 @@
 CatTailBullet::CatTailBullet(Node* node):
     _targetZombie(nullptr),
     _distance(0xffff),
-    _speed{ 10,0 },
+    _speed{ 20,0 },
     _distanceY(69),
     _locationY(0),
     _isTrack(false)

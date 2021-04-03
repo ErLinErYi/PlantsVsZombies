@@ -43,8 +43,9 @@ bool BMAnimationLayer::init()
 	createRandomSuns();
 	showCars();
 
-	schedule([&](float delta) { gameMainLoop(delta); }, "gameMainLoop");
-	schedule([&](float) {sunsDeleteUpdate(); coinDeleteUpdate(); }, 2.0f, "sunDeleteUpdate");
+	schedule([&](float delta) { gameMainLoop(delta); }, "zombiesMainLoop");
+	schedule([&](float delta) { gameMainLoop(); }, 1.f / 30.f, "gameMainLoop");
+	schedule([&](float) {sunsDeleteUpdate(); coinDeleteUpdate();}, 2.0f, "sunDeleteUpdate");
 
 	return true;
 }

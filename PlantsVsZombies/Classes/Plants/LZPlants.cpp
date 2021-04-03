@@ -62,16 +62,16 @@ PlantsInformation::PlantsCardInformation plantsCardInformation[] =
 	{"IcePeaShooter",         "PlantsIcon15",   "B",    2,   11,         175,         10,        0, 0,     false,   PlantsType::IcePeaShooter,       Color3B(47,202,207),  { 4000,  4400  }  },  /* 寒冰豌豆射手 */
 	{"FirePeaShooter",        "PlantsIcon2",    "B",    2,   12,         200,         10,        0, 0,     false,   PlantsType::FirePeaShooter,      Color3B::RED,         { 6000,  7000  }  },  /* 火焰豌豆射手 */
 	{"LemonShooter",          "PlantsIcon10",   "A",    2,   13,         175,         7.5f,      0, 0,     false,   PlantsType::AcidLemonShooter,    Color3B(232,199,23),  { 9000,  10000 }  },  /* 柠檬射手 */
-	{"SunFlowerTwin",         "PlantsIcon4",    "A",    2,   14,         125,         15,        0, 0,     false,   PlantsType::SunFlowerTwin,       Color3B::YELLOW,      { 12000, 14000 }  },  /* 双胞向日葵 */
-	{"WaterMelonPult",        "PlantsIcon3",    "A",    2,   15,         300,         10,        0, 0,     false,   PlantsType::WaterMelonPult,      Color3B(23,79,50),    { 15000, 18000 }  },  /* 西瓜投手 */
+	{"SunFlowerTwin",         "PlantsIcon4",    "A",    2,   14,         100,         15,        0, 0,     false,   PlantsType::SunFlowerTwin,       Color3B::YELLOW,      { 12000, 14000 }  },  /* 双胞向日葵 */
+	{"WaterMelonPult",        "PlantsIcon3",    "A",    2,   15,         225,         10,        0, 0,     false,   PlantsType::WaterMelonPult,      Color3B(23,79,50),    { 15000, 18000 }  },  /* 西瓜投手 */
 	{"Jalapeno",              "PlantsIcon2",    "A",    2,   16,         150,         40,        0, 0,     false,   PlantsType::Jalapeno,            Color3B::RED,         { 18000, 23000 }  },  /* 火爆辣椒 */
 	{"JalapenoVariation",     "PlantsIcon2",    "S",    1,   17,         175,         40,        0, 0,     true,    PlantsType::JalapenoVariation,   Color3B(100,0,0),     { 22000, 28000 }  },  /* 火爆辣椒变异 */
-	{"ThreePeaShooter",       "PlantsIcon5",    "S",    1,   18,         325,         7.5f,      0, 0,     false,   PlantsType::ThreePeaShooter,     Color3B::GREEN,       { 25000, 32000 }  },  /* 三头豌豆射手 */
+	{"ThreePeaShooter",       "PlantsIcon5",    "S",    1,   18,         225,         7.5f,      0, 0,     false,   PlantsType::ThreePeaShooter,     Color3B::GREEN,       { 25000, 32000 }  },  /* 三头豌豆射手 */
 	{"StarFruit",             "PlantsIcon9",    "S",    1,   19,         125,         7.5f,      0, 0,     false,   PlantsType::StarFruit,           Color3B::ORANGE,      { 30000, 36000 }  },  /* 杨桃 */
-	{"WinterMelonPult",       "PlantsIcon15",   "SS",   1,   20,         400,         15,        0, 0,     false,   PlantsType::WinterMelonPult,     Color3B(47,202,207),  { 35000, 41000 }  },  /* 冰瓜投手 */
-	{"Citron",                "PlantsIcon",     "SS",   1,   21,         350,         7.5f,      0, 0,     false,   PlantsType::Citron,              Color3B(0,255,255),   { 40000, 46000 }  },  /* 离子缘 */
-	{"CatTail",               "PlantsIcon11",   "SSS",  1,   22,         325,         7.5f,      0, 0,     false,   PlantsType::CatTail,             Color3B::MAGENTA,     { 44000, 50000 }  },  /* 香蒲 */
-	{"GloomShroom",           "PlantsIcon13",   "SSS",  1,   23,         300,         40,        0, 0,     false,   PlantsType::GloomShroom,         Color3B(163,73,164),  { 50666, 56666 }  },  /* 忧郁菇 */
+	{"WinterMelonPult",       "PlantsIcon15",   "SS",   1,   20,         250,         15,        0, 0,     false,   PlantsType::WinterMelonPult,     Color3B(47,202,207),  { 35000, 41000 }  },  /* 冰瓜投手 */
+	{"Citron",                "PlantsIcon",     "SS",   1,   21,         225,         7.5f,      0, 0,     false,   PlantsType::Citron,              Color3B(0,255,255),   { 40000, 46000 }  },  /* 离子缘 */
+	{"CatTail",               "PlantsIcon11",   "SSS",  1,   22,         250,         7.5f,      0, 0,     false,   PlantsType::CatTail,             Color3B::MAGENTA,     { 44000, 50000 }  },  /* 香蒲 */
+	{"GloomShroom",           "PlantsIcon13",   "SSS",  1,   23,         275,         40,        0, 0,     false,   PlantsType::GloomShroom,         Color3B(163,73,164),  { 50666, 56666 }  },  /* 忧郁菇 */
 	/* 植物图片名称 */       /* 标志名称 */    /*品质*/   /*优先级*/  /*阳光数*/   /*时间*/              /*反转*/       /*植物类型*/                   /* 颜色 */            /* 要求 */
 };
 #endif // _DEBUG
@@ -309,7 +309,7 @@ void Plants::zombieEatPlant(Zombies* zombie)
 			if (zombie->getZombieType() == ZombiesType::GargantuarZombies)
 			{
 				zombie->getZombieAnimation()->setAnimation(0, "Zombies_Attack", true);
-				zombie->getZombieAnimation()->setEventListener([this, zombie](spTrackEntry* entry, spEvent* event)
+				zombie->getZombieAnimation()->setEventListener([=](spTrackEntry* entry, spEvent* event)
 					{
 						if (!strcmp(event->data->name, "attack") && zombie->getZombieIsSurvive())
 						{
@@ -324,7 +324,7 @@ void Plants::zombieEatPlant(Zombies* zombie)
 				const string eateffect[3] = { "chomp","chomp2","chompsoft" };
 				zombie->getZombieAnimation()->setAnimation(0,
 					zombie->getZombieType() == ZombiesType::LmpZombies ? "Zombies_Eat" : rand() % 4 ? "Zombies_Eat" : "Zombies_Eat1", true);
-				zombie->getZombieAnimation()->setEventListener([this, eateffect, zombie](spTrackEntry* entry, spEvent* event)
+				zombie->getZombieAnimation()->setEventListener([=](spTrackEntry* entry, spEvent* event)
 					{
 						if (!strcmp(event->data->name, "eat") && zombie->getZombieIsSurvive())
 						{
@@ -352,6 +352,7 @@ void Plants::zombieRecoveryMove(Zombies* zombie)
 		zombie->setZombieIsEat(false);
 		if (!zombie->getZombieIsPlayDieAnimation()) /* 僵尸没有播放死亡动画 */
 		{
+			zombie->getZombieAnimation()->setEventListener(nullptr);
 			if (zombie->getZombieType() == ZombiesType::GargantuarZombies)
 			{
 				zombie->getZombieAnimation()->addAnimation(0, "Zombies_Walk", true);

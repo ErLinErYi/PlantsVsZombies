@@ -122,7 +122,7 @@ void BucketDoorZombies::setZombieBodyShieldThirdInjure(const string& oldName, co
 		_attackBodySoundEffectType = 0;
 		_bodyShieldType = ShieldType::none;
 
-		_zombiesAnimation->addAnimation(0, "Zombies_Walk", true);
+		//_zombiesAnimation->addAnimation(0, "Zombies_Walk", true);
 	}
 }
 

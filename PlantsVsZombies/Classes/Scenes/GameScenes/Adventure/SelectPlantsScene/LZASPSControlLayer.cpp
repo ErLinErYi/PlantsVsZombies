@@ -41,7 +41,7 @@ bool SPSControlLayer::init()
 bool SPSControlLayer::isShowJumpLevelButton()
 {
 	auto gl = Global::getInstance()->userInformation;
-	if (getLevelBreakThroughNumbers() >= 6 &&  /* 闯关失败次数多于*次 */
+	if (getLevelBreakThroughNumbers() >= 3 &&  /* 闯关失败次数多于*次 */
 		gl->getUserSelectWorldData().at(
 		gl->getCurrentPlayWorldTag())->levels == 
 		gl->getCurrentPlayLevels())            /* 目前关卡时最高记录 */

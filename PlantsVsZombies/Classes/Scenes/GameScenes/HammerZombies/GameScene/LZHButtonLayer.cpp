@@ -44,6 +44,7 @@ bool HButtonLayer::init()
 	if (!Layer::init())return false;
 
 	stopButton = createButton("StopButton", "StopButtonDown", Vec2(1870, 1030), GSLayerButton::stopButton);
+	_accelerateButton = createButton("SpeedButton", "SpeedButtonDown", Vec2(1770, 1030), GSLayerButton::accelerateButton);
 	createHammerButton();
 	createKeyBoardListener();
 
@@ -61,12 +62,18 @@ Button* HButtonLayer::createButton(const string& normal, const string& select, c
 		{
 			switch (type)
 			{
-			case cocos2d::ui::Widget::TouchEventType::BEGAN:
-				PlayMusic::playMusic("gravebutton");
-				break;
 			case cocos2d::ui::Widget::TouchEventType::ENDED:
-				createQuitDialog();
-				_director->getRunningScene()->addChild(HPauseQuitLayer::create(), 10, "pauseLayer");
+				switch (buttonName)
+				{
+				case GSLayerButton::stopButton:
+					PlayMusic::playMusic("pause");
+					createQuitDialog();
+					_director->getRunningScene()->addChild(HPauseQuitLayer::create(), 10, "pauseLayer");
+					break;
+				case GSLayerButton::accelerateButton:
+					controlAccelerateScheduler();
+					break;
+				}
 				break;
 			}
 		});

@@ -133,8 +133,9 @@ bool GSAnimationLayer::init()
 	createRandomSuns();
 	showCars();
 
-	schedule([&](float delta) { gameMainLoop(delta); }, "gameMainLoop");
-	schedule([&](float) {sunsDeleteUpdate(); coinDeleteUpdate(); }, 2.0f, "sunDeleteUpdate");
+	schedule([&](float delta) { gameMainLoop(delta); }, "zombiesMainLoop");
+	schedule([&](float delta) { gameMainLoop(); }, 1.f / 30.f, "gameMainLoop");
+	schedule([&](float) {sunsDeleteUpdate(); coinDeleteUpdate();}, 2.0f, "sunDeleteUpdate");
 	
 	return true;
 }
@@ -229,12 +230,16 @@ void GSAnimationLayer::showCars()
 	}
 }
 
-void GSAnimationLayer::gameMainLoop(float delta)
+void GSAnimationLayer::gameMainLoop()
 {
-	zombiesEventUpdate(delta); /* 僵尸事件更新 */
 	plantsEventUpdate();       /* 植物事件更新 */
 	bulletEventUpdate();       /* 子弹事件更新 */
 	carsEventUpdate();         /* 小车事件更新 */
+}
+
+void GSAnimationLayer::gameMainLoop(float delta)
+{
+	zombiesEventUpdate(delta); /* 僵尸事件更新 */
 }
 
 void GSAnimationLayer::zombiesEventUpdate(float delta)
@@ -270,6 +275,7 @@ void GSAnimationLayer::plantsDeleteUpdate(map<int, Plants*>::iterator& plant)
 			GSControlLayer::setPlantMapCanPlant(plant->second->getPlantRow(), plant->second->getPlantColumn());
 
 			auto plants = plant;
+			plant->second->getPlantAnimation()->stopAllActions();
 			plant->second->getPlantAnimation()->runAction(Sequence::create(DelayTime::create(4.0f),
 				CallFunc::create([plants]()
 					{

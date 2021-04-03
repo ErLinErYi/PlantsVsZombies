@@ -55,7 +55,7 @@ void MouseEventControl::goodsRecovery(Point point, SkeletonAnimation* animation)
 {
 	for (auto sun : SunsGroup)
 	{
-		if (sun->getSun()->getBoundingBox().containsPoint(point) && sun->getEnable())
+		if (sun->getSun()->getBoundingBox().containsPoint(point) && sun->getEnable() && sun->getSun()->getOpacity() > 200)
 		{
 			PlayMusic::playMusic("points");
 			SunFlower::sunRecovery(sun);

@@ -121,7 +121,7 @@ void Zombies::setZombieMove(float delta)
 {
 	_zombiesAnimation->setPositionX(_zombiesAnimation->getPositionX() - delta * _currentSpeed);
 
-	if (getZombieIsEnterMap() && !getZombieIsShow())
+	if (!getZombieIsShow() && getZombieIsEnterMap())
 	{
 		setZombieIsShow(true);
 		_zombiesAnimation->runAction(FadeIn::create(1.0f));
@@ -186,7 +186,7 @@ void Zombies::setZombieIsEat(const bool isEat)
 	_isEat = isEat;
 }
 
-void  Zombies::setZombieDeath(const bool death)
+void Zombies::setZombieDeath(const bool death)
 {
 	if (death)
 	{

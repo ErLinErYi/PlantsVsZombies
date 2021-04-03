@@ -47,8 +47,8 @@ bool GSGameEndLayer::init()
 
 void GSGameEndLayer::judgeBreakThroughAboutJumpLevel()
 {
-	// 如果此次闯关时间超过210秒并且闯关失败，则满足一次闯关失败
-	if (GSGameTimerLayer::breakThroughTime > 210) 
+	// 如果此次闯关时间超过150秒并且闯关失败，则满足一次闯关失败
+	if (GSGameTimerLayer::breakThroughTime > 150) 
 	{
 		UserData::getInstance()->caveUserData(
 			Global::getInstance()->userInformation->getCurrentCaveFileLevelWorldName(),

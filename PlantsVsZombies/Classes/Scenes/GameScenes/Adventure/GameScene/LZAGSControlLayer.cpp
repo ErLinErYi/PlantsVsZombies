@@ -30,7 +30,7 @@ GameMapInformation::GameMapInformation(unsigned int row, unsigned int column):
    rowNumbers(row)
 ,  columnNumbers(column)
 ,  mapLeft(570)
-,  mapRight(1670)
+,  mapRight(1690)
 ,  mapTop(810)
 ,  mapBottom(110)
 {

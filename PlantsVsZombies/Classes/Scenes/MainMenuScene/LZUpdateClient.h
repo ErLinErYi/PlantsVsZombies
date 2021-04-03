@@ -31,7 +31,8 @@ private:
         直接下载,
 		退出游戏,
         确定,
-        下载器下载
+        下载器下载,
+        网站下载
     };
     void createDiglog();	                                                       /* 创建对话框 */
     void createButton(const std::string& name, Vec2& vec2, Update_Button button);  /* 创建按钮 */

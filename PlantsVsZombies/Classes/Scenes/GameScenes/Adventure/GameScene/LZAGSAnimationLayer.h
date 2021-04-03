@@ -44,6 +44,7 @@ CC_CONSTRUCTOR_ACCESS:
 protected:
 	virtual void createRandomSuns();
 	virtual void showCars();
+	virtual void gameMainLoop();
 	virtual void gameMainLoop(float delta);
 	virtual void zombiesEventUpdate(float delta);
 	virtual void plantsEventUpdate();

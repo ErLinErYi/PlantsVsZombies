@@ -19,7 +19,7 @@ BigMapWorld::BigMapWorld()
     PlayMusic::changeBgMusic("mainmusic2", true);
 
     _global->userInformation->setCurrentPlayWorldTag(1);
-    _global->userInformation->setCurrentPlayWorldName(" - 大地图模式 - ");
+    _global->userInformation->setCurrentPlayWorldName(_global->userInformation->getGameText().find("- 大地图模式 -")->second->text);
     _worldPosition = UserData::getInstance()->openDoubleUserData(const_cast<char*>(getScrollViewPositionString().c_str()));
 
     _isPopEnter = false;

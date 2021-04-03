@@ -162,13 +162,13 @@ void GSButtonLayer::controlAccelerateScheduler()
 	if (Director::getInstance()->getScheduler()->getTimeScale() == 2.0f)
 	{
 		Director::getInstance()->getScheduler()->setTimeScale(1.0f);
-		_accelerateButton->loadTextureNormal("SpeedButton.png", TextureResType::PLIST);
+		if (_accelerateButton)_accelerateButton->loadTextureNormal("SpeedButton.png", TextureResType::PLIST);
 	}
 	else
 	{
 		Director::getInstance()->getScheduler()->setTimeScale(2.0f);
-		_decelerateButton->loadTextureNormal("SpeedButton.png", TextureResType::PLIST);
-		_accelerateButton->loadTextureNormal("SpeedButtonDown.png", TextureResType::PLIST);
+		if(_decelerateButton)_decelerateButton->loadTextureNormal("SpeedButton.png", TextureResType::PLIST);
+		if(_accelerateButton)_accelerateButton->loadTextureNormal("SpeedButtonDown.png", TextureResType::PLIST);
 	}
 }
 
@@ -177,13 +177,13 @@ void GSButtonLayer::controlDecelerateScheduler()
 	if (Director::getInstance()->getScheduler()->getTimeScale() == 0.7f)
 	{
 		Director::getInstance()->getScheduler()->setTimeScale(1.0f);
-		_decelerateButton->loadTextureNormal("SpeedButton.png", TextureResType::PLIST);
+		if (_decelerateButton)_decelerateButton->loadTextureNormal("SpeedButton.png", TextureResType::PLIST);
 	}
 	else
 	{
 		Director::getInstance()->getScheduler()->setTimeScale(0.7f);
-		_accelerateButton->loadTextureNormal("SpeedButton.png", TextureResType::PLIST);
-		_decelerateButton->loadTextureNormal("SpeedButtonDown.png", TextureResType::PLIST);
+		if (_accelerateButton)_accelerateButton->loadTextureNormal("SpeedButton.png", TextureResType::PLIST);
+		if (_decelerateButton)_decelerateButton->loadTextureNormal("SpeedButtonDown.png", TextureResType::PLIST);
 	}
 }
 

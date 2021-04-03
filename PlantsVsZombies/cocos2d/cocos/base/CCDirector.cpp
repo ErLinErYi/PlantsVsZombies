@@ -1312,7 +1312,7 @@ void Director::showStats()
         }
 
 #if _DEBUG
-       auto currentCalls = (unsigned long)_renderer->getDrawnBatches();
+        auto currentCalls = (unsigned long)_renderer->getDrawnBatches();
         auto currentVerts = (unsigned long)_renderer->getDrawnVertices();
         if( currentCalls != prevCalls ) {
             sprintf(buffer, "GL calls:%6lu", currentCalls);

@@ -1,5 +1,6 @@
 #include "editor-support/cocostudio/CocoLoader.h"
 #include "zlib.h"
+#include <new>
 
 using namespace std;
 using namespace rapidjson;
