@@ -73,7 +73,7 @@ void BigMapWorld::readWorldLevel()
         OpenLevelData::getInstance()->openLevelsData(
             _global->userInformation->getTextPath().find(
                 _global->userInformation->getGameDifficulty() ?
-                "GameDataModernWorldDIF" : "GameDataModernWorld")->second);
+                "GameDataModernWorldDif" : "GameDataModernWorld")->second);
         _global->userInformation->getUserSelectWorldData().at(1)->isReadWoldInformation = true;
     }
 

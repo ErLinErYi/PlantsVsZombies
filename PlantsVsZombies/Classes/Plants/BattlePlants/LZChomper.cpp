@@ -184,7 +184,11 @@ void Chomper::chomperHurtZombie()
 {
 	_plantAnimation->setAnimation(0, "Chomper_Eat_Attack", false);
 	_plantAnimation->addAnimation(0, "Chomper_Normal", true);
-	_isCanEat = true;
+	_plantAnimation->runAction(Sequence::create(DelayTime::create(1.17f), 
+		CallFunc::create([this]() 
+			{
+				_isCanEat = true;
+			}), nullptr));
 }
 
 void Chomper::zombieRelieveReserveKill(Zombies* zombie)

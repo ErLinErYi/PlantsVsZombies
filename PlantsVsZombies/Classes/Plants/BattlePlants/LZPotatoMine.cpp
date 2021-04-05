@@ -161,25 +161,33 @@ void PotatoMine::zombieEatPlant(Zombies* zombie)
 			_isBeginExplode = true;
 		}
 
-		if (zombie->getZombieIsSurvive() && !zombie->getZombieIsEat())
+		if (zombie->getZombieIsSurvive() && !zombie->getZombieIsEat() && zombie->getZombieIsFrozen() != 2)
 		{
-			const string eateffect[3] = { "chomp","chomp2","chompsoft" };
 			zombie->setZombieEatPlantNumber(_plantNumber);
 			zombie->setZombieStop();
 			zombie->setZombieIsEat(true);
-			zombie->getZombieAnimation()->setAnimation(0, "Zombies_Eat", true);
-			zombie->getZombieAnimation()->setEventListener([this, eateffect](spTrackEntry* entry, spEvent* event)
-				{
-					if (!strcmp(event->data->name, "eat"))
+
+			if (zombie->getZombieType() == ZombiesType::GargantuarZombies)
+			{
+				zombieAttackPlant(zombie);
+			}
+			else
+			{
+				const string eateffect[3] = { "chomp","chomp2","chompsoft" };
+				zombie->getZombieAnimation()->setAnimation(0, "Zombies_Eat", true);
+				zombie->getZombieAnimation()->setEventListener([this, eateffect](spTrackEntry* entry, spEvent* event)
 					{
-						if (event->intValue == 1)
+						if (!strcmp(event->data->name, "eat"))
 						{
-							reducePlantHealthPoint(100);
-							PlayMusic::playMusic(eateffect[rand() % 3]);
-							setPlantHurtBlink(PlantsType::PotatoMine);
+							if (event->intValue == 1)
+							{
+								reducePlantHealthPoint(100);
+								PlayMusic::playMusic(eateffect[rand() % 3]);
+								setPlantHurtBlink(PlantsType::PotatoMine);
+							}
 						}
-					}
-				});
+					});
+			}
 		}
 	}
 }

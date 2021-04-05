@@ -12,9 +12,9 @@
 - Compared with the original version, the game has greater resolution, better picture quality and higher refresh rate. The properties in the game are quite different from the original. It's a little harder than the original. There are new game modes, etc.
 - Most of the game material comes from the original game material, a small part of the collection from the network, as well as their own production.
 - This game is only for learning and communication use, not for commercial purposes, otherwise at your own risk.
-- At present, there are 14 kinds of zombies and 13 kinds of plants. The animation of plants and zombies are all done by myself. Due to the limited ability of animation, some zombies and plants can't be realized. (the animation is made by dragonbones / spine).
-- If you find any problems with the program or suggestions for the game, you can send them to my QQ: 2117610943 or email: 2117610943@qq.com 。
-- [runnable file download]（ https://gitlz.gitee.io/lz ）[video demo]（ https://www.bilibili.com/video/BV1Bg4y1B7Pj )
+- At present, there are 15 kinds of zombies and 24 kinds of plants. The animation of plants and zombies are all done by myself. Due to the limited ability of animation, some zombies and plants can't be realized. (the animation is made by dragonbones / spine).
+- If you find any problems with the program or suggestions for the game, you can send them to my QQ: 2117610943 or email: zhengl0324@qq.com 。
+- [runnable file download]（ https://gitlz.gitee.io/lz ）[video demo]（ https://www.bilibili.com/video/BV1kh411Q7W5?share_source=copy_web)
 
 ## Project class diagram
 ![ClassDiagram](https://gitee.com/GITLZ/PlantsVsZombies/raw/master/ClassDiagram.png)
@@ -32,5 +32,5 @@
 ## Last
 **Author: LZ** <br>
 **QQ: 2117610943** <br>
-**Email: 2117610943@qq.com** <br>
+**Email: zhengl0324@qq.com** <br>
 **Website: https://gitlz.gitee.io/lz** <br>

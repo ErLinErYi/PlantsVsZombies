@@ -34,7 +34,7 @@ PlantsInformation::PlantsCardInformation plantsCardInformation[] =
 	{"FirePeaShooter",         "PlantsIcon2",     "A",    2,    12,         0,         0,      0, 0,     false,   PlantsType::FirePeaShooter,      Color3B::RED,         { 6000,  7000  }  },  /* »ðÑæÍã¶¹ÉäÊÖ */
 	{"LemonShooter",           "PlantsIcon10",    "A",    2,    13,         0,         0,      0, 0,     false,   PlantsType::AcidLemonShooter,    Color3B(232,199,23),  { 9000,  10000 }  },  /* ÄûÃÊÉäÊÖ */
 	{"SunFlowerTwin",          "PlantsIcon4",     "A",    2,    14,         0,         0,      0, 0,     false,   PlantsType::SunFlowerTwin,       Color3B::YELLOW,      { 12000, 14000 }  },  /* Ë«°ûÏòÈÕ¿û */
-	{"WaterMelonPult",         "PlantsIcon3",     "A",    2,    15,         0,         0,      0, 0,     false,   PlantsType::WaterMelonPult,      Color3B(23,79,50),    { 15000, 18000  }  },  /* Î÷¹ÏÍ¶ÊÖ */
+	{"WaterMelonPult",         "PlantsIcon3",     "A",    2,    15,         0,         0,      0, 0,     false,   PlantsType::WaterMelonPult,      Color3B(23,79,50),    { 15000, 18000 }  },  /* Î÷¹ÏÍ¶ÊÖ */
 	{"Jalapeno",               "PlantsIcon2",     "A",    2,    16,         0,         0,      0, 0,     false,   PlantsType::Jalapeno,            Color3B::RED,         { 18000, 23000 }  },  /* »ð±¬À±½· */
 	{"JalapenoVariation",      "PlantsIcon2",     "S",    1,    17,         0,         0,      0, 0,     true,    PlantsType::JalapenoVariation,   Color3B(100,0,0),     { 22000, 28000 }  },  /* »ð±¬À±½·±äÒì */
 	{"ThreePeaShooter",        "PlantsIcon5",     "S",    1,    18,         0,         0,      0, 0,     false,   PlantsType::ThreePeaShooter,     Color3B::GREEN,       { 25000, 32000 }  },  /* ÈýÍ·Íã¶¹ÉäÊÖ */
@@ -308,16 +308,7 @@ void Plants::zombieEatPlant(Zombies* zombie)
 
 			if (zombie->getZombieType() == ZombiesType::GargantuarZombies)
 			{
-				zombie->getZombieAnimation()->setAnimation(0, "Zombies_Attack", true);
-				zombie->getZombieAnimation()->setEventListener([=](spTrackEntry* entry, spEvent* event)
-					{
-						if (!strcmp(event->data->name, "attack") && zombie->getZombieIsSurvive())
-						{
-							PlayMusic::playMusic("gargantuar_thump");
-							GSBackgroundLayer::backgroundRunAction();
-							setPlantHealthPoint(0);
-						}
-					});
+				zombieAttackPlant(zombie);
 			}
 			else
 			{
@@ -339,6 +330,20 @@ void Plants::zombieEatPlant(Zombies* zombie)
 			}
 		}
 	}
+}
+
+void Plants::zombieAttackPlant(Zombies* zombie)
+{
+	zombie->getZombieAnimation()->setAnimation(0, "Zombies_Attack", true);
+	zombie->getZombieAnimation()->setEventListener([=](spTrackEntry* entry, spEvent* event)
+		{
+			if (!strcmp(event->data->name, "attack") && zombie->getZombieIsSurvive())
+			{
+				PlayMusic::playMusic("gargantuar_thump");
+				GSBackgroundLayer::backgroundRunAction();
+				setPlantHealthPoint(0);
+			}
+		});
 }
 
 void Plants::zombieRecoveryMove(Zombies* zombie)

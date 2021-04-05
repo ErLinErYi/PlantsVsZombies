@@ -304,6 +304,11 @@ protected:
 	virtual void zombieEatPlant(Zombies* zombie);
 
 	/**
+	 *½©Ê¬¹¥»÷Ö²Îï 
+	 */
+	virtual void zombieAttackPlant(Zombies* zombie);
+
+	/**
 	 *½©Ê¬´Ó³ÔÖ²ÎïÖĞ»Ö¸´
 	 */
 	virtual void zombieRecoveryMove(Zombies* zombie);
