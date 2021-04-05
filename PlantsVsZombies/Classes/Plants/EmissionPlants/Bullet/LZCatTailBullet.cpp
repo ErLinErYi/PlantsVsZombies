@@ -4,6 +4,7 @@
  *Date: 2021.2.7
  *Email: 2117610943@qq.com
  */
+
 #include "LZCatTailBullet.h"
 #include "Zombies/LZZombies.h"
 #include "Scenes/GameScenes/Adventure/GameScene/LZAGSData.h"
@@ -13,7 +14,7 @@
 CatTailBullet::CatTailBullet(Node* node):
     _targetZombie(nullptr),
     _distance(0xffff),
-    _speed{ 20,0 },
+    _speed{ 10,0 },
     _distanceY(69),
     _locationY(0),
     _isTrack(false)
@@ -55,6 +56,9 @@ void CatTailBullet::createListener()
                     _distanceY = 138; /* 第一次之后每隔138设置一次 */
                 }
             }), nullptr)));
+
+    _bulletAnimation->runAction(RepeatForever::create(Sequence::create(DelayTime::create(0.016f),
+        CallFunc::create([this]() { calculateBulletPosition(); }), nullptr)));
 }
 
 void CatTailBullet::createShadow()
@@ -76,8 +80,6 @@ void CatTailBullet::createShadow()
 
 void CatTailBullet::bulletAndZombiesCollision()
 {
-    calculateBulletPosition();
-
     for (auto zombie : ZombiesGroup)
     {
         if (!_isUsed && zombie->getZombieIsSurvive() &&                              /* 没有被使用 &&  僵尸没有死亡 */
@@ -118,7 +120,7 @@ void CatTailBullet::calculateBulletPosition()
             }
 
             auto deg = CC_RADIANS_TO_DEGREES(rad);
-            auto deltaD = min(1.f, deg / _bulletAnimation->getPosition().distance(_targetZombie->getZombieAnimation()->getPosition()));
+            auto deltaD = min(1.f, deg / _bulletAnimation->getPosition().distance(_targetZombie->getZombieAnimation()->getPosition() + Vec2(0, 100)));
             auto deltaR = min(1.f, deltaD / PI);
 
             switch (calculateDirection(_targetZombie->getZombieAnimation()->getPosition() + Vec2(0, 100)))
@@ -151,7 +153,7 @@ void CatTailBullet::calculateBulletPosition()
 bool CatTailBullet::getBulletIsEncounterWithZombie(Zombies* zombie)
 {
     auto& rect = zombie->getZombieAnimation()->getBoundingBox();
-    return _bulletAnimation->getBoundingBox().intersectsRect(Rect(rect.origin.x + 60, rect.origin.y + 110, 60, 1));
+    return _bulletAnimation->getBoundingBox().intersectsRect(Rect(rect.origin.x + 60, rect.origin.y + 110, 90, 30));
 }
 
 void CatTailBullet::seekZombie()
