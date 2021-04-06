@@ -12,7 +12,7 @@
 #include "Based/LZUserData.h"
 #include "Based/LZPlayMusic.h"
 
-#define FontSize 14
+#define FontSize 15
 #define DefaultName  "未命名存档"
 
 InputDataMenu::InputDataMenu() :
@@ -104,7 +104,7 @@ void InputDataMenu::createInputDialog()
 {
 	_inputDataDialog = Sprite::createWithSpriteFrameName("QuitDialog.png");
 	_inputDataDialog->setPosition(Director::getInstance()->getWinSize() / 2);
-	_inputDataDialog->setScale(3.0f);
+	_inputDataDialog->setScale(2.0f);
 	_inputDataDialog->setName("InputDataDialog");
 	_shieldDialogLayer->addChild(_inputDataDialog);
 
@@ -120,10 +120,10 @@ void InputDataMenu::createInputDialog()
 	_inputDataDialog->addChild(_inputCursor);
 	_inputCursor->runAction(RepeatForever::create(Sequence::create(FadeOut::create(0.25f), FadeIn::create(0.25f), nullptr)));
 
-	_textField = TextField::create(_global->userInformation->getGameText().find("点击此处进行输入存档名称")->second->text,GAME_FONT_NAME_1, FontSize);
+	auto textName = _global->userInformation->getGameText().find("点击此处进行输入存档名称")->second;
+	_textField = TextField::create(textName->text,GAME_FONT_NAME_1, textName->fontsize);
 	_inputDataDialog->addChild(_textField);
 	_textField->setPosition(Vec2(155, 137));
-	_textField->setFontSize(_global->userInformation->getGameText().find("点击此处进行输入存档名称")->second->fontsize);
 	_textField->setMaxLengthEnabled(true);
 	_textField->setMaxLength(15);
 	_textField->addEventListener([=](Ref* ref, TextField::EventType type)

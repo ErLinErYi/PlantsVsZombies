@@ -51,6 +51,7 @@ Sprite* GloomShroom::createPlantImage()
 void GloomShroom::createPlantAnimation()
 {
 	_plantAnimation = plantInit("GloomShroom", "GloomShroom_Normal");
+	_plantAnimation->setTimeScale(1.2f);
 	_plantAnimation->setScale(1.3f);
 	_plantAnimation->setAnchorPoint(Vec2::ANCHOR_MIDDLE);
 	_node->addChild(_plantAnimation);

@@ -88,7 +88,7 @@ bool CherryBomb::getZombieIsInExplodeRange(Zombies* zombie)
 {
 	/* ½©Ê¬ÊÇ·ñÔÚ±¬Õ¨·¶Î§ÅÐ¶Ï */
 	return sqrt(pow(zombie->getZombieAnimation()->getPositionX() - _plantAnimation->getPositionX(), 2) +
-		pow((zombie->getZombieAnimation()->getPositionY() + 50) - (_plantAnimation->getPositionY() + 60), 2)) <= 200 ? true : false;
+		pow((zombie->getZombieAnimation()->getPositionY() + 50) - (_plantAnimation->getPositionY() + 60), 2)) <= 210 ? true : false;
 }
 
 void CherryBomb::determineRelativePositionPlantsAndZombies()
