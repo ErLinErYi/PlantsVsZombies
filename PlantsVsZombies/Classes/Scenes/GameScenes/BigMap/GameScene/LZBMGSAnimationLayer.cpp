@@ -96,6 +96,7 @@ void BMAnimationLayer::createZombies()
 	zombies->setZombieInRow(row);
 	zombies->createZombie();
 	zombies->setZombieAttributeForGameType();
+	zombies->setZombieMultipleBloodVolume(2.f);
 	ZombiesGroup.push_back(zombies);
 	Zombies::zombiesNumbersChange("++");
 }

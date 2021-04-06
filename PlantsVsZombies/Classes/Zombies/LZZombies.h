@@ -302,6 +302,11 @@ public:
 	virtual void setZombieIsEatGarlic(const bool isEatGarlic);
 
 	/**
+	 * 设置僵尸血量倍数 
+	 */
+	virtual void setZombieMultipleBloodVolume(const float multiple);
+
+	/**
 	 * 获取僵尸所在行 
 	 */
 	virtual int getZombieInRow() const;

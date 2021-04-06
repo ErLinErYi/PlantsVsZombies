@@ -428,6 +428,16 @@ void Zombies::setZombieIsEatGarlic(const bool isEatGarlic)
 	_isEatGarlic = isEatGarlic;
 }
 
+void Zombies::setZombieMultipleBloodVolume(const float multiple)
+{
+	_bloodVolume *= multiple;
+	_headShieldVolume *= multiple;
+	_bodyShieldVolume *= multiple;
+	_currentBloodVolume *= multiple;
+	_currentHeadShieldVolume *= multiple;
+	_currentBodyShieldVolume *= multiple;
+}
+
 int Zombies::getZombieInRow() const
 {
 	return _zombieRow;
