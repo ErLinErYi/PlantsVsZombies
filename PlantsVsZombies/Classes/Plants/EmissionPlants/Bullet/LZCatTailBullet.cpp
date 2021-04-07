@@ -175,7 +175,7 @@ void CatTailBullet::seekZombie()
 float CatTailBullet::calculateBulletAndZombie(Zombies* zombie)
 {
     return sqrt(pow(zombie->getZombieAnimation()->getPositionX() - _bulletAnimation->getPositionX(), 2.f) +
-        pow(zombie->getZombieAnimation()->getPositionY() - _bulletAnimation->getPositionY(), 2.f));
+        pow((zombie->getZombieAnimation()->getPositionY() + 60) - _bulletAnimation->getPositionY(), 2.f));
 }
 
 float CatTailBullet::calculateAngle(Vec2 vec2)

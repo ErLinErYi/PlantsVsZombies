@@ -23,6 +23,7 @@ CC_CONSTRUCTOR_ACCESS:
 private:
 	void createListener() override;
 	void plantAttack() override;
+	void zombieEatPlant(Zombies* zombie) override;
 	bool getZombieIsEncounterPlant(Zombies* zombie) override;
 	SkeletonAnimation* showPlantAnimationAndText() override;
 };

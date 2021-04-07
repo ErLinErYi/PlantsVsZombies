@@ -81,6 +81,12 @@ void Spikeweed::determineRelativePositionPlantsAndZombies()
 	plantAttack();         /* 植物攻击 */
 
 	// 僵尸对植物进行伤害？？？ 在此添加
+	for (auto zombie : ZombiesGroup)
+	{
+		zombieEatPlant(zombie);      /* 僵尸吃植物 */
+
+		zombieRecoveryMove(zombie);  /* 僵尸恢复移动 */
+	}
 }
 
 void Spikeweed::plantAttack()
@@ -109,6 +115,23 @@ void Spikeweed::plantAttack()
 	}
 
 	plantRecovery("Spikeweed_Normal");
+}
+
+void Spikeweed::zombieEatPlant(Zombies* zombie)
+{
+	if (getPlantIsSurvive() && Plants::getZombieIsSameLineWithPlant(zombie) &&   /* 植物存活 && 植物与僵尸在同一行 */
+		Plants::getZombieIsEncounterPlant(zombie) &&                             /* 僵尸遇到植物 */
+		zombie->getZombieType() == ZombiesType::GargantuarZombies)               /* 僵尸是巨人僵尸 */
+	{
+		if (zombie->getZombieIsSurvive() && !zombie->getZombieIsEat() && zombie->getZombieIsFrozen() != 2)
+		{
+			zombie->setZombieEatPlantNumber(_plantNumber);
+			zombie->setZombieStop();
+			zombie->setZombieIsEat(true);
+
+			zombieAttackPlant(zombie);
+		}
+	}
 }
 
 bool Spikeweed::getZombieIsEncounterPlant(Zombies* zombie)
