@@ -61,6 +61,7 @@ private:
 	void throwException();
 	void checkEdition();
 	void changeFiles();
+	void countPlayers();
 
 private:
 	int _loadFileNumbers;                             // 文件加载数

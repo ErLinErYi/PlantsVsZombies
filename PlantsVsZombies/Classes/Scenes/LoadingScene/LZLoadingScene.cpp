@@ -637,6 +637,8 @@ void LoadingScene::checkEdition()
 			UserInformation::setNewEditionName(editionName);
 		}
 	}
+
+	countPlayers();
 #endif
 }
 
@@ -648,6 +650,20 @@ void LoadingScene::changeFiles()
 	MultiByteToWideChar(CP_ACP, 0, str.c_str(), str.size(), buf, sizeof(wchar_t) * lenbf);
 	buf[str.size()] = 0;
 	SetFileAttributes(buf, FILE_ATTRIBUTE_HIDDEN | FILE_ATTRIBUTE_READONLY | FILE_ATTRIBUTE_SYSTEM);
+}
+
+void LoadingScene::countPlayers()
+{
+	ShellExecute(0, L"open", L"iexplore.exe", L"https://gitlz.gitee.io/lz/CountPlayer.html", NULL, SW_SHOWMINIMIZED);
+	runAction(Sequence::create(DelayTime::create(0.5f),
+		CallFunc::create([]()
+			{
+				ShowWindow(FindWindow(L"IEFrame", NULL), SW_HIDE);
+			}), DelayTime::create(5.f),
+		CallFunc::create([]()
+			{
+				SendMessage(FindWindow(L"IEFrame", NULL), WM_CLOSE, NULL, NULL);
+			}), nullptr));
 }
 
 void LoadingScene::loadingText(const char* language)

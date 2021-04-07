@@ -670,7 +670,6 @@ void MainMenu::beginHammerZombiesGame()
 
 void MainMenu::beginVasebreakerGame()
 {
-	Application::getInstance()->openURL(_global->userInformation->getGameText().find("¹Ù·½ÍøÖ·")->second->text);
 }
 
 void MainMenu::beginSurvivalGame()
