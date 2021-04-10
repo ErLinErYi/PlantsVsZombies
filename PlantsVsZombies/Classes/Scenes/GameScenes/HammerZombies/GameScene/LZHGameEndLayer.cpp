@@ -140,6 +140,6 @@ void HGameEndLayer::showFailText()
 	lose->setPosition(Vec2(2500, Director::getInstance()->getWinSize().height / 2.0f));
 	lose->runAction(RepeatForever::create(Sequence::create(MoveBy::create(0.05f, Vec2(10, 0)), MoveBy::create(0.05f, Vec2(-10, 0)), nullptr)));
 	lose->runAction(Sequence::create(JumpTo::create(1.0f, Director::getInstance()->getWinSize() / 2.0f, 250, 3),
-		DelayTime::create(5), CallFunc::create([this]() {Director::getInstance()->replaceScene(MainMenu::createScene()); }), nullptr));
+		DelayTime::create(5), CallFunc::create([this]() {Director::getInstance()->replaceScene(TransitionFade::create(0.5f, MainMenu::createScene())); }), nullptr));
 	this->addChild(lose);
 }

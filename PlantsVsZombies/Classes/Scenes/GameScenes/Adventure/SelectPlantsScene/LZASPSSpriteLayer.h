@@ -30,10 +30,13 @@ public:
 	static void createPlantsText(const unsigned int& ID, const std::string& name, 
 		const Vec2& vec2, const float& fontsize, Color3B color = Color3B::WHITE, bool AnchorPoint = true);
 	static string selectRequirementText(map<string, LanguageTextAttribute*>& lta, PlantsType type, string str, string str1);
-	Text* showPlantsInformation(Button* button, bool showHeart = false);
+	virtual Text* showPlantsInformation(Button* button, bool showHeart = false);
+
+protected:
+	virtual void controlPlantCanSelect(Button* button, int priority);
+	virtual void createSelectPlantsDialog();
 
 private:
-	void createSelectPlantsDialog();
 	void alreadySelectPlantsDialog();
 	void alreadyHavePlantsDialog();
 	void createScrollview();
@@ -48,7 +51,6 @@ private:
 	void createAnimationAndText(PlantsType type);
 	void sortPlantsCard(PlantsType type);
 	void createBeginButton();
-	void controlPlantCanSelect(Button* button, int priority);
 	void startGame();
 	void selectPlantsCallBack(Node* node) { _selectFinished = true; }
 	float calculateScrollDistance();
@@ -69,7 +71,7 @@ public:
 	bool _selectFinished;                             /* 是否选择完成 */
 	vector<UserSelectCard> seedBankButton;
 
-private:
+protected:
 	Global* _global;                           /* 全局变量单例 */
 	Sprite* _seedChooser;                      /* 植物选择对话框 */
 	Plants* _plant;                            /* 植物变量 */

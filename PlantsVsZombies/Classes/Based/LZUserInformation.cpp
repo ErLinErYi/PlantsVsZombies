@@ -9,7 +9,6 @@
 #include "LZUserInformation.h"
 #include "LZGlobalVariable.h"
 
-const string UserInformation::_clientEdition = "1.3.0.7";
 string UserInformation::_editionName = "";
 bool UserInformation::_updateRequired = false;
 DWORD UserInformation::_screenDisplayFrequency = 0;
@@ -258,9 +257,9 @@ bool UserInformation::getIsMirrorScene() const
 string UserInformation::getClientEdition()
 {
     string str;
-    for (auto s : _clientEdition)
-        if ('.' != s)
-            str += s;
+    auto version = Application::getInstance()->getVersion();
+    for (auto s : version)if ('.' != s) str += s;
+
     return str;
 }
 

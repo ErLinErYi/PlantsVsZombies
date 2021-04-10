@@ -23,10 +23,8 @@ CC_CONSTRUCTOR_ACCESS:
 
 protected:
 	virtual void createButton(const Vec2& vec2, const std::string name, PauseQuitLayer_Button type) override;
+	virtual void createDialog() override;  
 
-private:
-	void createDialog() override;  
-
-private:
+protected:
 	EventListenerTouchOneByOne* _shieldListener;
 };

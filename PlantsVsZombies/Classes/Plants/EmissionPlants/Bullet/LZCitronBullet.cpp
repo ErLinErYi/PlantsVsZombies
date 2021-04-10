@@ -73,20 +73,27 @@ void CitronBullet::bulletAndZombiesCollision()
 		{
 			if (_animationId)
 			{
-				if (!zombie->getZombieIsStrikeFly())
+				if (zombie->getZombieType() != ZombiesType::GargantuarZombies)
 				{
-					PlayMusic::playMusic("ignite");
-					zombie->getZombieAnimation()->getChildByName("shadow")->setVisible(false);
-					zombie->getZombieAnimation()->stopAllActions();
-					zombie->getZombieAnimation()->setAnimation(0, "Zombies_Stand", false);
-					zombie->getZombieAnimation()->setAnchorPoint(Vec2(1.f, 1.f));
-					zombie->getZombieAnimation()->runAction(Sequence::create(JumpBy::create(1.0f, Vec2(1000, 500 + rand() % 100), 150 + rand() % 100, 1),
-						CallFunc::create([zombie]()
-							{
-								zombie->setZombieVisible(false);
-							}), nullptr));
-					zombie->getZombieAnimation()->runAction(RepeatForever::create(RotateBy::create(0.1f, 180)));
-					zombie->setZombieIsStrikeFly(true);
+					if (!zombie->getZombieIsStrikeFly())
+					{
+						PlayMusic::playMusic("ignite");
+						zombie->getZombieAnimation()->getChildByName("shadow")->setVisible(false);
+						zombie->getZombieAnimation()->stopAllActions();
+						zombie->getZombieAnimation()->setAnimation(0, "Zombies_Stand", false);
+						zombie->getZombieAnimation()->setAnchorPoint(Vec2(1.f, 1.f));
+						zombie->getZombieAnimation()->runAction(Sequence::create(JumpBy::create(1.0f, Vec2(1000, 500 + rand() % 100), 150 + rand() % 100, 1),
+							CallFunc::create([zombie]()
+								{
+									zombie->setZombieVisible(false);
+								}), nullptr));
+						zombie->getZombieAnimation()->runAction(RepeatForever::create(RotateBy::create(0.1f, 180)));
+						zombie->setZombieIsStrikeFly(true);
+					}
+				}
+				else
+				{
+					attackZombies(zombie);        /* ±¨’®∂‘Ω© ¨‘Ï≥……À∫¶ */
 				}
 			}
 			else

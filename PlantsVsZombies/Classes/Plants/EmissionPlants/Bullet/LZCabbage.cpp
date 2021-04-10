@@ -116,7 +116,7 @@ void Cabbage::bulletAndZombiesCollision()
 Vec2 Cabbage::calculateZombiePosition()
 {
 	auto data = OpenLevelData::getInstance()->readLevelData(OpenLevelData::getInstance()->getLevelNumber());
-	if (data->getZombiesIsSmall())
+	if (data && data->getZombiesIsSmall())
 	{
 		if (fabs(_position.x + 70 - _zombiePosition.x) >= 662)
 			return _zombiePosition + Vec2(0, 20);

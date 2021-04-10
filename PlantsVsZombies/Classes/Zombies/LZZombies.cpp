@@ -277,8 +277,7 @@ void Zombies::zombiesDeleteUpdateNotRecordDieNumbers(list<Zombies*>::iterator& z
 			(*zombie)->getIsCanDelete()[0] = true;
 
 			zombiesNumbersChange("--");  /* 僵尸总数更新 */
-			rewardCoin((*zombie)->getZombieAnimation());
-
+			
 			auto& zombies = zombie;
 			(*zombies)->getZombieAnimation()->runAction(Sequence::create(DelayTime::create(5.0f),
 				CallFunc::create([zombies]()

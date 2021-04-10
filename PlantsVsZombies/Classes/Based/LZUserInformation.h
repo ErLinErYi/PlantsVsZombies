@@ -196,7 +196,6 @@ private:
 	Sprite* _background;                                 // 当前世界地图 
 	string _currentPlayWorldName;                        // 当前世界名字
 
-	const static string _clientEdition;                  // 当前客户端版本
 	static string _editionName;                          // 版本名称
 	static bool _updateRequired;                         // 是否需要更新
 	static DWORD _screenDisplayFrequency;                // 屏幕刷新率

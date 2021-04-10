@@ -88,6 +88,15 @@
     <Filter Include="Class\Scenes\SelectWorldScene">
       <UniqueIdentifier>{98aa41e0-f9dc-4adb-a116-5d45eb6355d9}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Class\Scenes\GameScenes\TestingGround">
+      <UniqueIdentifier>{8959c270-bf50-487a-afa1-37508e08891e}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Class\Scenes\GameScenes\TestingGround\GameScene">
+      <UniqueIdentifier>{ac158e42-b716-474b-9462-6a10ebc3b34a}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Class\Scenes\GameScenes\TestingGround\SelectPlantsScene">
+      <UniqueIdentifier>{1611b634-6aeb-45c5-927f-9b57803b5f0c}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ResourceCompile Include="game.rc">
@@ -484,6 +493,51 @@
     </ClCompile>
     <ClCompile Include="..\Classes\Scenes\SelectWorldScene\LZSWSUnlockDialogLayer.cpp">
       <Filter>Class\Scenes\SelectWorldScene</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Classes\Scenes\GameScenes\TestingGround\SelectPlantsScene\LZTSelectPlantsScene.cpp">
+      <Filter>Class\Scenes\GameScenes\TestingGround\SelectPlantsScene</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Classes\Scenes\GameScenes\TestingGround\SelectPlantsScene\LZTSPSBackgroundLayer.cpp">
+      <Filter>Class\Scenes\GameScenes\TestingGround\SelectPlantsScene</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Classes\Scenes\GameScenes\TestingGround\SelectPlantsScene\LZTSPSControlLayer.cpp">
+      <Filter>Class\Scenes\GameScenes\TestingGround\SelectPlantsScene</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Classes\Scenes\GameScenes\TestingGround\SelectPlantsScene\LZTSPSQuitLayer.cpp">
+      <Filter>Class\Scenes\GameScenes\TestingGround\SelectPlantsScene</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Classes\Scenes\GameScenes\TestingGround\SelectPlantsScene\LZTSPSSpriteLayer.cpp">
+      <Filter>Class\Scenes\GameScenes\TestingGround\SelectPlantsScene</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Classes\Scenes\GameScenes\TestingGround\GameScene\LZTestingGroundScene.cpp">
+      <Filter>Class\Scenes\GameScenes\TestingGround\GameScene</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Classes\Scenes\GameScenes\TestingGround\GameScene\LZTGBackgoundLayer.cpp">
+      <Filter>Class\Scenes\GameScenes\TestingGround\GameScene</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Classes\Scenes\GameScenes\TestingGround\GameScene\LZTGControlLayer.cpp">
+      <Filter>Class\Scenes\GameScenes\TestingGround\GameScene</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Classes\Scenes\GameScenes\TestingGround\GameScene\LZTGAnimationLayer.cpp">
+      <Filter>Class\Scenes\GameScenes\TestingGround\GameScene</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Classes\Scenes\GameScenes\TestingGround\GameScene\LZTGInformationLayer.cpp">
+      <Filter>Class\Scenes\GameScenes\TestingGround\GameScene</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Classes\Scenes\GameScenes\TestingGround\GameScene\LZTGButtonLayer.cpp">
+      <Filter>Class\Scenes\GameScenes\TestingGround\GameScene</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Classes\Scenes\GameScenes\TestingGround\GameScene\LZTGPauseQuitLayer.cpp">
+      <Filter>Class\Scenes\GameScenes\TestingGround\GameScene</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Classes\Scenes\GameScenes\TestingGround\GameScene\LZTGGameOverLayer.cpp">
+      <Filter>Class\Scenes\GameScenes\TestingGround\GameScene</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Classes\Scenes\GameScenes\TestingGround\GameScene\LZTGGameTimerLayer.cpp">
+      <Filter>Class\Scenes\GameScenes\TestingGround\GameScene</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Classes\Scenes\GameScenes\TestingGround\SelectPlantsScene\LZTSPSRequirementLayer.cpp">
+      <Filter>Class\Scenes\GameScenes\TestingGround\SelectPlantsScene</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -888,6 +942,51 @@
     </ClInclude>
     <ClInclude Include="..\Classes\Scenes\SelectWorldScene\LZSWSUnlockDialogLayer.h">
       <Filter>Class\Scenes\SelectWorldScene</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Classes\Scenes\GameScenes\TestingGround\SelectPlantsScene\LZTSelectPlantsScene.h">
+      <Filter>Class\Scenes\GameScenes\TestingGround\SelectPlantsScene</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Classes\Scenes\GameScenes\TestingGround\SelectPlantsScene\LZTSPSBackgroundLayer.h">
+      <Filter>Class\Scenes\GameScenes\TestingGround\SelectPlantsScene</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Classes\Scenes\GameScenes\TestingGround\SelectPlantsScene\LZTSPSControlLayer.h">
+      <Filter>Class\Scenes\GameScenes\TestingGround\SelectPlantsScene</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Classes\Scenes\GameScenes\TestingGround\SelectPlantsScene\LZTSPSQuitLayer.h">
+      <Filter>Class\Scenes\GameScenes\TestingGround\SelectPlantsScene</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Classes\Scenes\GameScenes\TestingGround\SelectPlantsScene\LZTSPSSpriteLayer.h">
+      <Filter>Class\Scenes\GameScenes\TestingGround\SelectPlantsScene</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Classes\Scenes\GameScenes\TestingGround\GameScene\LZTestingGroundScene.h">
+      <Filter>Class\Scenes\GameScenes\TestingGround\GameScene</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Classes\Scenes\GameScenes\TestingGround\GameScene\LZTGBackgoundLayer.h">
+      <Filter>Class\Scenes\GameScenes\TestingGround\GameScene</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Classes\Scenes\GameScenes\TestingGround\GameScene\LZTGControlLayer.h">
+      <Filter>Class\Scenes\GameScenes\TestingGround\GameScene</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Classes\Scenes\GameScenes\TestingGround\GameScene\LZTGAnimationLayer.h">
+      <Filter>Class\Scenes\GameScenes\TestingGround\GameScene</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Classes\Scenes\GameScenes\TestingGround\GameScene\LZTGInformationLayer.h">
+      <Filter>Class\Scenes\GameScenes\TestingGround\GameScene</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Classes\Scenes\GameScenes\TestingGround\GameScene\LZTGButtonLayer.h">
+      <Filter>Class\Scenes\GameScenes\TestingGround\GameScene</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Classes\Scenes\GameScenes\TestingGround\GameScene\LZTGPauseQuitLayer.h">
+      <Filter>Class\Scenes\GameScenes\TestingGround\GameScene</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Classes\Scenes\GameScenes\TestingGround\GameScene\LZTGGameOverLayer.h">
+      <Filter>Class\Scenes\GameScenes\TestingGround\GameScene</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Classes\Scenes\GameScenes\TestingGround\GameScene\LZTGGameTimerLayer.h">
+      <Filter>Class\Scenes\GameScenes\TestingGround\GameScene</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Classes\Scenes\GameScenes\TestingGround\SelectPlantsScene\LZTSPSRequirementLayer.h">
+      <Filter>Class\Scenes\GameScenes\TestingGround\SelectPlantsScene</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>

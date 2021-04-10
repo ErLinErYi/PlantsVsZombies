@@ -114,9 +114,8 @@ void Pea::createPeaExplode()
 {
 	static string Animation[] = { {"Pea_Explode_1"},{"Pea_Explode_2"},{"Pea_Explode_3"},{"Pea_Explode_4"}};
 	
-
 	auto peaExplode = SkeletonAnimation::createWithData(_global->userInformation->getAnimationData().find("PeaExplode")->second);
-	peaExplode->setPosition(getBulletPosition() - Vec2(25, 0));
+	peaExplode->setPosition(getBulletPosition() - Vec2(35, 0));
 	peaExplode->setAnimation(0, Animation[rand() % 4], false);
 	peaExplode->update(0);
 	peaExplode->setScale(0.9f);

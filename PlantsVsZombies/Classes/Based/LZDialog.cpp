@@ -69,10 +69,10 @@ void Dialog::showDeleteDialogAction(Sprite* sprite)
 {
 	if (sprite)
 	{
-		sprite->runAction(Sequence::create(EaseExponentialIn::create(Spawn::create(ScaleTo::create(0.3f, 0.f),
+		sprite->runAction(Sequence::create(Spawn::create(ScaleTo::create(0.3f, 0.f),
 			CallFunc::create([=]() {
 				sprite->getParent()->runAction(FadeOut::create(0.3f));
-				}), nullptr)),
+				}), nullptr),
 			CallFunc::create([=]()
 				{
 					sprite->getParent()->removeFromParent();

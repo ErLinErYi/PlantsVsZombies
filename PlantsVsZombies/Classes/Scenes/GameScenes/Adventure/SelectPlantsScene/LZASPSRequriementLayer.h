@@ -22,8 +22,8 @@ CC_CONSTRUCTOR_ACCESS:
     ~SPSRequriementLayer();
     virtual bool init();
 
-private:
-    void createDialog();
+protected:
+    virtual void createDialog();
 
 protected:
     UserWinRequirement* _requirement;

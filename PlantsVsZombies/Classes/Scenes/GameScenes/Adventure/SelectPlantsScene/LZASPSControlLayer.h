@@ -30,11 +30,11 @@ CC_CONSTRUCTOR_ACCESS:
 	~SPSControlLayer();
 	virtual bool init();
 
-private:
-	void createButton();
-	void showUserName();
-	void createDialog();
+protected:
+	virtual void createButton();
+	virtual void showUserName();
+	virtual void createDialog();
 	
-private:
+protected:
 	Global* _global;
 };

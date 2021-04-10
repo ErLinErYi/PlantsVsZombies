@@ -15,6 +15,7 @@
 #include "Scenes/LoadingScene/LZLoadingScene.h"
 #include "Scenes/SelectWorldScene/LZSelectWorldScene.h"
 #include "Scenes/GameScenes/HammerZombies/GameScene/LZHammerZombiesScene.h"
+#include "Scenes/GameScenes/TestingGround/SelectPlantsScene/LZTSelectPlantsScene.h"
 
 #include "Based/LZPlayMusic.h"
 
@@ -138,6 +139,7 @@ void MainMenu::playMusicBleepInGameButtons(MainMenuButton button)
 		switch (button)
 		{
 		case MainMenu::MainMenuButton::AdventureButton:
+		case MainMenu::MainMenuButton::VasebreakerButton:
 			      _mainButton[ID]->setColor(Color3B::WHITE);       break;
 		case MainMenu::MainMenuButton::ChallengesButton:
 			if (checkHammerZombiesIsUnLock()) _mainButton[ID]->setColor(Color3B::WHITE);
@@ -159,6 +161,7 @@ void MainMenu::playMusicBleepInGameButtons(MainMenuButton button)
 		switch (button)
 		{
 		case MainMenu::MainMenuButton::AdventureButton: 
+		case MainMenu::MainMenuButton::VasebreakerButton:
 			      _mainButton[ID]->setColor(Color3B(180, 180, 180)); break;
 		case MainMenu::MainMenuButton::ChallengesButton:
 			if (checkHammerZombiesIsUnLock()) _mainButton[ID]->setColor(Color3B(180, 180, 180));
@@ -670,6 +673,7 @@ void MainMenu::beginHammerZombiesGame()
 
 void MainMenu::beginVasebreakerGame()
 {
+	Director::getInstance()->replaceScene(TransitionFade::create(0.5f, TSelectPlantsScene::create()));
 }
 
 void MainMenu::beginSurvivalGame()

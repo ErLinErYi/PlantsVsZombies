@@ -163,11 +163,11 @@ void Garlic::changeZombiePositionY(Zombies* zombie)
 		zombie->getZombieAnimation()->setLocalZOrder(zombie->getZombieAnimation()->getLocalZOrder() - 100);
 		zombie->setZombieInRow(1);
 	}
-	else if (zombie->getZombieInRow() == 4)
+	else if (zombie->getZombieInRow() == 4 || zombie->getZombieInRow() == 9)
 	{
 		zombie->getZombieAnimation()->runAction(MoveBy::create(0.5f, Vec2(-20, -138)));
 		zombie->getZombieAnimation()->setLocalZOrder(zombie->getZombieAnimation()->getLocalZOrder() + 100);
-		zombie->setZombieInRow(3);
+		zombie->setZombieInRow(zombie->getZombieInRow() - 1);
 	}
 	else
 	{

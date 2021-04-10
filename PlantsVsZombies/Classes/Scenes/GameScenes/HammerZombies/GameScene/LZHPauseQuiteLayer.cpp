@@ -130,5 +130,5 @@ void HPauseQuitLayer::setRestart()
 
 void HPauseQuitLayer::setQuitGame()
 {
-	Director::getInstance()->replaceScene(MainMenu::createScene());
+	Director::getInstance()->replaceScene(TransitionFade::create(0.5f, MainMenu::createScene()));
 }
