@@ -42,7 +42,7 @@ GSPauseQuitLayer::~GSPauseQuitLayer()
 
 void GSPauseQuitLayer::pauseLayer()
 {
-	auto director = Director::getInstance()->getRunningScene();
+	const auto director = Director::getInstance()->getRunningScene();
 
 	if (BigMapGameScene::scrollView)
 	{
@@ -50,7 +50,7 @@ void GSPauseQuitLayer::pauseLayer()
 			director->getChildByName("scrollView")->onExit();
 	}
 
-	for (auto &name : _layerName)
+	for (const auto &name : _layerName)
 	{
 		if (director->getChildByName(name))
 			director->getChildByName(name)->onExit();
@@ -61,7 +61,7 @@ void GSPauseQuitLayer::pauseLayer()
 
 void GSPauseQuitLayer::resumeLayer()
 {
-	auto director = Director::getInstance()->getRunningScene();
+	const auto director = Director::getInstance()->getRunningScene();
 
 	if (BigMapGameScene::scrollView)
 	{
@@ -69,7 +69,7 @@ void GSPauseQuitLayer::resumeLayer()
 			director->getChildByName("scrollView")->onEnter();
 	}
 
-	for (auto& name : _layerName)
+	for (const auto& name : _layerName)
 	{
 		if (director->getChildByName(name))
 			director->getChildByName(name)->onEnter();

@@ -27,7 +27,7 @@ EventListenerTouchOneByOne* Dialog::createTouchtListener(Sprite* sprite)
 	static Size windowSize = Director::getInstance()->getWinSize();
 	static Vec2 phasePosition = Vec2(Vec2::ZERO);
 	static Vec2 lrDistance,udDistance;
-	Size dialogSize(sprite->getBoundingBox().size / 2);
+	const Size dialogSize(sprite->getBoundingBox().size / 2);
 
 	/* 创建触摸监听 */
 	auto listener = EventListenerTouchOneByOne::create();

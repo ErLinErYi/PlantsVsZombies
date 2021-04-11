@@ -20,5 +20,6 @@ CC_CONSTRUCTOR_ACCESS:
 
 protected:
 	virtual void bulletAttackHurtZombies(Zombies* zombie) override;
+	virtual void splashDamageZombies(Zombies* exceptZombie) override;
 	virtual void winterMelonExplodeEffect(Zombies* zombie);
 };

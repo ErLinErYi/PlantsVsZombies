@@ -67,7 +67,7 @@ void LmpZombies::playZombieSoundEffect()
 
 void LmpZombies::playZombiesAshesAnimation()
 {
-	uniform_real_distribution<float>number(0.f, 0.4f);
+	const uniform_real_distribution<float>number(0.f, 0.4f);
 	auto ashes = SkeletonAnimation::createWithData(_global->userInformation->getAnimationData().find("LmpZombies_Charre")->second);
 	ashes->setPosition(_zombiesAnimation->getPosition() + Vec2(0, -15));
 	ashes->setLocalZOrder(_zombiesAnimation->getLocalZOrder());

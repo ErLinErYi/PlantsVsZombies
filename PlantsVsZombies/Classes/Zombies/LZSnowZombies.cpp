@@ -45,7 +45,7 @@ void SnowZombies::createZombie()
 
 	createZombieShadow();
 
-	uniform_real_distribution<float>number(0.f, 0.3f);
+	const uniform_real_distribution<float>number(0.f, 0.3f);
 	_zombiesAnimation->setScale(1.2f);
 	_zombiesAnimation->setTimeScale(0.3 + number(_random));
 }
@@ -58,7 +58,7 @@ void SnowZombies::createPreviewZombie()
 
 	createZombieShadow();
 
-	uniform_real_distribution<float>number(0.f, 0.5f);
+	const uniform_real_distribution<float>number(0.f, 0.5f);
 	_zombiesAnimation->setScale(1.2f);
 	_zombiesAnimation->setTimeScale(0.6 + number(_random));
 }

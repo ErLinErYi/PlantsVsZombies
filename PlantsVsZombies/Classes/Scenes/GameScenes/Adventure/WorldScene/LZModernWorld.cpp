@@ -137,7 +137,7 @@ void  ModernWorld::createBackground()
 
 void ModernWorld::createScrollView()
 {
-	auto size = Director::getInstance()->getVisibleSize();
+	const auto size = Director::getInstance()->getVisibleSize();
 	_scrollView = ui::ScrollView::create();
 	_scrollView->setBounceEnabled(true);
 	_scrollView->setDirection(ui::ScrollView::Direction::HORIZONTAL);
@@ -520,8 +520,8 @@ void ModernWorld::createMouseListener()
 	auto mouse = EventListenerMouse::create();
 	mouse->onMouseScroll = [&](Event* event)
 	{
-		auto mouseEvent = static_cast<EventMouse*>(event);
-		float movex = mouseEvent->getScrollY() * 99360.f / (1920 + 600 * _global->userInformation->getUserSelectWorldData().at(0)->levels);
+		const auto mouseEvent = static_cast<EventMouse*>(event);
+		const float movex = mouseEvent->getScrollY() * 99360.f / (1920 + 600 * _global->userInformation->getUserSelectWorldData().at(0)->levels);
 
 		MouseEventControl::mouseScrollControlListener(_scrollView, movex, ui::ScrollView::Direction::HORIZONTAL);
 	};

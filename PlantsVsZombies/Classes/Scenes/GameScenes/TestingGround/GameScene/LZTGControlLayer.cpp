@@ -66,8 +66,8 @@ void TGControlLayer::createZombies()
 		_zombiesAppearControl->setLastFrequencyZombiesWasDeath(false);
 		_zombiesAppearControl->setTimeClear(); /* 距离上一波刷新时间清零 */
 		
-		auto frequence = _zombiesAppearControl->getZombiesAppearFrequency();
-		auto number = frequence + rand() % 5;
+		const auto frequence = _zombiesAppearControl->getZombiesAppearFrequency();
+		const auto number = frequence + rand() % 5;
 		unsigned int zombiesNumbers = number <= 25 ? number : 20 + rand() % 5;
 		zombiesNumbers += frequence / 25;
 		for (unsigned int i = 0; i < zombiesNumbers; ++i)

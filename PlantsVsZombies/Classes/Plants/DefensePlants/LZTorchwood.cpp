@@ -158,7 +158,7 @@ bool Torchwood::getPeaIsSameLineWithTorchwood(Bullet* bullet)
 
 bool Torchwood::getPeaIsEncounterTorchwood(Bullet* bullet)
 {
-	return fabs(_plantAnimation->getPositionX() - bullet->getBulletPositionX()) <= 20 ? true : false;
+	return fabs(_plantAnimation->getPositionX() - bullet->getBulletPositionX()) <= 50 ? true : false;
 }
 
 bool Torchwood::getBulletIsPea(Bullet* bullet)

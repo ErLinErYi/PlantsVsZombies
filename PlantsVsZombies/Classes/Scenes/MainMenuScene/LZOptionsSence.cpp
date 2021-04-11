@@ -135,7 +135,7 @@ ControlSlider* OptionsMenu::createSlider(Vec2& vec2, Vec2& vec2_, const std::str
 
 void OptionsMenu::backGroundMusicVolumeChangeCallBack(Ref* sender, Control::EventType type)
 {
-	auto slider = (ControlSlider*)sender;
+	const auto slider = (ControlSlider*)sender;
 	for (auto sp : _global->userInformation->getBackgroundMusic())  /* 循环设置音乐音量 */
 	{
 		AudioEngine::setVolume(sp, slider->getValue() / 100.0f);
@@ -155,7 +155,7 @@ void OptionsMenu::backGroundMusicVolumeChangeCallBack(Ref* sender, Control::Even
 void OptionsMenu::soundEffectMusicVolumeChangeCallBack(Ref* sender, Control::EventType type)
 {
 	/* 设置音效音量 */
-	auto slider = (ControlSlider*)sender;
+	const auto slider = (ControlSlider*)sender;
 	_global->userInformation->setSoundEffectVolume(slider->getValue() / 100.0f);
 	_userDefault->setFloatForKey("SOUNDEFFECT", _global->userInformation->getSoundEffectVolume());
 

@@ -147,7 +147,7 @@ void InputDataMenu::createInputDialog()
 				_inputString = _textField->getString();
 
 				/* ²åÈë×Ö·û¶¯»­ */
-				auto textLabel = onTextFieldInsertText();
+				const auto textLabel = onTextFieldInsertText();
 				
 				_inputCursor->setPositionX(_inputCursor->getPositionX() + textLabel->getContentSize().width / 2);
 			}
@@ -162,7 +162,7 @@ void InputDataMenu::createInputDialog()
 				_inputString = _textField->getString();
 
 				/* É¾³ý¶¯»­ */
-				auto textLabel = onTextFieldDeleteBackward();
+				const auto textLabel = onTextFieldDeleteBackward();
 
 				_inputCursor->setPositionX(_inputCursor->getPositionX() - textLabel->getContentSize().width / 2);
 			}
@@ -341,7 +341,7 @@ void InputDataMenu::cancelInput()
 
 void InputDataMenu::specifiedDelete()
 {
-	auto file = FileUtils::getInstance();
+	const auto file = FileUtils::getInstance();
 	remove((file->getWritablePath() + "UserDataFile_" + to_string(_global->userInformation->getUserCaveFileNumber()) + ".dat").c_str());
 	remove((file->getWritablePath() + "UserDataFile_" + to_string(_global->userInformation->getUserCaveFileNumber()) + ".sav").c_str());
 
@@ -442,10 +442,10 @@ Label* InputDataMenu::onTextFieldInsertText()
 	_inputDataDialog->addChild(textLabel);
 
 	auto endPos = _inputCursor->getPosition() - Vec2(0, 5);
-	auto inputTextSize = textLabel->getContentSize();
+	const auto inputTextSize = textLabel->getContentSize();
 	Vec2 beginPos(endPos.x + textLabel->getContentSize().width / 2, 270);
 
-	float duration = 0.5f;
+	const float duration = 0.5f;
 	textLabel->setPosition(beginPos);
 	textLabel->setScale(8);
 
@@ -469,16 +469,16 @@ Label* InputDataMenu::onTextFieldDeleteBackward()
 
 	// move the sprite to fly out
 	auto beginPos = _inputCursor->getPosition();
-	auto textfieldSize = _inputCursor->getContentSize();
-	auto labelSize = label->getContentSize();
+	const auto textfieldSize = _inputCursor->getContentSize();
+	const auto labelSize = label->getContentSize();
 	beginPos.x += (textfieldSize.width - labelSize.width) / 2.0f;
 
-	auto winSize = Director::getInstance()->getWinSize();
+	const auto winSize = Director::getInstance()->getWinSize();
 	Vec2 endPos(-winSize.width / 4.0f, winSize.height / 2.0f * (0.25 + (float)rand() / (2.0f * RAND_MAX)));
 
-	float duration = 1;
-	float rotateDuration = 0.35f;
-	int repeatTime = 5;
+	const float duration = 1;
+	const float rotateDuration = 0.35f;
+	const int repeatTime = 5;
 	label->setPosition(beginPos);
 
 	auto seq = Sequence::create(Spawn::create(MoveTo::create(duration, endPos)

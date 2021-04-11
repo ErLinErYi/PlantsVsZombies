@@ -1,3 +1,9 @@
+/**
+ *Copyright (c) 2019 LZ.All Right Reserved
+ *Author : LZ
+ *Email: 2117610943@qq.com
+ */
+
 #include "Based/LZLevelData.h"
 #include "Based/LZGameType.h"
 
@@ -34,7 +40,7 @@ bool OpenLevelData::openLevelsData(const string& worlddata)
 void OpenLevelData::decrypt(char* cSrc, char* cDest) 
 {
 	int   i, h, l, m, n, j = 0;
-	int len = strlen(cSrc);
+	const int len = strlen(cSrc);
 	for (i = 0; i < len; i = i + 2)
 	{
 		h = (cSrc[i] - 'x');
@@ -210,10 +216,10 @@ void LevelData::setGameTypes(const char* LevelName)
 		{
 			_isNoPlants = true;
 			MyPoint MyPoint;
-			for (unsigned int i = 0; i < (*_document)[LevelName]["NoPlants"].Size(); i++)
+			for (unsigned int j = 0; j < (*_document)[LevelName]["NoPlants"].Size(); ++j)
 			{
-				MyPoint.x = (*_document)[LevelName]["NoPlants"][i][0].GetInt();
-				MyPoint.y = (*_document)[LevelName]["NoPlants"][i][1].GetInt();
+				MyPoint.x = (*_document)[LevelName]["NoPlants"][j][0].GetInt();
+				MyPoint.y = (*_document)[LevelName]["NoPlants"][j][1].GetInt();
 				_noPlantsPosition.push_back(MyPoint);
 			}
 		}

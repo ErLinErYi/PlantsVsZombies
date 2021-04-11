@@ -43,7 +43,7 @@ void GargantuarZombies::createZombie()
 {
 	zombieInit("GargantuarZombies");
 
-	uniform_real_distribution<float>number(0.f, 0.2f);
+	const uniform_real_distribution<float>number(0.f, 0.2f);
 	setZombieAnimation("Zombies_Walk");
 	_zombiesAnimation->setPosition(_zombiesAnimation->getPosition() - Vec2(0, 10));
 	_zombiesAnimation->setTimeScale(0.6f + number(_random));
@@ -98,7 +98,7 @@ void GargantuarZombies::setZombiePrimaryInjure()
 
 void GargantuarZombies::playZombiesAshesAnimation()
 {
-	uniform_real_distribution<float>number(0.f, 0.4f);
+	const uniform_real_distribution<float>number(0.f, 0.4f);
 	auto ashes = SkeletonAnimation::createWithData(_global->userInformation->getAnimationData().find("GargantuarZombieCharred")->second);
 	ashes->setPosition(_zombiesAnimation->getPosition() + Vec2(0, -15));
 	ashes->setLocalZOrder(_zombiesAnimation->getLocalZOrder());
@@ -138,7 +138,7 @@ void GargantuarZombies::zombieLoseHeadAnimation(const std::string& name)
 
 void GargantuarZombies::playZombiesFillDownAnimation()
 {
-	uniform_real_distribution<float>number(0.f, 0.45f);
+	const uniform_real_distribution<float>number(0.f, 0.45f);
 	_zombiesAnimation->setTimeScale(0.6f + number(_random));
 	_zombiesAnimation->setEventListener([&](spTrackEntry* entry, spEvent* event)
 		{

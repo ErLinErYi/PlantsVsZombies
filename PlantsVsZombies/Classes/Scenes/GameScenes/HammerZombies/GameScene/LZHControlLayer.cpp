@@ -132,7 +132,7 @@ void HControlLayer::judgeHammerZombies(const Vec2& position)
 	{
 		if (zombie->getZombieIsSurvive() && zombie->getZombieIsEnterMap() && _hammer->isVisible())
 		{
-			auto& box = zombie->getZombieAnimation()->getBoundingBox();
+			const auto& box = zombie->getZombieAnimation()->getBoundingBox();
 			if (_hammer->getBoundingBox().intersectsRect(Rect(box.origin.x + 60, box.origin.y + 50, box.size.width, box.size.height - 50)))
 			{
 				PlayMusic::playMusic("bonk");

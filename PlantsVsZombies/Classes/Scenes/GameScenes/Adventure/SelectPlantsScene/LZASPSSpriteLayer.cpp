@@ -156,20 +156,20 @@ void SPSSpriteLayer::createMouseListener()
 	_listener = EventListenerMouse::create();
 	_listener->onMouseScroll = [&](Event* event)
 	{
-		auto e = (EventMouse*)event;
+		const auto e = (EventMouse*)event;
 		auto cur = e->getLocationInView();
 		cur.x -= 205;
 
 		if (_plantCardScrollView->getBoundingBox().containsPoint(cur))
 		{
-			float movex = e->getScrollY() * 60;
+			const float movex = e->getScrollY() * 60;
 			MouseEventControl::mouseScrollControlListener(
 				_plantCardScrollView, movex, ScrollView::Direction::VERTICAL, 0.25f);
 		}
 
 		if (plantCardTextScrollView->getBoundingBox().containsPoint(cur))
 		{
-			float movex = e->getScrollY() * 90;
+			const float movex = e->getScrollY() * 90;
 			MouseEventControl::mouseScrollControlListener(
 				plantCardTextScrollView, movex, ScrollView::Direction::VERTICAL, 0.25f);
 		}
@@ -188,7 +188,7 @@ void SPSSpriteLayer::createMouseListener()
 
 void SPSSpriteLayer::createPlantsCards()
 {
-	auto number = static_cast<unsigned int>(ceil(PLANTSNUMBERS / 4.f));
+	const auto number = static_cast<unsigned int>(ceil(PLANTSNUMBERS / 4.f));
 	for (unsigned int i = 0; i < number; ++i)
 	{
 		for (unsigned int j = 0; j < 4; j++)
@@ -274,7 +274,7 @@ void SPSSpriteLayer::createMoveButton(Button* button, const Vec2& vec2)
 	seed_bank_button.cardTag = button->getTag();
 	seedBankButton.push_back(seed_bank_button);
 
-	float plantCardRollingDistanceLast = calculateScrollDistance();
+	const float plantCardRollingDistanceLast = calculateScrollDistance();
 	moveCard->addTouchEventListener([=](Ref* sender, ui::Widget::TouchEventType type)
 		{
 			switch (type)
@@ -521,8 +521,8 @@ void SPSSpriteLayer::startGame()
 
 void SPSSpriteLayer::controlPlantCanSelect(Button* button, int priority)
 {
-	auto coinNumber = _global->userInformation->getCoinNumbers();
-	auto killZombiesNumber = _global->userInformation->getKillZombiesNumbers();
+	const auto coinNumber = _global->userInformation->getCoinNumbers();
+	const auto killZombiesNumber = _global->userInformation->getKillZombiesNumbers();
 
 	if (static_cast<unsigned int>(plantsCardInformation[priority].type) >= 9)
 	{

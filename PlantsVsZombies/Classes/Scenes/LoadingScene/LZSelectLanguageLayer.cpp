@@ -206,8 +206,8 @@ void SelectLanguage::createMouseListener()
 	auto mouse = EventListenerMouse::create();
 	mouse->onMouseScroll = [&](Event* event)
 	{
-		auto mouseEvent = static_cast<EventMouse*>(event);
-		float movex = mouseEvent->getScrollY() * 40;
+		const auto mouseEvent = static_cast<EventMouse*>(event);
+		const float movex = mouseEvent->getScrollY() * 40;
 
 		MouseEventControl::mouseScrollControlListener(_scrollView, movex, ui::ScrollView::Direction::HORIZONTAL);
 	};

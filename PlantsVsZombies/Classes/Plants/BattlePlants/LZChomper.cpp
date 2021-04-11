@@ -154,7 +154,7 @@ bool Chomper::getZombieIsEncounterPlant(Zombies* zombie)
 
 bool Chomper::isCanKillZombieOnce(Zombies* zombie)
 {
-	auto blood =
+	const auto blood =
 		zombie->getZombieCurrentBloodVolume() +
 		zombie->getZombieCurrentBodyShieldVolume() +
 		zombie->getZombieCurrentHeadShieldVolume();

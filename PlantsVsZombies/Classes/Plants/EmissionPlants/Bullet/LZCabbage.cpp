@@ -78,7 +78,7 @@ void Cabbage::calculateInformationForReadFile()
 		_isFileData = false;
 		auto position = _position + Vec2(70, 150); //卷心菜正常初始位置
 
-		auto distance = _zombiePosition.x - position.x; // 僵尸与卷心菜初始距离
+		const auto distance = _zombiePosition.x - position.x; // 僵尸与卷心菜初始距离
 		if (_currentPosition.x <= _zombiePosition.x - distance / 2) // 当前位置在抛物线上半部分
 			_acxtionHeight = 300 - (_currentPosition.y - position.y);
 		else
@@ -115,7 +115,7 @@ void Cabbage::bulletAndZombiesCollision()
 
 Vec2 Cabbage::calculateZombiePosition()
 {
-	auto data = OpenLevelData::getInstance()->readLevelData(OpenLevelData::getInstance()->getLevelNumber());
+	const auto data = OpenLevelData::getInstance()->readLevelData(OpenLevelData::getInstance()->getLevelNumber());
 	if (data && data->getZombiesIsSmall())
 	{
 		if (fabs(_position.x + 70 - _zombiePosition.x) >= 662)
@@ -214,7 +214,7 @@ Vec2 Cabbage::getBulletInitialPosition()
 
 bool Cabbage::getBulletIsEncounterWithZombie(Zombies* zombie)
 {
-	auto& rect = zombie->getZombieAnimation()->getBoundingBox();
+	const auto& rect = zombie->getZombieAnimation()->getBoundingBox();
 	return _bulletAnimation->getBoundingBox().intersectsRect(
 		Rect(rect.origin.x + 70, rect.origin.y - 70, rect.size.width, rect.size.height));
 }

@@ -132,7 +132,7 @@ void BMControlLayer::createMouseListener()
 
 	_listener->onMouseScroll = [&](Event* event)
 	{
-		float scrollY = static_cast<EventMouse*>(event)->getScrollY() * 300;
+		const float scrollY = static_cast<EventMouse*>(event)->getScrollY() * 300;
 		auto offset = BigMapGameScene::scrollView->getContentOffset();
 		offset = Vec2(offset.x, offset.y + scrollY);
 		if (offset.y > 0)offset.y = 0;
@@ -250,8 +250,8 @@ void BMControlLayer::mouseMoveControl()
 	/* 如果鼠标选择了植物 */
 	if (buttonLayerInformation->mouseSelectImage->isSelectPlants)
 	{
-		int posX = static_cast<int>(_plantsPosition.x);
-		int posY = static_cast<int>(_plantsPosition.y);
+		const int posX = static_cast<int>(_plantsPosition.x);
+		const int posY = static_cast<int>(_plantsPosition.y);
 		if (posX >= 0 && posY >= 0 && posX < 18 && posY < 10)
 		{
 			if (gameMapInformation->plantsMap[posY][posX] != NO_PLANTS)
@@ -260,7 +260,7 @@ void BMControlLayer::mouseMoveControl()
 			}
 			else
 			{
-				auto size = _plantPreviewImage->getContentSize() / 2.f;
+				const auto size = _plantPreviewImage->getContentSize() / 2.f;
 				_plantPreviewImage->setPosition(Vec2(GRASS_BIGMAP_POSITION_LEFT + 121 *
 					_plantsPosition.x + size.width, GRASS_BIGMAP_POSITION_BOTTOM + 136 * (_plantsPosition.y + 1) - size.height));
 			}

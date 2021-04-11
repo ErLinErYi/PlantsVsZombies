@@ -44,7 +44,7 @@ bool VideoPlayer::init(void)
     vlc = libvlc_new(0, nullptr);
     vlc_player = libvlc_media_player_new(vlc);
 
-    Size size = Director::getInstance()->getWinSize();
+    const  Size size = Director::getInstance()->getWinSize();
     width = size.width;
     height = size.height;
     videobuf = (char*)malloc((width * height) << 2);
@@ -110,7 +110,7 @@ void VideoPlayer::draw(Renderer* renderer, const Mat4& transform, uint32_t flags
     GL::enableVertexAttribs(GL::VERTEX_ATTRIB_FLAG_POS_COLOR_TEX);
 
 #define kQuadSize sizeof(_quad.bl)
-    long offset = (long)&_quad;
+    const long offset = (long)&_quad;
 
     // vertex
     int diff = offsetof(ccV3F_C4B_T2F, vertices);
@@ -161,7 +161,7 @@ void VideoPlayer::setPrecent(const float precent)
 
 float VideoPlayer::getPrecent()
 {
-    auto videoCurrentTime = libvlc_media_player_get_time(vlc_player);
+    const auto videoCurrentTime = libvlc_media_player_get_time(vlc_player);
     video_length < 0 ? video_length = libvlc_media_get_duration(vlc_media) : video_length;
    
     if (videoCurrentTime != -1 && video_length != -1)

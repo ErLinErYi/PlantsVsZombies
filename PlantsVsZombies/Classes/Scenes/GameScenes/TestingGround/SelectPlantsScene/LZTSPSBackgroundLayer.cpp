@@ -38,7 +38,7 @@ void TSPSBackgroundLayer::createBackGroundEffect()
 
 void TSPSBackgroundLayer::showPreviewZombies()
 {
-	uniform_int_distribution<unsigned>n(0, 2);
+	const uniform_int_distribution<unsigned>n(0, 2);
 	uniform_int_distribution<unsigned>n1(0, 550);
 	uniform_int_distribution<unsigned>n2(0, 650);
 	

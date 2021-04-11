@@ -154,8 +154,8 @@ void HelpScene::addMouseEvent()
 	auto mouse = EventListenerMouse::create();
 	mouse->onMouseScroll = [=](Event* event)
 	{
-		auto mouseEvent = static_cast<EventMouse*>(event);
-		float movex = mouseEvent->getScrollY() * 5;
+		const auto mouseEvent = static_cast<EventMouse*>(event);
+		const float movex = mouseEvent->getScrollY() * 5;
 
 		MouseEventControl::mouseScrollControlListener(_textScrollView, movex, ui::ScrollView::Direction::VERTICAL);
 	};

@@ -583,7 +583,7 @@ void LoadingScene::throwException()
 			}
 			catch (wstring str)
 			{
-				auto yon = MessageBoxW(_director->getOpenGLView()->getWin32Window(), str.c_str(), L"资源加载异常", MB_RETRYCANCEL);
+				const auto yon = MessageBoxW(_director->getOpenGLView()->getWin32Window(), str.c_str(), L"资源加载异常", MB_RETRYCANCEL);
 				/*if (yon == IDRETRY)
 				{
 					TCHAR szPath[MAX_PATH];
@@ -645,7 +645,7 @@ void LoadingScene::checkEdition()
 void LoadingScene::changeFiles()
 {
 	auto str = FileUtils::getInstance()->fullPathForFilename("lzpvz.dll");
-	int lenbf = MultiByteToWideChar(CP_ACP, 0, str.c_str(), str.length(), 0, 0);
+	const int lenbf = MultiByteToWideChar(CP_ACP, 0, str.c_str(), str.length(), 0, 0);
 	wchar_t* buf = new wchar_t[lenbf];
 	MultiByteToWideChar(CP_ACP, 0, str.c_str(), str.size(), buf, sizeof(wchar_t) * lenbf);
 	buf[str.size()] = 0;

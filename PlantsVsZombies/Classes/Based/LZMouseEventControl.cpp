@@ -15,8 +15,8 @@
 
 void MouseEventControl::mouseScrollControlListener(ui::ScrollView* scrollview, float move, ui::ScrollView::Direction direction, float time)
 {
-	auto minOffset = 0.f;
-	auto maxOffset = 100.f;
+	const auto minOffset = 0.f;
+	const auto maxOffset = 100.f;
 
 	auto offset =
 		direction == ui::ScrollView::Direction::VERTICAL ?

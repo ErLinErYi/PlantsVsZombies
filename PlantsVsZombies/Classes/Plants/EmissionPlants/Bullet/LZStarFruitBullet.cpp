@@ -46,7 +46,7 @@ void StarFruitBullet::createShadow()
 
 void StarFruitBullet::setBulletAction(StarFruitBulletDirection action)
 {
-	float actionX, actionY, time;
+	float actionX = 0, actionY = 0, time = 0;
 	_direction = action;
 	switch (action)
 	{
@@ -69,7 +69,7 @@ void StarFruitBullet::setBulletAction(StarFruitBulletDirection action)
 			{
 				if (fabs(_locationY - _bulletAnimation->getPositionY()) > _distance) /* 第一次间隔69进行设置localZorder */
 				{
-					auto order = _bulletAnimation->getLocalZOrder();
+					const auto order = _bulletAnimation->getLocalZOrder();
 					if (order > 0 && order < 5070)
 					{
 						_bulletAnimation->setLocalZOrder(order + (_locationY > _bulletAnimation->getPositionY() ? 100 : -100));
@@ -105,7 +105,7 @@ void StarFruitBullet::bulletAndZombiesCollision()
 
 bool StarFruitBullet::getBulletIsEncounterWithZombie(Zombies* zombie)
 {
-	auto &rect = zombie->getZombieAnimation()->getBoundingBox();
+	const auto &rect = zombie->getZombieAnimation()->getBoundingBox();
 	return _bulletAnimation->getBoundingBox().intersectsRect(Rect(rect.origin.x + 60, rect.origin.y + 110, 60, 1));
 }
 

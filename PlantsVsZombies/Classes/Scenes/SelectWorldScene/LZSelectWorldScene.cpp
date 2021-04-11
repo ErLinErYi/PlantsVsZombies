@@ -35,8 +35,8 @@ void SelectWorldScene::createMouseListener()
 	auto mouse = EventListenerMouse::create();
 	mouse->onMouseScroll = [&](Event* event)
 	{
-		auto mouseEvent = static_cast<EventMouse*>(event);
-		float movex = mouseEvent->getScrollY() * 40;
+		const auto mouseEvent = static_cast<EventMouse*>(event);
+		const float movex = mouseEvent->getScrollY() * 40;
 
 		MouseEventControl::mouseScrollControlListener(_scrollView, movex, ScrollView::Direction::HORIZONTAL);
 	};
@@ -191,7 +191,7 @@ void SelectWorldScene::createGalaxy(Node* node)
 
 void SelectWorldScene::createScrollView()
 {
-	auto size = Director::getInstance()->getVisibleSize();
+	const auto size = Director::getInstance()->getVisibleSize();
 	_scrollView = ui::ScrollView::create();
 	_scrollView->setBounceEnabled(true);
 	_scrollView->setDirection(ui::ScrollView::Direction::HORIZONTAL);

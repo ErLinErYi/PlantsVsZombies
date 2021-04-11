@@ -87,11 +87,11 @@ void BMAnimationLayer::plantPlants()
 
 void BMAnimationLayer::createZombies()
 {
-	uniform_int_distribution<unsigned>number(0, 500);
+	const uniform_int_distribution<unsigned>number(0, 500);
 	auto zombies = createDifferentZombies(static_cast<ZombiesType>(
 		controlLayerInformation->_zombiesAppearControl->createDifferentTypeZombies(
 			controlLayerInformation->_zombiesAppearControl->getZombiesAppearFrequency())), this);
-	auto row = controlLayerInformation->_zombiesAppearControl->getEqualProbabilityForRow(9);
+	const auto row = controlLayerInformation->_zombiesAppearControl->getEqualProbabilityForRow(9);
 	zombies->setZombiePosition(Vec2(3890 + number(_random), ZombiesAppearControl::zombiesPositionBigMap[row]));
 	zombies->setZombieInRow(row);
 	zombies->createZombie();

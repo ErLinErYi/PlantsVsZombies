@@ -133,7 +133,7 @@ void SPSBackgroundLayer::createFireEffect(Sprite* name)
 
 void SPSBackgroundLayer::createMordernPreviewZombies()
 {
-	uniform_int_distribution<unsigned>n(0, 2);
+	const uniform_int_distribution<unsigned>n(0, 2);
 	uniform_int_distribution<unsigned>n1(0, 550);
 	uniform_int_distribution<unsigned>n2(0, 650);
 	auto &type=_openLevelData->readLevelData(_openLevelData->getLevelNumber())->getZombiesType();
@@ -193,7 +193,7 @@ Vec2 SPSBackgroundLayer::getPreviewZombiesPosition(UID& n1, UID& n2)
 		can = false;
 		x = 2050 + n1(_random);
 		y = n2(_random) + 80;
-		for (auto p : _previewZombies)
+		for (const auto& p : _previewZombies)
 		{
 			if (sqrt(pow(p.position_x - x, 2) + pow(p.position_y - y, 2)) < 100)
 			{

@@ -86,7 +86,7 @@ void HInformationLayer::showProgressBar()
 
 void HInformationLayer::showTipsText()
 {
-	auto n = rand() % 2 + 1;
+	const auto n = rand() % 2 + 1;
 	auto tips = Text::create();
 	tips->setFontName(GAME_FONT_NAME_1);
 	tips->setString(_global->userInformation->getGameText().find("锤僵尸小提示" + to_string(n))->second->text);
@@ -161,7 +161,7 @@ void HInformationLayer::showHammerInformation(Button* button)
 	if (!_informationLayer->isVisible())_informationLayer->setVisible(true);
 
 	auto text = _global->userInformation->getGameText();
-	auto tag = button->getTag();
+	const auto tag = button->getTag();
 	_informationLayer->setPosition(button->getPosition() - Vec2(-80, _informationLayer->getContentSize().height / 2.f));
 	_hammerText->setString(text.find("初始攻击力")->second->text + to_string(hammerInformation[tag].lowAttack) + "\n" +
 		text.find("最高攻击力")->second->text + to_string(hammerInformation[button->getTag()].lowAttack + hammerInformation[tag].HigtAttack) + "\n" +

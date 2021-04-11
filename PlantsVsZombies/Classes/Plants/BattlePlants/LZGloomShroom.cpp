@@ -108,7 +108,7 @@ void GloomShroom::plantAttack(Zombies* zombie)
 		{
 			hurtZombies(zombie);
 			zombie->setZombieHurtBlink();
-			PlayMusic::playMusic(rand() % 2 ? "splat" : rand() % 2 ? "splat2" : "splat3");
+			PlayMusic::playMusic(rand() % 2 ? "splat" : (rand() % 2 ? "splat2" : "splat3"));
 		}
 	}
 }

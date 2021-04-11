@@ -51,10 +51,10 @@ void HAnimationLayer::zombiesEventUpdate(float delta)
 
 void HAnimationLayer::createZombies(const float mulSpeed, const float addSpeed, const unsigned typeNumber)
 {
-	uniform_int_distribution<unsigned>number(0, 500);
-	uniform_int_distribution<unsigned>zombiesType(1, typeNumber);
+	const uniform_int_distribution<unsigned>number(0, 500);
+	const uniform_int_distribution<unsigned>zombiesType(1, typeNumber);
 	auto zombies = createDifferentZombies(static_cast<ZombiesType>(zombiesType(_random)), this);
-	auto row = controlLayerInformation->_zombiesAppearControl->getEqualProbabilityForRow();
+	const auto row = controlLayerInformation->_zombiesAppearControl->getEqualProbabilityForRow();
 	zombies->setZombiePosition(Vec2(1780 + number(_random), ZombiesAppearControl::zombiesPosition[row]));
 	zombies->setZombieInRow(row);
 	zombies->setZombieAttributeForGameTypeInvalid(true);

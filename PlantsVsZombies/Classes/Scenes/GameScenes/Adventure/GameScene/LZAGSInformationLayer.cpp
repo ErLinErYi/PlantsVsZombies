@@ -235,14 +235,14 @@ void GSInformationLayer::updateSunNumbers()
 
 void GSInformationLayer::updateProgressBar(const int& zombiesAppearFrequency)
 {
-	float percent = zombiesAppearFrequency / static_cast<float>(_openLevelData->readLevelData(_openLevelData->getLevelNumber())->getZombiesFrequency());
+	const float percent = zombiesAppearFrequency / static_cast<float>(_openLevelData->readLevelData(_openLevelData->getLevelNumber())->getZombiesFrequency());
 	_progressBar->runAction(ProgressFromTo::create(10.0f, _levelLastPrecent * 100, percent * 100));
 	_levelLastPrecent = percent;
 }
 
 void GSInformationLayer::updateProgressBar(const int& zombiesAppearFrequency, const int& maxFrequency)
 {
-	float percent = zombiesAppearFrequency / static_cast<float>(maxFrequency);
+	const float percent = zombiesAppearFrequency / static_cast<float>(maxFrequency);
 	_progressBar->runAction(ProgressFromTo::create(10.0f, _levelLastPrecent * 100, percent * 100));
 	_levelLastPrecent = percent;
 }

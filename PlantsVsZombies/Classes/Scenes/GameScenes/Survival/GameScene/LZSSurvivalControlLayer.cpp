@@ -37,7 +37,7 @@ void SGSSurvivalControlLayer::createZombies()
 		_zombiesAppearControl->setTimeClear(); /* 距离上一波刷新时间清零 */
 		if (_zombiesAppearControl->getZombiesAppearFrequency() < 10)
 		{
-			unsigned int zombiesNumbers = getZombiesNumbers();
+			const unsigned int zombiesNumbers = getZombiesNumbers();
 			for (unsigned int i = 0; i < zombiesNumbers; ++i)
 			{
 				animationLayerInformation->createZombiesOnSurvival();

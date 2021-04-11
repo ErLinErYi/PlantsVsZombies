@@ -190,8 +190,8 @@ void UpdateClient::addMouseEvent()
 	auto mouse = EventListenerMouse::create();
 	mouse->onMouseScroll = [=](Event* event)
 	{
-		auto mouseEvent = static_cast<EventMouse*>(event);
-		float movex = mouseEvent->getScrollY() * 5;
+		const auto mouseEvent = static_cast<EventMouse*>(event);
+		const float movex = mouseEvent->getScrollY() * 5;
 
 		MouseEventControl::mouseScrollControlListener(_textScrollView, movex, ui::ScrollView::Direction::VERTICAL);
 	};
@@ -290,12 +290,12 @@ void UpdateClient::downloadProgress()
 		{
 			_explanText->setString(_global->userInformation->getGameText().find("解释说明_慢")->second->text);
 
-			float percent = float(totalBytesReceived * 100) / totalBytesExpected;
+			const float percent = float(totalBytesReceived * 100) / totalBytesExpected;
 			_loadingBar->setPercent(percent);
 
-			int hour = (totalBytesExpected - totalBytesReceived) / (bytesReceived * 10) / 3600;
-			int min = ((totalBytesExpected - totalBytesReceived) / (bytesReceived * 10) - hour * 3600) / 60;
-			int second = (totalBytesExpected - totalBytesReceived) / (bytesReceived * 10) - hour * 3600 - min * 60;
+			const int hour = (totalBytesExpected - totalBytesReceived) / (bytesReceived * 10) / 3600;
+			const int min = ((totalBytesExpected - totalBytesReceived) / (bytesReceived * 10) - hour * 3600) / 60;
+			const int second = (totalBytesExpected - totalBytesReceived) / (bytesReceived * 10) - hour * 3600 - min * 60;
 
 			if (bytesReceived / 1024.f * 10 >= 1000)
 			{
@@ -366,7 +366,7 @@ void UpdateClient::downloadError()
 
 LPCUWSTR UpdateClient::stringToWstring(string fileName)
 {
-	size_t size = fileName.length() + 1;
+	const size_t size = fileName.length() + 1;
 	size_t convertedChars = 0;
 	wchar_t* wstr = new wchar_t[fileName.length() - 1];
 	mbstowcs_s(&convertedChars, wstr, size, fileName.c_str(), _TRUNCATE);

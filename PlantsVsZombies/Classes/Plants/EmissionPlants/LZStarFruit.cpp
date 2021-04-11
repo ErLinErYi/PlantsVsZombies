@@ -124,7 +124,7 @@ bool StarFruit::zombieInPlantAttackRange(Zombies* zombie)
 
 bool StarFruit::zombieInObliqueDirection(float& disX, float& disY)
 {
-	auto obd = sqrt(pow(disY, 2) + pow(disX, 2));
+	const auto obd = sqrt(pow(disY, 2) + pow(disX, 2));
 	return (disY * 2 > obd && disY * 2 - obd < 20) || (obd > disY * 2 && obd - disY * 2 < 80);
 }
 

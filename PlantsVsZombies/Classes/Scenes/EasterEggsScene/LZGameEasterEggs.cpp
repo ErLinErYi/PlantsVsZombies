@@ -47,10 +47,10 @@ void GameEasterEggs::createEggText()
 	_audioId = PlayMusic::changeBgMusic("ZombiesWinEggs", false);
 	AudioEngine::setVolume(_audioId, 1.0f);
 
-	auto sumTime = QuitMenu::getSumRunTime();
-	int hour = sumTime / 3600;
-	int min = (sumTime - hour * 3600) / 60;
-	int sec = sumTime - hour * 3600 - min * 60;
+	const auto sumTime = QuitMenu::getSumRunTime();
+	const int hour = sumTime / 3600;
+	const int min = (sumTime - hour * 3600) / 60;
+	const int sec = sumTime - hour * 3600 - min * 60;
 
 	/* 文字彩蛋 */
 	string buff = { "      真棒！！！首先祝贺你通过了冒险模式的所有简单关卡，后面还有困难关卡和其他游戏模式等着你去挑战。感谢你能够花费时间来关注此游戏。\
@@ -91,7 +91,7 @@ void GameEasterEggs::createEggText()
 							static int I = 0;
 							if (I % 3 == 0 || I % 5 == 0 || I % 7 == 0)++I;
 							else I += 2;
-							auto size = eggstext->getString().size();
+							const auto size = eggstext->getString().size();
 							for (unsigned int i = 0; i < size; ++i)
 							{
 								auto letter = eggstext->getLetter(i);
@@ -108,7 +108,7 @@ void GameEasterEggs::createEggText()
 				eggstext->runAction(RepeatForever::create(Sequence::create(
 					CallFunc::create([=]()
 						{
-							auto size1 = text->getString().size();
+							const auto size1 = text->getString().size();
 							for (unsigned int i = 0; i < size1; ++i)
 							{
 								auto letter = text->getLetter(i);

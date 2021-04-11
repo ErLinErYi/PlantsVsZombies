@@ -83,13 +83,8 @@ void TSPSRequriementLayer::showButton()
 				PlayMusic::playMusic("tap");
 				break;
 			case ui::Widget::TouchEventType::ENDED:
+				SPSSpriteLayer::resumeButtonHoverEffect();
 				showDeleteDialogAction(_objiectives);
-				this->runAction(Sequence::create(Spawn::create(DelayTime::create(0.2f), FadeOut::create(0.2f), nullptr),
-					CallFunc::create([&]()
-						{
-							SPSSpriteLayer::resumeButtonHoverEffect();
-							this->removeFromParent();
-						}), nullptr));
 				break;
 			}
 		});

@@ -27,7 +27,7 @@ ZombiesAppearControl::~ZombiesAppearControl()
 
 ZombiesType ZombiesAppearControl::createDifferentTypeZombies(const unsigned int& zombiesAppearFrequency)
 {
-	int number = rand() % 100;
+	const int number = rand() % 100;
 	int sum = 0, i = -1;
 	auto zombiesTypeProbability = _openLevelData->readLevelData(
 		_openLevelData->getLevelNumber())->getZombiesTypeProbabilityFrequency().at(zombiesAppearFrequency);
@@ -83,7 +83,7 @@ double ZombiesAppearControl::getTime() const
 
 int ZombiesAppearControl::getEqualProbabilityForRow(int maxRow)
 {
-	uniform_int_distribution<unsigned>number(0, maxRow);
+	const uniform_int_distribution<unsigned>number(0, maxRow);
 
 	if (_judgeZombieRow.size() == maxRow + 1)
 	{

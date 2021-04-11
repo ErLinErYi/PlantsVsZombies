@@ -49,7 +49,7 @@ GSAnimationLayer* GSAnimationLayer::create(Node* node)
 
 Bullet* GSAnimationLayer::createDifferentBullet(BulletType bulletType, Node* node)
 {
-	Bullet* bullet;
+	Bullet* bullet = nullptr;
 	switch (bulletType)
 	{
 	case BulletType::Pea:              bullet = new Pea(node);              break;
@@ -69,7 +69,7 @@ Bullet* GSAnimationLayer::createDifferentBullet(BulletType bulletType, Node* nod
 
 Plants* GSAnimationLayer::createDifferentPlants(PlantsType plantsType, Node* node)
 {
-	Plants* plants;
+	Plants* plants = nullptr;
 	switch (plantsType)
 	{
 	case PlantsType::SunFlower:           plants = new SunFlower(node);               break;
@@ -103,7 +103,7 @@ Plants* GSAnimationLayer::createDifferentPlants(PlantsType plantsType, Node* nod
 
 Zombies* GSAnimationLayer::createDifferentZombies(ZombiesType zombiesType, Node* node)
 {
-	Zombies* zombies;
+	Zombies* zombies = nullptr;
 	switch (zombiesType)
 	{
 	case ZombiesType::CommonZombies:          zombies = new CommonZombies(node);          break;
@@ -168,11 +168,11 @@ void GSAnimationLayer::deletePlants()
 
 void GSAnimationLayer::createZombies()
 {
-	uniform_int_distribution<unsigned>number(0, 500);
+	const uniform_int_distribution<unsigned>number(0, 500);
 	auto zombies = createDifferentZombies(static_cast<ZombiesType>(
 		controlLayerInformation->_zombiesAppearControl->createDifferentTypeZombies(
 			controlLayerInformation->_zombiesAppearControl->getZombiesAppearFrequency())), this);
-	auto row = controlLayerInformation->_zombiesAppearControl->getEqualProbabilityForRow();
+	const auto row = controlLayerInformation->_zombiesAppearControl->getEqualProbabilityForRow();
 	zombies->setZombiePosition(Vec2(1780 + number(_random), ZombiesAppearControl::zombiesPosition[row]));
 	zombies->setZombieInRow(row);
 	zombies->createZombie();
@@ -183,7 +183,7 @@ void GSAnimationLayer::createZombies()
 
 void GSAnimationLayer::createZombiesOnSurvival()
 {
-	uniform_int_distribution<unsigned>number(0, 500);
+	const uniform_int_distribution<unsigned>number(0, 500);
 	auto zombies = createDifferentZombies(static_cast<ZombiesType>(
 		controlLayerInformation->_zombiesAppearControl->createDifferentTypeZombies()), this);
 	zombies->setZombiePosition(Vec2(1780 + number(_random), controlLayerInformation->_zombiesAppearControl->getEqualProbabilityForRow()));
@@ -201,7 +201,7 @@ GSAnimationLayer* GSAnimationLayer::getAnimationLayer()
 void GSAnimationLayer::createRandomSuns()
 {
 	// ? Ìõ¼þ......
-	auto level = _global->userInformation->getCurrentPlayLevels();
+	const auto level = _global->userInformation->getCurrentPlayLevels();
 	if (level != 36 && level != 50 && level != 52)
 	{
 		_randomSuns = new SunFlower(this);

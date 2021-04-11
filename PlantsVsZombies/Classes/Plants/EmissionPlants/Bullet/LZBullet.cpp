@@ -215,7 +215,7 @@ bool Bullet::getBulletIsSameLineWithZombie(Zombies* zombie)
 
 bool Bullet::getBulletIsEncounterWithZombie(Zombies* zombie)
 {
-	return fabs(zombie->getZombieAnimation()->getPositionX() - _bulletAnimation->getPositionX()) <= 15 ? true : false;
+	return fabs(zombie->getZombieAnimation()->getPositionX() - _bulletAnimation->getPositionX()) <= 50 ? true : false;
 }
 
 bool Bullet::getBulletVisible() const

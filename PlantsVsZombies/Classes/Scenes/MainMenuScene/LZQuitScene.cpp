@@ -98,10 +98,10 @@ int QuitMenu::getSumRunTime()
 	time(&tt);
 	nowtime = localtime(&tt);
 
-	auto beginday = UserDefault::getInstance()->getIntegerForKey("BEGINDAY");
-	auto beginhour = UserDefault::getInstance()->getIntegerForKey("BEGINHOUR");
-	auto beginmin = UserDefault::getInstance()->getIntegerForKey("BEGINMIN");
-	auto beginsec = UserDefault::getInstance()->getIntegerForKey("BEGINSEC");
+	const auto beginday = UserDefault::getInstance()->getIntegerForKey("BEGINDAY");
+	const auto beginhour = UserDefault::getInstance()->getIntegerForKey("BEGINHOUR");
+	const auto beginmin = UserDefault::getInstance()->getIntegerForKey("BEGINMIN");
+	const auto beginsec = UserDefault::getInstance()->getIntegerForKey("BEGINSEC");
 
 	int sumTime = 0;
 

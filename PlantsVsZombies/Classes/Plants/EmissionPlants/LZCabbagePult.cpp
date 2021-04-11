@@ -119,7 +119,7 @@ void CabbagePult::plantAttack(Zombies* zombie, const string& animationName)
 			_isChanged = true;
 		}
 
-		float distance = zombie->getZombieAnimation()->getPositionX() - _plantAnimation->getPositionX();
+		const float distance = zombie->getZombieAnimation()->getPositionX() - _plantAnimation->getPositionX();
 		if (_distance > distance) /* 僵尸与植物的距离小于上一个僵尸与植物的距离 */
 		{
 			_distance = distance;

@@ -579,10 +579,10 @@ void MainMenu::createClouds()
 		{"SelectorScreen_Cloud9"},{"SelectorScreen_Cloud10"},
 		{"SelectorScreen_Cloud11"},{"SelectorScreen_Cloud12"}
 	};
-	Vec2 vec2[] = { {2500,1000},{2800,900},{2200,800},{2100,950},{3000,600},{2700,700},{2600,800},{3000,550},{2000,670},{2480,780},{2150,870},{2341,813} };
+	const Vec2 vec2[] = { {2500,1000},{2800,900},{2200,800},{2100,950},{3000,600},{2700,700},{2600,800},{3000,550},{2000,670},{2480,780},{2150,870},{2341,813} };
 	Vec2 vec2_[] = { {0,1000},{0,900},{0,800},{0,950},{0,600},{0,700},{0,800},{0,550},{0,670},{0,780},{0,870},{0,813} };
-	int Rotation[] = { 20,25,35,35,30,0,0,0,0,0,-20,-20 };
-	for (int i = 6; i < 18; i++)
+	const int Rotation[] = { 20,25,35,35,30,0,0,0,0,0,-20,-20 };
+	for (int i = 6; i < 18; ++i)
 	{
 		_sprite[i] = Sprite::createWithSpriteFrameName(String[i - 6] + ".png");
 		_sprite[i]->setPosition(300 + rand() % 1800, vec2[i - 6].y);
@@ -644,13 +644,13 @@ void MainMenu::menuHelpCallBack(Ref* pSender)
 {
 	PlayMusic::playMusic("tap2");
 	
-	Director::getInstance()->replaceScene(TransitionCrossFade::create(0.5f, HelpScene::createHelpScene()));
+	Director::getInstance()->replaceScene(TransitionFade::create(0.5f, HelpScene::createHelpScene()));
 }
 
 void MainMenu::beginAdventureGame()
 {
 	_global->userInformation->setMainToWorld(true);
-	Director::getInstance()->replaceScene(TransitionCrossFade::create(0.5f, SelectWorldScene::createScene()));
+	Director::getInstance()->replaceScene(TransitionFade::create(0.5f, SelectWorldScene::createScene()));
 }
 
 void MainMenu::beginHammerZombiesGame()

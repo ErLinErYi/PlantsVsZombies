@@ -78,7 +78,7 @@ void TGInformationLayer::updateText()
 {
 	if (_userName)
 	{
-		auto number = controlLayerInformation->_zombiesAppearControl->getZombiesAppearFrequency();
+		const auto number = controlLayerInformation->_zombiesAppearControl->getZombiesAppearFrequency();
 		if (number > _mostFrenquence)_mostFrenquence = number;
 		_userName->setString(_text + StringUtils::format(_global->userInformation->getGameText().find("ÊÔÁ¶³¡¼ÇÂ¼")->second->text.c_str(), number, _mostFrenquence));
 		UserData::getInstance()->caveUserData("TESTINGGROUND", _mostFrenquence);

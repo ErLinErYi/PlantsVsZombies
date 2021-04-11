@@ -324,7 +324,7 @@ void GSControlLayer::createZombies()
 		_zombiesAppearControl->setTimeClear(); /* 距离上一波刷新时间清零 */
 		if (_zombiesAppearControl->getZombiesAppearFrequency() < _openLevelData->readLevelData(_openLevelData->getLevelNumber())->getZombiesFrequency())
 		{
-			unsigned int zombiesNumbers = _zombiesAppearControl->getZombiesNumbersForAppearFrequency(_zombiesAppearControl->getZombiesAppearFrequency());
+			const unsigned int zombiesNumbers = _zombiesAppearControl->getZombiesNumbersForAppearFrequency(_zombiesAppearControl->getZombiesAppearFrequency());
 			for (unsigned int i = 0; i < zombiesNumbers; ++i)
 			{
 				animationLayerInformation->createZombies();
@@ -375,7 +375,7 @@ bool GSControlLayer::controlRefurbishZombies()
 void GSControlLayer::controlRefurbishMusicAndText()
 {
 	/* 控制大波僵尸来袭的文字与音乐 */
-	auto level = _openLevelData->readLevelData(_openLevelData->getLevelNumber());
+	const auto level = _openLevelData->readLevelData(_openLevelData->getLevelNumber());
 	if (_zombiesAppearControl->getTime() >= level->getFirstFrequencyTime() && _zombiesAppearControl->getZombiesAppearFrequency() == 0)
 	{
 		PlayMusic::playMusic("awooga");
@@ -498,7 +498,7 @@ void GSControlLayer::judgeLevelIsFinished()
 		setGameEnd();
 
 		auto judgeUserWin = new GSGameResultJudgement();
-		auto winOrLose = judgeUserWin->judgeUserIsWin();
+		const auto winOrLose = judgeUserWin->judgeUserIsWin();
 		if (winOrLose == GameTypes::None)
 		{
 			if (_global->userInformation->getCurrentPlayLevels() >= 52 && !_isShowEggScene)
@@ -531,8 +531,8 @@ void GSControlLayer::mouseMoveControl()
 	/* 如果鼠标选择了植物 */
 	if (buttonLayerInformation->mouseSelectImage->isSelectPlants)
 	{
-		int posX = static_cast<int>(_plantsPosition.x);
-		int posY = static_cast<int>(_plantsPosition.y);
+		const int posX = static_cast<int>(_plantsPosition.x);
+		const int posY = static_cast<int>(_plantsPosition.y);
 		if (posX >= 0 && posY >= 0 && posX < 9 && posY < 5)
 		{
 			if (gameMapInformation->plantsMap[posY][posX] != NO_PLANTS)
@@ -541,7 +541,7 @@ void GSControlLayer::mouseMoveControl()
 			}
 			else
 			{
-				auto size = _plantPreviewImage->getContentSize() / 2.f;
+				const auto size = _plantPreviewImage->getContentSize() / 2.f;
 				_plantPreviewImage->setPosition(Vec2(GRASS_POSITION_LEFT + 122 *
 					_plantsPosition.x + size.width, GRASS_POSITION_BOTTOM + 138 * (_plantsPosition.y + 1) - size.height));
 			}
@@ -613,7 +613,7 @@ void GSControlLayer::mouseLeftButtonDownControl()
 				static_cast<unsigned int>(buttonLayerInformation->mouseSelectImage->selectPlantsId);
 
 			/* 设置倒计时并且按钮不可用 */
-			unsigned int plantsTag = static_cast<unsigned int>(buttonLayerInformation->mouseSelectImage->selectPlantsId);
+			const unsigned int plantsTag = static_cast<unsigned int>(buttonLayerInformation->mouseSelectImage->selectPlantsId);
 			buttonLayerInformation->plantsCards[static_cast<unsigned int>(buttonLayerInformation->mouseSelectImage->selectPlantsId)].timeBarIsFinished = false;
 			buttonLayerInformation->plantsCards[static_cast<unsigned int>(buttonLayerInformation->mouseSelectImage->selectPlantsId)].plantsCards->setEnabled(false);
 			buttonLayerInformation->plantsCards[static_cast<unsigned int>(buttonLayerInformation->mouseSelectImage->selectPlantsId)].plantsCards->setColor(Color3B::GRAY);

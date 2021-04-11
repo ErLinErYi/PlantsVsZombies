@@ -38,7 +38,7 @@ bool HammerZombiesScene::init()
 	animationLayer();    // 动画层
 	goodsLayer();        // 物品层
 	gameTimerLayer();    // 定时层
-
+	setName("GameScene");
 	pauseGame();
 
 	return true;

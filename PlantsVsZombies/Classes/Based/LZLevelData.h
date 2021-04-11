@@ -1,3 +1,9 @@
+/**
+ *Copyright (c) 2019 LZ.All Right Reserved
+ *Author : LZ
+ *Email: 2117610943@qq.com
+ */
+
 #pragma once
 #include "cocos2d.h"
 #include "json/writer.h"

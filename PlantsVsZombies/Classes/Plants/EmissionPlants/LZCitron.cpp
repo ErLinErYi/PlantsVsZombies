@@ -138,7 +138,7 @@ void Citron::plantRecovery(const string& plantAnimation)
 
 int Citron::calculateGreatEvocationProbability()
 {
-	int number = rand() % 100;
+	const int number = rand() % 100;
 	if (number < 5)
 		_animationId = 1;
 	else

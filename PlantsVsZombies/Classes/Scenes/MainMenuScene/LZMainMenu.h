@@ -82,7 +82,7 @@ private:
 	Text* _userText;                         /* 储存用户名字 */
 	Node* _userNameActionParent;             /* 用户名称动作parent */
 	Menu* _menu[2];                          /* 菜单 */
-	Sprite* _sprite[17];
+	Sprite* _sprite[18];
 	Sprite* _mainButton[9];                  /* 精灵 */
 	MenuItemImage* _menuItem[5];             /* 菜单项 */
 	EventListenerMouse* _mouse;              /* 鼠标监听 */

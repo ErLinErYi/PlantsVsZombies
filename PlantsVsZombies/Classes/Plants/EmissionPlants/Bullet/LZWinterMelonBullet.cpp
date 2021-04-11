@@ -58,8 +58,45 @@ void WinterMelonBullet::bulletAndZombiesCollision()
 void WinterMelonBullet::bulletAttackHurtZombies(Zombies* zombie)
 {
 	Cabbage::bulletAttackHurtZombies(zombie);
-	winterMelonExplodeEffect(zombie);
+	zombie->setZombieHurtBlink();
+
 	splashDamageZombies(zombie);  /* ¶Ô½©Ê¬Ôì³É½¦ÉË*/
+	winterMelonExplodeEffect(zombie);
+}
+
+void WinterMelonBullet::splashDamageZombies(Zombies* exceptZombie)
+{
+	/* ¼ÆËã½¦ÉäÉËº¦½©Ê¬Êý */
+	for (auto zombie : ZombiesGroup)
+	{
+		if (zombie->getZombieIsEnterMap() && zombie->getZombieIsSurvive() && getZombieInExplodeRange(zombie))
+		{
+			++_zombieInExplodeRangeNumbers;
+		}
+	}
+
+	for (auto zombie : ZombiesGroup)
+	{
+		if (exceptZombie != zombie && zombie->getZombieIsEnterMap() &&
+			zombie->getZombieIsSurvive() && getZombieInExplodeRange(zombie))
+		{
+			/* ½¦ÉäÉËº¦¼ÆËã */
+			if (int(_attack / 3) * _zombieInExplodeRangeNumbers > _attack * 7)
+			{
+				_attack = max(int(7 * pow(_attack, 2) / (int(_attack / 3) * 3 * _zombieInExplodeRangeNumbers)), 1);
+			}
+			else
+			{
+				_attack = int(_attack / 3);
+			}
+
+			Cabbage::bulletAttackHurtZombies(zombie);
+			zombie->setZombieHurtBlink();
+			winterMelonExplodeEffect(zombie);
+		}
+	}
+
+	_zombieInExplodeRangeNumbers = 0;
 }
 
 void WinterMelonBullet::winterMelonExplodeEffect(Zombies* zombie)
@@ -71,9 +108,5 @@ void WinterMelonBullet::winterMelonExplodeEffect(Zombies* zombie)
 		PlayMusic::playMusic("frozen");
 		zombie->setZombieActionSlow();
 		zombie->createZombieTimer();
-	}
-	else
-	{
-		zombie->setZombieHurtBlink();
 	}
 }

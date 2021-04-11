@@ -881,14 +881,15 @@ bool UserData::isHaveSurvivalData(char* key)
 		break;
 	case openUserDataReturnType::FileExistError:
 		remove(getSurvivalDataFileName().c_str());
-	default: break;
+		break;
+	default:break;
 	}
 	return false;
 }
 
 void UserData::openLevelPlantsData(char* key)
 {
-	auto plantsNumbers = (*_levelDataDocument)[key]["Plants"]["PlantsNumber"].GetInt();
+	const auto plantsNumbers = (*_levelDataDocument)[key]["Plants"]["PlantsNumber"].GetInt();
 	for (int i = 1; i <= plantsNumbers; ++i)
 	{
 		auto type = static_cast<PlantsType>((*_levelDataDocument)[key]["Plants"][to_string(i).c_str()]["PlantsType"].GetInt());
@@ -921,7 +922,7 @@ void UserData::openLevelPlantsAnimationData(char* key, const char* pl, Plants* p
 {
 	plant->getPlantAnimation()->setTimeScale(1.f);
 
-	int animationNumber = (*_levelDataDocument)[key]["Plants"][pl]["AnimationNumber"].GetInt();
+	const int animationNumber = (*_levelDataDocument)[key]["Plants"][pl]["AnimationNumber"].GetInt();
 	for (int i = 1; i <= animationNumber; ++i)
 	{
 		auto name = (*_levelDataDocument)[key]["Plants"][pl][to_string(i).c_str()]["PlantsAnimationName"].GetString();
@@ -933,7 +934,7 @@ void UserData::openLevelPlantsAnimationData(char* key, const char* pl, Plants* p
 
 void UserData::openLevelZombiesData(char* key)
 {
-	auto zombiesNumbers = (*_levelDataDocument)[key]["Zombies"]["ZombiesNumber"].GetInt();
+	const auto zombiesNumbers = (*_levelDataDocument)[key]["Zombies"]["ZombiesNumber"].GetInt();
 	for (int i = 1; i <= zombiesNumbers; ++i)
 	{
 		auto zombies = GSAnimationLayer::createDifferentZombies(
@@ -976,7 +977,7 @@ void UserData::openLevelZombiesAnimationData(char* key, const char* zo, Zombies*
 {
 	zombie->getZombieAnimation()->setTimeScale(1.f);
 
-	int animationNumber = (*_levelDataDocument)[key]["Zombies"][zo]["AnimationNumber"].GetInt();
+	const int animationNumber = (*_levelDataDocument)[key]["Zombies"][zo]["AnimationNumber"].GetInt();
 	for (int i = 1; i <= animationNumber; ++i)
 	{
 		auto name = (*_levelDataDocument)[key]["Zombies"][zo][to_string(i).c_str()]["ZombieAnimationName"].GetString();
@@ -992,7 +993,7 @@ void UserData::openLevelSelectCardData(char* key)
 	{
 		UserSelectCard card{};
 		vector<UserSelectCard> userSelectCard;
-		auto selectNumbers = (*_levelDataDocument)[key]["SelectPlants"]["SelectNumber"].GetInt();
+		const auto selectNumbers = (*_levelDataDocument)[key]["SelectPlants"]["SelectNumber"].GetInt();
 		for (int i = 1; i <= selectNumbers; ++i)
 		{
 			card.cardTag = (*_levelDataDocument)[key]["SelectPlants"][to_string(i).c_str()]["CardTag"].GetInt();
@@ -1011,7 +1012,7 @@ void UserData::openLevelSelectCardData(char* key)
 
 void UserData::openLevelSunData(char* key)
 {
-	auto sunNumbers = (*_levelDataDocument)[key]["Sun"]["SunNumbers"].GetInt();
+	const auto sunNumbers = (*_levelDataDocument)[key]["Sun"]["SunNumbers"].GetInt();
 	for (int i = 1; i <= sunNumbers; ++i)
 	{
 		auto sun = new Sun(goodsLayerInformation);
@@ -1027,7 +1028,7 @@ void UserData::openLevelSunData(char* key)
 
 void UserData::openLevelCoinData(char* key)
 {
-	auto coinNumbers = (*_levelDataDocument)[key]["Coin"]["CoinNumbers"].GetInt();
+	const auto coinNumbers = (*_levelDataDocument)[key]["Coin"]["CoinNumbers"].GetInt();
 	for (int i = 1; i <= coinNumbers; ++i)
 	{
 		auto coin = new Coin(goodsLayerInformation);
@@ -1043,7 +1044,7 @@ void UserData::openLevelCoinData(char* key)
 
 void UserData::openLevelCarData(char* key)
 {
-	auto carNumbers = (*_levelDataDocument)[key]["Car"]["CarNumbers"].GetInt();
+	const auto carNumbers = (*_levelDataDocument)[key]["Car"]["CarNumbers"].GetInt();
 	for (int i = 1; i <= carNumbers; ++i)
 	{
 		auto car = new Car(animationLayerInformation->getAnimationLayer());
@@ -1061,7 +1062,7 @@ void UserData::openLevelCarData(char* key)
 
 void UserData::openLevelBulletData(char* key)
 {
-	auto bulletNumbers = (*_levelDataDocument)[key]["Bullet"]["BulletNumbers"].GetInt();
+	const auto bulletNumbers = (*_levelDataDocument)[key]["Bullet"]["BulletNumbers"].GetInt();
 	for (int i = 1; i <= bulletNumbers; ++i)
 	{
 		auto type = static_cast<BulletType>((*_levelDataDocument)[key]["Bullet"][to_string(i).c_str()]["BulletType"].GetInt());
@@ -1086,7 +1087,7 @@ void UserData::openLevelBulletAnimationData(char* key, const char* bu, Bullet* b
 {
 	bullet->getBullet()->setTimeScale(1.f);
 
-	int animationNumber = (*_levelDataDocument)[key]["Bullet"][bu]["AnimationNumber"].GetInt();
+	const int animationNumber = (*_levelDataDocument)[key]["Bullet"][bu]["AnimationNumber"].GetInt();
 	for (int i = 1; i <= animationNumber; ++i)
 	{
 		auto name = (*_levelDataDocument)[key]["Bullet"][bu][to_string(i).c_str()]["BulletAnimationName"].GetString();
@@ -1098,7 +1099,7 @@ void UserData::openLevelBulletAnimationData(char* key, const char* bu, Bullet* b
 
 void UserData::openLevelOtherData(char* key)
 {
-	auto number = (*_levelDataDocument)[key]["OtherData"]["ZombiesAppearFrequency"].GetInt();
+	const auto number = (*_levelDataDocument)[key]["OtherData"]["ZombiesAppearFrequency"].GetInt();
 	controlLayerInformation->_zombiesAppearControl->setZombiesAppearFrequency(number);
 
 	informationLayerInformation->setProgressBarPercent(

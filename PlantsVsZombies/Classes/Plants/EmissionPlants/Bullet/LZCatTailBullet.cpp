@@ -46,7 +46,7 @@ void CatTailBullet::createListener()
             {
                 if (fabs(_locationY - _bulletAnimation->getPositionY()) > _distanceY) /* 第一次间隔进行设置localZorder */
                 {
-                    auto order = _bulletAnimation->getLocalZOrder();
+                    const auto order = _bulletAnimation->getLocalZOrder();
                     if (order > 0 && order < 5070)
                     {
                         _bulletAnimation->setLocalZOrder(order + (_locationY > _bulletAnimation->getPositionY() ? 100 : -100));
@@ -119,7 +119,7 @@ void CatTailBullet::calculateBulletPosition()
                 break;
             }
 
-            auto deg = CC_RADIANS_TO_DEGREES(rad);
+            const auto deg = CC_RADIANS_TO_DEGREES(rad);
             auto deltaD = min(1.f, deg / _bulletAnimation->getPosition().distance(_targetZombie->getZombieAnimation()->getPosition() + Vec2(0, 100)));
             auto deltaR = min(1.f, deltaD / PI);
 
@@ -152,7 +152,7 @@ void CatTailBullet::calculateBulletPosition()
 
 bool CatTailBullet::getBulletIsEncounterWithZombie(Zombies* zombie)
 {
-    auto& rect = zombie->getZombieAnimation()->getBoundingBox();
+    const auto& rect = zombie->getZombieAnimation()->getBoundingBox();
     return _bulletAnimation->getBoundingBox().intersectsRect(Rect(rect.origin.x + 60, rect.origin.y + 110, 90, 30));
 }
 
@@ -162,7 +162,7 @@ void CatTailBullet::seekZombie()
     {
         if (!_isUsed && zombie->getZombieIsSurvive() && zombie->getZombieIsEnterMap())
         {
-            auto distance = calculateBulletAndZombie(zombie);
+            const auto distance = calculateBulletAndZombie(zombie);
             if (distance < _distance)
             {
                 _distance = distance;

@@ -171,7 +171,7 @@ void SunFlower::createRandomSuns()
 			sun->setPosition(pos);
 			sun->createSuns();
 
-			auto temporary = sun->getSunTag();
+			const auto temporary = sun->getSunTag();
 			sun->getSun()->setScale(1.2f);
 			sun->getSun()->runAction(Sequence::create(
 				MoveBy::create(5.0f, pos1),
@@ -279,7 +279,7 @@ void Sun::releaseSun()
 
 float Sun::calculateMoveTime()
 {
-	auto distance = sqrt(pow(_sun->getPosition().x - 290, 2) + pow(_sun->getPosition().y - 1010, 2));
+	const auto distance = sqrt(pow(_sun->getPosition().x - 290, 2) + pow(_sun->getPosition().y - 1010, 2));
 	return static_cast<float>(distance / (750 + distance));
 }
 

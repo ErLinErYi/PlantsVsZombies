@@ -81,7 +81,7 @@ void HGameEndLayer::rewardThing()
 
 void HGameEndLayer::rewardCoin(Button* button)
 {
-	auto coin = UserData::getInstance()->openIntUserData("HAMMERZOMBIES_LEVEL_NUMBER");
+	const auto coin = UserData::getInstance()->openIntUserData("HAMMERZOMBIES_LEVEL_NUMBER");
 	const int number = min(coin / 2, 10) + rand() % (coin / 2);
 
 	button->runAction(Sequence::create(Repeat::create(Sequence::create(MoveBy::create(0.05f, Vec2(5, 5)),

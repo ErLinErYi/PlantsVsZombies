@@ -72,7 +72,7 @@ Zombies::~Zombies()
 
 void Zombies::zombieInit(const string& animation_name)
 {
-	uniform_real_distribution<float>number(0.f, 0.45f);
+	const uniform_real_distribution<float>number(0.f, 0.45f);
 	_timeScale = 0.6f + number(_random);
 
 	_zombiesAnimation = SkeletonAnimation::createWithData(_global->userInformation->getAnimationData().find(animation_name)->second);
@@ -239,7 +239,7 @@ void Zombies::zombiesDeleteUpdate(list<Zombies*>::iterator& zombie)
 					Global::getInstance()->userInformation->getKillZombiesNumbers());/* 杀死僵尸数加一 */
 			}
 
-			auto &zombies = zombie;
+			const auto &zombies = zombie;
 			(*zombies)->getZombieAnimation()->runAction(Sequence::create(DelayTime::create(5.0f),
 				CallFunc::create([zombies]()
 					{
@@ -278,7 +278,7 @@ void Zombies::zombiesDeleteUpdateNotRecordDieNumbers(list<Zombies*>::iterator& z
 
 			zombiesNumbersChange("--");  /* 僵尸总数更新 */
 			
-			auto& zombies = zombie;
+			const auto& zombies = zombie;
 			(*zombies)->getZombieAnimation()->runAction(Sequence::create(DelayTime::create(5.0f),
 				CallFunc::create([zombies]()
 					{
@@ -580,7 +580,7 @@ bool Zombies::getZombieReserveKill()
 
 void Zombies::playZombiesFillDownAnimation()
 {
-	uniform_real_distribution<float>number(0.f, 0.45f);
+	const uniform_real_distribution<float>number(0.f, 0.45f);
 	_zombiesAnimation->setTimeScale(0.6f + number(_random));
 	_zombiesAnimation->setEventListener([&](spTrackEntry* entry, spEvent* event)
 		{
@@ -598,7 +598,7 @@ void Zombies::playZombiesFillDownAnimation()
 
 void Zombies::playZombiesAshesAnimation()
 {
-	uniform_real_distribution<float>number(0.f, 0.4f);
+	const uniform_real_distribution<float>number(0.f, 0.4f);
 	auto ashes = SkeletonAnimation::createWithData(_global->userInformation->getAnimationData().find("Zombies_Ash")->second);
 	ashes->setPosition(_zombiesAnimation->getPosition() + Vec2(rand() % 2 ? number(_random) * 20 : -number(_random) * 20, -15));
 	ashes->setLocalZOrder(_zombiesAnimation->getLocalZOrder());
@@ -630,7 +630,7 @@ void Zombies::playZombiesAshesAnimation()
 
 void Zombies::setZombieAttributeForGameType()
 {
-	auto data = _openLevelData->readLevelData(_openLevelData->getLevelNumber());
+	const auto data = _openLevelData->readLevelData(_openLevelData->getLevelNumber());
 	/* 判断是否是小僵尸 */
 	if (data->getZombiesIsSmall()) setSmallZombieAttribute();
 
@@ -680,7 +680,7 @@ void Zombies::judgeZombieWin(list<Zombies*>::iterator zombie)
 		_gameResultJudgement = new GSGameResultJudgement();
 	}
 
-	auto zombieWin = _gameResultJudgement->judgeUserIsLose(zombie);
+	const auto zombieWin = _gameResultJudgement->judgeUserIsLose(zombie);
 	if (zombieWin != GameTypes::None && !_zombieIsWin)
 	{
 		_zombieIsWin = true;
@@ -894,7 +894,7 @@ void Zombies::playZombieSoundEffect()
 
 void Zombies::playZombieSoundEffect(const string& name)
 {
-	uniform_int_distribution<unsigned>number(0, 10000); 
+	const uniform_int_distribution<unsigned>number(0, 10000);
 	if (number(_random) < 5 && _zombieHowlNumbers< 3)
 	{
 		PlayMusic::playMusic(name);
@@ -926,7 +926,7 @@ void Zombies::showZombieShadow(Node* node, const int posy)
 	shadow->setLocalZOrder(node->getLocalZOrder());
 	_node->addChild(shadow, -1);
 
-	auto positiony = node->getPosition().y - posy;
+	const auto positiony = node->getPosition().y - posy;
 	node->runAction(RepeatForever::create(Sequence::create(
 		CallFunc::create([=]()
 			{
@@ -996,7 +996,7 @@ void Zombies::setZombieAttributeForGameType(Node* sprite)
 {
 	if (!_gameTypeInvalid)
 	{
-		auto data = _openLevelData->readLevelData(_openLevelData->getLevelNumber());
+		const auto data = _openLevelData->readLevelData(_openLevelData->getLevelNumber());
 		data->getZombiesIsSmall() ? sprite->setScale(0.85f) : data->getZombiesIsBig() ? sprite->setScale(1.8f) : nullptr;
 	}
 }
