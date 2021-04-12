@@ -69,7 +69,7 @@ void WinterMelonBullet::splashDamageZombies(Zombies* exceptZombie)
 	/* ¼ÆËã½¦ÉäÉËº¦½©Ê¬Êı */
 	for (auto zombie : ZombiesGroup)
 	{
-		if (zombie->getZombieIsEnterMap() && zombie->getZombieIsSurvive() && getZombieInExplodeRange(zombie))
+		if (zombie->getZombieIsEnterMap() && zombie->getZombieIsSurvive() && getZombieInExplodeRange(zombie, exceptZombie))
 		{
 			++_zombieInExplodeRangeNumbers;
 		}
@@ -78,7 +78,7 @@ void WinterMelonBullet::splashDamageZombies(Zombies* exceptZombie)
 	for (auto zombie : ZombiesGroup)
 	{
 		if (exceptZombie != zombie && zombie->getZombieIsEnterMap() &&
-			zombie->getZombieIsSurvive() && getZombieInExplodeRange(zombie))
+			zombie->getZombieIsSurvive() && getZombieInExplodeRange(zombie, exceptZombie))
 		{
 			/* ½¦ÉäÉËº¦¼ÆËã */
 			if (int(_attack / 3) * _zombieInExplodeRangeNumbers > _attack * 7)

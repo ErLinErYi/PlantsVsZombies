@@ -298,11 +298,6 @@ void BMControlLayer::judgeLevelIsFinished()
 		CURSOR_VISIBLE(true)
 
 		setGameEnd();
-
-		if (_global->userInformation->getCurrentPlayLevels() >= 52)
-		{
-			_director->getInstance()->pushScene(TransitionFade::create(0.5f, GameEasterEggs::create()));
-		}
 		_gameEndShieldLayer->successfullEntry();
 	}
 }

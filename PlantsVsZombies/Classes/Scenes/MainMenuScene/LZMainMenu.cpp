@@ -28,6 +28,7 @@ MainMenu::MainMenu() :
 	_inputLayer(nullptr),
 	_quitLayer(nullptr),
 	_optionLayer(nullptr),
+	_nowtime(nullptr),
 	_playMusic{false}
 {
 	/* 播放音乐 */
@@ -38,6 +39,7 @@ MainMenu::MainMenu() :
 
 MainMenu::~MainMenu()
 {
+	if (_nowtime)delete _nowtime;
 }
 
 Scene* MainMenu::createScene()
@@ -410,8 +412,8 @@ void MainMenu::createMouseListener()
 		switch (checkCurInButtons())
 		{
 		case MainMenuButton::AdventureButton:     _mainButton[1]->setPosition(Vec2(902, 828));                            /* 冒险模式 */    break;
-		case MainMenuButton::ChallengesButton:    _mainButton[2]->setPosition(Vec2(882, 648));  beginHammerZombiesGame(); /* 解迷模式 */    break;
-		case MainMenuButton::VasebreakerButton:   _mainButton[3]->setPosition(Vec2(872, 508));                            /* 玩玩小游戏 */  break;
+		case MainMenuButton::ChallengesButton:    _mainButton[2]->setPosition(Vec2(882, 648));  beginHammerZombiesGame(); /* 锤僵尸模式 */  break;
+		case MainMenuButton::VasebreakerButton:   _mainButton[3]->setPosition(Vec2(872, 508));  beginVasebreakerGame();   /* 植物试炼场 */  break;
 		case MainMenuButton::SurvivalButton:      _mainButton[4]->setPosition(Vec2(852, 383));                            /* 生存模式 */    break;
 		}
 	};
@@ -422,8 +424,8 @@ void MainMenu::createMouseListener()
 		switch (this->checkCurInButtons())
 		{
 		case MainMenuButton::AdventureButton:    _mainButton[1]->setPosition(Vec2(900, 830)); beginAdventureGame();     /* 冒险模式 */   break;
-		case MainMenuButton::ChallengesButton:   _mainButton[2]->setPosition(Vec2(880, 650));                           /* 解迷模式 */   break;
-		case MainMenuButton::VasebreakerButton:  _mainButton[3]->setPosition(Vec2(870, 510)); beginVasebreakerGame();   /* 玩玩小游戏 */ break;
+		case MainMenuButton::ChallengesButton:   _mainButton[2]->setPosition(Vec2(880, 650));                           /* 锤僵尸模式 */ break;
+		case MainMenuButton::VasebreakerButton:  _mainButton[3]->setPosition(Vec2(870, 510));                           /* 植物试炼场 */ break;
 		case MainMenuButton::SurvivalButton:     _mainButton[4]->setPosition(Vec2(850, 385)); beginSurvivalGame();      /* 生存模式 */   break;
 		}
 	};
@@ -662,7 +664,7 @@ void MainMenu::beginHammerZombiesGame()
 	else
 	{
 		setMouseListenerEnable(false);
-		auto lock = UnlockDialogLayer::create();
+		auto lock = UnlockDialogLayer::createScene();
 		if (lock)
 		{
 			lock->setMouseListener(_mouse);
@@ -673,7 +675,28 @@ void MainMenu::beginHammerZombiesGame()
 
 void MainMenu::beginVasebreakerGame()
 {
-	Director::getInstance()->replaceScene(TransitionFade::create(0.5f, TSelectPlantsScene::create()));
+	_nowtime = new MomentTime;
+	_nowtime->requestNetTime([this]()
+		{
+#ifdef _DEBUG
+			Director::getInstance()->replaceScene(TransitionFade::create(0.5f, TSelectPlantsScene::create()));
+#else
+			if (_nowtime->getNetHour() >= 20 && _nowtime->getNetHour() < 22)
+			{
+				Director::getInstance()->replaceScene(TransitionFade::create(0.5f, TSelectPlantsScene::create()));
+			}
+			else
+			{
+				setMouseListenerEnable(false);
+				auto lock = UnlockDialogLayer::createScene(1);
+				if (lock)
+				{
+					lock->setMouseListener(_mouse);
+					this->addChild(lock, 1, "_lockLayer");
+				}
+			}
+#endif // !_DEBUG
+		});
 }
 
 void MainMenu::beginSurvivalGame()

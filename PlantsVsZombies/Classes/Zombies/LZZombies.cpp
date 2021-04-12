@@ -131,7 +131,7 @@ void Zombies::setZombieMove(float delta)
 	if (!_redWarning && getZombieWarning())
 	{
 		auto action = RepeatForever::create(
-			Sequence::create(TintTo::create(0.3f, Color3B::RED),
+			Sequence::create(TintTo::create(0.3f, Color3B(255, 100, 100)),
 				TintTo::create(0.3f, Color3B::WHITE), nullptr));
 		action->setTag(10);
 		_zombiesAnimation->runAction(action);

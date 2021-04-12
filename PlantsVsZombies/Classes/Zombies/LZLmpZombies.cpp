@@ -74,6 +74,7 @@ void LmpZombies::playZombiesAshesAnimation()
 	ashes->setScale(1.2f);
 	ashes->setTimeScale(0.8f + number(_random));
 	ashes->setAnimation(0, "animation", false);
+	ashes->update(0);
 	_node->addChild(ashes);
 
 	ashes->setEventListener([ashes](spTrackEntry* entry, spEvent* event)

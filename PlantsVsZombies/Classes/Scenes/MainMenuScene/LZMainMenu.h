@@ -11,6 +11,7 @@
 #include "spine/spine.h"
 #include "spine/spine-cocos2dx.h"
 #include "Based/LZGlobalVariable.h"
+#include "Based/LZGetMomentTime.h"
 
 #ifdef WIN32
 #pragma execution_character_set("utf-8")
@@ -86,8 +87,9 @@ private:
 	Sprite* _mainButton[9];                  /* 精灵 */
 	MenuItemImage* _menuItem[5];             /* 菜单项 */
 	EventListenerMouse* _mouse;              /* 鼠标监听 */
-	Global* _global;
-	Director* _director;
+	Global* _global;                         /* 全局变量 */
+	Director* _director;                     /* 导演 */
+	MomentTime* _nowtime;                    /* 当前时间 */
 	LayerColor* _inputLayer;                 /* 输入屏蔽层 */
 	LayerColor* _quitLayer;                  /* 退出屏蔽层 */
 	LayerColor* _optionLayer;                /* 选项屏蔽层 */

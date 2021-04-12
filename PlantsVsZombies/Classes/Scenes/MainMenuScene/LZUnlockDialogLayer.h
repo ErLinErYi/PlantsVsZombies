@@ -11,6 +11,7 @@ class UnlockDialogLayer :public Dialog
 {
 public:
 	CREATE_FUNC(UnlockDialogLayer);
+	static UnlockDialogLayer* createScene(int id = 0);
 	virtual bool init() override;
 
 CC_CONSTRUCTOR_ACCESS:
@@ -27,4 +28,5 @@ public:
 
 protected:
 	Sprite* _lockDialog;    /* ¶Ô»°¿ò */
+	static int _id;
 };

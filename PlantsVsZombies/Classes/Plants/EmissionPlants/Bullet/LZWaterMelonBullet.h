@@ -21,5 +21,5 @@ CC_CONSTRUCTOR_ACCESS:
 protected:
 	virtual void bulletAttackHurtZombies(Zombies* zombie) override;
 	virtual void splashDamageZombies(Zombies* exceptZombie);
-	virtual bool getZombieInExplodeRange(Zombies* zombie);
+	virtual bool getZombieInExplodeRange(Zombies* zombie, Zombies* exceptZombie);
 };

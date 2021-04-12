@@ -187,6 +187,7 @@ xcopy "$(ProjectDir)..\Resources" "$(OutDir)" /D /E /I /F /Y
     <ClCompile Include="..\Classes\Based\LZCoin.cpp" />
     <ClCompile Include="..\Classes\Based\LZDialog.cpp" />
     <ClCompile Include="..\Classes\Based\LZGameType.cpp" />
+    <ClCompile Include="..\Classes\Based\LZGetMomentTime.cpp" />
     <ClCompile Include="..\Classes\Based\LZGlobalVariable.cpp" />
     <ClCompile Include="..\Classes\Based\LZLevelData.cpp" />
     <ClCompile Include="..\Classes\Based\LZMouseEventControl.cpp" />
@@ -333,6 +334,7 @@ xcopy "$(ProjectDir)..\Resources" "$(OutDir)" /D /E /I /F /Y
     <ClInclude Include="..\Classes\Based\LZCoin.h" />
     <ClInclude Include="..\Classes\Based\LZDialog.h" />
     <ClInclude Include="..\Classes\Based\LZGameType.h" />
+    <ClInclude Include="..\Classes\Based\LZGetMomentTime.h" />
     <ClInclude Include="..\Classes\Based\LZGlobalVariable.h" />
     <ClInclude Include="..\Classes\Based\LZLevelData.h" />
     <ClInclude Include="..\Classes\Based\LZLibpvz.h" />

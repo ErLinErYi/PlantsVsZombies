@@ -201,6 +201,7 @@ void PotatoMine::explodeHurtZombies()
 		if (zombie->getZombieIsSurvive() && zombie->getZombieIsEnterMap() && getZombieIsInExplodeRange(zombie)) /* ½©Ê¬´æ»î && ½©Ê¬½øÈëµØÍ¼ && ½©Ê¬ÔÚ±¬Õ¨·¶Î§ÄÚ */
 		{
 			hurtZombies(zombie);
+			zombie->setZombieHurtBlink();
 
 			if (!zombie->getZombieIsSurvive() && zombie->getZombieType() != ZombiesType::GargantuarZombies)
 			{

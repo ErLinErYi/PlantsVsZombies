@@ -67,7 +67,7 @@ void WaterMelonBullet::splashDamageZombies(Zombies* exceptZombie)
 	/* ¼ÆËã½¦ÉäÉËº¦½©Ê¬Êý */
 	for (auto zombie : ZombiesGroup)
 	{
-		if (zombie->getZombieIsEnterMap() && zombie->getZombieIsSurvive() && getZombieInExplodeRange(zombie))
+		if (zombie->getZombieIsEnterMap() && zombie->getZombieIsSurvive() && getZombieInExplodeRange(zombie, exceptZombie))
 		{
 			++_zombieInExplodeRangeNumbers;
 		}
@@ -76,7 +76,7 @@ void WaterMelonBullet::splashDamageZombies(Zombies* exceptZombie)
 	for (auto zombie : ZombiesGroup)
 	{
 		if (exceptZombie != zombie && zombie->getZombieIsEnterMap() &&
-			zombie->getZombieIsSurvive() && getZombieInExplodeRange(zombie))
+			zombie->getZombieIsSurvive() && getZombieInExplodeRange(zombie, exceptZombie))
 		{
 			/* ½¦ÉäÉËº¦¼ÆËã */
 			if (int(_attack / 3) * _zombieInExplodeRangeNumbers > _attack * 7)
@@ -96,8 +96,12 @@ void WaterMelonBullet::splashDamageZombies(Zombies* exceptZombie)
 	_zombieInExplodeRangeNumbers = 0;
 }
 
-bool WaterMelonBullet::getZombieInExplodeRange(Zombies* zombie)
+bool WaterMelonBullet::getZombieInExplodeRange(Zombies* zombie, Zombies* exceptZombie)
 {
-	return sqrt(pow(zombie->getZombieAnimation()->getPositionX() - _bulletAnimation->getPositionX(), 2) +
-		pow((zombie->getZombieAnimation()->getPositionY() + 50) - (_bulletAnimation->getPositionY() - 40), 2)) <= 200 ? true : false;
+	const auto a = zombie->getZombieAnimation()->getPositionX();
+	const auto b = exceptZombie->getZombieAnimation()->getPositionX();
+	const auto c = zombie->getZombieAnimation()->getPositionY();
+	const auto d = exceptZombie->getZombieAnimation()->getPositionY();
+	
+	return (((a - b )< 138 && a > b) || ((b - a) < 70 && b>a)) && (fabs(c - d) < 200);
 }

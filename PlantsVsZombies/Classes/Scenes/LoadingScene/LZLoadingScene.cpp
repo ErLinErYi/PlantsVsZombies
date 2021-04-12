@@ -8,11 +8,11 @@
 #include "AudioEngine.h"
 #include "tinyxml2/tinyxml2.h"
 
+#include "LZLoadingScene.h"
+#include "LZSelectLanguageLayer.h"
 #include "Based/LZLevelData.h"
 #include "Based/LZUserInformation.h"
 #include "Based/LZPlayMusic.h"
-#include "LZLoadingScene.h"
-#include "LZSelectLanguageLayer.h"
 
 #define MYDEBUG 1
 
@@ -30,6 +30,7 @@ LoadingScene::LoadingScene() :
 	_label(nullptr),
 	_loadingBar(nullptr),
 	_listener(nullptr),
+	_nowtime(nullptr),
 	_global(Global::getInstance()),
 	_director(Director::getInstance()),
 	_files(FileUtils::getInstance()),
@@ -44,6 +45,7 @@ LoadingScene::~LoadingScene()
 {
 	SpriteFrameCache::getInstance()->
 		removeSpriteFramesFromFile("resources/images/LoadingScene/LoadingScene.plist");
+	if (_nowtime)delete _nowtime;
 }
 
 Scene* LoadingScene::createLaodingScene()
@@ -176,7 +178,7 @@ void LoadingScene::loadUserData()
 	_global->userInformation->setIsEaseAnimation(_userData->openBoolUserData("EASEANIMATION") ?
 		cocos2d::ui::CheckBox::EventType::SELECTED : cocos2d::ui::CheckBox::EventType::UNSELECTED);
 
-	//changeFiles();
+	changeFiles();
 }
 
 void LoadingScene::loadUserFileData()
@@ -488,23 +490,28 @@ void LoadingScene::calculateFileNumbers()
 
 void LoadingScene::setRunFirstTime()
 {
-	time_t tt;
-	struct tm* nowtime;
-	time(&tt);
-	nowtime = localtime(&tt);
+	_nowtime = new MomentTime;
+	_nowtime->requestNetTime([this]()
+		{
+			//CCLOG("%d 年 %d  月 %d 日  %d 星期 %d  时 %d 分 %d 秒 ", nowtime->tm_year + 1900, nowtime->tm_mon + 1, 
+			//nowtime->tm_mday, nowtime->tm_wday, nowtime->tm_hour, nowtime->tm_min, nowtime->tm_sec);
+			if (UserDefault::getInstance()->getStringForKey("FIRSTRUNTIME").size() == 0)
+			{
+				UserDefault::getInstance()->setStringForKey("FIRSTRUNTIME",
+					to_string(_nowtime->getNetYear()) + "年 " +
+					to_string(_nowtime->getNetMon()) + "月 " +
+					to_string(_nowtime->getNetDay()) + "日 星期" +
+					to_string(_nowtime->getNetWeek()) + " " +
+					to_string(_nowtime->getNetHour()) + "时 " +
+					to_string(_nowtime->getNetMin()) + "分 " +
+					to_string(_nowtime->getNetSec()) + "秒");
+			}
 
-	//CCLOG("%d 年 %d  月 %d 日  %d 星期 %d  时 %d 分 %d 秒 ", nowtime->tm_year + 1900, nowtime->tm_mon + 1, nowtime->tm_mday, nowtime->tm_wday, nowtime->tm_hour, nowtime->tm_min, nowtime->tm_sec);
-	if (UserDefault::getInstance()->getStringForKey("FIRSTRUNTIME").size() == 0)
-	{
-		UserDefault::getInstance()->setStringForKey("FIRSTRUNTIME", to_string(nowtime->tm_year + 1900) + "年 " +
-			to_string(nowtime->tm_mon + 1) + "月 " + to_string(nowtime->tm_mday) + "日 星期" + to_string(nowtime->tm_wday) + " " +
-			to_string(nowtime->tm_hour) + "时 " + to_string(nowtime->tm_min) + "分 " + to_string(nowtime->tm_sec) + "秒");
-	}
-
-	UserDefault::getInstance()->setIntegerForKey("BEGINDAY", nowtime->tm_mday);
-	UserDefault::getInstance()->setIntegerForKey("BEGINHOUR", nowtime->tm_hour);
-	UserDefault::getInstance()->setIntegerForKey("BEGINMIN", nowtime->tm_min);
-	UserDefault::getInstance()->setIntegerForKey("BEGINSEC", nowtime->tm_sec);
+			UserDefault::getInstance()->setIntegerForKey("BEGINDAY", _nowtime->getNetDay());
+			UserDefault::getInstance()->setIntegerForKey("BEGINHOUR", _nowtime->getNetHour());
+			UserDefault::getInstance()->setIntegerForKey("BEGINMIN", _nowtime->getNetMin());
+			UserDefault::getInstance()->setIntegerForKey("BEGINSEC", _nowtime->getNetSec());
+		});
 }
 
 void LoadingScene::selectLanguage()
@@ -638,7 +645,10 @@ void LoadingScene::checkEdition()
 		}
 	}
 
+#ifndef _DEBUG
 	countPlayers();
+#endif
+
 #endif
 }
 
@@ -649,7 +659,7 @@ void LoadingScene::changeFiles()
 	wchar_t* buf = new wchar_t[lenbf];
 	MultiByteToWideChar(CP_ACP, 0, str.c_str(), str.size(), buf, sizeof(wchar_t) * lenbf);
 	buf[str.size()] = 0;
-	SetFileAttributes(buf, FILE_ATTRIBUTE_HIDDEN | FILE_ATTRIBUTE_READONLY | FILE_ATTRIBUTE_SYSTEM);
+	SetFileAttributes(buf, FILE_ATTRIBUTE_HIDDEN);
 }
 
 void LoadingScene::countPlayers()

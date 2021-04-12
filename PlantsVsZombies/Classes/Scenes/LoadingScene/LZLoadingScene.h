@@ -8,10 +8,10 @@
 #include "cocos2d.h"
 #include "ui/CocosGUI.h"
 #include "network/CCDownloader.h"
-
+#include "Scenes/MainMenuScene/LZMainMenu.h"
 #include "Based/LZGlobalVariable.h"
 #include "Based/LZUserData.h"
-#include "Scenes/MainMenuScene/LZMainMenu.h"
+#include "Based/LZGetMomentTime.h"
 
 using namespace cocos2d;
 using namespace cocos2d::ui;
@@ -82,5 +82,6 @@ private:
 	FileUtils* _files;                                // 文件单例 
 	string _language;                                 // 显示语言
 	UserData* _userData;
+	MomentTime* _nowtime;                             // 现在时间
 	std::unique_ptr<network::Downloader> _downloader;
 };

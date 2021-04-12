@@ -539,6 +539,9 @@
     <ClCompile Include="..\Classes\Scenes\GameScenes\TestingGround\SelectPlantsScene\LZTSPSRequirementLayer.cpp">
       <Filter>Class\Scenes\GameScenes\TestingGround\SelectPlantsScene</Filter>
     </ClCompile>
+    <ClCompile Include="..\Classes\Based\LZGetMomentTime.cpp">
+      <Filter>Class\Based</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="..\Classes\LZPlantsVsZombies.h">
@@ -987,6 +990,9 @@
     </ClInclude>
     <ClInclude Include="..\Classes\Scenes\GameScenes\TestingGround\SelectPlantsScene\LZTSPSRequirementLayer.h">
       <Filter>Class\Scenes\GameScenes\TestingGround\SelectPlantsScene</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Classes\Based\LZGetMomentTime.h">
+      <Filter>Class\Based</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>

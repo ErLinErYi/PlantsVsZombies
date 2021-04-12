@@ -9,12 +9,20 @@
 #include "Based/LZPlayMusic.h"
 
 unsigned int UnlockDialogLayer::unlockNeedNumbers = 10;
+int UnlockDialogLayer::_id = 0;
+
+UnlockDialogLayer* UnlockDialogLayer::createScene(int id)
+{
+	_id = id;
+	return UnlockDialogLayer::create();
+}
 
 UnlockDialogLayer::UnlockDialogLayer() :
 	_lockDialog(nullptr)
 {
 	unlockNeedNumbers = 10;
 }
+
 bool UnlockDialogLayer::init()
 {
 	if (!LayerColor::initWithColor(Color4B(0, 0, 0, 180)))return false;
@@ -60,13 +68,21 @@ void UnlockDialogLayer::createButtons()
 
 void UnlockDialogLayer::createText()
 {
-	auto str = _global->userInformation->getGameText().find("锤僵尸模式")->second;
+	LanguageTextAttribute* str;
+	if (_id == 0)
+	{
+		str = _global->userInformation->getGameText().find("锤僵尸模式")->second;
+	}
+	else
+	{
+		str = _global->userInformation->getGameText().find("植物试炼场解锁")->second;
+	}
 	auto information = Text::create(StringUtils::format(str->text.c_str(), unlockNeedNumbers), GAME_FONT_NAME_1, str->fontsize);
 	information->setColor(Color3B::RED);
 	information->setTextVerticalAlignment(TextVAlignment::CENTER);
 	information->setTextHorizontalAlignment(TextHAlignment::CENTER);
 	information->setTextAreaSize(Size(_lockDialog->getContentSize().width - 90, 70));
-	information->setPosition(Vec2(_lockDialog->getContentSize().width / 2.0f, _lockDialog->getContentSize().height / 2.0f + 10));
+	information->setPosition(Vec2(_lockDialog->getContentSize().width / 2.0f - 10, _lockDialog->getContentSize().height / 2.0f + 10));
 	_lockDialog->addChild(information);
 }
 

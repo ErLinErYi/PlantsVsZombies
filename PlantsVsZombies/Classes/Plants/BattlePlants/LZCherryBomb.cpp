@@ -87,8 +87,8 @@ bool CherryBomb::getPlantIsReadyExplode() const
 bool CherryBomb::getZombieIsInExplodeRange(Zombies* zombie)
 {
 	/* ½©Ê¬ÊÇ·ñÔÚ±¬Õ¨·¶Î§ÅÐ¶Ï */
-	return sqrt(pow(zombie->getZombieAnimation()->getPositionX() - _plantAnimation->getPositionX(), 2) +
-		pow((zombie->getZombieAnimation()->getPositionY() + 50) - (_plantAnimation->getPositionY() + 60), 2)) <= 210 ? true : false;
+	return fabs(zombie->getZombieAnimation()->getPositionX() - _plantAnimation->getPositionX()) < 200 &&
+		fabs((zombie->getZombieAnimation()->getPositionY() + 50) - (_plantAnimation->getPositionY() + 60)) < 200;
 }
 
 void CherryBomb::determineRelativePositionPlantsAndZombies()
@@ -123,10 +123,11 @@ void CherryBomb::explodeHurtZombies()
 		if (zombie->getZombieIsSurvive() && zombie->getZombieIsEnterMap() && getZombieIsInExplodeRange(zombie)) /* ½©Ê¬´æ»î && ½©Ê¬½øÈëµØÍ¼ && ½©Ê¬ÔÚ±¬Õ¨·¶Î§ÄÚ */
 		{
 			hurtZombies(zombie);
-			zombie->setZombieIsShowLoseLimbsAnimation(false);
-
+			zombie->setZombieHurtBlink();
+			
 			if (!zombie->getZombieIsSurvive())
 			{
+				zombie->setZombieIsShowLoseLimbsAnimation(false);
 				zombie->setZombieVisible(false);
 				zombie->playZombiesAshesAnimation();
 			}
