@@ -122,9 +122,6 @@ void UpdateClient::createButton(const std::string& name, Vec2& vec2, Update_Butt
 					Director::getInstance()->end();
 					break;
 				case Update_Button::确定:
-					/*const static string path = _global->userInformation->getGameText().find("存放路径")->second->text;
-					auto str = "start " + path;
-					system(str.c_str());*/
 					ShellExecute(NULL, L"open", stringToWstring(_fileName), NULL, NULL, SW_SHOWNORMAL);
 					Director::getInstance()->end();
 					break;

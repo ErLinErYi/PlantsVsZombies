@@ -59,7 +59,7 @@ void Coin::releaseCoin()
 void Coin::coinRecoveryAction(Coin* coin)
 {
     auto temporary = coin->getCoin();
-    auto actionMoveTo = EaseSineOut::create(MoveTo::create(0.5f, Vec2(1650, -40)));
+    auto actionMoveTo = EaseSineOut::create(MoveTo::create(0.5f, Vec2(1655, 38)));
     auto actionScaleFade = Spawn::create(ScaleTo::create(0.2f, 0.3f), FadeOut::create(0.2f), nullptr);
     auto actionCallFunc = CallFunc::create([=]()
         {
@@ -114,7 +114,7 @@ void Coin::coinInit()
     _coin->setPosition(_position);
     _coin->update(0);
     _node->addChild(_coin);
-    _coin->runAction(Spawn::create(FadeIn::create(0.5f), ScaleTo::create(0.5f, 0.3f),
+    _coin->runAction(Spawn::create(FadeIn::create(0.5f), ScaleTo::create(0.5f, 0.8f),
         JumpBy::create(0.5f, Vec2(150 - rand() % 300, 100 - rand() % 100), rand() % 100 + 200, 1),
         Sequence::create(DelayTime::create(0.25f), nullptr), nullptr));
     _coin->runAction(Sequence::create(DelayTime::create(15.f), CallFunc::create([=]() {_coin->setVisible(false); }), nullptr));

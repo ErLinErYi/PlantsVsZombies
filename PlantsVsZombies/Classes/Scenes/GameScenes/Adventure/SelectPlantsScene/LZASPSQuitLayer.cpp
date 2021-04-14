@@ -106,6 +106,7 @@ void SPSQuitLayer::createButton(const Vec2& vec2, const std::string name, PauseQ
 					this->removeFromParent();
 					break;
 				case PauseQuitLayer_Button::ÍË³öÓÎÏ·:
+					SPSSpriteLayer::setListenerMutexNumber();
 					popSceneAnimation();
 					break;
 				default:

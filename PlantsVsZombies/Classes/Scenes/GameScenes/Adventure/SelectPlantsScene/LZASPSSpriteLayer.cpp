@@ -323,6 +323,11 @@ void SPSSpriteLayer::resumeButtonHoverEffect()
 	if (!--_listenerMutex && _listener)_listener->setEnabled(true);
 }
 
+void SPSSpriteLayer::setListenerMutexNumber(int number)
+{
+	_listenerMutex = number;
+}
+
 void SPSSpriteLayer::showSelectedButtonHoverEffect(EventMouse* e)
 {
 	for (auto &card : seedBankButton)

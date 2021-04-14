@@ -100,8 +100,16 @@ bool WaterMelonBullet::getZombieInExplodeRange(Zombies* zombie, Zombies* exceptZ
 {
 	const auto a = zombie->getZombieAnimation()->getPositionX();
 	const auto b = exceptZombie->getZombieAnimation()->getPositionX();
-	const auto c = zombie->getZombieAnimation()->getPositionY();
-	const auto d = exceptZombie->getZombieAnimation()->getPositionY();
+	const auto c = zombie->getZombieInRow();
+	const auto d = exceptZombie->getZombieInRow();
 	
-	return (((a - b )< 138 && a > b) || ((b - a) < 70 && b>a)) && (fabs(c - d) < 200);
+	if (c == d)
+	{
+		if ((a > b && (a - b) < 180) || (b > a && (b - a) < 90))return true;
+	}
+	else if (fabs(c - d) <= 1)
+	{
+		if ((a > b && (a - b) < 125) || (b > a && (b - a) < 70))return true;
+	}
+	return false;
 }

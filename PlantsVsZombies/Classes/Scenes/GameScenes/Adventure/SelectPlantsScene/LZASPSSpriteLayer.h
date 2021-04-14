@@ -27,6 +27,7 @@ public:
 	static void createButtonHoverEffect(Button* button);
 	static void pauseButtonHoverEffect();
 	static void resumeButtonHoverEffect();
+	static void setListenerMutexNumber(int number = 0);
 	static void createPlantsText(const unsigned int& ID, const std::string& name, 
 		const Vec2& vec2, const float& fontsize, Color3B color = Color3B::WHITE, bool AnchorPoint = true);
 	static string selectRequirementText(map<string, LanguageTextAttribute*>& lta, PlantsType type, string str, string str1);

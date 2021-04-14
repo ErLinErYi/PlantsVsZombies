@@ -298,12 +298,12 @@ void GSGameEndLayer::coinAction(const Vec2& position, const int id, const bool b
 			informationLayerInformation->updateCoinNumbers();
 		});
 	
-	auto action = Spawn::create(FadeIn::create(0.5f), ScaleTo::create(0.5f, 0.3f), 
+	auto action = Spawn::create(FadeIn::create(0.5f), ScaleTo::create(0.5f, 0.8f), 
 		JumpBy::create(0.5f, Vec2(150 - rand() % 300, 100 - rand() % 100), rand() % 100 + 200, 1),
 		Sequence::create(DelayTime::create(0.25f), CallFunc::create([coin]() {coin->setLocalZOrder(3); }), nullptr), nullptr);
 	auto action1 = Spawn::create(ScaleTo::create(0.2f, 0.5f), FadeOut::create(0.2f), callFunc, nullptr);
 
-	coin->runAction(Sequence::create(DelayTime::create(id * 0.05f), action, DelayTime::create(0.05f), MoveTo::create(0.5f, Vec2(1650, -50)), action1, nullptr));
+	coin->runAction(Sequence::create(DelayTime::create(id * 0.05f), action, DelayTime::create(0.05f), MoveTo::create(0.5f, Vec2(1655, 38)), action1, nullptr));
 }
 
 void GSGameEndLayer::quitScene()

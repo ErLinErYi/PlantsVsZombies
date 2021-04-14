@@ -48,6 +48,7 @@ void TSPSQuitLayer::createButton(const Vec2& vec2, const std::string name, Pause
 					this->removeFromParent();
 					break;
 				case PauseQuitLayer_Button::ÍË³öÓÎÏ·:
+					SPSSpriteLayer::setListenerMutexNumber();
 					Director::getInstance()->replaceScene(TransitionFade::create(0.5f, MainMenu::create()));
 					break;
 				default:

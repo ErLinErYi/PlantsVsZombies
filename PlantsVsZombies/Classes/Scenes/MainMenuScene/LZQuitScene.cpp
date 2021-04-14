@@ -87,7 +87,20 @@ void QuitMenu::quitGame()
 	if (_global->prohibitId == -1)
 	{
 		PowerSetActiveScheme(nullptr, &scheme_default);
+#ifndef _DEBUG
+		COUNTPLAYERS
+		runAction(Sequence::create(
+			CallFunc::create([]() 
+				{
+					ShowWindow(Director::getInstance()->getOpenGLView()->getWin32Window(), SW_HIDE);
+	            }), DelayTime::create(6.f),
+			CallFunc::create([]() 
+				{
+					Director::getInstance()->end();
+				}), nullptr));
+#else
 		Director::getInstance()->end();
+#endif // !_DEBUG
 	}
 }
 

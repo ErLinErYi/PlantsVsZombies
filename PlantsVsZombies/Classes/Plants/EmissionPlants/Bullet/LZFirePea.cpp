@@ -113,7 +113,7 @@ void FirePea::createPeaExplode()
     peaExplode->setPosition(getBulletPosition());
     peaExplode->setAnimation(0, "FirePea_Explode", false);
     peaExplode->update(0);
-    peaExplode->setScale(1.4f);
+    peaExplode->setScale(0.7f);
     peaExplode->setLocalZOrder(_bulletAnimation->getLocalZOrder());
     _node->addChild(peaExplode);
 

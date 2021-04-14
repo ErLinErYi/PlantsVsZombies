@@ -116,14 +116,12 @@ void CitronBullet::bulletAndZombiesCollision()
 
 void CitronBullet::createExplode()
 {
-	GSBackgroundLayer::backgroundRunAction();
 	auto explode = SkeletonAnimation::createWithData(_global->userInformation->getAnimationData().find("CitronBulletExplode")->second);
-	explode->setPosition(getBulletPosition() + Vec2(0, 100));
+	explode->setPosition(getBulletPosition() - Vec2(0, 80));
 	explode->setAnimation(0, "animation", false);
 	explode->setScale(0.7f);
-	explode->setColor(Color3B(219, 255, 173));
 	explode->setLocalZOrder(_bulletAnimation->getLocalZOrder());
-	explode->runAction(Sequence::create(DelayTime::create(0.8f), CallFunc::create([explode]()
+	explode->runAction(Sequence::create(DelayTime::create(1.5f), CallFunc::create([explode]()
 		{
 			explode->removeFromParent();
 		}), nullptr));

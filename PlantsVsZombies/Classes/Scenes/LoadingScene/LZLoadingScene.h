@@ -21,7 +21,6 @@ class LoadingScene :public Scene
 {
 public:
 	CREATE_FUNC(LoadingScene); 
-	static Scene* createLaodingScene();
 	static void loadUserFileData();
 	static void caveUserFileData();
 
@@ -61,8 +60,7 @@ private:
 	void throwException();
 	void checkEdition();
 	void changeFiles();
-	void countPlayers();
-
+	
 private:
 	int _loadFileNumbers;                             // 文件加载数
 	int _allFileNumbers;                              // 文件总数(图片，音乐，动画，文本)

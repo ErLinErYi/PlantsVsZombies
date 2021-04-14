@@ -332,20 +332,8 @@ bool MainMenu::checkHammerZombiesIsUnLock()
 
 void MainMenu::createAnimation()
 {
-	/* 创建小精灵动画 */
-	auto iter = _global->userInformation->getAnimationData().find("powerup");
-	if (iter != _global->userInformation->getAnimationData().end())/* 如果可以找到 */
-	{
-		auto littlesprite = SkeletonAnimation::createWithData(iter->second);
-		littlesprite->setPosition(Vec2(600, 300));
-		littlesprite->setAnimation(0, "animation", true);
-		littlesprite->update(0);
-		littlesprite->setScale(0.5f);
-		this->addChild(littlesprite);
-	}
-
 	/* 创建叶子动画 */
-	iter = _global->userInformation->getAnimationData().find("SelectorScreen_Leaves");
+	auto iter = _global->userInformation->getAnimationData().find("SelectorScreen_Leaves");
 	if (iter != _global->userInformation->getAnimationData().end())
 	{
 		auto Leaves = SkeletonAnimation::createWithData(iter->second);
@@ -388,6 +376,17 @@ void MainMenu::createAnimation()
 		PeaShooter->setAnchorPoint(Vec2(0, 0));
 		PeaShooter->setScale(0.6f);
 		_sprite[1]->addChild(PeaShooter);
+	}
+
+	iter = _global->userInformation->getAnimationData().find("powerup");
+	if (iter != _global->userInformation->getAnimationData().end())/* 如果可以找到 */
+	{
+		auto littlesprite = SkeletonAnimation::createWithData(iter->second);
+		littlesprite->setPosition(Vec2(350, 0));
+		littlesprite->setAnimation(0, "animation", true);
+		littlesprite->setScale(1.2f);
+		littlesprite->update(0);
+		_sprite[3]->addChild(littlesprite);
 	}
 }
 

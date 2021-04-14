@@ -59,11 +59,11 @@ void GSPauseLayer::createDialog()
 
 void GSPauseLayer::showAniamtions()
 {
-    auto pauseAnimation = SkeletonAnimation::createWithData(_global->userInformation->getAnimationData().find("raptor")->second);
-    pauseAnimation->setAnimation(0, "walk", true);
-    pauseAnimation->setPosition(Vec2(_levelObjiectives->getContentSize().width / 2.f - 40, 50));
+    auto pauseAnimation = SkeletonAnimation::createWithData(_global->userInformation->getAnimationData().find("powerup")->second);
+    pauseAnimation->setAnimation(0, "animation", true);
+    pauseAnimation->setPosition(Vec2(_levelObjiectives->getContentSize().width / 2.f, 50));
     pauseAnimation->setGlobalZOrder(10);
-    pauseAnimation->setScale(0.2f);
+    pauseAnimation->setScale(0.6f);
     _levelObjiectives->addChild(pauseAnimation);
 }
 
