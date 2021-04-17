@@ -23,6 +23,7 @@ CC_CONSTRUCTOR_ACCESS:
 
 protected:
 	virtual void zombiesEventUpdate(float delta) override;
+	virtual void showCars() override;
 	virtual void judgeZombiesWin(list<Zombies*>::iterator& zombie);
 };
 

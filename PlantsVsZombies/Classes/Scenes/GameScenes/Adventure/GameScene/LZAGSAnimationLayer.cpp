@@ -121,6 +121,7 @@ Zombies* GSAnimationLayer::createDifferentZombies(ZombiesType zombiesType, Node*
 	case ZombiesType::BucketDoorFlagZombies:  zombies = new BucketDoorFlagZombies(node);  break;
 	case ZombiesType::SnowZombies:            zombies = new SnowZombies(node);            break;
 	case ZombiesType::GargantuarZombies:      zombies = new GargantuarZombies(node);      break;
+	case ZombiesType::BalloonZombies:         zombies = new BalloonZombies(node);         break;
 	default: break;
 	}
 	return zombies;
@@ -222,7 +223,7 @@ void GSAnimationLayer::showCars()
 					auto car = new Car(this);
 					car->setPosition(Vec2(455, 180 + 138 * i));
 					car->setInRow(i);
-					car->showCar();
+					car->showCar(CarType::ModernCar);
 
 					CarsGroup.push_back(car);
 				}), nullptr));

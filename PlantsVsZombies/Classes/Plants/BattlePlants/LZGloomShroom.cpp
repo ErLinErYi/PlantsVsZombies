@@ -93,8 +93,9 @@ void GloomShroom::determineRelativePositionPlantsAndZombies()
 
 void GloomShroom::plantAttack(Zombies* zombie)
 {
-	if (getPlantIsSurvive() && zombie->getZombieIsSurvive() &&                /* 植物存活 && 僵尸没有死亡  */
-		zombie->getZombieIsEnterMap() && getZombieIsInAttackRange(zombie))    /* 僵尸进入地图 && 僵尸在攻击范围内 */
+	if (getPlantIsSurvive() && zombie->getZombieIsSurvive() &&                  /* 植物存活 && 僵尸没有死亡  */
+		zombie->getZombieIsEnterMap() && getZombieIsInAttackRange(zombie) &&    /* 僵尸进入地图 && 僵尸在攻击范围内 */
+		zombie->getZombieIsCanBeAttack())                                       /* 僵尸是否可以被攻击到 */
 	{
 		_isHaveZombies = true;
 

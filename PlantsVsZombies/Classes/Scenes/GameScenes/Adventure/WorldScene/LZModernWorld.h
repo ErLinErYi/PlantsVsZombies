@@ -41,9 +41,9 @@ protected:
 	virtual void createGoBack();
 	virtual void createMouseListener();
 	virtual string getScrollViewPositionString();
-	void showLevels();
-	void createBackground();
-	void addScrollView(const int id);
+	virtual void createBackground();
+	virtual void addScrollView(const int id);
+	virtual void showLevels();
 	Sprite* createSprite(const std::string& name, const Vec2& position, const float& scale, const int& zorder, const float& speed, bool IsFlipped = false);
 	Sprite* createSprite(Node* node, const std::string& name, const Vec2& position, const float& scale, const int& zorder,bool IsFlipped = false);
 	void playProhibitMusic(Button* button);

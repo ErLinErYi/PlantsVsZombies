@@ -63,7 +63,7 @@ void BMAnimationLayer::showCars()
 					auto car = new Car(this);
 					car->setPosition(Vec2(1500, 310 + 136 * i));
 					car->setInRow(i);
-					car->showCar();
+					car->showCar(CarType::BigMapCar);
 
 					CarsGroup.push_back(car);
 				}), nullptr));
@@ -95,7 +95,7 @@ void BMAnimationLayer::createZombies()
 	zombies->setZombiePosition(Vec2(3890 + number(_random), ZombiesAppearControl::zombiesPositionBigMap[row]));
 	zombies->setZombieInRow(row);
 	zombies->createZombie();
-	zombies->setZombieMultipleBloodVolume(2.5f);
+	zombies->setZombieMultipleBloodVolume(1.5f);
 	ZombiesGroup.push_back(zombies);
 	Zombies::zombiesNumbersChange("++");
 }

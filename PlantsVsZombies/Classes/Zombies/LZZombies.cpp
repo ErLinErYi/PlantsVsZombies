@@ -442,6 +442,16 @@ int Zombies::getZombieInRow() const
 	return _zombieRow;
 }
 
+bool Zombies::getZombieIsEatPlants()
+{
+	return true;
+}
+
+bool Zombies::getZombieIsCanBeAttack()
+{
+	return true;
+}
+
 void Zombies::setZombieReserveKill(bool reserveKill)
 {
 	_isReserveKill = reserveKill;
@@ -811,7 +821,7 @@ void Zombies::setZombieHeadShieldThirdInjure(const string& oldName, const string
 	// 子类中实现
 }
 
-void Zombies::zombieLoseArmAnimation(const std::string& name)
+void Zombies::zombieLoseArmAnimation(const std::string& name, const float scale)
 {
 	if (_isShowLoseLimbsAnimation)/* 掉胳膊 */
 	{
@@ -820,6 +830,7 @@ void Zombies::zombieLoseArmAnimation(const std::string& name)
 		auto arm = Sprite::createWithSpriteFrameName(name +".png");
 		arm->setPosition(_zombiesAnimation->getPosition() + Vec2(-10, 100));
 		arm->setLocalZOrder(_zombiesAnimation->getLocalZOrder() + 1);
+		arm->setScale(scale);
 		arm->runAction(Sequence::create(Spawn::create(
 			Sequence::create(JumpBy::create(0.5f, Vec2(-80 + rand() % 160, -100), rand() % 80 + 66, 1), 
 				JumpBy::create(0.2f, Vec2(-20 + rand() % 40, 0), rand() % 10 + 10, 1), nullptr),
@@ -832,7 +843,7 @@ void Zombies::zombieLoseArmAnimation(const std::string& name)
 	}
 }
 
-void Zombies::zombieLoseHeadAnimation(const std::string& name)
+void Zombies::zombieLoseHeadAnimation(const std::string& name, const float scale)
 {
 	if (_isShowLoseLimbsAnimation)/* 僵尸掉头 */
 	{
@@ -841,7 +852,7 @@ void Zombies::zombieLoseHeadAnimation(const std::string& name)
 		auto head = Sprite::createWithSpriteFrameName(name + ".png");
 		head->setPosition(_zombiesAnimation->getPosition() + Vec2(-40, 150));
 		head->setLocalZOrder(_zombiesAnimation->getLocalZOrder() + 1);
-		head->setScale(1.5f);
+		head->setScale(scale);
 		head->runAction(Sequence::create(Spawn::create(
 			Sequence::create(JumpBy::create(0.5f, Vec2(-150 + rand() % 300, -120), rand() % 100 + 66, 1), 
 				JumpBy::create(0.2f, Vec2(-20 + rand() % 40, 0), rand() % 10 + 10, 1), nullptr),
@@ -854,7 +865,7 @@ void Zombies::zombieLoseHeadAnimation(const std::string& name)
 	}
 }
 
-void Zombies::zombieLoseShieldAnimation(const std::string& name)
+void Zombies::zombieLoseShieldAnimation(const std::string& name, const float scale)
 {
 	if (_isShowLoseShieldAnimation)/* 僵尸掉护盾 */
 	{
@@ -863,7 +874,7 @@ void Zombies::zombieLoseShieldAnimation(const std::string& name)
 		auto cone = Sprite::createWithSpriteFrameName(name + ".png");
 		cone->setPosition(_zombiesAnimation->getPosition() + Vec2(-40, 200));
 		cone->setLocalZOrder(_zombiesAnimation->getLocalZOrder() + 1);
-		cone->setScale(1.5f);
+		cone->setScale(scale);
 		cone->runAction(Sequence::create(Spawn::create(
 			Sequence::create(JumpBy::create(0.5f, Vec2(-150 + rand() % 300, -170), rand() % 100 + 66, 1),
 				JumpBy::create(0.2f, Vec2(-20 + rand() % 40, 0), rand() % 10 + 10, 1), nullptr),

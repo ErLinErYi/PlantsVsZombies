@@ -123,8 +123,8 @@ void SelectWorldScene::createSelectDifficulty()
 				text->setString(_global->userInformation->getGameText().find("¼òµ¥Ä£Ê½")->second->text);
 				break;
 			}
-			_global->userInformation->getUserSelectWorldData().at(
-				_global->userInformation->getIsMirrorScene() ? 1 : 0)->isReadWoldInformation = false;
+			_global->userInformation->getUserSelectWorldData().at(0)->isReadWoldInformation = false;
+			_global->userInformation->getUserSelectWorldData().at(1)->isReadWoldInformation = false;
 			UserData::getInstance()->caveUserData("DIFFICULTY", _global->userInformation->getGameDifficulty());
 		});
 }

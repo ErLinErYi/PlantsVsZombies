@@ -16,7 +16,7 @@ public:
 	virtual void createPreviewZombie() override;
 	virtual void playZombieSoundEffect() override;
 	virtual void playZombiesAshesAnimation() override;
-	virtual void zombieLoseHeadAnimation(const std::string& name) override;
+	virtual void zombieLoseHeadAnimation(const std::string& name, const float scale = 1.5f) override;
 	virtual void playZombiesFillDownAnimation() override;
 
 CC_CONSTRUCTOR_ACCESS:

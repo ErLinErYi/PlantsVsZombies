@@ -32,6 +32,7 @@ protected:
     virtual void readBulletAnimationInformation(rapidjson::Document* levelDataDocument, char* key, int i) override;
     virtual void calculateBulletPosition();
     virtual void seekZombie();
+    virtual void selectShortDistance(Zombies* zombie);
     virtual float calculateBulletAndZombie(Zombies* zombie);
     virtual float calculateAngle(Vec2 vec2);
     virtual RatateDirtection calculateDirection(Vec2 vec2);

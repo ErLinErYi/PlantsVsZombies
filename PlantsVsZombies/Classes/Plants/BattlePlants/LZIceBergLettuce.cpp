@@ -111,8 +111,8 @@ void IceBergLettuce::determineRelativePositionPlantsAndZombies()
 
 void IceBergLettuce::plantExplode(Zombies* zombie)
 {
-	if (getPlantIsSurvive() && zombie->getZombieIsSurvive() &&                     /* 植物存活 && 僵尸存活 */
-		getZombieIsSameLineWithPlant(zombie) && getZombieIsEncounterPlant(zombie)) /* 植物与僵尸在同一行 && 僵尸遇到植物 */
+	if (getPlantIsSurvive() && zombie->getZombieIsSurvive() && zombie->getZombieIsCanBeAttack() &&         /* 植物存活 && 僵尸存活 && 僵尸可以被攻击到 */
+		getZombieIsSameLineWithPlant(zombie) && getZombieIsEncounterPlant(zombie))                         /* 植物与僵尸在同一行 && 僵尸遇到植物 */
 	{
 		if (!_isHaveZombies)
 		{

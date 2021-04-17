@@ -114,7 +114,7 @@ void GargantuarZombies::playZombiesAshesAnimation()
 		}), nullptr));
 }
 
-void GargantuarZombies::zombieLoseHeadAnimation(const std::string& name)
+void GargantuarZombies::zombieLoseHeadAnimation(const std::string& name, const float/*scale*/)
 {
 	if (_isShowLoseLimbsAnimation)/* ½©Ê¬µôÍ· */
 	{

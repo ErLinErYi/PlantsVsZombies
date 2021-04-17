@@ -68,6 +68,11 @@ void SnowZombies::playZombieSoundEffect()
 	Zombies::playZombieSoundEffect(rand() % 2 ? "groan4" : "sukhbir5");
 }
 
+bool SnowZombies::getZombieIsEatPlants()
+{
+	return false;
+}
+
 void SnowZombies::zombieInjuredEventUpdate()
 {
 	if (_currentBloodVolume <= _bloodVolume / 4.0f)  /* 僵尸血量小于一定值，僵尸掉胳膊 */

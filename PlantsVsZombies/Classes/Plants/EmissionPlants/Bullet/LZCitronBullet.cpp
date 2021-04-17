@@ -67,9 +67,9 @@ void CitronBullet::bulletAndZombiesCollision()
 {
 	for (auto zombie : ZombiesGroup)
 	{
-		if (!_isUsed && getBulletIsSameLineWithZombie(zombie) &&             /* 没有被使用 && 僵尸在同一行 */
-			zombie->getZombieIsSurvive() && zombie->getZombieIsEnterMap() && /* 僵尸没有死亡 && 僵尸进入地图内 */
-			getBulletIsEncounterWithZombie(zombie))                          /* 与僵尸碰撞 */
+		if (!_isUsed && getBulletIsSameLineWithZombie(zombie) &&                          /* 没有被使用 && 僵尸在同一行 */
+			zombie->getZombieIsSurvive() && zombie->getZombieIsEnterMap() &&              /* 僵尸没有死亡 && 僵尸进入地图内 */
+			getBulletIsEncounterWithZombie(zombie) && zombie->getZombieIsCanBeAttack())   /* 与僵尸碰撞 && 僵尸可以被攻击到 */
 		{
 			if (_animationId)
 			{

@@ -72,7 +72,8 @@ void Garlic::determineRelativePositionPlantsAndZombies()
 
 void Garlic::zombieEatPlant(Zombies* zombie)
 {
-	if (getPlantIsSurvive() && getZombieIsSameLineWithPlant(zombie) && Plants::getZombieIsEncounterPlant(zombie)) /* 植物存活 && 植物与僵尸在同一行 && 僵尸遇到植物 */
+	if (getPlantIsSurvive() && getZombieIsSameLineWithPlant(zombie) &&                  /* 植物存活 && 植物与僵尸在同一行 */
+		Plants::getZombieIsEncounterPlant(zombie) && zombie->getZombieIsCanBeAttack())  /* 僵尸遇到植物 && 僵尸可以被攻击到 */
 	{
 		if (zombie->getZombieIsSurvive() && !zombie->getZombieIsEat() && zombie->getZombieIsFrozen() != 2)
 		{

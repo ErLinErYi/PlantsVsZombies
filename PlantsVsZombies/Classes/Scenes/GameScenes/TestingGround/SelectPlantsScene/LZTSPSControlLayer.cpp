@@ -53,7 +53,7 @@ void TSPSControlLayer::showUserName()
 	auto username = Text::create();
 	username->setString("“" + _global->userInformation->getUserName() + "”" + _global->userInformation->getGameText().find("植物试炼场")->second->text);
 	username->setFontName(GAME_FONT_NAME_1);
-	username->setFontSize(_global->userInformation->getGameText().find("噩梦模式")->second->fontsize);
+	username->setFontSize(_global->userInformation->getGameText().find("的时空冒险之旅")->second->fontsize);
 	username->setColor(Color3B::YELLOW);
 	username->setName("username");
 	username->enableGlow(Color4B::ORANGE);

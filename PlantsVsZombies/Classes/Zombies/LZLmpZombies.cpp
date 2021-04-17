@@ -46,7 +46,6 @@ void LmpZombies::createZombie()
 	createZombieShadow();
 
 	_zombiesAnimation->setScale(0.8f);
-
 }
 
 void LmpZombies::createPreviewZombie()

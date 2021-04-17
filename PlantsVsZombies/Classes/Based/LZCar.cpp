@@ -14,6 +14,7 @@ Car::Car(Node* node) :
 	_carState(1),
 	_scale(0),
 	_node(node),
+	_carType(CarType::null),
 	_global(Global::getInstance())
 {
 }
@@ -34,9 +35,20 @@ Car* Car::create(Node* node)
 	return nullptr;
 }
 
-void Car::showCar()
+void Car::showCar(CarType type)
 {
-	_carImage= Sprite::createWithSpriteFrameName("Car.png");
+	string name;
+	_carType = type;
+	switch (_carType)
+	{
+	case CarType::ModernCar:   name = "Car.png";         break;
+	case CarType::BigMapCar:   name = "BigMapCar.png";   break;
+	case CarType::FutureCar:   name = "FutureCar.png";   break;
+	case CarType::WildWestCar: name = "WildWestCar.png"; break;
+	default:                   name = "Car.png";         break;
+	}
+
+	_carImage = Sprite::createWithSpriteFrameName(name);
 	_carImage->setPosition(_position);
 	_carImage->setLocalZOrder(getZOrder());
 	_carImage->setScale(_scale);
@@ -97,6 +109,11 @@ int Car::getCarTag() const
 Sprite* Car::getCar()
 {
 	return _carImage;
+}
+
+CarType Car::getCarType()
+{
+	return _carType;
 }
 
 void Car::createCarListener()

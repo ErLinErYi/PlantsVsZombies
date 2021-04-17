@@ -41,9 +41,9 @@ void AcidLemonBullet::bulletAndZombiesCollision()
 {
 	for (auto zombie : ZombiesGroup)
 	{
-		if (!_isUsed && getBulletIsSameLineWithZombie(zombie) &&             /* 没有被使用 && 柠檬酸与僵尸在同一行 */
-			zombie->getZombieIsSurvive() && zombie->getZombieIsEnterMap() && /* 僵尸没有死亡 && 僵尸进入地图内 */
-			getBulletIsEncounterWithZombie(zombie))                          /* 柠檬酸与僵尸碰撞 */
+		if (!_isUsed && getBulletIsSameLineWithZombie(zombie) &&                         /* 没有被使用 && 柠檬酸与僵尸在同一行 */
+			zombie->getZombieIsSurvive() && zombie->getZombieIsEnterMap() &&             /* 僵尸没有死亡 && 僵尸进入地图内 */
+			getBulletIsEncounterWithZombie(zombie) && zombie->getZombieIsCanBeAttack())  /* 柠檬酸与僵尸碰撞 && 僵尸可以被攻击到*/
 		{
 			selectSoundEffect(zombie->getZombieBodyAttackSoundEffect(), zombie->getZombieHeadAttackSoundEffect());  /* 播放指定音乐 */
 

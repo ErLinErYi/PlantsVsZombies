@@ -542,6 +542,9 @@
     <ClCompile Include="..\Classes\Based\LZGetMomentTime.cpp">
       <Filter>Class\Based</Filter>
     </ClCompile>
+    <ClCompile Include="..\Classes\Zombies\LZBalloonZombies.cpp">
+      <Filter>Class\Zombies</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="..\Classes\LZPlantsVsZombies.h">
@@ -993,6 +996,9 @@
     </ClInclude>
     <ClInclude Include="..\Classes\Based\LZGetMomentTime.h">
       <Filter>Class\Based</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Classes\Zombies\LZBalloonZombies.h">
+      <Filter>Class\Zombies</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>

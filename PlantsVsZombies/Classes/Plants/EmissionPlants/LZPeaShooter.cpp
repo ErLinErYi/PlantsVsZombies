@@ -81,7 +81,8 @@ void PeaShooter::determineRelativePositionPlantsAndZombies()
 void PeaShooter::plantAttack(Zombies* zombie)
 {
 	if (getPlantIsSurvive() && zombie->getZombieIsSurvive() && zombie->getZombieIsEnterMap() &&     /* 植物存活 && 僵尸没有死亡 && 僵尸进入地图 */
-		getZombieIsTheFrontOfPlant(zombie) && getZombieIsSameLineWithPlant(zombie))                 /* 僵尸与植物在同一行 && 僵尸在植物的前方 */
+		getZombieIsTheFrontOfPlant(zombie) && getZombieIsSameLineWithPlant(zombie) &&               /* 僵尸与植物在同一行 && 僵尸在植物的前方 */
+		zombie->getZombieIsCanBeAttack())                                                           /* 僵尸是否可以被攻击到 */
 	{
 		plantEmission("PeaShooter_Shoot");
 	}

@@ -1,34 +1,29 @@
 /**
  *Copyright (c) 2020 LZ.All Right Reserved
  *Author : LZ
- *Date: 2020.4.23
+ *Date: 2021.4.16
  *Email: 2117610943@qq.com
  */
 
 #pragma once
-#include "cocos2d.h"
 #include "LZZombies.h"
 
-using namespace cocos2d;
-
-class SnowZombies :public Zombies
+class BalloonZombies :public Zombies
 {
 public:
-    static SnowZombies* create(Node* node = nullptr);
+    static BalloonZombies* create(Node* node = nullptr);
     virtual void createZombie() override;
     virtual void createPreviewZombie() override;
     virtual void playZombieSoundEffect() override;
+    virtual void playZombiesAshesAnimation() override;
     virtual bool getZombieIsEatPlants() override;
+    virtual bool getZombieIsCanBeAttack() override;
 
 CC_CONSTRUCTOR_ACCESS:
-    SnowZombies(Node* node = nullptr);
+    BalloonZombies(Node* node = nullptr);
 
 private:
     void zombieInjuredEventUpdate() override;
     void setZombiePrimaryInjure() override;
     void setZombieSecondaryInjure() override;
-
-private:
-    default_random_engine _random;
-    random_device _device;
 };

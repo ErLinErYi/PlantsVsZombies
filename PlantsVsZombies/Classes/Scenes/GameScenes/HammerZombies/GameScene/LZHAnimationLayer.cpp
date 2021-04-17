@@ -10,6 +10,8 @@
 #include "Scenes/GameScenes/Adventure/GameScene/LZAGSZombiesAppearControl.h"
 #include "Scenes/GameScenes/Adventure/GameScene/LZAGSData.h"
 #include "Based/LZUserData.h"
+#include "Based/LZCar.h"
+#include "Based/LZPlayMusic.h"
 #include "Zombies/LZZombies.h"
 
 HAnimationLayer::HAnimationLayer()
@@ -46,6 +48,27 @@ void HAnimationLayer::zombiesEventUpdate(float delta)
 		(*zombie)->zombieInjuredEventUpdate();
 		(*zombie)->playZombieSoundEffect();
 		Zombies::zombiesDeleteUpdate(zombie);
+	}
+}
+
+void HAnimationLayer::showCars()
+{
+	if (!_global->userInformation->getIsReadFileData())
+	{
+		for (int i = 0; i < 5; ++i)
+		{
+			this->runAction(Sequence::create(DelayTime::create(0.5f + 0.1 * i), CallFunc::create([=]()
+				{
+					PlayMusic::playMusic("plastichit2");
+
+					auto car = new Car(this);
+					car->setPosition(Vec2(455, 180 + 138 * i));
+					car->setInRow(i);
+					car->showCar(CarType::FutureCar);
+
+					CarsGroup.push_back(car);
+				}), nullptr));
+		}
 	}
 }
 

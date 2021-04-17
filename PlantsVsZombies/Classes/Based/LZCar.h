@@ -7,13 +7,21 @@ using namespace spine;
 using namespace cocos2d;
 
 class Zombies;
+enum class CarType
+{
+	null,
+	ModernCar,
+	BigMapCar,
+	FutureCar,
+	WildWestCar
+};
 
 class Car:public Node
 {
 public:
 	static Car* create(Node* node = nullptr);
 	static void deleteCar(list<Car*>::iterator& car);
-	void showCar();
+	void showCar(CarType type);
 	void setPosition(const Vec2& position);
 	void setCarTag(const int tag);
 	void setParent(Node* node);
@@ -24,6 +32,7 @@ public:
 	bool getLive() const;
 	int getCarTag() const;
 	Sprite* getCar();
+	CarType getCarType();
 	void createCarListener();
 	void carStartUp();
 	
@@ -47,5 +56,6 @@ private:
 	int _carState;        // 小车状态
 	float _scale;         // 大小
 	Node* _node;          // 父节点
+	CarType _carType;     // 小车类型
 	Global* _global;
 };

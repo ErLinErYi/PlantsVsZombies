@@ -79,8 +79,9 @@ void StarFruit::determineRelativePositionPlantsAndZombies()
 
 void StarFruit::plantAttack(Zombies* zombie)
 {
-	if (getPlantIsSurvive() && zombie->getZombieIsSurvive() &&                 /* 植物存活 && 僵尸没有死亡 */
-		zombie->getZombieIsEnterMap() && zombieInPlantAttackRange(zombie))     /* 僵尸进入地图 && 僵尸在攻击范围内 */
+	if (getPlantIsSurvive() && zombie->getZombieIsSurvive() &&                   /* 植物存活 && 僵尸没有死亡 */
+		zombie->getZombieIsEnterMap() && zombieInPlantAttackRange(zombie) &&     /* 僵尸进入地图 && 僵尸在攻击范围内 */
+		zombie->getZombieIsCanBeAttack())                                        /* 僵尸可以被攻击到 */
 	{
 		plantEmission("StarFruit_Attack");
 	}

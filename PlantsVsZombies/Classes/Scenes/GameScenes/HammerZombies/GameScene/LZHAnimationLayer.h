@@ -22,4 +22,5 @@ CC_CONSTRUCTOR_ACCESS:
 protected:
 	virtual void gameMainLoop(float delta) override;
 	virtual void zombiesEventUpdate(float delta) override;
+	virtual void showCars() override;
 };

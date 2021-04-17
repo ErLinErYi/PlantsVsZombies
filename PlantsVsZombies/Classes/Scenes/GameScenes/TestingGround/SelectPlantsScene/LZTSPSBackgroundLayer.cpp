@@ -42,7 +42,7 @@ void TSPSBackgroundLayer::showPreviewZombies()
 	uniform_int_distribution<unsigned>n1(0, 550);
 	uniform_int_distribution<unsigned>n2(0, 650);
 	
-	for (unsigned int i = 0; i < 15; ++i)
+	for (unsigned int i = 0; i < 16; ++i)
 	{
 		int k;
 		_previewZombies.size() < 20 ? k = n(_random) + 1 : k = 1;

@@ -26,4 +26,7 @@ protected:
     virtual void setLevelVisible(Node* node) override;
     virtual void createGoBack() override;
     virtual void createMouseListener() override;
+    virtual void createBackground() override;
+    virtual void addScrollView(const int id) override;
+    virtual void showLevels() override;
 };

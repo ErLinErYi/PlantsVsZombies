@@ -78,8 +78,9 @@ void FirePeaShooter::determineRelativePositionPlantsAndZombies()
 
 void FirePeaShooter::plantAttack(Zombies* zombie)
 {
-	if (getPlantIsSurvive() && zombie->getZombieIsSurvive() && zombie->getZombieIsEnterMap() &&     /* 植物存活 && 僵尸没有死亡 && 僵尸进入地图 */
-		getZombieIsTheFrontOfPlant(zombie) && getZombieIsSameLineWithPlant(zombie))                 /* 僵尸与植物在同一行 && 僵尸在植物的前方 */
+	if (getPlantIsSurvive() && zombie->getZombieIsSurvive() && zombie->getZombieIsEnterMap() &&       /* 植物存活 && 僵尸没有死亡 && 僵尸进入地图 */
+		getZombieIsTheFrontOfPlant(zombie) && getZombieIsSameLineWithPlant(zombie) &&                 /* 僵尸与植物在同一行 && 僵尸在植物的前方 */
+		zombie->getZombieIsCanBeAttack())                                                             /* 僵尸可以被攻击到 */
 	{
 		plantEmission("FirePeaShooter_Shoot");
 	}

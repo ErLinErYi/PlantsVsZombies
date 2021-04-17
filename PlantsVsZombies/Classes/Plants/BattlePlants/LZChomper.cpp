@@ -124,10 +124,11 @@ void Chomper::determineRelativePositionPlantsAndZombies()
 void Chomper::plantAttack(Zombies* zombie)
 {
 	if (getPlantIsSurvive() && zombie->getZombieIsSurvive() && zombie->getZombieIsEnterMap() &&  /* 植物存活 && 僵尸存活 && 僵尸进入地图 */
-		getZombieIsSameLineWithPlant(zombie) && getZombieIsEncounterPlant(zombie))               /* 植物与僵尸在同一行 && 僵尸到植物攻击范围 */
+		getZombieIsSameLineWithPlant(zombie) && getZombieIsEncounterPlant(zombie) &&             /* 植物与僵尸在同一行 && 僵尸到植物攻击范围 */
+		zombie->getZombieIsCanBeAttack())                                                        /* 僵尸是否可以被攻击到 */
 	{
 		if (_isCanEat) /* 当大嘴花可以吃僵尸 */
-		{ 
+		{
 			_isCanEat = false;
 			_attackZombie = zombie;
 

@@ -311,6 +311,7 @@ xcopy "$(ProjectDir)..\Resources" "$(OutDir)" /D /E /I /F /Y
     <ClCompile Include="..\Classes\Scenes\MainMenuScene\LZUpdateClient.cpp" />
     <ClCompile Include="..\Classes\Scenes\SelectWorldScene\LZSelectWorldScene.cpp" />
     <ClCompile Include="..\Classes\Scenes\SelectWorldScene\LZSWSUnlockDialogLayer.cpp" />
+    <ClCompile Include="..\Classes\Zombies\LZBalloonZombies.cpp" />
     <ClCompile Include="..\Classes\Zombies\LZGargantuarZombies.cpp" />
     <ClCompile Include="..\Classes\Zombies\LZBucketDoorFlagZombies.cpp" />
     <ClCompile Include="..\Classes\Zombies\LZBucketDoorZombies.cpp" />
@@ -462,6 +463,7 @@ xcopy "$(ProjectDir)..\Resources" "$(OutDir)" /D /E /I /F /Y
     <ClInclude Include="..\Classes\Scenes\MainMenuScene\LZUpdateClient.h" />
     <ClInclude Include="..\Classes\Scenes\SelectWorldScene\LZSelectWorldScene.h" />
     <ClInclude Include="..\Classes\Scenes\SelectWorldScene\LZSWSUnlockDialogLayer.h" />
+    <ClInclude Include="..\Classes\Zombies\LZBalloonZombies.h" />
     <ClInclude Include="..\Classes\Zombies\LZGargantuarZombies.h" />
     <ClInclude Include="..\Classes\Zombies\LZBucketDoorFlagZombies.h" />
     <ClInclude Include="..\Classes\Zombies\LZBucketDoorZombies.h" />

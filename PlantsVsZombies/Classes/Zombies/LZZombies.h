@@ -41,7 +41,8 @@ enum class ZombiesType
 	ConeDoorFlagZombies,
 	BucketDoorFlagZombies,
 	SnowZombies,
-	GargantuarZombies
+	GargantuarZombies,
+	BalloonZombies
 };
 
 enum class ShieldType
@@ -312,6 +313,16 @@ public:
 	virtual int getZombieInRow() const;
 
 	/**
+	 * 获取僵尸是否吃植物 
+	 */
+	virtual bool getZombieIsEatPlants();
+
+	/**
+	 * 获取僵尸是否可以被攻击 
+	 */
+	virtual bool getZombieIsCanBeAttack();
+
+	/**
 	 *设置僵尸已被某一植物预订杀死
 	 */
 	virtual void setZombieReserveKill(bool reserveKill);
@@ -535,17 +546,17 @@ protected:
 	/**
 	 *僵尸掉胳膊动画
 	 */
-	virtual void zombieLoseArmAnimation(const std::string& name);
+	virtual void zombieLoseArmAnimation(const std::string& name, const float scale = 1.f);
 
 	/**
 	 *僵尸掉头动画
 	 */
-	virtual void zombieLoseHeadAnimation(const std::string& name);
+	virtual void zombieLoseHeadAnimation(const std::string& name, const float scale = 1.5f);
 
 	/**
 	 *僵尸掉护盾动画
 	 */
-	virtual void zombieLoseShieldAnimation(const std::string& name);
+	virtual void zombieLoseShieldAnimation(const std::string& name, const float scale = 1.5f);
 
 	/**
 	 *僵尸消失动画

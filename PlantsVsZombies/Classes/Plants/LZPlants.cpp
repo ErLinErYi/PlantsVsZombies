@@ -296,9 +296,8 @@ bool Plants::getZombieIsEncounterPlant(Zombies* zombie)
 
 void Plants::zombieEatPlant(Zombies* zombie)
 {
-	if (getPlantIsSurvive() && Plants::getZombieIsSameLineWithPlant(zombie) &&   /* 植物存活 && 植物与僵尸在同一行 */
-		Plants::getZombieIsEncounterPlant(zombie)&&                              /* 僵尸遇到植物 */
-		zombie->getZombieType() != ZombiesType::SnowZombies)                     /* 僵尸不是雪人僵尸 */
+	if (getPlantIsSurvive() && Plants::getZombieIsSameLineWithPlant(zombie) &&       /* 植物存活 && 植物与僵尸在同一行 */
+		Plants::getZombieIsEncounterPlant(zombie)&& zombie->getZombieIsEatPlants())  /* 僵尸遇到植物 && 僵尸是吃植物的僵尸 */
 	{
 		if (zombie->getZombieIsSurvive() && !zombie->getZombieIsEat() && zombie->getZombieIsFrozen() != 2)
 		{

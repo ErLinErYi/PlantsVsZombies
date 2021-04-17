@@ -86,7 +86,7 @@ void StarFruitBullet::bulletAndZombiesCollision()
 	for (auto zombie : ZombiesGroup)
 	{
 		if (!_isUsed && zombie->getZombieIsSurvive() && zombie->getZombieIsEnterMap() &&      /* 没有被使用 && 僵尸没有死亡 && 僵尸进入地图内 */
-			getBulletIsEncounterWithZombie(zombie))                                           /* 子弹与僵尸碰撞 */
+			getBulletIsEncounterWithZombie(zombie) && zombie->getZombieIsCanBeAttack())       /* 与僵尸碰撞 && 僵尸可以被攻击到 */
 		{
 			selectSoundEffect(
 				zombie->getZombieBodyAttackSoundEffect(),

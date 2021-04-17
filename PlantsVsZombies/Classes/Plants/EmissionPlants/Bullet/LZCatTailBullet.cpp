@@ -152,23 +152,47 @@ void CatTailBullet::calculateBulletPosition()
 
 bool CatTailBullet::getBulletIsEncounterWithZombie(Zombies* zombie)
 {
-    const auto& rect = zombie->getZombieAnimation()->getBoundingBox();
-    return _bulletAnimation->getBoundingBox().intersectsRect(Rect(rect.origin.x + 60, rect.origin.y + 110, 90, 30));
+    /*const auto& rect = zombie->getZombieAnimation()->getBoundingBox();
+    return _bulletAnimation->getBoundingBox().intersectsRect(Rect(rect.origin.x + 60, rect.origin.y + 110, 90, 30));*/
+    return _bulletAnimation->getBoundingBox().intersectsRect(zombie->getZombieAnimation()->getBoundingBox());
 }
 
 void CatTailBullet::seekZombie()
 {
-    for (auto zombie : ZombiesGroup)
+    bool balloonZombiesFlag = false;
+    for (auto& zombie : ZombiesGroup)
     {
         if (!_isUsed && zombie->getZombieIsSurvive() && zombie->getZombieIsEnterMap())
         {
-            const auto distance = calculateBulletAndZombie(zombie);
-            if (distance < _distance)
+            if (zombie->getZombieType() == ZombiesType::BalloonZombies) /* 如果是气球僵尸 */
             {
-                _distance = distance;
-                _targetZombie = zombie;
+                if (!balloonZombiesFlag)  /* 第一次进入需要把之前锁定的僵尸取消 */
+                {
+                    balloonZombiesFlag = true;
+                    _distance = 0xffff;
+                    _targetZombie = nullptr;
+                }
+
+                selectShortDistance(zombie);
+            }
+            else
+            {
+                if (!balloonZombiesFlag)
+                {
+                    selectShortDistance(zombie);
+                }
             }
         }
+    }
+}
+
+void CatTailBullet::selectShortDistance(Zombies* zombie)
+{
+    const auto distance = calculateBulletAndZombie(zombie);
+    if (distance < _distance)
+    {
+        _distance = distance;
+        _targetZombie = zombie;
     }
 }
 
@@ -217,7 +241,7 @@ void CatTailBullet::createBulletExplode(Zombies* zombie)
    
     auto explode= SkeletonAnimation::createWithData(_global->userInformation->getAnimationData().find("CatTailBullet")->second);
 	explode->setAnimation(0, "CatTailBullet_Explode", false);
-    explode->setPosition(zombie->getZombieAnimation()->getPosition() + Vec2(0, 80));
+    explode->setPosition(_bulletAnimation->getPosition() + Vec2(_speed.x * 10, _speed.y * 10));
 	explode->setLocalZOrder(zombie->getZombieAnimation()->getLocalZOrder() + 1);
     explode->setScale(1.f + rand() % 5 / 10.f);
     explode->update(0);

@@ -12,6 +12,8 @@
 #include "Scenes/GameScenes/Adventure/GameScene/LZAGSControlLayer.h"
 #include "Scenes/GameScenes/Adventure/GameScene/LZAGSZombiesAppearControl.h"
 #include "Scenes/GameScenes/Adventure/GameScene/LZAGSPauseQuitLayer.h"
+#include "Based/LZCar.h"
+#include "Based/LZPlayMusic.h"
 #include "Zombies/LZZombies.h"
 
 TGAnimationLayer::TGAnimationLayer(Node* node)
@@ -59,11 +61,32 @@ void TGAnimationLayer::zombiesEventUpdate(float delta)
 	}
 }
 
+void TGAnimationLayer::showCars()
+{
+	if (!_global->userInformation->getIsReadFileData())
+	{
+		for (int i = 0; i < 5; ++i)
+		{
+			this->runAction(Sequence::create(DelayTime::create(0.5f + 0.1 * i), CallFunc::create([=]()
+				{
+					PlayMusic::playMusic("plastichit2");
+
+					auto car = new Car(this);
+					car->setPosition(Vec2(455, 180 + 138 * i));
+					car->setInRow(i);
+					car->showCar(CarType::WildWestCar);
+
+					CarsGroup.push_back(car);
+				}), nullptr));
+		}
+	}
+}
+
 void TGAnimationLayer::createZombies(const unsigned typeNumber)
 {
 	unsigned type = 1;
 	if (typeNumber < 1)type = 1;
-	else if (typeNumber > 15)type = 15;
+	else if (typeNumber > 16)type = 16;
 	else type = typeNumber;
 
 	const uniform_int_distribution<unsigned>number(0, 500);
