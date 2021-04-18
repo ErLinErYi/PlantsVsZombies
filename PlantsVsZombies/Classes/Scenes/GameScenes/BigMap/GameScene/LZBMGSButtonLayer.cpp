@@ -10,7 +10,10 @@
 #include "LZBigMapGameScene.h"
 #include "Scenes/GameScenes/Adventure/GameScene/LZAGSPauseLayer.h"
 #include "Scenes/GameScenes/Adventure/GameScene/LZAGSPauseQuitLayer.h"
+#include "Scenes/GameScenes/Adventure/GameScene/LZAGSData.h"
+#include "Plants/DefensePlants/LZSunFlower.h"
 #include "Based/LZPlayMusic.h"
+#include "Based/LZCoin.h"
 
 BMButtonLayer::BMButtonLayer() :
 	_offset(Vec2::ZERO)
@@ -27,8 +30,11 @@ bool BMButtonLayer::init()
 
 	showSeedBank();
 	showShovelBank();
+	showNextWaveButton();
 	createPlantsCard();
 	createRequirementButton();
+	createButton("RecoverySun", "RecoverySun2", Vec2(550, 1025), GSLayerButton::recoverySunButton);
+	createButton("RecoveryCoin", "RecoveryCoin2", Vec2(650, 1025), GSLayerButton::recoveryCoinButton);
 	createButton("StopButton", "StopButtonDown", Vec2(1870, 1030), GSLayerButton::stopButton);
 	_accelerateButton = createButton("SpeedButton", "SpeedButtonDown", Vec2(1770, 1030), GSLayerButton::accelerateButton);
 	_decelerateButton = createButton("SpeedButton", "SpeedButtonDown", Vec2(1670, 1030), GSLayerButton::decelerateButton, true);
@@ -140,7 +146,33 @@ void BMButtonLayer::createRequirementButton()
 void BMButtonLayer::showShovelBank()
 {
 	GSButtonLayer::showShovelBank();
-	this->getChildByName("ShovelBank")->setPosition(Vec2(1520, 1080));
+	this->getChildByName("ShovelBank")->setPosition(Vec2(1525, 1080));
+}
+
+void BMButtonLayer::recoverySunControl()
+{
+	for (auto& sun : SunsGroup)
+	{
+		if (sun->getEnable() && sun->getSun()->getOpacity() > 200)
+		{
+			PlayMusic::playMusic("points");
+			SunFlower::sunRecovery(sun);
+			break;
+		}
+	}
+}
+
+void BMButtonLayer::recoveryCoinControl()
+{
+	for (auto& coin : CoinsGroup)
+	{
+		if (coin->getEnable() && coin->getCoin()->getOpacity() > 200)
+		{
+			PlayMusic::playMusic("coin");
+			Coin::coinRecoveryAction(coin);
+			break;
+		}
+	}
 }
 
 void BMButtonLayer::changeScrollViewOffset()

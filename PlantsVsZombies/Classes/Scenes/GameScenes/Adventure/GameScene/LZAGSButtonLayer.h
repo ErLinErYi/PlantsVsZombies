@@ -29,7 +29,10 @@ enum class GSLayerButton
 {
 	stopButton = 1,
 	accelerateButton,
-	decelerateButton
+	decelerateButton,
+	nextWaveButton,
+	recoverySunButton,
+	recoveryCoinButton
 };
 
 class GSButtonLayer :public SPSControlLayer
@@ -57,13 +60,18 @@ protected:
 	virtual void controlDecelerateScheduler();
 	virtual void showSeedBank();
 	virtual void showShovelBank();
+	virtual void showNextWaveButton();
+	virtual void nextWaveButtonControl();
 	virtual void createPlantsCard();
 	virtual void createJumpLevelButton();
+	virtual void recoverySunControl();
+	virtual void recoveryCoinControl();
 	virtual ProgressTimer* createProgressTimer(Button* button, const float _time, const int from, const unsigned int& id);
 	
 public:
 	MouseSelectImage* mouseSelectImage;                            // 鼠标选择
 	PlantsInformation::PlantsCards plantsCards[PLANTSNUMBERS];     // 植物卡片
+	Button* nextWaveButton;                                       // 下一波按钮
 	
 protected:
 	Global* _global;                                     // 全局变量

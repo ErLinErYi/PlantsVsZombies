@@ -81,6 +81,7 @@ void GSControlLayer::initData()
 	gameMapInformation->GameMapInit();
 	_zombiesAppearControl = new ZombiesAppearControl();
 	_levelData = _openLevelData->readLevelData(_openLevelData->getLevelNumber())->getMunchZombiesFrequency();
+	_levelZombiesFrequence = _openLevelData->readLevelData(_openLevelData->getLevelNumber())->getZombiesFrequency();
 }
 
 void GSControlLayer::setPlantMapCanPlant(const unsigned int colum, const unsigned int row)
@@ -94,12 +95,12 @@ void GSControlLayer::createSchedule()
 			controlCardEnabled();
 			createZombies();
 			controlRefurbishMusicAndText();
-			judgeLevelIsFinished();
-		}, 0.1f, "mainUpdate");
+		}, 0.1f, "quickControl");
 
 	schedule([&](float) {
+		judgeLevelIsFinished();
 		zombiesComeTiming();
-		}, 1.0f, "zombiesComing");
+		}, 1.0f, "slowControl");
 }
 
 void GSControlLayer::controlCardEnabled()
@@ -322,7 +323,7 @@ void GSControlLayer::createZombies()
 	{
 		_zombiesAppearControl->setLastFrequencyZombiesWasDeath(false);
 		_zombiesAppearControl->setTimeClear(); /* 距离上一波刷新时间清零 */
-		if (_zombiesAppearControl->getZombiesAppearFrequency() < _openLevelData->readLevelData(_openLevelData->getLevelNumber())->getZombiesFrequency())
+		if (_zombiesAppearControl->getZombiesAppearFrequency() < _levelZombiesFrequence)
 		{
 			const unsigned int zombiesNumbers = _zombiesAppearControl->getZombiesNumbersForAppearFrequency(_zombiesAppearControl->getZombiesAppearFrequency());
 			for (unsigned int i = 0; i < zombiesNumbers; ++i)
@@ -343,6 +344,18 @@ void GSControlLayer::createZombies()
 	{
 		_zombiesAppearControl->setLastFrequencyZombiesWasDeath(true);
 		_zombiesAppearControl->setIsBegin(false);
+
+		buttonLayerInformation->nextWaveButton->setVisible(false);
+	}
+	else
+	{
+		if (_zombiesAppearControl->getZombiesAppearFrequency() > 2 &&                        /* 波数大于1 */
+			_zombiesAppearControl->getZombiesAppearFrequency() < _levelZombiesFrequence &&   /* 波数小于最大波数 */
+			_zombiesAppearControl->getTime() > 10 &&                                         /* 时间大于10秒 */
+			!buttonLayerInformation->nextWaveButton->isVisible())                            /* 按钮没有出现 */
+		{
+			buttonLayerInformation->nextWaveButton->setVisible(true);
+		}
 	}
 }
 

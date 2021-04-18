@@ -62,12 +62,12 @@ void HControlLayer::createSchedule()
 	schedule([&](float) {
 		createZombies();
 		controlRefurbishMusicAndText();
-		judgeLevelIsFinished();
 		}, 0.1f, "mainUpdate");
 
 	schedule([&](float) {
 		zombiesComeTiming();
 		judgeZombiesWin();
+		judgeLevelIsFinished();
 		}, 1.0f, "zombiesComing");
 
 	runAction(Sequence::create(DelayTime::create(1.f), 

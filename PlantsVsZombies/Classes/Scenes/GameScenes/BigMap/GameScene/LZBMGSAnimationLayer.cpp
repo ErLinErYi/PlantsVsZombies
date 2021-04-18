@@ -61,7 +61,7 @@ void BMAnimationLayer::showCars()
 					PlayMusic::playMusic("plastichit2");
 
 					auto car = new Car(this);
-					car->setPosition(Vec2(1500, 310 + 136 * i));
+					car->setPosition(Vec2(1510, 310 + 136 * i));
 					car->setInRow(i);
 					car->showCar(CarType::BigMapCar);
 

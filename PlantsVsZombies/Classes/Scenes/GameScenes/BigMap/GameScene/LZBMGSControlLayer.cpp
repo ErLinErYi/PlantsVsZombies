@@ -57,6 +57,7 @@ void BMControlLayer::initData()
 
 	_zombiesAppearControl = new ZombiesAppearControl();
 	_levelData = _openLevelData->readLevelData(_openLevelData->getLevelNumber())->getMunchZombiesFrequency();
+	_levelZombiesFrequence = _openLevelData->readLevelData(_openLevelData->getLevelNumber())->getZombiesFrequency();
 }
 
 void BMControlLayer::createSchedule()
@@ -65,11 +66,11 @@ void BMControlLayer::createSchedule()
 		controlCardEnabled();
 		createZombies();
 		controlRefurbishMusicAndText();
-		judgeLevelIsFinished();
 		}, 0.1f, "mainUpdate");
 
 	schedule([&](float) {
 		zombiesComeTiming();
+		judgeLevelIsFinished();
 		}, 1.0f, "zombiesComing");
 }
 
@@ -304,7 +305,7 @@ void BMControlLayer::judgeLevelIsFinished()
 
 void BMControlLayer::judgeZombiesWin(Zombies* zombie)
 {
-	if (!isLose && zombie->getZombieAnimation()->getPositionX() < GRASS_BIGMAP_POSITION_LEFT - 100)
+	if (!isLose && zombie->getZombieAnimation()->getPositionX() < GRASS_BIGMAP_POSITION_LEFT - 120)
 	{
 		isLose = true;
 		auto gameEndShieldLayer = GSGameEndLayer::create();

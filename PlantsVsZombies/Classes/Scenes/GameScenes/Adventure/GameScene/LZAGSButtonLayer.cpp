@@ -9,6 +9,8 @@
 #include "LZAGSPauseQuitLayer.h"
 #include "LZAGSRequirementLayer.h"
 #include "LZAGSInformationLayer.h"
+#include "LZAGSControlLayer.h"
+#include "LZAGSZombiesAppearControl.h"
 #include "LZAGSDefine.h"
 #include "LZAGSData.h"
 
@@ -24,6 +26,7 @@ GSButtonLayer::GSButtonLayer():
 	_quitLayer(nullptr),
 	_accelerateButton(nullptr),
 	_decelerateButton(nullptr),
+	nextWaveButton(nullptr),
 	mouseSelectImage(new MouseSelectImage)
 {
 }
@@ -39,6 +42,7 @@ bool GSButtonLayer::init()
 
 	showSeedBank();
 	showShovelBank();
+	showNextWaveButton();
 	createPlantsCard();
 	createRequirementButton();
 	createButton("StopButton", "StopButtonDown", Vec2(1870, 1030), GSLayerButton::stopButton);
@@ -76,6 +80,12 @@ Button* GSButtonLayer::createButton(const string& normal, const string& select, 
 					break;
 				case GSLayerButton::decelerateButton:
 					controlDecelerateScheduler();
+					break;
+				case GSLayerButton::recoverySunButton:
+					recoverySunControl();
+					break;
+				case GSLayerButton::recoveryCoinButton:
+					recoveryCoinControl();
 					break;
 				}
 				break;
@@ -199,11 +209,11 @@ void GSButtonLayer::showSeedBank()
 void GSButtonLayer::showShovelBank()
 {
 	auto shovelBank = Button::create("ShovelBank.png", "", "", TextureResType::PLIST);
-	shovelBank->setPosition(_openLevelData->readLevelData(_openLevelData->getLevelNumber())->getGameType().size() > 0 ? Vec2(1420, 1080) : Vec2(1520, 1080));
+	shovelBank->setPosition(_openLevelData->readLevelData(_openLevelData->getLevelNumber())->getGameType().size() > 0 ? Vec2(1425, 1080) : Vec2(1525, 1080));
 	shovelBank->setScale(0.6f);
 	shovelBank->setAnchorPoint(Vec2(0, 1));
 	shovelBank->setName("ShovelBank");
-	this->addChild(shovelBank);
+	this->addChild(shovelBank, 1);
 
 	/* 铲子监听 */
 	shovelBank->addTouchEventListener([=](Ref* sender, ui::Widget::TouchEventType type)
@@ -231,6 +241,35 @@ void GSButtonLayer::showShovelBank()
 				break;
 			}
 		});
+}
+
+void GSButtonLayer::showNextWaveButton()
+{
+	nextWaveButton = Button::create("NextWave.png", "NextWave2.png", "", TextureResType::PLIST);
+	nextWaveButton->setPosition(getChildByName("ShovelBank")->getPosition() - Vec2(92, -5));
+	nextWaveButton->setScale(0.6f);
+	nextWaveButton->setAnchorPoint(Vec2(0, 1));
+	nextWaveButton->setVisible(false);
+	this->addChild(nextWaveButton);
+
+	nextWaveButton->addTouchEventListener([=](Ref* sender, ui::Widget::TouchEventType type)
+		{
+			switch (type)
+			{
+			case ui::Widget::TouchEventType::BEGAN:
+				PlayMusic::playMusic("gravebutton");
+				break;
+			case ui::Widget::TouchEventType::ENDED:
+				nextWaveButtonControl();
+				break;
+			}
+		});
+}
+
+void GSButtonLayer::nextWaveButtonControl()
+{
+	nextWaveButton->setVisible(false);
+	controlLayerInformation->_zombiesAppearControl->setTimeAdd(50);
 }
 
 void GSButtonLayer::createPlantsCard()
@@ -320,4 +359,14 @@ ProgressTimer* GSButtonLayer::createProgressTimer(Button* button, const float _t
 			}), nullptr));
 	button->addChild(timerBar);
 	return timerBar;
+}
+
+void GSButtonLayer::recoverySunControl()
+{
+	/* 子类中实现 */
+}
+
+void GSButtonLayer::recoveryCoinControl()
+{
+	/* 子类中实现 */
 }

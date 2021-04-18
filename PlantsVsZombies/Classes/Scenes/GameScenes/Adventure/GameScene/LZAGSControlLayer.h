@@ -91,4 +91,5 @@ protected:
 	vector<int> _levelData;                              // 临时关卡数据
 	EventListenerMouse* _listener;                       // 鼠标监听 
 	bool _isShowEggScene;                                // 是否显示
+	int _levelZombiesFrequence;                          // 僵尸总波数
 };

@@ -221,7 +221,7 @@ void GSAnimationLayer::showCars()
 					PlayMusic::playMusic("plastichit2");
 
 					auto car = new Car(this);
-					car->setPosition(Vec2(455, 180 + 138 * i));
+					car->setPosition(Vec2(490, 180 + 138 * i));
 					car->setInRow(i);
 					car->showCar(CarType::ModernCar);
 

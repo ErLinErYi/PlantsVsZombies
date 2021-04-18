@@ -223,11 +223,11 @@ float GSInformationLayer::getProgressBarLastPercent() const
 
 void GSInformationLayer::updateSunNumbers()
 {
-	auto sun = Sprite::createWithSpriteFrameName("Sun.png");
+	/*auto sun = Sprite::createWithSpriteFrameName("Sun.png");
 	sun->setPosition(Vec2(290, 1025));
 	sun->setScale(0.9f);
 	this->addChild(sun);
-	sun->runAction(Sequence::create(DelayTime::create(0.15f), CallFunc::create([sun]() {sun->removeFromParent(); }), nullptr));
+	sun->runAction(Sequence::create(DelayTime::create(0.15f), CallFunc::create([sun]() {sun->removeFromParent(); }), nullptr));*/
 
 	_sunNumbersText->setString(to_string(_global->userInformation->getSunNumbers()));
 	_sunNumbersText->setTextAreaSize(Size(170, _sunNumbersText->getParent()->getContentSize().height - 50), true);

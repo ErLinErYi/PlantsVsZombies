@@ -23,6 +23,8 @@ protected:
 	virtual void createKeyBoardListener() override;
 	virtual void createRequirementButton() override;
 	virtual void showShovelBank() override;
+	virtual void recoverySunControl() override;
+	virtual void recoveryCoinControl() override;
 	virtual void changeScrollViewOffset();
 
 protected:

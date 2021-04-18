@@ -241,7 +241,7 @@ void CatTailBullet::createBulletExplode(Zombies* zombie)
    
     auto explode= SkeletonAnimation::createWithData(_global->userInformation->getAnimationData().find("CatTailBullet")->second);
 	explode->setAnimation(0, "CatTailBullet_Explode", false);
-    explode->setPosition(_bulletAnimation->getPosition() + Vec2(_speed.x * 10, _speed.y * 10));
+    explode->setPosition(_bulletAnimation->getPosition() + Vec2(_speed.x * 7, _speed.y * 7));
 	explode->setLocalZOrder(zombie->getZombieAnimation()->getLocalZOrder() + 1);
     explode->setScale(1.f + rand() % 5 / 10.f);
     explode->update(0);

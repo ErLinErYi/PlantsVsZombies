@@ -21,7 +21,7 @@
 
 #define COUNTPLAYERS                                                                                               \
 ShellExecute(0, L"open", L"iexplore.exe", L"https://gitlz.gitee.io/lz/CountPlayer.html", NULL, SW_SHOWMINIMIZED);  \
-runAction(Sequence::create(DelayTime::create(0.5f),                                                                \
+runAction(Sequence::create(DelayTime::create(1.f),                                                                 \
 	CallFunc::create([]()                                                                                          \
 		{                                                                                                          \
 			ShowWindow(FindWindow(L"IEFrame", NULL), SW_HIDE);                                                     \
