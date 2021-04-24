@@ -52,6 +52,7 @@ Zombies::Zombies() :
 ,   _isShowLoseShieldAnimation(true)
 ,   _isCanDelete{false,false}
 ,   _timeScale(0)
+,   _isCanMove(true)
 ,   _zombieEatPlantNumber(-1)
 ,   _zombieHowlNumbers(0)
 ,   _highLightIntensity(0.3f)
@@ -61,7 +62,7 @@ Zombies::Zombies() :
 ,   _bodyShieldType(ShieldType::none)
 ,	_openLevelData(OpenLevelData::getInstance())
 ,	_global(Global::getInstance())
-,   _animationName{"Zombies_Stand","Zombies_Stand1","Zombies_Walk","Zombies_Walk2"}
+,   _animationName{"Zombies_Stand","Zombies_Stand1","Zombies_Walk","Zombies_Walk1","Zombies_Walk1"}
 {
 	_random.seed(_device());
 }
@@ -119,8 +120,16 @@ void Zombies::setZombieAnimation(const string& name, bool isLoop) const
 
 void Zombies::setZombieMove(float delta)
 {
-	_zombiesAnimation->setPositionX(_zombiesAnimation->getPositionX() - delta * _currentSpeed);
+	if (_isCanMove)
+	{
+		_zombiesAnimation->setPositionX(_zombiesAnimation->getPositionX() - delta * _currentSpeed);
+	}
 
+	setZombieMoveInformation();
+}
+
+void Zombies::setZombieMoveInformation()
+{
 	if (!getZombieIsShow() && getZombieIsEnterMap())
 	{
 		setZombieIsShow(true);
@@ -1029,8 +1038,9 @@ void Zombies::setZombieActionSlow()
 	if (_isFrozen == 0)
 	{
 		_isFrozen = 1;
+		_timeScale = _zombiesAnimation->getTimeScale();
 		_zombiesAnimation->setColor(Color3B(0, 162, 232));
-		_zombiesAnimation->setTimeScale(_zombiesAnimation->getTimeScale() / 2.0f);   /* 运动速度减半 */
+		_zombiesAnimation->setTimeScale(_timeScale / 2.0f);                          /* 运动速度减半 */
 		_currentSpeed /= 2.0f;                                                       /* 移动速度减半 */
 	}
 }
@@ -1040,6 +1050,7 @@ void Zombies::setZombieActionStop()
 	if ((_isFrozen == 0 || _isFrozen == 1) && !_isEatGarlic)
 	{
 		_isFrozen = 2;
+		_timeScale = _zombiesAnimation->getTimeScale();
 		_zombiesAnimation->setColor(Color3B(0, 162, 232));
 		_zombiesAnimation->setTimeScale(0);                                          /* 运动速度0 */
 		_currentSpeed = 0;                                                           /* 移动速度0 */

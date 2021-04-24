@@ -227,7 +227,7 @@ void Bullet::selectSoundEffect(const int body, const int head)
 {
 	if (body)
 	{
-		playSoundEffect(SoundEffectType::shieldhit);
+		selectSoundEffect(body);
 	}
 	else
 	{
@@ -239,9 +239,12 @@ void Bullet::selectSoundEffect(const int head)
 {
 	switch (head)
 	{
-	case 0: playSoundEffect(SoundEffectType::kernelpult); break;
-	case 1: playSoundEffect(SoundEffectType::shieldhit);  break;
-	case 2: playSoundEffect(SoundEffectType::plastichit); break;
+	case 0:  playSoundEffect(SoundEffectType::kernelpult); break;
+	case 1:  playSoundEffect(SoundEffectType::shieldhit);  break;
+	case 2:  playSoundEffect(SoundEffectType::plastichit); break;
+	case 3:  playSoundEffect(SoundEffectType::paper);      break;
+	case 4:  playSoundEffect(SoundEffectType::Brick);      break;
+	default: playSoundEffect(SoundEffectType::kernelpult); break;
 	}
 }
 
@@ -254,5 +257,8 @@ void Bullet::playSoundEffect(SoundEffectType soundEffect)
 	case SoundEffectType::plastichit:  PlayMusic::playMusic(rand() % 2 ? "plastichit" : "plastichit2");   break;
 	case SoundEffectType::firepea:     PlayMusic::playMusic(rand() % 2 ? "ignite" : "ignite2");           break;
 	case SoundEffectType::watermelon:  PlayMusic::playMusic(rand() % 2 ? "melonimpact" : "melonimpact2"); break;
+	case SoundEffectType::paper:       PlayMusic::playMusic("newspaper_rip");                             break;
+	case SoundEffectType::Brick:       PlayMusic::playMusic("vase_breaking");                             break;
+	default:                           PlayMusic::playMusic(rand() % 2 ? "kernelpult" : "kernelpult2");   break;
 	}
 }

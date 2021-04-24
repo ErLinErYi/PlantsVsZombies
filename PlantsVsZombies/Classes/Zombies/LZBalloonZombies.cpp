@@ -12,10 +12,10 @@ BalloonZombies::BalloonZombies(Node* node)
 	_node = node;
 	_attackHeadSoundEffectType = 0;
 	_attackBodySoundEffectType = 0;
-	_bloodVolume = 200;
+	_bloodVolume = 300;
 	_headShieldVolume = 0;
 	_bodyShieldVolume = 0;
-	_currentBloodVolume = 200;
+	_currentBloodVolume = 300;
 	_currentHeadShieldVolume = 0;
 	_currentBodyShieldVolume = 0;
 	_speed = 40;

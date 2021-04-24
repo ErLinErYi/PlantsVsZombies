@@ -41,14 +41,14 @@ void ConeFlagZombies::createZombie()
 {
 	zombieInit();
 
-	setZombieAnimation(rand() % 2 + 2);
+	setZombieAnimation(rand() % 3 + 2);
 
 	setZombieScale();
 
 	createZombieShadow();
 
 	_zombiesAnimation->setAttachment("Zombie_bucket", "Zombie_cone1");
-	_zombiesAnimation->setAttachment("tt_innerarm_upper", "tt_flag");
+	_zombiesAnimation->setAttachment("tt_innerarm_upper", rand() % 4 ? "tt_flag" : "tt_flag1");
 	_zombiesAnimation->setAttachment("tt_innerarm_lower", "tt_innerleg_foot3");
 	_zombiesAnimation->setAttachment("tt_innerarm_hand", "tt_innerleg_foot3");
 }

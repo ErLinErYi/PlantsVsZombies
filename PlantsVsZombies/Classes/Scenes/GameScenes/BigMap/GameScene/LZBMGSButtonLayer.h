@@ -26,7 +26,10 @@ protected:
 	virtual void recoverySunControl() override;
 	virtual void recoveryCoinControl() override;
 	virtual void changeScrollViewOffset();
+	virtual void checkSunAndCoin();
 
 protected:
 	Vec2 _offset;
+	Button* _recoverySun;
+	Button* _recoveryCoin;
 };

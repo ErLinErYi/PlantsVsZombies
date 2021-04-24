@@ -22,7 +22,7 @@ public:
 CC_CONSTRUCTOR_ACCESS:
 	ConeZombies(Node* node = nullptr);
 
-private:
-    void zombieInjuredEventUpdate() override;
-    void setZombieHeadShieldThirdInjure(const string& oldName, const string& newName) override;
+protected:
+	virtual void zombieInjuredEventUpdate() override;
+	virtual void setZombieHeadShieldThirdInjure(const string& oldName, const string& newName) override;
 };

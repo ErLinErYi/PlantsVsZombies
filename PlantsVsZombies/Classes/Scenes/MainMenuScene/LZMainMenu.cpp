@@ -18,6 +18,7 @@
 #include "Scenes/GameScenes/TestingGround/SelectPlantsScene/LZTSelectPlantsScene.h"
 
 #include "Based/LZPlayMusic.h"
+#include "Based/LZLoadingAnimationLayer.h"
 
 MainMenu::MainMenu() :
 	_global(Global::getInstance()),
@@ -674,28 +675,38 @@ void MainMenu::beginHammerZombiesGame()
 
 void MainMenu::beginVasebreakerGame()
 {
-	_nowtime = new MomentTime;
-	_nowtime->requestNetTime([this]()
+	if (!_nowtime)
+	{
+		auto loadingAnimation = LoadingAnimationLayer::create();
+		if (loadingAnimation)
 		{
+			setMouseListenerEnable(false);
+			this->addChild(loadingAnimation, 6);
+		}
+
+		_nowtime = new MomentTime;
+		_nowtime->requestNetTime([this]()
+			{
 #ifdef _DEBUG
-			Director::getInstance()->replaceScene(TransitionFade::create(0.5f, TSelectPlantsScene::create()));
-#else
-			if (_nowtime->getNetHour() >= 20 && _nowtime->getNetHour() < 22)
-			{
 				Director::getInstance()->replaceScene(TransitionFade::create(0.5f, TSelectPlantsScene::create()));
-			}
-			else
-			{
-				setMouseListenerEnable(false);
-				auto lock = UnlockDialogLayer::createScene(1);
-				if (lock)
+#else
+				if (_nowtime->getNetHour() >= 20 && _nowtime->getNetHour() < 22)
 				{
-					lock->setMouseListener(_mouse);
-					this->addChild(lock, 1, "_lockLayer");
+					Director::getInstance()->replaceScene(TransitionFade::create(0.5f, TSelectPlantsScene::create()));
 				}
-			}
+				else
+				{
+					setMouseListenerEnable(false);
+					auto lock = UnlockDialogLayer::createScene(1);
+					if (lock)
+					{
+						lock->setMouseListener(_mouse);
+						this->addChild(lock, 1, "_lockLayer");
+					}
+				}
 #endif // !_DEBUG
-		});
+			});
+	}
 }
 
 void MainMenu::beginSurvivalGame()

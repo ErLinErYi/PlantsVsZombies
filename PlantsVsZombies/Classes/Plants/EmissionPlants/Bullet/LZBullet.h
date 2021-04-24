@@ -37,6 +37,8 @@ enum class SoundEffectType
 	kernelpult = 0,
 	plastichit,
 	shieldhit,
+	paper,
+	Brick,
 	firepea,
 	watermelon
 };

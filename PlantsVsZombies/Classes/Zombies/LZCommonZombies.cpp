@@ -41,7 +41,7 @@ void CommonZombies::createZombie()
 {
 	zombieInit();
 
-	setZombieAnimation(rand() % 2 + 2);
+	setZombieAnimation(rand() % 3 + 2);
 
 	setZombieScale();
 

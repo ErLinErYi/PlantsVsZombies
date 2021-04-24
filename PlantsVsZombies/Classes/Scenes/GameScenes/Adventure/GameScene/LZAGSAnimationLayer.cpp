@@ -62,7 +62,11 @@ Bullet* GSAnimationLayer::createDifferentBullet(BulletType bulletType, Node* nod
 	case BulletType::WaterMelonBullet: bullet = new WaterMelonBullet(node); break;
 	case BulletType::WinterMelonBullet:bullet = new WinterMelonBullet(node);break;
 	case BulletType::CatTailBullet:    bullet = new CatTailBullet(node);    break;
-	default:break;
+#ifdef _DEBUG
+	default:                                                                break;
+#else
+	default:                           bullet = new Pea(node);              break;
+#endif
 	}
 	return bullet;
 }
@@ -96,7 +100,11 @@ Plants* GSAnimationLayer::createDifferentPlants(PlantsType plantsType, Node* nod
 	case PlantsType::Citron:              plants = new Citron(node);                  break;
 	case PlantsType::CatTail:             plants = new CatTail(node);                 break;
 	case PlantsType::GloomShroom:         plants = new GloomShroom(node);             break;
-	default: break;
+#ifdef _DEBUG
+	default:                                                                          break;
+#else
+	default:                              plants = new PeaShooter(node);              break;
+#endif
 	}
 	return plants;
 }
@@ -122,7 +130,38 @@ Zombies* GSAnimationLayer::createDifferentZombies(ZombiesType zombiesType, Node*
 	case ZombiesType::SnowZombies:            zombies = new SnowZombies(node);            break;
 	case ZombiesType::GargantuarZombies:      zombies = new GargantuarZombies(node);      break;
 	case ZombiesType::BalloonZombies:         zombies = new BalloonZombies(node);         break;
-	default: break;
+	case ZombiesType::NewspaperZombies:       zombies = new NewspaperZombies(node);       break;
+	case ZombiesType::StrongNewspaperZombies: zombies = new StrongNewspaperZombies(node); break;
+	case ZombiesType::BrickZombies:           zombies = new BrickZombies(node);           break;
+	case ZombiesType::BrickZombies2:          zombies = new BrickZombies2(node);          break;
+	case ZombiesType::BucketZombies2:         zombies = new BucketZombies2(node);         break;
+	case ZombiesType::BucketZombies3:         zombies = new BucketZombies3(node);         break;
+	case ZombiesType::BucketZombies4:         zombies = new BucketZombies4(node);         break;
+	case ZombiesType::BucketZombies5:         zombies = new BucketZombies5(node);         break;
+	case ZombiesType::BucketZombies6:         zombies = new BucketZombies6(node);         break;
+	case ZombiesType::ConeZombies2:           zombies = new ConeZombies2(node);           break;
+	case ZombiesType::ConeZombies3:           zombies = new ConeZombies3(node);           break;
+	case ZombiesType::ConeZombies4:           zombies = new ConeZombies4(node);           break;
+	case ZombiesType::WoodZombies:            zombies = new WoodZombies(node);            break;
+	case ZombiesType::WoodZombies2:           zombies = new WoodZombies2(node);           break;
+	case ZombiesType::WoodZombies3:           zombies = new WoodZombies3(node);           break;
+	case ZombiesType::BonesZombies:           zombies = new BonesZombies(node);           break;
+	case ZombiesType::BonesZombies2:          zombies = new BonesZombies2(node);          break;
+	case ZombiesType::DoorZombies:            zombies = new DoorZombies(node);            break;
+	case ZombiesType::DoorZombies2:           zombies = new DoorZombies2(node);           break;
+	case ZombiesType::DoorZombies3:           zombies = new DoorZombies3(node);           break;
+	case ZombiesType::DoorZombies4:           zombies = new DoorZombies4(node);           break;
+	case ZombiesType::DoorZombies5:           zombies = new DoorZombies5(node);           break;
+	case ZombiesType::NewspaperBrickZombies:  zombies = new NewspaperBrickZombies(node);  break;
+	case ZombiesType::Bucket4Door4Zombies:    zombies = new Bucket4Door4Zombies(node);    break;
+	case ZombiesType::BonesDoor5Zombies:      zombies = new BonesDoor5Zombies(node);      break;
+	case ZombiesType::Brick2Door3Zombies:     zombies = new Brick2Door3Zombies(node);     break;
+	case ZombiesType::BrickDoor5Zombies:      zombies = new BrickDoor5Zombies(node);      break;
+#ifdef _DEBUG
+	default:                                                                              break;
+#else
+	default:                                  zombies = new GargantuarZombies(node);      break;
+#endif
 	}
 	return zombies;
 }

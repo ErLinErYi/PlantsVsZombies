@@ -95,7 +95,7 @@ void BMAnimationLayer::createZombies()
 	zombies->setZombiePosition(Vec2(3890 + number(_random), ZombiesAppearControl::zombiesPositionBigMap[row]));
 	zombies->setZombieInRow(row);
 	zombies->createZombie();
-	zombies->setZombieMultipleBloodVolume(1.5f);
+	zombies->setZombieMultipleBloodVolume(4.f);
 	ZombiesGroup.push_back(zombies);
 	Zombies::zombiesNumbersChange("++");
 }

@@ -125,7 +125,7 @@ void FirePea::createPeaExplode()
 
 void FirePea::recoveryFrozenZombie(Zombies* zombie)
 {
-    if (zombie->getZombieTimerTime() != -1)
+    if (zombie->getZombieTimerTime() != -1 || zombie->getZombieTimerTime(true) != -1)
     {
         zombie->setZombieActionRecovery();
     }

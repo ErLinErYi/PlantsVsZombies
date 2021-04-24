@@ -19,6 +19,7 @@ public:
     virtual void createPreviewZombie() override;
     virtual void playZombieSoundEffect() override;
     virtual bool getZombieIsEatPlants() override;
+    virtual void playZombiesAshesAnimation() override;
 
 CC_CONSTRUCTOR_ACCESS:
     SnowZombies(Node* node = nullptr);

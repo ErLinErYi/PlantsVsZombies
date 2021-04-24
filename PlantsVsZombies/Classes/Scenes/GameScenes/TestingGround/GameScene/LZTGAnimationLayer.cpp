@@ -84,10 +84,7 @@ void TGAnimationLayer::showCars()
 
 void TGAnimationLayer::createZombies(const unsigned typeNumber)
 {
-	unsigned type = 1;
-	if (typeNumber < 1)type = 1;
-	else if (typeNumber > 16)type = 16;
-	else type = typeNumber;
+	unsigned type = min(static_cast<int>(typeNumber + 1), ZOMBIESNUMBERS);
 
 	const uniform_int_distribution<unsigned>number(0, 500);
 	const uniform_int_distribution<unsigned>zombiesType(1, type);

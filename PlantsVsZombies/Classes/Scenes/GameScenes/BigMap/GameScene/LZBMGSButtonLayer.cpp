@@ -16,7 +16,9 @@
 #include "Based/LZCoin.h"
 
 BMButtonLayer::BMButtonLayer() :
-	_offset(Vec2::ZERO)
+	_offset(Vec2::ZERO),
+	_recoveryCoin(nullptr),
+	_recoverySun(nullptr)
 {
 }
 
@@ -33,12 +35,13 @@ bool BMButtonLayer::init()
 	showNextWaveButton();
 	createPlantsCard();
 	createRequirementButton();
-	createButton("RecoverySun", "RecoverySun2", Vec2(550, 1025), GSLayerButton::recoverySunButton);
-	createButton("RecoveryCoin", "RecoveryCoin2", Vec2(650, 1025), GSLayerButton::recoveryCoinButton);
 	createButton("StopButton", "StopButtonDown", Vec2(1870, 1030), GSLayerButton::stopButton);
+	_recoverySun = createButton("RecoverySun2", "RecoverySun", Vec2(550, 1025), GSLayerButton::recoverySunButton);
+	_recoveryCoin = createButton("RecoveryCoin2", "RecoveryCoin", Vec2(650, 1025), GSLayerButton::recoveryCoinButton);
 	_accelerateButton = createButton("SpeedButton", "SpeedButtonDown", Vec2(1770, 1030), GSLayerButton::accelerateButton);
 	_decelerateButton = createButton("SpeedButton", "SpeedButtonDown", Vec2(1670, 1030), GSLayerButton::decelerateButton, true);
 
+	schedule([&](float) { checkSunAndCoin(); }, 1.0f, "checkSunAndCoin");
 	createKeyBoardListener();
 
 	return true;
@@ -66,8 +69,7 @@ void BMButtonLayer::createKeyBoardListener()
 				CallFunc::create([&]()
 					{
 						_offset = BigMapGameScene::scrollView->getContentOffset();
-						_offset = Vec2(_offset.x, _offset.y - 10);
-						if (_offset.y < -1080)_offset.y = -1080;
+						_offset = Vec2(_offset.x, _offset.y - 20);
 						changeScrollViewOffset();
 					}), DelayTime::create(0.02f), nullptr)));
 			break;
@@ -78,8 +80,7 @@ void BMButtonLayer::createKeyBoardListener()
 				CallFunc::create([&]()
 					{
 						_offset = BigMapGameScene::scrollView->getContentOffset();
-						_offset = Vec2(_offset.x, _offset.y + 10);
-						if (_offset.y > 0)_offset.y = 0;
+						_offset = Vec2(_offset.x, _offset.y + 20);
 						changeScrollViewOffset();
 					}), DelayTime::create(0.02f), nullptr)));
 			break;
@@ -90,8 +91,7 @@ void BMButtonLayer::createKeyBoardListener()
 				CallFunc::create([&]()
 					{
 						_offset = BigMapGameScene::scrollView->getContentOffset();
-						_offset = Vec2(_offset.x + 10, _offset.y);
-						if (_offset.x > 0)_offset.x = 0;
+						_offset = Vec2(_offset.x + 20, _offset.y);
 						changeScrollViewOffset();
 					}), DelayTime::create(0.02f), nullptr)));
 			break;
@@ -102,8 +102,7 @@ void BMButtonLayer::createKeyBoardListener()
 				CallFunc::create([&]()
 					{
 						_offset = BigMapGameScene::scrollView->getContentOffset();
-						_offset = Vec2(_offset.x - 10, _offset.y);
-						if (_offset.x < -3940)_offset.x = -3940;
+						_offset = Vec2(_offset.x - 20, _offset.y);
 						changeScrollViewOffset();
 					}), DelayTime::create(0.02f), nullptr)));
 			break;
@@ -178,4 +177,26 @@ void BMButtonLayer::recoveryCoinControl()
 void BMButtonLayer::changeScrollViewOffset()
 {
 	BigMapGameScene::scrollView->setContentOffset(_offset);
+}
+
+void BMButtonLayer::checkSunAndCoin()
+{
+	for (auto& sun : SunsGroup)
+	{
+		if (sun->getEnable() && sun->getSun()->getOpacity() > 200)
+		{
+			_recoverySun->runAction(Sequence::create(TintTo::create(0.5f, Color3B(255, 100, 100)), 
+				TintTo::create(0.5f, Color3B::WHITE), nullptr));
+			break;
+		}
+	}
+	for (auto& coin : CoinsGroup)
+	{
+		if (coin->getEnable() && coin->getCoin()->getOpacity() > 200)
+		{
+			_recoveryCoin->runAction(Sequence::create(TintTo::create(0.5f, Color3B(255, 100, 100)), 
+				TintTo::create(0.5f, Color3B::WHITE), nullptr));
+			break;
+		}
+	}
 }

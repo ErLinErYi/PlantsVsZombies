@@ -68,9 +68,9 @@ PlantsInformation::PlantsCardInformation plantsCardInformation[] =
 	{"JalapenoVariation",     "PlantsIcon2",    "S",    1,   17,         175,         37.5f,     0, 0,     true,    PlantsType::JalapenoVariation,   Color3B(100,0,0),     { 22000, 28000 }  },  /* 火爆辣椒变异 */
 	{"ThreePeaShooter",       "PlantsIcon5",    "S",    1,   18,         225,         7.5f,      0, 0,     false,   PlantsType::ThreePeaShooter,     Color3B::GREEN,       { 25000, 32000 }  },  /* 三头豌豆射手 */
 	{"StarFruit",             "PlantsIcon9",    "S",    1,   19,         125,         7.5f,      0, 0,     false,   PlantsType::StarFruit,           Color3B::ORANGE,      { 30000, 36000 }  },  /* 杨桃 */
-	{"WinterMelonPult",       "PlantsIcon15",   "SS",   1,   20,         275,         15,        0, 0,     false,   PlantsType::WinterMelonPult,     Color3B(47,202,207),  { 35000, 41000 }  },  /* 冰瓜投手 */
+	{"WinterMelonPult",       "PlantsIcon15",   "SS",   1,   20,         275,         20,        0, 0,     false,   PlantsType::WinterMelonPult,     Color3B(47,202,207),  { 35000, 41000 }  },  /* 冰瓜投手 */
 	{"Citron",                "PlantsIcon",     "SS",   1,   21,         275,         15,        0, 0,     false,   PlantsType::Citron,              Color3B(0,255,255),   { 40000, 46000 }  },  /* 离子缘 */
-	{"CatTail",               "PlantsIcon11",   "SSS",  1,   22,         225,         7.5f,      0, 0,     false,   PlantsType::CatTail,             Color3B::MAGENTA,     { 44000, 50000 }  },  /* 香蒲 */
+	{"CatTail",               "PlantsIcon11",   "SSS",  1,   22,         225,         10,        0, 0,     false,   PlantsType::CatTail,             Color3B::MAGENTA,     { 44000, 50000 }  },  /* 香蒲 */
 	{"GloomShroom",           "PlantsIcon13",   "SSS",  1,   23,         275,         40,        0, 0,     false,   PlantsType::GloomShroom,         Color3B(163,73,164),  { 50666, 56666 }  },  /* 忧郁菇 */
 	/* 植物图片名称 */       /* 标志名称 */    /*品质*/   /*优先级*/  /*阳光数*/   /*时间*/              /*反转*/       /*植物类型*/                   /* 颜色 */            /* 要求 */
 };

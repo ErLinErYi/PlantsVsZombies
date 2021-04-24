@@ -73,6 +73,28 @@ bool SnowZombies::getZombieIsEatPlants()
 	return false;
 }
 
+void SnowZombies::playZombiesAshesAnimation()
+{
+	const uniform_real_distribution<float>number(0.f, 0.4f);
+	auto ashes = SkeletonAnimation::createWithData(_global->userInformation->getAnimationData().find("SnowZombies")->second);
+	ashes->setPosition(_zombiesAnimation->getPosition());
+	ashes->setLocalZOrder(_zombiesAnimation->getLocalZOrder());
+	ashes->setAnimation(0, "Zombies_Stand", false);
+	ashes->update(0);
+	ashes->setTimeScale(0);
+	ashes->setScale(1.2f);
+	ashes->setColor(Color3B::BLACK);
+	_node->addChild(ashes);
+
+	ashes->runAction(Sequence::create(DelayTime::create(1.f), FadeOut::create(0.5f),
+		CallFunc::create([ashes]()
+		{
+			ashes->removeFromParent();
+		}), nullptr));
+
+	setZombieAttributeForGameType(ashes);
+}
+
 void SnowZombies::zombieInjuredEventUpdate()
 {
 	if (_currentBloodVolume <= _bloodVolume / 4.0f)  /* 僵尸血量小于一定值，僵尸掉胳膊 */

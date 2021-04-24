@@ -121,7 +121,7 @@ void BMControlLayer::createMouseListener()
 		calculatePlantPosition();
 		mouseMoveControl();
 		showSelectedButtonHoverEffect();
-		//changeScrollViewOffset();
+		changeScrollViewOffset();
 	};
 
 	/* 鼠标按下 */
@@ -159,49 +159,59 @@ void BMControlLayer::changeScrollViewOffset()
 {
 	_offset = BigMapGameScene::scrollView->getContentOffset();
 
-	if (_cur.x > 230 && _cur.x < 530)
+	if (_cur.x <= 2 || _cur.x >= 1918 || _cur.y <= 2 || _cur.y >= 1078)
 	{
-		this->runAction(RepeatForever::create(Sequence::create(
-			CallFunc::create([&]()
-				{
-					_offset = Vec2(_offset.x + 1, _offset.y);
-					if (_offset.y < 0)_offset.y = 0;
-					BigMapGameScene::scrollView->setContentOffset(_offset);
-				}), DelayTime::create(0.02f), nullptr)));
-	}
-	else if (_cur.x < 1920 && _cur.x > 1620)
-	{
-		this->runAction(RepeatForever::create(Sequence::create(
-			CallFunc::create([&]()
-				{
-					_offset = Vec2(_offset.x - 1, _offset.y);
-					if (_offset.y < -1080)_offset.y = -1080;
-					BigMapGameScene::scrollView->setContentOffset(_offset);
-				}), DelayTime::create(0.02f), nullptr)));
-	}
-	else if (_cur.y > 0 && _cur.y < 300)
-	{
-		this->runAction(RepeatForever::create(Sequence::create(
-			CallFunc::create([&]()
-				{
-					_offset = Vec2(_offset.x, _offset.y + 1);
-					if (_offset.y > 0)_offset.y = 0;
-					BigMapGameScene::scrollView->setContentOffset(_offset);
-				}), DelayTime::create(0.02f), nullptr)));
-	}
-	else if (_cur.y < 1080 && _cur.y > 780 && _cur.x > 220)
-	{
-		this->runAction(RepeatForever::create(Sequence::create(
-			CallFunc::create([&]()
-				{
-					_offset = Vec2(_offset.x, _offset.y - 1);
-					if (_offset.y < -1080)_offset.y = -1080;
-					BigMapGameScene::scrollView->setContentOffset(_offset);
-				}), DelayTime::create(0.02f), nullptr)));
+		if (_cur.x <= 3)
+		{
+			auto action = RepeatForever::create(Sequence::create(
+				CallFunc::create([&]()
+					{
+						_offset = Vec2(_offset.x + 2, _offset.y);
+						BigMapGameScene::scrollView->setContentOffset(_offset);
+					}), DelayTime::create(0.02f), nullptr));
+			action->setFlags(1);
+			this->runAction(action);
+		}
+		if (_cur.x >= 1917)
+		{
+			auto action = RepeatForever::create(Sequence::create(
+				CallFunc::create([&]()
+					{
+						_offset = Vec2(_offset.x - 2, _offset.y);
+						BigMapGameScene::scrollView->setContentOffset(_offset);
+					}), DelayTime::create(0.02f), nullptr));
+			action->setFlags(2);
+			this->runAction(action);
+		}
+		if (_cur.y <= 3)
+		{
+			auto action = RepeatForever::create(Sequence::create(
+				CallFunc::create([&]()
+					{
+						_offset = Vec2(_offset.x, _offset.y + 2);
+						BigMapGameScene::scrollView->setContentOffset(_offset);
+					}), DelayTime::create(0.02f), nullptr));
+			action->setFlags(3);
+			this->runAction(action);
+		}
+		if (_cur.y >= 1077)
+		{
+			auto action = RepeatForever::create(Sequence::create(
+				CallFunc::create([&]()
+					{
+						_offset = Vec2(_offset.x, _offset.y - 2);
+						BigMapGameScene::scrollView->setContentOffset(_offset);
+					}), DelayTime::create(0.02f), nullptr));
+			action->setFlags(4);
+			this->runAction(action);
+		}
 	}
 	else
 	{
-		this->stopAllActions();
+		this->stopActionsByFlags(1);
+		this->stopActionsByFlags(2);
+		this->stopActionsByFlags(3);
+		this->stopActionsByFlags(4);
 	}
 }
 

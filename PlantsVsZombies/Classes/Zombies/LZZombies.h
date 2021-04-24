@@ -15,6 +15,8 @@
 #include "Based/LZLevelData.h"
 #include "Based/LZGlobalVariable.h"
 
+#define ZOMBIESNUMBERS 43
+
 using namespace spine;
 using namespace cocos2d;
 using namespace cocos2d::experimental;
@@ -27,30 +29,64 @@ class GSGameEndLayer;
 enum class ZombiesType
 {
 	None = 0,
-	CommonZombies,
-	ConeZombies,
-	BucketZombies,
-	CommonDoorZombies,
-	ConeDoorZombies,
-	BucketDoorZombies,
-	LmpZombies,
-	CommonFlagZombies,
-	ConeFlagZombies,
-	BucketFlagZombies,
-	CommonDoorFlagZombies,
-	ConeDoorFlagZombies,
-	BucketDoorFlagZombies,
-	SnowZombies,
-	GargantuarZombies,
-	BalloonZombies
+	CommonZombies,                  /* 200 */
+	ConeZombies,                    /* 600+200 */
+	BucketZombies,                  /* 1200+200 */
+	CommonDoorZombies,              /* 1200+200 */
+	ConeDoorZombies,                /* 600+1200+200 */
+	BucketDoorZombies,              /* 1200+1200+200 */
+	LmpZombies,                     /* 200 */
+	CommonFlagZombies,              /* 200 */
+	ConeFlagZombies,                /* 600+200 */
+	BucketFlagZombies,              /* 1200+200 */
+	CommonDoorFlagZombies,          /* 1200+200 */
+	ConeDoorFlagZombies,            /* 600+1200+200 */
+	BucketDoorFlagZombies,          /* 1200+1200+200 */
+	SnowZombies,                    /* 1800 */
+	BalloonZombies,                 /* 200 */
+	NewspaperZombies,               /* 600+200 */
+	StrongNewspaperZombies,         /* 1000+200 */
+	ConeZombies2,                   /* 700+300 */
+	ConeZombies3,                   /* 600+200 */
+	ConeZombies4,                   /* 700+200 */
+	WoodZombies3,                   /* 800+200*/
+	WoodZombies2,                   /* 900+200 */
+	WoodZombies,                    /* 1000+200 */
+	DoorZombies,                    /* 600+200 */
+	DoorZombies2,                   /* 800+200 */
+	DoorZombies3,                   /* 1000+200 */
+	DoorZombies4,                   /* 1600+200 */
+	DoorZombies5,                   /* 2000+200 */
+	BucketZombies2,                 /* 1300+200 */
+	BucketZombies3,                 /* 1300+200 */
+	BucketZombies4,                 /* 1300+200 */
+	BucketZombies5,                 /* 1400+200 */
+	BucketZombies6,                 /* 1600+200 */
+	BonesZombies2,                  /* 1400+200 */
+	BonesZombies,                   /* 1800+200 */
+	BrickZombies,                   /* 2000+200 */
+	BrickZombies2,                  /* 2000+200 */
+	Bucket4Door4Zombies,            /* 1300+1600+200 */
+	NewspaperBrickZombies,          /* 1000+2000+200 */
+	Brick2Door3Zombies,             /* 2000+1000+200 */
+	BonesDoor5Zombies,              /* 1800+2000+200 */
+	BrickDoor5Zombies,              /* 2000+2000+200 */
+	GargantuarZombies               /* 6000 */
 };
 
 enum class ShieldType
 {
 	none = 0,
 	IronHeadShield,
+	WoodHeadShiled,
+	PlasticsHeadShield,
+	BrickHeadShield,
+	BonesHeadShield,
+	PaperBodyShield,
+	ClothBodyShield,
+	BrickBodyShield,
 	IronBodyShield,
-	PlasticsHeadShield
+	StoneBodyShield
 };
 
 class Zombies :public Node
@@ -207,6 +243,11 @@ public:
 	 *设置僵尸移动
 	 */
 	virtual void setZombieMove(const float delta);
+
+	/**
+	 * 设置僵尸移动信息
+	 */
+	virtual void setZombieMoveInformation();
 
 	/**
 	 *设置僵尸透明度
@@ -669,6 +710,7 @@ protected:
 	bool _isCreateTimer;                      // 是否创建定时器
 	bool _isStrikeFly;                        // 是否击飞(离子缘）
 	bool _isReserveKill;                      // 是否被预定杀死（大嘴花）
+	bool _isCanMove;                          // 是否可以移动
 	bool _gameTypeInvalid;                    // 游戏属性是否失效
 	string _zombieAnimationName;              // 僵尸动画名字
 	Vec2 _position;                           // 位置

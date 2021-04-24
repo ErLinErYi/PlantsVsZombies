@@ -39,27 +39,22 @@ void TSPSBackgroundLayer::createBackGroundEffect()
 void TSPSBackgroundLayer::showPreviewZombies()
 {
 	const uniform_int_distribution<unsigned>n(0, 2);
-	uniform_int_distribution<unsigned>n1(0, 550);
-	uniform_int_distribution<unsigned>n2(0, 650);
+	uniform_int_distribution<unsigned>n1(0, 830);
+	uniform_int_distribution<unsigned>n2(0, 830);
 	
-	for (unsigned int i = 0; i < 16; ++i)
+	for (unsigned int i = 0; i < ZOMBIESNUMBERS; ++i)
 	{
-		int k;
-		_previewZombies.size() < 20 ? k = n(_random) + 1 : k = 1;
-		for (int j = 0; j < k; ++j)
-		{
-			auto zombies = GSAnimationLayer::createDifferentZombies(static_cast<ZombiesType>(i+1), this);
-			zombies->setZombiePosition(getPreviewZombiesPosition(n1, n2));
-			zombies->setZombieTag(_previewZombiesTag++);
-			zombies->createPreviewZombie();
-			zombies->setZombieOpacity(255);
+		auto zombies = GSAnimationLayer::createDifferentZombies(static_cast<ZombiesType>(i + 1), this);
+		zombies->setZombiePosition(getPreviewZombiesPosition(n1, n2) - Vec2(0, 130));
+		zombies->setZombieTag(_previewZombiesTag++);
+		zombies->createPreviewZombie();
+		zombies->setZombieOpacity(255);
 
-			PreviewZombies previewzombies{};
-			previewzombies.animation = zombies->getZombieAnimation();
-			previewzombies.position_y = previewzombies.animation->getPositionY();
-			previewzombies.position_x = previewzombies.animation->getPositionX();
-			_previewZombies.push_back(previewzombies);
-		}
+		PreviewZombies previewzombies{};
+		previewzombies.animation = zombies->getZombieAnimation();
+		previewzombies.position_y = previewzombies.animation->getPositionY();
+		previewzombies.position_x = previewzombies.animation->getPositionX();
+		_previewZombies.push_back(previewzombies);
 	}
 
 	sortZombiesPosition();
