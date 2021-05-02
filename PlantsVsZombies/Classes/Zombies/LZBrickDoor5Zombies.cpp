@@ -19,8 +19,8 @@ BrickDoor5Zombies::BrickDoor5Zombies(Node* node)
 	_currentBloodVolume = 200;
 	_currentHeadShieldVolume = 2000;
 	_currentBodyShieldVolume = 2000;
-	_speed = 30;
-	_currentSpeed = 30;
+	_speed = 35;
+	_currentSpeed = 35;
 	_isHaveShield = true;
 	_bodyShieldType = ShieldType::BrickHeadShield;
 	_headShieldType = ShieldType::StoneBodyShield;

@@ -122,6 +122,7 @@ xcopy "$(ProjectDir)..\Resources" "$(OutDir)" /D /E /I /F /Y
     </ClCompile>
     <Link>
       <AdditionalOptions Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">/SAFESEH:NO %(AdditionalOptions)</AdditionalOptions>
+      <Profile Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">true</Profile>
     </Link>
     <ResourceCompile>
       <Culture Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">0x0804</Culture>

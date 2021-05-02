@@ -18,8 +18,8 @@ DoorZombies5::DoorZombies5(Node* node)
 	_currentBloodVolume = 200;
 	_currentHeadShieldVolume = 0;
 	_currentBodyShieldVolume = 2000;
-	_speed = 30;
-	_currentSpeed = 30;
+	_speed = 40;
+	_currentSpeed = 40;
 	_isHaveShield = true;
 	_bodyShieldType = ShieldType::StoneBodyShield;
 	_zombiesType = ZombiesType::DoorZombies5;

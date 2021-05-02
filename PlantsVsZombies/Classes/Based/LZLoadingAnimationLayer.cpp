@@ -24,6 +24,7 @@ bool LoadingAnimationLayer::init()
 		littlesprite->setAnimation(0, "animation", true);
 		littlesprite->update(0);
 		littlesprite->setScale(1.5f);
+		littlesprite->setName("loadAnimation");
 		this->addChild(littlesprite);
 	}
 

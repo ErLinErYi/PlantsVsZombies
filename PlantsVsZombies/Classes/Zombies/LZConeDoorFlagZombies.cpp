@@ -18,8 +18,8 @@ ConeDoorFlagZombies::ConeDoorFlagZombies(Node* node)
 	_currentBloodVolume = 200;
 	_currentHeadShieldVolume = 600;
 	_currentBodyShieldVolume = 1200;
-	_speed = 36;
-	_currentSpeed = 36;
+	_speed = 38;
+	_currentSpeed = 38;
 	_isHaveShield = true;
 	_headShieldType = ShieldType::PlasticsHeadShield;
 	_bodyShieldType = ShieldType::IronBodyShield;

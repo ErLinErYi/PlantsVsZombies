@@ -82,7 +82,6 @@ void HAnimationLayer::createZombies(const float mulSpeed, const float addSpeed, 
 	zombies->setZombieInRow(row);
 	zombies->setZombieAttributeForGameTypeInvalid(true);
 	zombies->createZombie();
-	zombies->setZombieMultipleBloodVolume(1.3f);
 	zombies->setZombieCurrentSpeed(zombies->getZombieCurrentSpeed() * mulSpeed + addSpeed);
 	zombies->getZombieAnimation()->setTimeScale(zombies->getZombieAnimation()->getTimeScale() * mulSpeed + addSpeed);
 	ZombiesGroup.push_back(zombies);

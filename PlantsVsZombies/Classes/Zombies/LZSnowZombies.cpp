@@ -18,8 +18,8 @@ SnowZombies::SnowZombies(Node* node)
 	_currentBloodVolume = 1800;
 	_currentHeadShieldVolume = 0;
 	_currentBodyShieldVolume = 0;
-	_speed = 25;
-	_currentSpeed = 25;
+	_speed = 35;
+	_currentSpeed = 35;
 	_isHaveShield = false;
 	_zombiesType = ZombiesType::SnowZombies;
 	_random.seed(_device());

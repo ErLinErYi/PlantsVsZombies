@@ -18,8 +18,8 @@ BonesZombies::BonesZombies(Node* node)
 	_currentBloodVolume = 200;
 	_currentHeadShieldVolume = 1800;
 	_currentBodyShieldVolume = 0;
-	_speed = 30;
-	_currentSpeed = 30;
+	_speed = 40;
+	_currentSpeed = 40;
 	_isHaveShield = true;
 	_headShieldType = ShieldType::BonesHeadShield;
 	_zombiesType = ZombiesType::BonesZombies;

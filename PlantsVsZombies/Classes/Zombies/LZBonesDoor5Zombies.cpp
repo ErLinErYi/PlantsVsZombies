@@ -18,8 +18,8 @@ BonesDoor5Zombies::BonesDoor5Zombies(Node* node)
 	_currentBloodVolume = 200;
 	_currentHeadShieldVolume = 1800;
 	_currentBodyShieldVolume = 2000;
-	_speed = 30;
-	_currentSpeed = 30;
+	_speed = 35;
+	_currentSpeed = 35;
 	_isHaveShield = true;
 	_bodyShieldType = ShieldType::StoneBodyShield;
 	_headShieldType = ShieldType::BonesHeadShield;

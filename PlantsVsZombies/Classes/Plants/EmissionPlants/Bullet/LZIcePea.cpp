@@ -88,13 +88,20 @@ void IcePea::createPeaExplode()
 
 void IcePea::icePeaExplodeEffect(Zombies* zombie)
 {
-    zombie->setZombieTimerTime(10, true);
-    
-    if (!zombie->getZombieIsFrozen())//判断是否已经被减速
+    if (zombie->getZombieBodyShieldType() == ShieldType::none)
     {
-        PlayMusic::playMusic("frozen");
-        zombie->setZombieActionSlow();
-        zombie->createZombieTimer();
+        zombie->setZombieTimerTime(10, true);
+
+        if (!zombie->getZombieIsFrozen())//判断是否已经被减速
+        {
+            PlayMusic::playMusic("frozen");
+            zombie->setZombieActionSlow();
+            zombie->createZombieTimer();
+        }
+        else
+        {
+            zombie->setZombieHurtBlink();
+        }
     }
     else
     {

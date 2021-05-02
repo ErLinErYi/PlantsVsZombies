@@ -19,8 +19,8 @@ Bucket4Door4Zombies::Bucket4Door4Zombies(Node* node)
 	_currentBloodVolume = 200;
 	_currentHeadShieldVolume = 1300;
 	_currentBodyShieldVolume = 1600;
-	_speed = 30;
-	_currentSpeed = 30;
+	_speed = 35;
+	_currentSpeed = 35;
 	_isHaveShield = true;
 	_bodyShieldType = ShieldType::IronBodyShield;
 	_headShieldType = ShieldType::IronHeadShield;

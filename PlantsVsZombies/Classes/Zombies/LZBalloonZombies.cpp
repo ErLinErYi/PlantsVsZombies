@@ -6,6 +6,7 @@
  */
 
 #include "LZBalloonZombies.h"
+#include "Based/LZPlayMusic.h"
 
 BalloonZombies::BalloonZombies(Node* node)
 {
@@ -117,6 +118,7 @@ void BalloonZombies::setZombieSecondaryInjure()
 {
 	if (_bodyAnimationId == 2)
 	{
+		PlayMusic::playMusic("balloon_pop");
 		_zombiesAnimation->setAnimation(0, "BalloonZombies_Die", false);
 		_currentSpeed = 0; /* Õ£÷π‘À∂Ø */
 		_bodyAnimationId = 10;

@@ -55,6 +55,7 @@ bool ModernWorld::init()
 	readWorldLevel();
 	createBackground();
 	createScrollView();
+	createLevelModeText();
     createGoBack();
 	createMouseListener();
 	schedule([this](float) {_global->checkAnimationInterval(); }, 1.f, "FPS");
@@ -487,6 +488,20 @@ void ModernWorld::showLevels()
 	createButton(Level_50, "begingame", Vec2(85, 240))->setScale(1.2f);
 	createButton(Level_50, "begingame", Vec2(245, 175))->setScale(1.4f);
 	createButton(Level_50, "begingame", Vec2(400, 240))->setScale(1.2f);
+}
+
+void ModernWorld::createLevelModeText()
+{
+	auto  levelModeText = Text::create();
+	levelModeText->setFontName(GAME_FONT_NAME_1);
+	levelModeText->setFontSize(_global->userInformation->getGameText().find("噩梦模式")->second->fontsize);
+	levelModeText->setTextColor(Color4B(0, 255, 255, 200));
+	levelModeText->setString(_global->userInformation->getGameDifficulty() ?
+		_global->userInformation->getGameText().find("噩梦模式")->second->text :
+		_global->userInformation->getGameText().find("简单模式")->second->text);
+	levelModeText->enableGlow(Color4B::BLUE);
+	levelModeText->setPosition(Vec2(_director->getWinSize().width / 2.f, 50));
+	this->addChild(levelModeText);
 }
 
 Sprite* ModernWorld::createSprite(const std::string& name, const Vec2& position, const float& scale, const int& zorder, const float& speed, bool IsFlipped)

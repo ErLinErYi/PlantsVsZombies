@@ -79,7 +79,7 @@ void Jalapeno::plantExplode()
 
 void Jalapeno::showExplodeAnimation()
 {
-	PlayMusic::playMusic("cherrybomb");
+	PlayMusic::playMusic("jalapeno");
 
 	GSBackgroundLayer::backgroundRunAction();
 

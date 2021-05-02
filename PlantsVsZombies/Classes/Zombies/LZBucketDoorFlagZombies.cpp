@@ -18,8 +18,8 @@ BucketDoorFlagZombies::BucketDoorFlagZombies(Node* node)
 	_currentBloodVolume = 200;
 	_currentHeadShieldVolume = 1200;
 	_currentBodyShieldVolume = 1200;
-	_speed = 35;
-	_currentSpeed = 35;
+	_speed = 40;
+	_currentSpeed = 40;
 	_isHaveShield = true;
 	_headShieldType = ShieldType::IronHeadShield;
 	_bodyShieldType = ShieldType::IronBodyShield;

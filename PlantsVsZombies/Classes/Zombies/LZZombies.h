@@ -29,49 +29,66 @@ class GSGameEndLayer;
 enum class ZombiesType
 {
 	None = 0,
-	CommonZombies,                  /* 200 */
-	ConeZombies,                    /* 600+200 */
-	BucketZombies,                  /* 1200+200 */
-	CommonDoorZombies,              /* 1200+200 */
-	ConeDoorZombies,                /* 600+1200+200 */
-	BucketDoorZombies,              /* 1200+1200+200 */
-	LmpZombies,                     /* 200 */
-	CommonFlagZombies,              /* 200 */
-	ConeFlagZombies,                /* 600+200 */
-	BucketFlagZombies,              /* 1200+200 */
-	CommonDoorFlagZombies,          /* 1200+200 */
-	ConeDoorFlagZombies,            /* 600+1200+200 */
-	BucketDoorFlagZombies,          /* 1200+1200+200 */
-	SnowZombies,                    /* 1800 */
-	BalloonZombies,                 /* 200 */
-	NewspaperZombies,               /* 600+200 */
-	StrongNewspaperZombies,         /* 1000+200 */
-	ConeZombies2,                   /* 700+300 */
-	ConeZombies3,                   /* 600+200 */
-	ConeZombies4,                   /* 700+200 */
-	WoodZombies3,                   /* 800+200*/
-	WoodZombies2,                   /* 900+200 */
-	WoodZombies,                    /* 1000+200 */
-	DoorZombies,                    /* 600+200 */
-	DoorZombies2,                   /* 800+200 */
-	DoorZombies3,                   /* 1000+200 */
-	DoorZombies4,                   /* 1600+200 */
-	DoorZombies5,                   /* 2000+200 */
-	BucketZombies2,                 /* 1300+200 */
-	BucketZombies3,                 /* 1300+200 */
-	BucketZombies4,                 /* 1300+200 */
-	BucketZombies5,                 /* 1400+200 */
-	BucketZombies6,                 /* 1600+200 */
-	BonesZombies2,                  /* 1400+200 */
-	BonesZombies,                   /* 1800+200 */
-	BrickZombies,                   /* 2000+200 */
-	BrickZombies2,                  /* 2000+200 */
-	Bucket4Door4Zombies,            /* 1300+1600+200 */
-	NewspaperBrickZombies,          /* 1000+2000+200 */
-	Brick2Door3Zombies,             /* 2000+1000+200 */
-	BonesDoor5Zombies,              /* 1800+2000+200 */
-	BrickDoor5Zombies,              /* 2000+2000+200 */
-	GargantuarZombies               /* 6000 */
+	CommonZombies,                  /* 200  1*/       
+	CommonFlagZombies,              /* 200  2*/
+	LmpZombies,                     /* 200  3*/
+	BalloonZombies,                 /* 200  4*/
+
+	ConeZombies,                    /* 600+200 800 5*/
+	ConeZombies3,                   /* 600+200 800 6*/
+	ConeFlagZombies,                /* 600+200 800 7*/
+	DoorZombies,                    /* 600+200 800 8*/
+	NewspaperZombies,               /* 600+200 800 9*/
+
+	ConeZombies4,                   /* 700+200 900 10*/
+
+	ConeZombies2,                   /* 700+300 1000 11*/
+	WoodZombies3,                   /* 800+200 1000 12*/
+	DoorZombies2,                   /* 800+200 1000 13*/
+
+	WoodZombies2,                   /* 900+200 1100 14*/
+
+	StrongNewspaperZombies,         /* 1000+200 1200 15*/
+	WoodZombies,                    /* 1000+200 1200 16*/
+	DoorZombies3,                   /* 1000+200 1200 17*/
+
+	CommonDoorZombies,              /* 1200+200 1400 18*/
+	CommonDoorFlagZombies,          /* 1200+200 1400 19*/
+	BucketZombies,                  /* 1200+200 1400 20*/
+	BucketFlagZombies,              /* 1200+200 1400 21*/
+
+	BucketZombies2,                 /* 1300+200 1500 22*/
+	BucketZombies3,                 /* 1300+200 1500 23*/
+	BucketZombies4,                 /* 1300+200 1500 24*/
+
+	BucketZombies5,                 /* 1400+200 1600 25*/
+	BonesZombies2,                  /* 1400+200 1600 26*/
+
+	DoorZombies4,                   /* 1600+200 1800 27*/
+	BucketZombies6,                 /* 1600+200 1800 28*/
+
+	ConeDoorZombies,                /* 600+1200+200 2000 29*/
+	ConeDoorFlagZombies,            /* 600+1200+200 2000 30*/
+	BonesZombies,                   /* 1800+200 2000 31*/
+	SnowZombies,                    /* 2000 32*/
+
+	DoorZombies5,                   /* 2000+200 2200 33*/
+	BrickZombies,                   /* 2000+200 2200 34*/
+	BrickZombies2,                  /* 2000+200 2200 35*/
+
+	BucketDoorZombies,              /* 1200+1200+200 2600 36*/
+	BucketDoorFlagZombies,          /* 1200+1200+200 2600 37*/
+
+	Bucket4Door4Zombies,            /* 1300+1600+200 3100 38*/
+
+	NewspaperBrickZombies,          /* 1000+2000+200 3200 39*/
+	Brick2Door3Zombies,             /* 2000+1000+200 3200 40*/
+
+	BonesDoor5Zombies,              /* 1800+2000+200 4000 41*/
+
+	BrickDoor5Zombies,              /* 2000+2000+200 4200 42*/
+
+	GargantuarZombies               /* 6000  43*/
 };
 
 enum class ShieldType
@@ -563,6 +580,11 @@ protected:
 	 *≥ı ºªØΩ© ¨
 	 */
 	virtual void zombieInit(const string& animation_name = "Zombies");
+
+	/**
+	 * …Ë÷√Ω© ¨º‡Ã˝ 
+	 */
+	virtual void setZombiesListener();
 
 	/**
      *ªÒ»°Ω© ¨ªÊ÷∆Õº≤„

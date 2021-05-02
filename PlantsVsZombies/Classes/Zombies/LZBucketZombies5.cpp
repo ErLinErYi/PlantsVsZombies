@@ -18,8 +18,8 @@ BucketZombies5::BucketZombies5(Node* node)
 	_currentBloodVolume = 200;
 	_currentHeadShieldVolume = 1400;
 	_currentBodyShieldVolume = 0;
-	_speed = 30;
-	_currentSpeed = 30;
+	_speed = 40;
+	_currentSpeed = 40;
 	_isHaveShield = true;
 	_headShieldType = ShieldType::IronHeadShield;
 	_zombiesType = ZombiesType::BucketZombies5;

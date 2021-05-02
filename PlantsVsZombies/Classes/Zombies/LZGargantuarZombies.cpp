@@ -20,8 +20,8 @@ GargantuarZombies::GargantuarZombies(Node* node)
 	_currentBloodVolume = 6000;
 	_currentHeadShieldVolume = 0;
 	_currentBodyShieldVolume = 0;
-	_speed = 20;
-	_currentSpeed = 20;
+	_speed = 25;
+	_currentSpeed = 25;
 	_isShow = false;
 	_isHaveShield = false;
 	_zombiesType = ZombiesType::GargantuarZombies;
@@ -46,7 +46,8 @@ void GargantuarZombies::createZombie()
 	const uniform_real_distribution<float>number(0.f, 0.2f);
 	setZombieAnimation("Zombies_Walk");
 	_zombiesAnimation->setPosition(_zombiesAnimation->getPosition() - Vec2(0, 10));
-	_zombiesAnimation->setTimeScale(0.6f + number(_random));
+	_zombiesAnimation->setTimeScale(0.5f + number(_random));
+	_zombiesAnimation->setScale(1.25f);
 
 	createZombieShadow();//影子
 	_zombiesAnimation->getChildByName("shadow")->setScale(3.5f);
@@ -62,6 +63,7 @@ void GargantuarZombies::createPreviewZombie()
 	createZombieShadow();//影子
 	_zombiesAnimation->getChildByName("shadow")->setScale(3.5f);
 	_zombiesAnimation->getChildByName("shadow")->setPosition(Vec2(10, 28));
+	_zombiesAnimation->setScale(1.25f);
 }
 
 void GargantuarZombies::playZombieSoundEffect()
@@ -105,6 +107,7 @@ void GargantuarZombies::playZombiesAshesAnimation()
 	ashes->setTimeScale(0.4f + number(_random));
 	ashes->update(0);
 	ashes->setAnimation(0, "animation", false);
+	ashes->setScale(1.1f);
 	_node->addChild(ashes);
 
 	ashes->runAction(Sequence::create(DelayTime::create(10.f), 

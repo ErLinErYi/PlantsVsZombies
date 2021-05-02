@@ -297,7 +297,7 @@ bool Plants::getZombieIsEncounterPlant(Zombies* zombie)
 void Plants::zombieEatPlant(Zombies* zombie)
 {
 	if (getPlantIsSurvive() && Plants::getZombieIsSameLineWithPlant(zombie) &&       /* 植物存活 && 植物与僵尸在同一行 */
-		Plants::getZombieIsEncounterPlant(zombie)&& zombie->getZombieIsEatPlants())  /* 僵尸遇到植物 && 僵尸是吃植物的僵尸 */
+		Plants::getZombieIsEncounterPlant(zombie) && zombie->getZombieIsEatPlants()) /* 僵尸遇到植物 && 僵尸是吃植物的僵尸 */
 	{
 		if (zombie->getZombieIsSurvive() && !zombie->getZombieIsEat() && zombie->getZombieIsFrozen() != 2)
 		{
@@ -312,9 +312,9 @@ void Plants::zombieEatPlant(Zombies* zombie)
 			else
 			{
 				const string eateffect[3] = { "chomp","chomp2","chompsoft" };
-				zombie->getZombieAnimation()->setAnimation(0,
+				auto track = zombie->getZombieAnimation()->setAnimation(0,
 					zombie->getZombieType() == ZombiesType::LmpZombies ? "Zombies_Eat" : rand() % 4 ? "Zombies_Eat" : "Zombies_Eat1", true);
-				zombie->getZombieAnimation()->setEventListener([=](spTrackEntry* entry, spEvent* event)
+				zombie->getZombieAnimation()->setTrackEventListener(track, [=](spTrackEntry* entry, spEvent* event)
 					{
 						if (!strcmp(event->data->name, "eat") && zombie->getZombieIsSurvive())
 						{
@@ -333,8 +333,8 @@ void Plants::zombieEatPlant(Zombies* zombie)
 
 void Plants::zombieAttackPlant(Zombies* zombie)
 {
-	zombie->getZombieAnimation()->setAnimation(0, "Zombies_Attack", true);
-	zombie->getZombieAnimation()->setEventListener([=](spTrackEntry* entry, spEvent* event)
+	auto track = zombie->getZombieAnimation()->setAnimation(0, "Zombies_Attack", true);
+	zombie->getZombieAnimation()->setTrackEventListener(track,[=](spTrackEntry* entry, spEvent* event)
 		{
 			if (!strcmp(event->data->name, "attack") && zombie->getZombieIsSurvive())
 			{
@@ -351,12 +351,17 @@ void Plants::zombieRecoveryMove(Zombies* zombie)
 		zombie->getZombieIsEat() && zombie->getZombieIsStop()) /* 僵尸正在吃植物 && 僵尸正在停止移动 */
 	{
 		setPlantRemoveFromMap();
-		getPlantType() != PlantsType::PotatoMine ? PlayMusic::playMusic("gulp") : nullptr;
+
+		if (getPlantType() != PlantsType::PotatoMine && getPlantType() != PlantsType::CherryBomb &&
+			getPlantType() != PlantsType::Jalapeno && getPlantType() != PlantsType::JalapenoVariation)
+		{
+			PlayMusic::playMusic("gulp");
+		}
 
 		zombie->setZombieIsEat(false);
 		if (!zombie->getZombieIsPlayDieAnimation()) /* 僵尸没有播放死亡动画 */
 		{
-			zombie->getZombieAnimation()->setEventListener(nullptr);
+			zombie->getZombieAnimation()->setTrackEventListener(zombie->getZombieAnimation()->getCurrent(), nullptr);
 			if (zombie->getZombieType() == ZombiesType::GargantuarZombies)
 			{
 				zombie->getZombieAnimation()->addAnimation(0, "Zombies_Walk", true);

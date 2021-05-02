@@ -67,7 +67,7 @@ void JalapenoVariation::createPlantAnimation()
 
 void JalapenoVariation::showExplodeAnimation()
 {
-	PlayMusic::playMusic("cherrybomb");
+	PlayMusic::playMusic("jalapeno");
 
 	GSBackgroundLayer::backgroundRunAction();
 

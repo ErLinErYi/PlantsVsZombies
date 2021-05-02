@@ -18,8 +18,8 @@ ConeZombies2::ConeZombies2(Node* node)
 	_currentBloodVolume = 300;
 	_currentHeadShieldVolume = 700;
 	_currentBodyShieldVolume = 0;
-	_speed = 30;
-	_currentSpeed = 30;
+	_speed = 40;
+	_currentSpeed = 40;
 	_isHaveShield = true;
 	_headShieldType = ShieldType::PlasticsHeadShield;
 	_zombiesType = ZombiesType::ConeZombies2;

@@ -62,7 +62,7 @@ Zombies::Zombies() :
 ,   _bodyShieldType(ShieldType::none)
 ,	_openLevelData(OpenLevelData::getInstance())
 ,	_global(Global::getInstance())
-,   _animationName{"Zombies_Stand","Zombies_Stand1","Zombies_Walk","Zombies_Walk1","Zombies_Walk1"}
+,   _animationName{"Zombies_Stand","Zombies_Stand1","Zombies_Walk1","Zombies_Walk2","Zombies_Walk2"}
 {
 	_random.seed(_device());
 }
@@ -86,6 +86,42 @@ void Zombies::zombieInit(const string& animation_name)
 	_node->addChild(_zombiesAnimation);
 
 	setZombieGLProgram();
+	setZombiesListener();
+}
+
+void Zombies::setZombiesListener()
+{
+	const string eateffect[3] = { "chomp","chomp2","chompsoft" };
+	_zombiesAnimation->setEventListener([&](spTrackEntry* entry, spEvent* event)
+		{
+			if (getZombieIsSurvive())
+			{
+				if (!strcmp(event->data->name, "walk_begin"))
+				{
+					_isCanMove = true;
+				}
+
+				if (!strcmp(event->data->name, "walk_end"))
+				{
+					_isCanMove = false;
+				}
+
+				if (!strcmp(event->data->name, "walk_music") && getZombieIsEnterMap())
+				{
+					PlayMusic::playMusic(rand() % 2 ? "gragantuarWalkMusic" : "gragantuarWalkMusic2");
+				}
+			}
+
+			if (!strcmp(event->data->name, "filldown"))
+			{
+				PlayMusic::playMusic(rand() % 2 ? "zombie_falling_1" : "zombie_falling_2");
+				_currentSpeed = 0; /* 停止运动 */
+			}
+			if (!strcmp(event->data->name, "die"))
+			{
+				zombieFadeOutAnimation();
+			}
+		});
 }
 
 void Zombies::setZombieScale(const int& scale) const
@@ -183,6 +219,7 @@ void Zombies::setZombieCurrentSpeed(const int currentSpeed)
 void Zombies::setZombieStop()
 {
 	_currentSpeed = 0;
+	_isCanMove = false;
 }
 
 void Zombies::setZombieIsShow(const bool isShow)
@@ -221,8 +258,24 @@ string Zombies::getZombieAniamtionName(ZombiesType zombiestype)
 	case ZombiesType::CommonDoorFlagZombies:
 	case ZombiesType::ConeDoorFlagZombies:
 	case ZombiesType::BucketDoorFlagZombies:
+	case ZombiesType::BonesDoor5Zombies:
+	case ZombiesType::Brick2Door3Zombies:
+	case ZombiesType::BrickDoor5Zombies:
+	case ZombiesType::Bucket4Door4Zombies:
+	case ZombiesType::BucketZombies2:
+	case ZombiesType::BucketZombies3:
+	case ZombiesType::BucketZombies4:
+	case ZombiesType::BucketZombies5:
+	case ZombiesType::BucketZombies6:
+	case ZombiesType::DoorZombies2:
+	case ZombiesType::DoorZombies3:
+	case ZombiesType::DoorZombies4:
+	case ZombiesType::DoorZombies5:
+	case ZombiesType::NewspaperBrickZombies:
+	case ZombiesType::NewspaperZombies:
+	case ZombiesType::StrongNewspaperZombies:
 		     name = "Zombies_Door_Walk"; break;
-	default: name = "Zombies_Walk"; break;
+	default: name = rand() % 2 ? "Zombies_Walk1" : "Zombies_Walk2"; break;
 	}
 	return name;
 }
@@ -601,18 +654,6 @@ void Zombies::playZombiesFillDownAnimation()
 {
 	const uniform_real_distribution<float>number(0.f, 0.45f);
 	_zombiesAnimation->setTimeScale(0.6f + number(_random));
-	_zombiesAnimation->setEventListener([&](spTrackEntry* entry, spEvent* event)
-		{
-			if (!strcmp(event->data->name, "filldown"))
-			{
-				_currentSpeed = 0; /* 停止运动 */
-				PlayMusic::playMusic(rand() % 2 ? "zombie_falling_1" : "zombie_falling_2");
-			}
-			if (!strcmp(event->data->name, "die"))
-			{
-				zombieFadeOutAnimation();
-			}
-		});
 }
 
 void Zombies::playZombiesAshesAnimation()
@@ -1065,7 +1106,7 @@ void Zombies::setZombieActionRecovery(bool slow)
 		_isFrozen = 0;
 		_zombiesAnimation->setColor(Color3B::WHITE);
 		_zombiesAnimation->setTimeScale(_timeScale);
-		_currentSpeed = _speed;
+		_bloodVolume > 0 ? _currentSpeed = _speed : _currentSpeed = 0;
 		_isEat = false;
 	}
 	else
@@ -1076,7 +1117,7 @@ void Zombies::setZombieActionRecovery(bool slow)
 			_isFrozen = 0;
 			_zombiesAnimation->setColor(Color3B::WHITE);
 			_zombiesAnimation->setTimeScale(_timeScale);
-			_currentSpeed = _speed;
+			_bloodVolume > 0 ? _currentSpeed = _speed : _currentSpeed = 0;
 			_isEat = false;
 		}
 	}

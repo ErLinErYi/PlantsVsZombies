@@ -18,8 +18,8 @@ CommonDoorFlagZombies::CommonDoorFlagZombies(Node* node)
 	_currentBloodVolume = 200;
 	_currentHeadShieldVolume = 0;
 	_currentBodyShieldVolume = 1200;
-	_speed = 40;
-	_currentSpeed = 40;
+	_speed = 42;
+	_currentSpeed = 42;
 	_isHaveShield = true;
 	_bodyShieldType = ShieldType::IronBodyShield;
 	_zombiesType = ZombiesType::CommonDoorFlagZombies;

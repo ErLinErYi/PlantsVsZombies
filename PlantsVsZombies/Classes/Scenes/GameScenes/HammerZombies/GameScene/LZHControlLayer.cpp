@@ -16,6 +16,7 @@
 #include "Scenes/GameScenes/Adventure/GameScene/LZAGSData.h"
 #include "Scenes/GameScenes/Adventure/GameScene/LZAGSDefine.h"
 #include "Zombies/LZZombies.h"
+#include "Plants/EmissionPlants/Bullet/LZBullet.h"
 #include "Based/LZPlayMusic.h"
 #include "Based/LZUserData.h"
 #include "Based/LZMouseEventControl.h"
@@ -23,11 +24,11 @@
 HControlLayer::HControlLayer() :
 	_hammer(nullptr),
 	_attack(100),
-	_frequencyZombiesNumbers(5),
+	_frequencyZombiesNumbers(15),
 	_maxFrequencyNumbers(5),
 	_currentLevelNumber(1),
 	_zombiesTypeNumbers(1),
-	_currentLevelZombiesSpeed(1.5),
+	_currentLevelZombiesSpeed(2.f),
 	_isShowHammerButton(false)
 {
 	srand(time(nullptr));
@@ -136,6 +137,8 @@ void HControlLayer::judgeHammerZombies(const Vec2& position)
 			if (_hammer->getBoundingBox().intersectsRect(Rect(box.origin.x + 60, box.origin.y + 50, box.size.width, box.size.height - 50)))
 			{
 				PlayMusic::playMusic("bonk");
+				Bullet::selectSoundEffect(zombie->getZombieBodyAttackSoundEffect(), zombie->getZombieHeadAttackSoundEffect());
+
 				zombie->setZombieHurtBlink();
 				attackZombies(zombie);
 				showPowImage(zombie, position);

@@ -40,7 +40,7 @@ MainMenu::MainMenu() :
 
 MainMenu::~MainMenu()
 {
-	if (_nowtime)delete _nowtime;
+	if (_nowtime)delete _nowtime, _nowtime = nullptr;
 }
 
 Scene* MainMenu::createScene()
@@ -675,38 +675,48 @@ void MainMenu::beginHammerZombiesGame()
 
 void MainMenu::beginVasebreakerGame()
 {
-	if (!_nowtime)
+	auto loadingAnimation = LoadingAnimationLayer::create();
+	if (loadingAnimation)
 	{
-		auto loadingAnimation = LoadingAnimationLayer::create();
-		if (loadingAnimation)
-		{
-			setMouseListenerEnable(false);
-			this->addChild(loadingAnimation, 6);
-		}
-
-		_nowtime = new MomentTime;
-		_nowtime->requestNetTime([this]()
-			{
-#ifdef _DEBUG
-				Director::getInstance()->replaceScene(TransitionFade::create(0.5f, TSelectPlantsScene::create()));
-#else
-				if (_nowtime->getNetHour() >= 20 && _nowtime->getNetHour() < 22)
-				{
-					Director::getInstance()->replaceScene(TransitionFade::create(0.5f, TSelectPlantsScene::create()));
-				}
-				else
-				{
-					setMouseListenerEnable(false);
-					auto lock = UnlockDialogLayer::createScene(1);
-					if (lock)
-					{
-						lock->setMouseListener(_mouse);
-						this->addChild(lock, 1, "_lockLayer");
-					}
-				}
-#endif // !_DEBUG
-			});
+		setMouseListenerEnable(false);
+		this->addChild(loadingAnimation, 6, "loadingAnimation");
 	}
+
+	if (_nowtime) delete _nowtime, _nowtime = nullptr;
+	_nowtime = new MomentTime;
+	_nowtime->requestNetTime([this]()
+		{
+#ifdef _DEBUG
+			Director::getInstance()->replaceScene(TransitionFade::create(0.5f, TSelectPlantsScene::create()));
+#else
+			auto load = this->getChildByName("loadingAnimation");
+			if (load)
+			{
+				load->runAction(EaseExponentialIn::create(FadeOut::create(0.5f)));
+				load->getChildByName("loadAnimation")->runAction(Sequence::create(
+					EaseExponentialIn::create(ScaleTo::create(0.5f, 0.1f)),
+					CallFunc::create([load]()
+						{
+							load->removeFromParent();
+						}), nullptr));
+			}
+
+			if (_nowtime->getNetHour() >= 20 && _nowtime->getNetHour() < 22)
+			{
+				Director::getInstance()->replaceScene(TransitionFade::create(0.5f, TSelectPlantsScene::create()));
+			}
+			else
+			{
+				setMouseListenerEnable(false);
+				auto lock = UnlockDialogLayer::createScene(1);
+				if (lock)
+				{
+					lock->setMouseListener(_mouse);
+					this->addChild(lock, 1, "_lockLayer");
+				}
+			}
+#endif // !_DEBUG
+		});
 }
 
 void MainMenu::beginSurvivalGame()

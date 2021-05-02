@@ -18,8 +18,8 @@ CommonFlagZombies::CommonFlagZombies(Node* node)
 	_currentBloodVolume = 200;
 	_currentHeadShieldVolume = 0;
 	_currentBodyShieldVolume = 0;
-	_speed = 45;
-	_currentSpeed = 45;
+	_speed = 50;
+	_currentSpeed = 50;
 	_isShow = false;
 	_isHaveShield = false;
 	_zombiesType = ZombiesType::CommonFlagZombies;
