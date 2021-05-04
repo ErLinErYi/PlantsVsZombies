@@ -1,6 +1,6 @@
 # PlantsVsZombies
-[English](README_en_us.md)
-[русский](README_ru_ru.MD)
+[[English]](README_en_us.md)
+[[русский]](README_ru_ru.MD)
 * **游戏引擎基于版本 Cocos2d-X v3.16**
 * **游戏全部使用c++开发**
 * **如果你刚刚接触Cocos2d-X 这绝对是个不错的入门项目**
