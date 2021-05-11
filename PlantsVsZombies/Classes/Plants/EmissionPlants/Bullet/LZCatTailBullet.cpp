@@ -1,4 +1,4 @@
-/**
+ï»¿/**
  *Copyright (c) 2021 LZ.All Right Reserved
  *Author : LZ
  *Date: 2021.2.7
@@ -44,7 +44,7 @@ void CatTailBullet::createListener()
     _bulletAnimation->runAction(RepeatForever::create(Sequence::create(DelayTime::create(0.02f),
         CallFunc::create([=]()
             {
-                if (fabs(_locationY - _bulletAnimation->getPositionY()) > _distanceY) /* µÚÒ»´Î¼ä¸ô½øĞĞÉèÖÃlocalZorder */
+                if (fabs(_locationY - _bulletAnimation->getPositionY()) > _distanceY) /* ç¬¬ä¸€æ¬¡é—´éš”è¿›è¡Œè®¾ç½®localZorder */
                 {
                     const auto order = _bulletAnimation->getLocalZOrder();
                     if (order > 0 && order < 5070)
@@ -53,7 +53,7 @@ void CatTailBullet::createListener()
                     }
                     _locationY = _bulletAnimation->getPositionY();
 
-                    _distanceY = 138; /* µÚÒ»´ÎÖ®ºóÃ¿¸ô138ÉèÖÃÒ»´Î */
+                    _distanceY = 138; /* ç¬¬ä¸€æ¬¡ä¹‹åæ¯éš”138è®¾ç½®ä¸€æ¬¡ */
                 }
             }), nullptr)));
 
@@ -82,20 +82,20 @@ void CatTailBullet::bulletAndZombiesCollision()
 {
     for (auto zombie : ZombiesGroup)
     {
-        if (!_isUsed && zombie->getZombieIsSurvive() &&                              /* Ã»ÓĞ±»Ê¹ÓÃ &&  ½©Ê¬Ã»ÓĞËÀÍö */
-            zombie->getZombieIsEnterMap() && getBulletIsEncounterWithZombie(zombie)) /* ½©Ê¬½øÈëµØÍ¼ÄÚ && Íã¶¹Óë½©Ê¬Åö×² */
+        if (!_isUsed && zombie->getZombieIsSurvive() &&                              /* æ²¡æœ‰è¢«ä½¿ç”¨ &&  åƒµå°¸æ²¡æœ‰æ­»äº¡ */
+            zombie->getZombieIsEnterMap() && getBulletIsEncounterWithZombie(zombie)) /* åƒµå°¸è¿›å…¥åœ°å›¾å†… && è±Œè±†ä¸åƒµå°¸ç¢°æ’ */
         {
             selectSoundEffect(zombie->getZombieBodyAttackSoundEffect(),
-                zombie->getZombieHeadAttackSoundEffect());  /* ²¥·ÅÖ¸¶¨ÒôÀÖ */
+                zombie->getZombieHeadAttackSoundEffect());  /* æ’­æ”¾æŒ‡å®šéŸ³ä¹ */
 
-            bulletAttackHurtZombies(zombie);   /* ½©Ê¬¼õÉÙÉúÃüÖµ */
+            bulletAttackHurtZombies(zombie);   /* åƒµå°¸å‡å°‘ç”Ÿå‘½å€¼ */
             zombie->setZombieHurtBlink();
 
             createBulletExplode(zombie);
             setBulletAttack(0);
             setBulletIsUsed(true);
 
-            break; /* Ò»¸öÍã¶¹Ö»ÄÜ»÷ÖĞÒ»¸ö½©Ê¬ */
+            break; /* ä¸€ä¸ªè±Œè±†åªèƒ½å‡»ä¸­ä¸€ä¸ªåƒµå°¸ */
         }
     }
 }
@@ -164,9 +164,9 @@ void CatTailBullet::seekZombie()
     {
         if (!_isUsed && zombie->getZombieIsSurvive() && zombie->getZombieIsEnterMap())
         {
-            if (zombie->getZombieType() == ZombiesType::BalloonZombies) /* Èç¹ûÊÇÆøÇò½©Ê¬ */
+            if (zombie->getZombieType() == ZombiesType::BalloonZombies) /* å¦‚æœæ˜¯æ°”çƒåƒµå°¸ */
             {
-                if (!balloonZombiesFlag)  /* µÚÒ»´Î½øÈëĞèÒª°ÑÖ®Ç°Ëø¶¨µÄ½©Ê¬È¡Ïû */
+                if (!balloonZombiesFlag)  /* ç¬¬ä¸€æ¬¡è¿›å…¥éœ€è¦æŠŠä¹‹å‰é”å®šçš„åƒµå°¸å–æ¶ˆ */
                 {
                     balloonZombiesFlag = true;
                     _distance = 0xffff;

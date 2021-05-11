@@ -1,4 +1,4 @@
-/**
+ï»¿/**
  *Copyright (c) 2021 LZ.All Right Reserved
  *Author : LZ
  *Date: 2021.1.26
@@ -51,15 +51,15 @@ void StarFruit::createPlantAnimation()
 	_plantAnimation->setScale(0.8f);
 	_node->addChild(_plantAnimation);
 
-	// Ó°×Ó
+	// å½±å­
 	setPlantShadow(2.7f);
 	_plantAnimation->getChildByName("plantshadow")->setPosition(Vec2(-5, 50));
 	_plantAnimation->getChildByName("plantshadow")->setScaleY(4.f);
 
-	// ÄàÍÁ·É½¦¶¯»­
+	// æ³¥åœŸé£æº…åŠ¨ç”»
 	setPlantSoilSplashAnimation(0.8f);
 
-	// ´´½¨¼àÌı
+	// åˆ›å»ºç›‘å¬
 	createListener("StarFruit_Attack");
 }
 
@@ -67,11 +67,11 @@ void StarFruit::determineRelativePositionPlantsAndZombies()
 {
 	for (auto zombie : ZombiesGroup)
 	{
-		zombieEatPlant(zombie);      /* ½©Ê¬³ÔÖ²Îï */
+		zombieEatPlant(zombie);      /* åƒµå°¸åƒæ¤ç‰© */
 
-		zombieRecoveryMove(zombie);  /* ½©Ê¬»Ö¸´ÒÆ¶¯ */
+		zombieRecoveryMove(zombie);  /* åƒµå°¸æ¢å¤ç§»åŠ¨ */
 
-		plantAttack(zombie);         /* Ö²Îï¹¥»÷ */
+		plantAttack(zombie);         /* æ¤ç‰©æ”»å‡» */
 	}
 
 	plantRecovery("StarFruit_Normal");
@@ -79,9 +79,9 @@ void StarFruit::determineRelativePositionPlantsAndZombies()
 
 void StarFruit::plantAttack(Zombies* zombie)
 {
-	if (getPlantIsSurvive() && zombie->getZombieIsSurvive() &&                   /* Ö²Îï´æ»î && ½©Ê¬Ã»ÓĞËÀÍö */
-		zombie->getZombieIsEnterMap() && zombieInPlantAttackRange(zombie) &&     /* ½©Ê¬½øÈëµØÍ¼ && ½©Ê¬ÔÚ¹¥»÷·¶Î§ÄÚ */
-		zombie->getZombieIsCanBeAttack())                                        /* ½©Ê¬¿ÉÒÔ±»¹¥»÷µ½ */
+	if (getPlantIsSurvive() && zombie->getZombieIsSurvive() &&                   /* æ¤ç‰©å­˜æ´» && åƒµå°¸æ²¡æœ‰æ­»äº¡ */
+		zombie->getZombieIsEnterMap() && zombieInPlantAttackRange(zombie) &&     /* åƒµå°¸è¿›å…¥åœ°å›¾ && åƒµå°¸åœ¨æ”»å‡»èŒƒå›´å†… */
+		zombie->getZombieIsCanBeAttack())                                        /* åƒµå°¸å¯ä»¥è¢«æ”»å‡»åˆ° */
 	{
 		plantEmission("StarFruit_Attack");
 	}
@@ -89,8 +89,8 @@ void StarFruit::plantAttack(Zombies* zombie)
 
 void StarFruit::plantEmission(const string& plantAnimation)
 {
-	_isHaveZombies = true; /* ±íÊ¾ÓĞ½©Ê¬ÔÚÖ²ÎïµÄ¹¥»÷·¶Î§ */
-	if (!_isChanged)        /* ÅĞ¶Ï¶¯»­ÊÇ·ñÒÑ¾­¸Ä±ä */
+	_isHaveZombies = true; /* è¡¨ç¤ºæœ‰åƒµå°¸åœ¨æ¤ç‰©çš„æ”»å‡»èŒƒå›´ */
+	if (!_isChanged)        /* åˆ¤æ–­åŠ¨ç”»æ˜¯å¦å·²ç»æ”¹å˜ */
 	{
 		_plantAnimation->setMix("StarFruit_Normal", plantAnimation, 0.5f);
 		_plantAnimation->setAnimation(0, plantAnimation, true);
@@ -100,7 +100,7 @@ void StarFruit::plantEmission(const string& plantAnimation)
 
 void StarFruit::plantRecovery(const string& plantAnimation)
 {
-	if (!_isHaveZombies) /* ÅĞ¶ÏÊÇ·ñÓĞ½©Ê¬ÔÚÑîÌÒµÄ¹¥»÷·¶Î§ÄÚ */
+	if (!_isHaveZombies) /* åˆ¤æ–­æ˜¯å¦æœ‰åƒµå°¸åœ¨æ¨æ¡ƒçš„æ”»å‡»èŒƒå›´å†… */
 	{
 		if (_isChanged)
 		{
@@ -109,7 +109,7 @@ void StarFruit::plantRecovery(const string& plantAnimation)
 		}
 	}
 
-	_isHaveZombies = false; /* Ã¿Ñ­»·Ò»´Î¾Í³õÊ¼»¯ */
+	_isHaveZombies = false; /* æ¯å¾ªç¯ä¸€æ¬¡å°±åˆå§‹åŒ– */
 }
 
 bool StarFruit::zombieInPlantAttackRange(Zombies* zombie)
@@ -117,9 +117,9 @@ bool StarFruit::zombieInPlantAttackRange(Zombies* zombie)
 	auto disY = fabs((zombie->getZombieAnimation()->getPositionY() + 50) - (_plantAnimation->getPositionY() + 60));
 	auto disX = fabs(zombie->getZombieAnimation()->getPositionX() - _plantAnimation->getPositionX());
 
-	return(getZombieIsSameLineWithPlant(zombie) && !getZombieIsTheFrontOfPlant(zombie)) ||     /* ½©Ê¬ÓëÖ²ÎïÍ¬Ò»ĞĞ && ½©Ê¬ÔÚÖ²Îïºó·½ */
-		getZombieIsSameColumnWithPlant(zombie) ||                                              /* ½©Ê¬ÓëÖ²ÎïÔÚÍ¬Ò»ÁĞ */
-		(getZombieIsTheFrontOfPlant(zombie) && zombieInObliqueDirection(disX, disY))           /* ½©Ê¬ÔÚÖ²ÎïÇ°·½ && ½©Ê¬ÔÚÖ²Îï·½ÏòÁùÊ®¶ÈÎ»ÖÃ */
+	return(getZombieIsSameLineWithPlant(zombie) && !getZombieIsTheFrontOfPlant(zombie)) ||     /* åƒµå°¸ä¸æ¤ç‰©åŒä¸€è¡Œ && åƒµå°¸åœ¨æ¤ç‰©åæ–¹ */
+		getZombieIsSameColumnWithPlant(zombie) ||                                              /* åƒµå°¸ä¸æ¤ç‰©åœ¨åŒä¸€åˆ— */
+		(getZombieIsTheFrontOfPlant(zombie) && zombieInObliqueDirection(disX, disY))           /* åƒµå°¸åœ¨æ¤ç‰©å‰æ–¹ && åƒµå°¸åœ¨æ¤ç‰©æ–¹å‘å…­ååº¦ä½ç½® */
 		? true : false;
 }
 

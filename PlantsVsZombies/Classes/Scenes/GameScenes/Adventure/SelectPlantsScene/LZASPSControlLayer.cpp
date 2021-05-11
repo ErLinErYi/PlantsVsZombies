@@ -1,4 +1,4 @@
-/**
+ï»¿/**
  *Copyright (c) 2019 LZ.All Right Reserved
  *Author : LZ
  *Date: 2019.8.12
@@ -26,10 +26,10 @@ bool SPSControlLayer::init()
 {
 	if (!Layer::init()) return false;
 
-	/* ´´½¨°´Å¥ */
+	/* åˆ›å»ºæŒ‰é’® */
 	createButton();
 
-	/* ÏÔÊ¾ÓÃ»§Ãû×Ö */
+	/* æ˜¾ç¤ºç”¨æˆ·åå­— */
 	showUserName();
 
 	showCoinNumbers(this);
@@ -41,10 +41,10 @@ bool SPSControlLayer::init()
 bool SPSControlLayer::isShowJumpLevelButton()
 {
 	auto gl = Global::getInstance()->userInformation;
-	if (getLevelBreakThroughNumbers() >= 3 &&  /* ´³¹ØÊ§°Ü´ÎÊý¶àÓÚ*´Î */
+	if (getLevelBreakThroughNumbers() >= 3 &&  /* é—¯å…³å¤±è´¥æ¬¡æ•°å¤šäºŽ*æ¬¡ */
 		gl->getUserSelectWorldData().at(
 		gl->getCurrentPlayWorldTag())->levels == 
-		gl->getCurrentPlayLevels())            /* Ä¿Ç°¹Ø¿¨Ê±×î¸ß¼ÇÂ¼ */
+		gl->getCurrentPlayLevels())            /* ç›®å‰å…³å¡æ—¶æœ€é«˜è®°å½• */
 	{ 
 		return true;
 	}
@@ -58,8 +58,8 @@ int SPSControlLayer::getLevelBreakThroughNumbers()
 
 void SPSControlLayer::createButton()
 {
-	/* ´´½¨ÍË³ö°´Å¥ */
-	auto button = ui::Button::create("StopButton.png", "StopButtonDown.png", "", TextureResType::PLIST);
+	/* åˆ›å»ºé€€å‡ºæŒ‰é’® */
+	auto button = ui::Button::create("StopButton.png", "StopButtonDown.png", "",cocos2d::ui::Widget::TextureResType::PLIST);
 	button->setPosition(Vec2(1870, 1030));
 	button->setScale(0.7f);
 	this->addChild(button);
@@ -78,14 +78,14 @@ void SPSControlLayer::createButton()
 
 	if (isShowJumpLevelButton())
 	{
-		auto breakButton = ui::Button::create("SeedChooser_Button.png", "SeedChooser_Button_Disabled.png", "", TextureResType::PLIST);
+		auto breakButton = ui::Button::create("SeedChooser_Button.png", "SeedChooser_Button_Disabled.png", "",cocos2d::ui::Widget::TextureResType::PLIST);
 		breakButton->setPosition(Vec2(1250, 5));
 		breakButton->setScale(1.5f);
 		breakButton->setAnchorPoint(Vec2::ANCHOR_MIDDLE_BOTTOM);
-		breakButton->setTitleText(_global->userInformation->getGameText().find("Ìø¹ý´Ë¹Ø")->second->text);
+		breakButton->setTitleText(_global->userInformation->getGameText().find("è·³è¿‡æ­¤å…³")->second->text);
 		breakButton->setTitleColor(Color3B(0, 255, 255));
 		breakButton->setTitleFontName(GAME_FONT_NAME_1);
-		breakButton->setTitleFontSize(_global->userInformation->getGameText().find("Ìø¹ý´Ë¹Ø")->second->fontsize);
+		breakButton->setTitleFontSize(_global->userInformation->getGameText().find("è·³è¿‡æ­¤å…³")->second->fontsize);
 		this->addChild(breakButton);
 		breakButton->addTouchEventListener([&](Ref* sender, ui::Widget::TouchEventType type)
 			{
@@ -116,16 +116,16 @@ void SPSControlLayer::createButton()
 void SPSControlLayer::showUserName()
 {
 	auto username = Text::create();
-	username->setString("¡°" + _global->userInformation->getUserName() + "¡±" +
-		_global->userInformation->getGameText().find("µÄÊ±¿ÕÃ°ÏÕÖ®ÂÃ")->second->text +
+	username->setString("â€œ" + _global->userInformation->getUserName() + "â€" +
+		_global->userInformation->getGameText().find("çš„æ—¶ç©ºå†’é™©ä¹‹æ—…")->second->text +
 		_global->userInformation->getCurrentPlayWorldName() +
 		(_global->userInformation->getGameDifficulty() == 1 ? 
-			_global->userInformation->getGameText().find("Ø¬ÃÎÄ£Ê½")->second->text + " - " : 
-			_global->userInformation->getGameText().find("¼òµ¥Ä£Ê½")->second->text + " - ") + 
-		StringUtils::format(_global->userInformation->getGameText().find("µÚ %d Ìì")->second->text.c_str(), 
+			_global->userInformation->getGameText().find("å™©æ¢¦æ¨¡å¼")->second->text + " - " : 
+			_global->userInformation->getGameText().find("ç®€å•æ¨¡å¼")->second->text + " - ") + 
+		StringUtils::format(_global->userInformation->getGameText().find("ç¬¬ %d å¤©")->second->text.c_str(), 
 			_global->userInformation->getCurrentPlayLevels()));
 	username->setFontName(GAME_FONT_NAME_1);
-	username->setFontSize(_global->userInformation->getGameText().find("µÄÊ±¿ÕÃ°ÏÕÖ®ÂÃ")->second->fontsize);
+	username->setFontSize(_global->userInformation->getGameText().find("çš„æ—¶ç©ºå†’é™©ä¹‹æ—…")->second->fontsize);
 	username->setColor(Color3B::YELLOW);
 	username->setName("username");
 	username->enableGlow(Color4B::ORANGE);

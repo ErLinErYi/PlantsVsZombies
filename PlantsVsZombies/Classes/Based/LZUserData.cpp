@@ -984,7 +984,15 @@ void UserData::openLevelZombiesAnimationData(char* key, const char* zo, Zombies*
 		auto name = (*_levelDataDocument)[key]["Zombies"][zo][to_string(i).c_str()]["ZombieAnimationName"].GetString();
 		auto loop = static_cast<bool>((*_levelDataDocument)[key]["Zombies"][zo][to_string(i).c_str()]["ZombieAnimationLoop"].GetInt());
 
-		i == 1 ? zombie->getZombieAnimation()->setAnimation(0, name, loop), zombie->setZombieAnimationName(name) : zombie->getZombieAnimation()->addAnimation(0, name, loop);
+		if (i == 1)
+		{
+			zombie->getZombieAnimation()->setAnimation(0, name, loop);
+			zombie->setZombieAnimationName(name);
+		}
+		else
+		{
+			zombie->getZombieAnimation()->addAnimation(0, name, loop);
+		}
 	}
 }
 
@@ -1094,7 +1102,14 @@ void UserData::openLevelBulletAnimationData(char* key, const char* bu, Bullet* b
 		auto name = (*_levelDataDocument)[key]["Bullet"][bu][to_string(i).c_str()]["BulletAnimationName"].GetString();
 		auto loop = static_cast<bool>((*_levelDataDocument)[key]["Bullet"][bu][to_string(i).c_str()]["BulletAnimationLoop"].GetInt());
 
-		i == 1 ? bullet->getBullet()->setAnimation(0, name, loop), bullet->getBullet()->setAnimation(0, name, loop) : bullet->getBullet()->addAnimation(0, name, loop);
+		if (i == 1)
+		{
+			bullet->getBullet()->setAnimation(0, name, loop);
+		}
+		else
+		{
+			bullet->getBullet()->addAnimation(0, name, loop);
+		}
 	}
 }
 

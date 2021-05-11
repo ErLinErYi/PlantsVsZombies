@@ -1,4 +1,4 @@
-/**
+ï»¿/**
  *Copyright (c) 2020 LZ.All Right Reserved
  *Author : LZ
  *Date: 2020.2.5
@@ -25,36 +25,36 @@ class Zombies;
 
 enum class PlantsType
 {
-	SunFlower = 0,      /* ÏòÈÕ¿û */
-	PeaShooter,         /* Íã¶¹ÉäÊÖ */
-	WallNut,            /* ¼á¹ûÇ½ */
-	CherryBomb,         /* Ó£ÌÒÕ¨µ¯ */
-	PotatoMine,         /* ÍÁ¶¹À× */
-	CabbagePult,        /* ¾íĞÄ²ËÍ¶ÊÖ */
-	Torchwood,          /* »ğ¾æÊ÷×® */
-	Spikeweed,          /* µØ´Ì */
-	Garlic,             /* ´óËâ */
-	IceBergLettuce,     /* ±ùİ«ÜÄ */
-	Chomper,            /* ´ó×ì»¨ */
-	IcePeaShooter,      /* º®±ùÍã¶¹ÉäÊÖ */
-	FirePeaShooter,     /* »ğÑæÍã¶¹ÉäÊÖ */
-	AcidLemonShooter,   /* Ç¿ËáÄûÃÊÉäÊÖ */
-	SunFlowerTwin,      /* Ë«°ûÏòÈÕ¿û */
-	WaterMelonPult,     /* Î÷¹ÏÍ¶ÊÖ */
-	Jalapeno,           /* »ğ±¬À±½· */
-	JalapenoVariation,  /* »ğ±¬À±½·±äÒì */
-	ThreePeaShooter,    /* ÈıÍ·Íã¶¹ÉäÊÖ */
-	StarFruit,          /* ÑîÌÒ */
-	WinterMelonPult,    /* ±ù¹ÏÍ¶ÊÖ */
-	Citron,             /* Àë×ÓÔµ */
-	CatTail,            /* ÏãÆÑ */
-	GloomShroom,        /* ÓÇÓô¹½ */
+	SunFlower = 0,      /* å‘æ—¥è‘µ */
+	PeaShooter,         /* è±Œè±†å°„æ‰‹ */
+	WallNut,            /* åšæœå¢™ */
+	CherryBomb,         /* æ¨±æ¡ƒç‚¸å¼¹ */
+	PotatoMine,         /* åœŸè±†é›· */
+	CabbagePult,        /* å·å¿ƒèœæŠ•æ‰‹ */
+	Torchwood,          /* ç«ç‚¬æ ‘æ¡© */
+	Spikeweed,          /* åœ°åˆº */
+	Garlic,             /* å¤§è’œ */
+	IceBergLettuce,     /* å†°è´è‹£ */
+	Chomper,            /* å¤§å˜´èŠ± */
+	IcePeaShooter,      /* å¯’å†°è±Œè±†å°„æ‰‹ */
+	FirePeaShooter,     /* ç«ç„°è±Œè±†å°„æ‰‹ */
+	AcidLemonShooter,   /* å¼ºé…¸æŸ æª¬å°„æ‰‹ */
+	SunFlowerTwin,      /* åŒèƒå‘æ—¥è‘µ */
+	WaterMelonPult,     /* è¥¿ç“œæŠ•æ‰‹ */
+	Jalapeno,           /* ç«çˆ†è¾£æ¤’ */
+	JalapenoVariation,  /* ç«çˆ†è¾£æ¤’å˜å¼‚ */
+	ThreePeaShooter,    /* ä¸‰å¤´è±Œè±†å°„æ‰‹ */
+	StarFruit,          /* æ¨æ¡ƒ */
+	WinterMelonPult,    /* å†°ç“œæŠ•æ‰‹ */
+	Citron,             /* ç¦»å­ç¼˜ */
+	CatTail,            /* é¦™è’² */
+	GloomShroom,        /* å¿§éƒè‡ */
 	//...
 	None = 25
 };  
 
 /**
- *Ö²Îï¿¨ÅÆĞÅÏ¢
+ *æ¤ç‰©å¡ç‰Œä¿¡æ¯
  */
 class PlantsInformation
 {
@@ -64,28 +64,28 @@ public:
 		PlantsCards() :
 			timeBarIsFinished(false)
 		{}
-		Button* plantsCards;            /* ¿¨ÅÆ */
-		Text* plantsCardText;           /* ¿¨ÅÆÎÄ×Ö */
-		ProgressTimer* progressTimer;   /* µ¹¼ÆÊ± */
-		int plantsNeedSunNumbers;       /* ËùĞèÑô¹â */
-		bool timeBarIsFinished;         /* µ¹¼ÆÊ±ÊÇ·ñÍê³É */
-		int tag;                        /* ±àºÅ */
+		Button* plantsCards;            /* å¡ç‰Œ */
+		Text* plantsCardText;           /* å¡ç‰Œæ–‡å­— */
+		ProgressTimer* progressTimer;   /* å€’è®¡æ—¶ */
+		int plantsNeedSunNumbers;       /* æ‰€éœ€é˜³å…‰ */
+		bool timeBarIsFinished;         /* å€’è®¡æ—¶æ˜¯å¦å®Œæˆ */
+		int tag;                        /* ç¼–å· */
 	};
 
 	struct point { int x, y; };
 	struct PlantsCardInformation
 	{
-		const string information[3];              // ÎÄ×ÖĞÅÏ¢
-		const unsigned int quality;               // Æ·ÖÊ
-		unsigned int priority;                    // ÓÅÏÈ¼¶
-		const int plantsNeedSunNumbers;           // Ö²ÎïËùĞèÑô¹âÊı
-		const float plantsCoolTime;               // Ö²ÎïÀäÈ´Ê±¼ä
-		float PlantsSurPlusCoolTime;              // Ö²ÎïÊ£ÓàÀäÈ´Ê±¼ä
-		float PlantsSurPlusPrecent;               // Ö²ÎïÊ£Óà½ø¶È°Ù·Ö±È
-		const bool flippedX;                      // ×óÓÒ·´×ª
-		const PlantsType type;                    // Ö²ÎïÀàĞÍ
-		const Color3B color;                      // ÑÕÉ«
-		const point requirement{ 0,0 };           // ÒªÇó
+		const string information[3];              // æ–‡å­—ä¿¡æ¯
+		const unsigned int quality;               // å“è´¨
+		unsigned int priority;                    // ä¼˜å…ˆçº§
+		const int plantsNeedSunNumbers;           // æ¤ç‰©æ‰€éœ€é˜³å…‰æ•°
+		const float plantsCoolTime;               // æ¤ç‰©å†·å´æ—¶é—´
+		float PlantsSurPlusCoolTime;              // æ¤ç‰©å‰©ä½™å†·å´æ—¶é—´
+		float PlantsSurPlusPrecent;               // æ¤ç‰©å‰©ä½™è¿›åº¦ç™¾åˆ†æ¯”
+		const bool flippedX;                      // å·¦å³åè½¬
+		const PlantsType type;                    // æ¤ç‰©ç±»å‹
+		const Color3B color;                      // é¢œè‰²
+		const point requirement{ 0,0 };           // è¦æ±‚
 	};
 };
 
@@ -95,144 +95,144 @@ class  Plants :public Node
 {
 public:
 	/**
-	 *ÔİÍ£Ö²ÎïËùÓĞ¶¯×÷
+	 *æš‚åœæ¤ç‰©æ‰€æœ‰åŠ¨ä½œ
 	 */
 	static void stopPlantsAllAction();
 
 	/**
-	 *´´½¨Í¼Æ¬
+	 *åˆ›å»ºå›¾ç‰‡
 	*/
 	virtual Sprite* createPlantImage() = 0;
 
 	/**
-	 *´´½¨Ö²Îï¶¯»­
+	 *åˆ›å»ºæ¤ç‰©åŠ¨ç”»
 	 */
 	virtual void createPlantAnimation() = 0;
 
 	/**
-	 *ÅĞ¶Ï½©Ê¬ÓëÖ²ÎïÖ®¼äµÄÏà¶ÔÎ»ÖÃ
+	 *åˆ¤æ–­åƒµå°¸ä¸æ¤ç‰©ä¹‹é—´çš„ç›¸å¯¹ä½ç½®
 	 */
 	virtual void determineRelativePositionPlantsAndZombies();
 
 	/**
-	 *¼ì²âÖ²ÎïÉúÃüÇé¿ö
+	 *æ£€æµ‹æ¤ç‰©ç”Ÿå‘½æƒ…å†µ
 	 */
 	virtual void checkPlantHealthPoint() {}
 
 	/**
-	 * ´æ´¢Ö²ÎïÌØÓĞĞÅÏ¢  
-	 * ×ÓÀàÖØĞ´¸Ã·½·¨
+	 * å­˜å‚¨æ¤ç‰©ç‰¹æœ‰ä¿¡æ¯  
+	 * å­ç±»é‡å†™è¯¥æ–¹æ³•
 	 */
 	virtual void cavePlantInformation(rapidjson::Value& object, rapidjson::Document::AllocatorType& allocator) {};
 
 	/**
-	 * ¶ÁÈ¡Ö²ÎïÌØÓĞĞÅÏ¢  
-	 * ×ÓÀàÖØĞ´¸Ã·½·¨
+	 * è¯»å–æ¤ç‰©ç‰¹æœ‰ä¿¡æ¯  
+	 * å­ç±»é‡å†™è¯¥æ–¹æ³•
 	 */
 	virtual void readPlantInforamtion(rapidjson::Document* levelDataDocument, char* key, int i) {};
 
 	/**
-	 * ÏÔÊ¾Ö²Îï½éÉÜĞÅÏ¢Óë¶¯»­  
+	 * æ˜¾ç¤ºæ¤ç‰©ä»‹ç»ä¿¡æ¯ä¸åŠ¨ç”»  
 	 */
 	virtual SkeletonAnimation* showPlantAnimationAndText() = 0;
 
 	/**
-	 * ÉèÖÃÖ²Îï¶¯»­
+	 * è®¾ç½®æ¤ç‰©åŠ¨ç”»
 	 */
 	virtual void setPlantNoramlAnimation() {};
 
 	/**
-	 *ÉèÖÃ½Úµã
+	 *è®¾ç½®èŠ‚ç‚¹
 	 */
 	virtual void setPlantNode(Node* node) { _node = node; }
 
 	/**
-	 *ÉèÖÃÎ»ÖÃ
+	 *è®¾ç½®ä½ç½®
 	 */
 	virtual void setPlantPosition(const Vec2& position) { _position = position; }
 
 	/**
-	 *ÉèÖÃ»æÖÆË³Ğò
+	 *è®¾ç½®ç»˜åˆ¶é¡ºåº
 	 */
 	virtual void setPlantLocalZOrder(const int& order) { _zOrder = order; }
 
 	/**
-	 *ÉèÖÃÖ²ÎïËùÔÚĞĞÁĞ
+	 *è®¾ç½®æ¤ç‰©æ‰€åœ¨è¡Œåˆ—
 	 */
 	virtual void setPlantRowAndColumn(const Vec2& rowAndColumn) { _rowAndColumn = rowAndColumn; }
 
 	/**
-	 *ÉèÖÃÖ²ÎïÊÇ·ñ¿É¼û
+	 *è®¾ç½®æ¤ç‰©æ˜¯å¦å¯è§
 	 */
 	virtual void setPlantVisible(const bool visible);
 
 	/**
-	 *»ñÈ¡Ö²ÎïÀàĞÍ
+	 *è·å–æ¤ç‰©ç±»å‹
 	 */
 	PlantsType getPlantType() const { return _plantsType; }
 
 	/**
-	 *ÉèÖÃÖ²Îï±ê¼Ç
+	 *è®¾ç½®æ¤ç‰©æ ‡è®°
 	 */
 	virtual void setPlantTag(const int& tag) { _plantTag = tag; }
 
 	/**
-	 *ÉèÖÃÖ²ÎïÉúÃüÖµ
+	 *è®¾ç½®æ¤ç‰©ç”Ÿå‘½å€¼
 	 */
 	virtual void setPlantHealthPoint(int healthPoint) { _healthPoint = healthPoint; }
 
 	/**
-	 *ÉèÖÃÖ²Îï´óĞ¡
+	 *è®¾ç½®æ¤ç‰©å¤§å°
 	 */
 	virtual void setPlantScale();
 
 	/**
-	 * ´ÓµØÍ¼ÉÏÉ¾³ıÖ²Îï 
+	 * ä»åœ°å›¾ä¸Šåˆ é™¤æ¤ç‰© 
 	 */
 	virtual void setPlantRemoveFromMap();
 
 	/**
-	 *»ñÈ¡Ö²Îï±ê¼Ç
+	 *è·å–æ¤ç‰©æ ‡è®°
 	 */
 	virtual int getPlantTag() const { return _plantTag; }
 
 	/**
-	 *»ñÈ¡¶¯»­
+	 *è·å–åŠ¨ç”»
 	 */
 	SkeletonAnimation* getPlantAnimation() { return _plantAnimation; }
 
 	/**
-	 *ÅĞ¶ÏÖ²ÎïÊÇ·ñ´æ»î
+	 *åˆ¤æ–­æ¤ç‰©æ˜¯å¦å­˜æ´»
 	 */
 	virtual bool getPlantIsSurvive() const;
 
 	/**
-	 *»ñÈ¡Ö²ÎïÉúÃüÖµ
+	 *è·å–æ¤ç‰©ç”Ÿå‘½å€¼
 	 */
 	virtual float getPlantHealthPoint() const { return _healthPoint; }
 
 	/**
-	 *@ 1.»ñÈ¡Ö²ÎïËùÔÚĞĞÁĞ
+	 *@ 1.è·å–æ¤ç‰©æ‰€åœ¨è¡Œåˆ—
 	 */
 	virtual Vec2 getPlantRowAndColumn() const { return _rowAndColumn; }
 
 	/**
-	 *@ 2.»ñÈ¡Ö²ÎïËùÔÚĞĞ
+	 *@ 2.è·å–æ¤ç‰©æ‰€åœ¨è¡Œ
 	 */
 	virtual int getPlantRow() const { return _rowAndColumn.y; }
 
 	/**
-	 *@ 3.»ñÈ¡Ö²ÎïËùÔÚÁĞ
+	 *@ 3.è·å–æ¤ç‰©æ‰€åœ¨åˆ—
 	 */
 	virtual int getPlantColumn() const { return _rowAndColumn.x; }
 
 	/**
-	 *»ñÈ¡ÊÇ·ñÏÔÊ¾
+	 *è·å–æ˜¯å¦æ˜¾ç¤º
 	 */
 	virtual bool getPlantVisible();
 
 	/**
-	 *»ñÈ¡Ö²ÎïÊÇ·ñ¿ÉÒÔÉ¾³ı
+	 *è·å–æ¤ç‰©æ˜¯å¦å¯ä»¥åˆ é™¤
 	 */
 	virtual bool* getPlantIsCanDelete();
 
@@ -242,74 +242,79 @@ CC_CONSTRUCTOR_ACCESS:
 	
 protected:
 	/**
-	 * ´´½¨¼àÌı 
+	 * åˆ›å»ºç›‘å¬ 
 	 */
 	virtual void createListener() {};
 	virtual void createListener(std::string animationName, std::string actionName = "") {};
 
 	/**
-	 *ÖÖÖ²Ö²Îï
+	 *ç§æ¤æ¤ç‰©
 	 */
 	virtual SkeletonAnimation* plantInit(const std::string& plantname, const std::string& animaionname);
 
 	/**
-	 *´´½¨Ö²ÎïÍ¼Æ¬
+	 *åˆ›å»ºæ¤ç‰©å›¾ç‰‡
 	 */
 	virtual void imageInit(const std::string& name, const Vec2& position);
 
 	/**
-	 *¼õÉÙÖ²ÎïÉúÃüÖµ
+	 *å‡å°‘æ¤ç‰©ç”Ÿå‘½å€¼
 	 */
 	virtual void reducePlantHealthPoint(int number) { _healthPoint -= number; }
 
 	/**
-	 *ÄàÍÁ·É½¦¶¯»­
+	 *æ³¥åœŸé£æº…åŠ¨ç”»
 	 */
 	virtual void setPlantSoilSplashAnimation(const float& scale);
 
 	/**
-	 *ÉèÖÃÖ²ÎïÓ°×Ó
+	 *è®¾ç½®æ¤ç‰©å½±å­
 	 */
 	virtual void setPlantShadow(const float& scale);
 
 	/**
-	 *ÉèÖÃÖ²ÎïÊÜµ½ÉËº¦ÉÁË¸
+	 *è®¾ç½®æ¤ç‰©å—åˆ°ä¼¤å®³é—ªçƒ
 	 */
 	virtual void setPlantHurtBlink();
 	virtual void setPlantHurtBlink(PlantsType type) const;
 
 	/**
-	 *»ñÈ¡½©Ê¬ÊÇ·ñÔÚÖ²ÎïÇ°·½
+	 *è·å–åƒµå°¸æ˜¯å¦åœ¨æ¤ç‰©å‰æ–¹
 	 */
 	virtual bool getZombieIsTheFrontOfPlant(Zombies* zombie);
 
 	/**
-	 * »ñÈ¡½©Ê¬ÊÇ·ñÓÚÖ²ÎïÔÚÍ¬Ò»ÁĞ
+	 * è·å–åƒµå°¸æ˜¯å¦äºæ¤ç‰©åœ¨åŒä¸€åˆ—
 	 */
 	virtual bool getZombieIsSameColumnWithPlant(Zombies* zombie);
 
 	/**
-	 *»ñÈ¡½©Ê¬ÊÇ·ñÓÚÖ²ÎïÔÚÍ¬Ò»ĞĞ
+	 *è·å–åƒµå°¸æ˜¯å¦äºæ¤ç‰©åœ¨åŒä¸€è¡Œ
 	 */
 	virtual bool getZombieIsSameLineWithPlant(Zombies* zombie);
 
 	/**
-	 *»ñÈ¡½©Ê¬ÊÇ·ñÓöµ½Ö²Îï
+	 *è·å–åƒµå°¸æ˜¯å¦é‡åˆ°æ¤ç‰©
 	 */
 	virtual bool getZombieIsEncounterPlant(Zombies* zombie);
 
 	/**
-	 *½©Ê¬³ÔÖ²Îï
+	 *åƒµå°¸åƒæ¤ç‰©
 	 */
 	virtual void zombieEatPlant(Zombies* zombie);
 
 	/**
-	 *½©Ê¬¹¥»÷Ö²Îï 
+	 * åƒµå°¸åƒæ¤ç‰©å¤„ç† 
+	 */
+	virtual void setZombieEatPlantControl(Zombies* zombie);
+
+	/**
+	 *åƒµå°¸æ”»å‡»æ¤ç‰© 
 	 */
 	virtual void zombieAttackPlant(Zombies* zombie);
 
 	/**
-	 *½©Ê¬´Ó³ÔÖ²ÎïÖĞ»Ö¸´
+	 *åƒµå°¸ä»åƒæ¤ç‰©ä¸­æ¢å¤
 	 */
 	virtual void zombieRecoveryMove(Zombies* zombie);
 
@@ -317,29 +322,29 @@ private:
 	void setPlantGLProgram();
 
 protected:
-	int _sunNeed;                               // Ñô¹âĞèÇó
-	int _costGold;                              // »¨·Ñ½ğ±Ò
-	int _costMasonry;                           // »¨·Ñ×©Ê¯
-	int _plantTag;                              // Ö²Îï±êÇ©
-	int _zOrder;                                // »æÖÆË³Ğò
-	int _plantNumber;                           // ´æ´¢Ö²Îï±àºÅ£¨Î¨Ò»ĞÔ £©
-	bool _isLoop;                               // ÊÇ·ñÑ­»·
-	bool _isCanDelete[2];                       // ÊÇ·ñ¿ÉÒÔÉ¾³ı
-	float _combatEffecttiveness;                // Õ½¶·Á¦
-	float _coolDownTime;                        // ÀäÈ´Ê±¼ä
-	float _healthPoint;                         // ÉúÃüÖµ
-	float _totalHealthPoint;                    // ÉúÃü×ÜÖµ
-	Vec2 _position;                             // Î»ÖÃ
-	Vec2 _rowAndColumn;                         // ÏêÏ¸µØÖ·,ËùÔÚĞĞÁĞ
-	SkeletonAnimation* _plantAnimation;         // Ö²Îï¶¯»­
-	string _plantAnimationName;                 // Ö²Îï¶¯»­Ãû³Æ
-	Node* _node;                                // ½Úµã
-	Global* _global;                            // È«¾Ö±äÁ¿
-	Sprite* _plantImage;                        // Ö²ÎïÍ¼Æ¬
-	Sprite* _plantShadow;                       // Ö²ÎïÓ°×Ó
-	PlantsType _plantsType;                     // Ö²ÎïÀàĞÍ
-	SkeletonAnimation* _soilSplashAnimation;    // ÄàÍÁ·É½¦¶¯»­
-	static int plantNumber;                     // Ö²Îï±àºÅ£¨Î¨Ò»ĞÔ£©
+	int _sunNeed;                               // é˜³å…‰éœ€æ±‚
+	int _costGold;                              // èŠ±è´¹é‡‘å¸
+	int _costMasonry;                           // èŠ±è´¹ç –çŸ³
+	int _plantTag;                              // æ¤ç‰©æ ‡ç­¾
+	int _zOrder;                                // ç»˜åˆ¶é¡ºåº
+	int _plantNumber;                           // å­˜å‚¨æ¤ç‰©ç¼–å·ï¼ˆå”¯ä¸€æ€§ ï¼‰
+	bool _isLoop;                               // æ˜¯å¦å¾ªç¯
+	bool _isCanDelete[2];                       // æ˜¯å¦å¯ä»¥åˆ é™¤
+	float _combatEffecttiveness;                // æˆ˜æ–—åŠ›
+	float _coolDownTime;                        // å†·å´æ—¶é—´
+	float _healthPoint;                         // ç”Ÿå‘½å€¼
+	float _totalHealthPoint;                    // ç”Ÿå‘½æ€»å€¼
+	Vec2 _position;                             // ä½ç½®
+	Vec2 _rowAndColumn;                         // è¯¦ç»†åœ°å€,æ‰€åœ¨è¡Œåˆ—
+	SkeletonAnimation* _plantAnimation;         // æ¤ç‰©åŠ¨ç”»
+	string _plantAnimationName;                 // æ¤ç‰©åŠ¨ç”»åç§°
+	Node* _node;                                // èŠ‚ç‚¹
+	Global* _global;                            // å…¨å±€å˜é‡
+	Sprite* _plantImage;                        // æ¤ç‰©å›¾ç‰‡
+	Sprite* _plantShadow;                       // æ¤ç‰©å½±å­
+	PlantsType _plantsType;                     // æ¤ç‰©ç±»å‹
+	SkeletonAnimation* _soilSplashAnimation;    // æ³¥åœŸé£æº…åŠ¨ç”»
+	static int plantNumber;                     // æ¤ç‰©ç¼–å·ï¼ˆå”¯ä¸€æ€§ï¼‰
 
 private:
 	static GLProgram* _normalGLProgram;

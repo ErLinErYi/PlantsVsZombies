@@ -1,4 +1,4 @@
-/**
+ï»¿/**
  *Copyright (c) 2020 LZ.All Right Reserved
  *Author : LZ
  *Date: 2020.2.5
@@ -8,7 +8,7 @@
 #pragma once
 
  /*
-     ÓÎÏ·µØÍ¼Ê¾ÒâÍ¼
+     æ¸¸æˆåœ°å›¾ç¤ºæ„å›¾
 
     CARDBAR
        |
@@ -75,11 +75,11 @@
 // read level data
 #define READ_LEVEL_DATA OpenLevelData::getInstance()->readLevelData(OpenLevelData::getInstance()->getLevelNumber())
 
-// µØÍ¼³õÊ¼»¯
+// åœ°å›¾åˆå§‹åŒ–
 #define MAP_INIT(__MAP__)  for(auto& __ROW__ : __MAP__) { for(auto& __COLUMN__ : __ROW__ ) { __COLUMN__ = NO_PLANTS;} }
 #define MAP_CAN_NOT_PLANT(__MAP__) do{ if(READ_LEVEL_DATA->getIsNoPlants()){ for(auto& __CAN__NOT__PLANT__ : READ_LEVEL_DATA->getNoPlantsPosition()){__MAP__[__CAN__NOT__PLANT__.y][__CAN__NOT__PLANT__.x] = CAN_NOT_PLANT;}}}while(0)
 
-// µØÍ¼Ã»ÓĞÖÖÖ²
+// åœ°å›¾æ²¡æœ‰ç§æ¤
 #define NO_PLANTS -1
 #define CAN_NOT_PLANT -2
 
@@ -87,9 +87,9 @@
 // cursorvisible
 #define CURSOR_VISIBLE(__TRUE__OR__FALSE__) if(_global->userInformation->getIsSelectCursorNotHide() == cocos2d::ui::CheckBox::EventType::UNSELECTED)  _director->getOpenGLView()->setCursorVisible(__TRUE__OR__FALSE__);
 
-// ¿Õ¸ñÔİÍ£/»Ö¸´ ¿ØÖÆ
+// ç©ºæ ¼æš‚åœ/æ¢å¤ æ§åˆ¶
 #define KEY_PRESS(__NUMBER__) static_cast<bool>((++__NUMBER__)%2)
 
 // delete group
 #define DELETE_MAP_GROUP(__MAP__GROUP__) do{ for(auto& __ITERATOR__ : __MAP__GROUP__){ delete __ITERATOR__.second; __ITERATOR__.second = nullptr;} __MAP__GROUP__.clear(); }while(0)
-#define DELETE_LIST_GROUP(__LIST__GROUP__) do{ for(auto __ITERATOR__ : __LIST__GROUP__){ delete __ITERATOR__; __ITERATOR__ = nullptr;} __LIST__GROUP__.clear(); }while(0)
+#define DELETE_LIST_GROUP(__LIST__GROUP__) do{ for(auto __ITERATOR__ : __LIST__GROUP__){ __ITERATOR__->releaseFunction(); delete __ITERATOR__; __ITERATOR__ = nullptr;} __LIST__GROUP__.clear(); }while(0)

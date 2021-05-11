@@ -1,4 +1,4 @@
-/**
+﻿/**
  *Copyright (c) 2021 LZ.All Right Reserved
  *Author : LZ
  *Date: 2021.4.09
@@ -16,7 +16,7 @@ public:
 CC_CONSTRUCTOR_ACCESS:
 	TGGameTimerLayer();
 	~TGGameTimerLayer();
-	virtual bool init();
+	virtual bool init() override;
 
 public:
 	virtual void createTimer() override;

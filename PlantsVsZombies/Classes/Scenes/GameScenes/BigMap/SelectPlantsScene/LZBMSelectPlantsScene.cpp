@@ -1,4 +1,4 @@
-/**
+ï»¿/**
  *Copyright (c) 2021 LZ.All Right Reserved
  *Author : LZ
  *Date: 2021.2.14
@@ -33,18 +33,18 @@ bool BMSelectPlantsScene::init()
 
 void BMSelectPlantsScene::createBackgroundLayer()
 {
-	/* ÉèÖÃÈÝÆ÷´óÐ¡ */
+	/* è®¾ç½®å®¹å™¨å¤§å° */
 	_scrollLayer = Layer::create();
 	_scrollLayer->setContentSize(Size(2930, 1080));
 
-	/* ´´½¨ÈÝÆ÷ÖÐµÄ¶«Î÷£¨¾«Áé£©*/
+	/* åˆ›å»ºå®¹å™¨ä¸­çš„ä¸œè¥¿ï¼ˆç²¾çµï¼‰*/
 	_scrollLayer->addChild(BMSPSBackgroundLayer::create());
 
-	//´´½¨¹ö¶¯ÊÓÍ¼
+	//åˆ›å»ºæ»šåŠ¨è§†å›¾
 	_scrollView = extension::ScrollView::create(_director->getWinSize(), _scrollLayer);
 	_scrollView->setPosition(Vec2(0, 0));
-	_scrollView->setDirection(extension::ScrollView::Direction::HORIZONTAL);//ÉèÖÃÖ»ÄÜ×ÝÏò¹ö¶¯
-	_scrollView->setTouchEnabled(false);//¹Ø±Õ´¥ÅöÊÂ¼þ
+	_scrollView->setDirection(extension::ScrollView::Direction::HORIZONTAL);//è®¾ç½®åªèƒ½çºµå‘æ»šåŠ¨
+	_scrollView->setTouchEnabled(false);//å…³é—­è§¦ç¢°äº‹ä»¶
 	_scrollView->runAction(Sequence::create(DelayTime::create(1.f),
 		CallFunc::create([&]()
 			{
@@ -60,7 +60,7 @@ void BMSelectPlantsScene::controlShowRequirement()
 
 void BMSelectPlantsScene::selectPlantsCallBack()
 {
-	_scrollView->setContentOffsetInDuration(Vec2(-105, 0), 2.0f, 1);//ÉèÖÃ¹ö¶¯·½ÏòÓëÊ±¼ä
+	_scrollView->setContentOffsetInDuration(Vec2(-105, 0), 2.0f, 1);//è®¾ç½®æ»šåŠ¨æ–¹å‘ä¸Žæ—¶é—´
 
 	_eventType = SPSEventType::playGame;
 }
@@ -86,7 +86,7 @@ void BMSelectPlantsScene::eventUpdate(SPSEventType eventType)
 	case SPSEventType::playGame:
 		if (_scrollView->getContentOffset().x >= -105)
 		{
-			/* ²¥·ÅÒôÀÖ */
+			/* æ’­æ”¾éŸ³ä¹ */
 			_eventType = SPSEventType::null;
 			PlayMusic::playMusic("readysetplant");
 			createReadyText("StartReady", 1);
@@ -99,7 +99,7 @@ void BMSelectPlantsScene::eventUpdate(SPSEventType eventType)
 void BMSelectPlantsScene::replaceScene()
 {
 	_global->userInformation->setUserSelectCrads(_spriteLayer->seedBankButton);
-	_global->userInformation->setSunNumbers(100); //Éè¶¨³õÊ¼Ñô¹âÊý 
+	_global->userInformation->setSunNumbers(100); //è®¾å®šåˆå§‹é˜³å…‰æ•° 
 
 	if (_global->userInformation->getIsEaseAnimation() == ui::CheckBox::EventType::SELECTED)
 		Director::getInstance()->replaceScene(TransitionFade::create(1.f, BigMapGameScene::create()));

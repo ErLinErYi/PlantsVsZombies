@@ -1,4 +1,4 @@
-/**
+﻿/**
  *Copyright (c) 2020 LZ.All Right Reserved
  *Author : LZ
  *Date: 2020.2.6
@@ -29,7 +29,7 @@ protected:
 	virtual void readPlantInforamtion(rapidjson::Document* levelDataDocument, char* key, int i) override;
 	virtual SkeletonAnimation* showPlantAnimationAndText() override;
 	virtual void createSuns();
-	virtual void createListener();
+	virtual void createListener() override;
 	virtual void playAnimation();
 	virtual void calculateSunShowTime();
 	
@@ -49,7 +49,7 @@ public:
 	void setEnable(bool isUsed);
 	int getSunTag() const;
 	bool getEnable() const;
-	void releaseSun();
+	void releaseFunction();
 	float calculateMoveTime();
 	SkeletonAnimation* getSun();
 	static void deleteSun(list<Sun*>::iterator& sun);

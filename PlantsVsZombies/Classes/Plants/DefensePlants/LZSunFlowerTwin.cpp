@@ -1,4 +1,4 @@
-/**
+ï»¿/**
  *Copyright (c) 2021 LZ.All Right Reserved
  *Author : LZ
  *Date: 2021.2.3
@@ -49,14 +49,14 @@ void SunFlowerTwin::createPlantAnimation()
 	_plantAnimation->setScale(1.2f);
 	_node->addChild(_plantAnimation);
 
-	// Ó°×Ó
+	// å½±å­
 	setPlantShadow(1.5f);
 	_plantAnimation->getChildByName("plantshadow")->setPosition(Vec2(0, 5));
 
-	// ÄàÍÁ·É½¦¶¯»­
+	// æ³¥åœŸé£žæº…åŠ¨ç”»
 	setPlantSoilSplashAnimation(1.0f);
 
-	// ´´½¨¼àÌý
+	// åˆ›å»ºç›‘å¬
 	createListener();
 }
 
@@ -70,7 +70,7 @@ void SunFlowerTwin::createListener()
 		{
 			if (strcmp(event->data->name, "skill") == 0)
 			{
-				!_isCreateSun ? createSuns() : nullptr;
+				if (!_isCreateSun) createSuns();
 			}
 		});
 }

@@ -1,4 +1,4 @@
-/**
+ï»¿/**
  *Copyright (c) 2021 LZ.All Right Reserved
  *Author : LZ
  *Date: 2021.2.17
@@ -34,13 +34,13 @@ void SWSUnlockDialogLayer::createDiglog()
 
 	createButtons();
 
-	/* ´´½¨´¥Ãþ¼àÌý */
+	/* åˆ›å»ºè§¦æ‘¸ç›‘å¬ */
 	createTouchtListener(_lockDialog);
 }
 
 void SWSUnlockDialogLayer::createText()
 {
-	auto str = _global->userInformation->getGameText().find("´óµØÍ¼Ä£Ê½")->second;
+	auto str = _global->userInformation->getGameText().find("å¤§åœ°å›¾æ¨¡å¼")->second;
 	auto information = Text::create(StringUtils::format(str->text.c_str(), SWSUnlockDialogLayer::unlockNeedNumbers), GAME_FONT_NAME_1, str->fontsize);
 	information->setColor(Color3B::RED);
 	information->setTextVerticalAlignment(TextVAlignment::CENTER);
@@ -49,7 +49,7 @@ void SWSUnlockDialogLayer::createText()
 	information->setPosition(Vec2(_lockDialog->getContentSize().width / 2.0f, _lockDialog->getContentSize().height / 2.0f + 10));
 	_lockDialog->addChild(information);
 
-	auto str1 = _global->userInformation->getGameText().find("´ËÄ£Ê½Î´½âËø")->second;
+	auto str1 = _global->userInformation->getGameText().find("æ­¤æ¨¡å¼æœªè§£é”")->second;
 	auto information1 = Text::create(str1->text, GAME_FONT_NAME_1, str1->fontsize);
 	information1->setColor(Color3B::RED);
 	information1->setPosition(Vec2(_lockDialog->getContentSize().width / 2.0f, _lockDialog->getContentSize().height / 2.0f + 80));
@@ -58,10 +58,10 @@ void SWSUnlockDialogLayer::createText()
 
 void SWSUnlockDialogLayer::createButtons()
 {
-	auto button = Button::create("ButtonNew.png", "ButtonNew2.png", "", TextureResType::PLIST);
-	auto label = Label::createWithTTF(_global->userInformation->getGameText().find("È·¶¨")->second->text,
-		GAME_FONT_NAME_1, _global->userInformation->getGameText().find("È·¶¨")->second->fontsize);
-	label->enableShadow(Color4B(0, 0, 0, 200));//ÉèÖÃÒõÓ°
+	auto button = Button::create("ButtonNew.png", "ButtonNew2.png", "",cocos2d::ui::Widget::TextureResType::PLIST);
+	auto label = Label::createWithTTF(_global->userInformation->getGameText().find("ç¡®å®š")->second->text,
+		GAME_FONT_NAME_1, _global->userInformation->getGameText().find("ç¡®å®š")->second->fontsize);
+	label->enableShadow(Color4B(0, 0, 0, 200));//è®¾ç½®é˜´å½±
 	label->setScale(2.0f);
 	button->setTitleLabel(label);
 	button->setPosition(Vec2(_lockDialog->getContentSize().width / 2.f, 10));

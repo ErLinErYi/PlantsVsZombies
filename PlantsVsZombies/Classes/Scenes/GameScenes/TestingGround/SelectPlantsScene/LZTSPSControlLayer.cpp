@@ -1,4 +1,4 @@
-/**
+ï»¿/**
  *Copyright (c) 2019 LZ.All Right Reserved
  *Author : LZ
  *Date: 2021.4.07
@@ -30,7 +30,7 @@ bool TSPSControlLayer::init()
 
 void TSPSControlLayer::createButton()
 {
-	auto button = ui::Button::create("StopButton.png", "StopButtonDown.png", "", TextureResType::PLIST);
+	auto button = ui::Button::create("StopButton.png", "StopButtonDown.png", "",cocos2d::ui::Widget::TextureResType::PLIST);
 	button->setPosition(Vec2(1870, 1030));
 	button->setScale(0.7f);
 	this->addChild(button);
@@ -51,9 +51,9 @@ void TSPSControlLayer::createButton()
 void TSPSControlLayer::showUserName()
 {
 	auto username = Text::create();
-	username->setString("¡°" + _global->userInformation->getUserName() + "¡±" + _global->userInformation->getGameText().find("Ö²ÎïÊÔÁ¶³¡")->second->text);
+	username->setString("â€œ" + _global->userInformation->getUserName() + "â€" + _global->userInformation->getGameText().find("æ¤ç‰©è¯•ç‚¼åœº")->second->text);
 	username->setFontName(GAME_FONT_NAME_1);
-	username->setFontSize(_global->userInformation->getGameText().find("µÄÊ±¿ÕÃ°ÏÕÖ®ÂÃ")->second->fontsize);
+	username->setFontSize(_global->userInformation->getGameText().find("çš„æ—¶ç©ºå†’é™©ä¹‹æ—…")->second->fontsize);
 	username->setColor(Color3B::YELLOW);
 	username->setName("username");
 	username->enableGlow(Color4B::ORANGE);

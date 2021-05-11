@@ -1,4 +1,4 @@
-/**
+﻿/**
  *Copyright (c) 2021 LZ.All Right Reserved
  *Author : LZ
  *Date: 2021.01.09
@@ -25,7 +25,7 @@ public:
 CC_CONSTRUCTOR_ACCESS:
     SPSJumpLevelLayer();
     ~SPSJumpLevelLayer();
-    virtual bool init();
+    virtual bool init() override;
 
 private:
     void createDialog();

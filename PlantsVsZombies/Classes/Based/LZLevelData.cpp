@@ -1,4 +1,4 @@
-/**
+ï»¿/**
  *Copyright (c) 2019 LZ.All Right Reserved
  *Author : LZ
  *Email: 2117610943@qq.com
@@ -24,7 +24,7 @@ bool OpenLevelData::openLevelsData(const string& worlddata)
 	string str = FileUtils::getInstance()->getStringFromFile(worlddata);
 	passWords = (char*)malloc(sizeof(char) * str.size());
 
-	/* ½âÃÜ */
+	/* è§£å¯† */
 	decrypt(str, passWords);
 	
 	documentInit();
@@ -75,7 +75,7 @@ Document* OpenLevelData::getDocument()
 
 void OpenLevelData::createLevelData(const int level, const char* levelName)
 {
-	/* mapÖĞÈç¹ûÃ»ÓĞ¹Ø¿¨Êı¾İ */
+	/* mapä¸­å¦‚æœæ²¡æœ‰å…³å¡æ•°æ® */
 	if (!_levelData.count(level))
 	{
 		LevelData* levelData = new LevelData;

@@ -1,4 +1,4 @@
-/**
+ï»¿/**
  *Copyright (c) 2019 LZ.All Right Reserved
  *Author : LZ
  *Date: 2019.7.17
@@ -18,26 +18,24 @@
 #pragma execution_character_set("utf-8")
 #endif
 
-using namespace ui;
 using namespace cocos2d;
-using namespace cocos2d::experimental;
 using namespace cocos2d::extension;
 
 enum class OptionScene_CheckBox
 {
-	ÏÔÊ¾ĞÅÏ¢ = 1,
-	È«ÆÁ,
-	¸ßÖ¡ÂÊ,
-	Êó±êÒş²Ø,
-	À­ÉìÏÔÊ¾,
-	»ºÈë¶¯»­,
-	´¹Ö±Í¬²½
+	æ˜¾ç¤ºä¿¡æ¯ = 1,
+	å…¨å±,
+	é«˜å¸§ç‡,
+	é¼ æ ‡éšè—,
+	æ‹‰ä¼¸æ˜¾ç¤º,
+	ç¼“å…¥åŠ¨ç”»,
+	å‚ç›´åŒæ­¥
 };
 
 enum class OptionScene_Slider
 {
-	ÒôÀÖ = 1,
-	ÒôĞ§
+	éŸ³ä¹ = 1,
+	éŸ³æ•ˆ
 };
 
 class OptionsMenu :public Dialog
@@ -51,20 +49,20 @@ CC_CONSTRUCTOR_ACCESS:
 	virtual bool init() override;
 	
 protected:
-	virtual void createDialog();                                                                                      /* ´´½¨¶Ô»°¿ò */
+	virtual void createDialog();                                                                                      /* åˆ›å»ºå¯¹è¯æ¡† */
 	virtual CheckBox* createCheckBox(Vec2&, Vec2&, const std::string&, OptionScene_CheckBox, const std::string,
-		const std::string, const bool IsNew = false);                                                                 /* ´´½¨¸´Ñ¡¿ò */
+		const std::string, const bool IsNew = false);                                                                 /* åˆ›å»ºå¤é€‰æ¡† */
 	virtual ControlSlider* createSlider(Vec2&, Vec2&, const std::string&, OptionScene_Slider, Sprite*, Sprite*,
-		Sprite*, Sprite* = nullptr, const bool IsNew = false);                                                        /* ´´½¨»¬¶¯Ìõ */
-	virtual void deleteDialog() override;                                                                             /* É¾³ı¶Ô»°¿ò */
+		Sprite*, Sprite* = nullptr, const bool IsNew = false);                                                        /* åˆ›å»ºæ»‘åŠ¨æ¡ */
+	virtual void deleteDialog() override;                                                                             /* åˆ é™¤å¯¹è¯æ¡† */
 
 private:
 	void createButton();
-	void backGroundMusicVolumeChangeCallBack(Ref* sender, Control::EventType type);                                  /* ±³¾°ÒôÀÖÒôÁ¿µ÷½Ú»Øµ÷º¯Êı*/
-	void soundEffectMusicVolumeChangeCallBack(Ref* sender, Control::EventType type);                                 /* ÒôĞ§ÒôÀÖÒôÁ¿µ÷½Ú»Øµ÷º¯Êı*/
+	void backGroundMusicVolumeChangeCallBack(Ref* sender, Control::EventType type);                                  /* èƒŒæ™¯éŸ³ä¹éŸ³é‡è°ƒèŠ‚å›è°ƒå‡½æ•°*/
+	void soundEffectMusicVolumeChangeCallBack(Ref* sender, Control::EventType type);                                 /* éŸ³æ•ˆéŸ³ä¹éŸ³é‡è°ƒèŠ‚å›è°ƒå‡½æ•°*/
 
 protected:
-	Sprite* _option;         /* ¶Ô»°¿ò */
+	Sprite* _option;         /* å¯¹è¯æ¡† */
 	Director* _director;
 
 private:

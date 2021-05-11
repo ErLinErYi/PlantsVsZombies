@@ -1,4 +1,4 @@
-/**
+﻿/**
  *Copyright (c) 2021 LZ.All Right Reserved
  *Author : LZ
  *Date: 2021.4.11
@@ -22,7 +22,7 @@ MomentTime::~MomentTime()
 void MomentTime::requestNetTime()
 {
 	HttpRequest* request = new HttpRequest();
-	request->setUrl("http://api.k780.com:88/?app=life.time&appkey=10003&sign=b59bc3ef6191eb9f747dd4e83c99f2a4&format=json"); //�ٶȻ�ȡʱ���api
+	request->setUrl("http://api.k780.com:88/?app=life.time&appkey=10003&sign=b59bc3ef6191eb9f747dd4e83c99f2a4&format=json"); //百度获取时间的api
 
 	request->setRequestType(HttpRequest::Type::GET);
 	request->setTag("WebTime");

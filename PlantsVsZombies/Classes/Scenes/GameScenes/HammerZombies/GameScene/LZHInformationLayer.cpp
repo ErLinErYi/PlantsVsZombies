@@ -1,4 +1,4 @@
-/**
+ï»¿/**
  *Copyright (c) 2021 LZ.All Right Reserved
  *Author : LZ
  *Date: 2021.2.09
@@ -38,14 +38,14 @@ bool HInformationLayer::init()
 void HInformationLayer::showUserText()
 {
 	auto username = ui::Text::create();
-	username->setString("¡°" + _global->userInformation->getUserName() + "¡±" +
-		_global->userInformation->getGameText().find("ÊÖÖ¸Áé»î¶ÈÓëÈÌÄÍ¶ÈÑµÁ·")->second->text +
-		_global->userInformation->getGameText().find("´¸½©Ê¬Ð¡ÓÎÏ·")->second->text +
-		StringUtils::format(_global->userInformation->getGameText().find("µÚ %d Ìì")->second->text.c_str(),
+	username->setString("â€œ" + _global->userInformation->getUserName() + "â€" +
+		_global->userInformation->getGameText().find("æ‰‹æŒ‡çµæ´»åº¦ä¸Žå¿è€åº¦è®­ç»ƒ")->second->text +
+		_global->userInformation->getGameText().find("é”¤åƒµå°¸å°æ¸¸æˆ")->second->text +
+		StringUtils::format(_global->userInformation->getGameText().find("ç¬¬ %d å¤©")->second->text.c_str(),
 			max(UserData::getInstance()->openIntUserData("HAMMERZOMBIES_LEVEL_NUMBER"), 1)) +
-		_global->userInformation->getGameText().find("ÎÞ¾¡Ä£Ê½")->second->text);
+		_global->userInformation->getGameText().find("æ— å°½æ¨¡å¼")->second->text);
 	username->setFontName(GAME_FONT_NAME_1);
-	username->setFontSize(_global->userInformation->getGameText().find("ÊÖÖ¸Áé»î¶ÈÓëÈÌÄÍ¶ÈÑµÁ·")->second->fontsize);
+	username->setFontSize(_global->userInformation->getGameText().find("æ‰‹æŒ‡çµæ´»åº¦ä¸Žå¿è€åº¦è®­ç»ƒ")->second->fontsize);
 	username->setColor(Color3B(0, 255, 255));
 	username->enableGlow(Color4B::ORANGE);
 	username->setPosition(Vec2(Director::getInstance()->getWinSize().width / 2.0f, 950));
@@ -65,9 +65,9 @@ void HInformationLayer::showProgressBar()
 	_progressBar->setScaleX(3.0f);
 	_progressBar->setScaleY(2.0f);
 	_progressBar->setPosition(Vec2(240, 20));
-	_progressBar->setType(ProgressTimer::Type::BAR);  //ÉèÖÃÌõÐÎ½ø¶ÈÌõ
-	_progressBar->setBarChangeRate(Vec2(1, 0));       //ÉèÖÃºáÏò
-	_progressBar->setMidpoint(Vec2(1, 0));            //ÉèÖÃ´Ó×óÍùÓÒ
+	_progressBar->setType(ProgressTimer::Type::BAR);  //è®¾ç½®æ¡å½¢è¿›åº¦æ¡
+	_progressBar->setBarChangeRate(Vec2(1, 0));       //è®¾ç½®æ¨ªå‘
+	_progressBar->setMidpoint(Vec2(1, 0));            //è®¾ç½®ä»Žå·¦å¾€å³
 	progressBarBackgroundImage->addChild(_progressBar, -1);
 
 	auto zombiesHead = Sprite::createWithSpriteFrameName("ZombieHead.png");
@@ -89,8 +89,8 @@ void HInformationLayer::showTipsText()
 	const auto n = rand() % 2 + 1;
 	auto tips = Text::create();
 	tips->setFontName(GAME_FONT_NAME_1);
-	tips->setString(_global->userInformation->getGameText().find("´¸½©Ê¬Ð¡ÌáÊ¾" + to_string(n))->second->text);
-	tips->setFontSize(_global->userInformation->getGameText().find("´¸½©Ê¬Ð¡ÌáÊ¾" + to_string(n))->second->fontsize);
+	tips->setString(_global->userInformation->getGameText().find("é”¤åƒµå°¸å°æç¤º" + to_string(n))->second->text);
+	tips->setFontSize(_global->userInformation->getGameText().find("é”¤åƒµå°¸å°æç¤º" + to_string(n))->second->fontsize);
 	tips->setColor(Color3B::MAGENTA);
 	tips->enableGlow(Color4B::GREEN);
 	tips->setPosition(Vec2(Director::getInstance()->getWinSize().width / 2.0f, 85));
@@ -163,9 +163,9 @@ void HInformationLayer::showHammerInformation(Button* button)
 	auto text = _global->userInformation->getGameText();
 	const auto tag = button->getTag();
 	_informationLayer->setPosition(button->getPosition() - Vec2(-80, _informationLayer->getContentSize().height / 2.f));
-	_hammerText->setString(text.find("³õÊ¼¹¥»÷Á¦")->second->text + to_string(hammerInformation[tag].lowAttack) + "\n" +
-		text.find("×î¸ß¹¥»÷Á¦")->second->text + to_string(hammerInformation[button->getTag()].lowAttack + hammerInformation[tag].HigtAttack) + "\n" +
-		text.find("½âËøÌõ¼þ")->second->text + StringUtils::format(_global->userInformation->getGameText().find("½âËø¸ÃÎäÆ÷")->second->text.c_str(), hammerInformation[tag].unLock));
+	_hammerText->setString(text.find("åˆå§‹æ”»å‡»åŠ›")->second->text + to_string(hammerInformation[tag].lowAttack) + "\n" +
+		text.find("æœ€é«˜æ”»å‡»åŠ›")->second->text + to_string(hammerInformation[button->getTag()].lowAttack + hammerInformation[tag].HigtAttack) + "\n" +
+		text.find("è§£é”æ¡ä»¶")->second->text + StringUtils::format(_global->userInformation->getGameText().find("è§£é”è¯¥æ­¦å™¨")->second->text.c_str(), hammerInformation[tag].unLock));
 }
 
 void HInformationLayer::deleteHammerInformation()

@@ -1,4 +1,4 @@
-/**
+ï»¿/**
  *Copyright (c) 2020 LZ.All Right Reserved
  *Author : LZ
  *Date: 2020.2.14
@@ -58,7 +58,7 @@ GameTypes GSGameResultJudgement::judgeUserIsLose(list<Zombies*>::iterator& zombi
 {
 	_zombie = zombie;
 
-	if ((*_zombie)->getZombieIsSurvive() && (getZombieIsInHouse() || getZombieIsTrampleFlowers()))/* ½©Ê¬´æ»î && £¨½©Ê¬½øÈë·¿¼ä || ½©Ê¬²È»µ»¨Ì³£©*/
+	if ((*_zombie)->getZombieIsSurvive() && (getZombieIsInHouse() || getZombieIsTrampleFlowers()))/* åƒµå°¸å­˜æ´» && ï¼ˆåƒµå°¸è¿›å…¥æˆ¿é—´ || åƒµå°¸è¸©åèŠ±å›ï¼‰*/
 	{
 		if (getZombieIsInHouse())
 		{

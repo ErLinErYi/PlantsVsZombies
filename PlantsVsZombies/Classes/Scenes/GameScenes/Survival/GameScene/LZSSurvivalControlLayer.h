@@ -1,4 +1,4 @@
-/**
+ï»¿/**
  *Copyright (c) 2020 LZ.All Right Reserved
  *Author : LZ
  *Date: 2020.5.08
@@ -20,10 +20,10 @@ CC_CONSTRUCTOR_ACCESS:
     //SGSSurvivalControlLayer();
 
 protected:
-    virtual void judgeLevelIsFinished()override;                                                /* ÅĞ¶Ï¹Ø¿¨ÊÇ·ñ½áÊø */
-    virtual void createZombies()override;                                                       /* ´´½¨½©Ê¬ */
-    virtual bool controlRefurbishZombies()override;                                             /* ¿ØÖÆ½©Ê¬Ë¢ĞÂ */
-    virtual void controlRefurbishMusicAndText()override;                                        /* ¿ØÖÆÒôÀÖÓëÎÄ×ÖµÄË¢ĞÂ*/
+    virtual void judgeLevelIsFinished()override;                                                /* åˆ¤æ–­å…³å¡æ˜¯å¦ç»“æŸ */
+    virtual void createZombies()override;                                                       /* åˆ›å»ºåƒµå°¸ */
+    virtual bool controlRefurbishZombies()override;                                             /* æ§åˆ¶åƒµå°¸åˆ·æ–° */
+    virtual void controlRefurbishMusicAndText()override;                                        /* æ§åˆ¶éŸ³ä¹ä¸æ–‡å­—çš„åˆ·æ–°*/
 
 private:
     int getZombiesNumbers();

@@ -1,4 +1,4 @@
-/**
+ï»¿/**
  *Copyright (c) 2020 LZ.All Right Reserved
  *Author : LZ
  *Date: 2020.2.25
@@ -41,30 +41,30 @@ void AcidLemonBullet::bulletAndZombiesCollision()
 {
 	for (auto zombie : ZombiesGroup)
 	{
-		if (!_isUsed && getBulletIsSameLineWithZombie(zombie) &&                         /* Ã»ÓÐ±»Ê¹ÓÃ && ÄûÃÊËáÓë½©Ê¬ÔÚÍ¬Ò»ÐÐ */
-			zombie->getZombieIsSurvive() && zombie->getZombieIsEnterMap() &&             /* ½©Ê¬Ã»ÓÐËÀÍö && ½©Ê¬½øÈëµØÍ¼ÄÚ */
-			getBulletIsEncounterWithZombie(zombie) && zombie->getZombieIsCanBeAttack())  /* ÄûÃÊËáÓë½©Ê¬Åö×² && ½©Ê¬¿ÉÒÔ±»¹¥»÷µ½*/
+		if (!_isUsed && getBulletIsSameLineWithZombie(zombie) &&                         /* æ²¡æœ‰è¢«ä½¿ç”¨ && æŸ æª¬é…¸ä¸Žåƒµå°¸åœ¨åŒä¸€è¡Œ */
+			zombie->getZombieIsSurvive() && zombie->getZombieIsEnterMap() &&             /* åƒµå°¸æ²¡æœ‰æ­»äº¡ && åƒµå°¸è¿›å…¥åœ°å›¾å†… */
+			getBulletIsEncounterWithZombie(zombie) && zombie->getZombieIsCanBeAttack())  /* æŸ æª¬é…¸ä¸Žåƒµå°¸ç¢°æ’ž && åƒµå°¸å¯ä»¥è¢«æ”»å‡»åˆ°*/
 		{
-			selectSoundEffect(zombie->getZombieBodyAttackSoundEffect(), zombie->getZombieHeadAttackSoundEffect());  /* ²¥·ÅÖ¸¶¨ÒôÀÖ */
+			selectSoundEffect(zombie->getZombieBodyAttackSoundEffect(), zombie->getZombieHeadAttackSoundEffect());  /* æ’­æ”¾æŒ‡å®šéŸ³ä¹ */
 
-			setBulletOpacity();                /* ×Óµ¯ÏûÊ§ */
-			setAttackForShield(zombie);        /* ¶Ô½©Ê¬ÌúÖÊ»¤¶ÜÔì³É¶îÍâÉËº¦ */
-			bulletAttackHurtZombies(zombie);   /* ½©Ê¬¼õÉÙÉúÃüÖµ */
+			setBulletOpacity();                /* å­å¼¹æ¶ˆå¤± */
+			setAttackForShield(zombie);        /* å¯¹åƒµå°¸é“è´¨æŠ¤ç›¾é€ æˆé¢å¤–ä¼¤å®³ */
+			bulletAttackHurtZombies(zombie);   /* åƒµå°¸å‡å°‘ç”Ÿå‘½å€¼ */
 
 			zombie->setZombieHurtBlink();
 
-			createAcidLemonBulletExplode();   /* ´´½¨±¬Õ¨¶¯»­ */
+			createAcidLemonBulletExplode();   /* åˆ›å»ºçˆ†ç‚¸åŠ¨ç”» */
 			setBulletAttack(0);
 			setBulletIsUsed(true);
 
-			break; /* Ò»¸öÍã¶¹Ö»ÄÜ»÷ÖÐÒ»¸ö½©Ê¬ */
+			break; /* ä¸€ä¸ªè±Œè±†åªèƒ½å‡»ä¸­ä¸€ä¸ªåƒµå°¸ */
 		}
 	}
 }
 
 void AcidLemonBullet::createShadow()
 {
-	/* ´´½¨Ó°×Ó */
+	/* åˆ›å»ºå½±å­ */
 	auto shadow = Sprite::createWithSpriteFrameName("plantshadow.png");
 	shadow->setScaleX(1.7f);
 	shadow->setName("shadow");
@@ -92,15 +92,15 @@ void AcidLemonBullet::createAcidLemonBulletExplode()
 
 void AcidLemonBullet::setAttackForShield(Zombies* zombie)
 {
-	if (zombie->getZombieIsHaveShield()) /* ½©Ê¬ÓÐ»¤¶Ü */
+	if (zombie->getZombieIsHaveShield()) /* åƒµå°¸æœ‰æŠ¤ç›¾ */
 	{
 		if (zombie->getZombieHeadShieldType() == ShieldType::IronHeadShield ||
-			zombie->getZombieBodyShieldType() == ShieldType::IronBodyShield)     /* ½©Ê¬ÊÇÌúÖÊ»¤¶Ü */
+			zombie->getZombieBodyShieldType() == ShieldType::IronBodyShield)     /* åƒµå°¸æ˜¯é“è´¨æŠ¤ç›¾ */
 		{
 			_attack = 80;
 		}
 
-		if (zombie->getZombieHeadShieldType() == ShieldType::PlasticsHeadShield) /* ½©Ê¬ÊÇËÜÁÏ»¤¶Ü */
+		if (zombie->getZombieHeadShieldType() == ShieldType::PlasticsHeadShield) /* åƒµå°¸æ˜¯å¡‘æ–™æŠ¤ç›¾ */
 		{
 			_attack = 15;
 		}

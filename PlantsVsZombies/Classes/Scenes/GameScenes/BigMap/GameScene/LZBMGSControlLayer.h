@@ -1,4 +1,4 @@
-/**
+ï»¿/**
  *Copyright (c) 2021 LZ.All Right Reserved
  *Author : LZ
  *Date: 2021.2.14
@@ -14,22 +14,22 @@ class BMControlLayer :public GSControlLayer
 public:
 	CREATE_FUNC(BMControlLayer);
 	static void judgeZombiesWin(Zombies* zombie);
-	virtual void addLayer(Node* node, const int order, const string& name) { node->addChild(this, order, name); }
+	virtual void addLayer(Node* node, const int order, const string& name) override { node->addChild(this, order, name); }
 
 CC_CONSTRUCTOR_ACCESS:
 	BMControlLayer();
 	~BMControlLayer();
-	virtual bool init();
+	virtual bool init() override;
 
 protected:
-	virtual void initData() override;                                                            /* ³õÊ¼»¯Êı¾İ */
-	virtual void judgeLevelIsFinished() override;                                                /* ÅĞ¶Ï¹Ø¿¨ÊÇ·ñ½áÊø */
-	virtual void createSchedule() override;                                                      /* ´´½¨¶¨Ê±Æ÷ */
-	virtual void calculatePlantPosition() override;                                              /* ¼ÆËãÖ²ÎïÖÖÖ²Î»ÖÃ */
-	virtual void createMouseListener() override;                                                 /* ´´½¨Êó±ê */
-	virtual void mouseMoveControl() override;                                                    /* Êó±êÒÆ¶¯¿ØÖÆ */
-	virtual void createPreviewPlants() override;                                                 /* ´´½¨Ô¤ÀÀÖ²Îï */
-	virtual void mouseDownControl(EventMouse* eventmouse = nullptr) override;                    /* Êó±ê°´ÏÂ¿ØÖÆ */
+	virtual void initData() override;                                                            /* åˆå§‹åŒ–æ•°æ® */
+	virtual void judgeLevelIsFinished() override;                                                /* åˆ¤æ–­å…³å¡æ˜¯å¦ç»“æŸ */
+	virtual void createSchedule() override;                                                      /* åˆ›å»ºå®šæ—¶å™¨ */
+	virtual void calculatePlantPosition() override;                                              /* è®¡ç®—æ¤ç‰©ç§æ¤ä½ç½® */
+	virtual void createMouseListener() override;                                                 /* åˆ›å»ºé¼ æ ‡ */
+	virtual void mouseMoveControl() override;                                                    /* é¼ æ ‡ç§»åŠ¨æ§åˆ¶ */
+	virtual void createPreviewPlants() override;                                                 /* åˆ›å»ºé¢„è§ˆæ¤ç‰© */
+	virtual void mouseDownControl(EventMouse* eventmouse = nullptr) override;                    /* é¼ æ ‡æŒ‰ä¸‹æ§åˆ¶ */
 	virtual Vec2 addScrollViewOffset(Vec2& vec2);
 	virtual void changeScrollViewOffset();
 	

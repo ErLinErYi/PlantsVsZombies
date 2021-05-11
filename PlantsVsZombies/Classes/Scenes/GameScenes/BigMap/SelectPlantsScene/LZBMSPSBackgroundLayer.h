@@ -1,4 +1,4 @@
-/**
+﻿/**
  *Copyright (c) 2021 LZ.All Right Reserved
  *Author : LZ
  *Date: 2021.2.14
@@ -16,7 +16,7 @@ public:
 CC_CONSTRUCTOR_ACCESS:
 	BMSPSBackgroundLayer();
 	~BMSPSBackgroundLayer();
-	virtual bool init();
+	virtual bool init() override;
 
 protected:
 	virtual void createBackGroundEffect() override;

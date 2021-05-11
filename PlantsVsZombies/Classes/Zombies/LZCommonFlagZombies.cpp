@@ -1,4 +1,4 @@
-/**
+﻿/**
  *Copyright (c) 2020 LZ.All Right Reserved
  *Author : LZ
  *Date: 2020.4.8
@@ -45,7 +45,7 @@ void CommonFlagZombies::createZombie()
 
 	setZombieScale();
 
-	createZombieShadow();//Ӱ��
+	createZombieShadow();//影子
 
 	_zombiesAnimation->setAttachment("Zombie_bucket", "tt_innerleg_foot3");
 	_zombiesAnimation->setAttachment("tt_innerarm_upper", rand() % 4 ? "tt_flag" : "tt_flag1");

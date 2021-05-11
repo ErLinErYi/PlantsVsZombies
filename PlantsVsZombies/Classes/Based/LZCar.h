@@ -1,3 +1,9 @@
+ï»¿/**
+ *Copyright (c) 2019 LZ.All Right Reserved
+ *Author : LZ
+ *Email: 2117610943@qq.com
+ */
+
 #pragma once
 #include "cocos2d.h"
 #include "spine/spine-cocos2dx.h"
@@ -28,6 +34,7 @@ public:
 	void setScale(const float& scale);
 	void setLive(bool isLive);
 	void setInRow(int row);
+	void releaseFunction();
 	int getInRow();
 	bool getLive() const;
 	int getCarTag() const;
@@ -48,14 +55,14 @@ private:
 	int getZOrder() const;
 
 private:
-	Sprite* _carImage;    // Ğ¡³µÍ¼Æ¬
-	Vec2 _position;       // Î»ÖÃ
-	bool _isLive;         // ÊÇ·ñ¼¤»î
-	int _tag;             // ±ê¼Ç
-	int _row;             // ËùÔÚĞĞ
-	int _carState;        // Ğ¡³µ×´Ì¬
-	float _scale;         // ´óĞ¡
-	Node* _node;          // ¸¸½Úµã
-	CarType _carType;     // Ğ¡³µÀàĞÍ
+	Sprite* _carImage;    // å°è½¦å›¾ç‰‡
+	Vec2 _position;       // ä½ç½®
+	bool _isLive;         // æ˜¯å¦æ¿€æ´»
+	int _tag;             // æ ‡è®°
+	int _row;             // æ‰€åœ¨è¡Œ
+	int _carState;        // å°è½¦çŠ¶æ€
+	float _scale;         // å¤§å°
+	Node* _node;          // çˆ¶èŠ‚ç‚¹
+	CarType _carType;     // å°è½¦ç±»å‹
 	Global* _global;
 };

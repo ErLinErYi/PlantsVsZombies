@@ -1,3 +1,9 @@
+ï»¿/**
+ *Copyright (c) 2019 LZ.All Right Reserved
+ *Author : LZ
+ *Email: 2117610943@qq.com
+ */
+
 #include "LZcar.h"
 
 #include "Zombies/LZZombies.h"
@@ -91,6 +97,11 @@ void Car::setInRow(int row)
 	_row = row;
 }
 
+void Car::releaseFunction()
+{
+	_carImage->removeFromParent();
+}
+
 int Car::getInRow()
 {
 	return _row;
@@ -120,8 +131,8 @@ void Car::createCarListener()
 {
 	for (auto& zombie : ZombiesGroup)
 	{
-		if (zombie->getZombieIsEnterMap() && zombie->getZombieIsSurvive() &&         /* ½©Ê¬½øÈëµØÍ¼ && ½©Ê¬Ã»ÓĞËÀÍö */       
-			getZombieIsSameLineWithCar(zombie) && getzombieIsEncounterCar(zombie))   /* ½©Ê¬ÓëĞ¡³µÔÚÍ¬Ò»ĞĞ && ½©Ê¬Óöµ½Ğ¡³µ */
+		if (zombie->getZombieIsEnterMap() && zombie->getZombieIsSurvive() &&         /* åƒµå°¸è¿›å…¥åœ°å›¾ && åƒµå°¸æ²¡æœ‰æ­»äº¡ */       
+			getZombieIsSameLineWithCar(zombie) && getzombieIsEncounterCar(zombie))   /* åƒµå°¸ä¸å°è½¦åœ¨åŒä¸€è¡Œ && åƒµå°¸é‡åˆ°å°è½¦ */
 		{
 			_isLive = true;
 
@@ -154,7 +165,7 @@ void Car::deleteCar(list<Car*>::iterator& car)
 	if ((*car)->getCar()->getPositionX() > 
 		controlLayerInformation->gameMapInformation->mapRight + 500)
 	{
-		(*car)->getCar()->removeFromParent();
+		(*car)->releaseFunction();
 		delete* car;
 		*car = nullptr;
 		CarsGroup.erase(car++);

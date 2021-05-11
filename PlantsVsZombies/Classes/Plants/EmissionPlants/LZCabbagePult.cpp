@@ -1,4 +1,4 @@
-/**
+ï»¿/**
  *Copyright (c) 2020 LZ.All Right Reserved
  *Author : LZ
  *Date: 2020.2.6
@@ -20,7 +20,7 @@ CabbagePult::CabbagePult(Node* node):
 	_plantImage = nullptr;
 
 	_healthPoint = 300;
-	_combatEffecttiveness = 0; // !!!ÔİÊ±Ã»ÓĞÊ¹ÓÃ Ê¹ÓÃµÄÊÇcabbageÀïÃæµÄ_attack
+	_combatEffecttiveness = 0; // !!!æš‚æ—¶æ²¡æœ‰ä½¿ç”¨ ä½¿ç”¨çš„æ˜¯cabbageé‡Œé¢çš„_attack
 	_plantsType = PlantsType::CabbagePult;
 }
 
@@ -55,13 +55,13 @@ void CabbagePult::createPlantAnimation()
 	_plantAnimation->setScale(0.8f);
 	_node->addChild(_plantAnimation);
 
-	// Ó°×Ó
+	// å½±å­
 	setPlantShadow(2.6f);
 
-	// ÄàÍÁ·É½¦¶¯»­
+	// æ³¥åœŸé£æº…åŠ¨ç”»
 	setPlantSoilSplashAnimation(1.0f);
 
-	// ´´½¨¼àÌı
+	// åˆ›å»ºç›‘å¬
 	createListener("Cabbage_Shoot", "Shoot");
 }
 
@@ -77,25 +77,25 @@ void CabbagePult::plantAttack(Zombies* zombie)
 
 void CabbagePult::determineRelativePositionPlantsAndZombies(const string& animationName)
 {
-	_distance = _MAX_; /* ³õÊ¼»¯¾àÀë±äÁ¿ */
+	_distance = _MAX_; /* åˆå§‹åŒ–è·ç¦»å˜é‡ */
 
 	for (auto zombie : ZombiesGroup)
 	{
-		zombieEatPlant(zombie);      /* ½©Ê¬³ÔÖ²Îï */
+		zombieEatPlant(zombie);      /* åƒµå°¸åƒæ¤ç‰© */
 
-		plantAttack(zombie);         /* Ö²Îï¹¥»÷ */
+		plantAttack(zombie);         /* æ¤ç‰©æ”»å‡» */
 
-		zombieRecoveryMove(zombie);  /* ½©Ê¬»Ö¸´ÒÆ¶¯ */
+		zombieRecoveryMove(zombie);  /* åƒµå°¸æ¢å¤ç§»åŠ¨ */
 	}
 
-	if (_isHaveZombies)  /* Èç¹ûÓĞ½©Ê¬Óë¾íĞÄ²ËÍ¶ÊÖÔÚÍ¬Ò»ĞĞ */
+	if (_isHaveZombies)  /* å¦‚æœæœ‰åƒµå°¸ä¸å·å¿ƒèœæŠ•æ‰‹åœ¨åŒä¸€è¡Œ */
 	{
 		_zombiePostion = _zombie->getZombieAnimation()->getPosition();
 		_zombieSpeed = _zombie->getZombieCurrentSpeed();
 		//_zombieHeight = _zombie->getZombieAnimation()->getScale() * _zombie->getZombieAnimation()->getBoundingBox().size.height;
 	}
 
-	if (!_isHaveZombies) /* Èç¹ûÃ»ÓĞ½©Ê¬Óë¾íĞÄ²ËÍ¶ÊÖÔÚÍ¬Ò»ĞĞ */
+	if (!_isHaveZombies) /* å¦‚æœæ²¡æœ‰åƒµå°¸ä¸å·å¿ƒèœæŠ•æ‰‹åœ¨åŒä¸€è¡Œ */
 	{
 		if (_isChanged)
 		{
@@ -104,15 +104,15 @@ void CabbagePult::determineRelativePositionPlantsAndZombies(const string& animat
 		}
 	}
 
-	_isHaveZombies = false; /* Ã¿Ñ­»·Ò»´Î¾Í³õÊ¼»¯ */
+	_isHaveZombies = false; /* æ¯å¾ªç¯ä¸€æ¬¡å°±åˆå§‹åŒ– */
 }
 
 void CabbagePult::plantAttack(Zombies* zombie, const string& animationName)
 {
-	if (zombie->getZombieIsSurvive() && getPlantIsSurvive() && zombie->getZombieIsEnterMap() && /* ½©Ê¬´æ»î && Ö²Îï´æ»î && ½©Ê¬½øÈëµØÍ¼ */
-		getZombieIsSameLineWithPlant(zombie) && getZombieIsTheFrontOfPlant(zombie))             /* ÓëÖ²ÎïÔÚÍ¬Ò»ĞĞ && ½©Ê¬ÔÚÖ²ÎïµÄÇ°·½ */
+	if (zombie->getZombieIsSurvive() && getPlantIsSurvive() && zombie->getZombieIsEnterMap() && /* åƒµå°¸å­˜æ´» && æ¤ç‰©å­˜æ´» && åƒµå°¸è¿›å…¥åœ°å›¾ */
+		getZombieIsSameLineWithPlant(zombie) && getZombieIsTheFrontOfPlant(zombie))             /* ä¸æ¤ç‰©åœ¨åŒä¸€è¡Œ && åƒµå°¸åœ¨æ¤ç‰©çš„å‰æ–¹ */
 	{
-		_isHaveZombies = true; /* ±íÊ¾ÓĞ½©Ê¬ÓëÖ²ÎïÔÚÍ¬Ò»ĞĞ */
+		_isHaveZombies = true; /* è¡¨ç¤ºæœ‰åƒµå°¸ä¸æ¤ç‰©åœ¨åŒä¸€è¡Œ */
 		if (!_isChanged)
 		{
 			_plantAnimation->addAnimation(0, animationName, true);
@@ -120,10 +120,10 @@ void CabbagePult::plantAttack(Zombies* zombie, const string& animationName)
 		}
 
 		const float distance = zombie->getZombieAnimation()->getPositionX() - _plantAnimation->getPositionX();
-		if (_distance > distance) /* ½©Ê¬ÓëÖ²ÎïµÄ¾àÀëĞ¡ÓÚÉÏÒ»¸ö½©Ê¬ÓëÖ²ÎïµÄ¾àÀë */
+		if (_distance > distance) /* åƒµå°¸ä¸æ¤ç‰©çš„è·ç¦»å°äºä¸Šä¸€ä¸ªåƒµå°¸ä¸æ¤ç‰©çš„è·ç¦» */
 		{
 			_distance = distance;
-			_zombie = zombie;     /* ¼ÇÂ¼¸Ã½©Ê¬ */
+			_zombie = zombie;     /* è®°å½•è¯¥åƒµå°¸ */
 		}
 	}
 }

@@ -471,7 +471,7 @@ void GSControlLayer::removePreviewPlant()
 void GSControlLayer::removeShovel()
 {
 	buttonLayerInformation->mouseSelectImage->isSelectShovel = false;
-	_director->getOpenGLView()->setCursor("resources/images/System/cursor.png", Point::ANCHOR_TOP_LEFT);
+	_director->getOpenGLView()->setCursor("resources/Images/System/cursor.png", Point::ANCHOR_TOP_LEFT);
 }
 
 void GSControlLayer::removeMouseListener()
@@ -517,7 +517,6 @@ void GSControlLayer::judgeLevelIsFinished()
 			if (_global->userInformation->getCurrentPlayLevels() >= 52 && !_isShowEggScene)
 			{
 				_isShowEggScene = true;
-				GSPauseQuitLayer::pauseLayer();
 				_director->getInstance()->pushScene(TransitionFade::create(0.5f, GameEasterEggs::create()));
 			}
 			else
@@ -537,6 +536,9 @@ void GSControlLayer::setGameEnd()
 {
 	_gameEndShieldLayer = GSGameEndLayer::create();
 	_director->getRunningScene()->addChild(_gameEndShieldLayer, 10, "gameEndShieldLayer");
+	_director->getScheduler()->setTimeScale(1.0f); /* 恢复播放倍数 */
+
+	GSPauseQuitLayer::pauseLayer();
 }
 
 void GSControlLayer::mouseMoveControl()

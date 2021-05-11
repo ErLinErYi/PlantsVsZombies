@@ -1,4 +1,4 @@
-/**
+ï»¿/**
  *Copyright (c) 2020 LZ.All Right Reserved
  *Author : LZ
  *Date: 2020.2.6
@@ -50,10 +50,10 @@ void WallNut::createPlantAnimation()
 	_plantAnimation->setSkin("WallNut_Normal");
 	_node->addChild(_plantAnimation);
 
-	// Ó°×Ó
+	// å½±å­
 	setPlantShadow(2.2f);
 
-	// ÄàÍÁ·É½¦¶¯»­
+	// æ³¥åœŸé£æº…åŠ¨ç”»
 	setPlantSoilSplashAnimation(1.0f);
 }
 

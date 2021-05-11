@@ -1,4 +1,4 @@
-/**
+Ôªø/**
  *Copyright (c) 2021 LZ.All Right Reserved
  *Author : LZ
  *Date: 2021.1.26
@@ -35,5 +35,5 @@ private:
 	bool zombieInObliqueDirection(float& disX, float& disY);
 
 private:
-	Bullet* _bulletAnimation;  // ◊”µØ∂Øª≠
+	Bullet* _bulletAnimation;  // Â≠êÂºπÂä®Áîª
 };

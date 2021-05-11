@@ -1,4 +1,4 @@
-/**LZAGSMirrorSelectPlantsScene.h
+ï»¿/**LZAGSMirrorSelectPlantsScene.h
  *Copyright (c) 2019 LZ.All Right Reserved
  *Author : LZ
  *Date: 2020.4.17
@@ -29,7 +29,7 @@ void MirrorSelectPlantsScene::readyTextCallBack(Node* node, const std::string& n
 		_scrollLayer->removeChildByName("previewBackgroundImage");
 
 		_global->userInformation->setUserSelectCrads(_spriteLayer->seedBankButton);
-		_global->userInformation->setSunNumbers(100); //Éè¶¨³õÊ¼Ñô¹âÊý 
+		_global->userInformation->setSunNumbers(100); //è®¾å®šåˆå§‹é˜³å…‰æ•° 
 
 		Director::getInstance()->replaceScene(MirrorGameScene::createScene());
 		break;

@@ -1,4 +1,4 @@
-/**
+ï»¿/**
  *Copyright (c) 2020 LZ.All Right Reserved
  *Author : LZ
  *Date: 2020.2.6
@@ -28,16 +28,16 @@ private:
 	void cavePlantInformation(rapidjson::Value& object, rapidjson::Document::AllocatorType& allocator) override;
 	void readPlantInforamtion(rapidjson::Document* levelDataDocument, char* key, int i) override;
 	SkeletonAnimation* showPlantAnimationAndText() override;
-	void createListener();
+	void createListener() override;
 	void explodeHurtZombies();
 	bool getZombieIsInExplodeRange(Zombies* zombie) override;
 	
 private:
-	bool _isReady;                 // ÊÇ·ñ×¼±¸ºÃ
-	bool _isExplodeFinished;       // ÊÇ·ñ±¬Õ¨Íê³É
-	bool _isBeginExplode;          // ÊÇ·ñ¿ªÊ¼±¬Õ¨
-	bool _isCanKillZombies;        // ÊÇ·ñ¿ÉÒÔÉ±ÊÖ½©Ê¬
-	bool _isKillZombiesFinished;   // ÊÇ·ñÉ±ËÀ½©Ê¬½áÊø
-	bool _isReadFile;              // ÊÇ·ñ¶ÁÈ¡ÎÄ¼ş
-	float _breakGround;            // ÆÆÍÁÊ±¼ä
+	bool _isReady;                 // æ˜¯å¦å‡†å¤‡å¥½
+	bool _isExplodeFinished;       // æ˜¯å¦çˆ†ç‚¸å®Œæˆ
+	bool _isBeginExplode;          // æ˜¯å¦å¼€å§‹çˆ†ç‚¸
+	bool _isCanKillZombies;        // æ˜¯å¦å¯ä»¥æ€æ‰‹åƒµå°¸
+	bool _isKillZombiesFinished;   // æ˜¯å¦æ€æ­»åƒµå°¸ç»“æŸ
+	bool _isReadFile;              // æ˜¯å¦è¯»å–æ–‡ä»¶
+	float _breakGround;            // ç ´åœŸæ—¶é—´
 };

@@ -1,4 +1,4 @@
-/**
+Ôªø/**
  *Copyright (c) 2019 LZ.All Right Reserved
  *Author : LZ
  *Date: 2019.8.18
@@ -29,8 +29,8 @@ public:
 CC_CONSTRUCTOR_ACCESS:
 	ModernWorld();
 	~ModernWorld();
-	virtual bool init(); 
-	virtual void onEnter();
+	virtual bool init() override; 
+	virtual void onEnter() override;
 
 protected:
 	virtual void readWorldLevel();
@@ -48,7 +48,7 @@ protected:
 	Sprite* createSprite(const std::string& name, const Vec2& position, const float& scale, const int& zorder, const float& speed, bool IsFlipped = false);
 	Sprite* createSprite(Node* node, const std::string& name, const Vec2& position, const float& scale, const int& zorder,bool IsFlipped = false);
 	void playProhibitMusic(Button* button);
-	void playLevelGameAndCaveThings(const int id);
+	void playLevelGameAndCaveThings(const int id, const int worldid);
 
 protected:
 	Global* _global;
@@ -57,8 +57,8 @@ protected:
 	Size _backgroundSize;
 	ui::ScrollView* _scrollView;
 	int _level;
-	float _worldPosition;                 /*  ¿ΩÁ≥ı ºŒª÷√ */
-	float _worldRollingDistance;          /* º∆À„ Û±Íπˆ∂Øæ‡¿Î */
+	float _worldPosition;                 /* ‰∏ñÁïåÂàùÂßã‰ΩçÁΩÆ */
+	float _worldRollingDistance;          /* ËÆ°ÁÆóÈº†Ê†áÊªöÂä®Ë∑ùÁ¶ª */
 	list<Button*> _levelButton;
 	static bool _isPopEnter;
 };

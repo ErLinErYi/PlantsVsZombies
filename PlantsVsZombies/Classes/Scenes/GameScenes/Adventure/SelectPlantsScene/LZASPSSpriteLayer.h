@@ -1,4 +1,4 @@
-/**
+ï»¿/**
  *Copyright (c) 2019 LZ.All Right Reserved
  *Author : LZ
  *Date: 2019.8.12
@@ -63,24 +63,24 @@ private:
 CC_CONSTRUCTOR_ACCESS:
 	SPSSpriteLayer();
 	~SPSSpriteLayer();
-	virtual bool init();
+	virtual bool init() override;
 
 public:
-	static Text* animationText[PLANTSNUMBERS];        /* ¶¯»­ËµÃ÷ */
-	static bool isPlantIsCanSelect[PLANTSNUMBERS];    /* ÊÇ·ñ¿ÉÒÔÑ¡Ôñ¸ÃÖ²Îï */
-	static ui::ScrollView* plantCardTextScrollView;   /* Ö²Îï¿¨ÅÆ¹ö¶¯ÊÓÍ¼ */
-	bool _selectFinished;                             /* ÊÇ·ñÑ¡ÔñÍê³É */
+	static Text* animationText[PLANTSNUMBERS];        /* åŠ¨ç”»è¯´æ˜ */
+	static bool isPlantIsCanSelect[PLANTSNUMBERS];    /* æ˜¯å¦å¯ä»¥é€‰æ‹©è¯¥æ¤ç‰© */
+	static ui::ScrollView* plantCardTextScrollView;   /* æ¤ç‰©å¡ç‰Œæ»šåŠ¨è§†å›¾ */
+	bool _selectFinished;                             /* æ˜¯å¦é€‰æ‹©å®Œæˆ */
 	vector<UserSelectCard> seedBankButton;
 
 protected:
-	Global* _global;                           /* È«¾Ö±äÁ¿µ¥Àı */
-	Sprite* _seedChooser;                      /* Ö²ÎïÑ¡Ôñ¶Ô»°¿ò */
-	Plants* _plant;                            /* Ö²Îï±äÁ¿ */
-	SkeletonAnimation* _plantsAnimation;       /* Ö²Îï¶¯»­ */
-	ui::ScrollView* _plantCardScrollView;      /* Ö²Îï¿¨ÅÆ¹ö¶¯ÊÓÍ¼ */
-	float _plantCardScrollViewPercent;         /* Ö²Îï¿¨ÅÆ¹ö¶¯ÊÓÍ¼¹ö¶¯¾àÀë */
-	float _plantCardRollingDistance;           /* ¼ÆËãÊó±ê¹ö¶¯¾àÀë */
-	static EventListenerMouse* _listener;      /* Êó±ê¼àÌı */
-	static int _listenerMutex;                 /* Êó±ê¼àÌı»¥³â */
-	map<PlantsType, Button*>_plantsCards;      /* Ö²Îï¿¨ÅÆ */
+	Global* _global;                           /* å…¨å±€å˜é‡å•ä¾‹ */
+	Sprite* _seedChooser;                      /* æ¤ç‰©é€‰æ‹©å¯¹è¯æ¡† */
+	Plants* _plant;                            /* æ¤ç‰©å˜é‡ */
+	SkeletonAnimation* _plantsAnimation;       /* æ¤ç‰©åŠ¨ç”» */
+	ui::ScrollView* _plantCardScrollView;      /* æ¤ç‰©å¡ç‰Œæ»šåŠ¨è§†å›¾ */
+	float _plantCardScrollViewPercent;         /* æ¤ç‰©å¡ç‰Œæ»šåŠ¨è§†å›¾æ»šåŠ¨è·ç¦» */
+	float _plantCardRollingDistance;           /* è®¡ç®—é¼ æ ‡æ»šåŠ¨è·ç¦» */
+	static EventListenerMouse* _listener;      /* é¼ æ ‡ç›‘å¬ */
+	static int _listenerMutex;                 /* é¼ æ ‡ç›‘å¬äº’æ–¥ */
+	map<PlantsType, Button*>_plantsCards;      /* æ¤ç‰©å¡ç‰Œ */
 };

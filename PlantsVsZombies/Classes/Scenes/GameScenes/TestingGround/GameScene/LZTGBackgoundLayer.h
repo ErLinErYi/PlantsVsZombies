@@ -1,4 +1,4 @@
-/**
+﻿/**
  *Copyright (c) 2020 LZ.All Right Reserved
  *Author : LZ
  *Date: 2021.4.08
@@ -12,10 +12,10 @@ class TGBackgroundLayer :public TSPSBackgroundLayer
 {
 public:
 	CREATE_FUNC(TGBackgroundLayer);
-	virtual void addLayer(Node* node, const int order, const string& name) { node->addChild(this, order, name); }
+	virtual void addLayer(Node* node, const int order, const string& name) override { node->addChild(this, order, name); }
 
 CC_CONSTRUCTOR_ACCESS:
 	TGBackgroundLayer();
 	~TGBackgroundLayer();
-	virtual bool init();
+	virtual bool init() override;
 };

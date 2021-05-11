@@ -1,4 +1,4 @@
-/**
+ï»¿/**
  *Copyright (c) 2020 LZ.All Right Reserved
  *Author : LZ
  *Date: 2020.1.28
@@ -13,11 +13,11 @@ using namespace cocos2d;
 
 enum class PauseQuitLayer_Button
 {
-	²é¿´Í¼¼ø = 0,
-	´ÓĞÂ¿ªÊ¼,
-	ÍË³öÓÎÏ·,
-	°´¼üËµÃ÷,
-	·µ»ØÓÎÏ·
+	æŸ¥çœ‹å›¾é‰´ = 0,
+	ä»æ–°å¼€å§‹,
+	é€€å‡ºæ¸¸æˆ,
+	æŒ‰é”®è¯´æ˜,
+	è¿”å›æ¸¸æˆ
 };
 
 class GSPauseQuitLayer :public OptionsMenu
@@ -32,7 +32,7 @@ public:
 CC_CONSTRUCTOR_ACCESS:
 	GSPauseQuitLayer();
 	~GSPauseQuitLayer();
-	virtual bool init();
+	virtual bool init() override;
 
 protected:
 	virtual void createButton(const Vec2& vec2, const std::string name, PauseQuitLayer_Button type);

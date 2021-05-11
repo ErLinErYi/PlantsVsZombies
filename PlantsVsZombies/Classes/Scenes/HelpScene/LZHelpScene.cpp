@@ -1,4 +1,4 @@
-/**
+ï»¿/**
  *Copyright (c) 2019 LZ.All Right Reserved
  *Author : LZ
  *Date: 2019.7.1
@@ -14,14 +14,14 @@
 #include "Based/LZMouseEventControl.h"
 
 string INFORMATION_TEXT = { "\
-        ´ËÓÎÏ·È«²¿ÓÉßÙÁ¨ßÙÁ¨\"¶ûÁì¶ûÒÚ\"£¨LZ£©¶ÀÁ¢ÖÆ×÷Íê³É¡£´ËÓÎÏ·Óëµ±Ç°¿ÉÒÔ¼ûµ½µÄÖÚ¶à¸Ä°æ²»Í¬¡£´Ë³ÌÐò²»ÊÇ»ùÓÚÔ­°æÓÎÏ·µÄ¶þ´Î¿ª·¢£¬¶øÊÇ´ÓÐÂ´ÓÁã¿ªÊ¼ÖÆ×÷¡£\
-¿ÉÒÔËµ´Ë³ÌÐòÓëÔ­°æ³ÌÐòÃ»ÓÐÈÎºÎ¹ØÏµ¡£¸Ã³ÌÐòÊ¹ÓÃCocos2dxÓÎÏ·¿ª·¢¿ò¼ÜÒÔ¼°C++ÓïÑÔÖÆ×÷Íê³É¡£Ä¿Ç°¸Ã³ÌÐòµÄËùÓÐÔ´´úÂëÒÑ¾­¿ªÔ´µ½githubÒÔ¼°giteeÉÏ¡£\n\
-        ´ËÓÎÏ·Ä¿Ç°ÒÑ¾­ÓÐ¶àÖÖÓÎÏ·Ä£Ê½¡£ÓÐ×Å²»Í¬ÖÖÀàµÄÓÎÏ·¹Ø¿¨¡¢ÓÐ×Å³¬¹ý¼¸°Ù¹ØÊýÁ¿µÄÓÎÏ·¹Ø¿¨¡¢ÓÐ×Å³¬´óµØÍ¼£¨10 * 18£©µÄÓÎÏ·Ä£Ê½¡¢ÓÐ×Å¡°´¸½©Ê¬¡±ÎÞ¾¡°æµÄÓÎÏ·Ä£Ê½µÈµÈÖÖÀà¡£\
-´ËÓÎÏ·Ê¹ÓÃµÄ¾ø´ó²¿·ÖÍ¼Æ¬¡¢ÒôÀÖ¡¢ÒôÐ§¡¢×ÖÌåµÈ×ÊÔ´ÎÄ¼þÀ´Ô´ÓÚÔ­°æÒ»´ú¡¢¶þ´ú¡¢ÒÔ¼°Èý´úµÄÓÎÏ·×ÊÔ´£¬ÉÙ²¿·ÖÊÕ¼¯ÓÚÍøÂçÒÔ¼°×Ô¼ºÖÆ×÷¡£\n\
-	    ´Ë³ÌÐòÊ¹ÓÃÔ­°æÓÎÏ·ËØ²ÄËùÒÔ²»µÃÓÃÓÚÉÌÒµÓÃÍ¾£¬·ñÔòºó¹û×Ô¸º¡£µ±ÄãÔËÐÐ´ËÓÎÏ·»òÕßÊ¹ÓÃÆäÔ´´úÂëÊ±ÔòÈÏÎªÄ¬ÈÏÍ¬Òâ´ËÐ­Òé£¬·ñÔòÇëÍË³öÓÎÏ·²¢É¾³ý¡£\
-ÏîÄ¿µØÖ·¿ÉÒÔÖ±½ÓÔÚgithub»ògiteeÉÏËÑË÷¹Ø¼ü´Ê\"PlantsVsZombies\"»òä¯ÀÀÆ÷ÖÐÊäÈëÒÔÏÂµØÖ·£ºhttps://github.com/ErLinErYi/PlantsVsZombies \n\
-		Ä¿Ç°ÓÐ 16 ÖÖ½©Ê¬ºÍ 24 ÖÖÖ²Îï£¬ÓÉÓÚ×ö¶¯»­µÄÄÜÁ¦ÓÐÏÞ£¬ÓÐÐ©½©Ê¬ºÍÖ²Îï¶¯»­²»ÄÜÊµÏÖ»ò¶¯»­ÓëÔ­°æ´æÔÚºÜ´óÆ«²î¡£\
-£¨Ê¹ÓÃspine»òÕßDragonBonesÖÆ×÷µÄ2D¶¯»­£©Ä¿Ç°ÒÑ¾­ÓÐ¶àÖÖÓÎÏ·Ä£Ê½ºÍ³¬¹ý¼¸°Ù¸öÓÎÏ·¹Ø¿¨¡£\nQQ:2117610943 \nQQÈº:926707238 \nÍøÖ·:https://gitlz.gitee.io/lz \n\n"
+        æ­¤æ¸¸æˆå…¨éƒ¨ç”±å“”å“©å“”å“©\"å°”é¢†å°”äº¿\"ï¼ˆLZï¼‰ç‹¬ç«‹åˆ¶ä½œå®Œæˆã€‚æ­¤æ¸¸æˆä¸Žå½“å‰å¯ä»¥è§åˆ°çš„ä¼—å¤šæ”¹ç‰ˆä¸åŒã€‚æ­¤ç¨‹åºä¸æ˜¯åŸºäºŽåŽŸç‰ˆæ¸¸æˆçš„äºŒæ¬¡å¼€å‘ï¼Œè€Œæ˜¯ä»Žæ–°ä»Žé›¶å¼€å§‹åˆ¶ä½œã€‚\
+å¯ä»¥è¯´æ­¤ç¨‹åºä¸ŽåŽŸç‰ˆç¨‹åºæ²¡æœ‰ä»»ä½•å…³ç³»ã€‚è¯¥ç¨‹åºä½¿ç”¨Cocos2dxæ¸¸æˆå¼€å‘æ¡†æž¶ä»¥åŠC++è¯­è¨€åˆ¶ä½œå®Œæˆã€‚ç›®å‰è¯¥ç¨‹åºçš„æ‰€æœ‰æºä»£ç å·²ç»å¼€æºåˆ°githubä»¥åŠgiteeä¸Šã€‚\n\
+        æ­¤æ¸¸æˆç›®å‰å·²ç»æœ‰å¤šç§æ¸¸æˆæ¨¡å¼ã€‚æœ‰ç€ä¸åŒç§ç±»çš„æ¸¸æˆå…³å¡ã€æœ‰ç€è¶…è¿‡å‡ ç™¾å…³æ•°é‡çš„æ¸¸æˆå…³å¡ã€æœ‰ç€è¶…å¤§åœ°å›¾ï¼ˆ10 * 18ï¼‰çš„æ¸¸æˆæ¨¡å¼ã€æœ‰ç€â€œé”¤åƒµå°¸â€æ— å°½ç‰ˆçš„æ¸¸æˆæ¨¡å¼ç­‰ç­‰ç§ç±»ã€‚\
+æ­¤æ¸¸æˆä½¿ç”¨çš„ç»å¤§éƒ¨åˆ†å›¾ç‰‡ã€éŸ³ä¹ã€éŸ³æ•ˆã€å­—ä½“ç­‰èµ„æºæ–‡ä»¶æ¥æºäºŽåŽŸç‰ˆä¸€ä»£ã€äºŒä»£ã€ä»¥åŠä¸‰ä»£çš„æ¸¸æˆèµ„æºï¼Œå°‘éƒ¨åˆ†æ”¶é›†äºŽç½‘ç»œä»¥åŠè‡ªå·±åˆ¶ä½œã€‚\n\
+	    æ­¤ç¨‹åºä½¿ç”¨åŽŸç‰ˆæ¸¸æˆç´ ææ‰€ä»¥ä¸å¾—ç”¨äºŽå•†ä¸šç”¨é€”ï¼Œå¦åˆ™åŽæžœè‡ªè´Ÿã€‚å½“ä½ è¿è¡Œæ­¤æ¸¸æˆæˆ–è€…ä½¿ç”¨å…¶æºä»£ç æ—¶åˆ™è®¤ä¸ºé»˜è®¤åŒæ„æ­¤åè®®ï¼Œå¦åˆ™è¯·é€€å‡ºæ¸¸æˆå¹¶åˆ é™¤ã€‚\
+é¡¹ç›®åœ°å€å¯ä»¥ç›´æŽ¥åœ¨githubæˆ–giteeä¸Šæœç´¢å…³é”®è¯\"PlantsVsZombies\"æˆ–æµè§ˆå™¨ä¸­è¾“å…¥ä»¥ä¸‹åœ°å€ï¼šhttps://github.com/ErLinErYi/PlantsVsZombies \n\
+		ç›®å‰æœ‰ 16 ç§åƒµå°¸å’Œ 24 ç§æ¤ç‰©ï¼Œç”±äºŽåšåŠ¨ç”»çš„èƒ½åŠ›æœ‰é™ï¼Œæœ‰äº›åƒµå°¸å’Œæ¤ç‰©åŠ¨ç”»ä¸èƒ½å®žçŽ°æˆ–åŠ¨ç”»ä¸ŽåŽŸç‰ˆå­˜åœ¨å¾ˆå¤§åå·®ã€‚\
+ï¼ˆä½¿ç”¨spineæˆ–è€…DragonBonesåˆ¶ä½œçš„2DåŠ¨ç”»ï¼‰ç›®å‰å·²ç»æœ‰å¤šç§æ¸¸æˆæ¨¡å¼å’Œè¶…è¿‡å‡ ç™¾ä¸ªæ¸¸æˆå…³å¡ã€‚\nQQ:2117610943 \nQQç¾¤:926707238 \nç½‘å€:https://gitlz.gitee.io/lz \n\n"
 };
 
 Scene* HelpScene::createHelpScene()
@@ -50,7 +50,7 @@ void HelpScene::createBackground()
 
 void HelpScene::createText()
 {
-	/* ´´½¨ÎÄ×Ö±³¾° */
+	/* åˆ›å»ºæ–‡å­—èƒŒæ™¯ */
 	auto note = Sprite::createWithSpriteFrameName("ZombieNote.png");
 	note->setScale(1.7f);
 	note->setScaleX(2.2f);
@@ -61,7 +61,7 @@ void HelpScene::createText()
 
 	FileUtils::getInstance()->getStringFromFile("history.pak", [=](string history)
 		{
-			auto helptext = Label::createWithTTF(INFORMATION_TEXT + (history.empty() ? "\t\t\t\t\t\t\t\t\t\t\t\t\tÎÄ±¾¼ÓÔØÊ§°Ü£¡" : history), GAME_FONT_NAME_1, 35);
+			auto helptext = Label::createWithTTF(INFORMATION_TEXT + (history.empty() ? "\t\t\t\t\t\t\t\t\t\t\t\t\tæ–‡æœ¬åŠ è½½å¤±è´¥ï¼" : history), GAME_FONT_NAME_1, 35);
 			helptext->setAnchorPoint(Vec2::ANCHOR_MIDDLE_TOP);
 			helptext->setColor(Color3B::BLACK);
 			helptext->setMaxLineWidth(1100);
@@ -79,7 +79,7 @@ void HelpScene::createGithubUrl()
 	auto github = Button::create();
 	github->setTitleFontName(GAME_FONT_NAME_1);
 	github->setTitleFontSize(35);
-	github->setTitleText("µã»÷´Ë´¦´ò¿ªgithubÏîÄ¿");
+	github->setTitleText("ç‚¹å‡»æ­¤å¤„æ‰“å¼€githubé¡¹ç›®");
 	github->setPosition(Vec2(1220, 740));
 	github->setTitleColor(Color3B(0, 255, 255));
 	github->addTouchEventListener([&](Ref* sender, Widget::TouchEventType type)
@@ -104,11 +104,11 @@ void HelpScene::createGithubUrl()
 
 void HelpScene::createButton()
 {
-	/* ´´½¨°´Å¥ */
-	auto button = Button::create("SeedChooser_Button2.png", "SeedChooser_Button2_Glow.png", "", TextureResType::PLIST);
-	button->setTitleText(_global->userInformation->getGameText().find("Ö÷²Ëµ¥")->second->text);
+	/* åˆ›å»ºæŒ‰é’® */
+	auto button = Button::create("SeedChooser_Button2.png", "SeedChooser_Button2_Glow.png", "",cocos2d::ui::Widget::TextureResType::PLIST);
+	button->setTitleText(_global->userInformation->getGameText().find("ä¸»èœå•")->second->text);
 	button->setTitleColor(Color3B(0, 255, 255));
-	button->setTitleFontSize(_global->userInformation->getGameText().find("Ö÷²Ëµ¥")->second->fontsize);
+	button->setTitleFontSize(_global->userInformation->getGameText().find("ä¸»èœå•")->second->fontsize);
 	button->setScale(2.0f);
 	button->setPosition(Vec2(_size.width / 2, 100));
 	this->addChild(button);
@@ -120,7 +120,7 @@ void HelpScene::createButton()
 				PlayMusic::playMusic("tap2");
 				break;
 			case Widget::TouchEventType::ENDED:
-				Director::getInstance()->replaceScene(MainMenu::createScene());
+				Director::getInstance()->replaceScene(MainMenu::create());
 				break;
 			}
 		});
@@ -150,12 +150,12 @@ void HelpScene::addScrollView()
 
 void HelpScene::addMouseEvent()
 {
-	/* Êó±ê»¬¶¯¼àÌý */
+	/* é¼ æ ‡æ»‘åŠ¨ç›‘å¬ */
 	auto mouse = EventListenerMouse::create();
 	mouse->onMouseScroll = [=](Event* event)
 	{
 		const auto mouseEvent = static_cast<EventMouse*>(event);
-		const float movex = mouseEvent->getScrollY() * 5;
+		const float movex = mouseEvent->getScrollY() * (1140 / _textScrollView->getContentSize().height);
 
 		MouseEventControl::mouseScrollControlListener(_textScrollView, movex, ui::ScrollView::Direction::VERTICAL);
 	};

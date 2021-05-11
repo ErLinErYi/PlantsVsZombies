@@ -1,4 +1,4 @@
-/**
+Ôªø/**
  *Copyright (c) 2019 LZ.All Right Reserved
  *Author : LZ
  *Date: 2019.8.12
@@ -26,10 +26,10 @@ public:
 CC_CONSTRUCTOR_ACCESS:
 	SPSBackgroundLayer();
 	~SPSBackgroundLayer();
-	virtual bool init();
+	virtual bool init() override;
 
 protected:
-	/* ‘§¿¿Ω© ¨ */
+	/* È¢ÑËßàÂÉµÂ∞∏ */
 	typedef struct
 	{
 		SkeletonAnimation* animation;
@@ -53,7 +53,7 @@ protected:
 	static bool cmp(PreviewZombies& a, PreviewZombies& b);
 
 protected:
-	int _previewZombiesTag;      // ‘§¿¿Ω© ¨±‡∫≈
+	int _previewZombiesTag;      // È¢ÑËßàÂÉµÂ∞∏ÁºñÂè∑
 	Global* _global;
 	OpenLevelData* _openLevelData;
 	default_random_engine _random;

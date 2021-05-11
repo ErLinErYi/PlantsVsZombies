@@ -16,7 +16,7 @@ public:
 CC_CONSTRUCTOR_ACCESS:
 	BMButtonLayer();
 	~BMButtonLayer();
-	virtual bool init();
+	virtual bool init() override;
 
 protected:
 	virtual void createQuitDialog() override;

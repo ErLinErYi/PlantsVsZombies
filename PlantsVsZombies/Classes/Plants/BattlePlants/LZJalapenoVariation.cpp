@@ -1,4 +1,4 @@
-/**
+ï»¿/**
  *Copyright (c) 2021 LZ.All Right Reserved
  *Author : LZ
  *Date: 2021.1.24
@@ -55,13 +55,13 @@ void JalapenoVariation::createPlantAnimation()
 	_plantAnimation->setTimeScale(1.5f);
 	_node->addChild(_plantAnimation);
 
-	// Ó°×Ó
+	// å½±å­
 	setPlantShadow(1.8f);
 
-	// ÄàÍÁ·É½¦¶¯»­
+	// æ³¥åœŸé£æº…åŠ¨ç”»
 	setPlantSoilSplashAnimation(0.8f);
 
-	// ÊÂ¼ş¼àÌı
+	// äº‹ä»¶ç›‘å¬
 	createListener();
 }
 

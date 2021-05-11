@@ -1,4 +1,4 @@
-/**
+﻿/**
  *Copyright (c) 2021 LZ.All Right Reserved
  *Author : LZ
  *Date: 2021.1.20
@@ -31,7 +31,7 @@ bool GSGameTimerLayer::init()
 
 void GSGameTimerLayer::createTimer()
 {
-	// ÿ30���Զ��浵
+	// 每30秒自动存档
 	schedule([=](float) {
 		UserData::getInstance()->createNewLevelDataDocument();
 		UserData::getInstance()->caveLevelData(_global->userInformation->getCurrentCaveFileLevelWorldName());

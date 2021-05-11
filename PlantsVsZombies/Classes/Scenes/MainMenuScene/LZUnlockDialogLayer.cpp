@@ -1,4 +1,4 @@
-/**
+ï»¿/**
  *Copyright (c) 2021 LZ.All Right Reserved
  *Author : LZ
  *Date: 2021.2.10
@@ -42,14 +42,14 @@ void UnlockDialogLayer::createDiglog()
 
 	createButtons();
 
-	/* ´´½¨´¥Ãþ¼àÌý */
+	/* åˆ›å»ºè§¦æ‘¸ç›‘å¬ */
 	createTouchtListener(_lockDialog);
 }
 
 void UnlockDialogLayer::createButtons()
 {
-	auto button = Button::create("button.png", "button_down.png", "", TextureResType::PLIST);
-	button->setTitleLabel(label(_global->userInformation->getGameText().find("È·¶¨")->second->text, 20, Vec2(0, 0), 15, Color3B::GREEN, 1 / 2.f));
+	auto button = Button::create("button.png", "button_down.png", "",cocos2d::ui::Widget::TextureResType::PLIST);
+	button->setTitleLabel(label(_global->userInformation->getGameText().find("ç¡®å®š")->second->text, 20, Vec2(0, 0), 15, Color3B::GREEN, 1 / 2.f));
 	button->setPosition(Vec2(_lockDialog->getContentSize().width / 2.f, 60));
 	button->setScaleX(2.f);
 	_lockDialog->addChild(button);
@@ -71,11 +71,11 @@ void UnlockDialogLayer::createText()
 	LanguageTextAttribute* str;
 	if (_id == 0)
 	{
-		str = _global->userInformation->getGameText().find("´¸½©Ê¬Ä£Ê½")->second;
+		str = _global->userInformation->getGameText().find("é”¤åƒµå°¸æ¨¡å¼")->second;
 	}
 	else
 	{
-		str = _global->userInformation->getGameText().find("Ö²ÎïÊÔÁ¶³¡½âËø")->second;
+		str = _global->userInformation->getGameText().find("æ¤ç‰©è¯•ç‚¼åœºè§£é”")->second;
 	}
 	auto information = Text::create(StringUtils::format(str->text.c_str(), unlockNeedNumbers), GAME_FONT_NAME_1, str->fontsize);
 	information->setColor(Color3B::RED);

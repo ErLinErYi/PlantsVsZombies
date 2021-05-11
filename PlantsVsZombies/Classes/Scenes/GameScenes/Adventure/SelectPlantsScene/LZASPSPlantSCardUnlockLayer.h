@@ -1,4 +1,4 @@
-/**
+﻿/**
  *Copyright (c) 2021 LZ.All Right Reserved
  *Author : LZ
  *Date: 2021.1.31
@@ -22,7 +22,7 @@ CC_CONSTRUCTOR_ACCESS:
 	CREATE_FUNC(PlantsCardUnlock);
 	PlantsCardUnlock();
 	~PlantsCardUnlock();
-	virtual bool init();
+	virtual bool init() override;
 
 public:
 	static vector<PlantsType> unlockPlantsCard;
@@ -41,4 +41,5 @@ private:
 	Plants* _plant;
 	SkeletonAnimation* _plantAnimation;
 	Size _winSize;
+	Button* _button;
 };

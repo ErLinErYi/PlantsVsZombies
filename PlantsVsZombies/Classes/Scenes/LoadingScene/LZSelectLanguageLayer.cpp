@@ -1,4 +1,4 @@
-/**
+ï»¿/**
  *Copyright (c) 2021 LZ.All Right Reserved
  *Author : LZ
  *Date: 2021.01.02
@@ -16,7 +16,7 @@ SelectLanguage::SelectLanguage() :
 	_document(nullptr)
 {
 	auto name = UserDefault::getInstance()->getStringForKey("LANGUAGE");
-	_selectLanguageName = name.empty() ? "ÖĞÎÄ" : name;
+	_selectLanguageName = name.empty() ? "ä¸­æ–‡" : name;
 }
 
 SelectLanguage::~SelectLanguage()
@@ -42,27 +42,27 @@ void SelectLanguage::createDialog()
 	_selectLanguageDialog->setScale(2.0f);
 	this->addChild(_selectLanguageDialog);
 
-	auto question = Text::create(_global->userInformation->getGameText().find("Ñ¡ÔñÄã½çÃæÏÔÊ¾µÄÓïÑÔ£¡")->second->text, GAME_FONT_NAME_1,
-		_global->userInformation->getGameText().find("Ñ¡ÔñÄã½çÃæÏÔÊ¾µÄÓïÑÔ£¡")->second->fontsize);
+	auto question = Text::create(_global->userInformation->getGameText().find("é€‰æ‹©ä½ ç•Œé¢æ˜¾ç¤ºçš„è¯­è¨€ï¼")->second->text, GAME_FONT_NAME_1,
+		_global->userInformation->getGameText().find("é€‰æ‹©ä½ ç•Œé¢æ˜¾ç¤ºçš„è¯­è¨€ï¼")->second->fontsize);
 	question->setTextColor(Color4B(0, 255, 255, 255));
 	question->setPosition(Vec2(_selectLanguageDialog->getContentSize().width / 2, _selectLanguageDialog->getContentSize().height - 70));
 	_selectLanguageDialog->addChild(question);
 
-	auto prompt = Text::create(_global->userInformation->getGameText().find("ÖØÆôºóÉúĞ§£¡")->second->text, GAME_FONT_NAME_1,
-		_global->userInformation->getGameText().find("ÖØÆôºóÉúĞ§£¡")->second->fontsize);
+	auto prompt = Text::create(_global->userInformation->getGameText().find("é‡å¯åç”Ÿæ•ˆï¼")->second->text, GAME_FONT_NAME_1,
+		_global->userInformation->getGameText().find("é‡å¯åç”Ÿæ•ˆï¼")->second->fontsize);
 	prompt->setTextColor(Color4B::RED);
 	prompt->setPosition(Vec2(_selectLanguageDialog->getContentSize().width / 2, _selectLanguageDialog->getContentSize().height - 95));
 	_selectLanguageDialog->addChild(prompt);
 
-	/* ´´½¨°´Å¥ */
-	createButtons(_selectLanguageDialog, _global->userInformation->getGameText().find("È·¶¨")->second->text, Vec2(130, 10), 0.25f, 1);
-	createButtons(_selectLanguageDialog, _global->userInformation->getGameText().find("È¡Ïû")->second->text, Vec2(380, 10), 0.25f, 2);
+	/* åˆ›å»ºæŒ‰é’® */
+	createButtons(_selectLanguageDialog, _global->userInformation->getGameText().find("ç¡®å®š")->second->text, Vec2(130, 10), 0.25f, 1);
+	createButtons(_selectLanguageDialog, _global->userInformation->getGameText().find("å–æ¶ˆ")->second->text, Vec2(380, 10), 0.25f, 2);
 
 	showLanguageOptionBox();
 
 	showDialogAction(_selectLanguageDialog);
 
-	/* ´´½¨¼àÌı */
+	/* åˆ›å»ºç›‘å¬ */
 	createTouchtListener(_selectLanguageDialog);
 }
 
@@ -87,8 +87,8 @@ void SelectLanguage::showLanguageOptionBox()
 	_document.Parse<rapidjson::kParseDefaultFlags>(FileUtils::getInstance()->getStringFromFile(_global->userInformation->getTextPath().find("language")->second).c_str());
 	if (_document.HasParseError()) 
 	{
-		auto question = Text::create(_global->userInformation->getGameText().find("ÓïÑÔ¼ÓÔØÊ§°Ü£¡")->second->text, GAME_FONT_NAME_1,
-			_global->userInformation->getGameText().find("ÓïÑÔ¼ÓÔØÊ§°Ü£¡")->second->fontsize);
+		auto question = Text::create(_global->userInformation->getGameText().find("è¯­è¨€åŠ è½½å¤±è´¥ï¼")->second->text, GAME_FONT_NAME_1,
+			_global->userInformation->getGameText().find("è¯­è¨€åŠ è½½å¤±è´¥ï¼")->second->fontsize);
 		question->setTextColor(Color4B::RED);
 		question->setPosition(Vec2(_selectLanguageDialog->getContentSize().width / 2.f, _selectLanguageDialog->getContentSize().height / 2.f - 30));
 		_selectLanguageDialog->addChild(question);
@@ -100,7 +100,7 @@ void SelectLanguage::showLanguageOptionBox()
 	{
 		for (unsigned int i = 0; i < _document["language"].Size(); ++i)
 		{
-			auto select = RadioButton::create("CheckBox2.png", "CheckBox.png", "CheckBox.png", "CheckBox.png", "CheckBox.png", TextureResType::PLIST);
+			auto select = RadioButton::create("CheckBox2.png", "CheckBox.png", "CheckBox.png", "CheckBox.png", "CheckBox.png",cocos2d::ui::Widget::TextureResType::PLIST);
 			select->setPosition(Vec2(140 + 100 * i, 80));
 			select->setScale(0.4f);
 			select->setName(_document["language"][i].GetString());
@@ -115,8 +115,8 @@ void SelectLanguage::showLanguageOptionBox()
 			}
 
 			auto text = Text::create(_document["language"][i].GetString(),
-				_global->userInformation->getGameText().find("ÏµÍ³×ÖÌåÃû³Æ")->second->text,
-				_global->userInformation->getGameText().find("ÏµÍ³×ÖÌåÃû³Æ")->second->fontsize);
+				_global->userInformation->getGameText().find("ç³»ç»Ÿå­—ä½“åç§°")->second->text,
+				_global->userInformation->getGameText().find("ç³»ç»Ÿå­—ä½“åç§°")->second->fontsize);
 			text->setColor(Color3B::BLACK);
 			text->setPosition(Vec2(50, -40));
 			select->addChild(text);
@@ -128,7 +128,7 @@ void SelectLanguage::showLanguageOptionBox()
 
 void SelectLanguage::reloadLanguageText(const char* language)
 {
-	/* ¶ÁÈ¡ÓïÑÔ */
+	/* è¯»å–è¯­è¨€ */
 	if (_document.HasMember(language))
 	{
 		for (unsigned int j = 0; j < _document[language].Size(); ++j)
@@ -159,7 +159,7 @@ void SelectLanguage::setNewLanguage()
 
 void SelectLanguage::createButtons(Sprite* sprite, const std::string& Label, Vec2& vec2, const float& scale, const int& ID)
 {
-	auto button = Button::create("ButtonNew.png", "ButtonNew2.png", "", TextureResType::PLIST);
+	auto button = Button::create("ButtonNew.png", "ButtonNew2.png", "",cocos2d::ui::Widget::TextureResType::PLIST);
 	button->setPosition(vec2);
 	button->setScale(scale);
 	button->setTitleFontSize(70);
@@ -178,10 +178,10 @@ void SelectLanguage::createButtons(Sprite* sprite, const std::string& Label, Vec
 			case Widget::TouchEventType::ENDED:
 				switch (ID)
 				{
-				case 1: /* È·¶¨ */
+				case 1: /* ç¡®å®š */
 					setNewLanguage();
 					break;
-				case 2: /* È¡Ïû */
+				case 2: /* å–æ¶ˆ */
 					showDeleteDialogAction(_selectLanguageDialog);
 					break;
 				}
@@ -202,7 +202,7 @@ void SelectLanguage::onChangedRadioButtonSelect(RadioButton* radioButton, RadioB
 
 void SelectLanguage::createMouseListener()
 {
-	/* Êó±ê»¬¶¯¼àÌı */
+	/* é¼ æ ‡æ»‘åŠ¨ç›‘å¬ */
 	auto mouse = EventListenerMouse::create();
 	mouse->onMouseScroll = [&](Event* event)
 	{

@@ -1,4 +1,4 @@
-#pragma once
+Ôªø#pragma once
 #include "cocos2d.h"
 #include "Based/LZGlobalVariable.h"
 
@@ -15,7 +15,6 @@ enum class GameTypes;
 class UserWinRequirement :public Node
 {
 public:
-	static UserWinRequirement* UserWinRequirement::create(Node* node);
 	void createDialogBox(GameTypes finishedid);
 	void setParent(Node* node);
 	void setButtonVisible(bool visible);
@@ -30,7 +29,7 @@ CC_CONSTRUCTOR_ACCESS:
 	~UserWinRequirement();
 
 private:
-	void showRequirement(GameTypes finishedid);                         /* œ‘ æ“™«Û */
+	void showRequirement(GameTypes finishedid);                         /* ÊòæÁ§∫Ë¶ÅÊ±Ç */
 	void showText(const string& text, const int& ID, Color3B color = Color3B::BLACK);
 	void createShieldLayer();
 
@@ -38,12 +37,12 @@ private:
 	Node* _node;
 	Global* _global;
 	Button* _continuesGame;
-	Scale9Sprite* _levelObjiectives;
+	cocos2d::ui::Scale9Sprite* _levelObjiectives;
 	EventListenerTouchOneByOne* _listener;
 	EventListenerTouchOneByOne* _shieldListener;
-	Vec2 _phasePosition;                                                 /* œ‡≤ÓŒª÷√ */
+	Vec2 _phasePosition;                                                 /* Áõ∏Â∑Æ‰ΩçÁΩÆ */
 
-	Vec2 _textPosition[4][4] =                                           /* Œƒ◊÷Œª÷√ */
+	Vec2 _textPosition[4][4] =                                           /* ÊñáÂ≠ó‰ΩçÁΩÆ */
 	{
 		{Vec2(100,135),},
 		{Vec2(100,110),Vec2(100,160),},

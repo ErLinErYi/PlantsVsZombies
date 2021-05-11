@@ -1,4 +1,4 @@
-/**
+ï»¿/**
  *Copyright (c) 2019 LZ.All Right Reserved
  *Author : LZ
  *Date: 2019.7.17
@@ -40,38 +40,38 @@ void OptionsMenu::createDialog()
 	_option->setName("_option");
 	this->addChild(_option);
 	
-	/* ´¥ÃþÒÆ¶¯¼àÌý */
+	/* è§¦æ‘¸ç§»åŠ¨ç›‘å¬ */
 	createTouchtListener(_option);
 
-	/* ´´½¨»¬¶¯Ìõ */
-	this->createSlider(Vec2(250, 350), Vec2(140, 350), _global->userInformation->getGameText().find("ÒôÀÖ")->second->text, OptionScene_Slider::ÒôÀÖ,
+	/* åˆ›å»ºæ»‘åŠ¨æ¡ */
+	this->createSlider(Vec2(250, 350), Vec2(140, 350), _global->userInformation->getGameText().find("éŸ³ä¹")->second->text, OptionScene_Slider::éŸ³ä¹,
 		Sprite::createWithSpriteFrameName("options_sliderslot.png"),
 		Sprite::createWithSpriteFrameName("options_sliderslot.png"),
 		Sprite::createWithSpriteFrameName("options_sliderknob2.png"),
 		Sprite::createWithSpriteFrameName("options_sliderknob2.png"));
-	this->createSlider(Vec2(250, 310), Vec2(140, 310), _global->userInformation->getGameText().find("ÒôÐ§")->second->text, OptionScene_Slider::ÒôÐ§, 
+	this->createSlider(Vec2(250, 310), Vec2(140, 310), _global->userInformation->getGameText().find("éŸ³æ•ˆ")->second->text, OptionScene_Slider::éŸ³æ•ˆ, 
 		Sprite::createWithSpriteFrameName("options_sliderslot.png"),
 		Sprite::createWithSpriteFrameName("options_sliderslot.png"),
 		Sprite::createWithSpriteFrameName("options_sliderknob2.png"),
 		Sprite::createWithSpriteFrameName("options_sliderknob2.png"));
 
-	/* ´´½¨¸´Ñ¡¿ò */
-	this->createCheckBox(Vec2(300, 280), Vec2(140, 280), _global->userInformation->getGameText().find("ÐÅÏ¢")->second->text, OptionScene_CheckBox::ÏÔÊ¾ÐÅÏ¢, "options_checkbox0", "options_checkbox1");
-	this->createCheckBox(Vec2(300, 245), Vec2(140, 245), _global->userInformation->getGameText().find("È«ÆÁ")->second->text, OptionScene_CheckBox::È«ÆÁ, "options_checkbox0", "options_checkbox1");
-	this->createCheckBox(Vec2(300, 210), Vec2(140, 210), _global->userInformation->getGameText().find("¸ßÖ¡ÂÊ")->second->text, OptionScene_CheckBox::¸ßÖ¡ÂÊ, "options_checkbox0", "options_checkbox1");
-	this->createCheckBox(Vec2(300, 175), Vec2(140, 175), _global->userInformation->getGameText().find("À­ÉìÏÔÊ¾")->second->text, OptionScene_CheckBox::À­ÉìÏÔÊ¾, "options_checkbox0", "options_checkbox1");
+	/* åˆ›å»ºå¤é€‰æ¡† */
+	this->createCheckBox(Vec2(300, 280), Vec2(140, 280), _global->userInformation->getGameText().find("ä¿¡æ¯")->second->text, OptionScene_CheckBox::æ˜¾ç¤ºä¿¡æ¯, "options_checkbox0", "options_checkbox1");
+	this->createCheckBox(Vec2(300, 245), Vec2(140, 245), _global->userInformation->getGameText().find("å…¨å±")->second->text, OptionScene_CheckBox::å…¨å±, "options_checkbox0", "options_checkbox1");
+	this->createCheckBox(Vec2(300, 210), Vec2(140, 210), _global->userInformation->getGameText().find("é«˜å¸§çŽ‡")->second->text, OptionScene_CheckBox::é«˜å¸§çŽ‡, "options_checkbox0", "options_checkbox1");
+	this->createCheckBox(Vec2(300, 175), Vec2(140, 175), _global->userInformation->getGameText().find("æ‹‰ä¼¸æ˜¾ç¤º")->second->text, OptionScene_CheckBox::æ‹‰ä¼¸æ˜¾ç¤º, "options_checkbox0", "options_checkbox1");
 
-	/* ´´½¨²Êµ° */
+	/* åˆ›å»ºå½©è›‹ */
 	if (_global->userInformation->getIsShowEggs() &&
 		(UserData::getInstance()->openIntUserData(const_cast<char*>(StringUtils::format(
 			_global->userInformation->getSystemCaveFileName().c_str(), 1).c_str())) >= 52 ||
 		UserData::getInstance()->openIntUserData(const_cast<char*>(StringUtils::format(
 			_global->userInformation->getSystemDifCaveFileName().c_str(), 1).c_str())) >= 52))
 	{
-		auto button = Button::create("button.png", "button_down.png", "", TextureResType::PLIST);
+		auto button = Button::create("button.png", "button_down.png", "",cocos2d::ui::Widget::TextureResType::PLIST);
 		button->setTitleLabel(label(
-			_global->userInformation->getGameText().find("ÖÆ×÷Õß")->second->text,
-			_global->userInformation->getGameText().find("ÖÆ×÷Õß")->second->fontsize, Vec2(0, 0), 0, Color3B::GRAY, 0.5f));
+			_global->userInformation->getGameText().find("åˆ¶ä½œè€…")->second->text,
+			_global->userInformation->getGameText().find("åˆ¶ä½œè€…")->second->fontsize, Vec2(0, 0), 0, Color3B::GRAY, 0.5f));
 		button->setPosition(Vec2(210, 140));
 		button->setScaleX(2.0f);
 		_option->addChild(button);
@@ -89,14 +89,14 @@ void OptionsMenu::createDialog()
 			});
 	}
 
-    /* ´´½¨°´Å¥ */
+    /* åˆ›å»ºæŒ‰é’® */
 	this->createButton();
 }
 
 ControlSlider* OptionsMenu::createSlider(Vec2& vec2, Vec2& vec2_, const std::string& Label, OptionScene_Slider slider_type,
 	Sprite* BgFile, Sprite* progressFile, Sprite* thumbFile, Sprite* selectthumbFile, const bool IsNew)
 {
-	/* ´´½¨»¬¶¯Ìõ */
+	/* åˆ›å»ºæ»‘åŠ¨æ¡ */
 	ControlSlider* slider; ;
 	selectthumbFile ? selectthumbFile->setColor(Color3B::GRAY),
 		slider = ControlSlider::create(BgFile, progressFile, thumbFile, selectthumbFile) :
@@ -109,17 +109,17 @@ ControlSlider* OptionsMenu::createSlider(Vec2& vec2, Vec2& vec2_, const std::str
 
 	switch (slider_type)
 	{
-	case OptionScene_Slider::ÒôÀÖ:
+	case OptionScene_Slider::éŸ³ä¹:
 		slider->setValue(_global->userInformation->getBackGroundMusicVolume() * 100);
 		slider->addTargetWithActionForControlEvents(this, cccontrol_selector(OptionsMenu::backGroundMusicVolumeChangeCallBack), Control::EventType::VALUE_CHANGED);
 		break;
-	case OptionScene_Slider::ÒôÐ§:
+	case OptionScene_Slider::éŸ³æ•ˆ:
 		slider->setValue(_global->userInformation->getSoundEffectVolume() * 100);
 		slider->addTargetWithActionForControlEvents(this, cccontrol_selector(OptionsMenu::soundEffectMusicVolumeChangeCallBack), Control::EventType::VALUE_CHANGED);
 		break;
 	}
 
-	/* ´´½¨±êÇ© */
+	/* åˆ›å»ºæ ‡ç­¾ */
 	switch (IsNew)
 	{
 	case true:
@@ -136,7 +136,7 @@ ControlSlider* OptionsMenu::createSlider(Vec2& vec2, Vec2& vec2_, const std::str
 void OptionsMenu::backGroundMusicVolumeChangeCallBack(Ref* sender, Control::EventType type)
 {
 	const auto slider = (ControlSlider*)sender;
-	for (auto sp : _global->userInformation->getBackgroundMusic())  /* Ñ­»·ÉèÖÃÒôÀÖÒôÁ¿ */
+	for (auto sp : _global->userInformation->getBackgroundMusic())  /* å¾ªçŽ¯è®¾ç½®éŸ³ä¹éŸ³é‡ */
 	{
 		AudioEngine::setVolume(sp, slider->getValue() / 100.0f);
 	}
@@ -146,7 +146,7 @@ void OptionsMenu::backGroundMusicVolumeChangeCallBack(Ref* sender, Control::Even
 
 	if (slider->getSelectedThumbSprite()->getContentSize().height > 30)
 	{
-		/* Ðý×ª¶¯»­ */
+		/* æ—‹è½¬åŠ¨ç”» */
 		slider->getThumbSprite()->setRotation(slider->getValue() * 10);
 		slider->getSelectedThumbSprite()->setRotation(slider->getValue() * 10);
 	}
@@ -154,14 +154,14 @@ void OptionsMenu::backGroundMusicVolumeChangeCallBack(Ref* sender, Control::Even
 
 void OptionsMenu::soundEffectMusicVolumeChangeCallBack(Ref* sender, Control::EventType type)
 {
-	/* ÉèÖÃÒôÐ§ÒôÁ¿ */
+	/* è®¾ç½®éŸ³æ•ˆéŸ³é‡ */
 	const auto slider = (ControlSlider*)sender;
 	_global->userInformation->setSoundEffectVolume(slider->getValue() / 100.0f);
 	_userDefault->setFloatForKey("SOUNDEFFECT", _global->userInformation->getSoundEffectVolume());
 
 	if (slider->getSelectedThumbSprite()->getContentSize().height > 30)
 	{
-		/* Ðý×ª¶¯»­ */
+		/* æ—‹è½¬åŠ¨ç”» */
 		slider->getThumbSprite()->setRotation(slider->getValue() * 10);
 		slider->getSelectedThumbSprite()->setRotation(slider->getValue() * 10);
 	}
@@ -177,32 +177,32 @@ CheckBox* OptionsMenu::createCheckBox(Vec2 &vec2, Vec2 &vec2_, const std::string
 	const std::string NotSelect, const std::string Select, const bool IsNew)
 {
 	auto checkbox = CheckBox::create();
-	checkbox->loadTextureBackGround(NotSelect + ".png", TextureResType::PLIST);
-	checkbox->loadTextureFrontCross(Select + ".png", TextureResType::PLIST);
+	checkbox->loadTextureBackGround(NotSelect + ".png",cocos2d::ui::Widget::TextureResType::PLIST);
+	checkbox->loadTextureFrontCross(Select + ".png",cocos2d::ui::Widget::TextureResType::PLIST);
 	checkbox->setPosition(vec2);
 	_option->addChild(checkbox);
 
 	switch (button_type)
 	{
-	case OptionScene_CheckBox::ÏÔÊ¾ÐÅÏ¢:
+	case OptionScene_CheckBox::æ˜¾ç¤ºä¿¡æ¯:
 		checkbox->setSelected(_global->userInformation->getIsShowInformation() == cocos2d::ui::CheckBox::EventType::SELECTED ? true : false);
 		break;
-	case OptionScene_CheckBox::È«ÆÁ:
+	case OptionScene_CheckBox::å…¨å±:
 		checkbox->setSelected(_global->userInformation->getIsSelectFullScreen() == cocos2d::ui::CheckBox::EventType::SELECTED ? true : false);
 		break;
-	case OptionScene_CheckBox::¸ßÖ¡ÂÊ:
+	case OptionScene_CheckBox::é«˜å¸§çŽ‡:
 		checkbox->setSelected(_global->userInformation->getIsSelectHighFPS() == cocos2d::ui::CheckBox::EventType::SELECTED ? true : false);
 		break;
-	case OptionScene_CheckBox::Êó±êÒþ²Ø:
+	case OptionScene_CheckBox::é¼ æ ‡éšè—:
 		checkbox->setSelected(_global->userInformation->getIsSelectCursorNotHide() == cocos2d::ui::CheckBox::EventType::SELECTED ? true : false);
 		break;
-	case OptionScene_CheckBox::À­ÉìÏÔÊ¾:
+	case OptionScene_CheckBox::æ‹‰ä¼¸æ˜¾ç¤º:
 		checkbox->setSelected(_global->userInformation->getIsSelectStretchingShow() == cocos2d::ui::CheckBox::EventType::SELECTED ? true : false);
 		break;
-	case OptionScene_CheckBox::»ºÈë¶¯»­:
+	case OptionScene_CheckBox::ç¼“å…¥åŠ¨ç”»:
 		checkbox->setSelected(_global->userInformation->getIsEaseAnimation() == cocos2d::ui::CheckBox::EventType::SELECTED ? true : false);
 		break;
-	case OptionScene_CheckBox::´¹Ö±Í¬²½:
+	case OptionScene_CheckBox::åž‚ç›´åŒæ­¥:
 		checkbox->setSelected(_global->userInformation->getIsVerticalSynchronization() == cocos2d::ui::CheckBox::EventType::SELECTED ? true : false);
 		break;
 	default:
@@ -216,35 +216,35 @@ CheckBox* OptionsMenu::createCheckBox(Vec2 &vec2, Vec2 &vec2_, const std::string
 		case CheckBox::EventType::SELECTED:
 			switch (button_type)
 			{
-			case OptionScene_CheckBox::ÏÔÊ¾ÐÅÏ¢: /* ÏÔÊ¾ÐÅÏ¢ */
+			case OptionScene_CheckBox::æ˜¾ç¤ºä¿¡æ¯: /* æ˜¾ç¤ºä¿¡æ¯ */
 				_userDefault->setBoolForKey("SHOWINFORMATION", true);
-				_global->userInformation->setIsShowInformation(CheckBox::EventType::SELECTED); /* ¸üÐÂ */
+				_global->userInformation->setIsShowInformation(CheckBox::EventType::SELECTED); /* æ›´æ–° */
 				_director->setDisplayStats(true);
 				break;
-			case OptionScene_CheckBox::È«ÆÁ: /* È«ÆÁ */
+			case OptionScene_CheckBox::å…¨å±: /* å…¨å± */
 				_userDefault->setBoolForKey("SHOWFULLSCREEN", true);
 				_global->userInformation->setIsSelectFullScreen(CheckBox::EventType::SELECTED);
 				((GLViewImpl*)_director->getOpenGLView())->setFullscreen();
 				break;
-			case OptionScene_CheckBox::¸ßÖ¡ÂÊ: /* ¸ßÖ¡ÂÊ */
+			case OptionScene_CheckBox::é«˜å¸§çŽ‡: /* é«˜å¸§çŽ‡ */
 				_userDefault->setBoolForKey("SHOWHIGHFPS", true);
 				_global->userInformation->setIsSelectHighFPS(CheckBox::EventType::SELECTED);
 				_director->setAnimationInterval(1.0f / UserInformation::getScreenDisplayFrequency());
 				break;
-			case OptionScene_CheckBox::Êó±êÒþ²Ø: /* Êó±êÒþ²Ø */
+			case OptionScene_CheckBox::é¼ æ ‡éšè—: /* é¼ æ ‡éšè— */
 				UserData::getInstance()->caveUserData("CURSORHIDE", true);
 				_global->userInformation->setIsSelectCursorNotHide(CheckBox::EventType::SELECTED);
 				break;
-			case OptionScene_CheckBox::À­ÉìÏÔÊ¾: /* À­ÉìÏÔÊ¾ */
+			case OptionScene_CheckBox::æ‹‰ä¼¸æ˜¾ç¤º: /* æ‹‰ä¼¸æ˜¾ç¤º */
 				_userDefault->setBoolForKey("STRETCHINGSHOW", true);
 				_director->getOpenGLView()->setDesignResolutionSize(_director->getWinSize().width, _director->getWinSize().height, ResolutionPolicy::EXACT_FIT);
 				_global->userInformation->setIsSelectStretchingShow(CheckBox::EventType::SELECTED);
 				break;
-			case OptionScene_CheckBox::»ºÈë¶¯»­: 
+			case OptionScene_CheckBox::ç¼“å…¥åŠ¨ç”»: 
 				UserData::getInstance()->caveUserData("EASEANIMATION", true);
 				_global->userInformation->setIsEaseAnimation(CheckBox::EventType::SELECTED);
 				break;
-			case OptionScene_CheckBox::´¹Ö±Í¬²½:
+			case OptionScene_CheckBox::åž‚ç›´åŒæ­¥:
 				_userDefault->setBoolForKey("VERTICALSYNCHRONIZATION", true);
 				wglSwapIntervalEXT(1);
 				_global->userInformation->setIsVerticalSynchronization(CheckBox::EventType::SELECTED);
@@ -256,35 +256,35 @@ CheckBox* OptionsMenu::createCheckBox(Vec2 &vec2, Vec2 &vec2_, const std::string
 		case CheckBox::EventType::UNSELECTED:
 			switch (button_type)
 			{
-			case OptionScene_CheckBox::ÏÔÊ¾ÐÅÏ¢:
+			case OptionScene_CheckBox::æ˜¾ç¤ºä¿¡æ¯:
 				_userDefault->setBoolForKey("SHOWINFORMATION", false);
-				_global->userInformation->setIsShowInformation(CheckBox::EventType::UNSELECTED); /* ¸üÐÂ */
+				_global->userInformation->setIsShowInformation(CheckBox::EventType::UNSELECTED); /* æ›´æ–° */
 				_director->setDisplayStats(false);
 				break;
-			case OptionScene_CheckBox::È«ÆÁ:
+			case OptionScene_CheckBox::å…¨å±:
 				_userDefault->setBoolForKey("SHOWFULLSCREEN", false);
 				_global->userInformation->setIsSelectFullScreen(CheckBox::EventType::UNSELECTED);
 				((GLViewImpl*)_director->getOpenGLView())->setWindowed(1280, 720);
 				break;
-			case OptionScene_CheckBox::¸ßÖ¡ÂÊ:
+			case OptionScene_CheckBox::é«˜å¸§çŽ‡:
 				_userDefault->setBoolForKey("SHOWHIGHFPS", false);
 				_global->userInformation->setIsSelectHighFPS(CheckBox::EventType::UNSELECTED);
 				_director->setAnimationInterval(1.0f / 30);
 				break;
-			case OptionScene_CheckBox::Êó±êÒþ²Ø:
+			case OptionScene_CheckBox::é¼ æ ‡éšè—:
 				UserData::getInstance()->caveUserData("CURSORHIDE", false);
 				_global->userInformation->setIsSelectCursorNotHide(CheckBox::EventType::UNSELECTED);
 				break;
-			case OptionScene_CheckBox::À­ÉìÏÔÊ¾:
+			case OptionScene_CheckBox::æ‹‰ä¼¸æ˜¾ç¤º:
 				_userDefault->setBoolForKey("STRETCHINGSHOW", false);
 				_director->getOpenGLView()->setDesignResolutionSize(_director->getWinSize().width, _director->getWinSize().height, ResolutionPolicy::SHOW_ALL);
 				_global->userInformation->setIsSelectStretchingShow(CheckBox::EventType::UNSELECTED);
 				break;
-			case OptionScene_CheckBox::»ºÈë¶¯»­:
+			case OptionScene_CheckBox::ç¼“å…¥åŠ¨ç”»:
 				UserData::getInstance()->caveUserData("EASEANIMATION", false);
 				_global->userInformation->setIsEaseAnimation(CheckBox::EventType::UNSELECTED);
 				break;
-			case OptionScene_CheckBox::´¹Ö±Í¬²½:
+			case OptionScene_CheckBox::åž‚ç›´åŒæ­¥:
 				_userDefault->setBoolForKey("VERTICALSYNCHRONIZATION", false);
 				wglSwapIntervalEXT(0);
 				_global->userInformation->setIsVerticalSynchronization(CheckBox::EventType::UNSELECTED);
@@ -313,10 +313,10 @@ CheckBox* OptionsMenu::createCheckBox(Vec2 &vec2, Vec2 &vec2_, const std::string
 
 void OptionsMenu::createButton()
 {
-	auto button = Button::create("options_backtogamebutton0.png","options_backtogamebutton2.png","",TextureResType::PLIST);
+	auto button = Button::create("options_backtogamebutton0.png","options_backtogamebutton2.png","", cocos2d::ui::Widget::TextureResType::PLIST);
 	button->setTitleLabel(label(
-		_global->userInformation->getGameText().find("·µ»Ø")->second->text, 
-		_global->userInformation->getGameText().find("·µ»Ø")->second->fontsize));
+		_global->userInformation->getGameText().find("è¿”å›ž")->second->text, 
+		_global->userInformation->getGameText().find("è¿”å›ž")->second->fontsize));
 	button->setPosition(Vec2(210, 55));
 	_option->addChild(button);
 	button->addTouchEventListener([&](Ref* sender, Widget::TouchEventType type)

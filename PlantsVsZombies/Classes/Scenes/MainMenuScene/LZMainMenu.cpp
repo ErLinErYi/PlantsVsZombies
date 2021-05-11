@@ -1,4 +1,4 @@
-/**
+ï»¿/**
  *Copyright (c) 2019 LZ.All Right ReservedLZHammerZombiesScene.h
  *Author : LZ
  *Date: 2019.7.16
@@ -32,7 +32,7 @@ MainMenu::MainMenu() :
 	_nowtime(nullptr),
 	_playMusic{false}
 {
-	/* ²¥·ÅÒôÀÖ */
+	/* æ’­æ”¾éŸ³ä¹ */
 	PlayMusic::changeBgMusic("mainmusic", true);
 
 	PlayMusic::playMusic("roll_in");
@@ -43,21 +43,16 @@ MainMenu::~MainMenu()
 	if (_nowtime)delete _nowtime, _nowtime = nullptr;
 }
 
-Scene* MainMenu::createScene()
-{
-	return MainMenu::create();
-}
-
 bool MainMenu::init()
 {
 	if (!Scene::init())return false;
 
-	this->createMainSprite();     /* ´´½¨Ö÷Òª¾«Áé */
-	this->createFlowers();        /* ´´½¨»¨¶ä */
-	this->createAnimation();      /* ´´½¨¶¯»­ */
-	this->createMouseListener();  /* ´´½¨Êó±ê¼àÌı */
-	this->createMainButton();     /* ´´½¨°´Å¥ */
-	this->schedule(schedule_selector(MainMenu::curUpdate), 0.05f);/* ¶¨Ê±Æ÷ */
+	this->createMainSprite();     /* åˆ›å»ºä¸»è¦ç²¾çµ */
+	this->createFlowers();        /* åˆ›å»ºèŠ±æœµ */
+	this->createAnimation();      /* åˆ›å»ºåŠ¨ç”» */
+	this->createMouseListener();  /* åˆ›å»ºé¼ æ ‡ç›‘å¬ */
+	this->createMainButton();     /* åˆ›å»ºæŒ‰é’® */
+	this->schedule(schedule_selector(MainMenu::curUpdate), 0.05f);/* å®šæ—¶å™¨ */
 	schedule([this](float) {_global->checkAnimationInterval(); }, 1.f, "FPS");
 
 	createNewUserDataFileName();
@@ -75,7 +70,7 @@ bool MainMenu::init()
 
 void MainMenu::curUpdate(float time)
 {
-	/* Êó±êÒÆ¶¯µ½°´Å¥ÉÏ²¥·ÅÒôÀÖ */
+	/* é¼ æ ‡ç§»åŠ¨åˆ°æŒ‰é’®ä¸Šæ’­æ”¾éŸ³ä¹ */
 	this->playMusicBleepInMainButtons(0, Vec2(_cur.x - 606, _cur.y));
 	this->playMusicBleepInMainButtons(1, Vec2(_cur.x - 606, _cur.y));
 	this->playMusicBleepInMainButtons(2, Vec2(_cur.x - 606, _cur.y));
@@ -86,7 +81,7 @@ void MainMenu::curUpdate(float time)
 	this->playMusicBleepInGameButtons(MainMenuButton::ChallengesButton);
 	this->playMusicBleepInGameButtons(MainMenuButton::VasebreakerButton);
 
-	/* Êó±êÒÆ¶¯µ½°´Å¥Ê½¸ü»»Í¼Æ¬ */
+	/* é¼ æ ‡ç§»åŠ¨åˆ°æŒ‰é’®å¼æ›´æ¢å›¾ç‰‡ */
 	_menuItem[0]->getBoundingBox().containsPoint(Vec2(_cur.x - 606, _cur.y)) ?
 		_menuItem[0]->setColor(Color3B::WHITE) : _menuItem[0]->setColor(Color3B::BLACK);
 	_menuItem[1]->getBoundingBox().containsPoint(Vec2(_cur.x - 606, _cur.y)) ?
@@ -97,7 +92,7 @@ void MainMenu::curUpdate(float time)
 		_menuItem[3]->setNormalImage(Sprite::createWithSpriteFrameName("SelectorScreen_WoodSign2_press.png")) :
 		_menuItem[3]->setNormalImage(Sprite::createWithSpriteFrameName("SelectorScreen_WoodSign2.png"));
 
-	if (_global->userInformation->getIsUpdate())/* Èç¹ûÃû×Ö¸üĞÂ */
+	if (_global->userInformation->getIsUpdate())/* å¦‚æœåå­—æ›´æ–° */
 	{
 		_userText->setString(_global->userInformation->getUserName());
 		this->scheduleOnce(schedule_selector(MainMenu::updateUserNameOnce), 0);
@@ -107,7 +102,7 @@ void MainMenu::curUpdate(float time)
 
 void MainMenu::updateUserNameOnce(float Time)
 {
-	/* Èç¹ûÓĞº¢×Ó */
+	/* å¦‚æœæœ‰å­©å­ */
 	if (_userNameActionParent)
 	{
 		for (unsigned int i = 0; i < _global->userInformation->getUserName().size(); i++)
@@ -117,7 +112,7 @@ void MainMenu::updateUserNameOnce(float Time)
 	}
 
 	srand(time(nullptr));
-	/* »ñÈ¡Ãû×Ö³¤¶È */
+	/* è·å–åå­—é•¿åº¦ */
 	auto const len = _userText->getStringLength();
 	for (int i = 0; i < len; i++)
 	{
@@ -136,7 +131,7 @@ void MainMenu::updateUserNameOnce(float Time)
 void MainMenu::playMusicBleepInGameButtons(MainMenuButton button)
 {
 	auto ID = static_cast<int>(button);
-	/* Èç¹ûÊó±êÔÚ°´Å¥ÉÏ */
+	/* å¦‚æœé¼ æ ‡åœ¨æŒ‰é’®ä¸Š */
 	if (checkCurInButtons() == button)
 	{
 		switch (button)
@@ -150,7 +145,7 @@ void MainMenu::playMusicBleepInGameButtons(MainMenuButton button)
 			break;
 		default:  _mainButton[ID]->setColor(Color3B(110,110,110)); break;
 		}
-		/* Èç¹ûÃ»ÓĞ²¥·ÅÒôÀÖ */
+		/* å¦‚æœæ²¡æœ‰æ’­æ”¾éŸ³ä¹ */
 		if (!_playMusic[ID - 1])
 		{
 			PlayMusic::playMusic("bleep");
@@ -179,7 +174,7 @@ void MainMenu::playMusicBleepInMainButtons(int ID, const Vec2& vec2)
 {
 	if (_menuItem[ID]->getBoundingBox().containsPoint(vec2))
 	{
-		/* Èç¹ûÃ»ÓĞ²¥·ÅÒôÀÖ */
+		/* å¦‚æœæ²¡æœ‰æ’­æ”¾éŸ³ä¹ */
 		if (!_playMusic[ID + 4])
 		{
 			PlayMusic::playMusic("bleep");
@@ -194,7 +189,7 @@ void MainMenu::playMusicBleepInMainButtons(int ID, const Vec2& vec2)
 
 void MainMenu::createNewUserDataFileName()
 {
-	if (!_global->userInformation->getUserName().compare("Î´ÃüÃû´æµµ"))
+	if (!_global->userInformation->getUserName().compare("NoFile"))
 	{
 		menuDataCallBack(nullptr);
 	}
@@ -202,7 +197,7 @@ void MainMenu::createNewUserDataFileName()
 
 MainMenu::MainMenuButton MainMenu::checkCurInButtons()
 {
-	/* ¼ì²âÊó±êµÄÎ»ÖÃÊÇ·ñÔÚ°´Å¥ÉÏ */
+	/* æ£€æµ‹é¼ æ ‡çš„ä½ç½®æ˜¯å¦åœ¨æŒ‰é’®ä¸Š */
 	if ((_cur.x >= 1210 && _cur.x <= 1800 && _cur.y >= 800 && _cur.y <= 900) || (_cur.x >= 1210 && _cur.x <= 1600 && _cur.y >= 900 && _cur.y <= 930) ||
 		(_cur.x >= 1580 && _cur.x <= 1790 && _cur.y >= 730 && _cur.y <= 800) || (_cur.x >= 1390 && _cur.x <= 1580 && _cur.y >= 745 && _cur.y <= 800))
 	{
@@ -243,12 +238,12 @@ MainMenu::MainMenuButton MainMenu::checkCurInButtons()
 
 void MainMenu::createParticle()
 {
-	/* ´´½¨ÑÌÎí */
+	/* åˆ›å»ºçƒŸé›¾ */
 	this->createSmoke(0.3f, Vec2(87, 450));
 	this->createSmoke(0.8f, Vec2(350, 690));
 	this->createSmoke(0.1f, Vec2(15, 340));
 
-	/* ´´½¨Óê */
+	/* åˆ›å»ºé›¨ */
 	auto Rain = ParticleRain::create();
 	Rain->setEmissionRate(100);
 	Rain->setStartSizeVar(5);
@@ -261,7 +256,7 @@ void MainMenu::createParticle()
 
 void MainMenu::createSmoke(const float& Scale, const Vec2& vec2)
 {
-	/* ´´½¨ÑÌÎíÁ£×ÓÌØĞ§ */
+	/* åˆ›å»ºçƒŸé›¾ç²’å­ç‰¹æ•ˆ */
 	auto Smoke = ParticleSmoke::create();
 	Smoke->setScale(Scale);
 	Smoke->setPosition(vec2);
@@ -277,19 +272,19 @@ void MainMenu::createFlowers()
 
 void MainMenu::createFlowers(const float& Scale, const Vec2& vec2, const std::string& fileName, const int& ID)
 {
-	/* ´´½¨»¨¶ä */
+	/* åˆ›å»ºèŠ±æœµ */
 	auto Flower = Sprite::createWithSpriteFrameName(fileName + ".png");
 	Flower->setScale(Scale);
 	Flower->setPosition(vec2);
 	_sprite[3]->addChild(Flower, 1);
 
-	/* ´´½¨¼àÌı */
+	/* åˆ›å»ºç›‘å¬ */
 	auto listener = EventListenerTouchOneByOne::create();
-	/* ´¥Ãşº¯Êı */
+	/* è§¦æ‘¸å‡½æ•° */
 	listener->onTouchBegan = [=](Touch* t, Event* e)
 	{
 		auto points = t->getLocation();
-		points.x -= 606;// xÖá¼õÈ¥¸¸Í¼µÄÏà¶Ô×ø±ê
+		points.x -= 606;// xè½´å‡å»çˆ¶å›¾çš„ç›¸å¯¹åæ ‡
 		if (Flower->getBoundingBox().containsPoint(points))
 		{
 			PlayMusic::playMusic("shoop");
@@ -333,7 +328,7 @@ bool MainMenu::checkHammerZombiesIsUnLock()
 
 void MainMenu::createAnimation()
 {
-	/* ´´½¨Ò¶×Ó¶¯»­ */
+	/* åˆ›å»ºå¶å­åŠ¨ç”» */
 	auto iter = _global->userInformation->getAnimationData().find("SelectorScreen_Leaves");
 	if (iter != _global->userInformation->getAnimationData().end())
 	{
@@ -347,7 +342,7 @@ void MainMenu::createAnimation()
 		_sprite[3]->addChild(Leaves);
 	}
 
-	/* ´´½¨½©Ê¬¶¯»­ */
+	/* åˆ›å»ºåƒµå°¸åŠ¨ç”» */
 	iter = _global->userInformation->getAnimationData().find("Zombies");
 	if (iter != _global->userInformation->getAnimationData().end())
 	{
@@ -366,7 +361,7 @@ void MainMenu::createAnimation()
 		_sprite[1]->addChild(Zombies1);
 	}
 
-	/* ´´½¨Ö²Îï¶¯»­ */
+	/* åˆ›å»ºæ¤ç‰©åŠ¨ç”» */
 	iter = _global->userInformation->getAnimationData().find("PeaShooter");
 	if (iter != _global->userInformation->getAnimationData().end())
 	{
@@ -380,7 +375,7 @@ void MainMenu::createAnimation()
 	}
 
 	iter = _global->userInformation->getAnimationData().find("powerup");
-	if (iter != _global->userInformation->getAnimationData().end())/* Èç¹û¿ÉÒÔÕÒµ½ */
+	if (iter != _global->userInformation->getAnimationData().end())/* å¦‚æœå¯ä»¥æ‰¾åˆ° */
 	{
 		auto littlesprite = SkeletonAnimation::createWithData(iter->second);
 		littlesprite->setPosition(Vec2(350, 0));
@@ -393,16 +388,16 @@ void MainMenu::createAnimation()
 
 void MainMenu::createMouseListener()
 {
-	/* ´´½¨Êó±ê¼àÌı */
+	/* åˆ›å»ºé¼ æ ‡ç›‘å¬ */
 	_mouse = EventListenerMouse::create();
 
-	/* ÒÆ¶¯¼àÌı */
+	/* ç§»åŠ¨ç›‘å¬ */
 	_mouse->onMouseMove = [=](Event* event)
 	{
 		_cur = ((EventMouse*)event)->getLocationInView();
 	};
 
-	/* Êó±ê°´ÏÂ¼àÌı */
+	/* é¼ æ ‡æŒ‰ä¸‹ç›‘å¬ */
 	_mouse->onMouseDown = [&](Event* event)
 	{
 		if (static_cast<bool>(checkCurInButtons()))
@@ -411,22 +406,22 @@ void MainMenu::createMouseListener()
 		}
 		switch (checkCurInButtons())
 		{
-		case MainMenuButton::AdventureButton:     _mainButton[1]->setPosition(Vec2(902, 828));                            /* Ã°ÏÕÄ£Ê½ */    break;
-		case MainMenuButton::ChallengesButton:    _mainButton[2]->setPosition(Vec2(882, 648));  beginHammerZombiesGame(); /* ´¸½©Ê¬Ä£Ê½ */  break;
-		case MainMenuButton::VasebreakerButton:   _mainButton[3]->setPosition(Vec2(872, 508));  beginVasebreakerGame();   /* Ö²ÎïÊÔÁ¶³¡ */  break;
-		case MainMenuButton::SurvivalButton:      _mainButton[4]->setPosition(Vec2(852, 383));                            /* Éú´æÄ£Ê½ */    break;
+		case MainMenuButton::AdventureButton:     _mainButton[1]->setPosition(Vec2(902, 828));                            /* å†’é™©æ¨¡å¼ */    break;
+		case MainMenuButton::ChallengesButton:    _mainButton[2]->setPosition(Vec2(882, 648));  beginHammerZombiesGame(); /* é”¤åƒµå°¸æ¨¡å¼ */  break;
+		case MainMenuButton::VasebreakerButton:   _mainButton[3]->setPosition(Vec2(872, 508));  beginVasebreakerGame();   /* æ¤ç‰©è¯•ç‚¼åœº */  break;
+		case MainMenuButton::SurvivalButton:      _mainButton[4]->setPosition(Vec2(852, 383));                            /* ç”Ÿå­˜æ¨¡å¼ */    break;
 		}
 	};
 
-	/* Êó±êËÉ¿ª¼àÌı */
+	/* é¼ æ ‡æ¾å¼€ç›‘å¬ */
 	_mouse->onMouseUp = [&](Event* event)
 	{
 		switch (this->checkCurInButtons())
 		{
-		case MainMenuButton::AdventureButton:    _mainButton[1]->setPosition(Vec2(900, 830)); beginAdventureGame();     /* Ã°ÏÕÄ£Ê½ */   break;
-		case MainMenuButton::ChallengesButton:   _mainButton[2]->setPosition(Vec2(880, 650));                           /* ´¸½©Ê¬Ä£Ê½ */ break;
-		case MainMenuButton::VasebreakerButton:  _mainButton[3]->setPosition(Vec2(870, 510));                           /* Ö²ÎïÊÔÁ¶³¡ */ break;
-		case MainMenuButton::SurvivalButton:     _mainButton[4]->setPosition(Vec2(850, 385)); beginSurvivalGame();      /* Éú´æÄ£Ê½ */   break;
+		case MainMenuButton::AdventureButton:    _mainButton[1]->setPosition(Vec2(900, 830)); beginAdventureGame();     /* å†’é™©æ¨¡å¼ */   break;
+		case MainMenuButton::ChallengesButton:   _mainButton[2]->setPosition(Vec2(880, 650));                           /* é”¤åƒµå°¸æ¨¡å¼ */ break;
+		case MainMenuButton::VasebreakerButton:  _mainButton[3]->setPosition(Vec2(870, 510));                           /* æ¤ç‰©è¯•ç‚¼åœº */ break;
+		case MainMenuButton::SurvivalButton:     _mainButton[4]->setPosition(Vec2(850, 385)); beginSurvivalGame();      /* ç”Ÿå­˜æ¨¡å¼ */   break;
 		}
 	};
 
@@ -435,7 +430,7 @@ void MainMenu::createMouseListener()
 
 void MainMenu::createMainButton()
 {
-	/* ´´½¨°´Å¥ */
+	/* åˆ›å»ºæŒ‰é’® */
 	_menuItem[0] = MenuItemImage::create("", "", CC_CALLBACK_1(MainMenu::menuOptionCallBack, this));
 	_menuItem[1] = MenuItemImage::create("", "", CC_CALLBACK_1(MainMenu::menuHelpCallBack, this));
 	_menuItem[2] = MenuItemImage::create("", "", CC_CALLBACK_1(MainMenu::menuQuitCallBack, this));
@@ -445,11 +440,6 @@ void MainMenu::createMainButton()
 	_menuItem[1]->setNormalSpriteFrame(SpriteFrameCache::getInstance()->getSpriteFrameByName("SelectorScreen_Help2.png"));
 	_menuItem[2]->setNormalSpriteFrame(SpriteFrameCache::getInstance()->getSpriteFrameByName("SelectorScreen_Quit2.png"));
 	_menuItem[3]->setNormalSpriteFrame(SpriteFrameCache::getInstance()->getSpriteFrameByName("SelectorScreen_WoodSign2.png"));
-
-	_menuItem[0]->setCallback(CC_CALLBACK_1(MainMenu::menuOptionCallBack, this));
-	_menuItem[1]->setCallback(CC_CALLBACK_1(MainMenu::menuHelpCallBack, this));
-	_menuItem[2]->setCallback(CC_CALLBACK_1(MainMenu::menuQuitCallBack, this));
-	_menuItem[3]->setCallback(CC_CALLBACK_1(MainMenu::menuDataCallBack, this));
 
 	_menuItem[0]->setPosition(Vec2(960, 175));
 	_menuItem[1]->setPosition(Vec2(1080, 130));
@@ -492,7 +482,7 @@ void MainMenu::createMainSprite()
 		_sprite[i]->setContentSize(size[i]);
 		_sprite[i]->setAnchorPoint(Vec2(0, 0));
 	}
-	this->addChild(_sprite[0], -1); //Ìì¿Õ
+	this->addChild(_sprite[0], -1); //å¤©ç©º
 
 	this->createClouds();
 
@@ -512,19 +502,15 @@ void MainMenu::createMainSprite()
 	_sprite[4]->runAction(Sequence::create(DelayTime::create(0.8f), EaseElasticOut::create(MoveBy::create(1.0f, Vec2(0, -400))), nullptr));
 	_sprite[5]->runAction(Sequence::create(DelayTime::create(0.8f), EaseElasticOut::create(MoveBy::create(1.15f, Vec2(0, -440))), nullptr));
 
-	/* ´´½¨ÓÃ»§Ãû³Æ */
+	/* åˆ›å»ºç”¨æˆ·åç§° */
 	_userText = Text::create();
 	_userText->setFontName(GAME_FONT_NAME_1);
 	_userText->setFontSize(30);
 	_userText->setTextColor(Color4B::YELLOW);
 	_userText->setPosition(Vec2(300, 90));
 	_userText->enableGlow(Color4B(0, 255, 255, 200));
+	_userText->setString(_global->userInformation->getUserName());
 	_sprite[4]->addChild(_userText);
-
-	/* Èç¹ûÓÃ»§ÃûÎª¿ÕµÄ»° */
-	_global->userInformation->getUserName().empty() ? 
-		_userText->setString(_global->userInformation->getGameText().find("·ßÅ­µÄĞ¡½©Ê¬")->second->text) :
-		_userText->setString(_global->userInformation->getUserName());
 
 	this->scheduleOnce(schedule_selector(MainMenu::updateUserNameOnce), 0);
 
@@ -551,9 +537,9 @@ void MainMenu::createMainSprite()
 		ui::Button* trophy;
 		if (UserData::getInstance()->openIntUserData(const_cast<char*>(
 			StringUtils::format(_global->userInformation->getSystemDifCaveFileName().c_str(),1).c_str())) > 52)
-			trophy = ui::Button::create("trophy.png", "", "", TextureResType::PLIST);
+			trophy = ui::Button::create("trophy.png", "", "",cocos2d::ui::Widget::TextureResType::PLIST);
 		else
-			trophy = ui::Button::create("trophy1.png", "", "", TextureResType::PLIST);
+			trophy = ui::Button::create("trophy1.png", "", "",cocos2d::ui::Widget::TextureResType::PLIST);
 
 		trophy->setPosition(Vec2(-350, 310));
 		trophy->addTouchEventListener([this, trophy](Ref* sender, ui::Widget::TouchEventType type)
@@ -598,7 +584,7 @@ void MainMenu::createClouds()
 
 void MainMenu::setCloudPosition(Node* node, int ID, const Vec2& vec2)
 {
-	/* ³õÊ¼»¯ÔÆ */
+	/* åˆå§‹åŒ–äº‘ */
 	_sprite[ID]->setPosition(vec2);
 	_sprite[ID]->setScale(1 + (rand() % 3) / 1.2f);
 }
@@ -721,5 +707,5 @@ void MainMenu::beginVasebreakerGame()
 
 void MainMenu::beginSurvivalGame()
 {
-	Application::getInstance()->openURL(_global->userInformation->getGameText().find("¹Ù·½ÍøÖ·")->second->text);
+	Application::getInstance()->openURL(_global->userInformation->getGameText().find("å®˜æ–¹ç½‘å€")->second->text);
 }

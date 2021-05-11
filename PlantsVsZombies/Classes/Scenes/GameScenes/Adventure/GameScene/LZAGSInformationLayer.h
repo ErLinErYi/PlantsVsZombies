@@ -1,4 +1,4 @@
-/**
+ï»¿/**
  *Copyright (c) 2020 LZ.All Right Reserved
  *Author : LZ
  *Date: 2020.1.28
@@ -38,7 +38,7 @@ public:
 CC_CONSTRUCTOR_ACCESS:
 	GSInformationLayer();
 	~GSInformationLayer();
-	virtual bool init();
+	virtual bool init() override;
 
 protected:
 	virtual void showUserText();
@@ -53,11 +53,11 @@ public:
 	GameType* gameType;
 
 protected:
-	float _levelLastPrecent;            // ½ø¶ÈÌõÉÏÒ»´Î½ø¶È
-	Text* _zombiesDieText;              // ½©Ê¬ËÀÍöÊıÎÄ±¾
-	Text* _coinNumbersText;             // ½ğ±ÒÊıÎÄ±¾
-	Text* _sunNumbersText;              // Ñô¹âÊıÎÄ±¾
-	ProgressTimer* _progressBar;        // ½ø¶ÈÌõ
-	Global* _global;                    // È«¾Ö±äÁ¿
+	float _levelLastPrecent;            // è¿›åº¦æ¡ä¸Šä¸€æ¬¡è¿›åº¦
+	Text* _zombiesDieText;              // åƒµå°¸æ­»äº¡æ•°æ–‡æœ¬
+	Text* _coinNumbersText;             // é‡‘å¸æ•°æ–‡æœ¬
+	Text* _sunNumbersText;              // é˜³å…‰æ•°æ–‡æœ¬
+	ProgressTimer* _progressBar;        // è¿›åº¦æ¡
+	Global* _global;                    // å…¨å±€å˜é‡
 	OpenLevelData* _openLevelData;
 };

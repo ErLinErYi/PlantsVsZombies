@@ -1,4 +1,4 @@
-/**
+ï»¿/**
  *Copyright (c) 2020 LZ.All Right Reserved
  *Author : LZ
  *Date: 2021.4.08
@@ -103,8 +103,8 @@ void TGAnimationLayer::judgeZombiesWin(list<Zombies*>::iterator& zombie)
 	if ((*zombie)->getZombieAnimation()->getPositionX() < GRASS_POSITION_LEFT - 80)
 	{
 		GSPauseQuitLayer::pauseLayer();
-		Director::getInstance()->getScheduler()->setTimeScale(1.0f); /* »Ö¸´²¥·Å±¶Êý */
-		Director::getInstance()->getOpenGLView()->setCursor("resources/images/System/cursor.png", Point::ANCHOR_TOP_LEFT);
+		Director::getInstance()->getScheduler()->setTimeScale(1.0f); /* æ¢å¤æ’­æ”¾å€æ•° */
+		Director::getInstance()->getOpenGLView()->setCursor("resources/Images/System/cursor.png", Point::ANCHOR_TOP_LEFT);
 		
 		auto gameOver = TGGameOverLayer::create();
 		gameOver->setGlobalZOrder(1);

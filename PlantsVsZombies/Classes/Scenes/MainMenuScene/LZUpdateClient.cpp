@@ -67,7 +67,7 @@ void UpdateClient::createDiglog()
 void UpdateClient::createButton(const std::string& name, Vec2& vec2, Update_Button buttonType)
 {
 	/* 创建返回主菜单按钮 */
-	auto button = ui::Button::create("ButtonNew2.png", "ButtonNew.png", "", TextureResType::PLIST);
+	auto button = ui::Button::create("ButtonNew2.png", "ButtonNew.png", "",cocos2d::ui::Widget::TextureResType::PLIST);
 	auto label = Label::createWithTTF(name, GAME_FONT_NAME_1, _global->userInformation->getGameText().find("确定")->second->fontsize);
 	label->enableShadow(Color4B(0, 0, 0, 200));//设置阴影
 	label->setScale(2.0f);
@@ -237,7 +237,7 @@ void UpdateClient::downloadData()
 	if (!_loadingBar)
 	{
 		_loadingBar = ui::LoadingBar::create();
-		_loadingBar->loadTexture("progressFile.png", TextureResType::PLIST);
+		_loadingBar->loadTexture("progressFile.png",cocos2d::ui::Widget::TextureResType::PLIST);
 		_loadingBar->setDirection(LoadingBar::Direction::LEFT); /* 设置加载方向 */
 		_loadingBar->setPercent(0);
 		_loadingBar->setScale(1.5f);

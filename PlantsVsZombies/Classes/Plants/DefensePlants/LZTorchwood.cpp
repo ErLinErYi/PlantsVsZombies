@@ -1,4 +1,4 @@
-/**
+ï»¿/**
  *Copyright (c) 2020 LZ.All Right Reserved
  *Author : LZ
  *Date: 2020.2.6
@@ -21,7 +21,7 @@ Torchwood::Torchwood(Node* node):
 	_node = node;
 	_plantImage = nullptr;
 
-	_combatEffecttiveness = 2.0f; // Ê¹Íã¶¹¹¥»÷Á¦·­±¶
+	_combatEffecttiveness = 2.0f; // ä½¿è±Œè±†æ”»å‡»åŠ›ç¿»å€
 	_healthPoint = 300;
 	_plantsType = PlantsType::Torchwood;
 }
@@ -56,14 +56,14 @@ void Torchwood::createPlantAnimation()
 	_plantAnimation->setScale(1.0f);
 	_node->addChild(_plantAnimation);
 
-	// Ó°×Ó
+	// å½±å­
 	setPlantShadow(1.5f);
 	_plantAnimation->getChildByName("plantshadow")->setPosition(Vec2(0, 10));
 
-	// ÄàÍÁ·É½¦¶¯»­
+	// æ³¥åœŸé£æº…åŠ¨ç”»
 	setPlantSoilSplashAnimation(0.8f);
 
-	//´´½¨¼àÌı
+	//åˆ›å»ºç›‘å¬
 	createListener();
 }
 
@@ -80,9 +80,9 @@ void Torchwood::determineRelativePositionPlantsAndZombies()
 {
 	for (auto zombie : ZombiesGroup)
 	{
-		zombieEatPlant(zombie);      /* ½©Ê¬³ÔÖ²Îï */
+		zombieEatPlant(zombie);      /* åƒµå°¸åƒæ¤ç‰© */
 
-		zombieRecoveryMove(zombie);  /* ½©Ê¬»Ö¸´ÒÆ¶¯ */
+		zombieRecoveryMove(zombie);  /* åƒµå°¸æ¢å¤ç§»åŠ¨ */
 	}
 
 	judgeTorchwoodAndPeaPosition();
@@ -92,12 +92,12 @@ void Torchwood::judgeTorchwoodAndPeaPosition()
 {
 	for (auto bullet : BulletGroup)
 	{
-		if (!bullet->getBulletIsUsed()&& getBulletIsPea(bullet) && getPlantIsSurvive() &&    /* ×Óµ¯Ã»ÓĞÊ¹ÓÃ && ×Óµ¯ÊÇÍã¶¹ && Ö²Îï´æ»î */
-			getPeaIsSameLineWithTorchwood(bullet) && getPeaIsEncounterTorchwood(bullet))     /* Íã¶¹Óë»ğ¾æÊ÷×®ÔÚÍ¬Ò»ĞĞ && Íã¶¹Óöµ½»ğ¾æÊ÷×® */
+		if (!bullet->getBulletIsUsed()&& getBulletIsPea(bullet) && getPlantIsSurvive() &&    /* å­å¼¹æ²¡æœ‰ä½¿ç”¨ && å­å¼¹æ˜¯è±Œè±† && æ¤ç‰©å­˜æ´» */
+			getPeaIsSameLineWithTorchwood(bullet) && getPeaIsEncounterTorchwood(bullet))     /* è±Œè±†ä¸ç«ç‚¬æ ‘æ¡©åœ¨åŒä¸€è¡Œ && è±Œè±†é‡åˆ°ç«ç‚¬æ ‘æ¡© */
 		{
 			if (dynamic_cast<Pea*>(bullet)->getTorchwoodTag() != _plantAnimation->getTag())
 			{
-				++_playMusicMaxNumber < 2 ? PlayMusic::playMusic(rand() % 2 ? "firepea" : "firepea1") : nullptr;
+				if (++_playMusicMaxNumber < 2)PlayMusic::playMusic(rand() % 2 ? "firepea" : "firepea1");
 				bullet->setBulletOpacity();
 				bullet->setBulletIsUsed(true);
 				bullet->setBulletAttack(0);

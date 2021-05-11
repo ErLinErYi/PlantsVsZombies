@@ -1,4 +1,4 @@
-/**
+ï»¿/**
  *Copyright (c) 2021 LZ.All Right Reserved
  *Author : LZ
  *Email: 2117610943@qq.com
@@ -19,50 +19,50 @@ class Dialog :public LayerColor
 {
 public:
 	/**
-	 *´´½¨´¥Ãş¼àÌı
+	 *åˆ›å»ºè§¦æ‘¸ç›‘å¬
 	 */
 	static EventListenerTouchOneByOne* createTouchtListener(Sprite* sprite);
 
 	/**
-	 *ÏÔÊ¾¶Ô»°¿ò³öÏÖ¶¯»­ 
+	 *æ˜¾ç¤ºå¯¹è¯æ¡†å‡ºç°åŠ¨ç”» 
 	 */
 	static void showDialogAction(Sprite* sprite);
 
 	/**
-	 *ÏÔÊ¾¶Ô»°¿òÏûÊ§¶¯»­ 
+	 *æ˜¾ç¤ºå¯¹è¯æ¡†æ¶ˆå¤±åŠ¨ç”» 
 	 */
 	static void showDeleteDialogAction(Sprite* sprite);
 
 	/**
-	 *ÉèÖÃÊó±ê¼àÌı
+	 *è®¾ç½®é¼ æ ‡ç›‘å¬
 	 */
 	virtual void setMouseListener(EventListenerMouse* listener);
 
 protected:
 	/**
-	 *´´½¨±êÇ©
+	 *åˆ›å»ºæ ‡ç­¾
 	 */
 	virtual Label* label(const std::string &name, const float& fontsize, Vec2 &vec2 = Vec2(0, 0), 
 		const float& space = 0, const Color3B& color = Color3B::GREEN, const float& scale = 1);
 
 	/**
-	 *´´½¨°´Å¥ÉÏµÄ±êÇ© 
+	 *åˆ›å»ºæŒ‰é’®ä¸Šçš„æ ‡ç­¾ 
 	 */
 	virtual void createLabel(Sprite* sprite, MenuItemImage* MenuItem, const std::string &name, 
 		Vec2 &vec2, float& fontsize, const float& space = 0, const Color3B& color = Color3B::GREEN);
 
 	/**
-	 *´´½¨ÆÁ±Î²ã
+	 *åˆ›å»ºå±è”½å±‚
 	 */
 	virtual void createShieldLayer(Node* node);
 
 	/**
-	 *É¾³ı²ã
+	 *åˆ é™¤å±‚
 	 */
 	virtual void deleteDialog(){}
 
 	/**
-	 *ÉèÖÃÊó±ê¼àÌıÊÇ·ñ¿ÉÓÃ
+	 *è®¾ç½®é¼ æ ‡ç›‘å¬æ˜¯å¦å¯ç”¨
 	 */
 	virtual void setMouseListenerEnable(bool isEnable = true);
 
@@ -75,6 +75,6 @@ protected:
 	EventListenerMouse* _mouseListener;
 
 private:
-	Vec2 _phasePosition; /* Ïà²îÎ»ÖÃ */
+	Vec2 _phasePosition; /* ç›¸å·®ä½ç½® */
 	EventListenerTouchOneByOne* _shieldListener;
 };

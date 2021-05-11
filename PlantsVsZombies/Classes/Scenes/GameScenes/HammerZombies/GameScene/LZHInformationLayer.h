@@ -1,4 +1,4 @@
-/**
+﻿/**
  *Copyright (c) 2021 LZ.All Right Reserved
  *Author : LZ
  *Date: 2021.2.09
@@ -17,7 +17,7 @@ public:
 CC_CONSTRUCTOR_ACCESS:
 	HInformationLayer();
 	~HInformationLayer();
-	virtual bool init();
+	virtual bool init() override;
 
 protected:
 	virtual void showUserText() override;

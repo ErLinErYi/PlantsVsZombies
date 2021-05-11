@@ -1,4 +1,4 @@
-/**
+﻿/**
  *Copyright (c) 2020 LZ.All Right Reserved
  *Author : LZ
  *Date: 2021.4.09
@@ -33,7 +33,7 @@ bool TSPSRequriementLayer::init()
 
 void TSPSRequriementLayer::createDialog()
 {
-	_objiectives = Scale9Sprite::createWithSpriteFrameName("LevelObjiectives.png");
+	_objiectives = cocos2d::ui::Scale9Sprite::createWithSpriteFrameName("LevelObjiectives.png");
 	_objiectives->setPosition(Director::getInstance()->getWinSize() / 2.0f);
 	_objiectives->setScale(2.0f);
 	this->addChild(_objiectives);
@@ -45,15 +45,15 @@ void TSPSRequriementLayer::createDialog()
 void TSPSRequriementLayer::createText()
 {
 	auto objiectivesText = Text::create();
-	objiectivesText->setString(_global->userInformation->getGameText().find("ģʽ˵��")->second->text);
+	objiectivesText->setString(_global->userInformation->getGameText().find("模式说明")->second->text);
 	objiectivesText->setFontName(GAME_FONT_NAME_1);
-	objiectivesText->setFontSize(_global->userInformation->getGameText().find("ģʽ˵��")->second->fontsize);
+	objiectivesText->setFontSize(_global->userInformation->getGameText().find("模式说明")->second->fontsize);
 	objiectivesText->setScale(0.5f);
 	objiectivesText->setColor(Color3B(0, 255, 255));
 	objiectivesText->setPosition(Vec2(_objiectives->getContentSize().width / 2, 245));
 	_objiectives->addChild(objiectivesText);
 
-	auto str = _global->userInformation->getGameText().find("ģʽ����")->second;
+	auto str = _global->userInformation->getGameText().find("模式介绍")->second;
 	auto information = Text::create(str->text, GAME_FONT_NAME_1, str->fontsize);
 	information->setColor(Color3B::BLACK);
 	information->setGlobalZOrder(10);
@@ -66,10 +66,10 @@ void TSPSRequriementLayer::createText()
 
 void TSPSRequriementLayer::showButton()
 {
-	auto button = Button::create("Continue1.png", "Continue.png", "", TextureResType::PLIST);
-	button->setTitleText(Global::getInstance()->userInformation->getGameText().find("ȷ��")->second->text);
+	auto button = Button::create("Continue1.png", "Continue.png", "",cocos2d::ui::Widget::TextureResType::PLIST);
+	button->setTitleText(Global::getInstance()->userInformation->getGameText().find("确定")->second->text);
 	button->setTitleFontName(GAME_FONT_NAME_1);
-	button->setTitleFontSize(Global::getInstance()->userInformation->getGameText().find("ȷ��")->second->fontsize);
+	button->setTitleFontSize(Global::getInstance()->userInformation->getGameText().find("确定")->second->fontsize);
 	button->setTitleColor(Color3B::YELLOW);
 	button->setPosition(Vec2(_objiectives->getContentSize().width / 2.0f, 10));
 	button->setOpacity(0);

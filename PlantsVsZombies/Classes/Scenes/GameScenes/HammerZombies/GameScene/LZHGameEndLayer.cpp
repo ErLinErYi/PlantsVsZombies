@@ -1,4 +1,4 @@
-/**
+﻿/**
  *Copyright (c) 2021 LZ.All Right Reserved
  *Author : LZ
  *Date: 2021.2.09
@@ -25,27 +25,27 @@ bool HGameEndLayer::init()
     if (!LayerColor::initWithColor(Color4B(0, 0, 0, 180)))return false;
 
     createShieldLayer(this);
+	_director->getScheduler()->setTimeScale(1.0f);
 
     return true;
 }
 
 void HGameEndLayer::successfullEntry()
 {
-	PlayMusic::playMusic("achievement");
 	GSPauseQuitLayer::pauseLayer();
+	PlayMusic::playMusic("achievement");
 	Director::getInstance()->getOpenGLView()->setCursorVisible(true);
-	Director::getInstance()->getOpenGLView()->setCursor("resources/images/System/cursor.png", Point::ANCHOR_TOP_LEFT);
+	Director::getInstance()->getOpenGLView()->setCursor("resources/Images/System/cursor.png", Point::ANCHOR_TOP_LEFT);
 	
 	rewardThing();
 }
 
 void HGameEndLayer::breakThrough()
 {
-	PlayMusic::playMusic("losemusic");
 	GSPauseQuitLayer::pauseLayer();
-
+	PlayMusic::playMusic("losemusic");
 	Director::getInstance()->getOpenGLView()->setCursorVisible(true);
-	Director::getInstance()->getOpenGLView()->setCursor("resources/images/System/cursor.png", Point::ANCHOR_TOP_LEFT);
+	Director::getInstance()->getOpenGLView()->setCursor("resources/Images/System/cursor.png", Point::ANCHOR_TOP_LEFT);
 
 	showFailText();
 }
@@ -53,7 +53,7 @@ void HGameEndLayer::breakThrough()
 void HGameEndLayer::rewardThing()
 {
 	auto moneybag_hi_res = ui::Button::create(
-		UserData::getInstance()->openIntUserData("HAMMERZOMBIES_LEVEL_NUMBER") == 50 ? "CarTrophy.png" : "moneybag_hi_res.png", "", "", TextureResType::PLIST);
+		UserData::getInstance()->openIntUserData("HAMMERZOMBIES_LEVEL_NUMBER") == 50 ? "CarTrophy.png" : "moneybag_hi_res.png", "", "",cocos2d::ui::Widget::TextureResType::PLIST);
 	moneybag_hi_res->setPosition(Vec2(700 + rand() % 1000, 100 + rand() % 700));
 	moneybag_hi_res->runAction(JumpBy::create(0.5f, Vec2(100 - rand() % 200, 0), 100 + rand() % 100, 1));
 	moneybag_hi_res->setName("moneybag_hi_res");
@@ -120,7 +120,7 @@ void HGameEndLayer::rewardCoin(Button* button)
 							CallFunc::create([=]()
 								{
 									UserData::getInstance()->caveUserData("COINNUMBERS", _global->userInformation->getCoinNumbers());
-									Director::getInstance()->replaceScene(MainMenu::createScene());
+									Director::getInstance()->replaceScene(MainMenu::create());
 								}), nullptr));
 					}), nullptr));
 		}
@@ -140,6 +140,6 @@ void HGameEndLayer::showFailText()
 	lose->setPosition(Vec2(2500, Director::getInstance()->getWinSize().height / 2.0f));
 	lose->runAction(RepeatForever::create(Sequence::create(MoveBy::create(0.05f, Vec2(10, 0)), MoveBy::create(0.05f, Vec2(-10, 0)), nullptr)));
 	lose->runAction(Sequence::create(JumpTo::create(1.0f, Director::getInstance()->getWinSize() / 2.0f, 250, 3),
-		DelayTime::create(5), CallFunc::create([this]() {Director::getInstance()->replaceScene(TransitionFade::create(0.5f, MainMenu::createScene())); }), nullptr));
+		DelayTime::create(5), CallFunc::create([this]() {Director::getInstance()->replaceScene(TransitionFade::create(0.5f, MainMenu::create())); }), nullptr));
 	this->addChild(lose);
 }

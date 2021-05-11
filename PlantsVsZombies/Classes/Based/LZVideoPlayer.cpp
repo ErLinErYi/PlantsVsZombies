@@ -1,4 +1,4 @@
-#include "LZVideoPlayer.h"
+﻿#include "LZVideoPlayer.h"
 #include "base/CCDirector.h"
 
 #if MYRELEASE

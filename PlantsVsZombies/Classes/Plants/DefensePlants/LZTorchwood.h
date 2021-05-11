@@ -1,4 +1,4 @@
-/**
+ï»¿/**
  *Copyright (c) 2020 LZ.All Right Reserved
  *Author : LZ
  *Date: 2020.2.6
@@ -25,10 +25,10 @@ CC_CONSTRUCTOR_ACCESS:
 private:
 	void createListener() override;
 	SkeletonAnimation* showPlantAnimationAndText() override;
-	void judgeTorchwoodAndPeaPosition();                   // Íã¶¹Óë»ğ¾æÊ÷×®Î»ÖÃÅĞ¶Ï
-	bool getPeaIsSameLineWithTorchwood(Bullet* bullet);    // »ñÈ¡Íã¶¹Óë»ğ¾æÊ÷×®ÊÇ·ñÔÚÍ¬Ò»ĞĞ
-	bool getPeaIsEncounterTorchwood(Bullet* bullet);       // »ñÈ¡Íã¶¹Óë»ğ¾æÊ÷×®ÊÇ·ñÏàÓö
-	bool getBulletIsPea(Bullet* bullet);                   // »ñÈ¡×Óµ¯ÊÇ·ñÊÇÍã¶¹
+	void judgeTorchwoodAndPeaPosition();                   // è±Œè±†ä¸ç«ç‚¬æ ‘æ¡©ä½ç½®åˆ¤æ–­
+	bool getPeaIsSameLineWithTorchwood(Bullet* bullet);    // è·å–è±Œè±†ä¸ç«ç‚¬æ ‘æ¡©æ˜¯å¦åœ¨åŒä¸€è¡Œ
+	bool getPeaIsEncounterTorchwood(Bullet* bullet);       // è·å–è±Œè±†ä¸ç«ç‚¬æ ‘æ¡©æ˜¯å¦ç›¸é‡
+	bool getBulletIsPea(Bullet* bullet);                   // è·å–å­å¼¹æ˜¯å¦æ˜¯è±Œè±†
 	void createFirePea(Bullet* bullet);
 	void createPea(Bullet* bullet);
 	void createFirePeaSmoke(Bullet* bullet);

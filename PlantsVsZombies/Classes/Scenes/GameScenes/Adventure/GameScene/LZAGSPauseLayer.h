@@ -1,4 +1,4 @@
-/**
+﻿/**
  *Copyright (c) 2020 LZ.All Right Reserved
  *Author : LZ
  *Date: 2020.3.8
@@ -26,7 +26,7 @@ public:
 CC_CONSTRUCTOR_ACCESS:
     GSPauseLayer();
     ~GSPauseLayer();
-    virtual bool init();
+    virtual bool init() override;
 
 private:
     void createDialog();
@@ -34,6 +34,6 @@ private:
     void showButton();
 
 private:
-    Scale9Sprite* _levelObjiectives;
+    cocos2d::ui::Scale9Sprite* _levelObjiectives;
     Global* _global;
 };

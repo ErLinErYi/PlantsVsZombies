@@ -1,4 +1,4 @@
-/**
+ï»¿/**
  *Copyright (c) 2019 LZ.All Right Reserved
  *Author : LZ
  *Date: 2019.7.16
@@ -20,18 +20,16 @@
 using namespace cocos2d;
 using namespace cocos2d::ui;
 using namespace spine;
-using namespace cocos2d::experimental;
 
 class MainMenu :public Scene
 {
 public:
 	CREATE_FUNC(MainMenu);
-	static Scene* createScene();
 
 CC_CONSTRUCTOR_ACCESS:
 	MainMenu();
 	~MainMenu();
-	virtual bool init();
+	virtual bool init() override;
 
 private:
 	enum class MainMenuButton
@@ -43,54 +41,54 @@ private:
 		SurvivalButton,
 	};
 
-	MainMenuButton checkCurInButtons();                           /* ÅĞ¶ÏÊó±ê¹â±êÎ»ÖÃ*/
-	void curUpdate(float time);                                   /* Êó±ê¹â±ê¶¨Ê±Æ÷ */
+	MainMenuButton checkCurInButtons();                           /* åˆ¤æ–­é¼ æ ‡å…‰æ ‡ä½ç½®*/
+	void curUpdate(float time);                                   /* é¼ æ ‡å…‰æ ‡å®šæ—¶å™¨ */
 	void updateUserNameOnce(float time);
-	void setCloudPosition(Node* node, int ID, const Vec2& vec2);  /* ÉèÖÃÔÆµÄÎ»ÖÃ */
-	void playMusicBleepInGameButtons(MainMenuButton ID);          /* ²¥·ÅÒôÀÖ */
+	void setCloudPosition(Node* node, int ID, const Vec2& vec2);  /* è®¾ç½®äº‘çš„ä½ç½® */
+	void playMusicBleepInGameButtons(MainMenuButton ID);          /* æ’­æ”¾éŸ³ä¹ */
 	void playMusicBleepInMainButtons(int ID, const Vec2& vec2);
-	void createNewUserDataFileName();                             /* ´´½¨ĞÂ´æµµÃû³Æ*/
+	void createNewUserDataFileName();                             /* åˆ›å»ºæ–°å­˜æ¡£åç§°*/
 
-	/*ÓÎÏ·Ñ¡Ôñº¯Êı*/
-	void beginAdventureGame();                                    /* Ã°ÏÕÄ£Ê½ */
-	void beginHammerZombiesGame();                                /* ÍæÍæĞ¡ÓÎÏ· */
-	void beginVasebreakerGame();                                  /* ½âÃÕÄ£Ê½ */
-	void beginSurvivalGame();                                     /* Éú´æÄ£Ê½ */
+	/*æ¸¸æˆé€‰æ‹©å‡½æ•°*/
+	void beginAdventureGame();                                    /* å†’é™©æ¨¡å¼ */
+	void beginHammerZombiesGame();                                /* ç©ç©å°æ¸¸æˆ */
+	void beginVasebreakerGame();                                  /* è§£è°œæ¨¡å¼ */
+	void beginSurvivalGame();                                     /* ç”Ÿå­˜æ¨¡å¼ */
 
-	/*»Øµ÷º¯Êı*/
-	void menuHelpCallBack(Ref* pSender);                          /* °ïÖú */
-	void menuOptionCallBack(Ref* pSender);                        /* Ñ¡Ïî */
-	void menuQuitCallBack(Ref* pSender);                          /* ÍË³ö */
-	void menuDataCallBack(Ref* pSender);                          /* Êı¾İ */
+	/*å›è°ƒå‡½æ•°*/
+	void menuHelpCallBack(Ref* pSender);                          /* å¸®åŠ© */
+	void menuOptionCallBack(Ref* pSender);                        /* é€‰é¡¹ */
+	void menuQuitCallBack(Ref* pSender);                          /* é€€å‡º */
+	void menuDataCallBack(Ref* pSender);                          /* æ•°æ® */
 
-	/*´´½¨º¯Êı*/
-	void createMainSprite();                                      /* ´´½¨ÖóÖ÷²Ëµ¥¾«Áé */
-	void createParticle();                                        /* ´´½¨Á£×ÓÌØĞ§ */
-	void createSmoke(const float& Scale, const Vec2& vec2);       /* ´´½¨ÑÌÎíÁ£×ÓÌØĞ§ */
-	void createMouseListener();                                   /* ´´½¨Êó±ê¼àÌıÆ÷ */
-	void createMainButton();                                      /* ´´½¨°´Å¥ */
-	void createClouds();                                          /* ´´½¨ÔÆ */
-	void createAnimation();                                       /* ´´½¨¶¯»­ */
-	void createFlowers();                                         /* ´´½¨»¨¶ä */
+	/*åˆ›å»ºå‡½æ•°*/
+	void createMainSprite();                                      /* åˆ›å»ºç…®ä¸»èœå•ç²¾çµ */
+	void createParticle();                                        /* åˆ›å»ºç²’å­ç‰¹æ•ˆ */
+	void createSmoke(const float& Scale, const Vec2& vec2);       /* åˆ›å»ºçƒŸé›¾ç²’å­ç‰¹æ•ˆ */
+	void createMouseListener();                                   /* åˆ›å»ºé¼ æ ‡ç›‘å¬å™¨ */
+	void createMainButton();                                      /* åˆ›å»ºæŒ‰é’® */
+	void createClouds();                                          /* åˆ›å»ºäº‘ */
+	void createAnimation();                                       /* åˆ›å»ºåŠ¨ç”» */
+	void createFlowers();                                         /* åˆ›å»ºèŠ±æœµ */
 	void createFlowers(const float& Scale, const Vec2& vec2, const std::string& fileName, const int& ID);
-	bool checkHammerZombiesIsUnLock();                            /* ¼ì²é´¸½©Ê¬ÓÎÏ·ÊÇ·ñ½âËø */
+	bool checkHammerZombiesIsUnLock();                            /* æ£€æŸ¥é”¤åƒµå°¸æ¸¸æˆæ˜¯å¦è§£é” */
 
 	void setMouseListenerEnable(bool isEnable) { _mouse->setEnabled(isEnable); }
 
 private:
-	bool _playMusic[8];                      /* ÒôÀÖÊÇ·ñ²¥·Å */
-	Vec2 _cur;                               /* Êó±ê¹â±êÎ»ÖÃ */
-	Text* _userText;                         /* ´¢´æÓÃ»§Ãû×Ö */
-	Node* _userNameActionParent;             /* ÓÃ»§Ãû³Æ¶¯×÷parent */
-	Menu* _menu[2];                          /* ²Ëµ¥ */
+	bool _playMusic[8];                      /* éŸ³ä¹æ˜¯å¦æ’­æ”¾ */
+	Vec2 _cur;                               /* é¼ æ ‡å…‰æ ‡ä½ç½® */
+	Text* _userText;                         /* å‚¨å­˜ç”¨æˆ·åå­— */
+	Node* _userNameActionParent;             /* ç”¨æˆ·åç§°åŠ¨ä½œparent */
+	Menu* _menu[2];                          /* èœå• */
 	Sprite* _sprite[18];
-	Sprite* _mainButton[9];                  /* ¾«Áé */
-	MenuItemImage* _menuItem[5];             /* ²Ëµ¥Ïî */
-	EventListenerMouse* _mouse;              /* Êó±ê¼àÌı */
-	Global* _global;                         /* È«¾Ö±äÁ¿ */
-	Director* _director;                     /* µ¼Ñİ */
-	MomentTime* _nowtime;                    /* µ±Ç°Ê±¼ä */
-	LayerColor* _inputLayer;                 /* ÊäÈëÆÁ±Î²ã */
-	LayerColor* _quitLayer;                  /* ÍË³öÆÁ±Î²ã */
-	LayerColor* _optionLayer;                /* Ñ¡ÏîÆÁ±Î²ã */
+	Sprite* _mainButton[9];                  /* ç²¾çµ */
+	MenuItemImage* _menuItem[5];             /* èœå•é¡¹ */
+	EventListenerMouse* _mouse;              /* é¼ æ ‡ç›‘å¬ */
+	Global* _global;                         /* å…¨å±€å˜é‡ */
+	Director* _director;                     /* å¯¼æ¼” */
+	MomentTime* _nowtime;                    /* å½“å‰æ—¶é—´ */
+	LayerColor* _inputLayer;                 /* è¾“å…¥å±è”½å±‚ */
+	LayerColor* _quitLayer;                  /* é€€å‡ºå±è”½å±‚ */
+	LayerColor* _optionLayer;                /* é€‰é¡¹å±è”½å±‚ */
 };

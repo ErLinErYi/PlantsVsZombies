@@ -1,3 +1,9 @@
+ï»¿/**
+ *Copyright (c) 2019 LZ.All Right Reserved
+ *Author : LZ
+ *Email: 2117610943@qq.com
+ */
+
 #include "Based/LZGameType.h"
 #include "Scenes/GameScenes/Adventure/GameScene/LZAGSData.h"
 #include "Scenes/GameScenes/Adventure/GameScene/LZAGSDefine.h"
@@ -107,25 +113,25 @@ void GameType::createGameType()
 
 void GameType::updateRequirementNumbers(const std::string name)
 {
-	if (!strcmp(name.c_str(), "Ö²ÎïÊýÁ¿Ôö¼Ó"))
+	if (!strcmp(name.c_str(), "æ¤ç‰©æ•°é‡å¢žåŠ "))
 	{
-		/* Èç¹ûÓÐÖ²ÎïÊýÁ¿ÒªÇó£¬Ôò×Ô¼ÓÒ» */
+		/* å¦‚æžœæœ‰æ¤ç‰©æ•°é‡è¦æ±‚ï¼Œåˆ™è‡ªåŠ ä¸€ */
 		if (_plantsRequriement->isHavePlantsRequriement)
 		{
 			_plantsRequriement->surPlusPlantsNumbers++;
 			updateNumbers(2);
 		}
 	}
-	else if(!strcmp(name.c_str(), "Ö²ÎïÊýÁ¿¼õÉÙ"))
+	else if(!strcmp(name.c_str(), "æ¤ç‰©æ•°é‡å‡å°‘"))
 	{
-		/* Èç¹ûÓÐÖ²ÎïÊýÁ¿ÒªÇó£¬Ôò×Ô¼õÒ» */
+		/* å¦‚æžœæœ‰æ¤ç‰©æ•°é‡è¦æ±‚ï¼Œåˆ™è‡ªå‡ä¸€ */
 		if (_plantsRequriement->isHavePlantsRequriement)
 		{
 			_plantsRequriement->surPlusPlantsNumbers--;
 			updateNumbers(2);
 		}
 	}
-	else if (!strcmp(name.c_str(), "Ñô¹âÊýÁ¿Ôö¼Ó"))
+	else if (!strcmp(name.c_str(), "é˜³å…‰æ•°é‡å¢žåŠ "))
 	{
 		if (_sunNumberRequriement->isHaveSunNumberRequriement)
 		{
@@ -133,7 +139,7 @@ void GameType::updateRequirementNumbers(const std::string name)
 			updateNumbers(1);
 		}
 	}
-	else if(!strcmp(name.c_str(), "Ñô¹âÊýÁ¿¼õÉÙ"))
+	else if(!strcmp(name.c_str(), "é˜³å…‰æ•°é‡å‡å°‘"))
 	{
 		if (_sunNumberRequriement->isHaveSunNumberRequriement)
 		{
@@ -145,13 +151,13 @@ void GameType::updateRequirementNumbers(const std::string name)
 
 void GameType::updateRequirementNumbers()
 {
-	/* Èç¹ûÓÐÖ²ÎïÊýÁ¿ÒªÇó */
+	/* å¦‚æžœæœ‰æ¤ç‰©æ•°é‡è¦æ±‚ */
 	if (_plantsRequriement->isHavePlantsRequriement)
 	{
 		updateNumbers(2);
 	}
 
-	/* Èç¹ûÓÐÑô¹âÊýÁ¿ÒªÇó */
+	/* å¦‚æžœæœ‰é˜³å…‰æ•°é‡è¦æ±‚ */
 	if (_sunNumberRequriement->isHaveSunNumberRequriement)
 	{
 		updateNumbers(1);

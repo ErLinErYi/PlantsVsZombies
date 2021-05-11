@@ -1,4 +1,4 @@
-/**
+ï»¿/**
  *Copyright (c) 2019 LZ.All Right Reserved
  *Author : LZ
  *Email: 2117610943@qq.com
@@ -20,48 +20,48 @@ class OpenLevelData
 {
 public:
 	/**
-	 *µ¥Àı
+	 *å•ä¾‹
 	 */
 	static OpenLevelData* getInstance();
 
 	/**
-	 *´ò¿ª¹Ø¿¨Êı¾İ
+	 *æ‰“å¼€å…³å¡æ•°æ®
 	 */
 	bool openLevelsData(const string& worlddata);
 
 	/*
-	 *½âÃÜ¹Ø¿¨Êı¾İ
+	 *è§£å¯†å…³å¡æ•°æ®
 	 */
 	void decrypt(char* cSrc, char* cDest);
 	void decrypt(string& cSrc, char* cDest);
 
 	/**
-	 *»ñÈ¡ËùÓĞ¹Ø¿¨Êı¾İ
+	 *è·å–æ‰€æœ‰å…³å¡æ•°æ®
 	 */
 	Document* getDocument();
 
 	/**
-	 *´´½¨Ä³Ò»¸ö¹Ø¿¨Êı¾İ
+	 *åˆ›å»ºæŸä¸€ä¸ªå…³å¡æ•°æ®
 	 */
 	void createLevelData(const int level, const char* levelName);
 
 	/**
-	 *¶ÁÈ¡Ä³Ò»¸ö¹Ø¿¨
+	 *è¯»å–æŸä¸€ä¸ªå…³å¡
 	 */
 	LevelData* readLevelData(const int level);
 
 	/**
-	 *ÉèÖÃ¹Ø¿¨Êı
+	 *è®¾ç½®å…³å¡æ•°
 	 */
 	void setLevelNumber(const int levelNumber);
 
 	/**
-	 *»ñÈ¡¹Ø¿¨Êı
+	 *è·å–å…³å¡æ•°
 	 */
 	int getLevelNumber() const;
 
 	/**
-	 ³õÊ¼»¯
+	 åˆå§‹åŒ–
 	 */
 	void documentInit();
 
@@ -113,24 +113,24 @@ private:
 	void setGameTypes(const char* LevelName);
 	
 private:
-	bool _isEncryption;                                              /* ÊÇ·ñ¼ÓÃÜ */
-	bool _zombiesIsVisible;                                          /* ½©Ê¬ÊÇ·ñÒşÉí */
-    bool _zombiesIsSmall;                                            /* ÊÇ·ñÊÇĞ¡½©Ê¬ */
-	bool _zombiesIsBig;                                              /* ÊÇ·ñÊÇ¾ŞÈË½©Ê¬ */
-	bool _isNoPlants;                                                /* ÊÇ·ñ²»¿ÉÖÖÖ² */
-	int _zombiesFrequency;                                           /* ½©Ê¬×Ü²¨Êı */
-	int _coinNumbers;                                                /* ½ğ±ÒÊı */
-	int _atLeastSunNumbers;                                          /* ÖÁÉÙ²úÉúµÄÑô¹âÊı */
-	int _flowerPosition;                                             /* »¨Ì³Î»ÖÃ */
-	int _carNumbers;                                                 /* Ğ¡³µÊıÁ¿ */
-	int _usePlantsNumbers;                                           /* Ê¹ÓÃÖ²ÎïÊıÁ¿ */
-	int _firstFrequencyTime;                                         /* µÚÒ»²¨½©Ê¬³öÏÖÊ±¼ä */
-	float _userLose;                                                 /* Íæ¼ÒÊ§°Ü */
-	vector<int>_gameType;                                            /* ÓÎÏ·ÀàĞÍ */
-    vector<int>_zombiesType;                                         /* ½©Ê¬ÀàĞÍ */
-	vector<int>_zombiesNumbers;                                      /* ½©Ê¬Êı */
-	vector<int>_munchZombiesFrequency;                               /* ¶à½©Ê¬²¨Êı */
-	vector<vector<int> >_zombiesTypeProbabilityFrequency;            /* Ã¿Ò»²¨Ã¿ÖÖ½©Ê¬³öÏÖµÄ¸ÅÂÊ */
-	vector<MyPoint>_noPlantsPosition;                                /* ²»¿ÉÒÔÖÖÖ²µÄµØ·½ */
+	bool _isEncryption;                                              /* æ˜¯å¦åŠ å¯† */
+	bool _zombiesIsVisible;                                          /* åƒµå°¸æ˜¯å¦éšèº« */
+    bool _zombiesIsSmall;                                            /* æ˜¯å¦æ˜¯å°åƒµå°¸ */
+	bool _zombiesIsBig;                                              /* æ˜¯å¦æ˜¯å·¨äººåƒµå°¸ */
+	bool _isNoPlants;                                                /* æ˜¯å¦ä¸å¯ç§æ¤ */
+	int _zombiesFrequency;                                           /* åƒµå°¸æ€»æ³¢æ•° */
+	int _coinNumbers;                                                /* é‡‘å¸æ•° */
+	int _atLeastSunNumbers;                                          /* è‡³å°‘äº§ç”Ÿçš„é˜³å…‰æ•° */
+	int _flowerPosition;                                             /* èŠ±å›ä½ç½® */
+	int _carNumbers;                                                 /* å°è½¦æ•°é‡ */
+	int _usePlantsNumbers;                                           /* ä½¿ç”¨æ¤ç‰©æ•°é‡ */
+	int _firstFrequencyTime;                                         /* ç¬¬ä¸€æ³¢åƒµå°¸å‡ºç°æ—¶é—´ */
+	float _userLose;                                                 /* ç©å®¶å¤±è´¥ */
+	vector<int>_gameType;                                            /* æ¸¸æˆç±»å‹ */
+    vector<int>_zombiesType;                                         /* åƒµå°¸ç±»å‹ */
+	vector<int>_zombiesNumbers;                                      /* åƒµå°¸æ•° */
+	vector<int>_munchZombiesFrequency;                               /* å¤šåƒµå°¸æ³¢æ•° */
+	vector<vector<int> >_zombiesTypeProbabilityFrequency;            /* æ¯ä¸€æ³¢æ¯ç§åƒµå°¸å‡ºç°çš„æ¦‚ç‡ */
+	vector<MyPoint>_noPlantsPosition;                                /* ä¸å¯ä»¥ç§æ¤çš„åœ°æ–¹ */
 	Document* _document;
 };

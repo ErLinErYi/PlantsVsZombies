@@ -1,4 +1,4 @@
-/**
+ï»¿/**
  *Copyright (c) 2020 LZ.All Right Reserved
  *Author : LZ
  *Date: 2020.2.6
@@ -30,6 +30,6 @@ private:
 	void effectZombies(Zombies* zombie);
 
 private:
-	int _canEatNumbers;             // ¿ÉÒÔ±»³ÔµÄ´ÎÊı
-	int _animationId;               // ¶¯»­±àºÅ
+	int _canEatNumbers;             // å¯ä»¥è¢«åƒçš„æ¬¡æ•°
+	int _animationId;               // åŠ¨ç”»ç¼–å·
 };

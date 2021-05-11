@@ -1,4 +1,4 @@
-/**
+ï»¿/**
  *Copyright (c) 2020 LZ.All Right Reserved
  *Author : LZ
  *Date: 2020.4.2
@@ -21,21 +21,21 @@ public:
 
 CC_CONSTRUCTOR_ACCESS:
     UpdateClient();
-    virtual bool init();
+    virtual bool init() override;
 
 private:
     enum class Update_Button
     {
-        °Ù¶ÈÍøÅÌÏÂÔØ,
-        ÌÚÑ¶Î¢ÔÆÏÂÔØ,
-        Ö±½ÓÏÂÔØ,
-		ÍË³öÓÎÏ·,
-        È·¶¨,
-        ÏÂÔØÆ÷ÏÂÔØ,
-        ÍøÕ¾ÏÂÔØ
+        ç™¾åº¦ç½‘ç›˜ä¸‹è½½,
+        è…¾è®¯å¾®äº‘ä¸‹è½½,
+        ç›´æ¥ä¸‹è½½,
+		é€€å‡ºæ¸¸æˆ,
+        ç¡®å®š,
+        ä¸‹è½½å™¨ä¸‹è½½,
+        ç½‘ç«™ä¸‹è½½
     };
-    void createDiglog();	                                                       /* ´´½¨¶Ô»°¿ò */
-    void createButton(const std::string& name, Vec2& vec2, Update_Button button);  /* ´´½¨°´Å¥ */
+    void createDiglog();	                                                       /* åˆ›å»ºå¯¹è¯æ¡† */
+    void createButton(const std::string& name, Vec2& vec2, Update_Button button);  /* åˆ›å»ºæŒ‰é’® */
     void showText();
     void addScrollView();
     void addMouseEvent();
@@ -47,7 +47,7 @@ private:
     LPCUWSTR stringToWstring(string fileName);
 
 private:
-    Sprite* _dialog;    /* ¶Ô»°¿ò */
+    Sprite* _dialog;    /* å¯¹è¯æ¡† */
     std::unique_ptr<network::Downloader> _downloader;
     Label* _remindText;
     Label* _progressText;

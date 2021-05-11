@@ -1,4 +1,4 @@
-/**
+ï»¿/**
  *Copyright (c) 2021 LZ.All Right Reserved
  *Author : LZ
  *Date: 2021.2.09
@@ -44,19 +44,19 @@ void HPauseQuitLayer::createDialog()
 	PauseAnimation->setPosition(Vec2(530, 650));
 	_option->addChild(PauseAnimation);
 
-	/* ´¥ÃşÒÆ¶¯¼àÌı */
+	/* è§¦æ‘¸ç§»åŠ¨ç›‘å¬ */
 	_touchListener = createTouchtListener(_option);
 
-	/* ´´½¨»¬¶¯Ìõ */
+	/* åˆ›å»ºæ»‘åŠ¨æ¡ */
 	auto musicslider = createSlider(Vec2(600, 520), Vec2(150, 520),
-		_global->userInformation->getGameText().find("ÒôÀÖ")->second->text, OptionScene_Slider::ÒôÀÖ,
+		_global->userInformation->getGameText().find("éŸ³ä¹")->second->text, OptionScene_Slider::éŸ³ä¹,
 		Sprite::createWithSpriteFrameName("bgFile.png"),
 		Sprite::createWithSpriteFrameName("progressFile.png"),
 		Sprite::createWithSpriteFrameName("thumbFile.png"),
 		nullptr,
 		true);
 	auto SoundEffectslider = createSlider(Vec2(600, 450), Vec2(150, 450),
-		_global->userInformation->getGameText().find("ÒôĞ§")->second->text, OptionScene_Slider::ÒôĞ§,
+		_global->userInformation->getGameText().find("éŸ³æ•ˆ")->second->text, OptionScene_Slider::éŸ³æ•ˆ,
 		Sprite::createWithSpriteFrameName("bgFile.png"),
 		Sprite::createWithSpriteFrameName("progressFile.png"),
 		Sprite::createWithSpriteFrameName("thumbFile.png"),
@@ -66,13 +66,13 @@ void HPauseQuitLayer::createDialog()
 	musicslider->setScale(1.2f);
 	SoundEffectslider->setScale(1.2f);
 
-	/* ´´½¨¸´Ñ¡¿ò */
-	auto check = createCheckBox(Vec2(350, 380), Vec2(150, 380), _global->userInformation->getGameText().find("ĞÅÏ¢")->second->text, OptionScene_CheckBox::ÏÔÊ¾ĞÅÏ¢, "CheckBox2", "CheckBox", true);
-	auto check1 = createCheckBox(Vec2(800, 380), Vec2(600, 380), _global->userInformation->getGameText().find("È«ÆÁ")->second->text, OptionScene_CheckBox::È«ÆÁ, "CheckBox2", "CheckBox", true);
-	auto check2 = createCheckBox(Vec2(350, 310), Vec2(150, 310), _global->userInformation->getGameText().find("¸ßÖ¡ÂÊ")->second->text, OptionScene_CheckBox::¸ßÖ¡ÂÊ, "CheckBox2", "CheckBox", true);
-	auto check3 = createCheckBox(Vec2(800, 310), Vec2(600, 310), _global->userInformation->getGameText().find("Êó±êÏÔÊ¾")->second->text, OptionScene_CheckBox::Êó±êÒş²Ø, "CheckBox2", "CheckBox", true);
-	auto check4 = createCheckBox(Vec2(350, 240), Vec2(150, 240), _global->userInformation->getGameText().find("À­ÉìÏÔÊ¾")->second->text, OptionScene_CheckBox::À­ÉìÏÔÊ¾, "CheckBox2", "CheckBox", true);
-	auto check5 = createCheckBox(Vec2(800, 240), Vec2(600, 240), _global->userInformation->getGameText().find("´¹Ö±Í¬²½")->second->text, OptionScene_CheckBox::´¹Ö±Í¬²½, "CheckBox2", "CheckBox", true);
+	/* åˆ›å»ºå¤é€‰æ¡† */
+	auto check = createCheckBox(Vec2(350, 380), Vec2(150, 380), _global->userInformation->getGameText().find("ä¿¡æ¯")->second->text, OptionScene_CheckBox::æ˜¾ç¤ºä¿¡æ¯, "CheckBox2", "CheckBox", true);
+	auto check1 = createCheckBox(Vec2(800, 380), Vec2(600, 380), _global->userInformation->getGameText().find("å…¨å±")->second->text, OptionScene_CheckBox::å…¨å±, "CheckBox2", "CheckBox", true);
+	auto check2 = createCheckBox(Vec2(350, 310), Vec2(150, 310), _global->userInformation->getGameText().find("é«˜å¸§ç‡")->second->text, OptionScene_CheckBox::é«˜å¸§ç‡, "CheckBox2", "CheckBox", true);
+	auto check3 = createCheckBox(Vec2(800, 310), Vec2(600, 310), _global->userInformation->getGameText().find("é¼ æ ‡æ˜¾ç¤º")->second->text, OptionScene_CheckBox::é¼ æ ‡éšè—, "CheckBox2", "CheckBox", true);
+	auto check4 = createCheckBox(Vec2(350, 240), Vec2(150, 240), _global->userInformation->getGameText().find("æ‹‰ä¼¸æ˜¾ç¤º")->second->text, OptionScene_CheckBox::æ‹‰ä¼¸æ˜¾ç¤º, "CheckBox2", "CheckBox", true);
+	auto check5 = createCheckBox(Vec2(800, 240), Vec2(600, 240), _global->userInformation->getGameText().find("å‚ç›´åŒæ­¥")->second->text, OptionScene_CheckBox::å‚ç›´åŒæ­¥, "CheckBox2", "CheckBox", true);
 
 	check->setScale(0.6f);
 	check1->setScale(0.6f);
@@ -81,20 +81,20 @@ void HPauseQuitLayer::createDialog()
 	check4->setScale(0.6f);
 	check5->setScale(0.6f);
 
-	/* ´´½¨°´Å¥ */
-	createButton(Vec2(210, 170), _global->userInformation->getGameText().find("²é¿´Í¼¼ø")->second->text, PauseQuitLayer_Button::²é¿´Í¼¼ø);
-	createButton(Vec2(520, 170), _global->userInformation->getGameText().find("ÖØĞÂ¿ªÊ¼")->second->text, PauseQuitLayer_Button::´ÓĞÂ¿ªÊ¼);
-	createButton(Vec2(830, 170), _global->userInformation->getGameText().find("·µ»ØÓÎÏ·")->second->text, PauseQuitLayer_Button::·µ»ØÓÎÏ·);
-	createButton(Vec2(365, 70), _global->userInformation->getGameText().find("°´¼üËµÃ÷")->second->text, PauseQuitLayer_Button::°´¼üËµÃ÷);
-	createButton(Vec2(665, 70), _global->userInformation->getGameText().find("ÍË³ö")->second->text, PauseQuitLayer_Button::ÍË³öÓÎÏ·);
+	/* åˆ›å»ºæŒ‰é’® */
+	createButton(Vec2(210, 170), _global->userInformation->getGameText().find("æŸ¥çœ‹å›¾é‰´")->second->text, PauseQuitLayer_Button::æŸ¥çœ‹å›¾é‰´);
+	createButton(Vec2(520, 170), _global->userInformation->getGameText().find("é‡æ–°å¼€å§‹")->second->text, PauseQuitLayer_Button::ä»æ–°å¼€å§‹);
+	createButton(Vec2(830, 170), _global->userInformation->getGameText().find("è¿”å›æ¸¸æˆ")->second->text, PauseQuitLayer_Button::è¿”å›æ¸¸æˆ);
+	createButton(Vec2(365, 70), _global->userInformation->getGameText().find("æŒ‰é”®è¯´æ˜")->second->text, PauseQuitLayer_Button::æŒ‰é”®è¯´æ˜);
+	createButton(Vec2(665, 70), _global->userInformation->getGameText().find("é€€å‡º")->second->text, PauseQuitLayer_Button::é€€å‡ºæ¸¸æˆ);
 }
 
 void HPauseQuitLayer::createButton(const Vec2& vec2, const std::string name, PauseQuitLayer_Button button_type)
 {
-	/* ´´½¨·µ»ØÖ÷²Ëµ¥°´Å¥ */
-	auto button = ui::Button::create("ButtonNew2.png", "ButtonNew.png", "", TextureResType::PLIST);
-	auto label = Label::createWithTTF(name, GAME_FONT_NAME_1, _global->userInformation->getGameText().find("ÍË³ö²¢±£´æ")->second->fontsize);
-	label->enableShadow(Color4B(0, 0, 0, 200));//ÉèÖÃÒõÓ°
+	/* åˆ›å»ºè¿”å›ä¸»èœå•æŒ‰é’® */
+	auto button = ui::Button::create("ButtonNew2.png", "ButtonNew.png", "",cocos2d::ui::Widget::TextureResType::PLIST);
+	auto label = Label::createWithTTF(name, GAME_FONT_NAME_1, _global->userInformation->getGameText().find("é€€å‡ºå¹¶ä¿å­˜")->second->fontsize);
+	label->enableShadow(Color4B(0, 0, 0, 200));//è®¾ç½®é˜´å½±
 	label->setScale(2.0f);
 	button->setTitleLabel(label);
 	button->setTitleColor(Color3B::WHITE);
@@ -112,11 +112,11 @@ void HPauseQuitLayer::createButton(const Vec2& vec2, const std::string name, Pau
 			case ui::Widget::TouchEventType::ENDED:
 				switch (button_type)
 				{
-				case PauseQuitLayer_Button::²é¿´Í¼¼ø: openHandBook();   break;
-				case PauseQuitLayer_Button::´ÓĞÂ¿ªÊ¼: setRestart();     break;
-				case PauseQuitLayer_Button::ÍË³öÓÎÏ·: setQuitGame();    break;
-				case PauseQuitLayer_Button::°´¼üËµÃ÷: keyDescription(); break;
-				case PauseQuitLayer_Button::·µ»ØÓÎÏ·: returnGame();     break;
+				case PauseQuitLayer_Button::æŸ¥çœ‹å›¾é‰´: openHandBook();   break;
+				case PauseQuitLayer_Button::ä»æ–°å¼€å§‹: setRestart();     break;
+				case PauseQuitLayer_Button::é€€å‡ºæ¸¸æˆ: setQuitGame();    break;
+				case PauseQuitLayer_Button::æŒ‰é”®è¯´æ˜: keyDescription(); break;
+				case PauseQuitLayer_Button::è¿”å›æ¸¸æˆ: returnGame();     break;
 				default: break;
 				}
 			}
@@ -125,10 +125,12 @@ void HPauseQuitLayer::createButton(const Vec2& vec2, const std::string name, Pau
 
 void HPauseQuitLayer::setRestart()
 {
-	Director::getInstance()->replaceScene(TransitionFade::create(1.5f, HammerZombiesScene::create()));
+	_director->getScheduler()->setTimeScale(1.0f);
+	_director->replaceScene(TransitionFade::create(1.5f, HammerZombiesScene::create()));
 }
 
 void HPauseQuitLayer::setQuitGame()
 {
-	Director::getInstance()->replaceScene(TransitionFade::create(0.5f, MainMenu::createScene()));
+	_director->getScheduler()->setTimeScale(1.0f);
+	_director->replaceScene(TransitionFade::create(0.5f, MainMenu::create()));
 }

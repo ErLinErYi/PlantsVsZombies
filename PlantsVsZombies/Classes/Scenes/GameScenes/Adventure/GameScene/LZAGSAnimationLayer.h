@@ -1,4 +1,4 @@
-/**
+﻿/**
  *Copyright (c) 2020 LZ.All Right Reserved
  *Author : LZ
  *Date: 2020.2.4
@@ -39,7 +39,7 @@ public:
 CC_CONSTRUCTOR_ACCESS:
 	GSAnimationLayer(Node* node = nullptr);
 	~GSAnimationLayer();
-	virtual bool init();
+	virtual bool init() override;
 
 protected:
 	virtual void createRandomSuns();

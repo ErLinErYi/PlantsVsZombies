@@ -1,4 +1,4 @@
-/**
+ï»¿/**
  *Copyright (c) 2019 LZ.All Right Reserved
  *Author : LZ
  *Date: 2019.8.12
@@ -37,17 +37,17 @@ void SPSQuitLayer::createDialog()
 	PauseAnimation->setPosition(Vec2(530, 650));
 	_option->addChild(PauseAnimation);
 
-	/* ´¥ÃşÒÆ¶¯¼àÌı */
+	/* è§¦æ‘¸ç§»åŠ¨ç›‘å¬ */
 	_touchListener = createTouchtListener(_option);
 
-	/* ´´½¨»¬¶¯Ìõ */
-	auto musicslider = createSlider(Vec2(600, 500), Vec2(150, 500), _global->userInformation->getGameText().find("ÒôÀÖ")->second->text, OptionScene_Slider::ÒôÀÖ,
+	/* åˆ›å»ºæ»‘åŠ¨æ¡ */
+	auto musicslider = createSlider(Vec2(600, 500), Vec2(150, 500), _global->userInformation->getGameText().find("éŸ³ä¹")->second->text, OptionScene_Slider::éŸ³ä¹,
 		Sprite::createWithSpriteFrameName("bgFile.png"),
 		Sprite::createWithSpriteFrameName("progressFile.png"),
 		Sprite::createWithSpriteFrameName("thumbFile.png"),
 		nullptr,
 		true);
-	auto SoundEffectslider = createSlider(Vec2(600, 410), Vec2(150, 410), _global->userInformation->getGameText().find("ÒôĞ§")->second->text, OptionScene_Slider::ÒôĞ§,
+	auto SoundEffectslider = createSlider(Vec2(600, 410), Vec2(150, 410), _global->userInformation->getGameText().find("éŸ³æ•ˆ")->second->text, OptionScene_Slider::éŸ³æ•ˆ,
 		Sprite::createWithSpriteFrameName("bgFile.png"),
 		Sprite::createWithSpriteFrameName("progressFile.png"),
 		Sprite::createWithSpriteFrameName("thumbFile.png"),
@@ -57,13 +57,13 @@ void SPSQuitLayer::createDialog()
 	musicslider->setScale(1.2f);
 	SoundEffectslider->setScale(1.2f);
 
-	/* ´´½¨¸´Ñ¡¿ò */
-	auto check = createCheckBox(Vec2(350, 340), Vec2(150, 340), _global->userInformation->getGameText().find("ĞÅÏ¢")->second->text, OptionScene_CheckBox::ÏÔÊ¾ĞÅÏ¢, "CheckBox2", "CheckBox", true);
-	auto check1 = createCheckBox(Vec2(800, 340), Vec2(600, 340), _global->userInformation->getGameText().find("È«ÆÁ")->second->text, OptionScene_CheckBox::È«ÆÁ, "CheckBox2", "CheckBox", true);
-	auto check2 = createCheckBox(Vec2(350, 265), Vec2(150, 265), _global->userInformation->getGameText().find("¸ßÖ¡ÂÊ")->second->text, OptionScene_CheckBox::¸ßÖ¡ÂÊ, "CheckBox2", "CheckBox", true);
-	auto check3 = createCheckBox(Vec2(800, 265), Vec2(600, 265), _global->userInformation->getGameText().find("´¹Ö±Í¬²½")->second->text, OptionScene_CheckBox::´¹Ö±Í¬²½, "CheckBox2", "CheckBox", true);
-	auto check4 = createCheckBox(Vec2(350, 190), Vec2(150, 190), _global->userInformation->getGameText().find("À­ÉìÏÔÊ¾")->second->text, OptionScene_CheckBox::À­ÉìÏÔÊ¾, "CheckBox2", "CheckBox", true);
-	auto check5 = createCheckBox(Vec2(800, 190), Vec2(600, 190), _global->userInformation->getGameText().find("»ºÈë¶¯»­")->second->text, OptionScene_CheckBox::»ºÈë¶¯»­, "CheckBox2", "CheckBox", true);
+	/* åˆ›å»ºå¤é€‰æ¡† */
+	auto check = createCheckBox(Vec2(350, 340), Vec2(150, 340), _global->userInformation->getGameText().find("ä¿¡æ¯")->second->text, OptionScene_CheckBox::æ˜¾ç¤ºä¿¡æ¯, "CheckBox2", "CheckBox", true);
+	auto check1 = createCheckBox(Vec2(800, 340), Vec2(600, 340), _global->userInformation->getGameText().find("å…¨å±")->second->text, OptionScene_CheckBox::å…¨å±, "CheckBox2", "CheckBox", true);
+	auto check2 = createCheckBox(Vec2(350, 265), Vec2(150, 265), _global->userInformation->getGameText().find("é«˜å¸§ç‡")->second->text, OptionScene_CheckBox::é«˜å¸§ç‡, "CheckBox2", "CheckBox", true);
+	auto check3 = createCheckBox(Vec2(800, 265), Vec2(600, 265), _global->userInformation->getGameText().find("å‚ç›´åŒæ­¥")->second->text, OptionScene_CheckBox::å‚ç›´åŒæ­¥, "CheckBox2", "CheckBox", true);
+	auto check4 = createCheckBox(Vec2(350, 190), Vec2(150, 190), _global->userInformation->getGameText().find("æ‹‰ä¼¸æ˜¾ç¤º")->second->text, OptionScene_CheckBox::æ‹‰ä¼¸æ˜¾ç¤º, "CheckBox2", "CheckBox", true);
+	auto check5 = createCheckBox(Vec2(800, 190), Vec2(600, 190), _global->userInformation->getGameText().find("ç¼“å…¥åŠ¨ç”»")->second->text, OptionScene_CheckBox::ç¼“å…¥åŠ¨ç”», "CheckBox2", "CheckBox", true);
 
 	check->setScale(0.6f);
 	check1->setScale(0.6f);
@@ -72,18 +72,18 @@ void SPSQuitLayer::createDialog()
 	check4->setScale(0.6f);
 	check5->setScale(0.6f);
 
-	/* ´´½¨°´Å¥ */
-	GSPauseQuitLayer::createButton(Vec2(210, 100), _global->userInformation->getGameText().find("²é¿´Í¼¼ø")->second->text, PauseQuitLayer_Button::²é¿´Í¼¼ø);
-	createButton(Vec2(830, 100), _global->userInformation->getGameText().find("ÍË³öÓÎÏ·")->second->text, PauseQuitLayer_Button::ÍË³öÓÎÏ·);
-	createButton(Vec2(520, 100), _global->userInformation->getGameText().find("·µ»ØÓÎÏ·")->second->text, PauseQuitLayer_Button::·µ»ØÓÎÏ·);
+	/* åˆ›å»ºæŒ‰é’® */
+	GSPauseQuitLayer::createButton(Vec2(210, 100), _global->userInformation->getGameText().find("æŸ¥çœ‹å›¾é‰´")->second->text, PauseQuitLayer_Button::æŸ¥çœ‹å›¾é‰´);
+	createButton(Vec2(830, 100), _global->userInformation->getGameText().find("é€€å‡ºæ¸¸æˆ")->second->text, PauseQuitLayer_Button::é€€å‡ºæ¸¸æˆ);
+	createButton(Vec2(520, 100), _global->userInformation->getGameText().find("è¿”å›æ¸¸æˆ")->second->text, PauseQuitLayer_Button::è¿”å›æ¸¸æˆ);
 }
 
 void SPSQuitLayer::createButton(const Vec2& vec2, const std::string name, PauseQuitLayer_Button button_type)
 {
-	/* ´´½¨·µ»ØÖ÷²Ëµ¥°´Å¥ */
-	auto button = ui::Button::create("ButtonNew2.png", "ButtonNew.png", "", TextureResType::PLIST);
-	auto label = Label::createWithTTF(name, GAME_FONT_NAME_1, _global->userInformation->getGameText().find("·µ»ØÓÎÏ·")->second->fontsize);
-	label->enableShadow(Color4B(0, 0, 0, 200));//ÉèÖÃÒõÓ°
+	/* åˆ›å»ºè¿”å›ä¸»èœå•æŒ‰é’® */
+	auto button = ui::Button::create("ButtonNew2.png", "ButtonNew.png", "",cocos2d::ui::Widget::TextureResType::PLIST);
+	auto label = Label::createWithTTF(name, GAME_FONT_NAME_1, _global->userInformation->getGameText().find("è¿”å›æ¸¸æˆ")->second->fontsize);
+	label->enableShadow(Color4B(0, 0, 0, 200));//è®¾ç½®é˜´å½±
 	label->setScale(2.0f);
 	button->setTitleLabel(label);
 	button->setTitleColor(Color3B::WHITE);
@@ -99,13 +99,14 @@ void SPSQuitLayer::createButton(const Vec2& vec2, const std::string name, PauseQ
 				PlayMusic::playMusic("gravebutton");
 				break;
 			case ui::Widget::TouchEventType::ENDED:
+				button->setTouchEnabled(false);
 				switch (button_type)
 				{
-				case PauseQuitLayer_Button::·µ»ØÓÎÏ·:
+				case PauseQuitLayer_Button::è¿”å›æ¸¸æˆ:
 					SPSSpriteLayer::resumeButtonHoverEffect();
 					this->removeFromParent();
 					break;
-				case PauseQuitLayer_Button::ÍË³öÓÎÏ·:
+				case PauseQuitLayer_Button::é€€å‡ºæ¸¸æˆ:
 					SPSSpriteLayer::setListenerMutexNumber();
 					popSceneAnimation();
 					break;

@@ -1,4 +1,4 @@
-/**
+ï»¿/**
  *Copyright (c) 2020 LZ.All Right Reserved
  *Author : LZ
  *Date: 2020.2.6
@@ -26,8 +26,8 @@ protected:
 	virtual void readPlantInforamtion(rapidjson::Document* levelDataDocument, char* key, int i) override;
 
 protected:
-    bool _isChanged;           // ÊÇ·ñ¸Ä±äÎª¹¥»÷ĞÎÌ¬
-    bool _isHaveZombies;       // ÊÇ·ñÓĞ½©Ê¬
-    bool _isReadFileData;      // ÊÇ·ñ¶ÁÈ¡ÎÄ¼şÊı¾İ
-    Bullet* _bulletAnimation;  // ×Óµ¯¶¯»­
+    bool _isChanged;           // æ˜¯å¦æ”¹å˜ä¸ºæ”»å‡»å½¢æ€
+    bool _isHaveZombies;       // æ˜¯å¦æœ‰åƒµå°¸
+    bool _isReadFileData;      // æ˜¯å¦è¯»å–æ–‡ä»¶æ•°æ®
+    Bullet* _bulletAnimation;  // å­å¼¹åŠ¨ç”»
 };

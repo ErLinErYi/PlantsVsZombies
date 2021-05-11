@@ -1,4 +1,4 @@
-/**
+ï»¿/**
  *Copyright (c) 2019 LZ.All Right Reserved
  *Author : LZ
  *Date: 2019.8.12
@@ -29,7 +29,7 @@ bool SPSBackgroundLayer::init()
 {
 	if (!Layer::init()) return false;
 
-	/* ´´½¨±³¾° */
+	/* åˆ›å»ºèƒŒæ™¯ */
 	createBackGroundEffect();
 	showPreviewZombies();
 
@@ -192,10 +192,10 @@ Vec2 SPSBackgroundLayer::getPreviewZombiesPosition(UID& n1, UID& n2)
 	{
 		can = false;
 		x = 2050 + n1(_random);
-		y = n2(_random) + 80;
+		y = n2(_random) + 40;
 		for (const auto& p : _previewZombies)
 		{
-			if (sqrt(pow(p.position_x - x, 2) + pow(p.position_y - y, 2)) < 100)
+			if (sqrt(powf(p.position_x - x, 2) + powf(p.position_y - y, 2)) < 100)
 			{
 				can = true;
 				break;

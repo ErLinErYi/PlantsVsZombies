@@ -1,4 +1,4 @@
-/****************************************
+﻿/****************************************
  *Copyright (c) 2019 LZ.All Right Reserved
  *ProjectName:     PlantsVsZombies
  *Author:          LZ(ErLinEryi)

@@ -1,4 +1,4 @@
-/**
+ï»¿/**
  *Copyright (c) 2020 LZ.All Right Reserved
  *Author : LZ
  *Date: 2020.2.11
@@ -33,7 +33,7 @@ void Bullet::bulletDeleteUpdate(list<Bullet*>::iterator& bullet)
 {
 	if (!(*bullet)->getBulletVisible())
 	{
-		(*bullet)->releaseBullet();
+		(*bullet)->releaseFunction();
 		delete *bullet;
 		*bullet = nullptr;
 		BulletGroup.erase(bullet++);
@@ -47,7 +47,7 @@ void Bullet::bulletDeleteUpdate(list<Bullet*>::iterator& bullet)
 SkeletonAnimation* Bullet::bulletInit(const std::string& plantname, const std::string& animaionname)
 {
 	auto iter = _global->userInformation->getAnimationData().find(plantname);
-	if (iter != _global->userInformation->getAnimationData().end())/* Èç¹û¿ÉÒÔÕÒµ½ */
+	if (iter != _global->userInformation->getAnimationData().end())/* å¦‚æžœå¯ä»¥æ‰¾åˆ° */
 	{
 		_bulletAnimation = SkeletonAnimation::createWithData(iter->second);
 		_bulletAnimation->setAnimation(0, animaionname, true);
@@ -113,20 +113,20 @@ int Bullet::getBulletAttack() const
 
 void Bullet::bulletAttackHurtZombies(Zombies* zombie)
 {
-	if (zombie->getZombieCurrentBodyShieldVolume() < _attack)     /* Èç¹ûµ±Ç°ÉíÌå»¤¶ÜÑªÁ¿Ð¡ÓÚ±¬Õ¨ÉËº¦ */
+	if (zombie->getZombieCurrentBodyShieldVolume() < _attack)     /* å¦‚æžœå½“å‰èº«ä½“æŠ¤ç›¾è¡€é‡å°äºŽçˆ†ç‚¸ä¼¤å®³ */
 	{
 		if (zombie->getZombieCurrentBodyShieldVolume() +
-			zombie->getZombieCurrentHeadShieldVolume() < _attack) /* Èç¹ûµ±Ç°ÉíÌå»¤¶Ü¼ÓÍ·²¿»¤¶ÜÑªÁ¿Ð¡ÓÚ±¬Õ¨ÉËº¦ */
+			zombie->getZombieCurrentHeadShieldVolume() < _attack) /* å¦‚æžœå½“å‰èº«ä½“æŠ¤ç›¾åŠ å¤´éƒ¨æŠ¤ç›¾è¡€é‡å°äºŽçˆ†ç‚¸ä¼¤å®³ */
 		{
 			if (zombie->getZombieCurrentBodyShieldVolume() + 
 				zombie->getZombieCurrentHeadShieldVolume() + 
-				zombie->getZombieCurrentBloodVolume() <= _attack) /* Èç¹û½©Ê¬ËùÓÐÑªÁ¿Ð¡ÓÚ±¬Õ¨ÉËº¦£¨½©Ê¬ËÀÍö£© */
+				zombie->getZombieCurrentBloodVolume() <= _attack) /* å¦‚æžœåƒµå°¸æ‰€æœ‰è¡€é‡å°äºŽçˆ†ç‚¸ä¼¤å®³ï¼ˆåƒµå°¸æ­»äº¡ï¼‰ */
 			{
 				zombie->setZombieDeath(true);
 			}
 			else
 			{
-				/* ¼ÆËã½©Ê¬±¾ÌåÑªÁ¿ */
+				/* è®¡ç®—åƒµå°¸æœ¬ä½“è¡€é‡ */
 				zombie->setZombieCurrentBloodVolume(
 					zombie->getZombieCurrentBodyShieldVolume() + 
 					zombie->getZombieCurrentHeadShieldVolume() + 
@@ -137,7 +137,7 @@ void Bullet::bulletAttackHurtZombies(Zombies* zombie)
 		}
 		else
 		{
-			/* ¼ÆËã½©Ê¬»¤¶ÜÊ£ÓÚÑªÁ¿ */
+			/* è®¡ç®—åƒµå°¸æŠ¤ç›¾å‰©äºŽè¡€é‡ */
 			zombie->setZombieCurrentHeadShieldVolume(
 				zombie->getZombieCurrentBodyShieldVolume() + 
 				zombie->getZombieCurrentHeadShieldVolume() - _attack);
@@ -172,7 +172,7 @@ float Bullet::getZOrder() const
 	return (50 - _bulletRow) * 100 + 70;
 }
 
-void Bullet::releaseBullet()
+void Bullet::releaseFunction()
 {
 	_bulletAnimation->removeFromParent();
 	_bulletAnimation = nullptr;

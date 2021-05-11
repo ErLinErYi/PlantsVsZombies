@@ -1,4 +1,4 @@
-/**
+ï»¿/**
  *Copyright (c) 2020 LZ.All Right Reserved
  *Author : LZ
  *Date: 2020.2.6
@@ -55,13 +55,13 @@ void CherryBomb::createPlantAnimation()
 	_plantAnimation->setTimeScale(1.5f);
 	_node->addChild(_plantAnimation);
 
-	// Ó°×Ó
+	// å½±å­
 	setPlantShadow(1.8f);
 
-	// ÄàÍÁ·É½¦¶¯»­
+	// æ³¥åœŸé£žæº…åŠ¨ç”»
 	setPlantSoilSplashAnimation(0.8f);
 
-	// ÊÂ¼þ¼àÌý
+	// äº‹ä»¶ç›‘å¬
 	createListener();
 }
 
@@ -86,7 +86,7 @@ bool CherryBomb::getPlantIsReadyExplode() const
 
 bool CherryBomb::getZombieIsInExplodeRange(Zombies* zombie)
 {
-	/* ½©Ê¬ÊÇ·ñÔÚ±¬Õ¨·¶Î§ÅÐ¶Ï */
+	/* åƒµå°¸æ˜¯å¦åœ¨çˆ†ç‚¸èŒƒå›´åˆ¤æ–­ */
 	return fabs(zombie->getZombieAnimation()->getPositionX() - _plantAnimation->getPositionX()) < 200 &&
 		fabs((zombie->getZombieAnimation()->getPositionY() + 50) - (_plantAnimation->getPositionY() + 60)) < 200;
 }
@@ -95,19 +95,19 @@ void CherryBomb::determineRelativePositionPlantsAndZombies()
 {
 	for (auto zombie : ZombiesGroup)
 	{
-		zombieEatPlant(zombie);      /* ½©Ê¬³ÔÖ²Îï */
+		zombieEatPlant(zombie);      /* åƒµå°¸åƒæ¤ç‰© */
 
-		zombieRecoveryMove(zombie);  /* ½©Ê¬»Ö¸´ÒÆ¶¯ */
+		zombieRecoveryMove(zombie);  /* åƒµå°¸æ¢å¤ç§»åŠ¨ */
 	}
 
-	plantExplode();                  /* Ö²Îï¹¥»÷ */
+	plantExplode();                  /* æ¤ç‰©æ”»å‡» */
 }
 
 void CherryBomb::plantExplode()
 {
-	if (!getPlantIsSurvive() || getPlantIsReadyExplode()) /* Ö²ÎïËÀÍö || Ö²Îï×¼±¸±¬Õ¨ */
+	if (!getPlantIsSurvive() || getPlantIsReadyExplode()) /* æ¤ç‰©æ­»äº¡ || æ¤ç‰©å‡†å¤‡çˆ†ç‚¸ */
 	{
-		if (!_isExplode) /* Èç¹ûÃ»ÓÐ±¬Õ¨ */
+		if (!_isExplode) /* å¦‚æžœæ²¡æœ‰çˆ†ç‚¸ */
 		{
 			_isExplode = true;
 			explodeHurtZombies();
@@ -120,7 +120,7 @@ void CherryBomb::explodeHurtZombies()
 {
 	for (auto zombie : ZombiesGroup)
 	{
-		if (zombie->getZombieIsSurvive() && zombie->getZombieIsEnterMap() && getZombieIsInExplodeRange(zombie)) /* ½©Ê¬´æ»î && ½©Ê¬½øÈëµØÍ¼ && ½©Ê¬ÔÚ±¬Õ¨·¶Î§ÄÚ */
+		if (zombie->getZombieIsSurvive() && zombie->getZombieIsEnterMap() && getZombieIsInExplodeRange(zombie)) /* åƒµå°¸å­˜æ´» && åƒµå°¸è¿›å…¥åœ°å›¾ && åƒµå°¸åœ¨çˆ†ç‚¸èŒƒå›´å†… */
 		{
 			hurtZombies(zombie);
 			zombie->setZombieHurtBlink();
@@ -140,12 +140,12 @@ void CherryBomb::showExplodeAnimation()
 	PlayMusic::playMusic("cherrybomb");
 	GSBackgroundLayer::backgroundRunAction();
 
-	/* ±¬Õ¨¶¯»­ */
+	/* çˆ†ç‚¸åŠ¨ç”» */
 	auto cherryBomb_Explode = SkeletonAnimation::createWithData(_global->userInformation->getAnimationData().find("CherryBomb_Explode")->second);
 	cherryBomb_Explode->setPosition(_plantAnimation->getPosition());
 	cherryBomb_Explode->setAnimation(0, "CherryBomb_Explode", false);
 	cherryBomb_Explode->setScale(1.5f);
-	cherryBomb_Explode->setLocalZOrder(_plantAnimation->getLocalZOrder() + 100); // Ö²Îï»æÖÆË³Ðò¼Ó10ÕýºÃµÈÓÚ½©Ê¬»æÖÆË³Ðò £¬±¬Õ¨¾Í¿ÉÒÔ¸²¸Çµ½½©Ê¬ÉÏÃæ
+	cherryBomb_Explode->setLocalZOrder(_plantAnimation->getLocalZOrder() + 100); // æ¤ç‰©ç»˜åˆ¶é¡ºåºåŠ 10æ­£å¥½ç­‰äºŽåƒµå°¸ç»˜åˆ¶é¡ºåº ï¼Œçˆ†ç‚¸å°±å¯ä»¥è¦†ç›–åˆ°åƒµå°¸ä¸Šé¢
 	_node->addChild(cherryBomb_Explode);
 
 	cherryBomb_Explode->setEventListener([cherryBomb_Explode](spTrackEntry* entry, spEvent* event)

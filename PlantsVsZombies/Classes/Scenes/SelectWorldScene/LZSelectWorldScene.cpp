@@ -1,4 +1,4 @@
-/**
+ï»¿/**
  *Copyright (c) 2019 LZ.All Right Reserved
  *Author : LZ
  *Date: 2019.8.15
@@ -31,7 +31,7 @@ Scene* SelectWorldScene::createScene()
 
 void SelectWorldScene::createMouseListener()
 {
-	/* Êó±ê»¬¶¯¼àÌı */
+	/* é¼ æ ‡æ»‘åŠ¨ç›‘å¬ */
 	auto mouse = EventListenerMouse::create();
 	mouse->onMouseScroll = [&](Event* event)
 	{
@@ -64,7 +64,7 @@ bool SelectWorldScene::init()
 
 void SelectWorldScene::createGoBack()
 {
-	auto back = ui::Button::create("back.png", "back1.png", "", TextureResType::PLIST);
+	auto back = ui::Button::create("back.png", "back1.png", "",cocos2d::ui::Widget::TextureResType::PLIST);
 	back->setScale(0.7f);
 	back->setAnchorPoint(Vec2(0, 1));
 	back->setPosition(Vec2(0, 1080));
@@ -78,7 +78,7 @@ void SelectWorldScene::createGoBack()
 				PlayMusic::playMusic("gravebutton");
 				break;
 			case ui::Widget::TouchEventType::ENDED:
-				Director::getInstance()->replaceScene(MainMenu::createScene());
+				Director::getInstance()->replaceScene(MainMenu::create());
 				UserData::getInstance()->caveUserData("SELECTWORLDPOSITION",
 					_scrollView->getScrolledPercentHorizontal());
 				break;
@@ -91,8 +91,8 @@ void SelectWorldScene::createSelectDifficulty()
 	_global->userInformation->setGameDifficulty(UserData::getInstance()->openIntUserData("DIFFICULTY"));
 		
 	auto checkbox = CheckBox::create();
-	checkbox->loadTextureBackGround("CheckBox2.png", TextureResType::PLIST);
-	checkbox->loadTextureFrontCross("CheckBox.png", TextureResType::PLIST);
+	checkbox->loadTextureBackGround("CheckBox2.png",cocos2d::ui::Widget::TextureResType::PLIST);
+	checkbox->loadTextureFrontCross("CheckBox.png",cocos2d::ui::Widget::TextureResType::PLIST);
 	checkbox->setPosition(Vec2(100,1080));
 	checkbox->setAnchorPoint(Vec2(0, 1));
 	checkbox->setSelected(_global->userInformation->getGameDifficulty() ? true : false);
@@ -102,10 +102,10 @@ void SelectWorldScene::createSelectDifficulty()
 	text->setPosition(Vec2(47, -20));
 	text->setTextColor(Color4B(0, 255, 255, 200));
 	text->setFontName(GAME_FONT_NAME_1);
-	text->setFontSize(_global->userInformation->getGameText().find("Ø¬ÃÎÄ£Ê½")->second->fontsize);
+	text->setFontSize(_global->userInformation->getGameText().find("å™©æ¢¦æ¨¡å¼")->second->fontsize);
 	text->setString(_global->userInformation->getGameDifficulty() ? 
-		_global->userInformation->getGameText().find("Ø¬ÃÎÄ£Ê½")->second->text : 
-		_global->userInformation->getGameText().find("¼òµ¥Ä£Ê½")->second->text);
+		_global->userInformation->getGameText().find("å™©æ¢¦æ¨¡å¼")->second->text : 
+		_global->userInformation->getGameText().find("ç®€å•æ¨¡å¼")->second->text);
 	text->enableGlow(Color4B::BLUE);
 	checkbox->addChild(text);
 
@@ -116,11 +116,11 @@ void SelectWorldScene::createSelectDifficulty()
 			{
 			case cocos2d::ui::CheckBox::EventType::SELECTED:
 				_global->userInformation->setGameDifficulty(1);
-				text->setString(_global->userInformation->getGameText().find("Ø¬ÃÎÄ£Ê½")->second->text);
+				text->setString(_global->userInformation->getGameText().find("å™©æ¢¦æ¨¡å¼")->second->text);
 				break;
 			case cocos2d::ui::CheckBox::EventType::UNSELECTED:
 				_global->userInformation->setGameDifficulty(0);
-				text->setString(_global->userInformation->getGameText().find("¼òµ¥Ä£Ê½")->second->text);
+				text->setString(_global->userInformation->getGameText().find("ç®€å•æ¨¡å¼")->second->text);
 				break;
 			}
 			_global->userInformation->getUserSelectWorldData().at(0)->isReadWoldInformation = false;
@@ -131,7 +131,7 @@ void SelectWorldScene::createSelectDifficulty()
 
 void SelectWorldScene::showTimeTravelAnimation()
 {
-	/* ²¥·ÅÒôÀÖ */
+	/* æ’­æ”¾éŸ³ä¹ */
 	PlayMusic::changeBgMusic("mainmusic2", true);
 	
 	auto layer = LayerColor::create(Color4B::BLACK);
@@ -205,10 +205,10 @@ void SelectWorldScene::createScrollView()
 void SelectWorldScene::showDifferentWorlds()
 {
 	const string worldImageName[] = { {"World1"},{"World2"} ,{"World12"} ,{"World4"} ,{"World5"} ,{"World6"} ,{"World7"} ,{"World8"} ,{"World9"} ,{"World10"} ,{"World11"},{"World12"} };
-	const string worldName[] = { {"ÏÖ´úÊÀ½ç"},{"´óµØÍ¼ÊÀ½ç"} ,{"¾¡ÇëÆÚ´ı"} ,{"º£µÁ¸ÛÍå"} ,{"¿ñÒ°Î÷²¿"} ,{"±ùºÓÊÀ¼Í"} ,{"Î´À´ÊÀ½ç"} ,{"ÙªÂŞ¼ÍÊÀ½ç"} ,{"´óÀËÉ³Ì²"} ,{"Ä§ÒôÊ±´ú"} ,{"Ê§ÂäÖ®³Ç"},{"¾¡ÇëÆÚ´ı"} };
+	const string worldName[] = { {"ç°ä»£ä¸–ç•Œ"},{"å¤§åœ°å›¾ä¸–ç•Œ"} ,{"å°½è¯·æœŸå¾…"} ,{"æµ·ç›—æ¸¯æ¹¾"} ,{"ç‹‚é‡è¥¿éƒ¨"} ,{"å†°æ²³ä¸–çºª"} ,{"æœªæ¥ä¸–ç•Œ"} ,{"ä¾ç½—çºªä¸–ç•Œ"} ,{"å¤§æµªæ²™æ»©"} ,{"é­”éŸ³æ—¶ä»£"} ,{"å¤±è½ä¹‹åŸ"},{"å°½è¯·æœŸå¾…"} };
 	for (int i = 0; i < 3; ++i)
 	{
-		_world[i] = ui::Button::create(worldImageName[i] + ".png", "", "", TextureResType::PLIST);
+		_world[i] = ui::Button::create(worldImageName[i] + ".png", "", "",cocos2d::ui::Widget::TextureResType::PLIST);
 		_world[i]->setPosition(Vec2(1000 + 800 * i, _backgroundSize.height / 2.0f));
 		_world[i]->setScale(i == 1 ? 1.f : 1.7f);
 		if (_global->userInformation->getMainToWorld()) _world[i]->setEnabled(false);
@@ -231,7 +231,7 @@ void SelectWorldScene::showDifferentWorlds()
 		if (i >= 2)
 		{
 			_world[i]->setEnabled(false);
-			worldname->setString(_global->userInformation->getGameText().find("¾¡ÇëÆÚ´ı")->second->text);
+			worldname->setString(_global->userInformation->getGameText().find("å°½è¯·æœŸå¾…")->second->text);
 		}
 
 		_world[i]->addTouchEventListener([=](Ref* sender, ui::Widget::TouchEventType type)
@@ -244,14 +244,14 @@ void SelectWorldScene::showDifferentWorlds()
 					{
 					case 0:
 						_global->userInformation->setIsMirrorScene(false);
-						_global->userInformation->setSelectWorldName(WorldName::Mordern); /* ³õÊ¼»¯±³¾° */
+						_global->userInformation->setSelectWorldName(WorldName::Mordern); /* åˆå§‹åŒ–èƒŒæ™¯ */
 						Director::getInstance()->replaceScene(TransitionFade::create(1.f, ModernWorld::create()));
 						break;
 					case 1:
 						if (checkWorldUnlock())
 						{
 							_global->userInformation->setIsMirrorScene(false);
-							_global->userInformation->setSelectWorldName(WorldName::Mordern); /* ³õÊ¼»¯±³¾° */
+							_global->userInformation->setSelectWorldName(WorldName::Mordern); /* åˆå§‹åŒ–èƒŒæ™¯ */
 							Director::getInstance()->replaceScene(TransitionFade::create(1.0f, BigMapWorld::create()));
 						}
 						else

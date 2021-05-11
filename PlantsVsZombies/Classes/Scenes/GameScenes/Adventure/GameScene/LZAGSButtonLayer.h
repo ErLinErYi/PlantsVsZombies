@@ -1,4 +1,4 @@
-/**
+ï»¿/**
  *Copyright (c) 2020 LZ.All Right Reserved
  *Author : LZ
  *Date: 2020.1.28
@@ -16,13 +16,13 @@
 using namespace cocos2d;
 using namespace cocos2d::ui;
 
-struct MouseSelectImage /* Êó±êÑ¡ÔñµÄÖ²Îï */
+struct MouseSelectImage /* é¼ æ ‡é€‰æ‹©çš„æ¤ç‰© */
 {
 	MouseSelectImage():Iamge(nullptr), isSelectPlants(false), isSelectShovel(false){}
-	Sprite* Iamge;                    /* Í¼Æ¬ */
-	PlantsType selectPlantsId;        /* ËùÑ¡Ö²Îï±àºÅ */
-	bool isSelectPlants;              /* ÊÇ·ñÑ¡ÔñÁËÖ²Îï */
-	bool isSelectShovel;              /* ÊÇ·ñÑ¡ÔñÁË²ù×Ó */
+	Sprite* Iamge;                    /* å›¾ç‰‡ */
+	PlantsType selectPlantsId;        /* æ‰€é€‰æ¤ç‰©ç¼–å· */
+	bool isSelectPlants;              /* æ˜¯å¦é€‰æ‹©äº†æ¤ç‰© */
+	bool isSelectShovel;              /* æ˜¯å¦é€‰æ‹©äº†é“²å­ */
 };
 
 enum class GSLayerButton
@@ -41,14 +41,14 @@ public:
 	CREATE_FUNC(GSButtonLayer);
 
 	/**
-	 *Ìí¼Óµ½Ö÷³¡¾°ÖĞ
+	 *æ·»åŠ åˆ°ä¸»åœºæ™¯ä¸­
 	 */
 	void addLayer(Node* node, const int order, const string& name) { node->addChild(this, order, name); }
 
 CC_CONSTRUCTOR_ACCESS:
 	GSButtonLayer();
 	~GSButtonLayer();
-	virtual bool init();
+	virtual bool init() override;
 
 protected:
 	virtual Button* createButton(const string& normal, const string& select, const Vec2& position, GSLayerButton buttonName, const bool isFlippedX = false);
@@ -69,16 +69,16 @@ protected:
 	virtual ProgressTimer* createProgressTimer(Button* button, const float _time, const int from, const unsigned int& id);
 	
 public:
-	MouseSelectImage* mouseSelectImage;                            // Êó±êÑ¡Ôñ
-	PlantsInformation::PlantsCards plantsCards[PLANTSNUMBERS];     // Ö²Îï¿¨Æ¬
-	Button* nextWaveButton;                                       // ÏÂÒ»²¨°´Å¥
+	MouseSelectImage* mouseSelectImage;                            // é¼ æ ‡é€‰æ‹©
+	PlantsInformation::PlantsCards plantsCards[PLANTSNUMBERS];     // æ¤ç‰©å¡ç‰‡
+	Button* nextWaveButton;                                       // ä¸‹ä¸€æ³¢æŒ‰é’®
 	
 protected:
-	Global* _global;                                     // È«¾Ö±äÁ¿
-	Director* _director;                                 // µ¼Ñİµ¥Àı
-	Layer* _quitLayer;                                   // ÍË³öÆÁ±Î²ã
-	Button* _accelerateButton;                           // ¼ÓËÙ°´Å¥
-	Button* _decelerateButton;                           // ¼õËÙ°´Å¥
+	Global* _global;                                     // å…¨å±€å˜é‡
+	Director* _director;                                 // å¯¼æ¼”å•ä¾‹
+	Layer* _quitLayer;                                   // é€€å‡ºå±è”½å±‚
+	Button* _accelerateButton;                           // åŠ é€ŸæŒ‰é’®
+	Button* _decelerateButton;                           // å‡é€ŸæŒ‰é’®
 	OpenLevelData* _openLevelData;
 };
 

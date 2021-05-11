@@ -1,4 +1,4 @@
-/**
+ï»¿/**
  *Copyright (c) 2019 LZ.All Right Reserved
  *Author : LZ
  *Date: 2021.4.08
@@ -26,12 +26,12 @@ bool TSPSSpriteLayer::init()
 
 void TSPSSpriteLayer::controlPlantCanSelect(Button* button, int priority)
 {
-	/* ¸ÃÄ£Ê½ÏÂËùÓÐÖ²Îï¶¼¿ÉÊ¹ÓÃ */
+	/* è¯¥æ¨¡å¼ä¸‹æ‰€æœ‰æ¤ç‰©éƒ½å¯ä½¿ç”¨ */
 }
 
 Text* TSPSSpriteLayer::showPlantsInformation(Button* button, bool showHeart)
 {
-	/* Í¼Æ¬ */
+	/* å›¾ç‰‡ */
 	auto plantImage = Sprite::createWithSpriteFrameName(plantsCardInformation[button->getTag()].information[0] + ".png");
 	plantImage->setScale(0.8f);
 	plantImage->setFlippedX(plantsCardInformation[button->getTag()].flippedX);
@@ -65,7 +65,7 @@ Text* TSPSSpriteLayer::showPlantsInformation(Button* button, bool showHeart)
 	prohibit->setVisible(!isPlantIsCanSelect[static_cast<unsigned int>(plantsCardInformation[button->getTag()].type)]);
 	button->addChild(prohibit, 1);
 
-	/* ÎÄ±¾ */
+	/* æ–‡æœ¬ */
 	auto plantsNeedSuns = ui::Text::create();
 	plantsNeedSuns->setFontName(GAME_FONT_NAME_3);
 	plantsNeedSuns->setColor(Color3B::BLACK);

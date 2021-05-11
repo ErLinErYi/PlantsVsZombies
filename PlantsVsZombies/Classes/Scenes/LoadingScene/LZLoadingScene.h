@@ -1,4 +1,4 @@
-/**
+ï»¿/**
  *Copyright (c) 2019 LZ.All Right Reserved
  *Author : LZ
  *Date: 2019.7.15
@@ -30,56 +30,56 @@ CC_CONSTRUCTOR_ACCESS:
 	virtual bool init() override; 
 
 public:
-	static bool loadingFinished;                      /* ¼ÓÔØÍê³É±êÖ¾±äÁ¿ */
+	static bool loadingFinished;                      /* åŠ è½½å®Œæˆæ ‡å¿—å˜é‡ */
 
 private:
-	void update(float Time) override;                 /* ¶¨Ê±Æ÷ */
-	void setSystem();                                 /* ÉèÖÃÏµÍ³²ÎÊı */
-	void calculateFileNumbers();                      /* ¼ÆËãÎÄ¼ş×ÜÊı */
-	void setRunFirstTime();                           /* »ñÈ¡µÚÒ»´ÎÔËĞĞÊ±¼ä */
-	void selectLanguage();                            /* Ñ¡ÔñÓïÑÔ */
+	void update(float Time) override;                 /* å®šæ—¶å™¨ */
+	void setSystem();                                 /* è®¾ç½®ç³»ç»Ÿå‚æ•° */
+	void calculateFileNumbers();                      /* è®¡ç®—æ–‡ä»¶æ€»æ•° */
+	void setRunFirstTime();                           /* è·å–ç¬¬ä¸€æ¬¡è¿è¡Œæ—¶é—´ */
+	void selectLanguage();                            /* é€‰æ‹©è¯­è¨€ */
 
-	void loadUserData();                              /* ¼ÓÔØÓÃ»§Êı¾İ */
-	void loadingText(const char *language);           /* ¼ÓÔØÎÄ×Ö */
-	void loadingImage();                              /* ¼ÓÔØÍ¼Æ¬ */
-	void loadingMusic();                              /* ¼ÓÔØÒôÀÖ */
-	void loadingAnimation();                          /* ¼ÓÔØ¶¯»­ */
+	void loadUserData();                              /* åŠ è½½ç”¨æˆ·æ•°æ® */
+	void loadingText(const char *language);           /* åŠ è½½æ–‡å­— */
+	void loadingImage();                              /* åŠ è½½å›¾ç‰‡ */
+	void loadingMusic();                              /* åŠ è½½éŸ³ä¹ */
+	void loadingAnimation();                          /* åŠ è½½åŠ¨ç”» */
 
-	void showLoadingBackGround();                     /* Õ¹Ê¾±³¾° */
-	void showTileAndLoadingBar();                     /* Õ¹Ê¾½ø¶ÈÌõ */
-	void showLoadingBarFlower(const int &ID);         /* Õ¹Ê¾½ø¶ÈÌõÉÏµÄ»¨ */
-	void beginLoadingImageAndMusic();                 /* ¿ªÊ¼¼ÓÔØÍ¼Æ¬ÓëÒôÀÖ */
+	void showLoadingBackGround();                     /* å±•ç¤ºèƒŒæ™¯ */
+	void showTileAndLoadingBar();                     /* å±•ç¤ºè¿›åº¦æ¡ */
+	void showLoadingBarFlower(const int &ID);         /* å±•ç¤ºè¿›åº¦æ¡ä¸Šçš„èŠ± */
+	void beginLoadingImageAndMusic();                 /* å¼€å§‹åŠ è½½å›¾ç‰‡ä¸éŸ³ä¹ */
 
-	void runLoGoCallBack(Node* node,const int &ID);   /* Õ¹Ê¾logo»Øµ÷ */
-	void loadingTextCallBack();                       /* ¼ÓÔØÎÄ×Ö»Øµ÷ */
-	void loadingAnimationCallBack();                  /* ¼ÓÔØ¶¯»­»Øµ÷ */
-	void beginGameCallBack(Ref* pSender);             /* ¿ªÊ¼ÓÎÏ·»Øµ÷ */
+	void runLoGoCallBack(Node* node,const int &ID);   /* å±•ç¤ºlogoå›è°ƒ */
+	void loadingTextCallBack();                       /* åŠ è½½æ–‡å­—å›è°ƒ */
+	void loadingAnimationCallBack();                  /* åŠ è½½åŠ¨ç”»å›è°ƒ */
+	void beginGameCallBack(Ref* pSender);             /* å¼€å§‹æ¸¸æˆå›è°ƒ */
 
-	int openResourcesPath(map<string, string>& Path, const std::string& xml, bool IsEncryption = false);  /* ´ò¿ª×ÊÔ´Â·¾¶ */
+	int openResourcesPath(map<string, string>& Path, const std::string& xml, bool IsEncryption = false);  /* æ‰“å¼€èµ„æºè·¯å¾„ */
 
 	void throwException();
 	void checkEdition();
 	void changeFiles();
 	
 private:
-	int _loadFileNumbers;                             // ÎÄ¼ş¼ÓÔØÊı
-	int _allFileNumbers;                              // ÎÄ¼ş×ÜÊı(Í¼Æ¬£¬ÒôÀÖ£¬¶¯»­£¬ÎÄ±¾)
-	int _musicNumbers;                                // ÒôÀÖÎÄ¼ş×ÜÊı
-	int _animationNumbers;                            // ¶¯»­ÎÄ¼ş×ÜÊı
-	int _imageNumbers;                                // Í¼Æ¬ÎÄ¼ş×ÜÊı
-	int _textNumbers;                                 // ÎÄ±¾ÎÄ¼ş×ÜÊı
-	float _delayTime;                                 // ÑÓ³ÙÊ±¼ä
-	bool _flowerVisible[5] = { false };               // ¼ÓÔØ»¨¶äÊÇ·ñ¿É¼û 
-	float _loadingPrecent;                            // ¼ÓÔØ½ø¶È 
-	Sprite* _sprite[8];                               // ¾«ÁéÍ¼Æ¬ 
-	MenuItemLabel* _label;                            // ÎÄ×Ö±êÇ© 
-	LoadingBar* _loadingBar;                          // ½ø¶ÈÌõ 
-	EventListenerTouchOneByOne* _listener;            // ¼ÓÔØ¼àÌı 
-	Global* _global;                                  // È«¾Ö±äÁ¿µ¥Àı
-	Director* _director;                              // µ¼Ñİµ¥Àı 
-	FileUtils* _files;                                // ÎÄ¼şµ¥Àı 
-	string _language;                                 // ÏÔÊ¾ÓïÑÔ
+	int _loadFileNumbers;                             // æ–‡ä»¶åŠ è½½æ•°
+	int _allFileNumbers;                              // æ–‡ä»¶æ€»æ•°(å›¾ç‰‡ï¼ŒéŸ³ä¹ï¼ŒåŠ¨ç”»ï¼Œæ–‡æœ¬)
+	int _musicNumbers;                                // éŸ³ä¹æ–‡ä»¶æ€»æ•°
+	int _animationNumbers;                            // åŠ¨ç”»æ–‡ä»¶æ€»æ•°
+	int _imageNumbers;                                // å›¾ç‰‡æ–‡ä»¶æ€»æ•°
+	int _textNumbers;                                 // æ–‡æœ¬æ–‡ä»¶æ€»æ•°
+	float _delayTime;                                 // å»¶è¿Ÿæ—¶é—´
+	bool _flowerVisible[5] = { false };               // åŠ è½½èŠ±æœµæ˜¯å¦å¯è§ 
+	float _loadingPrecent;                            // åŠ è½½è¿›åº¦ 
+	Sprite* _sprite[8];                               // ç²¾çµå›¾ç‰‡ 
+	MenuItemLabel* _label;                            // æ–‡å­—æ ‡ç­¾ 
+	LoadingBar* _loadingBar;                          // è¿›åº¦æ¡ 
+	EventListenerTouchOneByOne* _listener;            // åŠ è½½ç›‘å¬ 
+	Global* _global;                                  // å…¨å±€å˜é‡å•ä¾‹
+	Director* _director;                              // å¯¼æ¼”å•ä¾‹ 
+	FileUtils* _files;                                // æ–‡ä»¶å•ä¾‹ 
+	string _language;                                 // æ˜¾ç¤ºè¯­è¨€
 	UserData* _userData;
-	MomentTime* _nowtime;                             // ÏÖÔÚÊ±¼ä
+	MomentTime* _nowtime;                             // ç°åœ¨æ—¶é—´
 	std::unique_ptr<network::Downloader> _downloader;
 };

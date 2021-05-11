@@ -1,4 +1,4 @@
-/**
+ï»¿/**
  *Copyright (c) 2021 LZ.All Right Reserved
  *Author : LZ
  *Date: 2021.2.7
@@ -51,14 +51,14 @@ void CatTail::createPlantAnimation()
 	_plantAnimation->setScale(1.1f);
 	_node->addChild(_plantAnimation);
 
-	// Ó°×Ó
+	// å½±å­
 	setPlantShadow(1.9f);
 	_plantAnimation->getChildByName("plantshadow")->setPosition(Vec2(0, 25));
 
-	// ÄàÍÁ·É½¦¶¯»­
+	// æ³¥åœŸé£æº…åŠ¨ç”»
 	setPlantSoilSplashAnimation(0.8f);
 
-	// ´´½¨¼àÌı
+	// åˆ›å»ºç›‘å¬
 	createListener("CatTail_Shoot");
 }
 
@@ -66,11 +66,11 @@ void CatTail::determineRelativePositionPlantsAndZombies()
 {
 	for (auto zombie : ZombiesGroup)
 	{
-		zombieEatPlant(zombie);      /* ½©Ê¬³ÔÖ²Îï */
+		zombieEatPlant(zombie);      /* åƒµå°¸åƒæ¤ç‰© */
 
-		zombieRecoveryMove(zombie);  /* ½©Ê¬»Ö¸´ÒÆ¶¯ */
+		zombieRecoveryMove(zombie);  /* åƒµå°¸æ¢å¤ç§»åŠ¨ */
 
-		plantAttack(zombie);         /* Ö²Îï¹¥»÷ */
+		plantAttack(zombie);         /* æ¤ç‰©æ”»å‡» */
 	}
 
 	plantRecovery("CatTail_Normal");
@@ -78,7 +78,7 @@ void CatTail::determineRelativePositionPlantsAndZombies()
 
 void CatTail::plantAttack(Zombies* zombie)
 {
-	if (getPlantIsSurvive() && zombie->getZombieIsSurvive() && zombie->getZombieIsEnterMap())     /* Ö²Îï´æ»î && ½©Ê¬Ã»ÓĞËÀÍö && ½©Ê¬½øÈëµØÍ¼ */
+	if (getPlantIsSurvive() && zombie->getZombieIsSurvive() && zombie->getZombieIsEnterMap())     /* æ¤ç‰©å­˜æ´» && åƒµå°¸æ²¡æœ‰æ­»äº¡ && åƒµå°¸è¿›å…¥åœ°å›¾ */
 	{
 		plantEmission("CatTail_Shoot");
 	}
@@ -86,8 +86,8 @@ void CatTail::plantAttack(Zombies* zombie)
 
 void CatTail::plantEmission(const string& plantAnimation)
 {
-	_isHaveZombies = true; /* ±íÊ¾ÓĞ½©Ê¬ÓëÖ²ÎïÔÚÍ¬Ò»ĞĞ */
-	if (!_isChanged)     /* ÅĞ¶Ï¶¯»­ÊÇ·ñÒÑ¾­¸Ä±ä */
+	_isHaveZombies = true; /* è¡¨ç¤ºæœ‰åƒµå°¸ä¸æ¤ç‰©åœ¨åŒä¸€è¡Œ */
+	if (!_isChanged)     /* åˆ¤æ–­åŠ¨ç”»æ˜¯å¦å·²ç»æ”¹å˜ */
 	{
 		_plantAnimation->addAnimation(0, plantAnimation, true);
 		_isChanged = true;
@@ -96,7 +96,7 @@ void CatTail::plantEmission(const string& plantAnimation)
 
 void CatTail::plantRecovery(const string& plantAnimation)
 {
-	if (!_isHaveZombies) /* ÅĞ¶ÏÊÇ·ñÓĞ½©Ê¬ */
+	if (!_isHaveZombies) /* åˆ¤æ–­æ˜¯å¦æœ‰åƒµå°¸ */
 	{
 		if (_isChanged)
 		{
@@ -105,7 +105,7 @@ void CatTail::plantRecovery(const string& plantAnimation)
 		}
 	}
 
-	_isHaveZombies = false; /* Ã¿Ñ­»·Ò»´Î¾Í³õÊ¼»¯ */
+	_isHaveZombies = false; /* æ¯å¾ªç¯ä¸€æ¬¡å°±åˆå§‹åŒ– */
 }
 
 void CatTail::createBullet()

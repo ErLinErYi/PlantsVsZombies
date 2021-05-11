@@ -1,4 +1,4 @@
-/**
+ï»¿/**
  *Copyright (c) 2021 LZ.All Right Reserved
  *Author : LZ
  *Date: 2021.2.09
@@ -100,13 +100,13 @@ void HControlLayer::updateHammerInformation()
 
 void HControlLayer::createMouseListener()
 {
-	/* ´´½¨Êó±ê¼àÌı */
+	/* åˆ›å»ºé¼ æ ‡ç›‘å¬ */
 	auto listener = EventListenerMouse::create();
 
-	/* Êó±êÒÆ¶¯ */
+	/* é¼ æ ‡ç§»åŠ¨ */
 	listener->onMouseMove = [&](Event* event)
 	{
-		/* »ñÈ¡Êó±êÎ»ÖÃ */
+		/* è·å–é¼ æ ‡ä½ç½® */
 		_cur = ((EventMouse*)event)->getLocationInView();
 		_hammer->setPosition(_cur - Vec2(20, 60));
 
@@ -114,7 +114,7 @@ void HControlLayer::createMouseListener()
 		showSelectedButtonHoverEffect();
 	};
 
-	/* Êó±ê°´ÏÂ */
+	/* é¼ æ ‡æŒ‰ä¸‹ */
 	listener->onMouseDown = [=](Event* event)
 	{
 		_cur = ((EventMouse*)event)->getLocationInView();
@@ -184,20 +184,20 @@ void HControlLayer::showSelectedButtonHoverEffect()
 
 void HControlLayer::attackZombies(Zombies* zombie)
 {
-	if (zombie->getZombieCurrentBodyShieldVolume() < _attack)     /* Èç¹ûµ±Ç°ÉíÌå»¤¶ÜÑªÁ¿Ğ¡ÓÚ±¬Õ¨ÉËº¦ */
+	if (zombie->getZombieCurrentBodyShieldVolume() < _attack)     /* å¦‚æœå½“å‰èº«ä½“æŠ¤ç›¾è¡€é‡å°äºçˆ†ç‚¸ä¼¤å®³ */
 	{
 		if (zombie->getZombieCurrentBodyShieldVolume() +
-			zombie->getZombieCurrentHeadShieldVolume() < _attack) /* Èç¹ûµ±Ç°ÉíÌå»¤¶Ü¼ÓÍ·²¿»¤¶ÜÑªÁ¿Ğ¡ÓÚ±¬Õ¨ÉËº¦ */
+			zombie->getZombieCurrentHeadShieldVolume() < _attack) /* å¦‚æœå½“å‰èº«ä½“æŠ¤ç›¾åŠ å¤´éƒ¨æŠ¤ç›¾è¡€é‡å°äºçˆ†ç‚¸ä¼¤å®³ */
 		{
 			if (zombie->getZombieCurrentBodyShieldVolume() +
 				zombie->getZombieCurrentHeadShieldVolume() +
-				zombie->getZombieCurrentBloodVolume() <= _attack) /* Èç¹û½©Ê¬ËùÓĞÑªÁ¿Ğ¡ÓÚ±¬Õ¨ÉËº¦£¨½©Ê¬ËÀÍö£© */
+				zombie->getZombieCurrentBloodVolume() <= _attack) /* å¦‚æœåƒµå°¸æ‰€æœ‰è¡€é‡å°äºçˆ†ç‚¸ä¼¤å®³ï¼ˆåƒµå°¸æ­»äº¡ï¼‰ */
 			{
 				zombie->setZombieDeath(true);
 			}
 			else
 			{
-				/* ¼ÆËã½©Ê¬±¾ÌåÑªÁ¿ */
+				/* è®¡ç®—åƒµå°¸æœ¬ä½“è¡€é‡ */
 				zombie->setZombieCurrentBloodVolume(
 					zombie->getZombieCurrentBodyShieldVolume() +
 					zombie->getZombieCurrentHeadShieldVolume() +
@@ -208,7 +208,7 @@ void HControlLayer::attackZombies(Zombies* zombie)
 		}
 		else
 		{
-			/* ¼ÆËã½©Ê¬»¤¶ÜÊ£ÓÚÑªÁ¿ */
+			/* è®¡ç®—åƒµå°¸æŠ¤ç›¾å‰©äºè¡€é‡ */
 			zombie->setZombieCurrentHeadShieldVolume(
 				zombie->getZombieCurrentBodyShieldVolume() +
 				zombie->getZombieCurrentHeadShieldVolume() - _attack);
@@ -224,11 +224,11 @@ void HControlLayer::attackZombies(Zombies* zombie)
 
 void HControlLayer::createZombies()
 {
-	/* Ë¢ĞÂ½©Ê¬ */
+	/* åˆ·æ–°åƒµå°¸ */
 	if (_zombiesAppearControl->getLastFrequencyZombiesWasDeath())
 	{
 		_zombiesAppearControl->setLastFrequencyZombiesWasDeath(false);
-		_zombiesAppearControl->setTimeClear(); /* ¾àÀëÉÏÒ»²¨Ë¢ĞÂÊ±¼äÇåÁã */
+		_zombiesAppearControl->setTimeClear(); /* è·ç¦»ä¸Šä¸€æ³¢åˆ·æ–°æ—¶é—´æ¸…é›¶ */
 		if (static_cast<unsigned int>(_zombiesAppearControl->getZombiesAppearFrequency()) < _maxFrequencyNumbers)
 		{
 			unsigned int zombiesNumbers = _frequencyZombiesNumbers + _zombiesAppearControl->getZombiesAppearFrequency() / 2;
@@ -238,17 +238,17 @@ void HControlLayer::createZombies()
 				dynamic_cast<HAnimationLayer*>(animationLayerInformation)->createZombies(
 					_currentLevelZombiesSpeed, _zombiesAppearControl->getZombiesAppearFrequency() * 0.01f, _zombiesTypeNumbers);
 			}
-			/* ½ø¹¥²¨Êı×ÔÔöÒ» */
+			/* è¿›æ”»æ³¢æ•°è‡ªå¢ä¸€ */
 			_zombiesAppearControl->setZombiesAppearFrequency();
 
-			/* ½ø¶ÈÌõ¸üĞÂ */
+			/* è¿›åº¦æ¡æ›´æ–° */
 			informationLayerInformation->updateProgressBar(_zombiesAppearControl->getZombiesAppearFrequency(), _maxFrequencyNumbers);
 		}
 		ZombiesGroup.sort(Zombies::compare);
 	}
 	informationLayerInformation->updateProgressBarHead();
 
-	/* ¿ØÖÆ½©Ê¬µÄË¢ĞÂ */
+	/* æ§åˆ¶åƒµå°¸çš„åˆ·æ–° */
 	if (controlRefurbishZombies())
 	{
 		_zombiesAppearControl->setLastFrequencyZombiesWasDeath(true);
@@ -259,16 +259,16 @@ void HControlLayer::createZombies()
 bool HControlLayer::controlRefurbishZombies()
 {
 	if ((Zombies::getZombiesNumbers() <= 4 &&
-		_zombiesAppearControl->getZombiesAppearFrequency() > 3)                    /* Èç¹û»î×ÅµÄ½©Ê¬ÊıĞ¡ÓÚ¹æ¶¨£¬Ë¢ĞÂÏÂÒ»²¨ */
+		_zombiesAppearControl->getZombiesAppearFrequency() > 3)                    /* å¦‚æœæ´»ç€çš„åƒµå°¸æ•°å°äºè§„å®šï¼Œåˆ·æ–°ä¸‹ä¸€æ³¢ */
 
-		|| (Zombies::getZombiesNumbers() <= 0 &&                                   /* Èç¹ûÃ»ÓĞ´æ»î½©Ê¬ÔòÁ¢¼´Ë¢ĞÂ½©Ê¬ */
+		|| (Zombies::getZombiesNumbers() <= 0 &&                                   /* å¦‚æœæ²¡æœ‰å­˜æ´»åƒµå°¸åˆ™ç«‹å³åˆ·æ–°åƒµå°¸ */
 			_zombiesAppearControl->getZombiesAppearFrequency() > 0)
 
 		|| (_zombiesAppearControl->getTime() >= 5 &&
-			_zombiesAppearControl->getZombiesAppearFrequency() == 0)               /* µÚÒ»²¨Ë¢ĞÂ¿ØÖÆ */
+			_zombiesAppearControl->getZombiesAppearFrequency() == 0)               /* ç¬¬ä¸€æ³¢åˆ·æ–°æ§åˆ¶ */
 
 		|| (_zombiesAppearControl->getTime() >= 10 &&
-			_zombiesAppearControl->getZombiesAppearFrequency() > 0)                /* Èç¹û´óÓÚ10ÃëË¢ĞÂÏÂÒ»²¨ */
+			_zombiesAppearControl->getZombiesAppearFrequency() > 0)                /* å¦‚æœå¤§äº10ç§’åˆ·æ–°ä¸‹ä¸€æ³¢ */
 		)
 	{
 		return true;
@@ -278,13 +278,13 @@ bool HControlLayer::controlRefurbishZombies()
 
 void HControlLayer::controlRefurbishMusicAndText()
 {
-	/* ¿ØÖÆ´ó²¨½©Ê¬À´Ï®µÄÎÄ×ÖÓëÒôÀÖ */
+	/* æ§åˆ¶å¤§æ³¢åƒµå°¸æ¥è¢­çš„æ–‡å­—ä¸éŸ³ä¹ */
 	if (_zombiesAppearControl->getTime() >= 5 && _zombiesAppearControl->getZombiesAppearFrequency() == 0)
 	{
 		PlayMusic::playMusic("awooga");
 	}
 
-	/* ×îºóÒ»²¨½©Ê¬µÄÎÄ×ÖÏÔÊ¾ÓëÆì×Ó¸üĞÂ */
+	/* æœ€åä¸€æ³¢åƒµå°¸çš„æ–‡å­—æ˜¾ç¤ºä¸æ——å­æ›´æ–° */
 	if (_zombiesAppearControl->getZombiesAppearFrequency() == _maxFrequencyNumbers && !_zombiesAppearControl->getIsShowWords())
 	{
 		if (informationLayerInformation->updateProgressBarFlag())
@@ -296,7 +296,7 @@ void HControlLayer::controlRefurbishMusicAndText()
 
 void HControlLayer::judgeLevelIsFinished()
 {
-	/* ¹Ø¿¨½áÊø */
+	/* å…³å¡ç»“æŸ */
 	if (ZombiesGroup.size() <= 0 && static_cast<unsigned int>(_zombiesAppearControl->getZombiesAppearFrequency()) >= _maxFrequencyNumbers)
 	{
 		_hammer->setVisible(false);
@@ -353,7 +353,7 @@ void HControlLayer::showHammerButton()
 		for (auto button : HButtonLayer::hammerButton)
 		{
 			button->stopAllActions();
-			button->runAction(Sequence::create(MoveTo::create(0.1f, Vec2(90, 1030 - 100 * button->getTag())), nullptr));
+			button->runAction(Sequence::create(MoveTo::create(0.1f, Vec2(90, 840 - 100 * button->getTag())), nullptr));
 		}
 		_isShowHammerButton = true;
 	}
@@ -366,7 +366,7 @@ void HControlLayer::hideHammerButton()
 		for (auto button : HButtonLayer::hammerButton)
 		{
 			button->stopAllActions();
-			button->runAction(Sequence::create(MoveTo::create(0.1f, Vec2(-90, 1030 - 100 * button->getTag())), nullptr));
+			button->runAction(Sequence::create(MoveTo::create(0.1f, Vec2(-90, 840 - 100 * button->getTag())), nullptr));
 		}
 		dynamic_cast<HInformationLayer*>(informationLayerInformation)->deleteHammerInformation();
 		_isShowHammerButton = false;

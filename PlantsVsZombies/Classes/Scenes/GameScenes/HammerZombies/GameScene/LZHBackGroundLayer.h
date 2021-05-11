@@ -1,4 +1,4 @@
-/**
+﻿/**
  *Copyright (c) 2021 LZ.All Right Reserved
  *Author : LZ
  *Date: 2021.2.09
@@ -16,5 +16,5 @@ public:
 CC_CONSTRUCTOR_ACCESS:
 	HBackgroundLayer();
 	~HBackgroundLayer();
-	virtual bool init();
+	virtual bool init() override;
 };

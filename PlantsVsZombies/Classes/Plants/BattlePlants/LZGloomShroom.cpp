@@ -1,4 +1,4 @@
-/**
+ï»¿/**
  *Copyright (c) 2021 LZ.All Right Reserved
  *Author : LZ
  *Date: 2021.1.22
@@ -56,13 +56,13 @@ void GloomShroom::createPlantAnimation()
 	_plantAnimation->setAnchorPoint(Vec2::ANCHOR_MIDDLE);
 	_node->addChild(_plantAnimation);
 
-	// Ó°×Ó
+	// å½±å­
 	setPlantShadow(1.8f);
 
-	// ÄàÍÁ·É½¦¶¯»­
+	// æ³¥åœŸé£žæº…åŠ¨ç”»
 	setPlantSoilSplashAnimation(0.8f);
 
-	// ¼àÌý
+	// ç›‘å¬
 	createListener();
 }
 
@@ -81,11 +81,11 @@ void GloomShroom::determineRelativePositionPlantsAndZombies()
 {
 	for (auto zombie : ZombiesGroup)
 	{
-		zombieEatPlant(zombie);      /* ½©Ê¬³ÔÖ²Îï */
+		zombieEatPlant(zombie);      /* åƒµå°¸åƒæ¤ç‰© */
 
-		plantAttack(zombie);         /* Ö²Îï¹¥»÷ */
+		plantAttack(zombie);         /* æ¤ç‰©æ”»å‡» */
 
-		zombieRecoveryMove(zombie);  /* ½©Ê¬»Ö¸´ÒÆ¶¯ */
+		zombieRecoveryMove(zombie);  /* åƒµå°¸æ¢å¤ç§»åŠ¨ */
 	}
 
 	plantRecovery("GloomShroom_Normal");
@@ -93,9 +93,9 @@ void GloomShroom::determineRelativePositionPlantsAndZombies()
 
 void GloomShroom::plantAttack(Zombies* zombie)
 {
-	if (getPlantIsSurvive() && zombie->getZombieIsSurvive() &&                  /* Ö²Îï´æ»î && ½©Ê¬Ã»ÓÐËÀÍö  */
-		zombie->getZombieIsEnterMap() && getZombieIsInAttackRange(zombie) &&    /* ½©Ê¬½øÈëµØÍ¼ && ½©Ê¬ÔÚ¹¥»÷·¶Î§ÄÚ */
-		zombie->getZombieIsCanBeAttack())                                       /* ½©Ê¬ÊÇ·ñ¿ÉÒÔ±»¹¥»÷µ½ */
+	if (getPlantIsSurvive() && zombie->getZombieIsSurvive() &&                  /* æ¤ç‰©å­˜æ´» && åƒµå°¸æ²¡æœ‰æ­»äº¡  */
+		zombie->getZombieIsEnterMap() && getZombieIsInAttackRange(zombie) &&    /* åƒµå°¸è¿›å…¥åœ°å›¾ && åƒµå°¸åœ¨æ”»å‡»èŒƒå›´å†… */
+		zombie->getZombieIsCanBeAttack())                                       /* åƒµå°¸æ˜¯å¦å¯ä»¥è¢«æ”»å‡»åˆ° */
 	{
 		_isHaveZombies = true;
 
@@ -116,16 +116,16 @@ void GloomShroom::plantAttack(Zombies* zombie)
 
 bool GloomShroom::getZombieIsInAttackRange(Zombies* zombie)
 {
-	/* ½©Ê¬ÊÇ·ñÔÚ¹¥»÷·¶Î§ÅÐ¶Ï */
+	/* åƒµå°¸æ˜¯å¦åœ¨æ”»å‡»èŒƒå›´åˆ¤æ–­ */
 	return sqrt(pow(zombie->getZombieAnimation()->getPositionX() - _plantAnimation->getPositionX(), 2) +
 		pow((zombie->getZombieAnimation()->getPositionY() + 50) - (_plantAnimation->getPositionY() + 60), 2)) <= 210 ? true : false;
 }
 
 void GloomShroom::plantRecovery(const string& name)
 {
-	if (!_isHaveZombies) /* Èç¹ûÃ»ÓÐ½©Ê¬ */
+	if (!_isHaveZombies) /* å¦‚æžœæ²¡æœ‰åƒµå°¸ */
 	{
-		if (_isChangeAnimation)   /* Èç¹ûÖ²Îï»¹ÔÚ¹¥»÷ */
+		if (_isChangeAnimation)   /* å¦‚æžœæ¤ç‰©è¿˜åœ¨æ”»å‡» */
 		{
 			_isChangeAnimation = false;
 			_plantAnimation->addAnimation(0, name, true);

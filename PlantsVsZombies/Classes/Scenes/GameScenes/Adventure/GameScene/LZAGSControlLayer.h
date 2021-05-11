@@ -1,4 +1,4 @@
-/**
+ï»¿/**
  *Copyright (c) 2020 LZ.All Right Reserved
  *Author : LZ
  *Date: 2020.1.28
@@ -19,18 +19,18 @@ class OpenLevelData;
 enum class ZombiesType;
 enum class PlantsType;
 
-/* ÓÎÏ·µØÍ¼ */
+/* æ¸¸æˆåœ°å›¾ */
 struct GameMapInformation
 {
 	GameMapInformation(unsigned int row = 5, unsigned int column = 9);
 	void GameMapInit();
-	int plantsMap[10][18];             /* Ö²ÎïÖÖÖ²µØÍ¼ */
-	unsigned int rowNumbers;           /* ĞĞÊı */
-	unsigned int columnNumbers;        /* ÁĞÊı */
-	unsigned int mapLeft;              /* µØÍ¼×ó±ßÎ»ÖÃ */
-	unsigned int mapRight;             /* µØÍ¼ÓÒ±ßÎ»ÖÃ */
-	unsigned int mapTop;               /* µØÍ¼ÉÏ±ßÎ»ÖÃ */
-	unsigned int mapBottom;            /* µØÍ¼ÏÂ±ßÎ»ÖÃ */
+	int plantsMap[10][18];             /* æ¤ç‰©ç§æ¤åœ°å›¾ */
+	unsigned int rowNumbers;           /* è¡Œæ•° */
+	unsigned int columnNumbers;        /* åˆ—æ•° */
+	unsigned int mapLeft;              /* åœ°å›¾å·¦è¾¹ä½ç½® */
+	unsigned int mapRight;             /* åœ°å›¾å³è¾¹ä½ç½® */
+	unsigned int mapTop;               /* åœ°å›¾ä¸Šè¾¹ä½ç½® */
+	unsigned int mapBottom;            /* åœ°å›¾ä¸‹è¾¹ä½ç½® */
 };
 
 class GSControlLayer :public Layer
@@ -44,52 +44,52 @@ public:
 CC_CONSTRUCTOR_ACCESS:
 	GSControlLayer();
 	~GSControlLayer();
-	virtual bool init();
+	virtual bool init() override;
 
 protected:
-	virtual void initData();                                                            /* ³õÊ¼»¯Êı¾İ */
-	virtual void judgeLevelIsFinished();                                                /* ÅĞ¶Ï¹Ø¿¨ÊÇ·ñ½áÊø */
-	virtual void zombiesComeTiming();                                                   /* ½©Ê¬³öÏÖ¼ÆÊ± */
-	virtual void createZombies();                                                       /* ´´½¨½©Ê¬ */
-	virtual bool controlRefurbishZombies();                                             /* ¿ØÖÆ½©Ê¬Ë¢ĞÂ */
-	virtual void controlRefurbishMusicAndText();                                        /* ¿ØÖÆÒôÀÖÓëÎÄ×ÖµÄË¢ĞÂ*/
-	virtual void createSchedule();                                                      /* ´´½¨¶¨Ê±Æ÷ */
-	virtual void controlCardEnabled();                                                  /* ¿ØÖÆ¿¨ÅÆÊÇ·ñ¿ÉÓÃ */
-	virtual void calculatePlantPosition();                                              /* ¼ÆËãÖ²ÎïÖÖÖ²Î»ÖÃ */
-	virtual void createMouseListener();                                                 /* ´´½¨Êó±ê */
-	virtual void mouseMoveControl();                                                    /* Êó±êÒÆ¶¯¿ØÖÆ */
-	virtual void mouseDownControl(EventMouse* eventmouse = nullptr);                    /* Êó±ê°´ÏÂ¿ØÖÆ */
-	virtual void mouseLeftButtonDownControl();                                          /* Êó±ê×ó¼ü°´ÏÂ¿ØÖÆ */
-	virtual void mouseRightButtonDownControl();                                         /* Êó±êÓÒ¼ü¼ü°´ÏÂ¿ØÖÆ */
-	virtual void mouseMiddleButtonDownControl();                                        /* Êó±êÖĞ¼ü¼ü°´ÏÂ¿ØÖÆ */
-	virtual void createPlantsCardListener();                                            /* ´´½¨Ö²Îï¿¨ÅÆ¼àÌı */
-	virtual void showSelectedButtonHoverEffect();                                       /* ÏÔÊ¾¿¨ÅÆÊó±êĞüÍ£Ğ§¹û */
-	virtual void selectPlantsPreviewImage();                                            /* Ñ¡ÔñÖ²ÎïÔ¤ÀÀÍ¼Æ¬ */
-	virtual void createPreviewPlants();                                                 /* ´´½¨Ô¤ÀÀÖ²Îï */
-	virtual bool judgeMousePositionIsInMap();                                           /* ÅĞ¶ÏÊó±êµã»÷·½Î»ÊÇ·ñÔÚµØÍ¼ÄÚ */
-	virtual bool judgeMousePositionIsCanPlant();                                        /* ÅĞ¶ÏÊó±êµã»÷·½Î»ÊÇ·ñ¿ÉÒÔÖÖÖ²Ö²Îï */
-	virtual bool judgeMousePositionHavePlant();                                         /* ÅĞ¶ÏÊó±êµã»÷·½Î»ÊÇ·ñÓĞÖ²Îï */
-	virtual void removePreviewPlant();                                                  /* ÒÆ³ıÔ¤ÀÀÖ²Îï */
-	virtual void removeShovel();                                                        /* ÒÆ³ı²ù×Ó */
-	virtual void removeMouseListener();                                                 /* ÒÆ³ıÊó±ê¼àÌı */
-	virtual void recoveryPlantsColor();                                                 /* »Ö¸´Ö²ÎïÑÕÉ« */
-	virtual void setGameEnd();                                                          /* ÉèÖÃÓÎÏ·½áÊø */
+	virtual void initData();                                                            /* åˆå§‹åŒ–æ•°æ® */
+	virtual void judgeLevelIsFinished();                                                /* åˆ¤æ–­å…³å¡æ˜¯å¦ç»“æŸ */
+	virtual void zombiesComeTiming();                                                   /* åƒµå°¸å‡ºç°è®¡æ—¶ */
+	virtual void createZombies();                                                       /* åˆ›å»ºåƒµå°¸ */
+	virtual bool controlRefurbishZombies();                                             /* æ§åˆ¶åƒµå°¸åˆ·æ–° */
+	virtual void controlRefurbishMusicAndText();                                        /* æ§åˆ¶éŸ³ä¹ä¸æ–‡å­—çš„åˆ·æ–°*/
+	virtual void createSchedule();                                                      /* åˆ›å»ºå®šæ—¶å™¨ */
+	virtual void controlCardEnabled();                                                  /* æ§åˆ¶å¡ç‰Œæ˜¯å¦å¯ç”¨ */
+	virtual void calculatePlantPosition();                                              /* è®¡ç®—æ¤ç‰©ç§æ¤ä½ç½® */
+	virtual void createMouseListener();                                                 /* åˆ›å»ºé¼ æ ‡ */
+	virtual void mouseMoveControl();                                                    /* é¼ æ ‡ç§»åŠ¨æ§åˆ¶ */
+	virtual void mouseDownControl(EventMouse* eventmouse = nullptr);                    /* é¼ æ ‡æŒ‰ä¸‹æ§åˆ¶ */
+	virtual void mouseLeftButtonDownControl();                                          /* é¼ æ ‡å·¦é”®æŒ‰ä¸‹æ§åˆ¶ */
+	virtual void mouseRightButtonDownControl();                                         /* é¼ æ ‡å³é”®é”®æŒ‰ä¸‹æ§åˆ¶ */
+	virtual void mouseMiddleButtonDownControl();                                        /* é¼ æ ‡ä¸­é”®é”®æŒ‰ä¸‹æ§åˆ¶ */
+	virtual void createPlantsCardListener();                                            /* åˆ›å»ºæ¤ç‰©å¡ç‰Œç›‘å¬ */
+	virtual void showSelectedButtonHoverEffect();                                       /* æ˜¾ç¤ºå¡ç‰Œé¼ æ ‡æ‚¬åœæ•ˆæœ */
+	virtual void selectPlantsPreviewImage();                                            /* é€‰æ‹©æ¤ç‰©é¢„è§ˆå›¾ç‰‡ */
+	virtual void createPreviewPlants();                                                 /* åˆ›å»ºé¢„è§ˆæ¤ç‰© */
+	virtual bool judgeMousePositionIsInMap();                                           /* åˆ¤æ–­é¼ æ ‡ç‚¹å‡»æ–¹ä½æ˜¯å¦åœ¨åœ°å›¾å†… */
+	virtual bool judgeMousePositionIsCanPlant();                                        /* åˆ¤æ–­é¼ æ ‡ç‚¹å‡»æ–¹ä½æ˜¯å¦å¯ä»¥ç§æ¤æ¤ç‰© */
+	virtual bool judgeMousePositionHavePlant();                                         /* åˆ¤æ–­é¼ æ ‡ç‚¹å‡»æ–¹ä½æ˜¯å¦æœ‰æ¤ç‰© */
+	virtual void removePreviewPlant();                                                  /* ç§»é™¤é¢„è§ˆæ¤ç‰© */
+	virtual void removeShovel();                                                        /* ç§»é™¤é“²å­ */
+	virtual void removeMouseListener();                                                 /* ç§»é™¤é¼ æ ‡ç›‘å¬ */
+	virtual void recoveryPlantsColor();                                                 /* æ¢å¤æ¤ç‰©é¢œè‰² */
+	virtual void setGameEnd();                                                          /* è®¾ç½®æ¸¸æˆç»“æŸ */
 	
 public:
-	Vec2 _cur;                                           // Êó±ê×ø±ê 
-	Vec2 _plantsPosition;                                // Ö²ÎïÖÖÖ²×ø±ê
-	PlantsType _selectPlantsTag;                         // ËùÑ¡Ö²Îï±ê¼Ç
-	GameMapInformation* gameMapInformation;              // ÓÎÏ·µØÍ¼ĞÅÏ¢
-	ZombiesAppearControl* _zombiesAppearControl;         // ½©Ê¬³öÏÖ¼ÆËã
+	Vec2 _cur;                                           // é¼ æ ‡åæ ‡ 
+	Vec2 _plantsPosition;                                // æ¤ç‰©ç§æ¤åæ ‡
+	PlantsType _selectPlantsTag;                         // æ‰€é€‰æ¤ç‰©æ ‡è®°
+	GameMapInformation* gameMapInformation;              // æ¸¸æˆåœ°å›¾ä¿¡æ¯
+	ZombiesAppearControl* _zombiesAppearControl;         // åƒµå°¸å‡ºç°è®¡ç®—
 
 protected:
-	Sprite* _plantPreviewImage;                          // Ö²ÎïÔ¤ÀÀÍ¼Æ¬
-	Sprite* _plantCurImage;                              // Ö²ÎïÊó±êÍ¼Æ¬
-	Global* _global;                                     // È«¾Öµ¥Àı
-	GSGameEndLayer* _gameEndShieldLayer;                 // ÓÎÏ·½áÊøÆÁ±Î²ã
-	OpenLevelData* _openLevelData;                       // ¹Ø¿¨Êı¾İµ¥Àı
-	vector<int> _levelData;                              // ÁÙÊ±¹Ø¿¨Êı¾İ
-	EventListenerMouse* _listener;                       // Êó±ê¼àÌı 
-	bool _isShowEggScene;                                // ÊÇ·ñÏÔÊ¾
-	int _levelZombiesFrequence;                          // ½©Ê¬×Ü²¨Êı
+	Sprite* _plantPreviewImage;                          // æ¤ç‰©é¢„è§ˆå›¾ç‰‡
+	Sprite* _plantCurImage;                              // æ¤ç‰©é¼ æ ‡å›¾ç‰‡
+	Global* _global;                                     // å…¨å±€å•ä¾‹
+	GSGameEndLayer* _gameEndShieldLayer;                 // æ¸¸æˆç»“æŸå±è”½å±‚
+	OpenLevelData* _openLevelData;                       // å…³å¡æ•°æ®å•ä¾‹
+	vector<int> _levelData;                              // ä¸´æ—¶å…³å¡æ•°æ®
+	EventListenerMouse* _listener;                       // é¼ æ ‡ç›‘å¬ 
+	bool _isShowEggScene;                                // æ˜¯å¦æ˜¾ç¤º
+	int _levelZombiesFrequence;                          // åƒµå°¸æ€»æ³¢æ•°
 };

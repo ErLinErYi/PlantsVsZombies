@@ -1,4 +1,4 @@
-/**
+ï»¿/**
  *Copyright (c) 2020 LZ.All Right Reserved
  *Author : LZ
  *Date: 2021.1.17
@@ -28,7 +28,7 @@ IcePea::~IcePea()
 
 void IcePea::createShadow()
 { 
-    /* ´´½¨Ó°×Ó */
+    /* åˆ›å»ºå½±å­ */
     auto shadow = Sprite::createWithSpriteFrameName("plantshadow.png");
     shadow->setName("plantshadow");
     shadow->setPosition(Vec2(0, -80));
@@ -41,27 +41,27 @@ void IcePea::bulletAndZombiesCollision()
 {
     for (auto zombie : ZombiesGroup)
     {
-        if (!_isUsed && getBulletIsSameLineWithZombie(zombie) &&                          /* Íã¶¹Ã»ÓÐ±»Ê¹ÓÃ && Íã¶¹Óë½©Ê¬ÔÚÍ¬Ò»ÐÐ */ 
-            zombie->getZombieIsSurvive() && zombie->getZombieIsEnterMap() &&              /* ½©Ê¬Ã»ÓÐËÀÍö && ½©Ê¬½øÈëµØÍ¼ÄÚ */
-            getBulletIsEncounterWithZombie(zombie) && zombie->getZombieIsCanBeAttack())   /* Óë½©Ê¬Åö×² && ½©Ê¬¿ÉÒÔ±»¹¥»÷µ½ */
+        if (!_isUsed && getBulletIsSameLineWithZombie(zombie) &&                          /* è±Œè±†æ²¡æœ‰è¢«ä½¿ç”¨ && è±Œè±†ä¸Žåƒµå°¸åœ¨åŒä¸€è¡Œ */ 
+            zombie->getZombieIsSurvive() && zombie->getZombieIsEnterMap() &&              /* åƒµå°¸æ²¡æœ‰æ­»äº¡ && åƒµå°¸è¿›å…¥åœ°å›¾å†… */
+            getBulletIsEncounterWithZombie(zombie) && zombie->getZombieIsCanBeAttack())   /* ä¸Žåƒµå°¸ç¢°æ’ž && åƒµå°¸å¯ä»¥è¢«æ”»å‡»åˆ° */
         {
             selectSoundEffect(zombie->getZombieBodyAttackSoundEffect(),
-                zombie->getZombieHeadAttackSoundEffect());  /* ²¥·ÅÖ¸¶¨ÒôÀÖ */
+                zombie->getZombieHeadAttackSoundEffect());  /* æ’­æ”¾æŒ‡å®šéŸ³ä¹ */
 
-            setBulletOpacity();                /* ×Óµ¯ÏûÊ§ */
-            attackZombies(zombie);             /* ¹¥»÷½©Ê¬ */
+            setBulletOpacity();                /* å­å¼¹æ¶ˆå¤± */
+            attackZombies(zombie);             /* æ”»å‡»åƒµå°¸ */
             setBulletAttack(0);
             setBulletIsUsed(true);
 
-            break; /* Ò»¸öÍã¶¹Ö»ÄÜ»÷ÖÐÒ»¸ö½©Ê¬ */
+            break; /* ä¸€ä¸ªè±Œè±†åªèƒ½å‡»ä¸­ä¸€ä¸ªåƒµå°¸ */
         }
     }
 }
 
 void IcePea::attackZombies(Zombies* zombie)
 {
-    icePeaExplodeEffect(zombie);       /* º®±ùÍã¶¹Ê¹½©Ê¬¼õËÙ */
-    bulletAttackHurtZombies(zombie);   /* ½©Ê¬¼õÉÙÉúÃüÖµ */
+    icePeaExplodeEffect(zombie);       /* å¯’å†°è±Œè±†ä½¿åƒµå°¸å‡é€Ÿ */
+    bulletAttackHurtZombies(zombie);   /* åƒµå°¸å‡å°‘ç”Ÿå‘½å€¼ */
     createPeaExplode();
 }
 
@@ -92,7 +92,7 @@ void IcePea::icePeaExplodeEffect(Zombies* zombie)
     {
         zombie->setZombieTimerTime(10, true);
 
-        if (!zombie->getZombieIsFrozen())//ÅÐ¶ÏÊÇ·ñÒÑ¾­±»¼õËÙ
+        if (!zombie->getZombieIsFrozen())//åˆ¤æ–­æ˜¯å¦å·²ç»è¢«å‡é€Ÿ
         {
             PlayMusic::playMusic("frozen");
             zombie->setZombieActionSlow();

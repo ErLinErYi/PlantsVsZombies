@@ -1,4 +1,4 @@
-/****************************************************************************
+﻿/****************************************************************************
  Copyright (c) 2017-2018 Xiamen Yaji Software Co., Ltd.
  
  http://www.cocos2d-x.org
@@ -27,7 +27,7 @@
 
 #include "cocos2d.h"
 
-#define LZPVZNAME "PlantsVsZombies_1.3.0.6 beta(2021.04.02)"
+#define LZPVZNAME "PlantsVsZombies_1.3.1.0 beta(2021.05.10)"
 
 extern GUID scheme_default;
 /**

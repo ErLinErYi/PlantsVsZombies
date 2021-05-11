@@ -1,4 +1,4 @@
-/**
+ï»¿/**
  *Copyright (c) 2020 LZ.All Right Reserved
  *Author : LZ
  *Date: 2020.2.11
@@ -30,39 +30,39 @@ class Sun;
 class Coin;
 class Car;
 
-extern GSBackgroundLayer* backgroundLayerInformation;   // ±³¾°²ãÊµÀı»¯
-extern GSInformationLayer* informationLayerInformation; // ĞÅÏ¢²ãÊµÀı»¯
-extern GSButtonLayer* buttonLayerInformation;           // °´Å¥²ãÊµÀı»¯
-extern GSControlLayer* controlLayerInformation;         // ¿ØÖÆ²ãÊµÀı»¯
-extern GSAnimationLayer* animationLayerInformation;     // ¶¯»­²ãÊ¾Àı»¯
-extern Layer* goodsLayerInformation;                    // ÎïÆ·²ãÊµÀı»¯
+extern GSBackgroundLayer* backgroundLayerInformation;   // èƒŒæ™¯å±‚å®ä¾‹åŒ–
+extern GSInformationLayer* informationLayerInformation; // ä¿¡æ¯å±‚å®ä¾‹åŒ–
+extern GSButtonLayer* buttonLayerInformation;           // æŒ‰é’®å±‚å®ä¾‹åŒ–
+extern GSControlLayer* controlLayerInformation;         // æ§åˆ¶å±‚å®ä¾‹åŒ–
+extern GSAnimationLayer* animationLayerInformation;     // åŠ¨ç”»å±‚ç¤ºä¾‹åŒ–
+extern Layer* goodsLayerInformation;                    // ç‰©å“å±‚å®ä¾‹åŒ–
 
-/**Ê¹ÓÃmultimap£ºÊ¹ÓÃËæ»ú²éÕÒÉ¾³ı
- *´æ´¢ËùÓĞÖ²ÎïµÄ¼¯ºÏ
+/**ä½¿ç”¨multimapï¼šä½¿ç”¨éšæœºæŸ¥æ‰¾åˆ é™¤
+ *å­˜å‚¨æ‰€æœ‰æ¤ç‰©çš„é›†åˆ
  */
 extern multimap<int, Plants*> PlantsGroup;
 
-/**Ê¹ÓÃlist£º±éÀúÂúÌõ¼ş¼´É¾³ı
- *´æ´¢ËùÓĞ½©Ê¬µÄ¼¯ºÏ
+/**ä½¿ç”¨listï¼šéå†æ»¡æ¡ä»¶å³åˆ é™¤
+ *å­˜å‚¨æ‰€æœ‰åƒµå°¸çš„é›†åˆ
  */
 extern list<Zombies*> ZombiesGroup;
 
-/**Ê¹ÓÃlist£º±éÀúÂú×ãÌõ¼şÉ¾³ı
- *´æ´¢ËùÓĞÖ²Îï·¢³öµÄ×Óµ¯µÄ¼¯ºÏ
+/**ä½¿ç”¨listï¼šéå†æ»¡è¶³æ¡ä»¶åˆ é™¤
+ *å­˜å‚¨æ‰€æœ‰æ¤ç‰©å‘å‡ºçš„å­å¼¹çš„é›†åˆ
  */
 extern list<Bullet*> BulletGroup;
 
-/**Ê¹ÓÃlist£º±éÀúÂú×ãÌõ¼şÉ¾³ı
- *´æ´¢Ñô¹âµÄ¼¯ºÏ
+/**ä½¿ç”¨listï¼šéå†æ»¡è¶³æ¡ä»¶åˆ é™¤
+ *å­˜å‚¨é˜³å…‰çš„é›†åˆ
  */
 extern list<Sun*> SunsGroup;
 
-/**Ê¹ÓÃlist£º±éÀúÂú×ãÌõ¼şÉ¾³ı
- *´æ´¢Æû³µµÄ¼¯ºÏ
+/**ä½¿ç”¨listï¼šéå†æ»¡è¶³æ¡ä»¶åˆ é™¤
+ *å­˜å‚¨æ±½è½¦çš„é›†åˆ
  */
 extern list<Car*> CarsGroup;
 
-/**Ê¹ÓÃlist£º±éÀúÂú×ãÌõ¼şÉ¾³ı
- *´æ´¢½ğ±ÒµÄ¼¯ºÏ
+/**ä½¿ç”¨listï¼šéå†æ»¡è¶³æ¡ä»¶åˆ é™¤
+ *å­˜å‚¨é‡‘å¸çš„é›†åˆ
  */
 extern list<Coin*> CoinsGroup;

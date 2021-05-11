@@ -1,4 +1,4 @@
-/**
+ï»¿/**
  *Copyright (c) 2020 LZ.All Right Reserved
  *Author : LZ
  *Date: 2021.4.08
@@ -14,7 +14,7 @@
 TGInformationLayer::TGInformationLayer():
 	_userName(nullptr)
 {
-	_text = "¡°" + _global->userInformation->getUserName() + "¡±" + _global->userInformation->getGameText().find("Ö²ÎïÊÔÁ¶³¡")->second->text + " - ";
+	_text = "â€œ" + _global->userInformation->getUserName() + "â€" + _global->userInformation->getGameText().find("æ¤ç‰©è¯•ç‚¼åœº")->second->text + " - ";
 	_mostFrenquence = UserData::getInstance()->openIntUserData("TESTINGGROUND");
 }
 
@@ -37,9 +37,9 @@ void TGInformationLayer::showUserText()
 {
 	_userName = ui::Text::create();
 	_userName->setString(_text + StringUtils::format(
-		_global->userInformation->getGameText().find("ÊÔÁ¶³¡¼ÇÂ¼")->second->text.c_str(), 1, _mostFrenquence > 1 ? _mostFrenquence : 1));
+		_global->userInformation->getGameText().find("è¯•ç‚¼åœºè®°å½•")->second->text.c_str(), 1, _mostFrenquence > 1 ? _mostFrenquence : 1));
 	_userName->setFontName(GAME_FONT_NAME_1);
-	_userName->setFontSize(_global->userInformation->getGameText().find("Ö²ÎïÊÔÁ¶³¡")->second->fontsize);
+	_userName->setFontSize(_global->userInformation->getGameText().find("æ¤ç‰©è¯•ç‚¼åœº")->second->fontsize);
 	_userName->setColor(Color3B(0, 255, 255));
 	_userName->enableGlow(Color4B::RED);
 	_userName->setName("userName");
@@ -80,7 +80,7 @@ void TGInformationLayer::updateText()
 	{
 		const auto number = controlLayerInformation->_zombiesAppearControl->getZombiesAppearFrequency();
 		if (number > _mostFrenquence)_mostFrenquence = number;
-		_userName->setString(_text + StringUtils::format(_global->userInformation->getGameText().find("ÊÔÁ¶³¡¼ÇÂ¼")->second->text.c_str(), number, _mostFrenquence));
+		_userName->setString(_text + StringUtils::format(_global->userInformation->getGameText().find("è¯•ç‚¼åœºè®°å½•")->second->text.c_str(), number, _mostFrenquence));
 		UserData::getInstance()->caveUserData("TESTINGGROUND", _mostFrenquence);
 	}
 }

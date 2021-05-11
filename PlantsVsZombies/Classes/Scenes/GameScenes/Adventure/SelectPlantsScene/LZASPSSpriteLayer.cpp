@@ -1,4 +1,4 @@
-/**LZBPlayMusic.h
+ï»¿/**LZBPlayMusic.h
  *Copyright (c) 2019 LZ.All Right Reserved
  *Author : LZ
  *Date: 2019.8.12
@@ -67,7 +67,7 @@ void SPSSpriteLayer::createSelectPlantsDialog()
 
 void SPSSpriteLayer::alreadySelectPlantsDialog()
 {
-	auto seedBank = Scale9Sprite::createWithSpriteFrameName("SeedBank.png");
+	auto seedBank = cocos2d::ui::Scale9Sprite::createWithSpriteFrameName("SeedBank.png");
 	seedBank->setPosition(Vec2(-200, 1080));
 	seedBank->setAnchorPoint(Vec2(0, 1));
 	//SeedBank->setCapInsets(Rect(0, 6, 87, 373));
@@ -115,8 +115,8 @@ void SPSSpriteLayer::alreadyHavePlantsDialog()
 	bufEffect->update(0);
 	_seedChooser->addChild(bufEffect, 1);
 
-	auto SeedChooserText = ui::Text::create(_global->userInformation->getGameText().find("ÇëÑ¡ÔñÄã³öÕ½µÄÖ²Îï£¡")->second->text, GAME_FONT_NAME_1,
-		_global->userInformation->getGameText().find("ÇëÑ¡ÔñÄã³öÕ½µÄÖ²Îï£¡")->second->fontsize);
+	auto SeedChooserText = ui::Text::create(_global->userInformation->getGameText().find("è¯·é€‰æ‹©ä½ å‡ºæˆ˜çš„æ¤ç‰©ï¼")->second->text, GAME_FONT_NAME_1,
+		_global->userInformation->getGameText().find("è¯·é€‰æ‹©ä½ å‡ºæˆ˜çš„æ¤ç‰©ï¼")->second->fontsize);
 	SeedChooserText->setColor(Color3B::YELLOW);
 	SeedChooserText->setPosition(Vec2(400, 1000));
 	_seedChooser->addChild(SeedChooserText);
@@ -124,7 +124,7 @@ void SPSSpriteLayer::alreadyHavePlantsDialog()
 
 void SPSSpriteLayer::createScrollview()
 {
-	/* Ö²Îï¿¨ÅÆ»¬¶¯ÊÓÍ¼ */
+	/* æ¤ç‰©å¡ç‰Œæ»‘åŠ¨è§†å›¾ */
 	_plantCardScrollView->setDirection(ui::ScrollView::Direction::VERTICAL);
 	_plantCardScrollView->setAnchorPoint(Vec2::ANCHOR_TOP_LEFT);
 	_plantCardScrollView->setContentSize(Size(760.0f, 420));
@@ -138,7 +138,7 @@ void SPSSpriteLayer::createScrollview()
 	_plantCardScrollView->scrollToTop(0.1f,true);
 	_seedChooser->addChild(_plantCardScrollView);
 
-	/* Ö²Îï¿¨ÅÆ½éÉÜ»¬¶¯ÊÓÍ¼ */
+	/* æ¤ç‰©å¡ç‰Œä»‹ç»æ»‘åŠ¨è§†å›¾ */
 	plantCardTextScrollView->setDirection(ui::ScrollView::Direction::VERTICAL);
 	plantCardTextScrollView->setContentSize(Size(400.0f, 360.0f));
 	plantCardTextScrollView->setPosition(Vec2(360, 580));
@@ -152,7 +152,7 @@ void SPSSpriteLayer::createScrollview()
 
 void SPSSpriteLayer::createMouseListener()
 {
-	/* Êó±ê¼àÌı */
+	/* é¼ æ ‡ç›‘å¬ */
 	_listener = EventListenerMouse::create();
 	_listener->onMouseScroll = [&](Event* event)
 	{
@@ -198,9 +198,9 @@ void SPSSpriteLayer::createPlantsCards()
 				auto card = createButtons(Vec2(110 + 185 * j, 105 * i), 4 * i + j);
 				_plantsCards.insert(pair<PlantsType, Button*>(plantsCardInformation[4 * i + j].type, card));
 
-				controlPlantCanSelect(card, 4 * i + j);              /* ¿ØÖÆÖ²ÎïÊÇ·ñ¿ÉÒÔÑ¡Ôñ */
-				showPlantsInformation(card, true);                   /* ÏÔÊ¾Ö²ÎïĞÅÏ¢ */
-				createButtonHoverEffect(card);                       /* Êó±êĞüÍ£Ğ§¹û */
+				controlPlantCanSelect(card, 4 * i + j);              /* æ§åˆ¶æ¤ç‰©æ˜¯å¦å¯ä»¥é€‰æ‹© */
+				showPlantsInformation(card, true);                   /* æ˜¾ç¤ºæ¤ç‰©ä¿¡æ¯ */
+				createButtonHoverEffect(card);                       /* é¼ æ ‡æ‚¬åœæ•ˆæœ */
 			}
 		}
 	}
@@ -209,7 +209,7 @@ void SPSSpriteLayer::createPlantsCards()
 Button* SPSSpriteLayer::createButtons(const Vec2& vec2, int priority)
 {
 	auto imageBg = "SeedPacket" + to_string(plantsCardInformation[priority].quality) + ".png";
-	auto button = Button::create(imageBg, imageBg, "", TextureResType::PLIST);
+	auto button = Button::create(imageBg, imageBg, "",cocos2d::ui::Widget::TextureResType::PLIST);
 	button->setPosition(Vec2(vec2.x, _plantCardScrollView->getInnerContainerSize().height - button->getContentSize().height / 2.f - vec2.y));
 	button->setTag(priority);
 	button->addTouchEventListener([=](Ref* sender, ui::Widget::TouchEventType type)
@@ -240,19 +240,19 @@ void SPSSpriteLayer::plantsCardButtonEvent(Button* button, Vec2 vec2)
 		{
 			button->setEnabled(false);
 			button->setColor(Color3B(70, 70, 70));
-			button->setCascadeColorEnabled(true);  /* ÉèÖÃ¸¸½ÚµãÓ°Ïì×Ó½Úµã */
+			button->setCascadeColorEnabled(true);  /* è®¾ç½®çˆ¶èŠ‚ç‚¹å½±å“å­èŠ‚ç‚¹ */
 
 			createMoveButton(button, vec2);
 		}
 	}
-	createAnimationAndText(plantsCardInformation[button->getTag()].type);//´´½¨Ö²Îï¶¯»­ 
+	createAnimationAndText(plantsCardInformation[button->getTag()].type);//åˆ›å»ºæ¤ç‰©åŠ¨ç”» 
 }
 
 void SPSSpriteLayer::createMoveButton(Button* button, const Vec2& vec2)
 {
-	/* ´´½¨ÒÆ¶¯¿¨ÅÆ */
+	/* åˆ›å»ºç§»åŠ¨å¡ç‰Œ */
 	auto imageBg = "SeedPacket" + to_string(plantsCardInformation[button->getTag()].quality) + ".png";;
-	auto moveCard = ui::Button::create(imageBg, imageBg, "", TextureResType::PLIST);
+	auto moveCard = ui::Button::create(imageBg, imageBg, "",cocos2d::ui::Widget::TextureResType::PLIST);
 	moveCard->setPosition(Vec2(vec2.x + 205, _plantCardScrollView->getInnerContainerSize().
 		height - moveCard->getContentSize().height - vec2.y - 40 + calculateScrollDistance()));
 	moveCard->setTitleColor(Color3B::RED);
@@ -265,10 +265,10 @@ void SPSSpriteLayer::createMoveButton(Button* button, const Vec2& vec2)
 		MoveTo::create(0.35f, Vec2(105, 1008 - 103 * seedBankButton.size())), 
 		CallFunc::create([moveCard]() {moveCard->setEnabled(true); }), nullptr));
 
-	showPlantsInformation(moveCard);   // ÏÔÊ¾ĞÅÏ¢
-	createButtonHoverEffect(moveCard); // Êó±êĞüÍ£ĞÅÏ¢
+	showPlantsInformation(moveCard);   // æ˜¾ç¤ºä¿¡æ¯
+	createButtonHoverEffect(moveCard); // é¼ æ ‡æ‚¬åœä¿¡æ¯
 
-	/* ´æ´¢µ½¿¨ÅÆÀ¸ÖĞ */
+	/* å­˜å‚¨åˆ°å¡ç‰Œæ ä¸­ */
 	UserSelectCard seed_bank_button{};
 	seed_bank_button.cardbutton = moveCard;
 	seed_bank_button.cardTag = button->getTag();
@@ -299,15 +299,15 @@ void SPSSpriteLayer::createButtonHoverEffect(Button* button)
 
 void SPSSpriteLayer::plantsMoveCardButtonEvent(Button* button, Button* moveCard, Vec2 vec2, float plantCardRollingDistanceLast)
 {
-	createAnimationAndText(plantsCardInformation[button->getTag()].type);  //´´½¨Ö²Îï¶¯»­
-	sortPlantsCard(plantsCardInformation[button->getTag()].type);          //¶ÔÖ²Îï¿¨ÅÆÖØĞÂÅÅĞò
-	_plantCardScrollView->scrollToPercentVertical(calculateScrollPrecent(plantCardRollingDistanceLast), 0.5f, true);//¹ö¶¯µ½³õÊ¼Î»ÖÃ
+	createAnimationAndText(plantsCardInformation[button->getTag()].type);  //åˆ›å»ºæ¤ç‰©åŠ¨ç”»
+	sortPlantsCard(plantsCardInformation[button->getTag()].type);          //å¯¹æ¤ç‰©å¡ç‰Œé‡æ–°æ’åº
+	_plantCardScrollView->scrollToPercentVertical(calculateScrollPrecent(plantCardRollingDistanceLast), 0.5f, true);//æ»šåŠ¨åˆ°åˆå§‹ä½ç½®
 	moveCard->runAction(Sequence::create(MoveTo::create(0.2f, Vec2(vec2.x + 205, _plantCardScrollView->getInnerContainerSize().height -
 		moveCard->getContentSize().height - vec2.y - 40 + plantCardRollingDistanceLast)),
 		CallFunc::create([=]()
 			{
-				moveCard->removeFromParent();   /* É¾³ıÒÆ¶¯¿¨ÅÆ */
-				button->setEnabled(true);       /* ÉèÖÃ¿¨ÅÆ¾«Áé¿ÉÒÔÔÙ´ÎÑ¡Ôñ */
+				moveCard->removeFromParent();   /* åˆ é™¤ç§»åŠ¨å¡ç‰Œ */
+				button->setEnabled(true);       /* è®¾ç½®å¡ç‰Œç²¾çµå¯ä»¥å†æ¬¡é€‰æ‹© */
 				button->setColor(Color3B::WHITE);
 			}), nullptr));
 }
@@ -373,7 +373,7 @@ void SPSSpriteLayer::preLoadText()
 
 Text* SPSSpriteLayer::showPlantsInformation(Button* button, bool showHeart)
 {
-	/* Í¼Æ¬ */
+	/* å›¾ç‰‡ */
 	auto plantImage = Sprite::createWithSpriteFrameName(plantsCardInformation[button->getTag()].information[0] + ".png");
 	plantImage->setScale(0.8f);
 	plantImage->setFlippedX(plantsCardInformation[button->getTag()].flippedX);
@@ -415,7 +415,7 @@ Text* SPSSpriteLayer::showPlantsInformation(Button* button, bool showHeart)
 	prohibit->setVisible(!isPlantIsCanSelect[static_cast<unsigned int>(plantsCardInformation[button->getTag()].type)]);
 	button->addChild(prohibit, 1);
 
-	/* ÎÄ±¾ */
+	/* æ–‡æœ¬ */
 	auto plantsNeedSuns = ui::Text::create();
 	plantsNeedSuns->setFontName(GAME_FONT_NAME_3);
 	plantsNeedSuns->setColor(Color3B::BLACK);
@@ -452,7 +452,7 @@ float SPSSpriteLayer::calculateScrollPrecent(float distance)
 
 void SPSSpriteLayer::sortPlantsCard(PlantsType type)
 {
-	/* É¾³ıÈ¡ÏûÑ¡ÔñµÄ¿¨ÅÆ */
+	/* åˆ é™¤å–æ¶ˆé€‰æ‹©çš„å¡ç‰Œ */
 	for (auto& card = seedBankButton.begin(); card != seedBankButton.end();)
 	{
 		if (card->cardTag == static_cast<unsigned int>(type))
@@ -465,7 +465,7 @@ void SPSSpriteLayer::sortPlantsCard(PlantsType type)
 		}
 	}
 
-	/* ÎªÖ²Îï¿¨ÅÆÖØĞÂÉèÖÃÎ»ÖÃ */
+	/* ä¸ºæ¤ç‰©å¡ç‰Œé‡æ–°è®¾ç½®ä½ç½® */
 	int i = -1;
 	for (auto& card : seedBankButton)
 	{
@@ -481,11 +481,11 @@ void SPSSpriteLayer::sortPlantsCard(PlantsType type)
 
 void SPSSpriteLayer::createBeginButton()
 {
-	auto button = Button::create("SeedChooser_Button_Disabled.png", "SeedChooser_Button.png", "", TextureResType::PLIST);
-	button->setTitleText(_global->userInformation->getGameText().find("¿ªÊ¼Õ½¶·°É£¡")->second->text);
+	auto button = Button::create("SeedChooser_Button_Disabled.png", "SeedChooser_Button.png", "",cocos2d::ui::Widget::TextureResType::PLIST);
+	button->setTitleText(_global->userInformation->getGameText().find("å¼€å§‹æˆ˜æ–—å§ï¼")->second->text);
 	button->setTitleColor(Color3B::WHITE);
 	button->setTitleFontName(GAME_FONT_NAME_1);
-	button->setTitleFontSize(_global->userInformation->getGameText().find("¿ªÊ¼Õ½¶·°É£¡")->second->fontsize);
+	button->setTitleFontSize(_global->userInformation->getGameText().find("å¼€å§‹æˆ˜æ–—å§ï¼")->second->fontsize);
 	button->setPosition(Vec2(390, 70));
 	button->setScale(2.0f);
 	button->setEnabled(false);
@@ -508,7 +508,7 @@ void SPSSpriteLayer::createBeginButton()
 void SPSSpriteLayer::startGame()
 {
 	PlayMusic::playMusic("swing");
-	/* ÉèÖÃ°´Å¥²»¿ÉÓÃ */
+	/* è®¾ç½®æŒ‰é’®ä¸å¯ç”¨ */
 	for (auto& card : seedBankButton)
 	{
 		card.cardbutton->setEnabled(false);
@@ -535,7 +535,7 @@ void SPSSpriteLayer::controlPlantCanSelect(Button* button, int priority)
 			killZombiesNumber < plantsCardInformation[priority].requirement.y)
 		{
 			button->setColor(Color3B(70, 70, 70));
-			button->setCascadeColorEnabled(true);  /* ÉèÖÃ¸¸½ÚµãÓ°Ïì×Ó½Úµã */
+			button->setCascadeColorEnabled(true);  /* è®¾ç½®çˆ¶èŠ‚ç‚¹å½±å“å­èŠ‚ç‚¹ */
 			isPlantIsCanSelect[static_cast<unsigned int>(plantsCardInformation[priority].type)] = false;
 		}
 		else

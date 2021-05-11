@@ -1,4 +1,4 @@
-/**
+﻿/**
  *Copyright (c) 2020 LZ.All Right Reserved
  *Author : LZ
  *Date: 2020.4.15
@@ -22,7 +22,7 @@ public:
     void setCoinLocalZOrder(const int loaclZOrder);
     SkeletonAnimation* getCoin();
     bool getEnable() const;
-    void releaseCoin();
+    void releaseFunction();
     static void coinRecoveryAction(Coin* coin);
     static void deleteCoin(list<Coin*>::iterator& coin);
 

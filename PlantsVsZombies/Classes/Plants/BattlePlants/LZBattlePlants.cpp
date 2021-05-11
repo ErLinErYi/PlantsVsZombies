@@ -1,4 +1,4 @@
-/**
+ï»¿/**
  *Copyright (c) 2020 LZ.All Right Reserved
  *Author : LZ
  *Date: 2020.2.17
@@ -19,23 +19,23 @@ BattlePlants::~BattlePlants()
 
 void BattlePlants::hurtZombies(Zombies* zombie)
 {
-	if (zombie->getZombieCurrentBodyShieldVolume() < _combatEffecttiveness) /* Èç¹ûµ±Ç°ÉíÌå»¤¶ÜÑªÁ¿Ð¡ÓÚ±¬Õ¨ÉËº¦ */
+	if (zombie->getZombieCurrentBodyShieldVolume() < _combatEffecttiveness) /* å¦‚æžœå½“å‰èº«ä½“æŠ¤ç›¾è¡€é‡å°äºŽçˆ†ç‚¸ä¼¤å®³ */
 	{
 		if (zombie->getZombieCurrentBodyShieldVolume() + 
-			zombie->getZombieCurrentHeadShieldVolume() < _combatEffecttiveness) /* Èç¹ûµ±Ç°ÉíÌå»¤¶Ü¼ÓÍ·²¿»¤¶ÜÑªÁ¿Ð¡ÓÚ±¬Õ¨ÉËº¦ */
+			zombie->getZombieCurrentHeadShieldVolume() < _combatEffecttiveness) /* å¦‚æžœå½“å‰èº«ä½“æŠ¤ç›¾åŠ å¤´éƒ¨æŠ¤ç›¾è¡€é‡å°äºŽçˆ†ç‚¸ä¼¤å®³ */
 		{
 			if (zombie->getZombieCurrentBodyShieldVolume() + 
 				zombie->getZombieCurrentHeadShieldVolume() + 
-				zombie->getZombieCurrentBloodVolume() <= _combatEffecttiveness) /* Èç¹û½©Ê¬ËùÓÐÑªÁ¿Ð¡ÓÚ±¬Õ¨ÉËº¦£¨½©Ê¬ËÀÍö£© */
+				zombie->getZombieCurrentBloodVolume() <= _combatEffecttiveness) /* å¦‚æžœåƒµå°¸æ‰€æœ‰è¡€é‡å°äºŽçˆ†ç‚¸ä¼¤å®³ï¼ˆåƒµå°¸æ­»äº¡ï¼‰ */
 			{
-				/* ½©Ê¬ËÀÍö */
+				/* åƒµå°¸æ­»äº¡ */
 				zombie->setZombieCurrentBloodVolume(0);
 				zombie->setZombieCurrentHeadShieldVolume(0);
 				zombie->setZombieCurrentBodyShieldVolume(0);
 			}
 			else
 			{
-				/* ¼ÆËã½©Ê¬±¾ÌåÑªÁ¿ */
+				/* è®¡ç®—åƒµå°¸æœ¬ä½“è¡€é‡ */
 				zombie->setZombieCurrentBloodVolume(
 					zombie->getZombieCurrentBodyShieldVolume() + 
 					zombie->getZombieCurrentHeadShieldVolume() + 
@@ -46,7 +46,7 @@ void BattlePlants::hurtZombies(Zombies* zombie)
 		}
 		else
 		{
-			/* ¼ÆËã½©Ê¬»¤¶ÜÊ£ÓÚÑªÁ¿ */
+			/* è®¡ç®—åƒµå°¸æŠ¤ç›¾å‰©äºŽè¡€é‡ */
 			zombie->setZombieCurrentHeadShieldVolume(
 				zombie->getZombieCurrentBodyShieldVolume() + 
 				zombie->getZombieCurrentHeadShieldVolume() - _combatEffecttiveness);

@@ -1,4 +1,4 @@
-/**
+ï»¿/**
  *Copyright (c) 2019 LZ.All Right Reserved
  *Author : LZ
  *Date: 2019.8.18
@@ -17,6 +17,8 @@
 #include "Scenes/GameScenes/Adventure/GameScene/LZAGSOpenCaveGameScene.h"
 #include "Scenes/GameScenes/Adventure/GameScene/LZAGSPauseQuitLayer.h"
 #include "Scenes/GameScenes/Adventure/GameScene/LZAGSData.h"
+#include "Scenes/GameScenes/BigMap/SelectPlantsScene/LZBMSelectPlantsScene.h"
+#include "Scenes/GameScenes/BigMap/GameScene/LZBMGSOpenCaveGameScene.h"
 
 bool ModernWorld::_isPopEnter = false;
 
@@ -32,7 +34,7 @@ ModernWorld::ModernWorld():
 	srand(time(nullptr));
 
 	_global->userInformation->setCurrentPlayWorldTag(0);
-	_global->userInformation->setCurrentPlayWorldName(_global->userInformation->getGameText().find(" - ÏÖ´úÊÀ½ç - ")->second->text);
+	_global->userInformation->setCurrentPlayWorldName(_global->userInformation->getGameText().find(" - çŽ°ä»£ä¸–ç•Œ - ")->second->text);
 	_worldPosition = UserData::getInstance()->openDoubleUserData(const_cast<char*>(getScrollViewPositionString().c_str()));
 
 	_isPopEnter = false;
@@ -79,7 +81,7 @@ void ModernWorld::onEnter()
 				}), nullptr));
 	}
 
-	/* ²¥·ÅÒôÀÖ */
+	/* æ’­æ”¾éŸ³ä¹ */
 	PlayMusic::changeBgMusic("mainmusic2", true);
 }
 
@@ -156,7 +158,7 @@ void ModernWorld::createScrollView()
 
 void ModernWorld::addScrollView(const int id)
 {
-	/* ´´½¨±³¾°ÎïÆ· */
+	/* åˆ›å»ºèƒŒæ™¯ç‰©å“ */
 	const string name[5] = { {"World1_32"},{"World1_31"},{"World1_36"},{"World1_30"},{"World1_27"} };
 	const string name1[2] = { {"World1_22"},{"World1_40"}};
 
@@ -176,7 +178,7 @@ void ModernWorld::addScrollView(const int id)
 		}
 	}
 	
-	/* ´´½¨ÏßÌõ */
+	/* åˆ›å»ºçº¿æ¡ */
 	auto draw = DrawNode::create();
 	draw->setOpacity(0);
 	Vec2 BeginPoint[53] =
@@ -220,9 +222,9 @@ void ModernWorld::addScrollView(const int id)
 
 void ModernWorld::showLevels()
 {
-	/* ´´½¨¹Ø¿¨ */
+	/* åˆ›å»ºå…³å¡ */
 	auto World1_38 = createSprite("World1_38", Vec2(10, _backgroundSize.height / 2.0f), 1.7f, 2, 0.5f, false);
-	auto sprite = Button::create("begingame.png", "", "", TextureResType::PLIST);
+	auto sprite = Button::create("begingame.png", "", "",cocos2d::ui::Widget::TextureResType::PLIST);
 	sprite->setPosition(Vec2(250, 230));
 	sprite->setAnchorPoint(Vec2(0, 0.5f));
 	sprite->setGlobalZOrder(1);
@@ -238,7 +240,7 @@ void ModernWorld::showLevels()
 	}
 	else
 	{
-		_global->prohibitId == -1 ? playProhibitMusic(sprite) : nullptr;
+		if (_global->prohibitId == -1)playProhibitMusic(sprite);
 	}
 	auto wgfd = Sprite::createWithSpriteFrameName("wgfd.png");
 	wgfd->setPosition(Vec2(40, 15));
@@ -494,13 +496,14 @@ void ModernWorld::createLevelModeText()
 {
 	auto  levelModeText = Text::create();
 	levelModeText->setFontName(GAME_FONT_NAME_1);
-	levelModeText->setFontSize(_global->userInformation->getGameText().find("Ø¬ÃÎÄ£Ê½")->second->fontsize);
-	levelModeText->setTextColor(Color4B(0, 255, 255, 200));
+	levelModeText->setFontSize(_global->userInformation->getGameText().find("å™©æ¢¦æ¨¡å¼")->second->fontsize);
+	levelModeText->setTextColor(_global->userInformation->getGameDifficulty() ? Color4B::MAGENTA : Color4B(0, 255, 255, 200));
 	levelModeText->setString(_global->userInformation->getGameDifficulty() ?
-		_global->userInformation->getGameText().find("Ø¬ÃÎÄ£Ê½")->second->text :
-		_global->userInformation->getGameText().find("¼òµ¥Ä£Ê½")->second->text);
-	levelModeText->enableGlow(Color4B::BLUE);
+		_global->userInformation->getGameText().find("å™©æ¢¦æ¨¡å¼")->second->text :
+		_global->userInformation->getGameText().find("ç®€å•æ¨¡å¼")->second->text);
+	levelModeText->enableGlow(_global->userInformation->getGameDifficulty() ? Color4B::RED : Color4B::YELLOW);
 	levelModeText->setPosition(Vec2(_director->getWinSize().width / 2.f, 50));
+	levelModeText->runAction(RepeatForever::create(Sequence::create(ScaleTo::create(0.5f, 0.85f), ScaleTo::create(0.5f, 1.15f), nullptr)));
 	this->addChild(levelModeText);
 }
 
@@ -510,7 +513,7 @@ Sprite* ModernWorld::createSprite(const std::string& name, const Vec2& position,
 	sprite->setAnchorPoint(Vec2(0, 0.5f));
 	sprite->setScale(scale);
 	sprite->setPosition(position);
-	IsFlipped == true ? sprite->setFlippedX(rand() % 2) : IsFlipped;
+	if (IsFlipped)sprite->setFlippedX(rand() % 2);
 	_parallax->addChild(sprite, zorder, Vec2(speed, 0), position);
 
 	setLevelVisible(sprite);
@@ -523,7 +526,7 @@ Sprite* ModernWorld::createSprite(Node* node, const std::string& name, const Vec
 	sprite->setAnchorPoint(Vec2(0, 0.5f));
 	sprite->setScale(scale);
 	sprite->setPosition(position);
-	IsFlipped == true ? sprite->setFlippedX(rand() % 2) : IsFlipped;
+	if (IsFlipped)sprite->setFlippedX(rand() % 2);
 	node->addChild(sprite, zorder);
 
 	setLevelVisible(sprite);
@@ -581,7 +584,7 @@ void ModernWorld::playProhibitMusic(Button* button)
 
 ui::Button* ModernWorld::createButton(Node* node, const std::string& name, const Vec2& position)
 {
-	auto sprite4 = ui::Button::create(name + ".png", "", "", TextureResType::PLIST);
+	auto sprite4 = ui::Button::create(name + ".png", "", "",cocos2d::ui::Widget::TextureResType::PLIST);
 	sprite4->setPosition(position);
 	sprite4->setGlobalZOrder(1);
 	sprite4->setScale(2.0f);
@@ -639,7 +642,8 @@ void ModernWorld::createButtonListener(ui::Button* button, const int& ID)
 				PlayMusic::playMusic("tap");
 				break;
 			case ui::Widget::TouchEventType::ENDED:
-				playLevelGameAndCaveThings(ID);
+				playLevelGameAndCaveThings(ID, 1);
+				button->setTouchEnabled(false);
 				break;
 			}
 		});
@@ -647,7 +651,7 @@ void ModernWorld::createButtonListener(ui::Button* button, const int& ID)
 
 void ModernWorld::readWorldLevel()
 {
-	/* ¶ÁÈ¡¸ÃÊÀ½ç¹Ø¿¨Êý¾Ý */
+	/* è¯»å–è¯¥ä¸–ç•Œå…³å¡æ•°æ® */
 	if (!_global->userInformation->getUserSelectWorldData().at(0)->isReadWoldInformation)
 	{
 		OpenLevelData::getInstance()->openLevelsData(
@@ -673,7 +677,7 @@ void ModernWorld::readWorldLevel()
 
 void ModernWorld::createGoBack()
 {
-	auto back = ui::Button::create("back.png","back1.png","",TextureResType::PLIST);
+	auto back = ui::Button::create("back.png","back1.png","", cocos2d::ui::Widget::TextureResType::PLIST);
 	back->setScale(0.7f);
 	back->setAnchorPoint(Vec2(0, 1));
 	back->setPosition(Vec2(0, 1080));
@@ -687,7 +691,7 @@ void ModernWorld::createGoBack()
 				PlayMusic::playMusic("gravebutton");
 				break;
 			case ui::Widget::TouchEventType::ENDED:
-				UserData::getInstance()->caveUserData(const_cast<char*>(getScrollViewPositionString().c_str()),_scrollView->getScrolledPercentHorizontal()); /* ¼ÇÂ¼Î»ÖÃ */
+				UserData::getInstance()->caveUserData(const_cast<char*>(getScrollViewPositionString().c_str()),_scrollView->getScrolledPercentHorizontal()); /* è®°å½•ä½ç½® */
 				_global->userInformation->setMainToWorld(false);
 				Director::getInstance()->replaceScene(TransitionFade::create(0.5f, SelectWorldScene::createScene()));
 				break;
@@ -702,17 +706,15 @@ string ModernWorld::getScrollViewPositionString()
 	return str;
 }
 
-void ModernWorld::playLevelGameAndCaveThings(const int id)
+void ModernWorld::playLevelGameAndCaveThings(const int id, const int worldid)
 {
-	string levelName("Level_" + to_string(id));
-	
-	//¶ÁÈ¡¹Ø¿¨ÐÅÏ¢
-	OpenLevelData::getInstance()->createLevelData(id, levelName.c_str());
+	//è¯»å–å…³å¡ä¿¡æ¯
+	OpenLevelData::getInstance()->createLevelData(id, StringUtils::format("Level_%d", id).c_str());
 	OpenLevelData::getInstance()->setLevelNumber(id);
 
 	_global->userInformation->setCurrentPlayLevels(id);
 	
-	UserData::getInstance()->caveUserData(const_cast<char*>(getScrollViewPositionString().c_str()), _scrollView->getScrolledPercentHorizontal()); /* ¼ÇÂ¼Î»ÖÃ */
+	UserData::getInstance()->caveUserData(const_cast<char*>(getScrollViewPositionString().c_str()), _scrollView->getScrolledPercentHorizontal()); /* è®°å½•ä½ç½® */
 	UserData::getInstance()->createNewLevelDataDocument();
 	if (UserData::getInstance()->isHaveLevelData(_global->userInformation->getCurrentCaveFileLevelWorldName()))
 	{
@@ -723,9 +725,25 @@ void ModernWorld::playLevelGameAndCaveThings(const int id)
 			CallFunc::create([=]()
 				{
 					layer->removeFromParent();
-					Director::getInstance()->pushScene(OpenCaveGameScene::create());
+					if (worldid == 1)
+					{
+						Director::getInstance()->pushScene(OpenCaveGameScene::create());
+					}
+					else if(worldid == 2)
+					{
+						Director::getInstance()->pushScene(BMOpenCaveGameScene::create());
+					}
 				}), nullptr));
 	}
 	else
-		Director::getInstance()->pushScene(TransitionFade::create(1.0f, SelectPlantsScene::create()));
+	{
+		if (worldid == 1)
+		{
+			Director::getInstance()->pushScene(TransitionFade::create(1.0f, SelectPlantsScene::create()));
+		}
+		else if (worldid == 2)
+		{
+			Director::getInstance()->pushScene(TransitionFade::create(1.0f, BMSelectPlantsScene::create()));
+		}
+	}
 }

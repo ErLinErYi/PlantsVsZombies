@@ -1,4 +1,4 @@
-/**
+ï»¿/**
  *Copyright (c) 2020 LZ.All Right Reserved
  *Author : LZ
  *Date: 2020.2.19
@@ -35,10 +35,10 @@ void GSRequirementLayer::showRequirement()
 	_requirement->createDialogBox(GameTypes::None);
 	_requirement->setShowDialogAction();
 
-	auto button = Button::create("Continue1.png", "Continue.png", "", TextureResType::PLIST);
-	button->setTitleText(Global::getInstance()->userInformation->getGameText().find("È·¶¨")->second->text);
+	auto button = Button::create("Continue1.png", "Continue.png", "",cocos2d::ui::Widget::TextureResType::PLIST);
+	button->setTitleText(Global::getInstance()->userInformation->getGameText().find("ç¡®å®š")->second->text);
 	button->setTitleFontName(GAME_FONT_NAME_1);
-	button->setTitleFontSize(Global::getInstance()->userInformation->getGameText().find("È·¶¨")->second->fontsize);
+	button->setTitleFontSize(Global::getInstance()->userInformation->getGameText().find("ç¡®å®š")->second->fontsize);
 	button->setTitleColor(Color3B::YELLOW);
 	button->setPosition(Vec2(_requirement->getDialog()->getContentSize().width / 2.0f, 10));
 	button->setGlobalZOrder(10);
@@ -72,7 +72,7 @@ void GSRequirementLayer::keyboardControl()
 	{
 		switch (code)
 		{
-		case cocos2d::EventKeyboard::KeyCode::KEY_SPACE:                     /* ¿Õ¸ñ¼ü»Ö¸´ */
+		case cocos2d::EventKeyboard::KeyCode::KEY_SPACE:                     /* ç©ºæ ¼é”®æ¢å¤ */
 			KeyBoard->setEnabled(false);
 			PlayMusic::playMusic("tap");
 			_requirement->setDelectDialogAction();

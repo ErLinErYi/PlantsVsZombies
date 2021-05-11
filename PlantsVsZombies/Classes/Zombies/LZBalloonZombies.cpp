@@ -1,4 +1,4 @@
-/**
+Ôªø/**
  *Copyright (c) 2020 LZ.All Right Reserved
  *Author : LZ
  *Date: 2021.4.16
@@ -93,11 +93,11 @@ bool BalloonZombies::getZombieIsCanBeAttack()
 
 void BalloonZombies::zombieInjuredEventUpdate()
 {
-	if (_currentBloodVolume <= _bloodVolume / 2.0f)  /* Ω© ¨—™¡ø–°”⁄“ª∂®÷µ£¨Ω© ¨µÙ∏Ï≤≤ */
+	if (_currentBloodVolume <= _bloodVolume / 2.0f)  /* ÂÉµÂ∞∏Ë°ÄÈáèÂ∞è‰∫é‰∏ÄÂÆöÂÄºÔºåÂÉµÂ∞∏ÊéâËÉ≥ËÜä */
 	{
 		setZombiePrimaryInjure();
 	}
-	if (_currentBloodVolume <= 0)   /* Ω© ¨—™¡ø–°”⁄¡„£¨Ω© ¨À¿Õˆ */
+	if (_currentBloodVolume <= 0)   /* ÂÉµÂ∞∏Ë°ÄÈáèÂ∞è‰∫éÈõ∂ÔºåÂÉµÂ∞∏Ê≠ª‰∫° */
 	{
 		setZombieSecondaryInjure();
 	}
@@ -105,7 +105,7 @@ void BalloonZombies::zombieInjuredEventUpdate()
 
 void BalloonZombies::setZombiePrimaryInjure()
 {
-	if (_bodyAnimationId == 1) /* Ω© ¨ø™ ºµÙ∏Ï≤≤ */
+	if (_bodyAnimationId == 1) /* ÂÉµÂ∞∏ÂºÄÂßãÊéâËÉ≥ËÜä */
 	{
 		_zombiesAnimation->setAnimation(0, "BalloonZombies_Normal2", true);
 		_bodyAnimationId = 2;
@@ -120,7 +120,7 @@ void BalloonZombies::setZombieSecondaryInjure()
 	{
 		PlayMusic::playMusic("balloon_pop");
 		_zombiesAnimation->setAnimation(0, "BalloonZombies_Die", false);
-		_currentSpeed = 0; /* Õ£÷π‘À∂Ø */
+		_currentSpeed = 0; /* ÂÅúÊ≠¢ËøêÂä® */
 		_bodyAnimationId = 10;
 
 		zombieLoseHeadAnimation("BalloonZombiesHead", 1.3f);

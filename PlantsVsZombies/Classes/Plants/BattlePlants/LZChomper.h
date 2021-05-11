@@ -1,4 +1,4 @@
-/**
+ï»¿/**
  *Copyright (c) 2021 LZ.All Right Reserved
  *Author : LZ
  *Date: 2021.1.16
@@ -40,7 +40,7 @@ private:
     void zombieRelieveReserveKill(Zombies* zombie);
 
 private:
-    bool _isCanEat;           // ÊÇ·ñ¿ÉÒÔ³Ô½©Ê¬
-    int _chewTime;            // ´ó×ì»¨¾×½ÀÊ±¼ä
-    Zombies* _attackZombie;   // ±»¹¥»÷½©Ê¬
+    bool _isCanEat;           // æ˜¯å¦å¯ä»¥åƒåƒµå°¸
+    int _chewTime;            // å¤§å˜´èŠ±å’€åš¼æ—¶é—´
+    Zombies* _attackZombie;   // è¢«æ”»å‡»åƒµå°¸
 };

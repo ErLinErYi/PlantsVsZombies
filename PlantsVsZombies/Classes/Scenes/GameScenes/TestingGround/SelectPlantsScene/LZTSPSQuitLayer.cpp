@@ -1,4 +1,4 @@
-/**
+ï»¿/**
  *Copyright (c) 2019 LZ.All Right Reserved
  *Author : LZ
  *Date: 2021.4.07
@@ -22,10 +22,10 @@ bool TSPSQuitLayer::init()
 
 void TSPSQuitLayer::createButton(const Vec2& vec2, const std::string name, PauseQuitLayer_Button button_type)
 {
-	/* ´´½¨·µ»ØÖ÷²Ëµ¥°´Å¥ */
-	auto button = ui::Button::create("ButtonNew2.png", "ButtonNew.png", "", TextureResType::PLIST);
-	auto label = Label::createWithTTF(name, GAME_FONT_NAME_1, _global->userInformation->getGameText().find("·µ»ØÓÎÏ·")->second->fontsize);
-	label->enableShadow(Color4B(0, 0, 0, 200));//ÉèÖÃÒõÓ°
+	/* åˆ›å»ºè¿”å›ä¸»èœå•æŒ‰é’® */
+	auto button = ui::Button::create("ButtonNew2.png", "ButtonNew.png", "",cocos2d::ui::Widget::TextureResType::PLIST);
+	auto label = Label::createWithTTF(name, GAME_FONT_NAME_1, _global->userInformation->getGameText().find("è¿”å›æ¸¸æˆ")->second->fontsize);
+	label->enableShadow(Color4B(0, 0, 0, 200));//è®¾ç½®é˜´å½±
 	label->setScale(2.0f);
 	button->setTitleLabel(label);
 	button->setTitleColor(Color3B::WHITE);
@@ -43,11 +43,11 @@ void TSPSQuitLayer::createButton(const Vec2& vec2, const std::string name, Pause
 			case ui::Widget::TouchEventType::ENDED:
 				switch (button_type)
 				{
-				case PauseQuitLayer_Button::·µ»ØÓÎÏ·:
+				case PauseQuitLayer_Button::è¿”å›æ¸¸æˆ:
 					SPSSpriteLayer::resumeButtonHoverEffect();
 					this->removeFromParent();
 					break;
-				case PauseQuitLayer_Button::ÍË³öÓÎÏ·:
+				case PauseQuitLayer_Button::é€€å‡ºæ¸¸æˆ:
 					SPSSpriteLayer::setListenerMutexNumber();
 					Director::getInstance()->replaceScene(TransitionFade::create(0.5f, MainMenu::create()));
 					break;

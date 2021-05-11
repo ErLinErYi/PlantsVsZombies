@@ -1,4 +1,4 @@
-/**
+﻿/**
  *Copyright (c) 2021 LZ.All Right Reserved
  *Author : LZ
  *Date: 2021.2.3
@@ -20,8 +20,8 @@ CC_CONSTRUCTOR_ACCESS:
 	~SunFlowerTwin();
 
 protected:
-	virtual void createListener();
-	virtual void playAnimation();
-	virtual void createSuns();
+	virtual void createListener() override;
+	virtual void playAnimation() override;
+	virtual void createSuns() override;
 	virtual SkeletonAnimation* showPlantAnimationAndText() override;
 };

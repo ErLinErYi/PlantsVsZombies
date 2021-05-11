@@ -1,4 +1,4 @@
-/**
+ï»¿/**
  *Copyright (c) 2020 LZ.All Right Reserved
  *Author : LZ
  *Date: 2020.2.6
@@ -55,10 +55,10 @@ void Garlic::createPlantAnimation()
 	_plantAnimation->setScale(0.8f);
 	_node->addChild(_plantAnimation);
 
-	// Ó°×Ó
+	// å½±å­
 	setPlantShadow(3.0f);
 
-	// ÄàÍÁ·É½¦¶¯»­
+	// æ³¥åœŸé£žæº…åŠ¨ç”»
 	setPlantSoilSplashAnimation(1.0f);
 }
 
@@ -66,20 +66,21 @@ void Garlic::determineRelativePositionPlantsAndZombies()
 {
 	for (auto zombie : ZombiesGroup)
 	{
-		zombieEatPlant(zombie);      /* ½©Ê¬³ÔÖ²Îï */
+		zombieEatPlant(zombie);      /* åƒµå°¸åƒæ¤ç‰© */
 	}
 }
 
 void Garlic::zombieEatPlant(Zombies* zombie)
 {
-	if (getPlantIsSurvive() && getZombieIsSameLineWithPlant(zombie) &&                  /* Ö²Îï´æ»î && Ö²ÎïÓë½©Ê¬ÔÚÍ¬Ò»ÐÐ */
-		Plants::getZombieIsEncounterPlant(zombie) && zombie->getZombieIsCanBeAttack())  /* ½©Ê¬Óöµ½Ö²Îï && ½©Ê¬¿ÉÒÔ±»¹¥»÷µ½ */
+	if (getPlantIsSurvive() && getZombieIsSameLineWithPlant(zombie) &&                  /* æ¤ç‰©å­˜æ´» && æ¤ç‰©ä¸Žåƒµå°¸åœ¨åŒä¸€è¡Œ */
+		Plants::getZombieIsEncounterPlant(zombie) && zombie->getZombieIsCanBeAttack())  /* åƒµå°¸é‡åˆ°æ¤ç‰© && åƒµå°¸å¯ä»¥è¢«æ”»å‡»åˆ° */
 	{
 		if (zombie->getZombieIsSurvive() && !zombie->getZombieIsEat() && zombie->getZombieIsFrozen() != 2)
 		{
 			const string eateffect[3] = { "chomp","chomp2","chompsoft" };
 			PlayMusic::playMusic(eateffect[rand() % 3]);
 
+			setPlantHurtBlink();
 			zombie->setZombieEatPlantNumber(_plantNumber);
 			zombie->setZombieStop();
 			zombie->setZombieIsEat(true);
@@ -120,11 +121,11 @@ void Garlic::effectZombies(Zombies* zombie)
 
 void Garlic::zombieRecoveryMove(Zombies* zombie)
 {
-	if (zombie->getZombieIsEat() && zombie->getZombieIsStop()) /* ½©Ê¬ÕýÔÚ³ÔÖ²Îï && ½©Ê¬ÕýÔÚÍ£Ö¹ÒÆ¶¯ */
+	if (zombie->getZombieIsEat() && zombie->getZombieIsStop()) /* åƒµå°¸æ­£åœ¨åƒæ¤ç‰© && åƒµå°¸æ­£åœ¨åœæ­¢ç§»åŠ¨ */
 	{
 		zombie->setZombieIsEat(false);
 		zombie->setZombieIsEatGarlic(false);
-		if (!zombie->getZombieIsPlayDieAnimation()) /* ½©Ê¬Ã»ÓÐ²¥·ÅËÀÍö¶¯»­ */
+		if (!zombie->getZombieIsPlayDieAnimation()) /* åƒµå°¸æ²¡æœ‰æ’­æ”¾æ­»äº¡åŠ¨ç”» */
 		{
 			zombie->getZombieAnimation()->setMix("Zombies_Eat", Zombies::getZombieAniamtionName(zombie->getZombieType()), 0.5f);
 			zombie->getZombieAnimation()->addAnimation(0, Zombies::getZombieAniamtionName(zombie->getZombieType()), true);

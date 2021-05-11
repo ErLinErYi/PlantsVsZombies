@@ -1,4 +1,4 @@
-/**
+ï»¿/**
  *Copyright (c) 2020 LZ.All Right Reserved
  *Author : LZ
  *Date: 2020.3.8
@@ -38,16 +38,16 @@ bool GSPauseLayer::init()
 
 void GSPauseLayer::createDialog()
 {
-    _levelObjiectives = Scale9Sprite::createWithSpriteFrameName("LevelObjiectives.png");
+    _levelObjiectives = cocos2d::ui::Scale9Sprite::createWithSpriteFrameName("LevelObjiectives.png");
     _levelObjiectives->setPosition(Director::getInstance()->getWinSize() / 2.0f);
     _levelObjiectives->setGlobalZOrder(10);
     _levelObjiectives->setScale(2.0f);
     this->addChild(_levelObjiectives);
 
     auto LevelObjiectivesText = Text::create();
-    LevelObjiectivesText->setString(_global->getInstance()->userInformation->getGameText().find("ÐÝÏ¢Ò»»á°É£¡")->second->text);
+    LevelObjiectivesText->setString(_global->getInstance()->userInformation->getGameText().find("ä¼‘æ¯ä¸€ä¼šå§ï¼")->second->text);
     LevelObjiectivesText->setFontName(GAME_FONT_NAME_1);
-    LevelObjiectivesText->setFontSize(_global->getInstance()->userInformation->getGameText().find("ÐÝÏ¢Ò»»á°É£¡")->second->fontsize);
+    LevelObjiectivesText->setFontSize(_global->getInstance()->userInformation->getGameText().find("ä¼‘æ¯ä¸€ä¼šå§ï¼")->second->fontsize);
     LevelObjiectivesText->setScale(0.5f);
     LevelObjiectivesText->setColor(Color3B(0, 255, 255));
     LevelObjiectivesText->setPosition(Vec2(_levelObjiectives->getContentSize().width / 2, 245));
@@ -69,10 +69,10 @@ void GSPauseLayer::showAniamtions()
 
 void GSPauseLayer::showButton()
 {
-    auto button = Button::create("Continue1.png", "Continue.png", "", TextureResType::PLIST);
-    button->setTitleText(Global::getInstance()->userInformation->getGameText().find("È·¶¨")->second->text);
+    auto button = Button::create("Continue1.png", "Continue.png", "",cocos2d::ui::Widget::TextureResType::PLIST);
+    button->setTitleText(Global::getInstance()->userInformation->getGameText().find("ç¡®å®š")->second->text);
     button->setTitleFontName(GAME_FONT_NAME_1);
-    button->setTitleFontSize(Global::getInstance()->userInformation->getGameText().find("È·¶¨")->second->fontsize);
+    button->setTitleFontSize(Global::getInstance()->userInformation->getGameText().find("ç¡®å®š")->second->fontsize);
     button->setTitleColor(Color3B::YELLOW);
     button->setPosition(Vec2(_levelObjiectives->getContentSize().width / 2.0f, 10));
     button->setGlobalZOrder(10);

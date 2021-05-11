@@ -1,4 +1,4 @@
-/**
+ï»¿/**
  *Copyright (c) 2021 LZ.All Right Reserved
  *Author : LZ
  *Date: 2021.4.07
@@ -22,7 +22,7 @@ bool TSPSBackgroundLayer::init()
 {
 	if (!Layer::init()) return false;
 
-	/* ´´½¨±³¾° */
+	/* åˆ›å»ºèƒŒæ™¯ */
 	createBackGroundEffect();
 	showPreviewZombies();
 
@@ -45,7 +45,7 @@ void TSPSBackgroundLayer::showPreviewZombies()
 	for (unsigned int i = 0; i < ZOMBIESNUMBERS; ++i)
 	{
 		auto zombies = GSAnimationLayer::createDifferentZombies(static_cast<ZombiesType>(i + 1), this);
-		zombies->setZombiePosition(getPreviewZombiesPosition(n1, n2) - Vec2(0, 130));
+		zombies->setZombiePosition(getPreviewZombiesPosition(n1, n2));
 		zombies->setZombieTag(_previewZombiesTag++);
 		zombies->createPreviewZombie();
 		zombies->setZombieOpacity(255);

@@ -1,4 +1,4 @@
-/**
+﻿/**
  *Copyright (c) 2020 LZ.All Right Reserved
  *Author : LZ
  *Date: 2020.1.28
@@ -23,10 +23,10 @@ public:
 CC_CONSTRUCTOR_ACCESS:
 	GSBackgroundLayer();
 	~GSBackgroundLayer();
-	virtual bool init();
+	virtual bool init() override;
 
 protected:
-	virtual void setBackgroundImagePosition();
+	virtual void setBackgroundImagePosition() override;
 
 protected:
 	Global* _global;

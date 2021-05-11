@@ -1,4 +1,4 @@
-/**
+ï»¿/**
  *Copyright (c) 2020 LZ.All Right Reserved
  *Author : LZ
  *Date: 2020.1.26
@@ -75,30 +75,30 @@ void ConeDoorZombies::playZombieSoundEffect()
 
 void ConeDoorZombies::zombieInjuredEventUpdate()
 {
-	if (_isHaveShield) /* Èç¹ûÓÐ»¤¶Ü */
+	if (_isHaveShield) /* å¦‚æžœæœ‰æŠ¤ç›¾ */
 	{
-		if (_currentBodyShieldVolume <= _bodyShieldVolume * 2.0f / 3) /* ÉíÌå»¤¶ÜÒ»¼¶ËðÉË */
+		if (_currentBodyShieldVolume <= _bodyShieldVolume * 2.0f / 3) /* èº«ä½“æŠ¤ç›¾ä¸€çº§æŸä¼¤ */
 		{
 			setZombieBodyShieldPrimaryInjure("Zombie_screendoor", "Zombie_screendoor2");
 		}
-		if (_currentBodyShieldVolume <= _bodyShieldVolume * 1.0f / 3) /* ÉíÌå»¤¶Ü¶þ¼¶ËðÉË */
+		if (_currentBodyShieldVolume <= _bodyShieldVolume * 1.0f / 3) /* èº«ä½“æŠ¤ç›¾äºŒçº§æŸä¼¤ */
 		{
 			setZombieBodyShieldSecondaryInjure("Zombie_screendoor", "Zombie_screendoor3");
 		}
-		if (_currentBodyShieldVolume <= 0)   /* ÉíÌå»¤¶ÜÏûÊ§ */
+		if (_currentBodyShieldVolume <= 0)   /* èº«ä½“æŠ¤ç›¾æ¶ˆå¤± */
 		{
 			setZombieBodyShieldThirdInjure("Zombie_screendoor", "tt_innerleg_foot3");
 		}
 
-		if (_currentHeadShieldVolume <= _headShieldVolume * 2.0f / 3) /* Í·²¿»¤¶ÜÒ»¼¶ËðÉË */
+		if (_currentHeadShieldVolume <= _headShieldVolume * 2.0f / 3) /* å¤´éƒ¨æŠ¤ç›¾ä¸€çº§æŸä¼¤ */
 		{
 			setZombieHeadShieldPrimaryInjure("Zombie_bucket", "Zombie_cone2");
 		}
-		if (_currentHeadShieldVolume <= _headShieldVolume * 1.0f / 3) /* Í·²¿»¤¶Ü¶þ¼¶ËðÉË */
+		if (_currentHeadShieldVolume <= _headShieldVolume * 1.0f / 3) /* å¤´éƒ¨æŠ¤ç›¾äºŒçº§æŸä¼¤ */
 		{
 			setZombieHeadShieldSecondaryInjure("Zombie_bucket", "Zombie_cone3");
 		}
-		if (_currentHeadShieldVolume <= 0)   /* Í·²¿»¤¶ÜÏûÊ§ */
+		if (_currentHeadShieldVolume <= 0)   /* å¤´éƒ¨æŠ¤ç›¾æ¶ˆå¤± */
 		{
 			setZombieHeadShieldThirdInjure("Zombie_bucket", "tt_innerleg_foot3");
 		}
@@ -115,20 +115,23 @@ void ConeDoorZombies::zombieInjuredEventUpdate()
 
 void ConeDoorZombies::setZombieBodyShieldThirdInjure(const string& oldName, const string& newName)
 {
-	if (_bodyShieldAnimationId == 3) /* ÉíÌå»¤¶ÜÈý¼¶ÉËº¦ */
+	if (_bodyShieldAnimationId == 3) /* èº«ä½“æŠ¤ç›¾ä¸‰çº§ä¼¤å®³ */
 	{
 		_zombiesAnimation->setAttachment("Zombie_screendoor", "tt_innerleg_foot3");
 		_attackBodySoundEffectType = 0;
 		_bodyShieldAnimationId = 4;
 		_bodyShieldType = ShieldType::none;
 
-		//_zombiesAnimation->addAnimation(0, "Zombies_Walk", true);
+		if (_currentSpeed > 0)
+		{
+			_zombiesAnimation->addAnimation(0, "Zombies_Walk2", true);
+		}
 	}
 }
 
 void ConeDoorZombies::setZombieHeadShieldThirdInjure(const string& oldName, const string& newName)
 {
-	if (_headShieldAnimationId == 3) /* Í·²¿»¤¶ÜÈý¼¶ÉËº¦ */
+	if (_headShieldAnimationId == 3) /* å¤´éƒ¨æŠ¤ç›¾ä¸‰çº§ä¼¤å®³ */
 	{
 		_zombiesAnimation->setAttachment("Zombie_bucket", "tt_innerleg_foot3");
 		_headShieldAnimationId = 4;
@@ -136,7 +139,7 @@ void ConeDoorZombies::setZombieHeadShieldThirdInjure(const string& oldName, cons
 		_attackHeadSoundEffectType = 0;
 		_headShieldType = ShieldType::none;
 
-		/* ½©Ê¬µôÍ·²¿»¤¶Ü */
+		/* åƒµå°¸æŽ‰å¤´éƒ¨æŠ¤ç›¾ */
 		zombieLoseShieldAnimation("Zombie_cone");
 	}
 }

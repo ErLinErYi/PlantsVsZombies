@@ -1,4 +1,4 @@
-/**
+ï»¿/**
  *Copyright (c) 2021 LZ.All Right Reserved
  *Author : LZ
  *Date: 2021.2.14
@@ -24,7 +24,7 @@ bool BMSPSBackgroundLayer::init()
 {
 	if (!Layer::init()) return false;
 
-	/* ´´½¨±³¾° */
+	/* åˆ›å»ºèƒŒæ™¯ */
 	createBackGroundEffect();
 	showPreviewZombies();
 

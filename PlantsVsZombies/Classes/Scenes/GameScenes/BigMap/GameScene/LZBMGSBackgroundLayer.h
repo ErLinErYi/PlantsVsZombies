@@ -1,4 +1,4 @@
-/**
+﻿/**
  *Copyright (c) 2021 LZ.All Right Reserved
  *Author : LZ
  *Date: 2021.2.13
@@ -16,9 +16,9 @@ public:
 CC_CONSTRUCTOR_ACCESS:
 	BMBackgroundLayer();
 	~BMBackgroundLayer();
-	virtual bool init();
+	virtual bool init() override;
 
 protected:
-	virtual void createBackGroundEffect();
-	virtual void setBackgroundImagePosition();
+	virtual void createBackGroundEffect() override;
+	virtual void setBackgroundImagePosition() override;
 };

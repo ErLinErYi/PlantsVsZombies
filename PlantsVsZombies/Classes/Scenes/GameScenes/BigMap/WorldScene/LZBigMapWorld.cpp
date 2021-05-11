@@ -1,4 +1,4 @@
-/**
+ï»¿/**
  *Copyright (c) 2020 LZ.All Right Reserved
  *Author : LZ
  *Date: 2020.4.17
@@ -11,7 +11,6 @@
 #include "Based/LZPlayMusic.h"
 #include "Based/LZMouseEventControl.h"
 #include "Scenes/SelectWorldScene/LZSelectWorldScene.h"
-#include "Scenes/GameScenes/BigMap/GameScene/LZBMGSOpenCaveGameScene.h"
 #include "Scenes/GameScenes/BigMap/SelectPlantsScene/LZBMSelectPlantsScene.h"
 
 BigMapWorld::BigMapWorld()
@@ -19,7 +18,7 @@ BigMapWorld::BigMapWorld()
     PlayMusic::changeBgMusic("mainmusic2", true);
 
     _global->userInformation->setCurrentPlayWorldTag(1);
-    _global->userInformation->setCurrentPlayWorldName(_global->userInformation->getGameText().find("- ´óµØÍ¼Ä£Ê½ -")->second->text);
+    _global->userInformation->setCurrentPlayWorldName(_global->userInformation->getGameText().find("- å¤§åœ°å›¾æ¨¡å¼ -")->second->text);
     _worldPosition = UserData::getInstance()->openDoubleUserData(const_cast<char*>(getScrollViewPositionString().c_str()));
 
     _isPopEnter = false;
@@ -120,7 +119,7 @@ void BigMapWorld::createScrollView()
 
 void BigMapWorld::readWorldLevel()
 {
-    /* ¶ÁÈ¡¸ÃÊÀ½ç¹Ø¿¨Êý¾Ý */
+    /* è¯»å–è¯¥ä¸–ç•Œå…³å¡æ•°æ® */
     if (!_global->userInformation->getUserSelectWorldData().at(1)->isReadWoldInformation)
     {
         OpenLevelData::getInstance()->openLevelsData(
@@ -147,7 +146,7 @@ void BigMapWorld::readWorldLevel()
 
 void BigMapWorld::addScrollView(const int id)
 {
-    /* ´´½¨±³¾°ÎïÆ· */
+    /* åˆ›å»ºèƒŒæ™¯ç‰©å“ */
     const string name[] = { {"World2_2"},{"World2_3"},{"World2_4"}};
     const string name1[] = { {"World2_5"},{"World2_17"} };
 
@@ -169,7 +168,7 @@ void BigMapWorld::addScrollView(const int id)
         }
     }
 
-    /* ´´½¨ÏßÌõ */
+    /* åˆ›å»ºçº¿æ¡ */
     auto draw = DrawNode::create();
     draw->setOpacity(0);
     Vec2 BeginPoint[53] =
@@ -213,9 +212,9 @@ void BigMapWorld::addScrollView(const int id)
 
 void BigMapWorld::showLevels()
 {
-    /* ´´½¨¹Ø¿¨ */
+    /* åˆ›å»ºå…³å¡ */
     auto world1 = createSprite("World2_1", Vec2(10, _backgroundSize.height / 2.0f), 1.f, 2, 0.5f, false);
-    auto sprite = Button::create("begingame.png", "", "", TextureResType::PLIST);
+    auto sprite = Button::create("begingame.png", "", "",cocos2d::ui::Widget::TextureResType::PLIST);
     sprite->setPosition(Vec2(480, 410));
     sprite->setAnchorPoint(Vec2(0, 0.5f));
     sprite->setGlobalZOrder(1);
@@ -231,7 +230,7 @@ void BigMapWorld::showLevels()
     }
     else
     {
-        _global->prohibitId == -1 ? playProhibitMusic(sprite) : nullptr;
+        if (_global->prohibitId == -1) playProhibitMusic(sprite);
     }
     auto wgfd = Sprite::createWithSpriteFrameName("wgfd.png");
     wgfd->setPosition(Vec2(40, 15));
@@ -470,7 +469,7 @@ void BigMapWorld::showLevels()
 
 ui::Button* BigMapWorld::createButton(Node* node, const std::string& name, const Vec2& position)
 {
-    auto sprite4 = ui::Button::create(name + ".png", "", "", TextureResType::PLIST);
+    auto sprite4 = ui::Button::create(name + ".png", "", "",cocos2d::ui::Widget::TextureResType::PLIST);
     sprite4->setPosition(position);
     sprite4->setGlobalZOrder(1);
     sprite4->setScale(2.0f);
@@ -527,31 +526,8 @@ void BigMapWorld::createButtonListener(ui::Button* button, const int& ID)
                 PlayMusic::playMusic("tap");
                 break;
             case ui::Widget::TouchEventType::ENDED:
-
-                //¶ÁÈ¡¹Ø¿¨ÐÅÏ¢
-                OpenLevelData::getInstance()->createLevelData(ID, StringUtils::format("Level_%d", ID).c_str());
-                OpenLevelData::getInstance()->setLevelNumber(ID);
-
-                _global->userInformation->setCurrentPlayLevels(ID);
-
-                UserData::getInstance()->caveUserData(const_cast<char*>(getScrollViewPositionString().c_str()), 
-                    _scrollView->getScrolledPercentHorizontal()); /* ¼ÇÂ¼Î»ÖÃ */
-                UserData::getInstance()->createNewLevelDataDocument();
-                if (UserData::getInstance()->isHaveLevelData(_global->userInformation->getCurrentCaveFileLevelWorldName()))
-                {
-                    auto layer = LayerColor::create(Color4B(0, 0, 0, 0));
-                    layer->setGlobalZOrder(2);
-                    this->addChild(layer);
-                    layer->runAction(Sequence::create(FadeIn::create(0.5f),
-                        CallFunc::create([=]()
-                            {
-                                layer->removeFromParent();
-                                Director::getInstance()->pushScene(BMOpenCaveGameScene::create());
-                            }), nullptr));
-                }
-                else
-                    Director::getInstance()->pushScene(TransitionFade::create(1.0f, BMSelectPlantsScene::create()));
-
+                playLevelGameAndCaveThings(ID, 2);
+                button->setTouchEnabled(false);
                 break;
             }
         });
@@ -577,7 +553,7 @@ void BigMapWorld::setLevelVisible(Node* node)
 
 void BigMapWorld::createGoBack()
 {
-    auto back = ui::Button::create("back.png", "back1.png", "", TextureResType::PLIST);
+    auto back = ui::Button::create("back.png", "back1.png", "",cocos2d::ui::Widget::TextureResType::PLIST);
     back->setScale(0.7f);
     back->setAnchorPoint(Vec2(0, 1));
     back->setPosition(Vec2(0, 1080));
@@ -593,7 +569,7 @@ void BigMapWorld::createGoBack()
             case ui::Widget::TouchEventType::ENDED:
 
                 UserData::getInstance()->caveUserData(const_cast<char*>(getScrollViewPositionString().c_str()),
-                    _scrollView->getScrolledPercentHorizontal()); /* ¼ÇÂ¼Î»ÖÃ */
+                    _scrollView->getScrolledPercentHorizontal()); /* è®°å½•ä½ç½® */
 
                 _global->userInformation->setMainToWorld(false);
                 Director::getInstance()->replaceScene(TransitionFade::create(0.5f, SelectWorldScene::createScene()));

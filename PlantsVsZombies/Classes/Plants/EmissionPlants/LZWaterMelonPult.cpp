@@ -1,4 +1,4 @@
-/**
+ï»¿/**
  *Copyright (c) 2021 LZ.All Right Reserved
  *Author : LZ
  *Date: 2021.2.3
@@ -52,13 +52,13 @@ void WaterMelonPult::createPlantAnimation()
 	_plantAnimation->setAnchorPoint(Vec2::ANCHOR_MIDDLE);
 	_node->addChild(_plantAnimation);
 
-	// Ó°×Ó
+	// å½±å­
 	setPlantShadow(2.2f);
 
-	// ÄàÍÁ·É½¦¶¯»­
+	// æ³¥åœŸé£æº…åŠ¨ç”»
 	setPlantSoilSplashAnimation(1.0f);
 
-	// ´´½¨¼àÌı
+	// åˆ›å»ºç›‘å¬
 	createListener("WaterMelonPult_Shoot");
 }
 

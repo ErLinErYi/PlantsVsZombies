@@ -1,4 +1,4 @@
-/**
+ï»¿/**
  *Copyright (c) 2020 LZ.All Right Reserved
  *Author : LZ
  *Date: 2020.2.6
@@ -62,13 +62,13 @@ void SunFlower::createPlantAnimation()
 	_plantAnimation->setSkin("SunFlower_Normal");
 	_node->addChild(_plantAnimation);
 
-	// Ó°×Ó
+	// å½±å­
 	setPlantShadow(2.3f);
 
-	// ÄàÍÁ·É½¦¶¯»­
+	// æ³¥åœŸé£žæº…åŠ¨ç”»
 	setPlantSoilSplashAnimation(1.0f);
 	
-	// ´´½¨¼àÌý
+	// åˆ›å»ºç›‘å¬
 	createListener();
 }
 
@@ -85,7 +85,7 @@ void SunFlower::playAnimation()
 	auto delaytime1 = DelayTime::create(1.f);
 	auto delaytime2 = DelayTime::create(_sunShowTime.y);
 	auto callfunc = CallFunc::create([&]() { createSuns(); });
-	auto callfunc1 = CallFunc::create([=]() { _plantAnimation->setSkin("SunFlower_Normal"); /* ÉèÖÃÆ¤·ô */});
+	auto callfunc1 = CallFunc::create([=]() { _plantAnimation->setSkin("SunFlower_Normal"); /* è®¾ç½®çš®è‚¤ */});
 	auto callfunc2 = CallFunc::create([=]() { _isCreateSun = false; });
 
 	_plantAnimation->runAction(RepeatForever::create(Sequence::create(delaytime, callfunc, delaytime1, callfunc1, delaytime2, callfunc2, nullptr)));
@@ -111,7 +111,7 @@ void SunFlower::sunRecovery(Sun* sun)
 		{
 			Global::getInstance()->userInformation->setSunNumbers(Global::getInstance()->userInformation->getSunNumbers() + 50);
 			informationLayerInformation->updateSunNumbers();
-			informationLayerInformation->gameType->updateRequirementNumbers("Ñô¹âÊýÁ¿Ôö¼Ó");
+			informationLayerInformation->gameType->updateRequirementNumbers("é˜³å…‰æ•°é‡å¢žåŠ ");
 		});
 	auto actionCallFunc2 = CallFunc::create([temporary]()
 		{
@@ -137,7 +137,7 @@ void SunFlower::sunRecovery(Sun* sun)
 void SunFlower::createSuns()
 {
 	PlayMusic::playMusic(rand() % 2 == 0 ? "throw" : "throw2");
-	_plantAnimation->setSkin("SunFlower_ProduceSun"); /* ÉèÖÃÆ¤·ô */
+	_plantAnimation->setSkin("SunFlower_ProduceSun"); /* è®¾ç½®çš®è‚¤ */
 
 	_sun = new Sun(goodsLayerInformation);
 	_sun->setSunTag(++_sunTag);
@@ -271,7 +271,7 @@ bool Sun::getEnable() const
 	return _isEnable;
 }
 
-void Sun::releaseSun()
+void Sun::releaseFunction()
 {
 	_sun->removeFromParent();
 	_sun = nullptr;
@@ -292,7 +292,7 @@ void Sun::deleteSun(list<Sun*>::iterator& sun)
 {
 	if (!(*sun)->getSun()->isVisible())
 	{
-		(*sun)->releaseSun();
+		(*sun)->releaseFunction();
 		delete* sun;
 		*sun = nullptr;
 		SunsGroup.erase(sun++);

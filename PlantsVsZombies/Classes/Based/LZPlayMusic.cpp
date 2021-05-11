@@ -1,4 +1,4 @@
-/**
+ï»¿/**
  *Copyright (c) 2020 LZ.All Right Reserved
  *Author : LZ
  *Date: 2020.4.24
@@ -35,14 +35,14 @@ int PlayMusic::playMusic(const std::string& musicName, const int)
 
 int PlayMusic::changeBgMusic(const std::string& _musicName, bool _loop)
 {
-	/* ÔÝÍ£ÏÈÇ°µÄ±³¾°ÒôÀÖ */
+	/* æš‚åœå…ˆå‰çš„èƒŒæ™¯éŸ³ä¹ */
 	for (auto sp : Global::getInstance()->userInformation->getBackgroundMusic())
 	{
 		AudioEngine::stop(sp);
 	}
 	Global::getInstance()->userInformation->getBackgroundMusic().clear();
 
-	/* ²¥·ÅÐÂµÄ±³¾°ÒôÀÖ */
+	/* æ’­æ”¾æ–°çš„èƒŒæ™¯éŸ³ä¹ */
 	int AudioID = AudioEngine::play2d(Global::getInstance()->userInformation->getMusicPath().find(_musicName)->second, _loop);
 	AudioEngine::setVolume(AudioID, Global::getInstance()->userInformation->getBackGroundMusicVolume());
 

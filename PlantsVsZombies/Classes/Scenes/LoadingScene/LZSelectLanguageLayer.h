@@ -1,4 +1,4 @@
-/**
+﻿/**
  *Copyright (c) 2021 LZ.All Right Reserved
  *Author : LZ
  *Date: 2021.01.02
@@ -21,7 +21,7 @@ public:
 CC_CONSTRUCTOR_ACCESS:
 	SelectLanguage();
 	~SelectLanguage();
-	virtual bool init();
+	virtual bool init() override;
 
 private:
 	void createDialog();

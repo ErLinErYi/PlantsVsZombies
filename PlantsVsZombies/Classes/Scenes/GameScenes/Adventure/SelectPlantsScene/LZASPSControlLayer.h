@@ -1,4 +1,4 @@
-/**
+﻿/**
  *Copyright (c) 2019 LZ.All Right Reserved
  *Author : LZ
  *Date: 2019.8.12
@@ -28,7 +28,7 @@ public:
 CC_CONSTRUCTOR_ACCESS:
 	SPSControlLayer();
 	~SPSControlLayer();
-	virtual bool init();
+	virtual bool init() override;
 
 protected:
 	virtual void createButton();

@@ -1,4 +1,4 @@
-/**
+﻿/**
  *Copyright (c) 2019 LZ.All Right Reserved
  *Author : LZ
  *Date: 2019.8.12
@@ -19,7 +19,7 @@ public:
 	
 CC_CONSTRUCTOR_ACCESS:
 	SPSQuitLayer() : _shieldListener(nullptr){}
-	virtual bool init();
+	virtual bool init() override;
 
 protected:
 	virtual void createButton(const Vec2& vec2, const std::string name, PauseQuitLayer_Button type) override;

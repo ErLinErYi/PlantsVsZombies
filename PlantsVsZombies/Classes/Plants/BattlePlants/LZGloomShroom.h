@@ -1,4 +1,4 @@
-/**
+ï»¿/**
  *Copyright (c) 2021 LZ.All Right Reserved
  *Author : LZ
  *Date: 2021.1.22
@@ -30,7 +30,7 @@ protected:
 	virtual void plantRecovery(const string& name);
 
 protected:
-	bool _isChangeAnimation;  /* ÊÇ·ñ¸Ä±ä¶¯»­ */
-	bool _isAttack;           /* ÊÇ·ñ¹¥»÷ */
-	bool _isHaveZombies;      /* ÊÇ·ñÓĞ½©Ê¬½øÈë¹¥»÷·¶Î§ */
+	bool _isChangeAnimation;  /* æ˜¯å¦æ”¹å˜åŠ¨ç”» */
+	bool _isAttack;           /* æ˜¯å¦æ”»å‡» */
+	bool _isHaveZombies;      /* æ˜¯å¦æœ‰åƒµå°¸è¿›å…¥æ”»å‡»èŒƒå›´ */
 };

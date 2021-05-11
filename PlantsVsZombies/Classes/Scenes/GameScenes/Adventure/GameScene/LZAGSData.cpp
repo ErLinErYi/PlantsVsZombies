@@ -1,4 +1,4 @@
-/**
+ï»¿/**
  *Copyright (c) 2020 LZ.All Right Reserved
  *Author : LZ
  *Date: 2020.2.11
@@ -14,12 +14,12 @@
 
 #include "Zombies/LZZombies.h"
 
-GSBackgroundLayer* backgroundLayerInformation;   // ±³¾°²ãÊµÀı»¯
-GSInformationLayer* informationLayerInformation; // ĞÅÏ¢²ãÊµÀı»¯
-GSButtonLayer* buttonLayerInformation;           // °´Å¥²ãÊµÀı»¯
-GSControlLayer* controlLayerInformation;         // ¿ØÖÆ²ãÊµÀı»¯
-GSAnimationLayer* animationLayerInformation;     // ¶¯»­²ãÊ¾Àı»¯
-Layer* goodsLayerInformation;                    // ÎïÆ·²ãÊµÀı»¯
+GSBackgroundLayer* backgroundLayerInformation;   // èƒŒæ™¯å±‚å®ä¾‹åŒ–
+GSInformationLayer* informationLayerInformation; // ä¿¡æ¯å±‚å®ä¾‹åŒ–
+GSButtonLayer* buttonLayerInformation;           // æŒ‰é’®å±‚å®ä¾‹åŒ–
+GSControlLayer* controlLayerInformation;         // æ§åˆ¶å±‚å®ä¾‹åŒ–
+GSAnimationLayer* animationLayerInformation;     // åŠ¨ç”»å±‚ç¤ºä¾‹åŒ–
+Layer* goodsLayerInformation;                    // ç‰©å“å±‚å®ä¾‹åŒ–
 
 multimap<int, Plants*> PlantsGroup;
 list<Zombies*> ZombiesGroup;

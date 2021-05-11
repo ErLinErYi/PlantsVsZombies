@@ -1,4 +1,4 @@
-/**
+ï»¿/**
  *Copyright (c) 2020 LZ.All Right Reserved
  *Author : LZ
  *Date: 2020.5.08
@@ -19,7 +19,7 @@ unsigned int SGSSurvivalControlLayer::_frequencyNumbers = 0;
 
 void SGSSurvivalControlLayer::judgeLevelIsFinished()
 {
-	/* ¹Ø¿¨½áÊø */
+	/* å…³å¡ç»“æŸ */
 	if (ZombiesGroup.size() <= 0 && _zombiesAppearControl->getZombiesAppearFrequency() >= 10)
 	{
 		CURSOR_VISIBLE(true);
@@ -30,11 +30,11 @@ void SGSSurvivalControlLayer::judgeLevelIsFinished()
 
 void SGSSurvivalControlLayer::createZombies()
 {
-	/* Ë¢ĞÂ½©Ê¬ */
+	/* åˆ·æ–°åƒµå°¸ */
 	if (_zombiesAppearControl->getLastFrequencyZombiesWasDeath())
 	{
 		_zombiesAppearControl->setLastFrequencyZombiesWasDeath(false);
-		_zombiesAppearControl->setTimeClear(); /* ¾àÀëÉÏÒ»²¨Ë¢ĞÂÊ±¼äÇåÁã */
+		_zombiesAppearControl->setTimeClear(); /* è·ç¦»ä¸Šä¸€æ³¢åˆ·æ–°æ—¶é—´æ¸…é›¶ */
 		if (_zombiesAppearControl->getZombiesAppearFrequency() < 10)
 		{
 			const unsigned int zombiesNumbers = getZombiesNumbers();
@@ -42,17 +42,17 @@ void SGSSurvivalControlLayer::createZombies()
 			{
 				animationLayerInformation->createZombiesOnSurvival();
 			}
-			/* ½ø¹¥²¨Êı×ÔÔöÒ» */
+			/* è¿›æ”»æ³¢æ•°è‡ªå¢ä¸€ */
 			_zombiesAppearControl->setZombiesAppearFrequency();
 			++_frequencyNumbers;
 
-			/* ½ø¶ÈÌõ¸üĞÂ */
+			/* è¿›åº¦æ¡æ›´æ–° */
 			informationLayerInformation->updateProgressBar(_zombiesAppearControl->getZombiesAppearFrequency(), 10);
 		}
 	}
 	informationLayerInformation->updateProgressBarHead();
 
-	/* ¿ØÖÆ½©Ê¬µÄË¢ĞÂ */
+	/* æ§åˆ¶åƒµå°¸çš„åˆ·æ–° */
 	if (controlRefurbishZombies())
 	{
 		_zombiesAppearControl->setLastFrequencyZombiesWasDeath(true);
@@ -62,16 +62,16 @@ void SGSSurvivalControlLayer::createZombies()
 
 bool SGSSurvivalControlLayer::controlRefurbishZombies()
 {
-	if ((Zombies::getZombiesNumbers() <= 4 && _frequencyNumbers > 3)                    /* Èç¹û»î×ÅµÄ½©Ê¬ÊıĞ¡ÓÚ¹æ¶¨£¬Ë¢ĞÂÏÂÒ»²¨ */
+	if ((Zombies::getZombiesNumbers() <= 4 && _frequencyNumbers > 3)                    /* å¦‚æœæ´»ç€çš„åƒµå°¸æ•°å°äºè§„å®šï¼Œåˆ·æ–°ä¸‹ä¸€æ³¢ */
 
-		|| (Zombies::getZombiesNumbers() <= 0 && _frequencyNumbers > 1                  /* Èç¹ûÃ»ÓĞ´æ»î½©Ê¬ÔòÁ¢¼´Ë¢ĞÂ½©Ê¬ */)
+		|| (Zombies::getZombiesNumbers() <= 0 && _frequencyNumbers > 1                  /* å¦‚æœæ²¡æœ‰å­˜æ´»åƒµå°¸åˆ™ç«‹å³åˆ·æ–°åƒµå°¸ */)
 
-		|| (_zombiesAppearControl->getTime() >= 18 && _frequencyNumbers == 0)           /* µÚÒ»²¨Ë¢ĞÂ¿ØÖÆ */
+		|| (_zombiesAppearControl->getTime() >= 18 && _frequencyNumbers == 0)           /* ç¬¬ä¸€æ³¢åˆ·æ–°æ§åˆ¶ */
 
 		|| (_zombiesAppearControl->getTime() >= 30 + rand() % 10 &&
-			(_frequencyNumbers == 1 || _frequencyNumbers == 2))                         /* µÚ¶şÈı²¨Ë¢ĞÂ¿ØÖÆ */
+			(_frequencyNumbers == 1 || _frequencyNumbers == 2))                         /* ç¬¬äºŒä¸‰æ³¢åˆ·æ–°æ§åˆ¶ */
 
-		|| (_zombiesAppearControl->getTime() >= 40 && _frequencyNumbers > 2)            /* Èç¹û´óÓÚ45ÃëË¢ĞÂÏÂÒ»²¨ */
+		|| (_zombiesAppearControl->getTime() >= 40 && _frequencyNumbers > 2)            /* å¦‚æœå¤§äº45ç§’åˆ·æ–°ä¸‹ä¸€æ³¢ */
 		)
 	{
 		return true;
@@ -81,7 +81,7 @@ bool SGSSurvivalControlLayer::controlRefurbishZombies()
 
 void SGSSurvivalControlLayer::controlRefurbishMusicAndText()
 {
-	/* ¿ØÖÆ´ó²¨½©Ê¬À´Ï®µÄÎÄ×ÖÓëÒôÀÖ */
+	/* æ§åˆ¶å¤§æ³¢åƒµå°¸æ¥è¢­çš„æ–‡å­—ä¸éŸ³ä¹ */
 	if ((_zombiesAppearControl->getTime() >= 18 && _frequencyNumbers / 10 == 0) ||
 		(_zombiesAppearControl->getTime() >= 5 && _frequencyNumbers / 10 > 0) &&
 		_zombiesAppearControl->getZombiesAppearFrequency() == 0)
@@ -89,7 +89,7 @@ void SGSSurvivalControlLayer::controlRefurbishMusicAndText()
 		PlayMusic::playMusic("awooga");
 	}
 
-	/* ½©Ê¬µÄÎÄ×ÖÏÔÊ¾ÓëÆì×Ó¸üĞÂ */
+	/* åƒµå°¸çš„æ–‡å­—æ˜¾ç¤ºä¸æ——å­æ›´æ–° */
 	if (_zombiesAppearControl->getZombiesAppearFrequency() > 0 && 
 		_zombiesAppearControl->getZombiesAppearFrequency() % 5 == 0 && !_zombiesAppearControl->getIsShowWords())
 	{

@@ -1,4 +1,4 @@
-/**
+ï»¿/**
  *Copyright (c) 2019 LZ.All Right Reserved
  *Author : LZ
  *Date: 2019.7.1
@@ -34,5 +34,5 @@ private:
 	Global* _global;
 	const Size _size;
 	ui::ScrollView* _textScrollView;
-	float _plantCardRollingDistance;           /* ¼ÆËãÊó±ê¹ö¶¯¾àÀë */
+	float _plantCardRollingDistance;           /* è®¡ç®—é¼ æ ‡æ»šåŠ¨è·ç¦» */
 };

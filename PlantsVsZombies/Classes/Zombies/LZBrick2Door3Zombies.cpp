@@ -1,4 +1,4 @@
-/**
+ï»¿/**
  *Copyright (c) 2021 LZ.All Right Reserved
  *Author : LZ
  *Date: 2021.4.23
@@ -71,30 +71,30 @@ void Brick2Door3Zombies::createPreviewZombie()
 
 void Brick2Door3Zombies::zombieInjuredEventUpdate()
 {
-	if (_isHaveShield)/* Èç¹ûÓÐÉíÌå»¤¶Ü */
+	if (_isHaveShield)/* å¦‚æžœæœ‰èº«ä½“æŠ¤ç›¾ */
 	{
-		if (_currentBodyShieldVolume <= _bodyShieldVolume * 2.0f / 3.0f) /* ÉíÌå»¤¶ÜÒ»¼¶ËðÉË */
+		if (_currentBodyShieldVolume <= _bodyShieldVolume * 2.0f / 3.0f) /* èº«ä½“æŠ¤ç›¾ä¸€çº§æŸä¼¤ */
 		{
 			setZombieBodyShieldPrimaryInjure("Zombie_screendoor", _doorName[1][_doorNumber]);
 		}
-		if (_currentBodyShieldVolume <= _bodyShieldVolume / 3.0f)        /* ÉíÌå»¤¶Ü¶þ¼¶ËðÉË */
+		if (_currentBodyShieldVolume <= _bodyShieldVolume / 3.0f)        /* èº«ä½“æŠ¤ç›¾äºŒçº§æŸä¼¤ */
 		{
 			setZombieBodyShieldSecondaryInjure("Zombie_screendoor", _doorName[2][_doorNumber]);
 		}
-		if (_currentBodyShieldVolume <= 0) /* ÉíÌå»¤¶ÜÏûÊ§ */
+		if (_currentBodyShieldVolume <= 0) /* èº«ä½“æŠ¤ç›¾æ¶ˆå¤± */
 		{
 			setZombieBodyShieldThirdInjure("Zombie_screendoor", "tt_innerleg_foot3");
 		}
 
-		if (_currentHeadShieldVolume <= _headShieldVolume * 2.0f / 3) /* Í·²¿»¤¶ÜÒ»¼¶ËðÉË */
+		if (_currentHeadShieldVolume <= _headShieldVolume * 2.0f / 3) /* å¤´éƒ¨æŠ¤ç›¾ä¸€çº§æŸä¼¤ */
 		{
 			setZombieHeadShieldPrimaryInjure("Zombie_bucket", "28");
 		}
-		if (_currentHeadShieldVolume <= _headShieldVolume * 1.0f / 3) /* Í·²¿»¤¶Ü¶þ¼¶ËðÉË */
+		if (_currentHeadShieldVolume <= _headShieldVolume * 1.0f / 3) /* å¤´éƒ¨æŠ¤ç›¾äºŒçº§æŸä¼¤ */
 		{
 			setZombieHeadShieldSecondaryInjure("Zombie_bucket", "29");
 		}
-		if (_currentHeadShieldVolume <= 0)   /* Í·²¿»¤¶ÜÏûÊ§ */
+		if (_currentHeadShieldVolume <= 0)   /* å¤´éƒ¨æŠ¤ç›¾æ¶ˆå¤± */
 		{
 			setZombieHeadShieldThirdInjure("Zombie_bucket", "tt_innerleg_foot3");
 		}
@@ -111,19 +111,24 @@ void Brick2Door3Zombies::zombieInjuredEventUpdate()
 
 void Brick2Door3Zombies::setZombieBodyShieldThirdInjure(const string& oldName, const string& newName)
 {
-	if (_bodyShieldAnimationId == 3) /* »¤¶ÜÈý¼¶ÉËº¦ */
+	if (_bodyShieldAnimationId == 3) /* æŠ¤ç›¾ä¸‰çº§ä¼¤å®³ */
 	{
 		_zombiesAnimation->setAttachment("Zombie_screendoor", "tt_innerleg_foot3");
 		_bodyShieldAnimationId = 4;
 
 		_attackBodySoundEffectType = 0;
 		_bodyShieldType = ShieldType::none;
+
+		if (_currentSpeed > 0)
+		{
+			_zombiesAnimation->addAnimation(0, "Zombies_Walk2", true);
+		}
 	}
 }
 
 void Brick2Door3Zombies::setZombieHeadShieldThirdInjure(const string& oldName, const string& newName)
 {
-	if (_headShieldAnimationId == 3) /* Í·²¿»¤¶ÜÈý¼¶ÉËº¦ */
+	if (_headShieldAnimationId == 3) /* å¤´éƒ¨æŠ¤ç›¾ä¸‰çº§ä¼¤å®³ */
 	{
 		_zombiesAnimation->setAttachment("Zombie_bucket", "tt_innerleg_foot3");
 		_headShieldAnimationId = 4;
@@ -131,7 +136,7 @@ void Brick2Door3Zombies::setZombieHeadShieldThirdInjure(const string& oldName, c
 		_attackHeadSoundEffectType = 0;
 		_headShieldType = ShieldType::none;
 
-		/* ½©Ê¬µôÍ·²¿»¤¶Ü */
+		/* åƒµå°¸æŽ‰å¤´éƒ¨æŠ¤ç›¾ */
 		zombieLoseShieldAnimation("Zombie_Brick2", 1.f);
 	}
 }

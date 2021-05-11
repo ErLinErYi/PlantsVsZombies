@@ -1,4 +1,4 @@
-/**
+Ôªø/**
  *Copyright (c) 2021 LZ.All Right Reserved
  *Author : LZ
  *Date: 2021.1.27
@@ -13,11 +13,11 @@ class StarFruitBullet :public Bullet
 public:
     enum class StarFruitBulletDirection
     {
-        Up,                 // …œ
-        Down,               // œ¬
-        Rear,               // ∫Û∑Ω
-        DiagonallyAbove,    // –±…œ∑Ω
-        ObliquelyBelow,     // –±œ¬∑Ω
+        Up,                 // ‰∏ä
+        Down,               // ‰∏ã
+        Rear,               // ÂêéÊñπ
+        DiagonallyAbove,    // Êñú‰∏äÊñπ
+        ObliquelyBelow,     // Êñú‰∏ãÊñπ
         null
     };
 

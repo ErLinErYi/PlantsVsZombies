@@ -1,4 +1,4 @@
-/**
+ï»¿/**
  *Copyright (c) 2020 LZ.All Right Reserved
  *Author : LZ
  *Date: 2021.4.21
@@ -77,17 +77,17 @@ void NewspaperZombies::playZombieSoundEffect()
 
 void NewspaperZombies::zombieInjuredEventUpdate()
 {
-	if (_isHaveShield)/* Èç¹ûÓÐÉíÌå»¤¶Ü */
+	if (_isHaveShield)/* å¦‚æžœæœ‰èº«ä½“æŠ¤ç›¾ */
 	{
-		if (_currentBodyShieldVolume <= _bodyShieldVolume * 2.0f / 3.0f) /* ÉíÌå»¤¶ÜÒ»¼¶ËðÉË */
+		if (_currentBodyShieldVolume <= _bodyShieldVolume * 2.0f / 3.0f) /* èº«ä½“æŠ¤ç›¾ä¸€çº§æŸä¼¤ */
 		{
 			setZombieBodyShieldPrimaryInjure("Zombie_screendoor", "49");
 		}
-		if (_currentBodyShieldVolume <= _bodyShieldVolume / 3.0f)        /* ÉíÌå»¤¶Ü¶þ¼¶ËðÉË */
+		if (_currentBodyShieldVolume <= _bodyShieldVolume / 3.0f)        /* èº«ä½“æŠ¤ç›¾äºŒçº§æŸä¼¤ */
 		{
 			setZombieBodyShieldSecondaryInjure("Zombie_screendoor", "50");
 		}
-		if (_currentBodyShieldVolume <= 0) /* ÉíÌå»¤¶ÜÏûÊ§ */
+		if (_currentBodyShieldVolume <= 0) /* èº«ä½“æŠ¤ç›¾æ¶ˆå¤± */
 		{
 			setZombieBodyShieldThirdInjure("Zombie_screendoor", "tt_innerleg_foot3");
 		}
@@ -104,7 +104,7 @@ void NewspaperZombies::zombieInjuredEventUpdate()
 
 void NewspaperZombies::setZombieBodyShieldThirdInjure(const string& oldName, const string& newName)
 {
-	if (_bodyShieldAnimationId == 3) /* »¤¶ÜÈý¼¶ÉËº¦ */
+	if (_bodyShieldAnimationId == 3) /* æŠ¤ç›¾ä¸‰çº§ä¼¤å®³ */
 	{
 		_zombiesAnimation->setAttachment("Zombie_screendoor", "tt_innerleg_foot3");
 		_bodyShieldAnimationId = 4;
@@ -116,6 +116,11 @@ void NewspaperZombies::setZombieBodyShieldThirdInjure(const string& oldName, con
 
 		_speed == _currentSpeed ? _speed = _currentSpeed = 60 : _speed = 60;
 		_zombiesAnimation->setTimeScale(_zombiesAnimation->getTimeScale() * 2.f);
+
+		if (_currentSpeed > 0)
+		{
+			_zombiesAnimation->addAnimation(0, "Zombies_Walk2", true);
+		}
 	}
 }
 

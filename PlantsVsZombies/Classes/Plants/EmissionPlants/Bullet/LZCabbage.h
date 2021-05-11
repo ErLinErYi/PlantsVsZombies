@@ -1,4 +1,4 @@
-/**
+ï»¿/**
  *Copyright (c) 2020 LZ.All Right Reserved
  *Author : LZ
  *Date: 2020.2.18
@@ -34,7 +34,7 @@ protected:
 	virtual void createListener(const string& actionName, float scale = 0.8f);
 	virtual void createExplodeAnimation(const string& animationName, const string& actionName, const float scale = 0.6f);
 	virtual void calculateInformationForReadFile();
-	virtual bool getBulletIsEncounterWithZombie(Zombies* zombie);
+	virtual bool getBulletIsEncounterWithZombie(Zombies* zombie) override;
 
 protected:
 	Vec2 _zombiePosition;
@@ -45,5 +45,5 @@ protected:
 	float _zombieHeight;
 	float _actionTime;
 	float _acxtionHeight;
-	bool _isFileData;      // ÊÇ·ñ¶ÁÈ¡ÎÄ¼şÊı¾İ±êÖ¾
+	bool _isFileData;      // æ˜¯å¦è¯»å–æ–‡ä»¶æ•°æ®æ ‡å¿—
 };

@@ -1,4 +1,4 @@
-/**
+ï»¿/**
  *Copyright (c) 2021 LZ.All Right Reserved
  *Author : LZ
  *Date: 2021.2.09
@@ -25,7 +25,7 @@ public:
 CC_CONSTRUCTOR_ACCESS:
 	HControlLayer();
 	~HControlLayer();
-	virtual bool init();
+	virtual bool init() override;
 
 protected:
 	virtual void initData() override;
@@ -51,10 +51,10 @@ private:
 protected:
 	SkeletonAnimation* _hammer;
 	unsigned int _attack;
-	unsigned int _frequencyZombiesNumbers;  // Ã¿Ò»²¨½©Ê¬¸öÊı
-	unsigned int _maxFrequencyNumbers;      // ×î´ó²¨Êı
-	unsigned int _currentLevelNumber;       // µ±Ç°¹Ø¿¨Êı
-	unsigned int _zombiesTypeNumbers;       // ½©Ê¬×ÜÀàÊı
-	float _currentLevelZombiesSpeed;        // µ±Ç°½©Ê¬ÔË¶¯ËÙ¶È
+	unsigned int _frequencyZombiesNumbers;  // æ¯ä¸€æ³¢åƒµå°¸ä¸ªæ•°
+	unsigned int _maxFrequencyNumbers;      // æœ€å¤§æ³¢æ•°
+	unsigned int _currentLevelNumber;       // å½“å‰å…³å¡æ•°
+	unsigned int _zombiesTypeNumbers;       // åƒµå°¸æ€»ç±»æ•°
+	float _currentLevelZombiesSpeed;        // å½“å‰åƒµå°¸è¿åŠ¨é€Ÿåº¦
 	bool _isShowHammerButton;
 };

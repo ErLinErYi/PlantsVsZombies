@@ -1,4 +1,4 @@
-/**
+ï»¿/**
  *Copyright (c) 2021 LZ.All Right Reserved
  *Author : LZ
  *Date: 2021.2.09
@@ -31,13 +31,13 @@ bool HammerZombiesScene::init()
 	if (!Scene::init())return false;
 
 	controlPlayMusic();
-	backgroundLayer();   // ±³¾°²ã
-	informationLayer();  // ÐÅÏ¢²ã
-	buttonLayer();       // °´Å¥²ã
-	controlLayer();      // ¿ØÖÆ²ã
-	animationLayer();    // ¶¯»­²ã
-	goodsLayer();        // ÎïÆ·²ã
-	gameTimerLayer();    // ¶¨Ê±²ã
+	backgroundLayer();   // èƒŒæ™¯å±‚
+	informationLayer();  // ä¿¡æ¯å±‚
+	buttonLayer();       // æŒ‰é’®å±‚
+	controlLayer();      // æŽ§åˆ¶å±‚
+	animationLayer();    // åŠ¨ç”»å±‚
+	goodsLayer();        // ç‰©å“å±‚
+	gameTimerLayer();    // å®šæ—¶å±‚
 	setName("GameScene");
 	pauseGame();
 
@@ -100,8 +100,8 @@ void HammerZombiesScene::pauseGame()
 					{
 						if (!GSPauseQuitLayer::getIsPause())
 						{
-							PlayMusic::playMusic("pause");
 							GSPauseQuitLayer::pauseLayer();
+							PlayMusic::playMusic("pause");
 							_director->getOpenGLView()->setCursorVisible(true);
 							_director->getRunningScene()->addChild(GSPauseLayer::addLayer(), 10);
 						}

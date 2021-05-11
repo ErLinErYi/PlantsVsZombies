@@ -1,4 +1,4 @@
-/**
+ï»¿/**
  *Copyright (c) 2020 LZ.All Right Reserved
  *Author : LZ
  *Date: 2020.2.19
@@ -35,7 +35,7 @@ void FirePea::createBullet()
 
 void FirePea::createShadow(Vec2 position)
 {
-    /* ´´½¨Ó°×Ó */
+    /* åˆ›å»ºå½±å­ */
     auto shadow = Sprite::createWithSpriteFrameName("plantshadow.png");
     shadow->setScaleY(0.7f);
     shadow->setName("shadow");
@@ -49,16 +49,16 @@ void FirePea::bulletAndZombiesCollision()
 {
     for (auto zombie : ZombiesGroup)
     {
-        if (!_isUsed && getBulletIsSameLineWithZombie(zombie) &&                          /* Íã¶¹Ã»ÓÐ±»Ê¹ÓÃ && Íã¶¹Óë½©Ê¬ÔÚÍ¬Ò»ÐÐ */
-            zombie->getZombieIsSurvive() && zombie->getZombieIsEnterMap() &&              /* ½©Ê¬Ã»ÓÐËÀÍö && ½©Ê¬½øÈëµØÍ¼ÄÚ */
-            getBulletIsEncounterWithZombie(zombie) && zombie->getZombieIsCanBeAttack())   /* Óë½©Ê¬Åö×² && ½©Ê¬¿ÉÒÔ±»¹¥»÷µ½ */
+        if (!_isUsed && getBulletIsSameLineWithZombie(zombie) &&                          /* è±Œè±†æ²¡æœ‰è¢«ä½¿ç”¨ && è±Œè±†ä¸Žåƒµå°¸åœ¨åŒä¸€è¡Œ */
+            zombie->getZombieIsSurvive() && zombie->getZombieIsEnterMap() &&              /* åƒµå°¸æ²¡æœ‰æ­»äº¡ && åƒµå°¸è¿›å…¥åœ°å›¾å†… */
+            getBulletIsEncounterWithZombie(zombie) && zombie->getZombieIsCanBeAttack())   /* ä¸Žåƒµå°¸ç¢°æ’ž && åƒµå°¸å¯ä»¥è¢«æ”»å‡»åˆ° */
         {
-            playSoundEffect(SoundEffectType::firepea); /* ²¥·ÅÖ¸¶¨ÒôÀÖ */
+            playSoundEffect(SoundEffectType::firepea); /* æ’­æ”¾æŒ‡å®šéŸ³ä¹ */
 
-            attackZombies(zombie);                     /* ¹¥»÷ÉËº¦´Ë½©Ê¬ */
-            splashDamageZombies(zombie);               /* ½¦ÉäÉËº¦½©Ê¬*/
-            setBulletOpacity();                        /* ×Óµ¯ÏûÊ§ */
-            createPeaExplode();                        /* ´´½¨Íã¶¹±¬Õ¨¶¯»­ */
+            attackZombies(zombie);                     /* æ”»å‡»ä¼¤å®³æ­¤åƒµå°¸ */
+            splashDamageZombies(zombie);               /* æº…å°„ä¼¤å®³åƒµå°¸*/
+            setBulletOpacity();                        /* å­å¼¹æ¶ˆå¤± */
+            createPeaExplode();                        /* åˆ›å»ºè±Œè±†çˆ†ç‚¸åŠ¨ç”» */
             setBulletAttack(0);
             setBulletIsUsed(true);
 
@@ -76,7 +76,7 @@ void FirePea::attackZombies(Zombies* zombie)
 
 void FirePea::splashDamageZombies(Zombies* exceptZombie)
 {
-    /* ¼ÆËã½¦ÉäÉËº¦½©Ê¬Êý */
+    /* è®¡ç®—æº…å°„ä¼¤å®³åƒµå°¸æ•° */
     for (auto zombie : ZombiesGroup)
     {
         if (zombie->getZombieIsEnterMap() && zombie->getZombieIsSurvive() && getZombieInExplodeRange(zombie))
@@ -90,7 +90,7 @@ void FirePea::splashDamageZombies(Zombies* exceptZombie)
         if (exceptZombie != zombie && zombie->getZombieIsEnterMap() &&
             zombie->getZombieIsSurvive() && getZombieInExplodeRange(zombie))
         {
-            /* ½¦ÉäÉËº¦¼ÆËã */
+            /* æº…å°„ä¼¤å®³è®¡ç®— */
             if (int(_attack / 3) * _zombieInExplodeRangeNumbers > _attack)
             {
                 _attack = max(int(pow(_attack, 2) / (int(_attack / 3) * 3 * _zombieInExplodeRangeNumbers)), 1);

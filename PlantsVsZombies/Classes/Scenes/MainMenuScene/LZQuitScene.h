@@ -1,4 +1,4 @@
-/**
+ï»¿/**
  *Copyright (c) 2019 LZ.All Right Reserved
  *Author : LZ
  *Date: 2019.7.17
@@ -10,9 +10,7 @@
 #include "cocos2d.h"
 #include "Based/LZDialog.h"
 
-using namespace ui;
 using namespace cocos2d;
-using namespace cocos2d::experimental;
 
 class QuitMenu :public Dialog
 {
@@ -22,17 +20,17 @@ public:
 	
 CC_CONSTRUCTOR_ACCESS:
 	QuitMenu():_quitDialog(nullptr){}
-	virtual bool init();
+	virtual bool init() override;
 
 protected:
 	virtual void deleteDialog() override;
 
 private:
-	void createDiglog();	/* ´´½¨¶Ô»°¿ò */
-	void createButtons(const std::string& Label, Vec2& vec2, const int& ID);/* ´´½¨°´Å¥ */
+	void createDiglog();	/* åˆ›å»ºå¯¹è¯æ¡† */
+	void createButtons(const std::string& Label, Vec2& vec2, const int& ID);/* åˆ›å»ºæŒ‰é’® */
 	void caveTime(const int time);
 	void quitGame();
 
 private:
-	Sprite* _quitDialog;    /* ¶Ô»°¿ò */
+	Sprite* _quitDialog;    /* å¯¹è¯æ¡† */
 };

@@ -1,4 +1,4 @@
-/**
+﻿/**
  *Copyright (c) 2020 LZ.All Right Reserved
  *Author : LZ
  *Date: 2020.3.9
@@ -20,7 +20,7 @@ public:
 CC_CONSTRUCTOR_ACCESS:
     SPSRequriementLayer();
     ~SPSRequriementLayer();
-    virtual bool init();
+    virtual bool init() override;
 
 protected:
     virtual void createDialog();

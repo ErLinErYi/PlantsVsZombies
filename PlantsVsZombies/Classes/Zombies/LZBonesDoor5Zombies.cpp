@@ -1,4 +1,4 @@
-/**
+ï»¿/**
  *Copyright (c) 2021 LZ.All Right Reserved
  *Author : LZ
  *Date: 2021.4.23
@@ -74,39 +74,39 @@ void BonesDoor5Zombies::createPreviewZombie()
 
 void BonesDoor5Zombies::zombieInjuredEventUpdate()
 {
-	if (_isHaveShield)/* Èç¹ûÓÐ»¤¶Ü */
+	if (_isHaveShield)/* å¦‚æžœæœ‰æŠ¤ç›¾ */
 	{
-		if (_currentBodyShieldVolume <= _bodyShieldVolume * 2.0f / 3.0f) /* ÉíÌå»¤¶ÜÒ»¼¶ËðÉË */
+		if (_currentBodyShieldVolume <= _bodyShieldVolume * 2.0f / 3.0f) /* èº«ä½“æŠ¤ç›¾ä¸€çº§æŸä¼¤ */
 		{
 			setZombieBodyShieldPrimaryInjure("Zombie_screendoor", "22");
 		}
-		if (_currentBodyShieldVolume <= _bodyShieldVolume / 3.0f)        /* ÉíÌå»¤¶Ü¶þ¼¶ËðÉË */
+		if (_currentBodyShieldVolume <= _bodyShieldVolume / 3.0f)        /* èº«ä½“æŠ¤ç›¾äºŒçº§æŸä¼¤ */
 		{
 			setZombieBodyShieldSecondaryInjure("Zombie_screendoor", "53");
 		}
-		if (_currentBodyShieldVolume <= 0) /* ÉíÌå»¤¶ÜÏûÊ§ */
+		if (_currentBodyShieldVolume <= 0) /* èº«ä½“æŠ¤ç›¾æ¶ˆå¤± */
 		{
 			setZombieBodyShieldThirdInjure("Zombie_screendoor", "tt_innerleg_foot3");
 		}
 
-		if (_currentHeadShieldVolume <= _headShieldVolume * 2.0f / 3.0f) /* Í·²¿»¤¶ÜÒ»¼¶ËðÉË */
+		if (_currentHeadShieldVolume <= _headShieldVolume * 2.0f / 3.0f) /* å¤´éƒ¨æŠ¤ç›¾ä¸€çº§æŸä¼¤ */
 		{
 			setZombieHeadShieldPrimaryInjure("Zombie_bucket", "22");
 		}
-		if (_currentHeadShieldVolume <= _headShieldVolume / 3.0f)       /* Í·²¿»¤¶Ü¶þ¼¶ËðÉË */
+		if (_currentHeadShieldVolume <= _headShieldVolume / 3.0f)       /* å¤´éƒ¨æŠ¤ç›¾äºŒçº§æŸä¼¤ */
 		{
 			setZombieHeadShieldSecondaryInjure("Zombie_bucket", "23");
 		}
-		if (_currentHeadShieldVolume <= 0)                              /* Í·²¿»¤¶ÜÏûÊ§ */
+		if (_currentHeadShieldVolume <= 0)                              /* å¤´éƒ¨æŠ¤ç›¾æ¶ˆå¤± */
 		{
 			setZombieHeadShieldThirdInjure("Zombie_bucket", "tt_innerleg_foot3");
 		}
 	}
-	if (_currentBloodVolume <= _bloodVolume / 2.0f)   /* ½©Ê¬ÑªÁ¿Ð¡ÓÚÒ»¶¨Öµ£¬½©Ê¬µô¸ì²² */
+	if (_currentBloodVolume <= _bloodVolume / 2.0f)   /* åƒµå°¸è¡€é‡å°äºŽä¸€å®šå€¼ï¼Œåƒµå°¸æŽ‰èƒ³è†Š */
 	{
 		setZombiePrimaryInjure();
 	}
-	if (_currentBloodVolume <= 0)                     /* ½©Ê¬ÑªÁ¿Ð¡ÓÚÁã£¬½©Ê¬ËÀÍö */
+	if (_currentBloodVolume <= 0)                     /* åƒµå°¸è¡€é‡å°äºŽé›¶ï¼Œåƒµå°¸æ­»äº¡ */
 	{
 		setZombieSecondaryInjure();
 	}
@@ -114,19 +114,24 @@ void BonesDoor5Zombies::zombieInjuredEventUpdate()
 
 void BonesDoor5Zombies::setZombieBodyShieldThirdInjure(const string& oldName, const string& newName)
 {
-	if (_bodyShieldAnimationId == 3) /* »¤¶ÜÈý¼¶ÉËº¦ */
+	if (_bodyShieldAnimationId == 3) /* æŠ¤ç›¾ä¸‰çº§ä¼¤å®³ */
 	{
 		_zombiesAnimation->setAttachment("Zombie_screendoor", "tt_innerleg_foot3");
 		_bodyShieldAnimationId = 4;
 
 		_attackBodySoundEffectType = 0;
 		_bodyShieldType = ShieldType::none;
+
+		if (_currentSpeed > 0)
+		{
+			_zombiesAnimation->addAnimation(0, "Zombies_Walk2", true);
+		}
 	}
 }
 
 void BonesDoor5Zombies::setZombieHeadShieldThirdInjure(const string& oldName, const string& newName)
 {
-	if (_headShieldAnimationId == 3) /* »¤¶ÜÈý¼¶ÉËº¦ */
+	if (_headShieldAnimationId == 3) /* æŠ¤ç›¾ä¸‰çº§ä¼¤å®³ */
 	{
 		_zombiesAnimation->setAttachment("Zombie_bucket", "tt_innerleg_foot3");
 		_headShieldAnimationId = 4;
@@ -134,7 +139,7 @@ void BonesDoor5Zombies::setZombieHeadShieldThirdInjure(const string& oldName, co
 		_attackHeadSoundEffectType = 0;
 		_headShieldType = ShieldType::none;
 
-		/* ½©Ê¬µô»¤¶Ü */
+		/* åƒµå°¸æŽ‰æŠ¤ç›¾ */
 		zombieLoseShieldAnimation("Zombie_Spine", 1.f);
 	}
 }

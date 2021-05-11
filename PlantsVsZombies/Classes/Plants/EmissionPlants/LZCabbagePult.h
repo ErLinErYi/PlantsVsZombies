@@ -1,4 +1,4 @@
-/**
+ï»¿/**
  *Copyright (c) 2020 LZ.All Right Reserved
  *Author : LZ
  *Date: 2020.2.6
@@ -32,9 +32,9 @@ protected:
 	virtual void determineRelativePositionPlantsAndZombies(const string& animationName);
 
 protected:
-	float _distance;          // Ö²ÎïÓë×î½üµÄ½©Ê¬µÄ¾àÀë
-	Vec2 _zombiePostion;      // ÁÙÊ±ÌôÑ¡³öÀ´µÄ½©Ê¬µÄÎ»ÖÃ
-	float _zombieSpeed;       // ÁÙÊ±ÌôÑ¡³öÀ´µÄ½©Ê¬µÄËÙ¶È
-	float _zombieHeight;      // ÁÙÊ±ÌôÑ¡³öÀ´µÄ½©Ê¬µÄ¸ß¶È
-	Zombies* _zombie;         // ´æ´¢ÁÙÊ±ÌôÑ¡³öÀ´µÄ½©Ê¬
+	float _distance;          // æ¤ç‰©ä¸æœ€è¿‘çš„åƒµå°¸çš„è·ç¦»
+	Vec2 _zombiePostion;      // ä¸´æ—¶æŒ‘é€‰å‡ºæ¥çš„åƒµå°¸çš„ä½ç½®
+	float _zombieSpeed;       // ä¸´æ—¶æŒ‘é€‰å‡ºæ¥çš„åƒµå°¸çš„é€Ÿåº¦
+	float _zombieHeight;      // ä¸´æ—¶æŒ‘é€‰å‡ºæ¥çš„åƒµå°¸çš„é«˜åº¦
+	Zombies* _zombie;         // å­˜å‚¨ä¸´æ—¶æŒ‘é€‰å‡ºæ¥çš„åƒµå°¸
 };

@@ -1,4 +1,4 @@
-/**
+﻿/**
  *Copyright (c) 2019 LZ.All Right Reserved
  *Author : LZ
  *Date: 2019.6.25
@@ -28,7 +28,7 @@ public:
 CC_CONSTRUCTOR_ACCESS:
 	GameEasterEggs();
     ~GameEasterEggs();
-	virtual bool init();
+	virtual bool init() override;
 
 private:
     enum class State

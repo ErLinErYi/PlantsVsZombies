@@ -1,3 +1,9 @@
+ï»¿/**
+ *Copyright (c) 2019 LZ.All Right Reserved
+ *Author : LZ
+ *Email: 2117610943@qq.com
+ */
+
 #pragma once
 #include "cocos2d.h"
 #include "spine/spine-cocos2dx.h"
@@ -11,21 +17,21 @@ using namespace cocos2d::ui;
 struct SunNumberRequriement
 {
 	SunNumberRequriement();
-	Text* allSunNumbersText;                     /* ÏÔÊ¾Ñô¹âÊı×Ö */
-	int atLeastSunNumbers;                       /* ÖÁÉÙĞèÒªµÄÑô¹âÊı */
-	int allSunNumbers;                           /* Ñô¹âÊı */
-	bool isHaveSunNumberRequriement;             /* ÊÇ·ñÓĞÑô¹âÒªÇó */
-	bool isUpdateImage;                          /* Í¼Æ¬ÊÇ·ñ¸üĞÂ */
+	Text* allSunNumbersText;                     /* æ˜¾ç¤ºé˜³å…‰æ•°å­— */
+	int atLeastSunNumbers;                       /* è‡³å°‘éœ€è¦çš„é˜³å…‰æ•° */
+	int allSunNumbers;                           /* é˜³å…‰æ•° */
+	bool isHaveSunNumberRequriement;             /* æ˜¯å¦æœ‰é˜³å…‰è¦æ±‚ */
+	bool isUpdateImage;                          /* å›¾ç‰‡æ˜¯å¦æ›´æ–° */
 };
 
 struct PlantsRequriement
 {
 	PlantsRequriement();
-	Text* palntsNumbersText;                     /* ÏÔÊ¾Ö²ÎïÊıÁ¿ */
-	int userPlantsNumbers;                       /* ¿ÉÒÔÊ¹ÓÃµÄÖ²ÎïÊıÁ¿ */
-	int surPlusPlantsNumbers;                    /* Ê£ÓàÖ²ÎïÊıÁ¿ */
-	bool isHavePlantsRequriement;                /* ÊÇ·ñÓĞÖ²ÎïÒªÇó */
-	bool isUpdateImage;                          /* Í¼Æ¬ÊÇ·ñ¸üĞÂ */
+	Text* palntsNumbersText;                     /* æ˜¾ç¤ºæ¤ç‰©æ•°é‡ */
+	int userPlantsNumbers;                       /* å¯ä»¥ä½¿ç”¨çš„æ¤ç‰©æ•°é‡ */
+	int surPlusPlantsNumbers;                    /* å‰©ä½™æ¤ç‰©æ•°é‡ */
+	bool isHavePlantsRequriement;                /* æ˜¯å¦æœ‰æ¤ç‰©è¦æ±‚ */
+	bool isUpdateImage;                          /* å›¾ç‰‡æ˜¯å¦æ›´æ–° */
 };
 
 enum class GameTypes
@@ -46,10 +52,10 @@ enum class GameTypes
 class GameType
 {
 public:
-	void createGameType();                                            /* ´´½¨ÓÎÏ·ÀàĞÍ */
-	void updateRequirementNumbers(const std::string name);            /* ¸üĞÂÊıÁ¿ */
+	void createGameType();                                            /* åˆ›å»ºæ¸¸æˆç±»å‹ */
+	void updateRequirementNumbers(const std::string name);            /* æ›´æ–°æ•°é‡ */
 	void updateRequirementNumbers();
-	void waringPlantsNull();                                          /* ¾¯¸æÖ²ÎïÊ¹ÓÃÍê */
+	void waringPlantsNull();                                          /* è­¦å‘Šæ¤ç‰©ä½¿ç”¨å®Œ */
 	SunNumberRequriement* getSunNumberRequriement() const;
 	PlantsRequriement* getPlantsRequriement() const;
 
@@ -58,8 +64,8 @@ CC_CONSTRUCTOR_ACCESS:
 	~GameType();
 
 private:
-	void showNumbers(const int& ID);     /* ÏÔÊ¾ÊıÁ¿ */
-	void updateNumbers(const int& ID);   /* ¸üĞÂÊıÁ¿ */
+	void showNumbers(const int& ID);     /* æ˜¾ç¤ºæ•°é‡ */
+	void updateNumbers(const int& ID);   /* æ›´æ–°æ•°é‡ */
 
 private:
 	Global* _global;

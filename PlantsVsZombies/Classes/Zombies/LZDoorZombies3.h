@@ -1,4 +1,4 @@
-/**
+﻿/**
  *Copyright (c) 2021 LZ.All Right Reserved
  *Author : LZ
  *Date: 2021.4.21
@@ -20,6 +20,7 @@ CC_CONSTRUCTOR_ACCESS:
 
 protected:
 	virtual void zombieInjuredEventUpdate() override;
+	virtual void playBodyShieldSpiltAnimation();
 
 protected:
 	int _doorNumber;

@@ -1,4 +1,4 @@
-/**
+ï»¿/**
  *Copyright (c) 2020 LZ.All Right Reserved
  *Author : LZ
  *Date: 2020.1.28
@@ -69,13 +69,13 @@ bool GameScene::init()
 void GameScene::showGameLayer()
 {
 	controlPlayMusic();
-	backgroundLayer();   // ±³¾°²ã
-	informationLayer();  // ÐÅÏ¢²ã
-	buttonLayer();       // °´Å¥²ã
-	controlLayer();      // ¿ØÖÆ²ã
-	animationLayer();    // ¶¯»­²ã
-	goodsLayer();        // ÎïÆ·²ã
-	gameTimerLayer();    // Ê±¼ä²ã
+	backgroundLayer();   // èƒŒæ™¯å±‚
+	informationLayer();  // ä¿¡æ¯å±‚
+	buttonLayer();       // æŒ‰é’®å±‚
+	controlLayer();      // æŽ§åˆ¶å±‚
+	animationLayer();    // åŠ¨ç”»å±‚
+	goodsLayer();        // ç‰©å“å±‚
+	gameTimerLayer();    // æ—¶é—´å±‚
 	setName("GameScene");
 }
 
@@ -142,8 +142,8 @@ void GameScene::pauseGame()
 		{
 			if (!GSPauseQuitLayer::getIsPause())
 			{
-				PlayMusic::playMusic("pause");
 				GSPauseQuitLayer::pauseLayer();
+				PlayMusic::playMusic("pause");
 				_director->getRunningScene()->addChild(GSPauseLayer::addLayer(), 10);
 			}
 		});

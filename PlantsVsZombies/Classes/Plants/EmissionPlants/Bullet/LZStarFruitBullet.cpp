@@ -1,4 +1,4 @@
-/**
+ï»¿/**
  *Copyright (c) 2021 LZ.All Right Reserved
  *Author : LZ
  *Date: 2021.1.27
@@ -34,7 +34,7 @@ void StarFruitBullet::createBullet()
 
 void StarFruitBullet::createShadow()
 {
-	/* ´´½¨Ó°×Ó */
+	/* åˆ›å»ºå½±å­ */
 	auto shadow = Sprite::createWithSpriteFrameName("plantshadow.png");
 	shadow->setName("shadow");
 	shadow->setPosition(Vec2(0, -50));
@@ -67,7 +67,7 @@ void StarFruitBullet::setBulletAction(StarFruitBulletDirection action)
 	_bulletAnimation->runAction(RepeatForever::create(Sequence::create(DelayTime::create(0.02f),
 		CallFunc::create([=]()
 			{
-				if (fabs(_locationY - _bulletAnimation->getPositionY()) > _distance) /* µÚÒ»´Î¼ä¸ô69½øĞĞÉèÖÃlocalZorder */
+				if (fabs(_locationY - _bulletAnimation->getPositionY()) > _distance) /* ç¬¬ä¸€æ¬¡é—´éš”69è¿›è¡Œè®¾ç½®localZorder */
 				{
 					const auto order = _bulletAnimation->getLocalZOrder();
 					if (order > 0 && order < 5070)
@@ -76,7 +76,7 @@ void StarFruitBullet::setBulletAction(StarFruitBulletDirection action)
 					}
 					_locationY = _bulletAnimation->getPositionY();
 
-					_distance = 138; /* µÚÒ»´ÎÖ®ºóÃ¿¸ô138ÉèÖÃÒ»´Î */
+					_distance = 138; /* ç¬¬ä¸€æ¬¡ä¹‹åæ¯éš”138è®¾ç½®ä¸€æ¬¡ */
 				}
 			}), nullptr)));
 }
@@ -85,20 +85,20 @@ void StarFruitBullet::bulletAndZombiesCollision()
 {
 	for (auto zombie : ZombiesGroup)
 	{
-		if (!_isUsed && zombie->getZombieIsSurvive() && zombie->getZombieIsEnterMap() &&      /* Ã»ÓĞ±»Ê¹ÓÃ && ½©Ê¬Ã»ÓĞËÀÍö && ½©Ê¬½øÈëµØÍ¼ÄÚ */
-			getBulletIsEncounterWithZombie(zombie) && zombie->getZombieIsCanBeAttack())       /* Óë½©Ê¬Åö×² && ½©Ê¬¿ÉÒÔ±»¹¥»÷µ½ */
+		if (!_isUsed && zombie->getZombieIsSurvive() && zombie->getZombieIsEnterMap() &&      /* æ²¡æœ‰è¢«ä½¿ç”¨ && åƒµå°¸æ²¡æœ‰æ­»äº¡ && åƒµå°¸è¿›å…¥åœ°å›¾å†… */
+			getBulletIsEncounterWithZombie(zombie) && zombie->getZombieIsCanBeAttack())       /* ä¸åƒµå°¸ç¢°æ’ && åƒµå°¸å¯ä»¥è¢«æ”»å‡»åˆ° */
 		{
 			selectSoundEffect(
 				zombie->getZombieBodyAttackSoundEffect(),
-				zombie->getZombieHeadAttackSoundEffect());  /* ²¥·ÅÖ¸¶¨ÒôÀÖ */
+				zombie->getZombieHeadAttackSoundEffect());  /* æ’­æ”¾æŒ‡å®šéŸ³ä¹ */
 
-			attackZombies(zombie);               /* ¹¥»÷½©Ê¬ */
-			setBulletOpacity();                  /* ×Óµ¯ÏûÊ§ */
-			createBulletExplode(zombie);         /* ´´½¨±¬Õ¨¶¯»­ */
-			setBulletAttack(0);                  /* ¹¥»÷Á¦¹éÁã */
-			setBulletIsUsed(true);               /* ÉèÖÃ×Óµ¯±»Ê¹ÓÃ */
+			attackZombies(zombie);               /* æ”»å‡»åƒµå°¸ */
+			setBulletOpacity();                  /* å­å¼¹æ¶ˆå¤± */
+			createBulletExplode(zombie);         /* åˆ›å»ºçˆ†ç‚¸åŠ¨ç”» */
+			setBulletAttack(0);                  /* æ”»å‡»åŠ›å½’é›¶ */
+			setBulletIsUsed(true);               /* è®¾ç½®å­å¼¹è¢«ä½¿ç”¨ */
 
-			break; /* Ò»¸ö×Óµ¯Ö»ÄÜ»÷ÖĞÒ»¸ö½©Ê¬ */
+			break; /* ä¸€ä¸ªå­å¼¹åªèƒ½å‡»ä¸­ä¸€ä¸ªåƒµå°¸ */
 		}
 	}
 }
@@ -125,7 +125,7 @@ void StarFruitBullet::bulletFadeOut()
 
 void StarFruitBullet::attackZombies(Zombies* zombie)
 {
-	bulletAttackHurtZombies(zombie);   /* ½©Ê¬¼õÉÙÉúÃüÖµ */
+	bulletAttackHurtZombies(zombie);   /* åƒµå°¸å‡å°‘ç”Ÿå‘½å€¼ */
 	zombie->setZombieHurtBlink();
 }
 

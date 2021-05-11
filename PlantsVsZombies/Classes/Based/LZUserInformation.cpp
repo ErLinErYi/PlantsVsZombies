@@ -1,4 +1,4 @@
-/**
+ï»¿/**
  *Copyright (c) 2020 LZ.All Right Reserved
  *Author : LZ
  *Date: 2020.2.20
@@ -15,7 +15,7 @@ DWORD UserInformation::_screenDisplayFrequency = 0;
 
 UserInformation::UserInformation():
   _isUpdate(false)
-, _userName("Î´ÃüÃû´æµµ")
+, _userName("NoFile")
 , _soundEffectVolume(0.5f)
 , _backGroundMusicVolume(0.2f)
 , _userCaveFileNumber(0)

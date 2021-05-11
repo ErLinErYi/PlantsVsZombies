@@ -1,4 +1,4 @@
-/**
+ï»¿/**
  *Copyright (c) 2020 LZ.All Right Reserved
  *Author : LZ
  *Date: 2021.4.08
@@ -60,11 +60,11 @@ void TGControlLayer::createSchedule()
 
 void TGControlLayer::createZombies()
 {
-	/* Ë¢ĞÂ½©Ê¬ */
+	/* åˆ·æ–°åƒµå°¸ */
 	if (_zombiesAppearControl->getLastFrequencyZombiesWasDeath())
 	{
 		_zombiesAppearControl->setLastFrequencyZombiesWasDeath(false);
-		_zombiesAppearControl->setTimeClear(); /* ¾àÀëÉÏÒ»²¨Ë¢ĞÂÊ±¼äÇåÁã */
+		_zombiesAppearControl->setTimeClear(); /* è·ç¦»ä¸Šä¸€æ³¢åˆ·æ–°æ—¶é—´æ¸…é›¶ */
 		
 		const auto frequence = _zombiesAppearControl->getZombiesAppearFrequency();
 		const auto number = frequence + rand() % 5 + 10;
@@ -74,12 +74,12 @@ void TGControlLayer::createZombies()
 		{
 			dynamic_cast<TGAnimationLayer*>(animationLayerInformation)->createZombies(static_cast<unsigned>(frequence / 3));
 		}
-		/* ½ø¹¥²¨Êı×ÔÔöÒ» */
+		/* è¿›æ”»æ³¢æ•°è‡ªå¢ä¸€ */
 		_zombiesAppearControl->setZombiesAppearFrequency();
 		dynamic_cast<TGInformationLayer*>(informationLayerInformation)->updateText();
 	}
 	
-	/* ¿ØÖÆ½©Ê¬µÄË¢ĞÂ */
+	/* æ§åˆ¶åƒµå°¸çš„åˆ·æ–° */
 	if (controlRefurbishZombies())
 	{
 		_zombiesAppearControl->setLastFrequencyZombiesWasDeath(true);
@@ -90,16 +90,16 @@ void TGControlLayer::createZombies()
 bool TGControlLayer::controlRefurbishZombies()
 {
 	if ((Zombies::getZombiesNumbers() <= 4 &&
-		_zombiesAppearControl->getZombiesAppearFrequency() > 3)                    /* Èç¹û»î×ÅµÄ½©Ê¬ÊıĞ¡ÓÚ¹æ¶¨£¬Ë¢ĞÂÏÂÒ»²¨ */
+		_zombiesAppearControl->getZombiesAppearFrequency() > 3)                    /* å¦‚æœæ´»ç€çš„åƒµå°¸æ•°å°äºè§„å®šï¼Œåˆ·æ–°ä¸‹ä¸€æ³¢ */
 
-		|| (Zombies::getZombiesNumbers() <= 0 &&                                   /* Èç¹ûÃ»ÓĞ´æ»î½©Ê¬ÔòÁ¢¼´Ë¢ĞÂ½©Ê¬ */
+		|| (Zombies::getZombiesNumbers() <= 0 &&                                   /* å¦‚æœæ²¡æœ‰å­˜æ´»åƒµå°¸åˆ™ç«‹å³åˆ·æ–°åƒµå°¸ */
 			_zombiesAppearControl->getZombiesAppearFrequency() >= 1)
 
 		|| (_zombiesAppearControl->getTime() >= 10 &&
-			_zombiesAppearControl->getZombiesAppearFrequency() == 0)               /* µÚÒ»²¨Ë¢ĞÂ¿ØÖÆ */
+			_zombiesAppearControl->getZombiesAppearFrequency() == 0)               /* ç¬¬ä¸€æ³¢åˆ·æ–°æ§åˆ¶ */
 
 		|| (_zombiesAppearControl->getTime() >= 30 &&
-			_zombiesAppearControl->getZombiesAppearFrequency() > 0)                /* Èç¹û´óÓÚ40ÃëË¢ĞÂÏÂÒ»²¨ */
+			_zombiesAppearControl->getZombiesAppearFrequency() > 0)                /* å¦‚æœå¤§äº40ç§’åˆ·æ–°ä¸‹ä¸€æ³¢ */
 		)
 	{
 		return true;
@@ -109,7 +109,7 @@ bool TGControlLayer::controlRefurbishZombies()
 
 void TGControlLayer::controlRefurbishMusicAndText()
 {
-	/* ¿ØÖÆ´ó²¨½©Ê¬À´Ï®µÄÎÄ×ÖÓëÒôÀÖ */
+	/* æ§åˆ¶å¤§æ³¢åƒµå°¸æ¥è¢­çš„æ–‡å­—ä¸éŸ³ä¹ */
 	if (_zombiesAppearControl->getTime() >= 10 && _zombiesAppearControl->getZombiesAppearFrequency() == 0)
 	{
 		PlayMusic::playMusic("awooga");
@@ -130,13 +130,13 @@ void TGControlLayer::selectPlantsPreviewImage()
 	case false:
 		PlayMusic::playMusic("seedlift");
 
-		/* ¿¨Æ¬±äºÚ²¢³öÏÖÑ¡ÖĞĞ§¹û */
+		/* å¡ç‰‡å˜é»‘å¹¶å‡ºç°é€‰ä¸­æ•ˆæœ */
 		buttonLayerInformation->plantsCards[static_cast<unsigned int>(_selectPlantsTag)].plantsCards->setColor(Color3B::GRAY);
 		buttonLayerInformation->plantsCards[static_cast<unsigned int>(_selectPlantsTag)].progressTimer->setPercentage(100);
 		buttonLayerInformation->plantsCards[static_cast<unsigned int>(_selectPlantsTag)].plantsCards->getChildByName("seedPacketFlash")->setVisible(true);
 		buttonLayerInformation->plantsCards[static_cast<unsigned int>(_selectPlantsTag)].plantsCards->getChildByName("seedPacketFlash")->setColor(Color3B::ORANGE);
 
-		/* Êó±êÑ¡Ôñ±ê¼Ç */
+		/* é¼ æ ‡é€‰æ‹©æ ‡è®° */
 		buttonLayerInformation->mouseSelectImage->isSelectPlants = true;
 		buttonLayerInformation->mouseSelectImage->selectPlantsId = _selectPlantsTag;
 
@@ -149,12 +149,12 @@ void TGControlLayer::mouseLeftButtonDownControl()
 {
 	if (buttonLayerInformation->mouseSelectImage->isSelectPlants)
 	{
-		if (judgeMousePositionIsInMap() && judgeMousePositionIsCanPlant() && _cur.x > CARD_BAR_RIGHT) /* Èç¹ûÔÚµØÍ¼·¶Î§ÄÚ && ¿ÉÒÔÖÖÖ²Ö²Îï */
+		if (judgeMousePositionIsInMap() && judgeMousePositionIsCanPlant() && _cur.x > CARD_BAR_RIGHT) /* å¦‚æœåœ¨åœ°å›¾èŒƒå›´å†… && å¯ä»¥ç§æ¤æ¤ç‰© */
 		{
-			/* ÖÖÖ²Ö²Îï */
+			/* ç§æ¤æ¤ç‰© */
 			animationLayerInformation->plantPlants();
 
-			/* µØÍ¼¼ÇÂ¼ÖÖÖ²µÄÖ²Îï */
+			/* åœ°å›¾è®°å½•ç§æ¤çš„æ¤ç‰© */
 			gameMapInformation->plantsMap[static_cast<unsigned int>(_plantsPosition.y)][static_cast<unsigned int>(_plantsPosition.x)] =
 				static_cast<unsigned int>(buttonLayerInformation->mouseSelectImage->selectPlantsId);
 
@@ -168,23 +168,23 @@ void TGControlLayer::mouseLeftButtonDownControl()
 			if (_cur.x > CARD_BAR_RIGHT)
 			{
 				PlayMusic::playMusic("buzzer");
-				/* ¿¨ÅÆÑÕÉ«»Ö¸´ */
+				/* å¡ç‰Œé¢œè‰²æ¢å¤ */
 				buttonLayerInformation->plantsCards[static_cast<unsigned int>(buttonLayerInformation->mouseSelectImage->selectPlantsId)].progressTimer->setPercentage(0);
 				buttonLayerInformation->plantsCards[static_cast<unsigned int>(buttonLayerInformation->mouseSelectImage->selectPlantsId)].plantsCards->setColor(Color3B::WHITE);
 
-				/* ÌáÊ¾ĞÅÏ¢ */
+				/* æç¤ºä¿¡æ¯ */
 				informationLayerInformation->createPromptText();
 
 				removePreviewPlant();
 			}
 		}
 	}
-	if (buttonLayerInformation->mouseSelectImage->isSelectShovel) /* Êó±êÉÏÓĞ²ù×Ó */
+	if (buttonLayerInformation->mouseSelectImage->isSelectShovel) /* é¼ æ ‡ä¸Šæœ‰é“²å­ */
 	{
-		if (judgeMousePositionIsInMap() && judgeMousePositionHavePlant())    /* Èç¹ûÔÚµØÍ¼·¶Î§ÄÚ && ÖÖÓĞÖ²Îï */
+		if (judgeMousePositionIsInMap() && judgeMousePositionHavePlant())    /* å¦‚æœåœ¨åœ°å›¾èŒƒå›´å†… && ç§æœ‰æ¤ç‰© */
 		{
 			PlayMusic::playMusic("plant2");
-			animationLayerInformation->deletePlants();/* ²ù³ıÖ²Îï */
+			animationLayerInformation->deletePlants();/* é“²é™¤æ¤ç‰© */
 			removeShovel();
 		}
 		else
@@ -201,7 +201,7 @@ void TGControlLayer::mouseLeftButtonDownControl()
 
 void TGControlLayer::mouseRightButtonDownControl()
 {
-	if (buttonLayerInformation->mouseSelectImage->isSelectPlants)/* Êó±êÉÏÓĞÖ²Îï */
+	if (buttonLayerInformation->mouseSelectImage->isSelectPlants)/* é¼ æ ‡ä¸Šæœ‰æ¤ç‰© */
 	{
 		if (_cur.x > CARD_BAR_RIGHT)
 		{
@@ -213,7 +213,7 @@ void TGControlLayer::mouseRightButtonDownControl()
 		}
 	}
 
-	if (buttonLayerInformation->mouseSelectImage->isSelectShovel) /* Êó±êÉÏÓĞ²ù×Ó */
+	if (buttonLayerInformation->mouseSelectImage->isSelectShovel) /* é¼ æ ‡ä¸Šæœ‰é“²å­ */
 	{
 		removeShovel();
 		recoveryPlantsColor();

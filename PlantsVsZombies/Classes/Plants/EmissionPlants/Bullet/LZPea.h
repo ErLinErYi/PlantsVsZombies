@@ -1,4 +1,4 @@
-/**
+ï»¿/**
  *Copyright (c) 2020 LZ.All Right Reserved
  *Author : LZ
  *Date: 2020.2.18
@@ -13,85 +13,85 @@ class Pea :public Bullet
 public:
 	enum class PeaDirectionType
 	{
-		Up,         // ÉÏ·½
-		Normal,     // Õı³£
-		Down        // ÏÂ·½
+		Up,         // ä¸Šæ–¹
+		Normal,     // æ­£å¸¸
+		Down        // ä¸‹æ–¹
 	};
 
 public:
 	/**
-	 *´´½¨Íã¶¹
+	 *åˆ›å»ºè±Œè±†
 	 */
 	virtual void createBullet() override;
 
 	/**
-	 *ÉèÖÃ»ğ¾æÊ÷×®±àºÅ
+	 *è®¾ç½®ç«ç‚¬æ ‘æ¡©ç¼–å·
 	 */
 	virtual void setTorchwoodTag(const int torchwoodTag);
 
 	/**
-	 * ¼ÆËãÍã¶¹Æ«ÒÆ·½Ïò¼ÆËã 
+	 * è®¡ç®—è±Œè±†åç§»æ–¹å‘è®¡ç®— 
 	 */
 	virtual void calculateDirectionDistance(Vec2 initPosition, Vec2 position);
 
 	/**
-	 * ÉèÖÃÍã¶¹·½ÏòÀàĞÍ
+	 * è®¾ç½®è±Œè±†æ–¹å‘ç±»å‹
 	 */
 	virtual void setPeaDirectionType(PeaDirectionType type);
 
 	/**
-	 * »ñÈ¡Íã¶¹·½ÏòÀàĞÍ
+	 * è·å–è±Œè±†æ–¹å‘ç±»å‹
 	 */
 	virtual PeaDirectionType getPeaDirectionType();
 
 	/**
-	 *»ñÈ¡»ğ¾æÊ÷×®±àºÅ
+	 *è·å–ç«ç‚¬æ ‘æ¡©ç¼–å·
 	 */
 	virtual int getTorchwoodTag() const;
 
 protected:
 	/**
-	 *Íã¶¹Óë½©Ê¬Åö×²ºÍ¼ì²â
+	 *è±Œè±†ä¸åƒµå°¸ç¢°æ’å’Œæ£€æµ‹
 	 */
 	virtual void bulletAndZombiesCollision() override;
 
 	/**
-	 * ¹¥»÷½©Ê¬ 
+	 * æ”»å‡»åƒµå°¸ 
 	 */
 	virtual void attackZombies(Zombies* zombie);
 	
 	/**
-	 *  ½©Ê¬ÊÇ·ñÔÚ½¦Éä·¶Î§ÅĞ¶Ï
+	 *  åƒµå°¸æ˜¯å¦åœ¨æº…å°„èŒƒå›´åˆ¤æ–­
 	 */
 	virtual bool getZombieInExplodeRange(Zombies* zombie);
 
 	/**
-	 *´´½¨Íã¶¹±¬Õ¨¶¯»­
+	 *åˆ›å»ºè±Œè±†çˆ†ç‚¸åŠ¨ç”»
 	 */
 	virtual void  createPeaExplode();
 
 	/**
-	 *´´½¨±¬Õ¨Ğ§¹û 
+	 *åˆ›å»ºçˆ†ç‚¸æ•ˆæœ 
 	 */
 	virtual void createExplodeEffect();
 
 	/**
-	 *´´½¨×Óµ¯Ó°×Ó
+	 *åˆ›å»ºå­å¼¹å½±å­
 	 */
 	virtual void createShadow(Vec2 position = Vec2::ZERO) override;
 
 	/**
-	 * ÉèÖÃÒÆ¶¯·½Ê½
+	 * è®¾ç½®ç§»åŠ¨æ–¹å¼
 	 */
 	virtual void setBulletAction();
 
 	/**
-	 * ´æ´¢×Óµ¯ÌØÓĞĞÅÏ¢
+	 * å­˜å‚¨å­å¼¹ç‰¹æœ‰ä¿¡æ¯
 	 */
 	virtual void caveBulletInformation(rapidjson::Value& object, rapidjson::Document::AllocatorType& allocator) override;
 
 	/**
-	 * ¶ÁÈ¡×Óµ¯ÌØÓĞĞÅÏ¢
+	 * è¯»å–å­å¼¹ç‰¹æœ‰ä¿¡æ¯
 	 */
 	virtual void readBulletInformation(rapidjson::Document* levelDataDocument, char* key, int i) override;
 	virtual void readBulletAnimationInformation(rapidjson::Document* levelDataDocument, char* key, int i) override;
@@ -101,9 +101,9 @@ CC_CONSTRUCTOR_ACCESS:
 	~Pea();
 
 protected:
-	int _torchwoodTag;                    // »ğ¾æÊ÷×®±ê¼Ç
-	float _actionTime;                    // ¶¯×÷Ê±¼ä
-	Vec2 _initPostion[2];                 // ³õÊ¼Ê±¼ä
-	string _peaAnimationName;             // Íã¶¹¶¯»­Ãû³Æ
-	PeaDirectionType _peaDirectionType;   // Íã¶¹·½ÏòÀàĞÍ
+	int _torchwoodTag;                    // ç«ç‚¬æ ‘æ¡©æ ‡è®°
+	float _actionTime;                    // åŠ¨ä½œæ—¶é—´
+	Vec2 _initPostion[2];                 // åˆå§‹æ—¶é—´
+	string _peaAnimationName;             // è±Œè±†åŠ¨ç”»åç§°
+	PeaDirectionType _peaDirectionType;   // è±Œè±†æ–¹å‘ç±»å‹
 };

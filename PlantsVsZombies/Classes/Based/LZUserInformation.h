@@ -1,4 +1,4 @@
-/**
+ï»¿/**
  *Copyright (c) 2020 LZ.All Right Reserved
  *Author : LZ
  *Date: 2020.2.20
@@ -16,7 +16,7 @@ using namespace std;
 using namespace cocos2d;
 using namespace cocos2d::ui;
 
-/* ÊÀ½çÃû×Ö */
+/* ä¸–ç•Œåå­— */
 enum class WorldName
 {
 	Mordern = 0,
@@ -26,14 +26,14 @@ enum class WorldName
 	None
 };
 
-/* ÓÃ»§Ñ¡ÔñµÄ¿¨ÅÆ´æ´¢ */
+/* ç”¨æˆ·é€‰æ‹©çš„å¡ç‰Œå­˜å‚¨ */
 struct UserSelectCard
 {
-	Button* cardbutton;     //¿¨ÅÆ°´Å¥
-	int cardTag;            //¿¨ÅÆµÄ±àºÅ
+	Button* cardbutton;     //å¡ç‰ŒæŒ‰é’®
+	int cardTag;            //å¡ç‰Œçš„ç¼–å·
 };
 
-/* ÊÀ½ç¹Ø¿¨ */
+/* ä¸–ç•Œå…³å¡ */
 struct WorldData
 {
 	WorldData()
@@ -41,9 +41,9 @@ struct WorldData
 		isBeginShowEggs(false),
 		isReadWoldInformation(false)
 	{}
-	int levels;                      // µ±Ç°ÊÀ½çµ±Ç°×î¸ß¹Ø¿¨Êı
+	int levels;                      // å½“å‰ä¸–ç•Œå½“å‰æœ€é«˜å…³å¡æ•°
 	bool isBeginShowEggs;
-	bool isReadWoldInformation;      // ÊÇ·ñ¶ÁÈ¡ÊÀ½çĞÅÏ¢
+	bool isReadWoldInformation;      // æ˜¯å¦è¯»å–ä¸–ç•Œä¿¡æ¯
 };
 
 struct LanguageTextAttribute
@@ -145,58 +145,58 @@ CC_CONSTRUCTOR_ACCESS:
 	~UserInformation();
 
 private:
-	vector<UserSelectCard> _userSelectCard;              // ÓÃ»§Ò»´Î´³¹ØËùÑ¡Ö²Îï
-	vector<WorldData*> _userSelectWorldData;             // ÓÃ»§ËùÑ¡ÊÀ½çÓÎÏ·Êı¾İ
+	vector<UserSelectCard> _userSelectCard;              // ç”¨æˆ·ä¸€æ¬¡é—¯å…³æ‰€é€‰æ¤ç‰©
+	vector<WorldData*> _userSelectWorldData;             // ç”¨æˆ·æ‰€é€‰ä¸–ç•Œæ¸¸æˆæ•°æ®
 
-	WorldName _selectWorldName;                          // ËùÑ¡ÊÀ½ç
+	WorldName _selectWorldName;                          // æ‰€é€‰ä¸–ç•Œ
 
-	CheckBox::EventType _showInformation;                // ÏÔÊ¾fps
-	CheckBox::EventType _highFPS;                        // ¸ßÖ¡ÂÊ
-	CheckBox::EventType _fullScreen;                     // È«ÆÁ
-	CheckBox::EventType _cursorNotHide;                  // Êó±êÒş²Ø
-	CheckBox::EventType _stretchingShow;                 // À­ÉìÏÔÊ¾
-	CheckBox::EventType _easeAnimation;                  // »ºÈë¶¯»­
-	CheckBox::EventType _verticalSynchronization;        // ´¹Ö±Í¬²½
+	CheckBox::EventType _showInformation;                // æ˜¾ç¤ºfps
+	CheckBox::EventType _highFPS;                        // é«˜å¸§ç‡
+	CheckBox::EventType _fullScreen;                     // å…¨å±
+	CheckBox::EventType _cursorNotHide;                  // é¼ æ ‡éšè—
+	CheckBox::EventType _stretchingShow;                 // æ‹‰ä¼¸æ˜¾ç¤º
+	CheckBox::EventType _easeAnimation;                  // ç¼“å…¥åŠ¨ç”»
+	CheckBox::EventType _verticalSynchronization;        // å‚ç›´åŒæ­¥
 
-	map<string, spSkeletonData*> _animationData;         // ¶¯»­´æ´¢
-	map<string, LanguageTextAttribute*> _gameText;       // ÓÎÏ·ÎÄ±¾
-	map<string, string> _imagesPath;                     // Í¼Æ¬Â·¾¶
-	map<string, string> _musicsPath;                     // ÒôÀÖÂ·¾¶ 
-	map<string, string> _animationPath;                  // ¶¯»­Â·¾¶
-	map<string, string> _textPath;                       // ÎÄ±¾Â·¾¶
+	map<string, spSkeletonData*> _animationData;         // åŠ¨ç”»å­˜å‚¨
+	map<string, LanguageTextAttribute*> _gameText;       // æ¸¸æˆæ–‡æœ¬
+	map<string, string> _imagesPath;                     // å›¾ç‰‡è·¯å¾„
+	map<string, string> _musicsPath;                     // éŸ³ä¹è·¯å¾„ 
+	map<string, string> _animationPath;                  // åŠ¨ç”»è·¯å¾„
+	map<string, string> _textPath;                       // æ–‡æœ¬è·¯å¾„
 
 	bool _isReadFileLevelData;
-	bool _isUpdate;                                      // Ãû×ÖÊÇ·ñ¸üĞÂ
-	string _userName;                                    // ÓÃ»§Ãû×Ö
-	string _userCaveFileName[8];                         // ÓÃ»§×Ô¼º¶¨Òå´æµµÃû³Æ£¨Ö÷ÒªÓÃÓÚÏÔÊ¾£©
-	string _userCaveFileNameKey[8];                      // ÓÃ»§´æµµkey
-	string _systemCaveFileName;                          // ÏµÍ³¶¨Òå´æµµÃû³Æ£¨ÓÃÓÚ´æÈ¡£¬·ÀÖ¹ÓÃ»§¶¨ÒåµÄÎª¿Õ)
-	string _systemCaveFileName_difficult;                // ÏµÍ³¶¨ÒåÀ§ÄÑ´æµµÃû³Æ£¨ÓÃÓÚ´æÈ¡£¬·ÀÖ¹ÓÃ»§¶¨ÒåµÄÎª¿Õ)
+	bool _isUpdate;                                      // åå­—æ˜¯å¦æ›´æ–°
+	string _userName;                                    // ç”¨æˆ·åå­—
+	string _userCaveFileName[8];                         // ç”¨æˆ·è‡ªå·±å®šä¹‰å­˜æ¡£åç§°ï¼ˆä¸»è¦ç”¨äºæ˜¾ç¤ºï¼‰
+	string _userCaveFileNameKey[8];                      // ç”¨æˆ·å­˜æ¡£key
+	string _systemCaveFileName;                          // ç³»ç»Ÿå®šä¹‰å­˜æ¡£åç§°ï¼ˆç”¨äºå­˜å–ï¼Œé˜²æ­¢ç”¨æˆ·å®šä¹‰çš„ä¸ºç©º)
+	string _systemCaveFileName_difficult;                // ç³»ç»Ÿå®šä¹‰å›°éš¾å­˜æ¡£åç§°ï¼ˆç”¨äºå­˜å–ï¼Œé˜²æ­¢ç”¨æˆ·å®šä¹‰çš„ä¸ºç©º)
 
-	float _soundEffectVolume;                            // ÒôĞ§
-	float _backGroundMusicVolume;                        // ÒôÀÖ
+	float _soundEffectVolume;                            // éŸ³æ•ˆ
+	float _backGroundMusicVolume;                        // éŸ³ä¹
 	list<int>_backGroundMusic;
 
-	int _userCaveFileNumber;                             // ÓÃ»§ÓÎÏ·´æµµ±àºÅ 
+	int _userCaveFileNumber;                             // ç”¨æˆ·æ¸¸æˆå­˜æ¡£ç¼–å· 
 
-	int _killZombiesNumbers;                             // É±ËÀ½©Ê¬×ÜÊı 
-	int _usePlantsNumbers;                               // Ê¹ÓÃÖ²ÎïÊıÁ¿ 
-	int _breakThroughNumbers;                            // ´³¹ØÊ§°Ü´ÎÊı
+	int _killZombiesNumbers;                             // æ€æ­»åƒµå°¸æ€»æ•° 
+	int _usePlantsNumbers;                               // ä½¿ç”¨æ¤ç‰©æ•°é‡ 
+	int _breakThroughNumbers;                            // é—¯å…³å¤±è´¥æ¬¡æ•°
 
-	int _sunNumbers;                                     // Ñô¹âÊı 
-	int _coinNumbers;                                    // ½ğ±ÒÊı
-	int _nowFps;                                         // µ±Ç°fps
-	bool _mainToWorld;                                   // ±ê¼ÇÖ÷²Ëµ¥µ½ÊÀ½ç
-	bool _isShowEggs;                                    // ÊÇ·ñÏÔÊ¾²Êµ°
-	bool _isMirrorScene;                                 // ÊÇ·ñ¾µÏñÊÀ½ç
+	int _sunNumbers;                                     // é˜³å…‰æ•° 
+	int _coinNumbers;                                    // é‡‘å¸æ•°
+	int _nowFps;                                         // å½“å‰fps
+	bool _mainToWorld;                                   // æ ‡è®°ä¸»èœå•åˆ°ä¸–ç•Œ
+	bool _isShowEggs;                                    // æ˜¯å¦æ˜¾ç¤ºå½©è›‹
+	bool _isMirrorScene;                                 // æ˜¯å¦é•œåƒä¸–ç•Œ
 
-	int _currentPlayLevels;                              // µ±Ç°¹ØÊı
-	int _gameDifficulty;                                 // ÓÎÏ·ÄÑ¶È
-	int _currentPlayWorldTag;                            // µ±Ç°ÊÀ½ç±àºÅ 
-	Sprite* _background;                                 // µ±Ç°ÊÀ½çµØÍ¼ 
-	string _currentPlayWorldName;                        // µ±Ç°ÊÀ½çÃû×Ö
+	int _currentPlayLevels;                              // å½“å‰å…³æ•°
+	int _gameDifficulty;                                 // æ¸¸æˆéš¾åº¦
+	int _currentPlayWorldTag;                            // å½“å‰ä¸–ç•Œç¼–å· 
+	Sprite* _background;                                 // å½“å‰ä¸–ç•Œåœ°å›¾ 
+	string _currentPlayWorldName;                        // å½“å‰ä¸–ç•Œåå­—
 
-	static string _editionName;                          // °æ±¾Ãû³Æ
-	static bool _updateRequired;                         // ÊÇ·ñĞèÒª¸üĞÂ
-	static DWORD _screenDisplayFrequency;                // ÆÁÄ»Ë¢ĞÂÂÊ
+	static string _editionName;                          // ç‰ˆæœ¬åç§°
+	static bool _updateRequired;                         // æ˜¯å¦éœ€è¦æ›´æ–°
+	static DWORD _screenDisplayFrequency;                // å±å¹•åˆ·æ–°ç‡
 };

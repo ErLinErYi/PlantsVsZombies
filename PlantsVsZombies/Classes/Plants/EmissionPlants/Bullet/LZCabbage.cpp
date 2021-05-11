@@ -1,4 +1,4 @@
-/**
+ï»¿/**
  *Copyright (c) 2020 LZ.All Right Reserved
  *Author : LZ
  *Date: 2020.2.18
@@ -53,7 +53,7 @@ void Cabbage::createListener(const string& actionName, float scale)
 	_bulletAnimation->runAction(Sequence::create(jto,
 		CallFunc::create([=]()
 			{
-				if (_bulletAnimation->getOpacity()) /* Èç¹ûÃ»ÓĞÒş²ØËµÃ÷Ã»ÓĞ»÷ÖĞ½©Ê¬ */
+				if (_bulletAnimation->getOpacity()) /* å¦‚æœæ²¡æœ‰éšè—è¯´æ˜æ²¡æœ‰å‡»ä¸­åƒµå°¸ */
 				{
 					playSoundEffect(_bulletType == BulletType::Cabbage ?
 						SoundEffectType::kernelpult : SoundEffectType::watermelon);
@@ -76,14 +76,14 @@ void Cabbage::calculateInformationForReadFile()
 	if (_isFileData)
 	{
 		_isFileData = false;
-		auto position = _position + Vec2(70, 150); //¾íĞÄ²ËÕı³£³õÊ¼Î»ÖÃ
+		auto position = _position + Vec2(70, 150); //å·å¿ƒèœæ­£å¸¸åˆå§‹ä½ç½®
 
-		const auto distance = _zombiePosition.x - position.x; // ½©Ê¬Óë¾íĞÄ²Ë³õÊ¼¾àÀë
-		if (_currentPosition.x <= _zombiePosition.x - distance / 2) // µ±Ç°Î»ÖÃÔÚÅ×ÎïÏßÉÏ°ë²¿·Ö
+		const auto distance = _zombiePosition.x - position.x; // åƒµå°¸ä¸å·å¿ƒèœåˆå§‹è·ç¦»
+		if (_currentPosition.x <= _zombiePosition.x - distance / 2) // å½“å‰ä½ç½®åœ¨æŠ›ç‰©çº¿ä¸ŠåŠéƒ¨åˆ†
 			_acxtionHeight = 300 - (_currentPosition.y - position.y);
 		else
 			_acxtionHeight = 0;
-		_actionTime = (distance - (_currentPosition.x - _position.x)) / distance; //¼ÆËãÊ£ÓàÔË¶¯Ê±¼ä
+		_actionTime = (distance - (_currentPosition.x - _position.x)) / distance; //è®¡ç®—å‰©ä½™è¿åŠ¨æ—¶é—´
 		if (_actionTime < 0)_actionTime = 0;
 		if (_actionTime > 1)_actionTime = 1;
 
@@ -96,11 +96,11 @@ void Cabbage::bulletAndZombiesCollision()
 {
 	for (auto zombie : ZombiesGroup)
 	{
-		if (!_isUsed && zombie->getZombieIsSurvive() &&                                           /* ¾íĞÄ²ËÃ»ÓĞÊ¹ÓÃ && ½©Ê¬Ã»ÓĞËÀÍö */
-			getBulletIsSameLineWithZombie(zombie) && getBulletIsEncounterWithZombie(zombie))      /* ×Óµ¯Óë½©Ê¬Í¬Ò»ĞĞ && ×Óµ¯Óë½©Ê¬Åö×² */
+		if (!_isUsed && zombie->getZombieIsSurvive() &&                                           /* å·å¿ƒèœæ²¡æœ‰ä½¿ç”¨ && åƒµå°¸æ²¡æœ‰æ­»äº¡ */
+			getBulletIsSameLineWithZombie(zombie) && getBulletIsEncounterWithZombie(zombie))      /* å­å¼¹ä¸åƒµå°¸åŒä¸€è¡Œ && å­å¼¹ä¸åƒµå°¸ç¢°æ’ */
 		{
 			selectSoundEffect(zombie->getZombieHeadAttackSoundEffect());
-			bulletAttackHurtZombies(zombie);   /* ½©Ê¬¼õÉÙÉúÃüÖµ */
+			bulletAttackHurtZombies(zombie);   /* åƒµå°¸å‡å°‘ç”Ÿå‘½å€¼ */
 
 			_bulletAnimation->setOpacity(0);
 			zombie->setZombieHurtBlink();
@@ -108,7 +108,7 @@ void Cabbage::bulletAndZombiesCollision()
 			createExplodeAnimation("CabbageBullet", "Cabbage_Crush");
 
 			setBulletIsUsed(true);
-			break; /* Ò»¸öÖ»ÄÜ»÷ÖĞÒ»¸ö½©Ê¬ */
+			break; /* ä¸€ä¸ªåªèƒ½å‡»ä¸­ä¸€ä¸ªåƒµå°¸ */
 		}
 	}
 }
@@ -138,7 +138,7 @@ Vec2 Cabbage::calculateZombiePosition()
 
 void Cabbage::createShadow(float scale)
 {
-	/* ´´½¨Ó°×Ó */
+	/* åˆ›å»ºå½±å­ */
 	auto bulletShadow = Sprite::createWithSpriteFrameName("plantshadow.png");
 	bulletShadow->setPosition(Vec2(_initPosition.x, _position.y));
 	bulletShadow->setLocalZOrder(getZOrder());
@@ -179,7 +179,7 @@ void Cabbage::createExplodeAnimation(const string& animationName, const string& 
 
 void Cabbage::setZombiePosition(const Vec2& position)
 {
-	_zombiePosition = position; /* ¼ÇÂ¼½©Ê¬Î»ÖÃ*/
+	_zombiePosition = position; /* è®°å½•åƒµå°¸ä½ç½®*/
 }
 
 void Cabbage::setZombieSpeed(const float speed)
@@ -221,18 +221,18 @@ bool Cabbage::getBulletIsEncounterWithZombie(Zombies* zombie)
 
 void Cabbage::bulletAttackHurtZombies(Zombies* zombie)
 {
-	if (zombie->getZombieCurrentHeadShieldVolume() < _attack) /* Èç¹ûµ±Ç°Í·²¿»¤¶ÜÑªÁ¿Ğ¡ÓÚ¹¥»÷ÉËº¦ */
+	if (zombie->getZombieCurrentHeadShieldVolume() < _attack) /* å¦‚æœå½“å‰å¤´éƒ¨æŠ¤ç›¾è¡€é‡å°äºæ”»å‡»ä¼¤å®³ */
 	{
 		if (zombie->getZombieCurrentHeadShieldVolume() + 
-			zombie->getZombieCurrentBloodVolume() <= _attack) /* Èç¹û½©Ê¬ËùÓĞÑªÁ¿Ğ¡ÓÚÉËº¦£¨½©Ê¬ËÀÍö£© */
+			zombie->getZombieCurrentBloodVolume() <= _attack) /* å¦‚æœåƒµå°¸æ‰€æœ‰è¡€é‡å°äºä¼¤å®³ï¼ˆåƒµå°¸æ­»äº¡ï¼‰ */
 		{
-			/* ½©Ê¬ËÀÍö */
+			/* åƒµå°¸æ­»äº¡ */
 			zombie->setZombieCurrentBloodVolume(0);
 			zombie->setZombieCurrentHeadShieldVolume(0);
 		}
 		else
 		{
-			/* ¼ÆËã½©Ê¬±¾ÌåÑªÁ¿ */
+			/* è®¡ç®—åƒµå°¸æœ¬ä½“è¡€é‡ */
 			zombie->setZombieCurrentBloodVolume(
 				zombie->getZombieCurrentHeadShieldVolume() + 
 				zombie->getZombieCurrentBloodVolume() - _attack);
@@ -241,7 +241,7 @@ void Cabbage::bulletAttackHurtZombies(Zombies* zombie)
 	}
 	else
 	{
-		/* ¼ÆËã½©Ê¬»¤¶ÜÊ£ÓÚÑªÁ¿ */
+		/* è®¡ç®—åƒµå°¸æŠ¤ç›¾å‰©äºè¡€é‡ */
 		zombie->setZombieCurrentHeadShieldVolume(
 			zombie->getZombieCurrentHeadShieldVolume() - _attack);
 	}

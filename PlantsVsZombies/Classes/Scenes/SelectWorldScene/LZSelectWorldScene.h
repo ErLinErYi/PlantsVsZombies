@@ -1,4 +1,4 @@
-/**
+ï»¿/**
  *Copyright (c) 2019 LZ.All Right Reserved
  *Author : LZ
  *Date: 2019.8.15
@@ -19,12 +19,12 @@ class SelectWorldScene :public Scene
 {
 public:
 	CREATE_FUNC(SelectWorldScene);
-	static Scene* createScene();             /* ´´½¨³¡¾° */
+	static Scene* createScene();             /* åˆ›å»ºåœºæ™¯ */
 	static void createGalaxy(Node* node);
 
 CC_CONSTRUCTOR_ACCESS:
 	SelectWorldScene();
-	virtual bool init();
+	virtual bool init() override;
 
 private:
 	void showTimeTravelAnimation();

@@ -1,4 +1,4 @@
-/**
+﻿/**
  *Copyright (c) 2020 LZ.All Right Reserved
  *Author : LZ
  *Date: 2020.4.15
@@ -50,7 +50,7 @@ bool Coin::getEnable() const
     return _isEnable;
 }
 
-void Coin::releaseCoin()
+void Coin::releaseFunction()
 {
     _coin->removeFromParent();
     _coin = nullptr;
@@ -94,7 +94,7 @@ void Coin::deleteCoin(list<Coin*>::iterator& coin)
 {
     if (!(*coin)->getCoin()->isVisible())
     {
-        (*coin)->releaseCoin();
+        (*coin)->releaseFunction();
         delete* coin;
         *coin = nullptr;
         CoinsGroup.erase(coin++);

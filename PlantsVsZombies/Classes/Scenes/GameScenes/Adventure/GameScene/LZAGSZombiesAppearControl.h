@@ -1,4 +1,4 @@
-/**
+ï»¿/**
  *Copyright (c) 2020 LZ.All Right Reserved
  *Author : LZ
  *Date: 2020.1.28
@@ -11,90 +11,90 @@
 #include "Zombies/LZZombies.h"
 #include "Based/LZGlobalVariable.h"
 
- /* ½©Ê¬³öÏÖ²¨Êı¿ØÖÆ */
+ /* åƒµå°¸å‡ºç°æ³¢æ•°æ§åˆ¶ */
 class ZombiesAppearControl
 {
 public:
 	/**
-	 *¶ÔÓÚ½ø¹¥µÄ²»Í¬²¨Êı´´½¨²»Í¬ÊıÁ¿½©Ê¬
+	 *å¯¹äºè¿›æ”»çš„ä¸åŒæ³¢æ•°åˆ›å»ºä¸åŒæ•°é‡åƒµå°¸
 	 */
 	int getZombiesNumbersForAppearFrequency(const unsigned int& ZombiesAppearFrequency);
 
 	/**
-	 *»ñÈ¡½©Ê¬²¨Êı
+	 *è·å–åƒµå°¸æ³¢æ•°
 	 */
 	int getZombiesAppearFrequency() const;
 
 	/**
-	 *»ñÈ¡ÉÏÒ»²¨½©Ê¬ÊÇ·ñÒÑ¾­ÕóÍö
+	 *è·å–ä¸Šä¸€æ³¢åƒµå°¸æ˜¯å¦å·²ç»é˜µäº¡
 	 */
 	bool getLastFrequencyZombiesWasDeath() const;
 
 	/**
-	 *»ñÈ¡¼ÆÊ±ÊÇ·ñ¿ªÊ¼
+	 *è·å–è®¡æ—¶æ˜¯å¦å¼€å§‹
 	 */
 	bool getIsBegin() const;
 
 	/**
-	 *»ñÈ¡ÊÇ·ñÏÔÊ¾ÎÄ×Ö
+	 *è·å–æ˜¯å¦æ˜¾ç¤ºæ–‡å­—
 	 */
 	bool getIsShowWords() const;
 
 	/**
-	 *»ñÈ¡Ê±¼ä
+	 *è·å–æ—¶é—´
 	 */
 	double getTime() const;
 
 	/**
-	 *Ê¹Ã¿Ò»ĞĞµÄ½©Ê¬µÈ¸ÅÂÊ³öÏÖ
+	 *ä½¿æ¯ä¸€è¡Œçš„åƒµå°¸ç­‰æ¦‚ç‡å‡ºç°
 	 */
 	int getEqualProbabilityForRow(int maxRow = 4);
 	
 	/**
-	 *ÉèÖÃ½©Ê¬³öÏÖ²¨Êı
-	 * 1.´«µİ²ÎÊıÉèÖÃ
+	 *è®¾ç½®åƒµå°¸å‡ºç°æ³¢æ•°
+	 * 1.ä¼ é€’å‚æ•°è®¾ç½®
 	 */
 	void setZombiesAppearFrequency(const unsigned int zombiesAppearFrequency);
 
 	/**
-	 *ÉèÖÃ½©Ê¬³öÏÖ²¨Êı
-	 * 2.×ÔÔö¼ÓÒ»
+	 *è®¾ç½®åƒµå°¸å‡ºç°æ³¢æ•°
+	 * 2.è‡ªå¢åŠ ä¸€
 	 */
 	void setZombiesAppearFrequency();
 
 	/**
-	 *ÉèÖÃÉÏÒ»²¨½©Ê¬ÊÇ·ñËÀÍö
+	 *è®¾ç½®ä¸Šä¸€æ³¢åƒµå°¸æ˜¯å¦æ­»äº¡
 	 */
 	void setLastFrequencyZombiesWasDeath(bool lastFrequencyZombiesWasDeath);
 
 	/**
-	 *ÉèÖÃÊ±¼äÇåÁã
+	 *è®¾ç½®æ—¶é—´æ¸…é›¶
 	 */
 	void setTimeClear();
 
 	/**
-	 *ÉèÖÃÊ±¼ä×ÔÔö
+	 *è®¾ç½®æ—¶é—´è‡ªå¢
 	 */
 	void setTimeAdd();
 	void setTimeAdd(const double t);
 
 	/**
-	 *ÉèÖÃÊÇ·ñ¿ªÊ¼
+	 *è®¾ç½®æ˜¯å¦å¼€å§‹
 	 */
 	void setIsBegin(const bool isBegin);
 
 	/**
-	 *ÉèÖÃÊÇ·ñÏÔÊ¾ÎÄ×Ö
+	 *è®¾ç½®æ˜¯å¦æ˜¾ç¤ºæ–‡å­—
 	 */
 	void setIsShowWords(const bool isShowWords);
 
 	/**
-	 *´´½¨²»Í¬ÖÖÀàµÄ½©Ê¬
+	 *åˆ›å»ºä¸åŒç§ç±»çš„åƒµå°¸
 	 */
 	ZombiesType createDifferentTypeZombies(const unsigned int& ZombiesAppearFrequency);
 
 	/**
-	 *´´½¨²»Í¬ÖÖÀàµÄ½©Ê¬
+	 *åˆ›å»ºä¸åŒç§ç±»çš„åƒµå°¸
 	 */
 	ZombiesType createDifferentTypeZombies();
 
@@ -103,16 +103,16 @@ CC_CONSTRUCTOR_ACCESS:
 	~ZombiesAppearControl();
 
 public:
-	static unsigned int zombiesPosition[5];           // ½©Ê¬Î»ÖÃ
-	static unsigned int zombiesPositionBigMap[10];    // ½©Ê¬Î»ÖÃ
+	static unsigned int zombiesPosition[5];           // åƒµå°¸ä½ç½®
+	static unsigned int zombiesPositionBigMap[10];    // åƒµå°¸ä½ç½®
 
 private:
-	int _zombiesAppearFrequency;               // ½©Ê¬³öÏÖ²¨´Î
-	bool _lastFrequencyZombiesWasDeath;        // ÉÏÒ»²¨½©Ê¬ÒÑÕóÍö 
-	bool _isBegin;                             // ¼ÆÊ±ÊÇ·ñ¿ªÊ¼
-	bool _isShowWords;                         // ÊÇ·ñÏÔÊ¾ÎÄ×Ö
-	double _time;                              // ¼ÆÊ±
+	int _zombiesAppearFrequency;               // åƒµå°¸å‡ºç°æ³¢æ¬¡
+	bool _lastFrequencyZombiesWasDeath;        // ä¸Šä¸€æ³¢åƒµå°¸å·²é˜µäº¡ 
+	bool _isBegin;                             // è®¡æ—¶æ˜¯å¦å¼€å§‹
+	bool _isShowWords;                         // æ˜¯å¦æ˜¾ç¤ºæ–‡å­—
+	double _time;                              // è®¡æ—¶
 	OpenLevelData* _openLevelData;
-	default_random_engine _random;             // Ëæ»úÊıÒıÇæ
-	set<int> _judgeZombieRow;                  // ÅĞ¶Ï½©Ê¬ËùÔÚĞĞ
+	default_random_engine _random;             // éšæœºæ•°å¼•æ“
+	set<int> _judgeZombieRow;                  // åˆ¤æ–­åƒµå°¸æ‰€åœ¨è¡Œ
 };

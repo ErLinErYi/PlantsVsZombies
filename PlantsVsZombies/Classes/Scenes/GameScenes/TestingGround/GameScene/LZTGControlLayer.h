@@ -1,4 +1,4 @@
-/**
+﻿/**
  *Copyright (c) 2020 LZ.All Right Reserved
  *Author : LZ
  *Date: 2021.4.08
@@ -12,12 +12,12 @@ class TGControlLayer :public GSControlLayer
 {
 public:
 	CREATE_FUNC(TGControlLayer);
-	virtual void addLayer(Node* node, const int order, const string& name) { node->addChild(this, order, name); }
+	virtual void addLayer(Node* node, const int order, const string& name) override { node->addChild(this, order, name); }
 
 CC_CONSTRUCTOR_ACCESS:
 	TGControlLayer();
 	~TGControlLayer();
-	virtual bool init();
+	virtual bool init() override;
 
 protected:
 	virtual void initData() override;

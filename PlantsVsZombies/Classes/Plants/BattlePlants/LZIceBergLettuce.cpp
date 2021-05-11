@@ -1,4 +1,4 @@
-/**
+ï»¿/**
  *Copyright (c) 2021 LZ.All Right Reserved
  *Author : LZ
  *Date: 2021.1.30
@@ -58,14 +58,14 @@ void IceBergLettuce::createPlantAnimation()
 	_plantAnimation->setScale(1.2f);
 	_node->addChild(_plantAnimation);
 
-	// Ó°×Ó
+	// å½±å­
 	setPlantShadow(1.8f);
 	_plantAnimation->getChildByName("plantshadow")->setPosition(Vec2(0, 5));
 
-	// ÄàÍÁ·É½¦¶¯»­
+	// æ³¥åœŸé£žæº…åŠ¨ç”»
 	setPlantSoilSplashAnimation(0.8f);
 
-	// ÊÂ¼þ¼àÌý
+	// äº‹ä»¶ç›‘å¬
 	createListener();
 }
 
@@ -105,14 +105,14 @@ void IceBergLettuce::determineRelativePositionPlantsAndZombies()
 {
 	for (auto zombie : ZombiesGroup)
 	{
-		plantExplode(zombie);        /* Ö²Îï¹¥»÷ */
+		plantExplode(zombie);        /* æ¤ç‰©æ”»å‡» */
 	}
 }
 
 void IceBergLettuce::plantExplode(Zombies* zombie)
 {
-	if (getPlantIsSurvive() && zombie->getZombieIsSurvive() && zombie->getZombieIsCanBeAttack() &&         /* Ö²Îï´æ»î && ½©Ê¬´æ»î && ½©Ê¬¿ÉÒÔ±»¹¥»÷µ½ */
-		getZombieIsSameLineWithPlant(zombie) && getZombieIsEncounterPlant(zombie))                         /* Ö²ÎïÓë½©Ê¬ÔÚÍ¬Ò»ÐÐ && ½©Ê¬Óöµ½Ö²Îï */
+	if (getPlantIsSurvive() && zombie->getZombieIsSurvive() && zombie->getZombieIsCanBeAttack() &&         /* æ¤ç‰©å­˜æ´» && åƒµå°¸å­˜æ´» && åƒµå°¸å¯ä»¥è¢«æ”»å‡»åˆ° */
+		getZombieIsSameLineWithPlant(zombie) && getZombieIsEncounterPlant(zombie))                         /* æ¤ç‰©ä¸Žåƒµå°¸åœ¨åŒä¸€è¡Œ && åƒµå°¸é‡åˆ°æ¤ç‰© */
 	{
 		if (!_isHaveZombies)
 		{
@@ -131,7 +131,7 @@ void IceBergLettuce::plantExplode(Zombies* zombie)
 void IceBergLettuce::explodeEffectZombies(const float time)
 {
 	auto iter = _global->userInformation->getAnimationData().find("IceBergLettuceEffect");
-	if (iter != _global->userInformation->getAnimationData().end())/* Èç¹û¿ÉÒÔÕÒµ½ */
+	if (iter != _global->userInformation->getAnimationData().end())/* å¦‚æžœå¯ä»¥æ‰¾åˆ° */
 	{
 		auto iceEffect = SkeletonAnimation::createWithData(iter->second);
 		iceEffect->setPosition(_excludeZombiePosition);

@@ -1,4 +1,4 @@
-/**
+ï»¿/**
  *Copyright (c) 2020 LZ.All Right Reserved
  *Author : LZ
  *Date: 2020.2.6
@@ -55,13 +55,13 @@ void Spikeweed::createPlantAnimation()
 	_plantAnimation->setScale(0.8f);
 	_node->addChild(_plantAnimation);
 
-	// Ó°×Ó
+	// å½±å­
 	setPlantShadow(1.0f);
 
-	// ÄàÍÁ·É½¦¶¯»­
+	// æ³¥åœŸé£žæº…åŠ¨ç”»
 	setPlantSoilSplashAnimation(0.8f);
 
-	// ´´½¨¼àÌý
+	// åˆ›å»ºç›‘å¬
 	createListener();
 }
 
@@ -78,14 +78,14 @@ void Spikeweed::createListener()
 
 void Spikeweed::determineRelativePositionPlantsAndZombies()
 {
-	plantAttack();         /* Ö²Îï¹¥»÷ */
+	plantAttack();         /* æ¤ç‰©æ”»å‡» */
 
-	// ½©Ê¬¶ÔÖ²Îï½øÐÐÉËº¦£¿£¿£¿ ÔÚ´ËÌí¼Ó
+	// åƒµå°¸å¯¹æ¤ç‰©è¿›è¡Œä¼¤å®³ï¼Ÿï¼Ÿï¼Ÿ åœ¨æ­¤æ·»åŠ 
 	for (auto zombie : ZombiesGroup)
 	{
-		zombieEatPlant(zombie);      /* ½©Ê¬³ÔÖ²Îï */
+		zombieEatPlant(zombie);      /* åƒµå°¸åƒæ¤ç‰© */
 
-		zombieRecoveryMove(zombie);  /* ½©Ê¬»Ö¸´ÒÆ¶¯ */
+		zombieRecoveryMove(zombie);  /* åƒµå°¸æ¢å¤ç§»åŠ¨ */
 	}
 }
 
@@ -93,12 +93,12 @@ void Spikeweed::plantAttack()
 {
 	for (auto zombie : ZombiesGroup)
 	{
-		if (zombie->getZombieIsSurvive() && getZombieIsSameLineWithPlant(zombie) &&      /* ½©Ê¬Ã»ÓÐËÀÍö && ½©Ê¬ÓëÖ²ÎïÔÚÍ¬Ò»ÐÐ */
-			getZombieIsEncounterPlant(zombie) && zombie->getZombieIsCanBeAttack())       /* ½©Ê¬Óöµ½Ö²Îï && ½©Ê¬¿ÉÒÔ±»¹¥»÷µ½ */
+		if (zombie->getZombieIsSurvive() && getZombieIsSameLineWithPlant(zombie) &&      /* åƒµå°¸æ²¡æœ‰æ­»äº¡ && åƒµå°¸ä¸Žæ¤ç‰©åœ¨åŒä¸€è¡Œ */
+			getZombieIsEncounterPlant(zombie) && zombie->getZombieIsCanBeAttack())       /* åƒµå°¸é‡åˆ°æ¤ç‰© && åƒµå°¸å¯ä»¥è¢«æ”»å‡»åˆ° */
 		{
-			_isHaveZombies = true; /* ÓÐ½©Ê¬±ê¼Ç */
+			_isHaveZombies = true; /* æœ‰åƒµå°¸æ ‡è®° */
 
-			if (!_isChangeAnimation)       /* ÅÐ¶Ï¶¯»­ÊÇ·ñÒÑ¾­¸Ä±ä */
+			if (!_isChangeAnimation)       /* åˆ¤æ–­åŠ¨ç”»æ˜¯å¦å·²ç»æ”¹å˜ */
 			{
 				_plantAnimation->addAnimation(0, "Spikeweed_Attack", true);
 				_isChangeAnimation = true;
@@ -120,9 +120,9 @@ void Spikeweed::plantAttack()
 
 void Spikeweed::zombieEatPlant(Zombies* zombie)
 {
-	if (getPlantIsSurvive() && Plants::getZombieIsSameLineWithPlant(zombie) &&   /* Ö²Îï´æ»î && Ö²ÎïÓë½©Ê¬ÔÚÍ¬Ò»ÐÐ */
-		Plants::getZombieIsEncounterPlant(zombie) &&                             /* ½©Ê¬Óöµ½Ö²Îï */
-		zombie->getZombieType() == ZombiesType::GargantuarZombies)               /* ½©Ê¬ÊÇ¾ÞÈË½©Ê¬ */
+	if (getPlantIsSurvive() && Plants::getZombieIsSameLineWithPlant(zombie) &&   /* æ¤ç‰©å­˜æ´» && æ¤ç‰©ä¸Žåƒµå°¸åœ¨åŒä¸€è¡Œ */
+		Plants::getZombieIsEncounterPlant(zombie) &&                             /* åƒµå°¸é‡åˆ°æ¤ç‰© */
+		zombie->getZombieType() == ZombiesType::GargantuarZombies)               /* åƒµå°¸æ˜¯å·¨äººåƒµå°¸ */
 	{
 		if (zombie->getZombieIsSurvive() && !zombie->getZombieIsEat() && zombie->getZombieIsFrozen() != 2)
 		{

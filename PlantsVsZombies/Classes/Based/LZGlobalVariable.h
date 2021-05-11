@@ -1,4 +1,4 @@
-/**
+ï»¿/**
  *Copyright (c) 2019 LZ.All Right Reserved
  *Author : LZ
  *Email: 2117610943@qq.com
@@ -13,9 +13,9 @@
 #endif
 
 #define USEFONT(__FONT__) Global::getInstance()->userInformation->getGameText().find(__FONT__)->second->text
-#define GAME_FONT_NAME_1 USEFONT("TTF×ÖÌåÃû³Æ1")
-#define GAME_FONT_NAME_2 USEFONT("TTF×ÖÌåÃû³Æ2")
-#define GAME_FONT_NAME_3 USEFONT("TTF×ÖÌåÃû³Æ3")
+#define GAME_FONT_NAME_1 USEFONT("TTFå­—ä½“åç§°1")
+#define GAME_FONT_NAME_2 USEFONT("TTFå­—ä½“åç§°2")
+#define GAME_FONT_NAME_3 USEFONT("TTFå­—ä½“åç§°3")
 
 #define MYRELEASE 1
 
@@ -51,7 +51,7 @@ private:
 	~Global();
 
 private:
-	static Global* _instance;    /* µ¥Àı */
+	static Global* _instance;    /* å•ä¾‹ */
 	float _sumAnimationInterval;
 	int _frequence;
 };

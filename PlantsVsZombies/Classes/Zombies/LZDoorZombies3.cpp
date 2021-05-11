@@ -1,4 +1,4 @@
-/**
+ï»¿/**
  *Copyright (c) 2021 LZ.All Right Reserved
  *Author : LZ
  *Date: 2021.4.21
@@ -6,6 +6,7 @@
  */
 
 #include "LZDoorZombies3.h"
+#include "Based/LZPlayMusic.h"
 
 DoorZombies3::DoorZombies3(Node* node) :
 	_doorNumber(rand() % 3),
@@ -71,18 +72,19 @@ void DoorZombies3::createPreviewZombie()
 
 void DoorZombies3::zombieInjuredEventUpdate()
 {
-	if (_isHaveShield)/* Èç¹ûÓÐÉíÌå»¤¶Ü */
+	if (_isHaveShield)/* å¦‚æžœæœ‰èº«ä½“æŠ¤ç›¾ */
 	{
-		if (_currentBodyShieldVolume <= _bodyShieldVolume * 2.0f / 3.0f) /* ÉíÌå»¤¶ÜÒ»¼¶ËðÉË */
+		if (_currentBodyShieldVolume <= _bodyShieldVolume * 2.0f / 3.0f) /* èº«ä½“æŠ¤ç›¾ä¸€çº§æŸä¼¤ */
 		{
 			setZombieBodyShieldPrimaryInjure("Zombie_screendoor", _doorName[1][_doorNumber]);
 		}
-		if (_currentBodyShieldVolume <= _bodyShieldVolume / 3.0f)        /* ÉíÌå»¤¶Ü¶þ¼¶ËðÉË */
+		if (_currentBodyShieldVolume <= _bodyShieldVolume / 3.0f)        /* èº«ä½“æŠ¤ç›¾äºŒçº§æŸä¼¤ */
 		{
 			setZombieBodyShieldSecondaryInjure("Zombie_screendoor", _doorName[2][_doorNumber]);
 		}
-		if (_currentBodyShieldVolume <= 0) /* ÉíÌå»¤¶ÜÏûÊ§ */
+		if (_currentBodyShieldVolume <= 0) /* èº«ä½“æŠ¤ç›¾æ¶ˆå¤± */
 		{
+			playBodyShieldSpiltAnimation();
 			setZombieBodyShieldThirdInjure("Zombie_screendoor", "tt_innerleg_foot3");
 		}
 	}
@@ -94,4 +96,21 @@ void DoorZombies3::zombieInjuredEventUpdate()
 	{
 		setZombieSecondaryInjure();
 	}
+}
+
+void DoorZombies3::playBodyShieldSpiltAnimation()
+{
+	PlayMusic::playMusic("shieldBroken");
+	auto animation = SkeletonAnimation::createWithData(_global->userInformation->getAnimationData().find("BrokenTiles")->second);
+	animation->setPosition(_zombiesAnimation->getPosition() - Vec2(40, 0));
+	animation->setLocalZOrder(_zombiesAnimation->getLocalZOrder());
+	animation->setAnimation(0, "animation",false);
+	animation->update(0);
+	animation->setScale(_zombiesAnimation->getScale());
+	_node->addChild(animation);
+	animation->runAction(Sequence::create(DelayTime::create(2.5f), 
+		CallFunc::create([animation]() 
+			{
+				animation->removeFromParent();
+			}), nullptr));
 }

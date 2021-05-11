@@ -1,4 +1,4 @@
-/**
+﻿/**
  *Copyright (c) 2020 LZ.All Right Reserved
  *Author : LZ
  *Date: 2020.2.14
@@ -30,7 +30,7 @@ public:
 CC_CONSTRUCTOR_ACCESS:
     GSGameEndLayer();
     ~GSGameEndLayer();
-    bool init();
+    virtual bool init() override;
 
 protected:
     virtual void caveLevelNumber();

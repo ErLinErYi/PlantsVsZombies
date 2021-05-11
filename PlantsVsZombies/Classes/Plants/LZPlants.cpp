@@ -1,4 +1,4 @@
-/**
+ï»¿/**
  *Copyright (c) 2020 LZ.All Right Reserved
  *Author : LZ
  *Date: 2020.2.5
@@ -19,69 +19,69 @@ GLProgram* Plants::_highLightGLProgram = nullptr;
 #ifdef _DEBUG
 PlantsInformation::PlantsCardInformation plantsCardInformation[] =
 {
-	{"SunFlower",              "PlantsIcon4",     "B",    3,    0,          0,         0,      0, 0,     false,   PlantsType::SunFlower,           Color3B::YELLOW                         },  /* ÏòÈÕ¿û */
-	{"PeaShooter",             "PlantsIcon5",     "C",    3,    1,          0,         0,      0, 0,     false,   PlantsType::PeaShooter,          Color3B::GREEN                          },  /* Íã¶¹ÉäÊÖ */
-	{"Wallnut_body",           "PlantsIcon6",     "C",    3,    2,          0,         0,      0, 0,     false,   PlantsType::WallNut,             Color3B(140,80,10)                      },  /* ¼á¹ûÇ½ */
-	{"CherryBomb",             "PlantsIcon7",     "A",    2,    3,          0,         0,      0, 0,     false,   PlantsType::CherryBomb,          Color3B::RED                            },  /* Ó£ÌÒÕ¨µ¯ */
-	{"PotatoMine",             "PlantsIcon7",     "B",    3,    4,          0,         0,      0, 0,     false,   PlantsType::PotatoMine,          Color3B(250,75,10)                      },  /* ÍÁ¶¹À× */
-	{"Cabbage",                "PlantsIcon3",     "B",    3,    5,          0,         0,      0, 0,     false,   PlantsType::CabbagePult,         Color3B(23,79,50)                       },  /* ¾íĞÄ²ËÍ¶ÊÖ */
-	{"Torchwood",              "PlantsIcon2",     "C",    3,    6,          0,         0,      0, 0,     false,   PlantsType::Torchwood,           Color3B::RED                            },  /* »ğ¾æÊ÷×® */
-	{"Spikeweed",              "PlantsIcon12",    "B",    3,    7,          0,         0,      0, 0,     false,   PlantsType::Spikeweed,           Color3B(0,64,0)                         },  /* µØ´Ì */
-	{"Garlic",                 "PlantsIcon10",    "B",    3,    8,          0,         0,      0, 0,     false,   PlantsType::Garlic,              Color3B(218,205,182)                    },  /* ´óËâ */
-	{"IceBergLettuce",         "PlantsIcon15",    "B",    3,    9,          0,         0,      0, 0,     false,   PlantsType::IceBergLettuce,      Color3B(99,202,178),  { 1000,  800   }  },  /* ±ùİ«ÜÄ */
-	{"Chomper",                "PlantsIcon8",     "B",    3,    10,         0,         0,      0, 0,     false,   PlantsType::Chomper,             Color3B(152,66,184),  { 2000,  2000  }  },  /* ´ó×ì»¨ */
-	{"IcePeaShooter",          "PlantsIcon15",    "A",    2,    11,         0,         0,      0, 0,     false,   PlantsType::IcePeaShooter,       Color3B(47,202,207),  { 4000,  4400  }  },  /* º®±ùÍã¶¹ÉäÊÖ */
-	{"FirePeaShooter",         "PlantsIcon2",     "A",    2,    12,         0,         0,      0, 0,     false,   PlantsType::FirePeaShooter,      Color3B::RED,         { 6000,  7000  }  },  /* »ğÑæÍã¶¹ÉäÊÖ */
-	{"LemonShooter",           "PlantsIcon10",    "A",    2,    13,         0,         0,      0, 0,     false,   PlantsType::AcidLemonShooter,    Color3B(232,199,23),  { 9000,  10000 }  },  /* ÄûÃÊÉäÊÖ */
-	{"SunFlowerTwin",          "PlantsIcon4",     "A",    2,    14,         0,         0,      0, 0,     false,   PlantsType::SunFlowerTwin,       Color3B::YELLOW,      { 12000, 14000 }  },  /* Ë«°ûÏòÈÕ¿û */
-	{"WaterMelonPult",         "PlantsIcon3",     "A",    2,    15,         0,         0,      0, 0,     false,   PlantsType::WaterMelonPult,      Color3B(23,79,50),    { 15000, 18000 }  },  /* Î÷¹ÏÍ¶ÊÖ */
-	{"Jalapeno",               "PlantsIcon2",     "A",    2,    16,         0,         0,      0, 0,     false,   PlantsType::Jalapeno,            Color3B::RED,         { 18000, 23000 }  },  /* »ğ±¬À±½· */
-	{"JalapenoVariation",      "PlantsIcon2",     "S",    1,    17,         0,         0,      0, 0,     true,    PlantsType::JalapenoVariation,   Color3B(100,0,0),     { 22000, 28000 }  },  /* »ğ±¬À±½·±äÒì */
-	{"ThreePeaShooter",        "PlantsIcon5",     "S",    1,    18,         0,         0,      0, 0,     false,   PlantsType::ThreePeaShooter,     Color3B::GREEN,       { 25000, 32000 }  },  /* ÈıÍ·Íã¶¹ÉäÊÖ */
-	{"StarFruit",              "PlantsIcon9",     "S",    1,    19,         0,         0,      0, 0,     false,   PlantsType::StarFruit,           Color3B::ORANGE,      { 30000, 36000 }  },  /* ÑîÌÒ */
-	{"WinterMelonPult",        "PlantsIcon15",    "SS",   1,    20,         0,         0,      0, 0,     false,   PlantsType::WinterMelonPult,     Color3B(47,202,207),  { 35000, 41000 }  },  /* ±ù¹ÏÍ¶ÊÖ */
-	{"Citron",                 "PlantsIcon",      "SS",   1,    21,         0,         0,      0, 0,     false,   PlantsType::Citron,              Color3B(0,255,255),   { 40000, 46000 }  },  /* Àë×ÓÔµ */
-	{"CatTail",                "PlantsIcon11",    "SSS",  1,    22,         0,         0,      0, 0,     false,   PlantsType::CatTail,             Color3B::MAGENTA,     { 44000, 50000 }  },  /* ÏãÆÑ */
-	{"GloomShroom",            "PlantsIcon13",    "SSS",  1,    23,         0,         0,      0, 0,     false,   PlantsType::GloomShroom,         Color3B(163,73,164),  { 50666, 56666 }  },  /* ÓÇÓô¹½ */
-	/* Ö²ÎïÍ¼Æ¬Ãû³Æ */         /* ±êÖ¾Ãû³Æ */    /*Æ·ÖÊ*/    /*ÓÅÏÈ¼¶*/  /*Ñô¹âÊı*/  /*Ê±¼ä*/           /*·´×ª*/       /*Ö²ÎïÀàĞÍ*/                   /* ÑÕÉ« */            /* ÒªÇó */
+	{"SunFlower",              "PlantsIcon4",     "B",    3,    0,          0,         0,      0, 0,     false,   PlantsType::SunFlower,           Color3B::YELLOW                         },  /* å‘æ—¥è‘µ */
+	{"PeaShooter",             "PlantsIcon5",     "C",    3,    1,          0,         0,      0, 0,     false,   PlantsType::PeaShooter,          Color3B::GREEN                          },  /* è±Œè±†å°„æ‰‹ */
+	{"Wallnut_body",           "PlantsIcon6",     "C",    3,    2,          0,         0,      0, 0,     false,   PlantsType::WallNut,             Color3B(140,80,10)                      },  /* åšæœå¢™ */
+	{"CherryBomb",             "PlantsIcon7",     "A",    2,    3,          0,         0,      0, 0,     false,   PlantsType::CherryBomb,          Color3B::RED                            },  /* æ¨±æ¡ƒç‚¸å¼¹ */
+	{"PotatoMine",             "PlantsIcon7",     "B",    3,    4,          0,         0,      0, 0,     false,   PlantsType::PotatoMine,          Color3B(250,75,10)                      },  /* åœŸè±†é›· */
+	{"Cabbage",                "PlantsIcon3",     "B",    3,    5,          0,         0,      0, 0,     false,   PlantsType::CabbagePult,         Color3B(23,79,50)                       },  /* å·å¿ƒèœæŠ•æ‰‹ */
+	{"Torchwood",              "PlantsIcon2",     "C",    3,    6,          0,         0,      0, 0,     false,   PlantsType::Torchwood,           Color3B::RED                            },  /* ç«ç‚¬æ ‘æ¡© */
+	{"Spikeweed",              "PlantsIcon12",    "B",    3,    7,          0,         0,      0, 0,     false,   PlantsType::Spikeweed,           Color3B(0,64,0)                         },  /* åœ°åˆº */
+	{"Garlic",                 "PlantsIcon10",    "B",    3,    8,          0,         0,      0, 0,     false,   PlantsType::Garlic,              Color3B(218,205,182)                    },  /* å¤§è’œ */
+	{"IceBergLettuce",         "PlantsIcon15",    "B",    3,    9,          0,         0,      0, 0,     false,   PlantsType::IceBergLettuce,      Color3B(99,202,178),  { 1000,  800   }  },  /* å†°è´è‹£ */
+	{"Chomper",                "PlantsIcon8",     "B",    3,    10,         0,         0,      0, 0,     false,   PlantsType::Chomper,             Color3B(152,66,184),  { 2000,  2000  }  },  /* å¤§å˜´èŠ± */
+	{"IcePeaShooter",          "PlantsIcon15",    "A",    2,    11,         0,         0,      0, 0,     false,   PlantsType::IcePeaShooter,       Color3B(47,202,207),  { 4000,  4400  }  },  /* å¯’å†°è±Œè±†å°„æ‰‹ */
+	{"FirePeaShooter",         "PlantsIcon2",     "A",    2,    12,         0,         0,      0, 0,     false,   PlantsType::FirePeaShooter,      Color3B::RED,         { 6000,  7000  }  },  /* ç«ç„°è±Œè±†å°„æ‰‹ */
+	{"LemonShooter",           "PlantsIcon10",    "A",    2,    13,         0,         0,      0, 0,     false,   PlantsType::AcidLemonShooter,    Color3B(232,199,23),  { 9000,  10000 }  },  /* æŸ æª¬å°„æ‰‹ */
+	{"SunFlowerTwin",          "PlantsIcon4",     "A",    2,    14,         0,         0,      0, 0,     false,   PlantsType::SunFlowerTwin,       Color3B::YELLOW,      { 12000, 14000 }  },  /* åŒèƒå‘æ—¥è‘µ */
+	{"WaterMelonPult",         "PlantsIcon3",     "A",    2,    15,         0,         0,      0, 0,     false,   PlantsType::WaterMelonPult,      Color3B(23,79,50),    { 15000, 18000 }  },  /* è¥¿ç“œæŠ•æ‰‹ */
+	{"Jalapeno",               "PlantsIcon2",     "A",    2,    16,         0,         0,      0, 0,     false,   PlantsType::Jalapeno,            Color3B::RED,         { 18000, 23000 }  },  /* ç«çˆ†è¾£æ¤’ */
+	{"JalapenoVariation",      "PlantsIcon2",     "S",    1,    17,         0,         0,      0, 0,     true,    PlantsType::JalapenoVariation,   Color3B(100,0,0),     { 22000, 28000 }  },  /* ç«çˆ†è¾£æ¤’å˜å¼‚ */
+	{"ThreePeaShooter",        "PlantsIcon5",     "S",    1,    18,         0,         0,      0, 0,     false,   PlantsType::ThreePeaShooter,     Color3B::GREEN,       { 25000, 32000 }  },  /* ä¸‰å¤´è±Œè±†å°„æ‰‹ */
+	{"StarFruit",              "PlantsIcon9",     "S",    1,    19,         0,         0,      0, 0,     false,   PlantsType::StarFruit,           Color3B::ORANGE,      { 30000, 36000 }  },  /* æ¨æ¡ƒ */
+	{"WinterMelonPult",        "PlantsIcon15",    "SSS",  1,    20,         0,         0,      0, 0,     false,   PlantsType::WinterMelonPult,     Color3B(47,202,207),  { 35000, 41000 }  },  /* å†°ç“œæŠ•æ‰‹ */
+	{"Citron",                 "PlantsIcon",      "SS",   1,    21,         0,         0,      0, 0,     false,   PlantsType::Citron,              Color3B(0,255,255),   { 40000, 46000 }  },  /* ç¦»å­ç¼˜ */
+	{"CatTail",                "PlantsIcon11",    "SSS",  1,    22,         0,         0,      0, 0,     false,   PlantsType::CatTail,             Color3B::MAGENTA,     { 44000, 50000 }  },  /* é¦™è’² */
+	{"GloomShroom",            "PlantsIcon13",    "SSS",  1,    23,         0,         0,      0, 0,     false,   PlantsType::GloomShroom,         Color3B(163,73,164),  { 50666, 56666 }  },  /* å¿§éƒè‡ */
+	/* æ¤ç‰©å›¾ç‰‡åç§° */         /* æ ‡å¿—åç§° */    /*å“è´¨*/    /*ä¼˜å…ˆçº§*/  /*é˜³å…‰æ•°*/  /*æ—¶é—´*/           /*åè½¬*/       /*æ¤ç‰©ç±»å‹*/                   /* é¢œè‰² */            /* è¦æ±‚ */
 };
 #else
 PlantsInformation::PlantsCardInformation plantsCardInformation[] =
 {
-	{"SunFlower",             "PlantsIcon4",    "B",    3,   0,          50,          7.5f,      0, 0,     false,   PlantsType::SunFlower,           Color3B::YELLOW                         },  /* ÏòÈÕ¿û */
-	{"PeaShooter",            "PlantsIcon5",    "C",    3,   1,          100,         7.5f,      0, 0,     false,   PlantsType::PeaShooter,          Color3B::GREEN                          },  /* Íã¶¹ÉäÊÖ */
-	{"Wallnut_body",          "PlantsIcon6",    "C",    3,   2,          50,          30,        0, 0,     false,   PlantsType::WallNut,             Color3B(140,80,10)                      },  /* ¼á¹ûÇ½ */
-	{"CherryBomb",            "PlantsIcon7",    "A",    2,   3,          150,         37.5f,     0, 0,     false,   PlantsType::CherryBomb,          Color3B::RED                            },  /* Ó£ÌÒÕ¨µ¯ */
-	{"PotatoMine",            "PlantsIcon7",    "C",    3,   4,          25,          30,        0, 0,     false,   PlantsType::PotatoMine,          Color3B(250,75,10)                      },  /* ÍÁ¶¹À× */
-	{"Cabbage",               "PlantsIcon3",    "B",    3,   5,          100,         7.5f,      0, 0,     false,   PlantsType::CabbagePult,         Color3B(23,79,50)                       },  /* ¾íĞÄ²ËÍ¶ÊÖ */
-	{"Torchwood",             "PlantsIcon2",    "C",    3,   6,          175,         7.5f,      0, 0,     false,   PlantsType::Torchwood,           Color3B::RED                            },  /* »ğ¾æÊ÷×® */
-	{"Spikeweed",             "PlantsIcon12",   "B",    3,   7,          100,         7.5f,      0, 0,     false,   PlantsType::Spikeweed,           Color3B(0,64,0)                         },  /* µØ´Ì */
-	{"Garlic",                "PlantsIcon10",   "B",    3,   8,          50,          10,        0, 0,     false,   PlantsType::Garlic,              Color3B(218,205,182)                    },  /* ´óËâ */
-	{"IceBergLettuce",        "PlantsIcon15",   "B",    3,   9,          0,           20,        0, 0,     false,   PlantsType::IceBergLettuce,      Color3B(99,202,178),  { 1000,  800   }  },  /* ±ùİ«ÜÄ */
-	{"Chomper",               "PlantsIcon8",    "B",    3,   10,         150,         7.5f,      0, 0,     false,   PlantsType::Chomper,             Color3B(152,66,184),  { 2000,  2000  }  },  /* ´ó×ì»¨ */
-	{"IcePeaShooter",         "PlantsIcon15",   "B",    2,   11,         175,         10,        0, 0,     false,   PlantsType::IcePeaShooter,       Color3B(47,202,207),  { 4000,  4400  }  },  /* º®±ùÍã¶¹ÉäÊÖ */
-	{"FirePeaShooter",        "PlantsIcon2",    "B",    2,   12,         200,         10,        0, 0,     false,   PlantsType::FirePeaShooter,      Color3B::RED,         { 6000,  7000  }  },  /* »ğÑæÍã¶¹ÉäÊÖ */
-	{"LemonShooter",          "PlantsIcon10",   "A",    2,   13,         175,         7.5f,      0, 0,     false,   PlantsType::AcidLemonShooter,    Color3B(232,199,23),  { 9000,  10000 }  },  /* ÄûÃÊÉäÊÖ */
-	{"SunFlowerTwin",         "PlantsIcon4",    "A",    2,   14,         100,         15,        0, 0,     false,   PlantsType::SunFlowerTwin,       Color3B::YELLOW,      { 12000, 14000 }  },  /* Ë«°ûÏòÈÕ¿û */
-	{"WaterMelonPult",        "PlantsIcon3",    "A",    2,   15,         225,         10,        0, 0,     false,   PlantsType::WaterMelonPult,      Color3B(23,79,50),    { 15000, 18000 }  },  /* Î÷¹ÏÍ¶ÊÖ */
-	{"Jalapeno",              "PlantsIcon2",    "A",    2,   16,         150,         37.5f,     0, 0,     false,   PlantsType::Jalapeno,            Color3B::RED,         { 18000, 23000 }  },  /* »ğ±¬À±½· */
-	{"JalapenoVariation",     "PlantsIcon2",    "S",    1,   17,         175,         37.5f,     0, 0,     true,    PlantsType::JalapenoVariation,   Color3B(100,0,0),     { 22000, 28000 }  },  /* »ğ±¬À±½·±äÒì */
-	{"ThreePeaShooter",       "PlantsIcon5",    "S",    1,   18,         225,         7.5f,      0, 0,     false,   PlantsType::ThreePeaShooter,     Color3B::GREEN,       { 25000, 32000 }  },  /* ÈıÍ·Íã¶¹ÉäÊÖ */
-	{"StarFruit",             "PlantsIcon9",    "S",    1,   19,         125,         7.5f,      0, 0,     false,   PlantsType::StarFruit,           Color3B::ORANGE,      { 30000, 36000 }  },  /* ÑîÌÒ */
-	{"WinterMelonPult",       "PlantsIcon15",   "SS",   1,   20,         275,         20,        0, 0,     false,   PlantsType::WinterMelonPult,     Color3B(47,202,207),  { 35000, 41000 }  },  /* ±ù¹ÏÍ¶ÊÖ */
-	{"Citron",                "PlantsIcon",     "SS",   1,   21,         275,         15,        0, 0,     false,   PlantsType::Citron,              Color3B(0,255,255),   { 40000, 46000 }  },  /* Àë×ÓÔµ */
-	{"CatTail",               "PlantsIcon11",   "SSS",  1,   22,         225,         10,        0, 0,     false,   PlantsType::CatTail,             Color3B::MAGENTA,     { 44000, 50000 }  },  /* ÏãÆÑ */
-	{"GloomShroom",           "PlantsIcon13",   "SSS",  1,   23,         275,         40,        0, 0,     false,   PlantsType::GloomShroom,         Color3B(163,73,164),  { 50666, 56666 }  },  /* ÓÇÓô¹½ */
-	/* Ö²ÎïÍ¼Æ¬Ãû³Æ */       /* ±êÖ¾Ãû³Æ */    /*Æ·ÖÊ*/   /*ÓÅÏÈ¼¶*/  /*Ñô¹âÊı*/   /*Ê±¼ä*/              /*·´×ª*/       /*Ö²ÎïÀàĞÍ*/                   /* ÑÕÉ« */            /* ÒªÇó */
+	{"SunFlower",             "PlantsIcon4",    "B",    3,   0,          50,          7.5f,      0, 0,     false,   PlantsType::SunFlower,           Color3B::YELLOW                         },  /* å‘æ—¥è‘µ */
+	{"PeaShooter",            "PlantsIcon5",    "C",    3,   1,          100,         7.5f,      0, 0,     false,   PlantsType::PeaShooter,          Color3B::GREEN                          },  /* è±Œè±†å°„æ‰‹ */
+	{"Wallnut_body",          "PlantsIcon6",    "C",    3,   2,          50,          30,        0, 0,     false,   PlantsType::WallNut,             Color3B(140,80,10)                      },  /* åšæœå¢™ */
+	{"CherryBomb",            "PlantsIcon7",    "A",    2,   3,          150,         37.5f,     0, 0,     false,   PlantsType::CherryBomb,          Color3B::RED                            },  /* æ¨±æ¡ƒç‚¸å¼¹ */
+	{"PotatoMine",            "PlantsIcon7",    "C",    3,   4,          25,          30,        0, 0,     false,   PlantsType::PotatoMine,          Color3B(250,75,10)                      },  /* åœŸè±†é›· */
+	{"Cabbage",               "PlantsIcon3",    "B",    3,   5,          100,         7.5f,      0, 0,     false,   PlantsType::CabbagePult,         Color3B(23,79,50)                       },  /* å·å¿ƒèœæŠ•æ‰‹ */
+	{"Torchwood",             "PlantsIcon2",    "C",    3,   6,          175,         7.5f,      0, 0,     false,   PlantsType::Torchwood,           Color3B::RED                            },  /* ç«ç‚¬æ ‘æ¡© */
+	{"Spikeweed",             "PlantsIcon12",   "B",    3,   7,          100,         7.5f,      0, 0,     false,   PlantsType::Spikeweed,           Color3B(0,64,0)                         },  /* åœ°åˆº */
+	{"Garlic",                "PlantsIcon10",   "B",    3,   8,          50,          10,        0, 0,     false,   PlantsType::Garlic,              Color3B(218,205,182)                    },  /* å¤§è’œ */
+	{"IceBergLettuce",        "PlantsIcon15",   "B",    3,   9,          0,           20,        0, 0,     false,   PlantsType::IceBergLettuce,      Color3B(99,202,178),  { 1000,  800   }  },  /* å†°è´è‹£ */
+	{"Chomper",               "PlantsIcon8",    "B",    3,   10,         150,         7.5f,      0, 0,     false,   PlantsType::Chomper,             Color3B(152,66,184),  { 2000,  2000  }  },  /* å¤§å˜´èŠ± */
+	{"IcePeaShooter",         "PlantsIcon15",   "B",    2,   11,         175,         10,        0, 0,     false,   PlantsType::IcePeaShooter,       Color3B(47,202,207),  { 4000,  4400  }  },  /* å¯’å†°è±Œè±†å°„æ‰‹ */
+	{"FirePeaShooter",        "PlantsIcon2",    "B",    2,   12,         200,         10,        0, 0,     false,   PlantsType::FirePeaShooter,      Color3B::RED,         { 6000,  7000  }  },  /* ç«ç„°è±Œè±†å°„æ‰‹ */
+	{"LemonShooter",          "PlantsIcon10",   "A",    2,   13,         175,         7.5f,      0, 0,     false,   PlantsType::AcidLemonShooter,    Color3B(232,199,23),  { 9000,  10000 }  },  /* æŸ æª¬å°„æ‰‹ */
+	{"SunFlowerTwin",         "PlantsIcon4",    "A",    2,   14,         100,         15,        0, 0,     false,   PlantsType::SunFlowerTwin,       Color3B::YELLOW,      { 12000, 14000 }  },  /* åŒèƒå‘æ—¥è‘µ */
+	{"WaterMelonPult",        "PlantsIcon3",    "A",    2,   15,         225,         10,        0, 0,     false,   PlantsType::WaterMelonPult,      Color3B(23,79,50),    { 15000, 18000 }  },  /* è¥¿ç“œæŠ•æ‰‹ */
+	{"Jalapeno",              "PlantsIcon2",    "A",    2,   16,         150,         37.5f,     0, 0,     false,   PlantsType::Jalapeno,            Color3B::RED,         { 18000, 23000 }  },  /* ç«çˆ†è¾£æ¤’ */
+	{"JalapenoVariation",     "PlantsIcon2",    "S",    1,   17,         175,         37.5f,     0, 0,     true,    PlantsType::JalapenoVariation,   Color3B(100,0,0),     { 22000, 28000 }  },  /* ç«çˆ†è¾£æ¤’å˜å¼‚ */
+	{"ThreePeaShooter",       "PlantsIcon5",    "S",    1,   18,         225,         7.5f,      0, 0,     false,   PlantsType::ThreePeaShooter,     Color3B::GREEN,       { 25000, 32000 }  },  /* ä¸‰å¤´è±Œè±†å°„æ‰‹ */
+	{"StarFruit",             "PlantsIcon9",    "S",    1,   19,         125,         7.5f,      0, 0,     false,   PlantsType::StarFruit,           Color3B::ORANGE,      { 30000, 36000 }  },  /* æ¨æ¡ƒ */
+	{"WinterMelonPult",       "PlantsIcon15",   "SSS",  1,   20,         300,         20,        0, 0,     false,   PlantsType::WinterMelonPult,     Color3B(47,202,207),  { 35000, 41000 }  },  /* å†°ç“œæŠ•æ‰‹ */
+	{"Citron",                "PlantsIcon",     "SS",   1,   21,         275,         15,        0, 0,     false,   PlantsType::Citron,              Color3B(0,255,255),   { 40000, 46000 }  },  /* ç¦»å­ç¼˜ */
+	{"CatTail",               "PlantsIcon11",   "SSS",  1,   22,         225,         10,        0, 0,     false,   PlantsType::CatTail,             Color3B::MAGENTA,     { 44000, 50000 }  },  /* é¦™è’² */
+	{"GloomShroom",           "PlantsIcon13",   "SSS",  1,   23,         275,         40,        0, 0,     false,   PlantsType::GloomShroom,         Color3B(163,73,164),  { 50666, 56666 }  },  /* å¿§éƒè‡ */
+	/* æ¤ç‰©å›¾ç‰‡åç§° */       /* æ ‡å¿—åç§° */    /*å“è´¨*/   /*ä¼˜å…ˆçº§*/  /*é˜³å…‰æ•°*/   /*æ—¶é—´*/              /*åè½¬*/       /*æ¤ç‰©ç±»å‹*/                   /* é¢œè‰² */            /* è¦æ±‚ */
 };
 #endif // _DEBUG
 
-/*Ìí¼ÓÖ²ÎïĞèÒªĞŞ¸ÄµÄº¯Êı
- * GameScene->AnimationLayer:ĞèÒªĞŞ¸Ä£º
+/*æ·»åŠ æ¤ç‰©éœ€è¦ä¿®æ”¹çš„å‡½æ•°
+ * GameScene->AnimationLayer:éœ€è¦ä¿®æ”¹ï¼š
  * 1. createDifferentPlants(PlantsType plantsType)
  *
- * plants->plantsĞèÒªĞŞ¸Ä£º
- * 1. Ìí¼ÓplantsType
+ * plants->plantséœ€è¦ä¿®æ”¹ï¼š
+ * 1. æ·»åŠ plantsType
  */
 
 Plants::Plants(Node* node, const Vec2& position) :
@@ -116,7 +116,7 @@ Plants::~Plants()
 SkeletonAnimation* Plants::plantInit(const std::string& plantname, const std::string& animaionname)
 {
 	auto iter = _global->userInformation->getAnimationData().find(plantname);
-	if (iter != _global->userInformation->getAnimationData().end())/* Èç¹û¿ÉÒÔÕÒµ½ */
+	if (iter != _global->userInformation->getAnimationData().end())/* å¦‚æœå¯ä»¥æ‰¾åˆ° */
 	{
 		_plantAnimation = SkeletonAnimation::createWithData(iter->second);
 		_plantAnimation->setPosition(_position);
@@ -144,9 +144,9 @@ void Plants::determineRelativePositionPlantsAndZombies()
 {
 	for (auto zombie : ZombiesGroup)
 	{
-		zombieEatPlant(zombie);      /* ½©Ê¬³ÔÖ²Îï */
+		zombieEatPlant(zombie);      /* åƒµå°¸åƒæ¤ç‰© */
 
-		zombieRecoveryMove(zombie);  /* ½©Ê¬»Ö¸´ÒÆ¶¯ */
+		zombieRecoveryMove(zombie);  /* åƒµå°¸æ¢å¤ç§»åŠ¨ */
 	}
 }
 
@@ -160,7 +160,7 @@ void Plants::stopPlantsAllAction()
 
 void Plants::setPlantSoilSplashAnimation(const float& scale)
 {
-	/* ´´½¨ÖÖÖ²ÄàÍÁ·É½¦¶¯»­ */
+	/* åˆ›å»ºç§æ¤æ³¥åœŸé£æº…åŠ¨ç”» */
 	auto iter = _global->userInformation->getAnimationData().find("SplashOfSoil");
 	if (iter != _global->userInformation->getAnimationData().end())
 	{
@@ -200,7 +200,7 @@ void Plants::setPlantSoilSplashAnimation(const float& scale)
 
 void Plants::setPlantShadow(const float& scale)
 {
-	/* ´´½¨Ö²ÎïÓ°×Ó */
+	/* åˆ›å»ºæ¤ç‰©å½±å­ */
 	_plantShadow = Sprite::createWithSpriteFrameName("plantshadow.png");
 	_plantShadow->setScale(scale);
 	_plantShadow->setPosition(Vec2(-5, 15));
@@ -296,37 +296,42 @@ bool Plants::getZombieIsEncounterPlant(Zombies* zombie)
 
 void Plants::zombieEatPlant(Zombies* zombie)
 {
-	if (getPlantIsSurvive() && Plants::getZombieIsSameLineWithPlant(zombie) &&       /* Ö²Îï´æ»î && Ö²ÎïÓë½©Ê¬ÔÚÍ¬Ò»ĞĞ */
-		Plants::getZombieIsEncounterPlant(zombie) && zombie->getZombieIsEatPlants()) /* ½©Ê¬Óöµ½Ö²Îï && ½©Ê¬ÊÇ³ÔÖ²ÎïµÄ½©Ê¬ */
+	if (getPlantIsSurvive() && Plants::getZombieIsSameLineWithPlant(zombie) &&       /* æ¤ç‰©å­˜æ´» && æ¤ç‰©ä¸åƒµå°¸åœ¨åŒä¸€è¡Œ */
+		Plants::getZombieIsEncounterPlant(zombie) && zombie->getZombieIsEatPlants()) /* åƒµå°¸é‡åˆ°æ¤ç‰© && åƒµå°¸æ˜¯åƒæ¤ç‰©çš„åƒµå°¸ */
 	{
-		if (zombie->getZombieIsSurvive() && !zombie->getZombieIsEat() && zombie->getZombieIsFrozen() != 2)
-		{
-			zombie->setZombieEatPlantNumber(_plantNumber);
-			zombie->setZombieStop();
-			zombie->setZombieIsEat(true);
+		setZombieEatPlantControl(zombie);
+	}
+}
 
-			if (zombie->getZombieType() == ZombiesType::GargantuarZombies)
-			{
-				zombieAttackPlant(zombie);
-			}
-			else
-			{
-				const string eateffect[3] = { "chomp","chomp2","chompsoft" };
-				auto track = zombie->getZombieAnimation()->setAnimation(0,
-					zombie->getZombieType() == ZombiesType::LmpZombies ? "Zombies_Eat" : rand() % 4 ? "Zombies_Eat" : "Zombies_Eat1", true);
-				zombie->getZombieAnimation()->setTrackEventListener(track, [=](spTrackEntry* entry, spEvent* event)
+void Plants::setZombieEatPlantControl(Zombies* zombie)
+{
+	if (zombie->getZombieIsSurvive() && !zombie->getZombieIsEat() && zombie->getZombieIsFrozen() != 2)
+	{
+		zombie->setZombieEatPlantNumber(_plantNumber);
+		zombie->setZombieStop();
+		zombie->setZombieIsEat(true);
+
+		if (zombie->getZombieType() == ZombiesType::GargantuarZombies)
+		{
+			zombieAttackPlant(zombie);
+		}
+		else
+		{
+			const string eateffect[3] = { "chomp","chomp2","chompsoft" };
+			auto track = zombie->getZombieAnimation()->setAnimation(0,
+				zombie->getZombieType() == ZombiesType::LmpZombies ? "Zombies_Eat" : rand() % 4 ? "Zombies_Eat" : "Zombies_Eat1", true);
+			zombie->getZombieAnimation()->setTrackEventListener(track, [=](spTrackEntry* entry, spEvent* event)
+				{
+					if (!strcmp(event->data->name, "eat") && zombie->getZombieIsSurvive())
 					{
-						if (!strcmp(event->data->name, "eat") && zombie->getZombieIsSurvive())
+						if (event->intValue == 1)
 						{
-							if (event->intValue == 1)
-							{
-								PlayMusic::playMusic(eateffect[rand() % 3]);
-								reducePlantHealthPoint(100 - 30 * zombie->getZombieCurrentBloodProportionBloodPrecent());
-								setPlantHurtBlink();
-							}
+							PlayMusic::playMusic(eateffect[rand() % 3]);
+							reducePlantHealthPoint(100 - 30 * zombie->getZombieCurrentBloodProportionBloodPrecent());
+							setPlantHurtBlink();
 						}
-					});
-			}
+					}
+				});
 		}
 	}
 }
@@ -347,8 +352,8 @@ void Plants::zombieAttackPlant(Zombies* zombie)
 
 void Plants::zombieRecoveryMove(Zombies* zombie)
 {
-	if (!getPlantIsSurvive() && zombie->getZombieEatPlantNumber() == _plantNumber &&  /* Ö²ÎïËÀÍö && ½©Ê¬ÊÇ³ÔµÄ¸ÃÖ²Îï */
-		zombie->getZombieIsEat() && zombie->getZombieIsStop()) /* ½©Ê¬ÕıÔÚ³ÔÖ²Îï && ½©Ê¬ÕıÔÚÍ£Ö¹ÒÆ¶¯ */
+	if (!getPlantIsSurvive() && zombie->getZombieEatPlantNumber() == _plantNumber &&  /* æ¤ç‰©æ­»äº¡ && åƒµå°¸æ˜¯åƒçš„è¯¥æ¤ç‰© */
+		zombie->getZombieIsEat() && zombie->getZombieIsStop()) /* åƒµå°¸æ­£åœ¨åƒæ¤ç‰© && åƒµå°¸æ­£åœ¨åœæ­¢ç§»åŠ¨ */
 	{
 		setPlantRemoveFromMap();
 
@@ -359,7 +364,7 @@ void Plants::zombieRecoveryMove(Zombies* zombie)
 		}
 
 		zombie->setZombieIsEat(false);
-		if (!zombie->getZombieIsPlayDieAnimation()) /* ½©Ê¬Ã»ÓĞ²¥·ÅËÀÍö¶¯»­ */
+		if (!zombie->getZombieIsPlayDieAnimation()) /* åƒµå°¸æ²¡æœ‰æ’­æ”¾æ­»äº¡åŠ¨ç”» */
 		{
 			zombie->getZombieAnimation()->setTrackEventListener(zombie->getZombieAnimation()->getCurrent(), nullptr);
 			if (zombie->getZombieType() == ZombiesType::GargantuarZombies)

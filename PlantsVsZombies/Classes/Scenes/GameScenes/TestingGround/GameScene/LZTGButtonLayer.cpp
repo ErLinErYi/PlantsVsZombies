@@ -1,4 +1,4 @@
-/**
+ï»¿/**
  *Copyright (c) 2020 LZ.All Right Reserved
  *Author : LZ
  *Date: 2021.4.08
@@ -38,19 +38,20 @@ bool TGButtonLayer::init()
 void TGButtonLayer::createQuitDialog()
 {
 	GSPauseQuitLayer::pauseLayer();
+	PlayMusic::playMusic("pause");
 	_director->getRunningScene()->addChild(TGPauseQuitLayer::create(), 10, "pauseLayer");
 }
 
 void TGButtonLayer::showShovelBank()
 {
-	auto shovelBank = Button::create("ShovelBank.png", "", "", TextureResType::PLIST);
+	auto shovelBank = Button::create("ShovelBank.png", "", "",cocos2d::ui::Widget::TextureResType::PLIST);
 	shovelBank->setPosition(Vec2(1520, 1080));
 	shovelBank->setScale(0.6f);
 	shovelBank->setAnchorPoint(Vec2(0, 1));
 	shovelBank->setName("ShovelBank");
 	this->addChild(shovelBank);
 
-	/* ²ù×Ó¼àÌý */
+	/* é“²å­ç›‘å¬ */
 	shovelBank->addTouchEventListener([=](Ref* sender, ui::Widget::TouchEventType type)
 		{
 			switch (type)
@@ -62,14 +63,14 @@ void TGButtonLayer::showShovelBank()
 				switch (mouseSelectImage->isSelectShovel)
 				{
 				case true:
-					Director::getInstance()->getOpenGLView()->setCursor("resources/images/System/cursor.png", Point::ANCHOR_TOP_LEFT);
+					Director::getInstance()->getOpenGLView()->setCursor("resources/Images/System/cursor.png", Point::ANCHOR_TOP_LEFT);
 					mouseSelectImage->isSelectShovel = false;
 					break;
 				case false:
 					if (_global->userInformation->getIsSelectCursorNotHide() == cocos2d::ui::CheckBox::EventType::UNSELECTED)
-						Director::getInstance()->getOpenGLView()->setCursor("resources/images/System/Shovel_hi_res.png", Point::ANCHOR_BOTTOM_LEFT);
+						Director::getInstance()->getOpenGLView()->setCursor("resources/Images/System/Shovel_hi_res.png", Point::ANCHOR_BOTTOM_LEFT);
 					else
-						Director::getInstance()->getOpenGLView()->setCursor("resources/images/System/Shovel_hi_res1.png", Vec2(0.125, 0.2f));
+						Director::getInstance()->getOpenGLView()->setCursor("resources/Images/System/Shovel_hi_res1.png", Vec2(0.125, 0.2f));
 					mouseSelectImage->isSelectShovel = true;
 					break;
 				}
@@ -80,23 +81,22 @@ void TGButtonLayer::showShovelBank()
 
 void TGButtonLayer::createKeyBoardListener()
 {
-	/* ´´½¨¼üÅÌ¼àÌý */
+	/* åˆ›å»ºé”®ç›˜ç›‘å¬ */
 	auto KeyBoard = EventListenerKeyboard::create();
 	KeyBoard->onKeyReleased = [&](EventKeyboard::KeyCode code, Event* event)
 	{
 		switch (code)
 		{
-		case cocos2d::EventKeyboard::KeyCode::KEY_SPACE:                     /* ¿Õ¸ñ¼üÔÝÍ£ */
-			PlayMusic::playMusic("pause");
+		case cocos2d::EventKeyboard::KeyCode::KEY_SPACE:                     /* ç©ºæ ¼é”®æš‚åœ */
 			createQuitDialog();
 		break;
-		case cocos2d::EventKeyboard::KeyCode::KEY_CAPITAL_W:                 /* ´óÐ¡Ð´w»òÕßÏòÉÏ¼ýÍ·¼ÓËÙ */
+		case cocos2d::EventKeyboard::KeyCode::KEY_CAPITAL_W:                 /* å¤§å°å†™wæˆ–è€…å‘ä¸Šç®­å¤´åŠ é€Ÿ */
 		case cocos2d::EventKeyboard::KeyCode::KEY_W:
 		case cocos2d::EventKeyboard::KeyCode::KEY_UP_ARROW:
 			PlayMusic::playMusic("gravebutton");
 			controlAccelerateScheduler();
 			break;
-		case cocos2d::EventKeyboard::KeyCode::KEY_CAPITAL_S:                /* ´óÐ¡Ð´s»òÕßÏòÏÂ¼ýÍ·¼õËÙ */
+		case cocos2d::EventKeyboard::KeyCode::KEY_CAPITAL_S:                /* å¤§å°å†™sæˆ–è€…å‘ä¸‹ç®­å¤´å‡é€Ÿ */
 		case cocos2d::EventKeyboard::KeyCode::KEY_S:
 		case cocos2d::EventKeyboard::KeyCode::KEY_DOWN_ARROW:
 			PlayMusic::playMusic("gravebutton");
@@ -115,7 +115,7 @@ void TGButtonLayer::createPlantsCard()
 	for (auto& card : _global->userInformation->getUserSelectCrads())
 	{
 		auto imageBg = "SeedPacket" + to_string(plantsCardInformation[card.cardTag].quality) + ".png";;
-		auto cardBackgroundImag = Button::create(imageBg, imageBg, "", TextureResType::PLIST);
+		auto cardBackgroundImag = Button::create(imageBg, imageBg, "",cocos2d::ui::Widget::TextureResType::PLIST);
 		cardBackgroundImag->setPosition(Vec2(105, 1008 - 103 * ++i));
 		cardBackgroundImag->setEnabled(false);
 		cardBackgroundImag->setColor(Color3B::GRAY);

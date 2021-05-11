@@ -1,4 +1,4 @@
-/**
+ï»¿/**
  *Copyright (c) 2021 LZ.All Right Reserved
  *Author : LZ
  *Date: 2021.4.24
@@ -17,7 +17,7 @@ bool LoadingAnimationLayer::init()
 	createShieldLayer(this);
 
 	auto iter = Global::getInstance()->userInformation->getAnimationData().find("Loading");
-	if (iter != Global::getInstance()->userInformation->getAnimationData().end())/* Èç¹û¿ÉÒÔÕÒµ½ */
+	if (iter != Global::getInstance()->userInformation->getAnimationData().end())/* å¦‚æžœå¯ä»¥æ‰¾åˆ° */
 	{
 		auto littlesprite = SkeletonAnimation::createWithData(iter->second);
 		littlesprite->setPosition(Director::getInstance()->getWinSize() / 2.f);

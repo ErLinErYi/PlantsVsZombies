@@ -1,4 +1,4 @@
-/**
+ï»¿/**
  *Copyright (c) 2021 LZ.All Right Reserved
  *Author : LZ
  *Date: 2021.1.16
@@ -56,14 +56,14 @@ void Chomper::createPlantAnimation()
 	_plantAnimation->setScale(1.7f);
 	_node->addChild(_plantAnimation);
 
-	// Ó°×Ó
+	// å½±å­
 	setPlantShadow(1.4f);
 	_plantAnimation->getChildByName("plantshadow")->setPosition(Vec2(0, 10));
 
-	// ÄàÍÁ·É½¦¶¯»­
+	// æ³¥åœŸé£æº…åŠ¨ç”»
 	setPlantSoilSplashAnimation(0.5f);
 
-	// ´´½¨¼àÌı(¶ÁÈ¡´æµµÉèÖÃ)
+	// åˆ›å»ºç›‘å¬(è¯»å–å­˜æ¡£è®¾ç½®)
 	createListener();
 }
 
@@ -85,7 +85,7 @@ void Chomper::createListener()
 		{
 			if (!strcmp(event->data->name, "Attack_Begin") && getPlantIsSurvive())
 			{
-				if (_attackZombie) // Èç¹û½©Ê¬´æÔÚ
+				if (_attackZombie) // å¦‚æœåƒµå°¸å­˜åœ¨
 				{
 					PlayMusic::playMusic("bigchomp");
 
@@ -113,30 +113,30 @@ void Chomper::determineRelativePositionPlantsAndZombies()
 {
 	for (auto zombie : ZombiesGroup)
 	{
-		zombieEatPlant(zombie);      /* ½©Ê¬³ÔÖ²Îï */
+		zombieEatPlant(zombie);      /* åƒµå°¸åƒæ¤ç‰© */
 
-		plantAttack(zombie);         /* Ö²Îï¹¥»÷ */
+		plantAttack(zombie);         /* æ¤ç‰©æ”»å‡» */
 
-		zombieRecoveryMove(zombie);  /* ½©Ê¬»Ö¸´ÒÆ¶¯ */
+		zombieRecoveryMove(zombie);  /* åƒµå°¸æ¢å¤ç§»åŠ¨ */
 	}
 }
 
 void Chomper::plantAttack(Zombies* zombie)
 {
-	if (getPlantIsSurvive() && zombie->getZombieIsSurvive() && zombie->getZombieIsEnterMap() &&  /* Ö²Îï´æ»î && ½©Ê¬´æ»î && ½©Ê¬½øÈëµØÍ¼ */
-		getZombieIsSameLineWithPlant(zombie) && getZombieIsEncounterPlant(zombie) &&             /* Ö²ÎïÓë½©Ê¬ÔÚÍ¬Ò»ĞĞ && ½©Ê¬µ½Ö²Îï¹¥»÷·¶Î§ */
-		zombie->getZombieIsCanBeAttack())                                                        /* ½©Ê¬ÊÇ·ñ¿ÉÒÔ±»¹¥»÷µ½ */
+	if (getPlantIsSurvive() && zombie->getZombieIsSurvive() && zombie->getZombieIsEnterMap() &&  /* æ¤ç‰©å­˜æ´» && åƒµå°¸å­˜æ´» && åƒµå°¸è¿›å…¥åœ°å›¾ */
+		getZombieIsSameLineWithPlant(zombie) && getZombieIsEncounterPlant(zombie) &&             /* æ¤ç‰©ä¸åƒµå°¸åœ¨åŒä¸€è¡Œ && åƒµå°¸åˆ°æ¤ç‰©æ”»å‡»èŒƒå›´ */
+		zombie->getZombieIsCanBeAttack())                                                        /* åƒµå°¸æ˜¯å¦å¯ä»¥è¢«æ”»å‡»åˆ° */
 	{
-		if (_isCanEat) /* µ±´ó×ì»¨¿ÉÒÔ³Ô½©Ê¬ */
+		if (_isCanEat) /* å½“å¤§å˜´èŠ±å¯ä»¥åƒåƒµå°¸ */
 		{
 			_isCanEat = false;
 			_attackZombie = zombie;
 
-			if (isCanKillZombieOnce(zombie) && !zombie->getZombieReserveKill()) /* Èç¹û½©Ê¬¿ÉÒÔ±»Ò»´ÎÉ±ËÀ && ½©Ê¬Ã»ÓĞ±»Ô¤¶¨É±ËÀ */
+			if (isCanKillZombieOnce(zombie) && !zombie->getZombieReserveKill()) /* å¦‚æœåƒµå°¸å¯ä»¥è¢«ä¸€æ¬¡æ€æ­» && åƒµå°¸æ²¡æœ‰è¢«é¢„å®šæ€æ­» */
 			{
 				_chewTime = 30;
-				zombie->setZombieReserveKill(true); /* ½©Ê¬ÒÑ±»Ô¤¶¨É±ËÀ */
-				zombieRelieveReserveKill(zombie);   /* ½©Ê¬ÔÚÒ»¶ÎÊ±¼äºó×Ô¶¯½â³ıËÀÍöËø¶¨ */
+				zombie->setZombieReserveKill(true); /* åƒµå°¸å·²è¢«é¢„å®šæ€æ­» */
+				zombieRelieveReserveKill(zombie);   /* åƒµå°¸åœ¨ä¸€æ®µæ—¶é—´åè‡ªåŠ¨è§£é™¤æ­»äº¡é”å®š */
 				chomperKillZombie();
 			}
 			else

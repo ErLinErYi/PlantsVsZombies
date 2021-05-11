@@ -1,4 +1,4 @@
-#pragma
+﻿#pragma
 
 #ifndef  _libpvz
 #define PVZ_API _declspec(dllexport) 

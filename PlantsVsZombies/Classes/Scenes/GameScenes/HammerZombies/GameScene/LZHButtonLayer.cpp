@@ -1,4 +1,4 @@
-/**
+ï»¿/**
  *Copyright (c) 2021 LZ.All Right Reserved
  *Author : LZ
  *Date: 2021.2.09
@@ -53,7 +53,7 @@ bool HButtonLayer::init()
 
 Button* HButtonLayer::createButton(const string& normal, const string& select, const Vec2& position, GSLayerButton buttonName, const bool isFlippedX)
 {
-	auto button = Button::create(normal + ".png", select + ".png", "", TextureResType::PLIST);
+	auto button = Button::create(normal + ".png", select + ".png", "",cocos2d::ui::Widget::TextureResType::PLIST);
 	button->setPosition(position);
 	button->setScale(0.7f);
 	button->setFlippedX(isFlippedX);
@@ -66,7 +66,6 @@ Button* HButtonLayer::createButton(const string& normal, const string& select, c
 				switch (buttonName)
 				{
 				case GSLayerButton::stopButton:
-					PlayMusic::playMusic("pause");
 					createQuitDialog();
 					_director->getRunningScene()->addChild(HPauseQuitLayer::create(), 10, "pauseLayer");
 					break;
@@ -82,19 +81,19 @@ Button* HButtonLayer::createButton(const string& normal, const string& select, c
 
 void HButtonLayer::createQuitDialog()
 {
-	PlayMusic::playMusic("pause");
 	GSPauseQuitLayer::pauseLayer();
+	PlayMusic::playMusic("pause");
 }
 
 void HButtonLayer::createKeyBoardListener()
 {
-	/* ´´½¨¼üÅÌ¼àÌý */
+	/* åˆ›å»ºé”®ç›˜ç›‘å¬ */
 	auto keyBoard = EventListenerKeyboard::create();
 	keyBoard->onKeyReleased = [&](EventKeyboard::KeyCode code, Event* event)
 	{
 		switch (code)
 		{
-		case cocos2d::EventKeyboard::KeyCode::KEY_SPACE:                     /* ¿Õ¸ñ¼üÔÝÍ£ */
+		case cocos2d::EventKeyboard::KeyCode::KEY_SPACE:                     /* ç©ºæ ¼é”®æš‚åœ */
 			createQuitDialog();
 			_director->getOpenGLView()->setCursorVisible(true);
 			_director->getRunningScene()->addChild(GSPauseLayer::create(), 10, "pauseLayer");
@@ -113,8 +112,8 @@ void HButtonLayer::createHammerButton()
 
 	for (int i = 0; i < 7; ++i)
 	{
-		auto button = Button::create("SeedPacket3.png", "SeedPacket3.png", "", TextureResType::PLIST);
-		button->setPosition(Vec2(-90, 1030 - 100 * i));
+		auto button = Button::create("SeedPacket3.png", "SeedPacket3.png", "",cocos2d::ui::Widget::TextureResType::PLIST);
+		button->setPosition(Vec2(-90, 840 - 100 * i));
 		button->setCascadeColorEnabled(true);
 		button->setTag(i);
 		this->addChild(button);

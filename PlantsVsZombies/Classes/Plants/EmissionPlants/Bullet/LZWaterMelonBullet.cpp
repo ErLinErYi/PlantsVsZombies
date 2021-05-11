@@ -1,4 +1,4 @@
-/**
+ï»¿/**
  *Copyright (c) 2021 LZ.All Right Reserved
  *Author : LZ
  *Date: 2020.2.04
@@ -38,18 +38,18 @@ void WaterMelonBullet::bulletAndZombiesCollision()
 {
 	for (auto zombie : ZombiesGroup)
 	{
-		if (!_isUsed && zombie->getZombieIsSurvive() &&                                           /* Ã»ÓÐÊ¹ÓÃ && ½©Ê¬Ã»ÓÐËÀÍö */
-			getBulletIsSameLineWithZombie(zombie) && getBulletIsEncounterWithZombie(zombie))      /* ×Óµ¯Óë½©Ê¬Í¬Ò»ÐÐ && ×Óµ¯Óë½©Ê¬Åö×² */
+		if (!_isUsed && zombie->getZombieIsSurvive() &&                                           /* æ²¡æœ‰ä½¿ç”¨ && åƒµå°¸æ²¡æœ‰æ­»äº¡ */
+			getBulletIsSameLineWithZombie(zombie) && getBulletIsEncounterWithZombie(zombie))      /* å­å¼¹ä¸Žåƒµå°¸åŒä¸€è¡Œ && å­å¼¹ä¸Žåƒµå°¸ç¢°æ’ž */
 		{
 			playSoundEffect(SoundEffectType::watermelon);
 
-			bulletAttackHurtZombies(zombie);   /* ½©Ê¬¼õÉÙÉúÃüÖµ */
+			bulletAttackHurtZombies(zombie);   /* åƒµå°¸å‡å°‘ç”Ÿå‘½å€¼ */
 			_bulletAnimation->setOpacity(0);
 			
 			createExplodeAnimation("WaterMelon","WaterMelon_Explode");
 
 			setBulletIsUsed(true);
-			break; /* Ò»¸öÖ»ÄÜ»÷ÖÐÒ»¸ö½©Ê¬ */
+			break; /* ä¸€ä¸ªåªèƒ½å‡»ä¸­ä¸€ä¸ªåƒµå°¸ */
 		}
 	}
 }
@@ -59,12 +59,12 @@ void WaterMelonBullet::bulletAttackHurtZombies(Zombies* zombie)
 	Cabbage::bulletAttackHurtZombies(zombie);
 	zombie->setZombieHurtBlink();
 
-	splashDamageZombies(zombie);  /* ¶Ô½©Ê¬Ôì³É½¦ÉË*/
+	splashDamageZombies(zombie);  /* å¯¹åƒµå°¸é€ æˆæº…ä¼¤*/
 }
 
 void WaterMelonBullet::splashDamageZombies(Zombies* exceptZombie)
 {
-	/* ¼ÆËã½¦ÉäÉËº¦½©Ê¬Êý */
+	/* è®¡ç®—æº…å°„ä¼¤å®³åƒµå°¸æ•° */
 	for (auto zombie : ZombiesGroup)
 	{
 		if (zombie->getZombieIsEnterMap() && zombie->getZombieIsSurvive() && getZombieInExplodeRange(zombie, exceptZombie))
@@ -78,7 +78,7 @@ void WaterMelonBullet::splashDamageZombies(Zombies* exceptZombie)
 		if (exceptZombie != zombie && zombie->getZombieIsEnterMap() &&
 			zombie->getZombieIsSurvive() && getZombieInExplodeRange(zombie, exceptZombie))
 		{
-			/* ½¦ÉäÉËº¦¼ÆËã */
+			/* æº…å°„ä¼¤å®³è®¡ç®— */
 			if (int(_attack / 3) * _zombieInExplodeRangeNumbers > _attack * 7)
 			{
 				_attack = max(int(7 * pow(_attack, 2) / (int(_attack / 3) * 3 * _zombieInExplodeRangeNumbers)), 1);

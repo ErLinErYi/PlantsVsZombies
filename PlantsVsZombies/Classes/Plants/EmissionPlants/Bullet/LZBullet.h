@@ -1,4 +1,4 @@
-/**
+ï»¿/**
  *Copyright (c) 2020 LZ.All Right Reserved
  *Author : LZ
  *Date: 2020.2.11
@@ -47,149 +47,151 @@ class Bullet
 {
 public:
 	/**
-	 *´´½¨×Óµ¯
+	 *åˆ›å»ºå­å¼¹
 	 */
 	virtual void createBullet() = 0;
 
 	/**
-	 *×Óµ¯Óë½©Ê¬Åö×²¼ì²â
+	 *å­å¼¹ä¸åƒµå°¸ç¢°æ’æ£€æµ‹
 	 */
 	virtual void bulletAndZombiesCollision() = 0;
 
 	/**
-	 * ´æ´¢×Óµ¯ÌØÓĞĞÅÏ¢
-	 * ×ÓÀàÖĞÊµÏÖ
+	 * å­˜å‚¨å­å¼¹ç‰¹æœ‰ä¿¡æ¯
+	 * å­ç±»ä¸­å®ç°
 	 */
 	virtual void caveBulletInformation(rapidjson::Value& object, rapidjson::Document::AllocatorType& allocator) {};
 
 	/**
-	 * ¶ÁÈ¡×Óµ¯ÌØÓĞĞÅÏ¢ 
-	 * ×ÓÀàÖĞÊµÏÖ
+	 * è¯»å–å­å¼¹ç‰¹æœ‰ä¿¡æ¯ 
+	 * å­ç±»ä¸­å®ç°
 	 */
 	virtual void readBulletInformation(rapidjson::Document* levelDataDocument, char* key, int i) {};
 	virtual void readBulletAnimationInformation(rapidjson::Document* levelDataDocument, char* key, int i) {};
 
 	/**
-	 *»ñÈ¡×Óµ¯¶¯»­
+	 *è·å–å­å¼¹åŠ¨ç”»
 	 */
 	virtual SkeletonAnimation* getBullet() const;
 
 	/**
-	 *ÉèÖÃ×Óµ¯µÄÎ»ÖÃ
+	 *è®¾ç½®å­å¼¹çš„ä½ç½®
 	 */
 	virtual void setBulletPosition(const Vec2& position);
 	
 	/**
-	 * ÉèÖÃ×Óµ¯ËùÔÚĞĞ  
+	 * è®¾ç½®å­å¼¹æ‰€åœ¨è¡Œ  
 	 */
 	virtual void setBulletInRow(const int row);
 
 	/**
-	 *ÉèÖÃ×Óµ¯µÄÃû×Ö
+	 *è®¾ç½®å­å¼¹çš„åå­—
 	 */
 	virtual void setBulletName(const string& name);
 
 	/**
-	 *ÉèÖÃ×Óµ¯ÊÇ·ñ±»Ê¹ÓÃ
+	 *è®¾ç½®å­å¼¹æ˜¯å¦è¢«ä½¿ç”¨
 	 */
 	virtual void setBulletIsUsed(const bool isUsed);
 
 	/**
-	 *ÉèÖÃ×Óµ¯¹¥»÷Á¦
+	 *è®¾ç½®å­å¼¹æ”»å‡»åŠ›
 	 */
 	virtual void setBulletAttack(const float attack);
 
 	/**
-	 *ÉèÖÃ×Óµ¯Í¸Ã÷¶È
+	 *è®¾ç½®å­å¼¹é€æ˜åº¦
 	 */
 	virtual void setBulletOpacity(GLubyte opacity);
 	virtual void setBulletOpacity();
 
 	/**
-	 *»ñÈ¡×Óµ¯ÊÇ·ñ±»Ê¹ÓÃ
+	 *è·å–å­å¼¹æ˜¯å¦è¢«ä½¿ç”¨
 	 */
 	virtual bool getBulletIsUsed() const;
 
 	/**
-	 *»ñÈ¡×Óµ¯¹¥»÷Á¦
+	 *è·å–å­å¼¹æ”»å‡»åŠ›
 	 */
 	virtual int getBulletAttack() const;
 
 	/**
-	 *»ñÈ¡×Óµ¯Î»ÖÃ
+	 *è·å–å­å¼¹ä½ç½®
 	 */
 	virtual Vec2 getBulletPosition() const;
 
 	/**
-	 * »ñÈ¡×Óµ¯³õÊ¼Î»ÖÃ 
+	 * è·å–å­å¼¹åˆå§‹ä½ç½® 
 	 */
 	virtual Vec2 getBulletInitPosition() const;
 
 	/**
-	 *»ñÈ¡×ÓËùÔÚĞĞ 
+	 *è·å–å­æ‰€åœ¨è¡Œ 
 	 */
 	virtual int getBulletInRow() const;
 
 	/**
-	 *»ñÈ¡×Óµ¯XÎ»ÖÃ
+	 *è·å–å­å¼¹Xä½ç½®
 	 */
 	virtual float getBulletPositionX() const;
 
 	/**
-	 *»ñÈ¡×Óµ¯YÎ»ÖÃ
+	 *è·å–å­å¼¹Yä½ç½®
 	 */
 	virtual float getBulletPositionY() const;
 
 	/**
-	 *»ñÈ¡×Óµ¯ÀàĞÍ
+	 *è·å–å­å¼¹ç±»å‹
 	 */
 	virtual BulletType getBulletType() const;
 
 	/**
-	 *»ñÈ¡×Óµ¯ÊÇ·ñÓë½©Ê¬ÔÚÍ¬Ò»ĞĞ
+	 *è·å–å­å¼¹æ˜¯å¦ä¸åƒµå°¸åœ¨åŒä¸€è¡Œ
 	 */
 	virtual bool getBulletIsSameLineWithZombie(Zombies* zombie);
 
 	/**
-	 *»ñÈ¡×Óµ¯ÊÇ·ñÓë½©Ê¬ÏàÓö
+	 *è·å–å­å¼¹æ˜¯å¦ä¸åƒµå°¸ç›¸é‡
 	 */
 	virtual bool getBulletIsEncounterWithZombie(Zombies* zombie);
 
 	/*
-	 *»ñÈ¡×Óµ¯µÄÃû×Ö
+	 *è·å–å­å¼¹çš„åå­—
 	 */
 	virtual string& getBulletName();
 
 	/**
-	 *»ñÈ¡×Óµ¯ÊÇ·ñÏÔÊ¾
+	 *è·å–å­å¼¹æ˜¯å¦æ˜¾ç¤º
 	 */
 	virtual bool getBulletVisible() const;
 
 	/**
-	 *×Óµ¯¹¥»÷½©Ê¬
+	 *å­å¼¹æ”»å‡»åƒµå°¸
 	 */
 	virtual void bulletAttackHurtZombies(Zombies* zombie);
 
 	/**
-	 * ×Óµ¯Àë¿ªµØÍ¼ÉèÖÃ²»¿É¼û
+	 * å­å¼¹ç¦»å¼€åœ°å›¾è®¾ç½®ä¸å¯è§
 	 */
 	virtual void bulletOutMapSetInvisible();
 
 	/**
-	 *¾²Ì¬·½·¨É¾³ı×Óµ¯
+	 *é™æ€æ–¹æ³•åˆ é™¤å­å¼¹
 	 */
 	static void bulletDeleteUpdate(list<Bullet*>::iterator& bullet);
 
 	/**
-	 *²¥·Å×Óµ¯Åö×²ÉùÒô
+	 *æ’­æ”¾å­å¼¹ç¢°æ’å£°éŸ³
 	 */
 	static void playSoundEffect(SoundEffectType soundEffect);
 
 	/**
-	 *Ñ¡Ôñ²¥·ÅÒôĞ§
+	 *é€‰æ‹©æ’­æ”¾éŸ³æ•ˆ
 	 */
 	static void selectSoundEffect(const int body, const int head);
 	static void selectSoundEffect(const int head);
+
+	virtual void releaseFunction();
 
 CC_CONSTRUCTOR_ACCESS:
 	Bullet();
@@ -202,18 +204,15 @@ protected:
 	virtual void createShadow(float scale) {};
 	virtual float getZOrder() const;
 
-private:
-	void releaseBullet();
-
 protected:
-	SkeletonAnimation* _bulletAnimation;  // ¶¯»­
-	float _attack;                        // ¹¥»÷Á¦
-	bool _isUsed;                         // ÊÇ·ñÊ¹ÓÃ
-	int _bulletRow;                       // ËùÔÚĞĞ
-	int _zombieInExplodeRangeNumbers;     // ½¦ÉäÉËº¦½©Ê¬Êı
-	Node* _node;                          // ¸¸½Úµã
-	Vec2 _position;                       // Î»ÖÃ
-	string _bulletName;                   // Íã¶¹Ãû×Ö
-	BulletType _bulletType;               // ×Óµ¯ÀàĞÍ
-	Global* _global;                      // È«¾Öµ¥Àı
+	SkeletonAnimation* _bulletAnimation;  // åŠ¨ç”»
+	float _attack;                        // æ”»å‡»åŠ›
+	bool _isUsed;                         // æ˜¯å¦ä½¿ç”¨
+	int _bulletRow;                       // æ‰€åœ¨è¡Œ
+	int _zombieInExplodeRangeNumbers;     // æº…å°„ä¼¤å®³åƒµå°¸æ•°
+	Node* _node;                          // çˆ¶èŠ‚ç‚¹
+	Vec2 _position;                       // ä½ç½®
+	string _bulletName;                   // è±Œè±†åå­—
+	BulletType _bulletType;               // å­å¼¹ç±»å‹
+	Global* _global;                      // å…¨å±€å•ä¾‹
 };

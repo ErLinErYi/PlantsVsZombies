@@ -1,4 +1,4 @@
-/**
+ï»¿/**
  *Copyright (c) 2021 LZ.All Right Reserved
  *Author : LZ
  *Date: 2021.01.09
@@ -49,14 +49,14 @@ void SPSJumpLevelLayer::createDialog()
 void SPSJumpLevelLayer::createText()
 {
 	auto text = Text::create(
-		_global->userInformation->getGameText().find("Ìø¹ØËµÃ÷")->second->text, GAME_FONT_NAME_1,
-		_global->userInformation->getGameText().find("Ìø¹ØËµÃ÷")->second->fontsize);
+		_global->userInformation->getGameText().find("è·³å…³è¯´æ˜Ž")->second->text, GAME_FONT_NAME_1,
+		_global->userInformation->getGameText().find("è·³å…³è¯´æ˜Ž")->second->fontsize);
     text->setColor(Color3B(0, 255, 255));
     text->setPosition(Vec2(_jumpLevelDialog->getContentSize().width / 2, 245));
     text->setGlobalZOrder(10);
     _jumpLevelDialog->addChild(text);
 
-	auto str = _global->userInformation->getGameText().find("Ìø¹ØËµÃ÷ÐÅÏ¢")->second;
+	auto str = _global->userInformation->getGameText().find("è·³å…³è¯´æ˜Žä¿¡æ¯")->second;
 	
 	auto information = Text::create(StringUtils::format(str->text.c_str(), 
 		UserData::getInstance()->openIntUserData("JUMPLEVELNUMBERS")), GAME_FONT_NAME_1, str->fontsize);
@@ -71,8 +71,8 @@ void SPSJumpLevelLayer::createText()
 
 void SPSJumpLevelLayer::showButton()
 {
-	createButton(Vec2(150, 10), _global->userInformation->getGameText().find("È·¶¨")->second->text, 1);
-	createButton(Vec2(360, 10), _global->userInformation->getGameText().find("È¡Ïû")->second->text, 2);
+	createButton(Vec2(150, 10), _global->userInformation->getGameText().find("ç¡®å®š")->second->text, 1);
+	createButton(Vec2(360, 10), _global->userInformation->getGameText().find("å–æ¶ˆ")->second->text, 2);
 }
 
 void SPSJumpLevelLayer::jumpLevel()
@@ -94,7 +94,7 @@ void SPSJumpLevelLayer::jumpLevel()
 
 void SPSJumpLevelLayer::createButton(Vec2& vec2, string title, const int id)
 {
-	auto button = Button::create("ButtonNew.png", "ButtonNew2.png", "", TextureResType::PLIST);
+	auto button = Button::create("ButtonNew.png", "ButtonNew2.png", "",cocos2d::ui::Widget::TextureResType::PLIST);
 	button->setPosition(vec2);
 	button->setScale(0.25f);
 	button->setTitleText(title);
@@ -104,7 +104,10 @@ void SPSJumpLevelLayer::createButton(Vec2& vec2, string title, const int id)
 	button->setGlobalZOrder(10);
 	_jumpLevelDialog->addChild(button);
 
-	UserData::getInstance()->openIntUserData("JUMPLEVELNUMBERS") <= 0 ? id == 1 ? button->setEnabled(false) : nullptr : nullptr;
+	if (UserData::getInstance()->openIntUserData("JUMPLEVELNUMBERS") <= 0 && id == 1)
+	{
+		button->setEnabled(false);
+	}
 
 	button->addTouchEventListener([=](Ref* sender, Widget::TouchEventType type)
 		{

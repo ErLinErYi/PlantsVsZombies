@@ -1,4 +1,4 @@
-/**
+ï»¿/**
  *Copyright (c) 2020 LZ.All Right Reserved
  *Author : LZ
  *Date: 2020.1.28
@@ -56,7 +56,7 @@ bool GSButtonLayer::init()
 
 Button* GSButtonLayer::createButton(const string& normal, const string& select, const Vec2& position, GSLayerButton buttonName, const bool isFlippedX)
 {
-	auto button = Button::create(normal + ".png", select + ".png", "", TextureResType::PLIST);
+	auto button = Button::create(normal + ".png", select + ".png", "",cocos2d::ui::Widget::TextureResType::PLIST);
 	button->setPosition(position);
 	button->setScale(0.7f);
 	button->setFlippedX(isFlippedX);
@@ -72,7 +72,6 @@ Button* GSButtonLayer::createButton(const string& normal, const string& select, 
 				switch (buttonName)
 				{
 				case GSLayerButton::stopButton:
-					PlayMusic::playMusic("pause");
 					createQuitDialog();
 					break;
 				case GSLayerButton::accelerateButton:
@@ -96,26 +95,26 @@ Button* GSButtonLayer::createButton(const string& normal, const string& select, 
 
 void GSButtonLayer::createKeyBoardListener()
 {
-	/* ´´½¨¼üÅÌ¼àÌı */
+	/* åˆ›å»ºé”®ç›˜ç›‘å¬ */
 	auto KeyBoard = EventListenerKeyboard::create();
 	KeyBoard->onKeyReleased = [&](EventKeyboard::KeyCode code, Event* event)
 	{
 		switch (code)
 		{
-		case cocos2d::EventKeyboard::KeyCode::KEY_SPACE:                     /* ¿Õ¸ñ¼üÔİÍ£ */
+		case cocos2d::EventKeyboard::KeyCode::KEY_SPACE:                     /* ç©ºæ ¼é”®æš‚åœ */
 			//if (KEY_PRESS(pressKeySpace))
 		{
 			PlayMusic::playMusic("pause");
 			createRequirementLayer();
 		}
 		break;
-		case cocos2d::EventKeyboard::KeyCode::KEY_CAPITAL_W:                 /* ´óĞ¡Ğ´w»òÕßÏòÉÏ¼ıÍ·¼ÓËÙ */
+		case cocos2d::EventKeyboard::KeyCode::KEY_CAPITAL_W:                 /* å¤§å°å†™wæˆ–è€…å‘ä¸Šç®­å¤´åŠ é€Ÿ */
 		case cocos2d::EventKeyboard::KeyCode::KEY_W:
 		case cocos2d::EventKeyboard::KeyCode::KEY_UP_ARROW:
 			PlayMusic::playMusic("gravebutton");
 			controlAccelerateScheduler();
 			break;
-		case cocos2d::EventKeyboard::KeyCode::KEY_CAPITAL_S:                /* ´óĞ¡Ğ´s»òÕßÏòÏÂ¼ıÍ·¼õËÙ */
+		case cocos2d::EventKeyboard::KeyCode::KEY_CAPITAL_S:                /* å¤§å°å†™sæˆ–è€…å‘ä¸‹ç®­å¤´å‡é€Ÿ */
 		case cocos2d::EventKeyboard::KeyCode::KEY_S:
 		case cocos2d::EventKeyboard::KeyCode::KEY_DOWN_ARROW:
 			PlayMusic::playMusic("gravebutton");
@@ -131,15 +130,16 @@ void GSButtonLayer::createKeyBoardListener()
 void GSButtonLayer::createQuitDialog()
 {
 	GSPauseQuitLayer::pauseLayer();
+	PlayMusic::playMusic("pause");
 	_director->getRunningScene()->addChild(GSPauseQuitLayer::create(), 10, "pauseLayer");
 }
 
 void GSButtonLayer::createRequirementButton()
 {
-	/* Èç¹ûÓĞÒªÇóÔòÏÔÊ¾Í¨¹ıÒªÇó */
+	/* å¦‚æœæœ‰è¦æ±‚åˆ™æ˜¾ç¤ºé€šè¿‡è¦æ±‚ */
 	if (_openLevelData->readLevelData(_openLevelData->getLevelNumber())->getGameType().size())
 	{
-		auto Requirement = ui::Button::create("Requirement.png", "RequirementDown.png", "", TextureResType::PLIST);
+		auto Requirement = ui::Button::create("Requirement.png", "RequirementDown.png", "",cocos2d::ui::Widget::TextureResType::PLIST);
 		Requirement->setPosition(Vec2(1570, 1030));
 		Requirement->setScale(0.7f);
 		this->addChild(Requirement);
@@ -148,7 +148,6 @@ void GSButtonLayer::createRequirementButton()
 				switch (type)
 				{
 				case ui::Widget::TouchEventType::ENDED:
-					PlayMusic::playMusic("pause");
 					createRequirementLayer();
 					break;
 				}
@@ -164,6 +163,7 @@ void GSButtonLayer::createRequirementButton()
 void GSButtonLayer::createRequirementLayer()
 {
 	GSPauseQuitLayer::pauseLayer();
+	PlayMusic::playMusic("pause");
 	_director->getRunningScene()->addChild(GSRequirementLayer::addLayer(), 10);
 }
 
@@ -172,13 +172,13 @@ void GSButtonLayer::controlAccelerateScheduler()
 	if (Director::getInstance()->getScheduler()->getTimeScale() == 2.0f)
 	{
 		Director::getInstance()->getScheduler()->setTimeScale(1.0f);
-		if (_accelerateButton)_accelerateButton->loadTextureNormal("SpeedButton.png", TextureResType::PLIST);
+		if (_accelerateButton)_accelerateButton->loadTextureNormal("SpeedButton.png",cocos2d::ui::Widget::TextureResType::PLIST);
 	}
 	else
 	{
 		Director::getInstance()->getScheduler()->setTimeScale(2.0f);
-		if(_decelerateButton)_decelerateButton->loadTextureNormal("SpeedButton.png", TextureResType::PLIST);
-		if(_accelerateButton)_accelerateButton->loadTextureNormal("SpeedButtonDown.png", TextureResType::PLIST);
+		if(_decelerateButton)_decelerateButton->loadTextureNormal("SpeedButton.png",cocos2d::ui::Widget::TextureResType::PLIST);
+		if(_accelerateButton)_accelerateButton->loadTextureNormal("SpeedButtonDown.png",cocos2d::ui::Widget::TextureResType::PLIST);
 	}
 }
 
@@ -187,19 +187,19 @@ void GSButtonLayer::controlDecelerateScheduler()
 	if (Director::getInstance()->getScheduler()->getTimeScale() == 0.7f)
 	{
 		Director::getInstance()->getScheduler()->setTimeScale(1.0f);
-		if (_decelerateButton)_decelerateButton->loadTextureNormal("SpeedButton.png", TextureResType::PLIST);
+		if (_decelerateButton)_decelerateButton->loadTextureNormal("SpeedButton.png",cocos2d::ui::Widget::TextureResType::PLIST);
 	}
 	else
 	{
 		Director::getInstance()->getScheduler()->setTimeScale(0.7f);
-		if (_accelerateButton)_accelerateButton->loadTextureNormal("SpeedButton.png", TextureResType::PLIST);
-		if (_decelerateButton)_decelerateButton->loadTextureNormal("SpeedButtonDown.png", TextureResType::PLIST);
+		if (_accelerateButton)_accelerateButton->loadTextureNormal("SpeedButton.png",cocos2d::ui::Widget::TextureResType::PLIST);
+		if (_decelerateButton)_decelerateButton->loadTextureNormal("SpeedButtonDown.png",cocos2d::ui::Widget::TextureResType::PLIST);
 	}
 }
 
 void GSButtonLayer::showSeedBank()
 {
-	auto seedBank = Scale9Sprite::createWithSpriteFrameName("SeedBank.png");
+	auto seedBank = cocos2d::ui::Scale9Sprite::createWithSpriteFrameName("SeedBank.png");
 	seedBank->setPosition(Vec2(0, 1080));
 	seedBank->setAnchorPoint(Vec2(0, 1));
 	seedBank->setContentSize(Size(210, 967));
@@ -208,14 +208,14 @@ void GSButtonLayer::showSeedBank()
 
 void GSButtonLayer::showShovelBank()
 {
-	auto shovelBank = Button::create("ShovelBank.png", "", "", TextureResType::PLIST);
+	auto shovelBank = Button::create("ShovelBank.png", "", "",cocos2d::ui::Widget::TextureResType::PLIST);
 	shovelBank->setPosition(_openLevelData->readLevelData(_openLevelData->getLevelNumber())->getGameType().size() > 0 ? Vec2(1425, 1080) : Vec2(1525, 1080));
 	shovelBank->setScale(0.6f);
 	shovelBank->setAnchorPoint(Vec2(0, 1));
 	shovelBank->setName("ShovelBank");
 	this->addChild(shovelBank, 1);
 
-	/* ²ù×Ó¼àÌı */
+	/* é“²å­ç›‘å¬ */
 	shovelBank->addTouchEventListener([=](Ref* sender, ui::Widget::TouchEventType type)
 		{
 			switch (type)
@@ -227,14 +227,14 @@ void GSButtonLayer::showShovelBank()
 				switch (mouseSelectImage->isSelectShovel)
 				{
 				case true:
-					Director::getInstance()->getOpenGLView()->setCursor("resources/images/System/cursor.png", Point::ANCHOR_TOP_LEFT);
+					Director::getInstance()->getOpenGLView()->setCursor("resources/Images/System/cursor.png", Point::ANCHOR_TOP_LEFT);
 					mouseSelectImage->isSelectShovel = false;
 					break;
 				case false:
 					if (_global->userInformation->getIsSelectCursorNotHide() == cocos2d::ui::CheckBox::EventType::UNSELECTED)
-						Director::getInstance()->getOpenGLView()->setCursor("resources/images/System/Shovel_hi_res.png", Point::ANCHOR_BOTTOM_LEFT);
+						Director::getInstance()->getOpenGLView()->setCursor("resources/Images/System/Shovel_hi_res.png", Point::ANCHOR_BOTTOM_LEFT);
 					else
-						Director::getInstance()->getOpenGLView()->setCursor("resources/images/System/Shovel_hi_res1.png", Vec2(0.125, 0.2f));
+						Director::getInstance()->getOpenGLView()->setCursor("resources/Images/System/Shovel_hi_res1.png", Vec2(0.125, 0.2f));
 					mouseSelectImage->isSelectShovel = true;
 					break;
 				}
@@ -245,7 +245,7 @@ void GSButtonLayer::showShovelBank()
 
 void GSButtonLayer::showNextWaveButton()
 {
-	nextWaveButton = Button::create("NextWave.png", "NextWave2.png", "", TextureResType::PLIST);
+	nextWaveButton = Button::create("NextWave.png", "NextWave2.png", "",cocos2d::ui::Widget::TextureResType::PLIST);
 	nextWaveButton->setPosition(getChildByName("ShovelBank")->getPosition() - Vec2(92, -5));
 	nextWaveButton->setScale(0.6f);
 	nextWaveButton->setAnchorPoint(Vec2(0, 1));
@@ -278,7 +278,7 @@ void GSButtonLayer::createPlantsCard()
 	for (auto& card : _global->userInformation->getUserSelectCrads())
 	{
 		auto imageBg = "SeedPacket" + to_string(plantsCardInformation[card.cardTag].quality) + ".png";;
-		auto cardBackgroundImag = Button::create(imageBg, imageBg, "", TextureResType::PLIST);
+		auto cardBackgroundImag = Button::create(imageBg, imageBg, "",cocos2d::ui::Widget::TextureResType::PLIST);
 		cardBackgroundImag->setPosition(Vec2(105, 1008 - 103 * ++i));
 		cardBackgroundImag->setEnabled(false);
 		cardBackgroundImag->setColor(Color3B::GRAY);
@@ -316,14 +316,14 @@ void GSButtonLayer::createPlantsCard()
 
 void GSButtonLayer::createJumpLevelButton()
 {
-	auto breakButton = ui::Button::create("SeedChooser_Button.png", "SeedChooser_Button_Disabled.png", "", TextureResType::PLIST);
+	auto breakButton = ui::Button::create("SeedChooser_Button.png", "SeedChooser_Button_Disabled.png", "",cocos2d::ui::Widget::TextureResType::PLIST);
 	breakButton->setPosition(Vec2(1250, 5));
 	breakButton->setScale(1.5f);
 	breakButton->setAnchorPoint(Vec2::ANCHOR_MIDDLE_BOTTOM);
-	breakButton->setTitleText(_global->userInformation->getGameText().find("Ìø¹ı´Ë¹Ø")->second->text);
+	breakButton->setTitleText(_global->userInformation->getGameText().find("è·³è¿‡æ­¤å…³")->second->text);
 	breakButton->setTitleColor(Color3B(0, 255, 255));
 	breakButton->setTitleFontName(GAME_FONT_NAME_1);
-	breakButton->setTitleFontSize(_global->userInformation->getGameText().find("Ìø¹ı´Ë¹Ø")->second->fontsize);
+	breakButton->setTitleFontSize(_global->userInformation->getGameText().find("è·³è¿‡æ­¤å…³")->second->fontsize);
 	this->addChild(breakButton);
 	breakButton->addTouchEventListener([&](Ref* sender, ui::Widget::TouchEventType type)
 		{
@@ -347,9 +347,9 @@ void GSButtonLayer::createJumpLevelButton()
 ProgressTimer* GSButtonLayer::createProgressTimer(Button* button, const float _time, const int from, const unsigned int& id)
 {
 	auto timerBar = ProgressTimer::create(Sprite::createWithSpriteFrameName("SeedPacketSilhouette1.png"));
-	timerBar->setType(ProgressTimer::Type::BAR);  //ÉèÖÃÌõĞÎ½ø¶ÈÌõ
-	timerBar->setBarChangeRate(Vec2(1, 0));       //ÉèÖÃºáÏò
-	timerBar->setMidpoint(Vec2(0, 1));            //ÉèÖÃ´Ó×óÍùÓÒ
+	timerBar->setType(ProgressTimer::Type::BAR);  //è®¾ç½®æ¡å½¢è¿›åº¦æ¡
+	timerBar->setBarChangeRate(Vec2(1, 0));       //è®¾ç½®æ¨ªå‘
+	timerBar->setMidpoint(Vec2(0, 1));            //è®¾ç½®ä»å·¦å¾€å³
 	timerBar->setPosition(Vec2(90, 48));
 	timerBar->setOpacity(150);
 	timerBar->setPercentage(100);
@@ -363,10 +363,10 @@ ProgressTimer* GSButtonLayer::createProgressTimer(Button* button, const float _t
 
 void GSButtonLayer::recoverySunControl()
 {
-	/* ×ÓÀàÖĞÊµÏÖ */
+	/* å­ç±»ä¸­å®ç° */
 }
 
 void GSButtonLayer::recoveryCoinControl()
 {
-	/* ×ÓÀàÖĞÊµÏÖ */
+	/* å­ç±»ä¸­å®ç° */
 }

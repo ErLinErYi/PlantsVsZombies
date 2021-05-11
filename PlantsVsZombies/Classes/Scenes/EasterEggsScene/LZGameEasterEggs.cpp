@@ -1,4 +1,4 @@
-/**
+ï»¿/**
  *Copyright (c) 2019 LZ.All Right Reserved
  *Author : LZ
  *Date: 2019.6.25
@@ -52,23 +52,23 @@ void GameEasterEggs::createEggText()
 	const int min = (sumTime - hour * 3600) / 60;
 	const int sec = sumTime - hour * 3600 - min * 60;
 
-	/* ÎÄ×Ö²Êµ° */
-	string buff = { "      Õæ°ô£¡£¡£¡Ê×ÏÈ×£ºØÄãÍ¨¹ýÁËÃ°ÏÕÄ£Ê½µÄËùÓÐ¼òµ¥¹Ø¿¨£¬ºóÃæ»¹ÓÐÀ§ÄÑ¹Ø¿¨ºÍÆäËûÓÎÏ·Ä£Ê½µÈ×ÅÄãÈ¥ÌôÕ½¡£¸ÐÐ»ÄãÄÜ¹»»¨·ÑÊ±¼äÀ´¹Ø×¢´ËÓÎÏ·¡£\
-ÄãÃÇµÄ¹Ø×¢ÊÇÎÒ¿ª·¢ÓÎÏ·µÄ×î´ó¶¯Á¦¡£ÕýÊÇÒòÎªÄãÃÇµÄ¹Ø×¢£¬²ÅÊ¹µÃÎÒÓÐ×ã¹»µÄÐÅÄîÊ¹ÎÒ¼ÌÐø¼á³ÖÏÂÈ¥£¬²¢°ÑÓÎÏ·×öµÄ¸üºÃ¡£\n\
-      Ö²Îï´óÕ½½©Ê¬Õâ¿îÓÎÏ·ÊÇÎÒ×îÏ²»¶µÄÓÎÏ·Ö®Ò»£¬ºÜ¾ÃÒÔÇ°ÎÒ¾ÍÏ£Íû×Ô¼ºÄÜ¹»×ö³öÕâÑùÒ»¿îÍ¬ÈËÓÎÏ·£¬µ«ÊÇÄÇ¸öÊ±ºòÄÜÁ¦ÓÐÏÞ£¬\
-Ö±µ½È¥ÄêÊî¼Ù£¨2018Äê£©ÎÒ¿ªÊ¼ÖÆ×÷£¬Êî¼Ù×öÁË´óÔ¼Ò»¸ö¶àÔÂ¡£µ«ÊÇÓÉÓÚÄÜÁ¦ÓÐÏÞ£¬ÖÆ×÷³öµÄÓÎÏ·¸ù±¾Ã»ÓÐ¿ÉÍæÐÔ¡£×îºó²»µÃ²»·ÅÆúÁËÖÆ×÷¡£\
-µ«ÊÇÎÒ²¢Ã»ÓÐÕæÕýµÄ·ÅÆú£¬Ê±¸ôÒ»Äê£¨2019Äê£©µÄÊî¼ÙÎÒ´ÓÐÂ¿ªÊ¼ÖÆ×÷Ö²Îï´óÕ½½©Ê¬¡£¾­¹ýÁ½Èý¸öÔÂµÄÑ§Ï°Óë¿ª·¢£¬ÖÕÓÚÖÆ×÷³öÁËÒ»¸ö¾ßÓÐ\
-¿ÉÍæÐÔµÄ²âÊÔ°æ¡£ÓÎÏ·ÖÆ×÷ÊÇÒ»¸öÀ§ÄÑ¶øÇÒ¼èÐÁµÄ¹ý³Ì£¬ÆÚ¼äÓöµ½¹ýÎÞÊýÎÊÌâ£¬ÓÐ¹ý·ÅÆú£¬Ò²ÓÐ¹ýÐË·Ü¡£×îÖÕÎÒ¼á³ÖÁËÏÂÀ´£¡ºóÃæÓÐ¸üÀ§ÄÑ\
-µÄ¹Ø¿¨µÈ×ÅÄãÈ¥ÌôÕ½¡£¼ÌÐø¼ÓÓÍ°É£¡\n\
-      Ä¿Ç°ÓÐ16ÖÖ½©Ê¬ºÍ24ÖÖÖ²Îï£¬Ö²ÎïºÍ½©Ê¬µÄ¶¯»­¶¼ÊÇ±¾ÈË×öµÄ£¬ÓÉÓÚ×ö¶¯»­µÄÄÜÁ¦ÓÐÏÞ£¬ÓÐÐ©½©Ê¬ºÍÖ²Îï¶¯»­²»ÄÜÊµÏÖ¡£\
-£¨Ê¹ÓÃspine»òÕßDragonBonesÖÆ×÷µÄ2D¶¯»­£©¡£½ñºóµÄ¸üÐÂÊÇ²»¶¨Ê±µÄ£¬¿ÉÄÜ»áºÜÂý¡£±¾ÈËqq£º2117610943 QQÈº£º926707238\n\n" };
+	/* æ–‡å­—å½©è›‹ */
+	string buff = { "      çœŸæ£’ï¼ï¼ï¼é¦–å…ˆç¥è´ºä½ é€šè¿‡äº†å†’é™©æ¨¡å¼çš„æ‰€æœ‰ç®€å•å…³å¡ï¼ŒåŽé¢è¿˜æœ‰å›°éš¾å…³å¡å’Œå…¶ä»–æ¸¸æˆæ¨¡å¼ç­‰ç€ä½ åŽ»æŒ‘æˆ˜ã€‚æ„Ÿè°¢ä½ èƒ½å¤ŸèŠ±è´¹æ—¶é—´æ¥å…³æ³¨æ­¤æ¸¸æˆã€‚\
+ä½ ä»¬çš„å…³æ³¨æ˜¯æˆ‘å¼€å‘æ¸¸æˆçš„æœ€å¤§åŠ¨åŠ›ã€‚æ­£æ˜¯å› ä¸ºä½ ä»¬çš„å…³æ³¨ï¼Œæ‰ä½¿å¾—æˆ‘æœ‰è¶³å¤Ÿçš„ä¿¡å¿µä½¿æˆ‘ç»§ç»­åšæŒä¸‹åŽ»ï¼Œå¹¶æŠŠæ¸¸æˆåšçš„æ›´å¥½ã€‚\n\
+      æ¤ç‰©å¤§æˆ˜åƒµå°¸è¿™æ¬¾æ¸¸æˆæ˜¯æˆ‘æœ€å–œæ¬¢çš„æ¸¸æˆä¹‹ä¸€ï¼Œå¾ˆä¹…ä»¥å‰æˆ‘å°±å¸Œæœ›è‡ªå·±èƒ½å¤Ÿåšå‡ºè¿™æ ·ä¸€æ¬¾åŒäººæ¸¸æˆï¼Œä½†æ˜¯é‚£ä¸ªæ—¶å€™èƒ½åŠ›æœ‰é™ï¼Œ\
+ç›´åˆ°åŽ»å¹´æš‘å‡ï¼ˆ2018å¹´ï¼‰æˆ‘å¼€å§‹åˆ¶ä½œï¼Œæš‘å‡åšäº†å¤§çº¦ä¸€ä¸ªå¤šæœˆã€‚ä½†æ˜¯ç”±äºŽèƒ½åŠ›æœ‰é™ï¼Œåˆ¶ä½œå‡ºçš„æ¸¸æˆæ ¹æœ¬æ²¡æœ‰å¯çŽ©æ€§ã€‚æœ€åŽä¸å¾—ä¸æ”¾å¼ƒäº†åˆ¶ä½œã€‚\
+ä½†æ˜¯æˆ‘å¹¶æ²¡æœ‰çœŸæ­£çš„æ”¾å¼ƒï¼Œæ—¶éš”ä¸€å¹´ï¼ˆ2019å¹´ï¼‰çš„æš‘å‡æˆ‘ä»Žæ–°å¼€å§‹åˆ¶ä½œæ¤ç‰©å¤§æˆ˜åƒµå°¸ã€‚ç»è¿‡ä¸¤ä¸‰ä¸ªæœˆçš„å­¦ä¹ ä¸Žå¼€å‘ï¼Œç»ˆäºŽåˆ¶ä½œå‡ºäº†ä¸€ä¸ªå…·æœ‰\
+å¯çŽ©æ€§çš„æµ‹è¯•ç‰ˆã€‚æ¸¸æˆåˆ¶ä½œæ˜¯ä¸€ä¸ªå›°éš¾è€Œä¸”è‰°è¾›çš„è¿‡ç¨‹ï¼ŒæœŸé—´é‡åˆ°è¿‡æ— æ•°é—®é¢˜ï¼Œæœ‰è¿‡æ”¾å¼ƒï¼Œä¹Ÿæœ‰è¿‡å…´å¥‹ã€‚æœ€ç»ˆæˆ‘åšæŒäº†ä¸‹æ¥ï¼åŽé¢æœ‰æ›´å›°éš¾\
+çš„å…³å¡ç­‰ç€ä½ åŽ»æŒ‘æˆ˜ã€‚ç»§ç»­åŠ æ²¹å§ï¼\n\
+      ç›®å‰æœ‰16ç§åƒµå°¸å’Œ24ç§æ¤ç‰©ï¼Œæ¤ç‰©å’Œåƒµå°¸çš„åŠ¨ç”»éƒ½æ˜¯æœ¬äººåšçš„ï¼Œç”±äºŽåšåŠ¨ç”»çš„èƒ½åŠ›æœ‰é™ï¼Œæœ‰äº›åƒµå°¸å’Œæ¤ç‰©åŠ¨ç”»ä¸èƒ½å®žçŽ°ã€‚\
+ï¼ˆä½¿ç”¨spineæˆ–è€…DragonBonesåˆ¶ä½œçš„2DåŠ¨ç”»ï¼‰ã€‚ä»ŠåŽçš„æ›´æ–°æ˜¯ä¸å®šæ—¶çš„ï¼Œå¯èƒ½ä¼šå¾ˆæ…¢ã€‚æœ¬äººqqï¼š2117610943 QQç¾¤ï¼š926707238\n\n" };
 
 	auto eggstext = Text::create("", GAME_FONT_NAME_1, 36);
-	eggstext->setString(buff + "ÓÎÏ·¹ý³ÌÖÐ¾­Àú " + std::to_string(_global->userInformation->getBreakThroughNumbers()) +
-		" ´Î´³¹ØÊ§°Ü£¡\nÓÎÏ·¹ý³ÌÖÐÊ¹ÓÃ " + std::to_string(_global->userInformation->getUsePlantsNumbers()) +
-		" ÖêÖ²Îï½øÐÐ·ÀÓù£¡\nÓÎÏ·¹ý³ÌÖÐ¹²ÓÐ " + std::to_string(_global->userInformation->getKillZombiesNumbers()) + " ¸ö½©Ê¬ÎþÉüÁË£¡\n" +
-		UserDefault::getInstance()->getStringForKey("FIRSTRUNTIME") + " ÊÇÄãµÚÒ»´ÎÔËÐÐ´ËÓÎÏ·µÄÊ±¼ä£¡\n" +
-		"µ½Ä¿Ç°ÎªÖ¹ÄãÒÑ¾­ÓÎÏ·ÁË " + to_string(hour) + "Ð¡Ê± " + to_string(min) + "·ÖÖÓ " + to_string(sec) + "Ãë£¡");
+	eggstext->setString(buff + "æ¸¸æˆè¿‡ç¨‹ä¸­ç»åŽ† " + std::to_string(_global->userInformation->getBreakThroughNumbers()) +
+		" æ¬¡é—¯å…³å¤±è´¥ï¼\næ¸¸æˆè¿‡ç¨‹ä¸­ä½¿ç”¨ " + std::to_string(_global->userInformation->getUsePlantsNumbers()) +
+		" æ ªæ¤ç‰©è¿›è¡Œé˜²å¾¡ï¼\næ¸¸æˆè¿‡ç¨‹ä¸­å…±æœ‰ " + std::to_string(_global->userInformation->getKillZombiesNumbers()) + " ä¸ªåƒµå°¸ç‰ºç‰²äº†ï¼\n" +
+		UserDefault::getInstance()->getStringForKey("FIRSTRUNTIME") + " æ˜¯ä½ ç¬¬ä¸€æ¬¡è¿è¡Œæ­¤æ¸¸æˆçš„æ—¶é—´ï¼\n" +
+		"åˆ°ç›®å‰ä¸ºæ­¢ä½ å·²ç»æ¸¸æˆäº† " + to_string(hour) + "å°æ—¶ " + to_string(min) + "åˆ†é’Ÿ " + to_string(sec) + "ç§’ï¼");
 	eggstext->setPosition(Vec2(Director::getInstance()->getWinSize().width / 2.0f, -430));
 	eggstext->setColor(Color3B(0, 255, 255));
 	eggstext->enableGlow(Color4B::BLUE);
@@ -78,7 +78,7 @@ void GameEasterEggs::createEggText()
 	eggstext->runAction(Sequence::create(MoveTo::create(25.0f, Director::getInstance()->getWinSize() / 2.0f),
 		CallFunc::create([=]()
 			{
-				auto text = Text::create("¾²¾²µÄÏíÊÜÒôÀÖ²¥·ÅÍê±Ï", GAME_FONT_NAME_1, 36);
+				auto text = Text::create("é™é™çš„äº«å—éŸ³ä¹æ’­æ”¾å®Œæ¯•", GAME_FONT_NAME_1, 36);
 				text->setPosition(Vec2(Director::getInstance()->getWinSize().width / 2.0f, 70));
 				text->setColor(Color3B::WHITE);
 				text->setName("Text");
@@ -146,11 +146,11 @@ void GameEasterEggs::musicCallBack()
 
 void GameEasterEggs::backButton()
 {
-	/* ´´½¨°´Å¥ */
-	auto button = ui::Button::create("SeedChooser_Button2.png", "SeedChooser_Button2_Glow.png", "", TextureResType::PLIST);
-	button->setTitleText(_global->userInformation->getGameText().find("ÍË³ö")->second->text);
+	/* åˆ›å»ºæŒ‰é’® */
+	auto button = ui::Button::create("SeedChooser_Button2.png", "SeedChooser_Button2_Glow.png", "",cocos2d::ui::Widget::TextureResType::PLIST);
+	button->setTitleText(_global->userInformation->getGameText().find("é€€å‡º")->second->text);
 	button->setTitleColor(Color3B(0, 255, 255));
-	button->setTitleFontSize(_global->userInformation->getGameText().find("ÍË³ö")->second->fontsize);
+	button->setTitleFontSize(_global->userInformation->getGameText().find("é€€å‡º")->second->fontsize);
 	button->setScale(2.0f);
 	button->setPosition(Vec2(Director::getInstance()->getWinSize().width / 2, 30));
 	this->addChild(button);
@@ -175,7 +175,7 @@ void GameEasterEggs::playVideo()
 	_pPlayer = VideoPlayer::instance();
 	this->addChild(_pPlayer);
 
-	string str = FileUtils::getInstance()->fullPathForFilename(_global->userInformation->getGameText().find("VideoµØÖ·")->second->text);
+	string str = FileUtils::getInstance()->fullPathForFilename(_global->userInformation->getGameText().find("Videoåœ°å€")->second->text);
 
 	auto n = str.find("/");
 	while (n != string::npos)
@@ -201,9 +201,9 @@ void GameEasterEggs::playVideo()
 void GameEasterEggs::createSlider()
 {
 	_slider = Slider::create();
-	_slider->loadBarTexture("bgFile.png", TextureResType::PLIST);
-	_slider->loadSlidBallTextureNormal("thumbFile.png", TextureResType::PLIST);
-	_slider->loadProgressBarTexture("progressFile.png", TextureResType::PLIST);
+	_slider->loadBarTexture("bgFile.png",cocos2d::ui::Widget::TextureResType::PLIST);
+	_slider->loadSlidBallTextureNormal("thumbFile.png",cocos2d::ui::Widget::TextureResType::PLIST);
+	_slider->loadProgressBarTexture("progressFile.png",cocos2d::ui::Widget::TextureResType::PLIST);
 	_slider->setPosition(Vec2(Director::getInstance()->getWinSize().width / 2.f, 25));
 	_slider->setLocalZOrder(1);
 	_slider->addTouchEventListener([=](Ref* sender, Widget::TouchEventType type)

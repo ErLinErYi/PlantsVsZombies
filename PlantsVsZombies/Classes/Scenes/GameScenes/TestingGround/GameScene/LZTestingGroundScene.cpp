@@ -1,4 +1,4 @@
-/**
+ï»¿/**
  *Copyright (c) 2021 LZ.All Right Reserved
  *Author : LZ
  *Date: 2021.4.08
@@ -38,13 +38,13 @@ bool TestingGroundScene::init()
 void TestingGroundScene::showGameLayer()
 {
 	controlPlayMusic();
-	backgroundLayer();   // ±³¾°²ã
-	informationLayer();  // ĞÅÏ¢²ã
-	buttonLayer();       // °´Å¥²ã
-	controlLayer();      // ¿ØÖÆ²ã
-	animationLayer();    // ¶¯»­²ã
-	goodsLayer();        // ÎïÆ·²ã
-	gameTimerLayer();    // Ê±¼ä²ã
+	backgroundLayer();   // èƒŒæ™¯å±‚
+	informationLayer();  // ä¿¡æ¯å±‚
+	buttonLayer();       // æŒ‰é’®å±‚
+	controlLayer();      // æ§åˆ¶å±‚
+	animationLayer();    // åŠ¨ç”»å±‚
+	goodsLayer();        // ç‰©å“å±‚
+	gameTimerLayer();    // æ—¶é—´å±‚
 	setName("GameScene");
 }
 

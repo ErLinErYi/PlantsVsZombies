@@ -1,4 +1,4 @@
-/**
+ï»¿/**
  *Copyright (c) 2020 LZ.All Right Reserved
  *Author : LZ
  *Date: 2020.2.14
@@ -47,7 +47,7 @@ bool GSGameEndLayer::init()
 
 void GSGameEndLayer::judgeBreakThroughAboutJumpLevel()
 {
-	// Èç¹û´Ë´Î´³¹ØÊ±¼ä³¬¹ý150Ãë²¢ÇÒ´³¹ØÊ§°Ü£¬ÔòÂú×ãÒ»´Î´³¹ØÊ§°Ü
+	// å¦‚æžœæ­¤æ¬¡é—¯å…³æ—¶é—´è¶…è¿‡150ç§’å¹¶ä¸”é—¯å…³å¤±è´¥ï¼Œåˆ™æ»¡è¶³ä¸€æ¬¡é—¯å…³å¤±è´¥
 	if (GSGameTimerLayer::breakThroughTime > 150) 
 	{
 		UserData::getInstance()->caveUserData(
@@ -58,9 +58,7 @@ void GSGameEndLayer::judgeBreakThroughAboutJumpLevel()
 
 void GSGameEndLayer::successfullEntry()
 {
-	GSPauseQuitLayer::pauseLayer();
-	Director::getInstance()->getScheduler()->setTimeScale(1.0f); /* »Ö¸´²¥·Å±¶Êý */
-	Director::getInstance()->getOpenGLView()->setCursor("resources/images/System/cursor.png", Point::ANCHOR_TOP_LEFT);
+	Director::getInstance()->getOpenGLView()->setCursor("resources/Images/System/cursor.png", Point::ANCHOR_TOP_LEFT);
 	UserData::getInstance()->createNewLevelDataDocument();
 	UserData::getInstance()->removeLevelData(_global->userInformation->getCurrentCaveFileLevelWorldName());
 
@@ -72,11 +70,9 @@ void GSGameEndLayer::successfullEntry()
 
 void GSGameEndLayer::breakThrough(GameTypes gameType)
 {
-	GSPauseQuitLayer::pauseLayer();
-	Director::getInstance()->getScheduler()->setTimeScale(1.0f); /* »Ö¸´²¥·Å±¶Êý */
-	Director::getInstance()->getOpenGLView()->setCursor("resources/images/System/cursor.png", Point::ANCHOR_TOP_LEFT);
-	UserData::getInstance()->caveUserData("BREAKTHROUGH",++_global->userInformation->getBreakThroughNumbers());/* ¼ÇÂ¼´³¹ØÊ§°Ü¸öÊý */
+	Director::getInstance()->getOpenGLView()->setCursor("resources/Images/System/cursor.png", Point::ANCHOR_TOP_LEFT);
 
+	UserData::getInstance()->caveUserData("BREAKTHROUGH",++_global->userInformation->getBreakThroughNumbers());/* è®°å½•é—¯å…³å¤±è´¥ä¸ªæ•° */
 	UserData::getInstance()->createNewLevelDataDocument();
 	UserData::getInstance()->removeLevelData(_global->userInformation->getCurrentCaveFileLevelWorldName());
 
@@ -98,10 +94,10 @@ void GSGameEndLayer::showFailDialog(GameTypes gameType)
 	_userWinRequirement->createDialogBox(gameType);
 	_userWinRequirement->setShowDialogAction();
 
-	auto button = Button::create("Continue1.png", "Continue.png", "", TextureResType::PLIST);
-	button->setTitleText(Global::getInstance()->userInformation->getGameText().find("¼ÌÐø")->second->text);
+	auto button = Button::create("Continue1.png", "Continue.png", "",cocos2d::ui::Widget::TextureResType::PLIST);
+	button->setTitleText(Global::getInstance()->userInformation->getGameText().find("ç»§ç»­")->second->text);
 	button->setTitleFontName(GAME_FONT_NAME_1);
-	button->setTitleFontSize(Global::getInstance()->userInformation->getGameText().find("¼ÌÐø")->second->fontsize);
+	button->setTitleFontSize(Global::getInstance()->userInformation->getGameText().find("ç»§ç»­")->second->fontsize);
 	button->setTitleColor(Color3B::YELLOW);
 	button->setPosition(Vec2(_userWinRequirement->getDialog()->getContentSize().width / 2.0f, 10));
 	button->setGlobalZOrder(10);
@@ -145,11 +141,11 @@ void GSGameEndLayer::rewardThing()
 {
 	ui::Button* moneybag_hi_res;
 	if (_global->userInformation->getCurrentPlayLevels() >= 52 && _global->userInformation->getGameDifficulty())
-		moneybag_hi_res = ui::Button::create("trophy.png", "", "", TextureResType::PLIST);
+		moneybag_hi_res = ui::Button::create("trophy.png", "", "",cocos2d::ui::Widget::TextureResType::PLIST);
 	else if (_global->userInformation->getCurrentPlayLevels() >= 52 && !_global->userInformation->getGameDifficulty())
-		moneybag_hi_res = ui::Button::create("trophy1.png", "", "", TextureResType::PLIST);
+		moneybag_hi_res = ui::Button::create("trophy1.png", "", "",cocos2d::ui::Widget::TextureResType::PLIST);
 	else
-		moneybag_hi_res = ui::Button::create("moneybag_hi_res.png", "", "", TextureResType::PLIST);
+		moneybag_hi_res = ui::Button::create("moneybag_hi_res.png", "", "",cocos2d::ui::Widget::TextureResType::PLIST);
 
 	moneybag_hi_res->setPosition(Vec2(700 + rand() % 1000, 100 + rand() % 700));
 	moneybag_hi_res->runAction(JumpBy::create(0.5f, Vec2(100 - rand() % 200, 0), 100 + rand() % 100, 1));
@@ -178,7 +174,7 @@ void GSGameEndLayer::rewardThing()
 
 void GSGameEndLayer::caveLevelNumber()
 {
-	/* ¼ÇÂ¼¹ØÊý */
+	/* è®°å½•å…³æ•° */
 	if (_global->userInformation->getUserSelectWorldData().at(
 		_global->userInformation->getCurrentPlayWorldTag())->levels == _global->userInformation->getCurrentPlayLevels())
 	{
@@ -270,7 +266,7 @@ void GSGameEndLayer::rewardCoin(Button* button)
 						White->runAction(Sequence::create(DelayTime::create(1.0f), FadeIn::create(7.0f),
 							CallFunc::create([=]()
 								{
-									/* ±£´æ½ð±ÒÊý */
+									/* ä¿å­˜é‡‘å¸æ•° */
 									UserData::getInstance()->caveUserData("COINNUMBERS", _global->userInformation->getCoinNumbers());
 									
 									ModernWorld::setPopEnter(true);

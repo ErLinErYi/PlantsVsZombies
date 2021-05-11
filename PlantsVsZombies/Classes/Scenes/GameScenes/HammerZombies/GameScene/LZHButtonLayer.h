@@ -1,4 +1,4 @@
-/**
+ï»¿/**
  *Copyright (c) 2021 LZ.All Right Reserved
  *Author : LZ
  *Date: 2021.2.09
@@ -16,7 +16,7 @@ public:
 CC_CONSTRUCTOR_ACCESS:
 	HButtonLayer();
 	~HButtonLayer();
-	virtual bool init();
+	virtual bool init() override;
 
 protected:
 	virtual Button* createButton(const string& normal, const string& select, const Vec2& position, GSLayerButton buttonName, const bool isFlippedX = false) override;
@@ -32,11 +32,11 @@ public:
 	static vector<Button*> hammerButton;
 	struct HammerInformation
 	{
-		string information;                 // ÎÄ×ÖĞÅÏ¢
-		unsigned int quality;               // Æ·ÖÊ
+		string information;                 // æ–‡å­—ä¿¡æ¯
+		unsigned int quality;               // å“è´¨
 		unsigned int lowAttack;
-		unsigned int HigtAttack;            // ¹¥»÷Á¦
-		unsigned int unLock;                // ½âËø
+		unsigned int HigtAttack;            // æ”»å‡»åŠ›
+		unsigned int unLock;                // è§£é”
 	};
 
 private:

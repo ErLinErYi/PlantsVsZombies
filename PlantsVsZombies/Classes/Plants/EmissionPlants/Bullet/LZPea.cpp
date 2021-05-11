@@ -1,4 +1,4 @@
-/**
+ï»¿/**
  *Copyright (c) 2020 LZ.All Right Reserved
  *Author : LZ
  *Date: 2020.2.18
@@ -65,7 +65,7 @@ void Pea::setBulletAction()
 
 void Pea::createShadow(Vec2 position)
 {
-	/* ´´½¨Ó°×Ó */
+	/* åˆ›å»ºå½±å­ */
 	auto shadow = Sprite::createWithSpriteFrameName("plantshadow.png");
 	shadow->setName("shadow");
 	shadow->setPosition(Vec2(0, -80) + position);
@@ -79,33 +79,33 @@ void Pea::bulletAndZombiesCollision()
 {
 	for (auto zombie : ZombiesGroup)
 	{
-		if (!_isUsed && getBulletIsSameLineWithZombie(zombie) &&                          /* Íã¶¹Ã»ÓÐ±»Ê¹ÓÃ && Íã¶¹Óë½©Ê¬ÔÚÍ¬Ò»ÐÐ */
-			zombie->getZombieIsSurvive() && zombie->getZombieIsEnterMap() &&              /* ½©Ê¬Ã»ÓÐËÀÍö && ½©Ê¬½øÈëµØÍ¼ÄÚ */
-			getBulletIsEncounterWithZombie(zombie) && zombie->getZombieIsCanBeAttack())   /* Óë½©Ê¬Åö×² && ½©Ê¬¿ÉÒÔ±»¹¥»÷µ½ */
+		if (!_isUsed && getBulletIsSameLineWithZombie(zombie) &&                          /* è±Œè±†æ²¡æœ‰è¢«ä½¿ç”¨ && è±Œè±†ä¸Žåƒµå°¸åœ¨åŒä¸€è¡Œ */
+			zombie->getZombieIsSurvive() && zombie->getZombieIsEnterMap() &&              /* åƒµå°¸æ²¡æœ‰æ­»äº¡ && åƒµå°¸è¿›å…¥åœ°å›¾å†… */
+			getBulletIsEncounterWithZombie(zombie) && zombie->getZombieIsCanBeAttack())   /* ä¸Žåƒµå°¸ç¢°æ’ž && åƒµå°¸å¯ä»¥è¢«æ”»å‡»åˆ° */
 		{
 			selectSoundEffect(zombie->getZombieBodyAttackSoundEffect(),
-				zombie->getZombieHeadAttackSoundEffect());  /* ²¥·ÅÖ¸¶¨ÒôÀÖ */
+				zombie->getZombieHeadAttackSoundEffect());  /* æ’­æ”¾æŒ‡å®šéŸ³ä¹ */
 
 			attackZombies(zombie);
-			setBulletOpacity();               /* ×Óµ¯ÏûÊ§ */
-			createPeaExplode();               /* ´´½¨Íã¶¹±¬Õ¨¶¯»­ */
+			setBulletOpacity();               /* å­å¼¹æ¶ˆå¤± */
+			createPeaExplode();               /* åˆ›å»ºè±Œè±†çˆ†ç‚¸åŠ¨ç”» */
 			setBulletAttack(0);
 			setBulletIsUsed(true);
 
-			break; /* Ò»¸öÍã¶¹Ö»ÄÜ»÷ÖÐÒ»¸ö½©Ê¬ */
+			break; /* ä¸€ä¸ªè±Œè±†åªèƒ½å‡»ä¸­ä¸€ä¸ªåƒµå°¸ */
 		}
 	}
 }
 
 void Pea::attackZombies(Zombies* zombie)
 {
-	bulletAttackHurtZombies(zombie);   /* ½©Ê¬¼õÉÙÉúÃüÖµ */
+	bulletAttackHurtZombies(zombie);   /* åƒµå°¸å‡å°‘ç”Ÿå‘½å€¼ */
 	zombie->setZombieHurtBlink();
 }
 
 bool Pea::getZombieInExplodeRange(Zombies* zombie)
 {
-	/* ½©Ê¬ÊÇ·ñÔÚ½¦Éä·¶Î§ÅÐ¶Ï */
+	/* åƒµå°¸æ˜¯å¦åœ¨æº…å°„èŒƒå›´åˆ¤æ–­ */
 	return sqrt(pow(zombie->getZombieAnimation()->getPositionX() - _bulletAnimation->getPositionX(), 2) +
 		pow((zombie->getZombieAnimation()->getPositionY() + 50) - (_bulletAnimation->getPositionY() - 25), 2)) <= 130 ? true : false;
 }
@@ -216,7 +216,7 @@ void Pea::readBulletInformation(rapidjson::Document* levelDataDocument, char* ke
 		(*levelDataDocument)[key]["Bullet"][to_string(i).c_str()]["PositionX"].GetFloat(),
 		(*levelDataDocument)[key]["Bullet"][to_string(i).c_str()]["PositionY"].GetFloat() };
 
-	// ÉÏÏÂ·½ÏòÔË¶¯Ê±¼äÎ»ÖÃ¼ÆËã
+	// ä¸Šä¸‹æ–¹å‘è¿åŠ¨æ—¶é—´ä½ç½®è®¡ç®—
 	if (_peaDirectionType != PeaDirectionType::Normal)
 	{
 		Vec2 initPosition{

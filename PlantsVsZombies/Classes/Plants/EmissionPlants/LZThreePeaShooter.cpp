@@ -1,4 +1,4 @@
-/**
+ï»¿/**
  *Copyright (c) 2021 LZ.All Right Reserved
  *Author : LZ
  *Date: 2021.1.29
@@ -51,14 +51,14 @@ void ThreePeaShooter::createPlantAnimation()
 	_plantAnimation->setScale(1.0f);
 	_node->addChild(_plantAnimation);
 
-	// Ó°×Ó
+	// å½±å­
 	setPlantShadow(1.9f);
 	_plantAnimation->getChildByName("plantshadow")->setPosition(Vec2(0, 5));
 
-	// ÄàÍÁ·É½¦¶¯»­
+	// æ³¥åœŸé£æº…åŠ¨ç”»
 	setPlantSoilSplashAnimation(0.8f);
 
-	// ´´½¨¼àÌı
+	// åˆ›å»ºç›‘å¬
 	createListener("ThreePeaShooter_Shoot");
 }
 
@@ -66,11 +66,11 @@ void ThreePeaShooter::determineRelativePositionPlantsAndZombies()
 {
 	for (auto zombie : ZombiesGroup)
 	{
-		zombieEatPlant(zombie);      /* ½©Ê¬³ÔÖ²Îï */
+		zombieEatPlant(zombie);      /* åƒµå°¸åƒæ¤ç‰© */
 
-		zombieRecoveryMove(zombie);  /* ½©Ê¬»Ö¸´ÒÆ¶¯ */
+		zombieRecoveryMove(zombie);  /* åƒµå°¸æ¢å¤ç§»åŠ¨ */
 
-		plantAttack(zombie);         /* Ö²Îï¹¥»÷ */
+		plantAttack(zombie);         /* æ¤ç‰©æ”»å‡» */
 	}
 
 	plantRecovery("ThreePeaShooter_Normal");
@@ -78,9 +78,9 @@ void ThreePeaShooter::determineRelativePositionPlantsAndZombies()
 
 void ThreePeaShooter::plantAttack(Zombies* zombie)
 {
-	if (getPlantIsSurvive() && zombie->getZombieIsSurvive() && zombie->getZombieIsEnterMap() &&       /* Ö²Îï´æ»î && ½©Ê¬Ã»ÓĞËÀÍö && ½©Ê¬½øÈëµØÍ¼ */
-		getZombieIsTheFrontOfPlant(zombie) && getZombieIsSameLineWithPlant(zombie) &&                 /* ½©Ê¬ÔÚÖ²ÎïµÄÇ°·½ && ½©Ê¬ÓëÖ²ÎïÔÚÍ¬Ò»ĞĞ */
-		zombie->getZombieIsCanBeAttack())                                                             /* ½©Ê¬¿ÉÒÔ±»¹¥»÷µ½ */
+	if (getPlantIsSurvive() && zombie->getZombieIsSurvive() && zombie->getZombieIsEnterMap() &&       /* æ¤ç‰©å­˜æ´» && åƒµå°¸æ²¡æœ‰æ­»äº¡ && åƒµå°¸è¿›å…¥åœ°å›¾ */
+		getZombieIsTheFrontOfPlant(zombie) && getZombieIsSameLineWithPlant(zombie) &&                 /* åƒµå°¸åœ¨æ¤ç‰©çš„å‰æ–¹ && åƒµå°¸ä¸æ¤ç‰©åœ¨åŒä¸€è¡Œ */
+		zombie->getZombieIsCanBeAttack())                                                             /* åƒµå°¸å¯ä»¥è¢«æ”»å‡»åˆ° */
 	{
 		plantEmission("ThreePeaShooter_Shoot");
 	}

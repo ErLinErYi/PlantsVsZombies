@@ -1,4 +1,4 @@
-/**
+ï»¿/**
  *Copyright (c) 2020 LZ.All Right Reserved
  *Author : LZ
  *Date: 2020.2.4
@@ -240,7 +240,7 @@ GSAnimationLayer* GSAnimationLayer::getAnimationLayer()
 
 void GSAnimationLayer::createRandomSuns()
 {
-	// ? Ìõ¼ş......
+	// ? æ¡ä»¶......
 	const auto level = _global->userInformation->getCurrentPlayLevels();
 	if (level != 36 && level != 50 && level != 52)
 	{
@@ -272,14 +272,14 @@ void GSAnimationLayer::showCars()
 
 void GSAnimationLayer::gameMainLoop()
 {
-	plantsEventUpdate();       /* Ö²ÎïÊÂ¼ş¸üĞÂ */
-	bulletEventUpdate();       /* ×Óµ¯ÊÂ¼ş¸üĞÂ */
-	carsEventUpdate();         /* Ğ¡³µÊÂ¼ş¸üĞÂ */
+	plantsEventUpdate();       /* æ¤ç‰©äº‹ä»¶æ›´æ–° */
+	bulletEventUpdate();       /* å­å¼¹äº‹ä»¶æ›´æ–° */
+	carsEventUpdate();         /* å°è½¦äº‹ä»¶æ›´æ–° */
 }
 
 void GSAnimationLayer::gameMainLoop(float delta)
 {
-	zombiesEventUpdate(delta); /* ½©Ê¬ÊÂ¼ş¸üĞÂ */
+	zombiesEventUpdate(delta); /* åƒµå°¸äº‹ä»¶æ›´æ–° */
 }
 
 void GSAnimationLayer::zombiesEventUpdate(float delta)
@@ -307,7 +307,7 @@ void GSAnimationLayer::plantsEventUpdate()
 
 void GSAnimationLayer::plantsDeleteUpdate(map<int, Plants*>::iterator& plant)
 {
-	if (!plant->second->getPlantVisible()) /* Ö²ÎïËÀÍö */
+	if (!plant->second->getPlantVisible()) /* æ¤ç‰©æ­»äº¡ */
 	{
 		if (!plant->second->getPlantIsCanDelete()[0])
 		{

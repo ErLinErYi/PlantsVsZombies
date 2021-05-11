@@ -1,4 +1,4 @@
-/**
+ï»¿/**
  *Copyright (c) 2021 LZ.All Right Reserved
  *Author : LZ
  *Date: 2021.4.21
@@ -69,17 +69,17 @@ void DoorZombies4::createPreviewZombie()
 
 void DoorZombies4::zombieInjuredEventUpdate()
 {
-	if (_isHaveShield)/* Èç¹ûÓÐÉíÌå»¤¶Ü */
+	if (_isHaveShield)/* å¦‚æžœæœ‰èº«ä½“æŠ¤ç›¾ */
 	{
-		if (_currentBodyShieldVolume <= _bodyShieldVolume * 2.0f / 3.0f) /* ÉíÌå»¤¶ÜÒ»¼¶ËðÉË */
+		if (_currentBodyShieldVolume <= _bodyShieldVolume * 2.0f / 3.0f) /* èº«ä½“æŠ¤ç›¾ä¸€çº§æŸä¼¤ */
 		{
 			setZombieBodyShieldPrimaryInjure("Zombie_screendoor", "62");
 		}
-		if (_currentBodyShieldVolume <= _bodyShieldVolume / 3.0f)        /* ÉíÌå»¤¶Ü¶þ¼¶ËðÉË */
+		if (_currentBodyShieldVolume <= _bodyShieldVolume / 3.0f)        /* èº«ä½“æŠ¤ç›¾äºŒçº§æŸä¼¤ */
 		{
 			setZombieBodyShieldSecondaryInjure("Zombie_screendoor", "63");
 		}
-		if (_currentBodyShieldVolume <= 0) /* ÉíÌå»¤¶ÜÏûÊ§ */
+		if (_currentBodyShieldVolume <= 0) /* èº«ä½“æŠ¤ç›¾æ¶ˆå¤± */
 		{
 			setZombieBodyShieldThirdInjure("Zombie_screendoor", "tt_innerleg_foot3");
 		}

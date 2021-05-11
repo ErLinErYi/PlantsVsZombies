@@ -1,4 +1,4 @@
-/**
+ï»¿/**
  *Copyright (c) 2021 LZ.All Right Reserved
  *Author : LZ
  *Date: 2021.2.10
@@ -18,15 +18,15 @@ CC_CONSTRUCTOR_ACCESS:
 	UnlockDialogLayer();
 
 protected:
-	virtual void createDiglog();	/* ´´½¨¶Ô»°¿ò */
-	virtual void createButtons();   /* ´´½¨°´Å¥ */
-	virtual void deleteDialog();    /* É¾³ı¶Ô»°¿ò */
+	virtual void createDiglog();	/* åˆ›å»ºå¯¹è¯æ¡† */
+	virtual void createButtons();   /* åˆ›å»ºæŒ‰é’® */
+	virtual void deleteDialog();    /* åˆ é™¤å¯¹è¯æ¡† */
 	virtual void createText();
 
 public:
 	static unsigned int unlockNeedNumbers;
 
 protected:
-	Sprite* _lockDialog;    /* ¶Ô»°¿ò */
+	Sprite* _lockDialog;    /* å¯¹è¯æ¡† */
 	static int _id;
 };

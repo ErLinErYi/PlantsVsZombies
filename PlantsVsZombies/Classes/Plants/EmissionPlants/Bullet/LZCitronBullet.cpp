@@ -1,4 +1,4 @@
-/**
+ï»¿/**
  *Copyright (c) 2020 LZ.All Right Reserved
  *Author : LZ
  *Date: 2020.2.27
@@ -53,7 +53,7 @@ int CitronBullet::getAnimationId()
 
 void CitronBullet::createShadow()
 {
-	/* ´´½¨Ó°×Ó */
+	/* åˆ›å»ºå½±å­ */
 	auto shadow = Sprite::createWithSpriteFrameName("plantshadow.png");
 	shadow->setScale(1.7f);
 	shadow->setName("shadow");
@@ -67,9 +67,9 @@ void CitronBullet::bulletAndZombiesCollision()
 {
 	for (auto zombie : ZombiesGroup)
 	{
-		if (!_isUsed && getBulletIsSameLineWithZombie(zombie) &&                          /* Ã»ÓÐ±»Ê¹ÓÃ && ½©Ê¬ÔÚÍ¬Ò»ÐÐ */
-			zombie->getZombieIsSurvive() && zombie->getZombieIsEnterMap() &&              /* ½©Ê¬Ã»ÓÐËÀÍö && ½©Ê¬½øÈëµØÍ¼ÄÚ */
-			getBulletIsEncounterWithZombie(zombie) && zombie->getZombieIsCanBeAttack())   /* Óë½©Ê¬Åö×² && ½©Ê¬¿ÉÒÔ±»¹¥»÷µ½ */
+		if (!_isUsed && getBulletIsSameLineWithZombie(zombie) &&                          /* æ²¡æœ‰è¢«ä½¿ç”¨ && åƒµå°¸åœ¨åŒä¸€è¡Œ */
+			zombie->getZombieIsSurvive() && zombie->getZombieIsEnterMap() &&              /* åƒµå°¸æ²¡æœ‰æ­»äº¡ && åƒµå°¸è¿›å…¥åœ°å›¾å†… */
+			getBulletIsEncounterWithZombie(zombie) && zombie->getZombieIsCanBeAttack())   /* ä¸Žåƒµå°¸ç¢°æ’ž && åƒµå°¸å¯ä»¥è¢«æ”»å‡»åˆ° */
 		{
 			if (_animationId)
 			{
@@ -93,17 +93,17 @@ void CitronBullet::bulletAndZombiesCollision()
 				}
 				else
 				{
-					attackZombies(zombie);        /* ±¬Õ¨¶Ô½©Ê¬Ôì³ÉÉËº¦ */
+					attackZombies(zombie);        /* çˆ†ç‚¸å¯¹åƒµå°¸é€ æˆä¼¤å®³ */
 				}
 			}
 			else
 			{
 				PlayMusic::playMusic("cherrybomb");
 
-				attackZombies(zombie);        /* ±¬Õ¨¶Ô½©Ê¬Ôì³ÉÉËº¦ */
-				splashDamageZombies(zombie);  /* ¶Ô½©Ê¬Ôì³É½¦ÉË*/
-				setBulletOpacity();           /* ×Óµ¯ÏûÊ§ */
-				createExplode();              /* ´´½¨±¬Õ¨¶¯»­ */
+				attackZombies(zombie);        /* çˆ†ç‚¸å¯¹åƒµå°¸é€ æˆä¼¤å®³ */
+				splashDamageZombies(zombie);  /* å¯¹åƒµå°¸é€ æˆæº…ä¼¤*/
+				setBulletOpacity();           /* å­å¼¹æ¶ˆå¤± */
+				createExplode();              /* åˆ›å»ºçˆ†ç‚¸åŠ¨ç”» */
 				setBulletAttack(0);
 				setBulletIsUsed(true);
 
@@ -136,7 +136,7 @@ void CitronBullet::attackZombies(Zombies* zombie)
 
 void CitronBullet::splashDamageZombies(Zombies* exceptZombie)
 {
-	/* ¼ÆËã½¦ÉäÉËº¦½©Ê¬Êý */
+	/* è®¡ç®—æº…å°„ä¼¤å®³åƒµå°¸æ•° */
 	for (auto zombie : ZombiesGroup)
 	{
 		if (zombie->getZombieIsEnterMap() && zombie->getZombieIsSurvive() && getZombieInExplodeRange(zombie))
@@ -150,7 +150,7 @@ void CitronBullet::splashDamageZombies(Zombies* exceptZombie)
 		if (exceptZombie != zombie && zombie->getZombieIsEnterMap() &&
 			zombie->getZombieIsSurvive() && getZombieInExplodeRange(zombie))
 		{
-			/* ½¦ÉäÉËº¦¼ÆËã */
+			/* æº…å°„ä¼¤å®³è®¡ç®— */
 			if (int(_attack / 3) * _zombieInExplodeRangeNumbers > _attack * 7)
 			{
 				_attack = max(int(7 * pow(_attack, 2) / (int(_attack / 3) * 3 * _zombieInExplodeRangeNumbers)), 1);
@@ -169,7 +169,7 @@ void CitronBullet::splashDamageZombies(Zombies* exceptZombie)
 
 bool CitronBullet::getZombieInExplodeRange(Zombies* zombie)
 {
-	/* ½©Ê¬ÊÇ·ñÔÚ±¬Õ¨·¶Î§ÅÐ¶Ï */
+	/* åƒµå°¸æ˜¯å¦åœ¨çˆ†ç‚¸èŒƒå›´åˆ¤æ–­ */
 	return sqrt(pow(zombie->getZombieAnimation()->getPositionX() - _bulletAnimation->getPositionX(), 2) +
 		pow((zombie->getZombieAnimation()->getPositionY() + 50) - (_bulletAnimation->getPositionY() - 40), 2)) <= 200 ? true : false;
 }

@@ -1,4 +1,4 @@
-/**
+﻿/**
  *Copyright (c) 2019 LZ.All Right Reserved
  *Author : LZ
  *Date: 2021.4.08
@@ -17,7 +17,7 @@ public:
 CC_CONSTRUCTOR_ACCESS:
 	TSPSSpriteLayer();
 	~TSPSSpriteLayer();
-	virtual bool init();
+	virtual bool init() override;
 
 protected:
 	virtual void controlPlantCanSelect(Button* button, int priority) override;

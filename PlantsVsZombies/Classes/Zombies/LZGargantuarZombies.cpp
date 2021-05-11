@@ -1,4 +1,4 @@
-/**
+ï»¿/**
  *Copyright (c) 2021 LZ.All Right Reserved
  *Author : LZ
  *Date: 2020.2.18
@@ -49,7 +49,7 @@ void GargantuarZombies::createZombie()
 	_zombiesAnimation->setTimeScale(0.5f + number(_random));
 	_zombiesAnimation->setScale(1.25f);
 
-	createZombieShadow();//Ó°×Ó
+	createZombieShadow();//å½±å­
 	_zombiesAnimation->getChildByName("shadow")->setScale(3.5f);
 	_zombiesAnimation->getChildByName("shadow")->setPosition(Vec2(10, 28));
 }
@@ -60,7 +60,7 @@ void GargantuarZombies::createPreviewZombie()
 
 	setZombieAnimation(0);
 
-	createZombieShadow();//Ó°×Ó
+	createZombieShadow();//å½±å­
 	_zombiesAnimation->getChildByName("shadow")->setScale(3.5f);
 	_zombiesAnimation->getChildByName("shadow")->setPosition(Vec2(10, 28));
 	_zombiesAnimation->setScale(1.25f);
@@ -73,7 +73,7 @@ void GargantuarZombies::playZombieSoundEffect()
 
 void GargantuarZombies::zombieInjuredEventUpdate()
 {
-	if (_currentBloodVolume <= 0)   /* ½©Ê¬ÑªÁ¿Ğ¡ÓÚÁã£¬½©Ê¬ËÀÍö */
+	if (_currentBloodVolume <= 0)   /* åƒµå°¸è¡€é‡å°äºé›¶ï¼Œåƒµå°¸æ­»äº¡ */
 	{
 		setZombiePrimaryInjure();
 	}
@@ -119,7 +119,7 @@ void GargantuarZombies::playZombiesAshesAnimation()
 
 void GargantuarZombies::zombieLoseHeadAnimation(const std::string& name, const float/*scale*/)
 {
-	if (_isShowLoseLimbsAnimation)/* ½©Ê¬µôÍ· */
+	if (_isShowLoseLimbsAnimation)/* åƒµå°¸æ‰å¤´ */
 	{
 		PlayMusic::playMusic("limbs_pop");
 
@@ -147,7 +147,7 @@ void GargantuarZombies::playZombiesFillDownAnimation()
 		{
 			if (!strcmp(event->data->name, "filldown"))
 			{
-				_currentSpeed = 0; /* Í£Ö¹ÔË¶¯ */
+				_currentSpeed = 0; /* åœæ­¢è¿åŠ¨ */
 				PlayMusic::playMusic("gargantuar_thump");
 				GSBackgroundLayer::backgroundRunAction();
 			}

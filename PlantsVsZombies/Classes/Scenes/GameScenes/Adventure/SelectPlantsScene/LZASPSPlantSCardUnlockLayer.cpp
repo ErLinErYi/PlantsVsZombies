@@ -1,4 +1,4 @@
-/**
+ï»¿/**
  *Copyright (c) 2021 LZ.All Right Reserved
  *Author : LZ
  *Date: 2021.1.31
@@ -20,6 +20,7 @@ PlantsCardUnlock::PlantsCardUnlock():
 	_scrollView(nullptr),
 	_plant(nullptr),
 	_plantAnimation(nullptr),
+	_button(nullptr),
 	_winSize(Director::getInstance()->getWinSize())
 {
 }
@@ -47,15 +48,15 @@ void PlantsCardUnlock::createDialog()
 	_plantsCardUnlockDialog->setScale(2.0f);
 	this->addChild(_plantsCardUnlockDialog);
 
-	auto question = Text::create(text.find("¹§Ï²£¡½âËøÁËÐÂµÄÖ²Îï£¡")->second->text, GAME_FONT_NAME_1, text.find("¹§Ï²£¡½âËøÁËÐÂµÄÖ²Îï£¡")->second->fontsize);
+	auto question = Text::create(text.find("æ­å–œï¼è§£é”äº†æ–°çš„æ¤ç‰©ï¼")->second->text, GAME_FONT_NAME_1, text.find("æ­å–œï¼è§£é”äº†æ–°çš„æ¤ç‰©ï¼")->second->fontsize);
 	question->setTextColor(Color4B(0, 255, 255, 255));
 	question->setPosition(Vec2(_plantsCardUnlockDialog->getContentSize().width / 2, _plantsCardUnlockDialog->getContentSize().height - 70));
 	_plantsCardUnlockDialog->addChild(question);
 
-	/* ´´½¨¼àÌý */
+	/* åˆ›å»ºç›‘å¬ */
 	createTouchtListener(_plantsCardUnlockDialog);
 
-	/* ´´½¨°´Å¥ */
+	/* åˆ›å»ºæŒ‰é’® */
 	createButtons();
 	showUnlockPlant();
 	showDialogAction();
@@ -63,21 +64,21 @@ void PlantsCardUnlock::createDialog()
 
 void PlantsCardUnlock::createButtons()
 {
-	auto button = Button::create("ButtonNew.png", "ButtonNew2.png", "", TextureResType::PLIST);
-	button->setPosition(Vec2(_plantsCardUnlockDialog->getContentSize().width / 2, 10));
-	button->setScale(0.25f);
-	button->setTitleFontSize(70);
-	button->setTitleFontName(GAME_FONT_NAME_1);
-	button->setTitleText(_global->userInformation->getGameText().find("È·¶¨")->second->text);
-	button->setTitleColor(Color3B::BLACK);
-	_plantsCardUnlockDialog->addChild(button);
+	_button = Button::create("ButtonNew.png", "ButtonNew2.png", "",cocos2d::ui::Widget::TextureResType::PLIST);
+	_button->setPosition(Vec2(_plantsCardUnlockDialog->getContentSize().width / 2, 10));
+	_button->setScale(0.25f);
+	_button->setTitleFontSize(70);
+	_button->setTitleFontName(GAME_FONT_NAME_1);
+	_button->setTitleText(_global->userInformation->getGameText().find("ç¡®å®š")->second->text);
+	_button->setTitleColor(Color3B::BLACK);
+	_plantsCardUnlockDialog->addChild(_button);
 
-	button->addTouchEventListener([=](Ref* sender, Widget::TouchEventType type)
+	_button->addTouchEventListener([=](Ref* sender, Widget::TouchEventType type)
 		{
 			switch (type)
 			{
-			case Widget::TouchEventType::BEGAN: PlayMusic::playMusic("bleep"); break;
-			case Widget::TouchEventType::ENDED: showNextUnlockPlant();         break;
+			case Widget::TouchEventType::BEGAN: PlayMusic::playMusic("bleep");                                  break;
+			case Widget::TouchEventType::ENDED: showNextUnlockPlant(); _button->setTouchEnabled(false);         break;
 			}
 		});
 }
@@ -105,7 +106,10 @@ void PlantsCardUnlock::showUnlockPlant()
 
 void PlantsCardUnlock::showNextUnlockPlant()
 {
-	unlockPlantsCard.size() > 0 ? unlockPlantsCard.pop_back() : nullptr;
+	if (unlockPlantsCard.size() > 0)
+	{
+		unlockPlantsCard.pop_back();
+	}
 	
 	fadeOutAndShowNewDialog();
 }
@@ -115,7 +119,12 @@ void PlantsCardUnlock::showDialogAction()
 	PlayMusic::playMusic("achievement");
 	_plantsCardUnlockDialog->setPosition(_winSize / 2.f);
 	_plantsCardUnlockDialog->setScale(0.f);
-	_plantsCardUnlockDialog->runAction(EaseBounceOut::create(ScaleTo::create(0.3f,2.f)));
+	_plantsCardUnlockDialog->runAction(Sequence::create(
+		EaseBounceOut::create(ScaleTo::create(0.3f, 2.f)),
+		CallFunc::create([=]()
+			{
+				_button->setTouchEnabled(true);
+			}), nullptr));
 }
 
 void PlantsCardUnlock::fadeOutAndShowNewDialog()

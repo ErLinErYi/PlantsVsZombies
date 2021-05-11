@@ -1,4 +1,4 @@
-/**
+ï»¿/**
  *Copyright (c) 2020 LZ.All Right Reserved
  *Author : LZ
  *Date: 2020.1.26
@@ -45,7 +45,7 @@ void CommonZombies::createZombie()
 
 	setZombieScale();
 
-	createZombieShadow();//Ó°×Ó
+	createZombieShadow();//å½±å­
 
 	_zombiesAnimation->setAttachment("Zombie_bucket", "tt_innerleg_foot3");
 }
@@ -70,11 +70,11 @@ void CommonZombies::playZombieSoundEffect()
 
 void CommonZombies::zombieInjuredEventUpdate()
 {
-	if (_currentBloodVolume < _bloodVolume / 2.0f) /* ½©Ê¬ÑªÁ¿Ð¡ÓÚÒ»¶¨Öµ£¬½©Ê¬µô¸ì²² */
+	if (_currentBloodVolume < _bloodVolume / 2.0f) /* åƒµå°¸è¡€é‡å°äºŽä¸€å®šå€¼ï¼Œåƒµå°¸æŽ‰èƒ³è†Š */
 	{
 		setZombiePrimaryInjure();
 	}
-	if (_currentBloodVolume <= 0) /* ½©Ê¬ÑªÁ¿Ð¡ÓÚÁã£¬½©Ê¬ËÀÍö */
+	if (_currentBloodVolume <= 0) /* åƒµå°¸è¡€é‡å°äºŽé›¶ï¼Œåƒµå°¸æ­»äº¡ */
 	{
 		setZombieSecondaryInjure();
 	}

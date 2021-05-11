@@ -1,4 +1,4 @@
-#include "Based/LZLevelData.h"
+ï»¿#include "Based/LZLevelData.h"
 #include "Based/LZUserWinRequirement.h"
 #include "Based/LZGameType.h"
 #include "Based/LZDialog.h"
@@ -18,18 +18,6 @@ UserWinRequirement::~UserWinRequirement()
 {
 }
 
-UserWinRequirement* UserWinRequirement::create(Node* node)
-{
-	UserWinRequirement* userWinRequirement = new (std::nothrow) UserWinRequirement(node);
-	if (userWinRequirement && userWinRequirement->init())
-	{
-		userWinRequirement->autorelease();
-		return userWinRequirement;
-	}
-	CC_SAFE_DELETE(userWinRequirement);
-	return nullptr;
-}
-
 void UserWinRequirement::createShieldLayer()
 {
 	// set shieldLayer
@@ -43,24 +31,24 @@ void UserWinRequirement::createDialogBox(GameTypes finishedid)
 {
 	createShieldLayer();
 
-	_levelObjiectives = Scale9Sprite::createWithSpriteFrameName("LevelObjiectives.png");
+	_levelObjiectives = cocos2d::ui::Scale9Sprite::createWithSpriteFrameName("LevelObjiectives.png");
 	_levelObjiectives->setPosition(Director::getInstance()->getWinSize() / 2.0f);
 	_levelObjiectives->setScale(2.0f);
 	_node->addChild(_levelObjiectives);
 
 	auto LevelObjiectivesText = Text::create();
-	LevelObjiectivesText->setString(_global->userInformation->getGameText().find("Í¨¹ØÒªÇó£¡")->second->text);
+	LevelObjiectivesText->setString(_global->userInformation->getGameText().find("é€šå…³è¦æ±‚ï¼")->second->text);
 	LevelObjiectivesText->setFontName(GAME_FONT_NAME_1);
-	LevelObjiectivesText->setFontSize(_global->userInformation->getGameText().find("Í¨¹ØÒªÇó£¡")->second->fontsize);
+	LevelObjiectivesText->setFontSize(_global->userInformation->getGameText().find("é€šå…³è¦æ±‚ï¼")->second->fontsize);
 	LevelObjiectivesText->setScale(0.5f);
 	LevelObjiectivesText->setColor(Color3B(0, 255, 255));
 	LevelObjiectivesText->setPosition(Vec2(_levelObjiectives->getContentSize().width / 2, 245));
 	_levelObjiectives->addChild(LevelObjiectivesText);
 
-	/* ÏÔÊ¾ÒªÇó */
+	/* æ˜¾ç¤ºè¦æ±‚ */
 	showRequirement(finishedid);
 
-	Dialog::createTouchtListener(_levelObjiectives);
+	_listener = Dialog::createTouchtListener(_levelObjiectives);
 }
 
 void UserWinRequirement::setParent(Node* node)
@@ -96,6 +84,7 @@ void UserWinRequirement::setDelectDialogAction()
 {
 	if (_levelObjiectives)
 	{
+		setListenerEnable(false);
 		_levelObjiectives->runAction(MoveBy::create(0.2f, Vec2(0, -1000)));
 	}
 }
@@ -113,41 +102,41 @@ void UserWinRequirement::showRequirement(GameTypes finishedid)
 		switch (static_cast<GameTypes>(leveldata->getGameType().at(i)))
 		{
 		case GameTypes::CreateWall:
-			showText(_global->userInformation->getGameText().find("½¨Á¢ÄãµÄ·ÀÏß£¬×èÖ¹½©Ê¬µÄ½ø¹¥£¡")->second->text, i);
+			showText(_global->userInformation->getGameText().find("å»ºç«‹ä½ çš„é˜²çº¿ï¼Œé˜»æ­¢åƒµå°¸çš„è¿›æ”»ï¼")->second->text, i);
 			break;
 		case GameTypes::AtLeastSunNumbers:
 		{
-			auto buff = StringUtils::format(_global->userInformation->getGameText().find("ÖÁÉÙ²úÉú %d µÄÑô¹â£¡")->second->text.c_str(), leveldata->getAtLeastSunNumbers());
+			auto buff = StringUtils::format(_global->userInformation->getGameText().find("è‡³å°‘äº§ç”Ÿ %d çš„é˜³å…‰ï¼")->second->text.c_str(), leveldata->getAtLeastSunNumbers());
 			finishedid == GameTypes::AtLeastSunNumbers ? showText(buff, i, Color3B::RED) : showText(buff, i);
 		}
 			break;
 		case GameTypes::FlowerPosition:
-			finishedid == GameTypes::FlowerPosition ? showText(_global->userInformation->getGameText().find("½©Ê¬²È»µÁËÄãµÄ»¨Ì³£¡")->second->text, i, Color3B::RED) :
-				showText(_global->userInformation->getGameText().find("²»ÒªÈÃ½©Ê¬²È»µÄãµÄ»¨Ì³£¡")->second->text, i);
+			finishedid == GameTypes::FlowerPosition ? showText(_global->userInformation->getGameText().find("åƒµå°¸è¸©åäº†ä½ çš„èŠ±å›ï¼")->second->text, i, Color3B::RED) :
+				showText(_global->userInformation->getGameText().find("ä¸è¦è®©åƒµå°¸è¸©åä½ çš„èŠ±å›ï¼")->second->text, i);
 			break;
 		case GameTypes::CarNumbers:
 		{
-			auto buff = StringUtils::format(_global->userInformation->getGameText().find("½©Ê¬½ø¹¥½áÊøºóÖÁÉÙ´æÁô %d Á¾Ð¡³µ£¡")->second->text.c_str(), leveldata->getCarNumbers());
+			auto buff = StringUtils::format(_global->userInformation->getGameText().find("åƒµå°¸è¿›æ”»ç»“æŸåŽè‡³å°‘å­˜ç•™ %d è¾†å°è½¦ï¼")->second->text.c_str(), leveldata->getCarNumbers());
 			finishedid == GameTypes::CarNumbers ? showText(buff, i, Color3B::RED) : showText(buff, i);
 		}
 			break;
 		case GameTypes::UserPlantsNumbers:
 		{
-			auto buff = StringUtils::format(_global->userInformation->getGameText().find("×î¶àÊ¹ÓÃ %d ÖêÖ²ÎïÀ´½¨Á¢ÄãµÄ·ÀÏß£¡")->second->text.c_str(), leveldata->getUsePlantsNumbers());
+			auto buff = StringUtils::format(_global->userInformation->getGameText().find("æœ€å¤šä½¿ç”¨ %d æ ªæ¤ç‰©æ¥å»ºç«‹ä½ çš„é˜²çº¿ï¼")->second->text.c_str(), leveldata->getUsePlantsNumbers());
 			showText(buff, i);
 		}
 			break;
 		case GameTypes::ZombiesInvisible:
-			showText(_global->userInformation->getGameText().find("×èÖ¹ÒþÐÎµÄ½©Ê¬µÄ½ø¹¥£¡")->second->text, i);
+			showText(_global->userInformation->getGameText().find("é˜»æ­¢éšå½¢çš„åƒµå°¸çš„è¿›æ”»ï¼")->second->text, i);
 			break;
 		case GameTypes::SmallZombies:
-			showText(_global->userInformation->getGameText().find("Ð¡½©Ê¬´óÂé·³£¡")->second->text, i);
+			showText(_global->userInformation->getGameText().find("å°åƒµå°¸å¤§éº»çƒ¦ï¼")->second->text, i);
 			break;
 		case GameTypes::BigZombies:
-			showText(_global->userInformation->getGameText().find("µÖÓù¾ÞÈË½©Ê¬µÄ½ø¹¥£¡")->second->text, i);
+			showText(_global->userInformation->getGameText().find("æŠµå¾¡å·¨äººåƒµå°¸çš„è¿›æ”»ï¼")->second->text, i);
 			break;
 		case GameTypes::NoPlants:
-			showText(_global->userInformation->getGameText().find("Çë°ÑÖ²ÎïÖÖÖ²ÔÚºÏÊÊµÄµØ·½£¡")->second->text, i);
+			showText(_global->userInformation->getGameText().find("è¯·æŠŠæ¤ç‰©ç§æ¤åœ¨åˆé€‚çš„åœ°æ–¹ï¼")->second->text, i);
 			break;
 		default:
 			break;
@@ -157,7 +146,7 @@ void UserWinRequirement::showRequirement(GameTypes finishedid)
 
 void UserWinRequirement::showText(const string& text, const int& ID, Color3B color)
 {
-	auto requiretext = Label::createWithTTF(text, GAME_FONT_NAME_1, _global->userInformation->getGameText().find("Ð¡½©Ê¬´óÂé·³£¡")->second->fontsize);
+	auto requiretext = Label::createWithTTF(text, GAME_FONT_NAME_1, _global->userInformation->getGameText().find("å°åƒµå°¸å¤§éº»çƒ¦ï¼")->second->fontsize);
 	requiretext->setColor(Color3B::BLACK);
 	requiretext->setScale(0.5f);
 	requiretext->setLineBreakWithoutSpace(true);

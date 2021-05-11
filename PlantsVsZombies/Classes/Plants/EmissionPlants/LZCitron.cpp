@@ -1,4 +1,4 @@
-/**
+ï»¿/**
  *Copyright (c) 2020 LZ.All Right Reserved
  *Author : LZ
  *Date: 2020.2.27
@@ -58,14 +58,14 @@ void Citron::createPlantAnimation()
 	_plantAnimation->setScale(1.1f);
 	_node->addChild(_plantAnimation);
 
-	// Ó°×Ó
+	// å½±å­
 	setPlantShadow(1.9f);
 	_plantAnimation->getChildByName("plantshadow")->setPosition(Vec2(0, 15));
 
-	// ÄàÍÁ·É½¦¶¯»­
+	// æ³¥åœŸé£žæº…åŠ¨ç”»
 	setPlantSoilSplashAnimation(0.8f);
 
-	// ´´½¨¼àÌý
+	// åˆ›å»ºç›‘å¬
 	createListener();
 }
 
@@ -88,7 +88,7 @@ void Citron::createListener()
 			{
 				rand() % 2 == 0 ? PlayMusic::playMusic("throw") : PlayMusic::playMusic("throw2");
 				
-				!_isCreateBullet ? createBullet() : nullptr;
+				if (!_isCreateBullet)createBullet();
 				plantRecovery("normal");
 			}
 		});
@@ -98,19 +98,19 @@ void Citron::determineRelativePositionPlantsAndZombies()
 {
 	for (auto zombie : ZombiesGroup)
 	{
-		zombieEatPlant(zombie);      /* ½©Ê¬³ÔÖ²Îï */
+		zombieEatPlant(zombie);      /* åƒµå°¸åƒæ¤ç‰© */
 
-		plantAttack(zombie);         /* Ö²Îï¹¥»÷ */
+		plantAttack(zombie);         /* æ¤ç‰©æ”»å‡» */
 
-		zombieRecoveryMove(zombie);  /* ½©Ê¬»Ö¸´ÒÆ¶¯ */
+		zombieRecoveryMove(zombie);  /* åƒµå°¸æ¢å¤ç§»åŠ¨ */
 	}
 }
 
 void Citron::plantAttack(Zombies* zombie)
 {
-	if (getPlantIsSurvive() && zombie->getZombieIsSurvive() && zombie->getZombieIsEnterMap() &&       /* Ö²Îï´æ»î && ½©Ê¬Ã»ÓÐËÀÍö && ½©Ê¬½øÈëµØÍ¼ */
-		getZombieIsTheFrontOfPlant(zombie) && getZombieIsSameLineWithPlant(zombie) &&                 /* ½©Ê¬ÓëÖ²ÎïÔÚÍ¬Ò»ÐÐ && ½©Ê¬ÔÚÖ²ÎïµÄÇ°·½ */
-		zombie->getZombieIsCanBeAttack())                                                             /* ½©Ê¬¿ÉÒÔ±»¹¥»÷µ½ */
+	if (getPlantIsSurvive() && zombie->getZombieIsSurvive() && zombie->getZombieIsEnterMap() &&       /* æ¤ç‰©å­˜æ´» && åƒµå°¸æ²¡æœ‰æ­»äº¡ && åƒµå°¸è¿›å…¥åœ°å›¾ */
+		getZombieIsTheFrontOfPlant(zombie) && getZombieIsSameLineWithPlant(zombie) &&                 /* åƒµå°¸ä¸Žæ¤ç‰©åœ¨åŒä¸€è¡Œ && åƒµå°¸åœ¨æ¤ç‰©çš„å‰æ–¹ */
+		zombie->getZombieIsCanBeAttack())                                                             /* åƒµå°¸å¯ä»¥è¢«æ”»å‡»åˆ° */
 	{
 		plantEmission(calculateGreatEvocationProbability() ? "shoot1" : "shoot");
 	}
@@ -118,7 +118,7 @@ void Citron::plantAttack(Zombies* zombie)
 
 void Citron::plantEmission(const string& plantAnimation)
 {
-	if (!_isChanged && _readyFinished)     /* ÅÐ¶Ï¶¯»­ÊÇ·ñÒÑ¾­¸Ä±ä */
+	if (!_isChanged && _readyFinished)     /* åˆ¤æ–­åŠ¨ç”»æ˜¯å¦å·²ç»æ”¹å˜ */
 	{
 		_plantAnimation->addAnimation(0, plantAnimation, true);
 		_isChanged = true;
@@ -130,7 +130,7 @@ void Citron::plantRecovery(const string& plantAnimation)
 	if (_isChanged)
 	{
 		_plantAnimation->addAnimation(0, plantAnimation, true);
-		_readyFinished = false; /* ¿ªÊ¼×¼±¸ */
+		_readyFinished = false; /* å¼€å§‹å‡†å¤‡ */
 		_attackInterval = 0;
 
 		_isChanged = false;

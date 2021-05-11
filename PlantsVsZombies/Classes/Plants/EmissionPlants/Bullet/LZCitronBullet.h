@@ -1,4 +1,4 @@
-/**
+ï»¿/**
  *Copyright (c) 2020 LZ.All Right Reserved
  *Author : LZ
  *Date: 2020.2.27
@@ -12,12 +12,12 @@ class CitronBullet :public Bullet
 {
 public:
     /**
-     *´´½¨×Óµ¯
+     *åˆ›å»ºå­å¼¹
      */
     virtual void createBullet() override;
 
     /**
-     *×Óµ¯Óë½©Ê¬Åö×²¼ì²â
+     *å­å¼¹ä¸åƒµå°¸ç¢°æ’æ£€æµ‹
      */
     virtual void bulletAndZombiesCollision() override;
 

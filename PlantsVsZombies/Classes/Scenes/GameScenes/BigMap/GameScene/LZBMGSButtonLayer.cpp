@@ -116,8 +116,8 @@ void BMButtonLayer::createKeyBoardListener()
 		switch (code)
 		{
 		case cocos2d::EventKeyboard::KeyCode::KEY_SPACE:                     /* 空格键暂停 */
-			PlayMusic::playMusic("pause");
 			GSPauseQuitLayer::pauseLayer();
+			PlayMusic::playMusic("pause");
 			_director->getRunningScene()->addChild(GSPauseLayer::addLayer(), 10);
 			break;
 		default:

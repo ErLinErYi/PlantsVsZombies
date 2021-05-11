@@ -1,4 +1,4 @@
-/**
+ï»¿/**
  *Copyright (c) 2020 LZ.All Right Reserved
  *Author : LZ
  *Date: 2020.4.23
@@ -97,11 +97,11 @@ void SnowZombies::playZombiesAshesAnimation()
 
 void SnowZombies::zombieInjuredEventUpdate()
 {
-	if (_currentBloodVolume <= _bloodVolume / 4.0f)  /* ½©Ê¬ÑªÁ¿Ð¡ÓÚÒ»¶¨Öµ£¬½©Ê¬µô¸ì²² */
+	if (_currentBloodVolume <= _bloodVolume / 4.0f)  /* åƒµå°¸è¡€é‡å°äºŽä¸€å®šå€¼ï¼Œåƒµå°¸æŽ‰èƒ³è†Š */
 	{
 		setZombiePrimaryInjure();
 	}
-	if (_currentBloodVolume <= 0)   /* ½©Ê¬ÑªÁ¿Ð¡ÓÚÁã£¬½©Ê¬ËÀÍö */
+	if (_currentBloodVolume <= 0)   /* åƒµå°¸è¡€é‡å°äºŽé›¶ï¼Œåƒµå°¸æ­»äº¡ */
 	{
 		setZombieSecondaryInjure();
 	}
@@ -109,7 +109,7 @@ void SnowZombies::zombieInjuredEventUpdate()
 
 void SnowZombies::setZombiePrimaryInjure()
 {
-	if (_bodyAnimationId == 1) /* ½©Ê¬¿ªÊ¼µô¸ì²² */
+	if (_bodyAnimationId == 1) /* åƒµå°¸å¼€å§‹æŽ‰èƒ³è†Š */
 	{
 		_zombiesAnimation->setAttachment("Zombie_yeti_outerarm_upper", "Zombie_yeti_outerarm_upper2");
 		_zombiesAnimation->setAttachment("Zombie_yeti_outerarm_lower", "th");

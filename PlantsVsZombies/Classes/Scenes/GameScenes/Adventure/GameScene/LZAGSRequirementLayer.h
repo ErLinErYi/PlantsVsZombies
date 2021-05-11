@@ -1,4 +1,4 @@
-/**
+ï»¿/**
  *Copyright (c) 2020 LZ.All Right Reserved
  *Author : LZ
  *Date: 2020.2.19
@@ -16,7 +16,7 @@ class GSRequirementLayer :public LayerColor
 public:
     CREATE_FUNC(GSRequirementLayer);
     static Layer* addLayer();
-    bool init();
+    virtual bool init() override;
     void keyboardControl();
 
 CC_CONSTRUCTOR_ACCESS:
@@ -31,6 +31,6 @@ private:
 };
 
 /**
- * ¿Õ¸ñ¼üÅÌÔİÍ£/»Ö¸´¿ØÖÆ
+ * ç©ºæ ¼é”®ç›˜æš‚åœ/æ¢å¤æ§åˆ¶
  */
 extern int pressKeySpace;

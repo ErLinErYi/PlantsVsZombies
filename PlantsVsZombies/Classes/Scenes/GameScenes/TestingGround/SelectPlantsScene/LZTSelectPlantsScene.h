@@ -1,4 +1,4 @@
-/**
+﻿/**
  *Copyright (c) 2021 LZ.All Right Reserved
  *Author : LZ
  *Date: 2021.4.07
@@ -15,7 +15,7 @@ public:
 CC_CONSTRUCTOR_ACCESS:
 	TSelectPlantsScene();
 	~TSelectPlantsScene();
-	virtual bool init();
+	virtual bool init() override;
 
 protected:
 	virtual void createControlLayer() override;

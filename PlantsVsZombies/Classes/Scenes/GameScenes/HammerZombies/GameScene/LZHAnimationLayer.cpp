@@ -1,4 +1,4 @@
-/**
+ï»¿/**
  *Copyright (c) 2021 LZ.All Right Reserved
  *Author : LZ
  *Date: 2021.2.09
@@ -36,8 +36,8 @@ bool HAnimationLayer::init()
 
 void HAnimationLayer::gameMainLoop(float delta)
 {
-	zombiesEventUpdate(delta); /* ½©Ê¬ÊÂ¼ş¸üĞÂ */
-	carsEventUpdate();         /* Ğ¡³µÊÂ¼ş¸üĞÂ */
+	zombiesEventUpdate(delta); /* åƒµå°¸äº‹ä»¶æ›´æ–° */
+	carsEventUpdate();         /* å°è½¦äº‹ä»¶æ›´æ–° */
 }
 
 void HAnimationLayer::zombiesEventUpdate(float delta)

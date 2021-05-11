@@ -1,4 +1,4 @@
-/**
+Ôªø/**
  *Copyright (c) 2020 LZ.All Right Reserved
  *Author : LZ
  *Date: 2020.1.26
@@ -81,7 +81,7 @@ void Zombies::zombieInit(const string& animation_name)
 	_zombiesAnimation->setAnchorPoint(Vec2(0, 0));
 	_zombiesAnimation->setTimeScale(_timeScale);
 	_zombiesAnimation->setLocalZOrder(getZombieLocalZOrder());
-	_zombiesAnimation->setOpacity(0);   /* !!! ¥¥Ω®µƒΩ© ¨◊‘∂Ø“˛…Ì */
+	_zombiesAnimation->setOpacity(0);   /* !!! ÂàõÂª∫ÁöÑÂÉµÂ∞∏Ëá™Âä®ÈöêË∫´ */
 	_zombiesAnimation->update(0);
 	_node->addChild(_zombiesAnimation);
 
@@ -91,7 +91,6 @@ void Zombies::zombieInit(const string& animation_name)
 
 void Zombies::setZombiesListener()
 {
-	const string eateffect[3] = { "chomp","chomp2","chompsoft" };
 	_zombiesAnimation->setEventListener([&](spTrackEntry* entry, spEvent* event)
 		{
 			if (getZombieIsSurvive())
@@ -110,16 +109,6 @@ void Zombies::setZombiesListener()
 				{
 					PlayMusic::playMusic(rand() % 2 ? "gragantuarWalkMusic" : "gragantuarWalkMusic2");
 				}
-			}
-
-			if (!strcmp(event->data->name, "filldown"))
-			{
-				PlayMusic::playMusic(rand() % 2 ? "zombie_falling_1" : "zombie_falling_2");
-				_currentSpeed = 0; /* Õ£÷π‘À∂Ø */
-			}
-			if (!strcmp(event->data->name, "die"))
-			{
-				zombieFadeOutAnimation();
 			}
 		});
 }
@@ -275,30 +264,32 @@ string Zombies::getZombieAniamtionName(ZombiesType zombiestype)
 	case ZombiesType::NewspaperZombies:
 	case ZombiesType::StrongNewspaperZombies:
 		     name = "Zombies_Door_Walk"; break;
-	default: name = rand() % 2 ? "Zombies_Walk1" : "Zombies_Walk2"; break;
+	case ZombiesType::LmpZombies:
+		     name = "Zombies_Walk";  break;
+	default: name = "Zombies_Walk2"; break;
 	}
 	return name;
 }
 
 void Zombies::zombiesDeleteUpdate(list<Zombies*>::iterator& zombie)
 {
-	/* …æ≥˝À¿ÕˆΩ© ¨ */
+	/* Âà†Èô§Ê≠ª‰∫°ÂÉµÂ∞∏ */
 	if (!(*zombie)->getZombieAnimation()->isVisible())
 	{
 		if (!(*zombie)->getIsCanDelete()[0])
 		{
 			(*zombie)->getIsCanDelete()[0] = true;
 			++Global::getInstance()->userInformation->getKillZombiesNumbers();
-			informationLayerInformation->updateZombiesDieNumbers(); /* ∏¸–¬œ‘ æ */
+			informationLayerInformation->updateZombiesDieNumbers(); /* Êõ¥Êñ∞ÊòæÁ§∫ */
 
-			zombiesNumbersChange("--");  /* Ω© ¨◊‹ ˝∏¸–¬ */
+			zombiesNumbersChange("--");  /* ÂÉµÂ∞∏ÊÄªÊï∞Êõ¥Êñ∞ */
 			rewardCoin((*zombie)->getZombieAnimation());
 
 			if (++_zombiesNewDieNumbers >= 20 || getZombiesNumbers() <= 0)
 			{
 				_zombiesNewDieNumbers = 0;
 				UserData::getInstance()->caveUserData("KILLALLZOMBIES", 
-					Global::getInstance()->userInformation->getKillZombiesNumbers());/* …±À¿Ω© ¨ ˝º”“ª */
+					Global::getInstance()->userInformation->getKillZombiesNumbers());/* ÊùÄÊ≠ªÂÉµÂ∞∏Êï∞Âä†‰∏Ä */
 			}
 
 			const auto &zombies = zombie;
@@ -311,9 +302,7 @@ void Zombies::zombiesDeleteUpdate(list<Zombies*>::iterator& zombie)
 
 		if ((*zombie)->getIsCanDelete()[1])
 		{
-			(*zombie)->getZombieAnimation()->pause();
-			(*zombie)->getZombieAnimation()->stopAllActions();
-			(*zombie)->getZombieAnimation()->removeFromParent();
+			(*zombie)->releaseFunction();
 			delete *zombie;
 			*zombie = nullptr;
 			ZombiesGroup.erase(zombie++);
@@ -331,14 +320,14 @@ void Zombies::zombiesDeleteUpdate(list<Zombies*>::iterator& zombie)
 
 void Zombies::zombiesDeleteUpdateNotRecordDieNumbers(list<Zombies*>::iterator& zombie)
 {
-	/* …æ≥˝À¿ÕˆΩ© ¨ */
+	/* Âà†Èô§Ê≠ª‰∫°ÂÉµÂ∞∏ */
 	if (!(*zombie)->getZombieAnimation()->isVisible())
 	{
 		if (!(*zombie)->getIsCanDelete()[0])
 		{
 			(*zombie)->getIsCanDelete()[0] = true;
 
-			zombiesNumbersChange("--");  /* Ω© ¨◊‹ ˝∏¸–¬ */
+			zombiesNumbersChange("--");  /* ÂÉµÂ∞∏ÊÄªÊï∞Êõ¥Êñ∞ */
 			
 			const auto& zombies = zombie;
 			(*zombies)->getZombieAnimation()->runAction(Sequence::create(DelayTime::create(5.0f),
@@ -654,6 +643,19 @@ void Zombies::playZombiesFillDownAnimation()
 {
 	const uniform_real_distribution<float>number(0.f, 0.45f);
 	_zombiesAnimation->setTimeScale(0.6f + number(_random));
+	_zombiesAnimation->setEventListener([&](spTrackEntry* entry, spEvent* event)
+		{
+			if (!strcmp(event->data->name, "filldown"))
+			{
+				PlayMusic::playMusic(rand() % 2 ? "zombie_falling_1" : "zombie_falling_2");
+			}
+			if (!strcmp(event->data->name, "die"))
+			{
+				zombieFadeOutAnimation();
+			}
+		});
+	_currentSpeed = 0; /* ÂÅúÊ≠¢ËøêÂä® */
+	_isCanMove = false;
 }
 
 void Zombies::playZombiesAshesAnimation()
@@ -691,13 +693,13 @@ void Zombies::playZombiesAshesAnimation()
 void Zombies::setZombieAttributeForGameType()
 {
 	const auto data = _openLevelData->readLevelData(_openLevelData->getLevelNumber());
-	/* ≈–∂œ «∑Ò «–°Ω© ¨ */
+	/* Âà§Êñ≠ÊòØÂê¶ÊòØÂ∞èÂÉµÂ∞∏ */
 	if (data->getZombiesIsSmall()) setSmallZombieAttribute();
 
-	/* ≈–∂œ «∑Ò «æﬁ»ÀΩ© ¨ */
+	/* Âà§Êñ≠ÊòØÂê¶ÊòØÂ∑®‰∫∫ÂÉµÂ∞∏ */
 	if (data->getZombiesIsBig()) setBigZombieAttribute();
 
-	/* ≈–∂œΩ© ¨ «∑Ò“˛…Ì */
+	/* Âà§Êñ≠ÂÉµÂ∞∏ÊòØÂê¶ÈöêË∫´ */
 	if (data->getZombiesVisible()) setOpacityZombieAttribute();
 }
 
@@ -762,7 +764,7 @@ void Zombies::zombiesWinOrLoseInit()
 
 void Zombies::createZombieShadow()
 {
-	/* ¥¥Ω®Ω© ¨”∞◊” */
+	/* ÂàõÂª∫ÂÉµÂ∞∏ÂΩ±Â≠ê */
 	auto shadow = Sprite::createWithSpriteFrameName("plantshadow.png");
 	shadow->setScale(2.0f);
 	shadow->setName("shadow");
@@ -791,7 +793,7 @@ void Zombies::createZombieTimer()
 
 void Zombies::setZombiePrimaryInjure()
 {
-	if (_bodyAnimationId == 1) /* Ω© ¨ø™ ºµÙ∏Ï≤≤ */
+	if (_bodyAnimationId == 1) /* ÂÉµÂ∞∏ÂºÄÂßãÊéâËÉ≥ËÜä */
 	{
 		_zombiesAnimation->setAttachment("tt_outerarm_upper", "tt_outerarm_upper2");
 		_zombiesAnimation->setAttachment("tt_outerarm_lower", "tt_innerleg_foot3");
@@ -845,7 +847,7 @@ void Zombies::setZombieBodyShieldSecondaryInjure(const string& oldName, const st
 
 void Zombies::setZombieBodyShieldThirdInjure(const string& oldName, const string& newName)
 {
-	// ◊”¿‡÷– µœ÷
+	// Â≠êÁ±ª‰∏≠ÂÆûÁé∞
 }
 
 void Zombies::setZombieHeadShieldPrimaryInjure(const string& oldName, const string& newName)
@@ -868,12 +870,12 @@ void Zombies::setZombieHeadShieldSecondaryInjure(const string& oldName, const st
 
 void Zombies::setZombieHeadShieldThirdInjure(const string& oldName, const string& newName)
 {
-	// ◊”¿‡÷– µœ÷
+	// Â≠êÁ±ª‰∏≠ÂÆûÁé∞
 }
 
 void Zombies::zombieLoseArmAnimation(const std::string& name, const float scale)
 {
-	if (_isShowLoseLimbsAnimation)/* µÙ∏Ï≤≤ */
+	if (_isShowLoseLimbsAnimation)/* ÊéâËÉ≥ËÜä */
 	{
 		PlayMusic::playMusic("limbs_pop");
 		
@@ -895,7 +897,7 @@ void Zombies::zombieLoseArmAnimation(const std::string& name, const float scale)
 
 void Zombies::zombieLoseHeadAnimation(const std::string& name, const float scale)
 {
-	if (_isShowLoseLimbsAnimation)/* Ω© ¨µÙÕ∑ */
+	if (_isShowLoseLimbsAnimation)/* ÂÉµÂ∞∏ÊéâÂ§¥ */
 	{
 		PlayMusic::playMusic("limbs_pop");
 		
@@ -917,7 +919,7 @@ void Zombies::zombieLoseHeadAnimation(const std::string& name, const float scale
 
 void Zombies::zombieLoseShieldAnimation(const std::string& name, const float scale)
 {
-	if (_isShowLoseShieldAnimation)/* Ω© ¨µÙª§∂‹ */
+	if (_isShowLoseShieldAnimation)/* ÂÉµÂ∞∏ÊéâÊä§Áõæ */
 	{
 		PlayMusic::playMusic("limbs_pop");
 
@@ -953,6 +955,13 @@ void Zombies::playZombieSoundEffect()
 	playZombieSoundEffect(music[rand() % 6]);
 }
 
+void Zombies::releaseFunction()
+{
+	_zombiesAnimation->pause();
+	_zombiesAnimation->stopAllActions();
+	_zombiesAnimation->removeFromParent();
+}
+
 void Zombies::playZombieSoundEffect(const string& name)
 {
 	const uniform_int_distribution<unsigned>number(0, 10000);
@@ -980,7 +989,7 @@ bool Zombies::getZombieIsEatGarlic() const
 
 void Zombies::showZombieShadow(Node* node, const int posy)
 {
-	/* ¥¥Ω®Ω© ¨µÙ¬‰÷´ÃÂª§∂‹”∞◊” */
+	/* ÂàõÂª∫ÂÉµÂ∞∏ÊéâËêΩËÇ¢‰ΩìÊä§ÁõæÂΩ±Â≠ê */
 	auto shadow = Sprite::createWithSpriteFrameName("plantshadow.png");
 	shadow->setScale(posy == 100 ? 1.0f : 1.5f);
 	shadow->setOpacity(180);
@@ -1007,7 +1016,7 @@ void Zombies::setSmallZombieAttribute()
 {
 	if (!_isUseForGameType)
 	{
-		/* —™¡øºı∞Î */
+		/* Ë°ÄÈáèÂáèÂçä */
 		_bloodVolume /= 2.0f;
 		_headShieldVolume /= 2.0f;
 		_bodyShieldVolume /= 2.0f;
@@ -1015,11 +1024,11 @@ void Zombies::setSmallZombieAttribute()
 		_currentHeadShieldVolume /= 2.0f;
 		_currentBodyShieldVolume /= 2.0f;
 		
-		/* ÀŸ∂»‘ˆº” */
+		/* ÈÄüÂ∫¶Â¢ûÂä† */
 		_speed = 40;
 		_currentSpeed = 40;
 
-		/* …ÌÃÂ±‰–°£¨∂Ø◊˜±‰øÏ */
+		/* Ë∫´‰ΩìÂèòÂ∞èÔºåÂä®‰ΩúÂèòÂø´ */
 		_timeScale += 0.4f;
 		_zombiesAnimation->setScale(0.7f);
 		_zombiesAnimation->setTimeScale(_timeScale);
@@ -1032,7 +1041,7 @@ void Zombies::setBigZombieAttribute()
 {
 	if (!_isUseForGameType)
 	{
-		/* —™¡ø‘ˆ¥Û */
+		/* Ë°ÄÈáèÂ¢ûÂ§ß */
 		_bloodVolume *= 2.0f;
 		_headShieldVolume *= 2.0f;
 		_bodyShieldVolume *= 2.0f;
@@ -1040,11 +1049,11 @@ void Zombies::setBigZombieAttribute()
 		_currentHeadShieldVolume *= 2.0f;
 		_currentBodyShieldVolume *= 2.0f;
 		
-		/* ÀŸ∂»ºı…Ÿ */
+		/* ÈÄüÂ∫¶ÂáèÂ∞ë */
 		_speed = 20;
 		_currentSpeed = 20;
 
-		/* …ÌÃÂ±‰¥Û£¨∂Ø◊˜±‰¬˝ */
+		/* Ë∫´‰ΩìÂèòÂ§ßÔºåÂä®‰ΩúÂèòÊÖ¢ */
 		_timeScale -= 0.3f;
 		_zombiesAnimation->setScale(1.3f);
 		_zombiesAnimation->setTimeScale(_timeScale);
@@ -1058,7 +1067,14 @@ void Zombies::setZombieAttributeForGameType(Node* sprite)
 	if (!_gameTypeInvalid)
 	{
 		const auto data = _openLevelData->readLevelData(_openLevelData->getLevelNumber());
-		data->getZombiesIsSmall() ? sprite->setScale(0.85f) : data->getZombiesIsBig() ? sprite->setScale(1.8f) : nullptr;
+		if (data->getZombiesIsSmall())
+		{
+			sprite->setScale(sprite->getScale() * 0.7f);
+		}
+		if (data->getZombiesIsBig())
+		{
+			sprite->setScale(sprite->getScale() * 1.3f);
+		}
 	}
 }
 
@@ -1081,20 +1097,20 @@ void Zombies::setZombieActionSlow()
 		_isFrozen = 1;
 		_timeScale = _zombiesAnimation->getTimeScale();
 		_zombiesAnimation->setColor(Color3B(0, 162, 232));
-		_zombiesAnimation->setTimeScale(_timeScale / 2.0f);                          /* ‘À∂ØÀŸ∂»ºı∞Î */
-		_currentSpeed /= 2.0f;                                                       /* “∆∂ØÀŸ∂»ºı∞Î */
+		_zombiesAnimation->setTimeScale(_timeScale / 2.0f);                          /* ËøêÂä®ÈÄüÂ∫¶ÂáèÂçä */
+		_currentSpeed /= 2.0f;                                                       /* ÁßªÂä®ÈÄüÂ∫¶ÂáèÂçä */
 	}
 }
 
 void Zombies::setZombieActionStop()
 {
-	if ((_isFrozen == 0 || _isFrozen == 1) && !_isEatGarlic)
+	if (_isFrozen == 0 || _isFrozen == 1)
 	{
 		_isFrozen = 2;
 		_timeScale = _zombiesAnimation->getTimeScale();
 		_zombiesAnimation->setColor(Color3B(0, 162, 232));
-		_zombiesAnimation->setTimeScale(0);                                          /* ‘À∂ØÀŸ∂»0 */
-		_currentSpeed = 0;                                                           /* “∆∂ØÀŸ∂»0 */
+		_zombiesAnimation->setTimeScale(0);                                          /* ËøêÂä®ÈÄüÂ∫¶0 */
+		_currentSpeed = 0;                                                           /* ÁßªÂä®ÈÄüÂ∫¶0 */
 	}
 }
 
@@ -1111,15 +1127,12 @@ void Zombies::setZombieActionRecovery(bool slow)
 	}
 	else
 	{
-		if (!_isEatGarlic) /* √ª”–≥‘¥ÛÀ‚ */
-		{
-			_timerTimeStop = -1;
-			_isFrozen = 0;
-			_zombiesAnimation->setColor(Color3B::WHITE);
-			_zombiesAnimation->setTimeScale(_timeScale);
-			_bloodVolume > 0 ? _currentSpeed = _speed : _currentSpeed = 0;
-			_isEat = false;
-		}
+		_timerTimeStop = -1;
+		_isFrozen = 0;
+		_zombiesAnimation->setColor(Color3B::WHITE);
+		_zombiesAnimation->setTimeScale(_timeScale);
+		_bloodVolume > 0 ? _currentSpeed = _speed : _currentSpeed = 0;
+		_isEat = false;
 	}
 }
 

@@ -1,4 +1,4 @@
-/**
+ï»¿/**
  *Copyright (c) 2020 LZ.All Right Reserved
  *Author : LZ
  *Date: 2020.2.27
@@ -34,8 +34,8 @@ private:
 	int calculateGreatEvocationProbability();
 
 private:
-	int _attackInterval;              // ¹¥»÷¼ä¸ô
-	int _animationId;                 // ¶¯»­±àºÅ
-	bool _readyFinished;              // ×¼±¸Íê³É
-	bool _isCreateBullet;             // ÊÇ·ñ´´½¨×Óµ¯
+	int _attackInterval;              // æ”»å‡»é—´éš”
+	int _animationId;                 // åŠ¨ç”»ç¼–å·
+	bool _readyFinished;              // å‡†å¤‡å®Œæˆ
+	bool _isCreateBullet;             // æ˜¯å¦åˆ›å»ºå­å¼¹
 };

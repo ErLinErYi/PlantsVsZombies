@@ -1,4 +1,4 @@
-/**
+ï»¿/**
  *Copyright (c) 2019 LZ.All Right Reserved
  *Author : LZ
  *Date: 2019.7.17
@@ -17,9 +17,7 @@
 #pragma execution_character_set("utf-8")
 #endif
 
-using namespace ui;
 using namespace cocos2d;
-using namespace cocos2d::experimental;
 using namespace cocos2d::extension;
 
 class InputDataMenu :public Dialog
@@ -30,18 +28,18 @@ public:
 CC_CONSTRUCTOR_ACCESS:
 	InputDataMenu();
 	~InputDataMenu();
-	virtual bool init();
+	virtual bool init() override;
 
 protected:
 	virtual void deleteDialog() override;
 
 private:
-	/* ´´½¨¶Ô»°¿ò */
+	/* åˆ›å»ºå¯¹è¯æ¡† */
 	void createDialog();
 	void createInputDialog();
 	void createDeleteDialog();
 
-	/* ´´½¨°´Å¥ */
+	/* åˆ›å»ºæŒ‰é’® */
 	void createButtons(Sprite* sprite, const std::string &Label, Vec2 &vec2, const float& scale, const int& ID);
 	void createDataButton(const std::string& Label, Vec2& vec2, const float& scale, const int& ID);
 	void createShieldLayer();
@@ -57,7 +55,7 @@ private:
 	void cancelDelete();
 	void selectFileData();
 	void deleteFileData();
-	void unlock();
+	void unlock(int id = 0);
 	Label* onTextFieldInsertText();
 	Label* onTextFieldDeleteBackward();
 
@@ -66,8 +64,8 @@ private:
 	Sprite* _caveFileDialog;
 	Sprite* _deleteFileDialog;
 	Sprite* _inputCursor;
-	Sprite* _inputDataDialog;                                /* ¶Ô»°¿ò */
-	EditBox* _editbox;                                       /* ÊäÈë¿ò */
+	Sprite* _inputDataDialog;                                /* å¯¹è¯æ¡† */
+	EditBox* _editbox;                                       /* è¾“å…¥æ¡† */
 	TextField* _textField;
 	Vec2  _beginPos;
 	string _inputString, _newInputstring, _lastString;
