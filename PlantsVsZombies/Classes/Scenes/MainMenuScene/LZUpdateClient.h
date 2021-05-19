@@ -44,6 +44,7 @@ private:
     void downloadProgress();
     void downloadSuccess();
     void downloadError();
+    bool checkCanPlay();
     LPCUWSTR stringToWstring(string fileName);
 
 private:

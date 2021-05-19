@@ -42,7 +42,7 @@ private:
 	};
 
 	MainMenuButton checkCurInButtons();                           /* 判断鼠标光标位置*/
-	void curUpdate(float time);                                   /* 鼠标光标定时器 */
+	void curUpdate();                                             /* 鼠标光标定时器 */
 	void updateUserNameOnce(float time);
 	void setCloudPosition(Node* node, int ID, const Vec2& vec2);  /* 设置云的位置 */
 	void playMusicBleepInGameButtons(MainMenuButton ID);          /* 播放音乐 */
@@ -72,11 +72,13 @@ private:
 	void createFlowers();                                         /* 创建花朵 */
 	void createFlowers(const float& Scale, const Vec2& vec2, const std::string& fileName, const int& ID);
 	bool checkHammerZombiesIsUnLock();                            /* 检查锤僵尸游戏是否解锁 */
+	void checkTestingGroundIsUnLock();                            /* 检查植物试炼场是否解锁 */
 
 	void setMouseListenerEnable(bool isEnable) { _mouse->setEnabled(isEnable); }
 
 private:
 	bool _playMusic[8];                      /* 音乐是否播放 */
+	bool _testingGroundUnlock;               /* 植物试炼场是否解锁 */
 	Vec2 _cur;                               /* 鼠标光标位置 */
 	Text* _userText;                         /* 储存用户名字 */
 	Node* _userNameActionParent;             /* 用户名称动作parent */

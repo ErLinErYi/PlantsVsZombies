@@ -49,7 +49,7 @@ void AudioDecoderManager::destroy()
 AudioDecoder* AudioDecoderManager::createDecoder(const char* path)
 {
     std::string suffix = FileUtils::getInstance()->getFileExtension(path);
-    if (suffix == ".ogg")
+    if (suffix == ".ogg" || suffix == ".lz")
     {
         return new (std::nothrow) AudioDecoderOgg();
     }

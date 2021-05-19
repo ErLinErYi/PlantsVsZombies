@@ -61,7 +61,10 @@ void UpdateClient::createDiglog()
 	/* 创建触摸监听 */
 	createTouchtListener(_dialog);
 
-	UserDefault::getInstance()->setStringForKey("EDITION", UserInformation::getNewEditionName());
+	if (checkCanPlay())
+	{
+		UserDefault::getInstance()->setStringForKey("EDITION", UserInformation::getNewEditionName());
+	}
 }
 
 void UpdateClient::createButton(const std::string& name, Vec2& vec2, Update_Button buttonType)
@@ -119,7 +122,12 @@ void UpdateClient::createButton(const std::string& name, Vec2& vec2, Update_Butt
 					Application::getInstance()->openURL(_global->userInformation->getGameText().find("官方网址")->second->text);
 					break;
 				case Update_Button::退出游戏:
-					Director::getInstance()->end();
+					if (checkCanPlay())Director::getInstance()->end();
+					else 
+					{
+						setMouseListenerEnable(true);
+						this->removeFromParent();
+					}
 					break;
 				case Update_Button::确定:
 					ShellExecute(NULL, L"open", stringToWstring(_fileName), NULL, NULL, SW_SHOWNORMAL);
@@ -359,6 +367,13 @@ void UpdateClient::downloadError()
 			, errorStr.c_str());
 #endif // DEBUG
     };
+}
+
+bool UpdateClient::checkCanPlay()
+{
+	if (UserInformation::getNewEditionName(true).compare("10.10.10.10"))
+		return true;
+	return false;
 }
 
 LPCUWSTR UpdateClient::stringToWstring(string fileName)

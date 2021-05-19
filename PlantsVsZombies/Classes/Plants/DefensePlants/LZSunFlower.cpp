@@ -56,7 +56,7 @@ Sprite* SunFlower::createPlantImage()
 
 void SunFlower::createPlantAnimation()
 {
-	_plantAnimation = plantInit("SunFlower_2", "SunFlower_Normal");
+	_plantAnimation = plantInit("SunFlower", "SunFlower_Normal");
 	_plantAnimation->setAnchorPoint(Vec2::ANCHOR_MIDDLE);
 	_plantAnimation->setScale(0.8f);
 	_plantAnimation->setSkin("SunFlower_Normal");
@@ -201,7 +201,7 @@ SkeletonAnimation* SunFlower::showPlantAnimationAndText()
 	SPSSpriteLayer::plantCardTextScrollView->setInnerContainerSize(Size(lta.find("SUNFLOWER_1")->second->position));
 
 	_isLoop = true;
-	_plantAnimation = plantInit("SunFlower_2", "SunFlower_Normal");
+	_plantAnimation = plantInit("SunFlower", "SunFlower_Normal");
 	_plantAnimation->setSkin("SunFlower_Normal");
 	_plantAnimation->setAnchorPoint(Vec2::ANCHOR_MIDDLE);
 	_plantAnimation->setScale(1.5f);

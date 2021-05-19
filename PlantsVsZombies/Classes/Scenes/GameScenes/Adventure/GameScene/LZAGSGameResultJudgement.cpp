@@ -28,7 +28,12 @@ bool GSGameResultJudgement::getZombieIsInHouse()
 
 bool GSGameResultJudgement::getZombieIsTrampleFlowers()
 {
-	return (*_zombie)->getZombieAnimation()->getPositionX() < _levelData->getFlowerPosition() ? true : false;
+	if ((*_zombie)->getZombieType() != ZombiesType::BalloonZombies &&
+		(*_zombie)->getZombieAnimation()->getPositionX() < _levelData->getFlowerPosition())
+	{
+		return true;
+	}
+	return false;
 }
 
 GameTypes GSGameResultJudgement::judgeUserIsWin()

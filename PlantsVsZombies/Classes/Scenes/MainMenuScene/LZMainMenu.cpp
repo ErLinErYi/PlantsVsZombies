@@ -30,7 +30,8 @@ MainMenu::MainMenu() :
 	_quitLayer(nullptr),
 	_optionLayer(nullptr),
 	_nowtime(nullptr),
-	_playMusic{false}
+	_playMusic{false},
+	_testingGroundUnlock(false)
 {
 	/* 播放音乐 */
 	PlayMusic::changeBgMusic("mainmusic", true);
@@ -52,23 +53,24 @@ bool MainMenu::init()
 	this->createAnimation();      /* 创建动画 */
 	this->createMouseListener();  /* 创建鼠标监听 */
 	this->createMainButton();     /* 创建按钮 */
-	this->schedule(schedule_selector(MainMenu::curUpdate), 0.05f);/* 定时器 */
-	schedule([this](float) {_global->checkAnimationInterval(); }, 1.f, "FPS");
 
+	curUpdate();
 	createNewUserDataFileName();
+	checkTestingGroundIsUnLock();
 #if MYRELEASE
-#   if CC_TARGET_PLATFORM == CC_PLATFORM_WIN32
 	if (UserInformation::getUpdateRequired())
 	{
+		auto update = UpdateClient::create();
 		setMouseListenerEnable(false);
-		this->addChild(UpdateClient::create(), 10);
+		update->setMouseListener(_mouse);
+		this->addChild(update, 10);
 	}
-#   endif
 #endif
+	schedule([this](float) {_global->checkAnimationInterval(); }, 1.f, "FPS");
 	return true;
 }
 
-void MainMenu::curUpdate(float time)
+void MainMenu::curUpdate()
 {
 	/* 鼠标移动到按钮上播放音乐 */
 	this->playMusicBleepInMainButtons(0, Vec2(_cur.x - 606, _cur.y));
@@ -91,13 +93,6 @@ void MainMenu::curUpdate(float time)
 	_menuItem[3]->getBoundingBox().containsPoint(_cur) ?
 		_menuItem[3]->setNormalImage(Sprite::createWithSpriteFrameName("SelectorScreen_WoodSign2_press.png")) :
 		_menuItem[3]->setNormalImage(Sprite::createWithSpriteFrameName("SelectorScreen_WoodSign2.png"));
-
-	if (_global->userInformation->getIsUpdate())/* 如果名字更新 */
-	{
-		_userText->setString(_global->userInformation->getUserName());
-		this->scheduleOnce(schedule_selector(MainMenu::updateUserNameOnce), 0);
-		_global->userInformation->setIsUpdate(false);
-	}
 }
 
 void MainMenu::updateUserNameOnce(float Time)
@@ -130,6 +125,7 @@ void MainMenu::updateUserNameOnce(float Time)
 
 void MainMenu::playMusicBleepInGameButtons(MainMenuButton button)
 {
+	Color3B color = Color3B::WHITE;
 	auto ID = static_cast<int>(button);
 	/* 如果鼠标在按钮上 */
 	if (checkCurInButtons() == button)
@@ -137,14 +133,18 @@ void MainMenu::playMusicBleepInGameButtons(MainMenuButton button)
 		switch (button)
 		{
 		case MainMenu::MainMenuButton::AdventureButton:
-		case MainMenu::MainMenuButton::VasebreakerButton:
-			      _mainButton[ID]->setColor(Color3B::WHITE);       break;
-		case MainMenu::MainMenuButton::ChallengesButton:
-			if (checkHammerZombiesIsUnLock()) _mainButton[ID]->setColor(Color3B::WHITE);
-			else _mainButton[ID]->setColor(Color3B(110, 110, 110));
+			color = Color3B::WHITE; 
 			break;
-		default:  _mainButton[ID]->setColor(Color3B(110,110,110)); break;
+		case MainMenu::MainMenuButton::VasebreakerButton:
+			if (!_testingGroundUnlock) color = Color3B(110, 110, 110);
+			break;
+		case MainMenu::MainMenuButton::ChallengesButton:
+			if (!checkHammerZombiesIsUnLock()) color = Color3B(110, 110, 110);
+			break;
+		default:  color = Color3B(110, 110, 110); 
+			break;
 		}
+		_mainButton[ID]->setColor(color);
 		/* 如果没有播放音乐 */
 		if (!_playMusic[ID - 1])
 		{
@@ -159,14 +159,20 @@ void MainMenu::playMusicBleepInGameButtons(MainMenuButton button)
 		switch (button)
 		{
 		case MainMenu::MainMenuButton::AdventureButton: 
-		case MainMenu::MainMenuButton::VasebreakerButton:
-			      _mainButton[ID]->setColor(Color3B(180, 180, 180)); break;
-		case MainMenu::MainMenuButton::ChallengesButton:
-			if (checkHammerZombiesIsUnLock()) _mainButton[ID]->setColor(Color3B(180, 180, 180));
-			else _mainButton[ID]->setColor(Color3B(80, 80, 80));
+			color = Color3B(180, 180, 180);
 			break;
-		default:  _mainButton[ID]->setColor(Color3B(80, 80, 80));    break;
+		case MainMenu::MainMenuButton::VasebreakerButton:
+			if (!_testingGroundUnlock) color = Color3B(80, 80, 80);
+			else color = Color3B(180, 180, 180);
+			break;
+		case MainMenu::MainMenuButton::ChallengesButton:
+			if (!checkHammerZombiesIsUnLock()) color = Color3B(80, 80, 80);
+			else color = Color3B(180, 180, 180);
+			break;
+		default:  color = Color3B(80, 80, 80);
+			break;
 		}
+		_mainButton[ID]->setColor(color);
 	}
 }
 
@@ -326,6 +332,20 @@ bool MainMenu::checkHammerZombiesIsUnLock()
 		static_cast<int>(UnlockDialogLayer::unlockNeedNumbers);
 }
 
+void MainMenu::checkTestingGroundIsUnLock()
+{
+	if (_nowtime) delete _nowtime, _nowtime = nullptr;
+	_nowtime = new MomentTime;
+	_nowtime->requestNetTime([this]()
+		{
+			if (_nowtime->getNetHour() >= 20 && _nowtime->getNetHour() < 22)
+			{
+				_testingGroundUnlock = true;
+				curUpdate();
+			}
+		});
+}
+
 void MainMenu::createAnimation()
 {
 	/* 创建叶子动画 */
@@ -395,6 +415,7 @@ void MainMenu::createMouseListener()
 	_mouse->onMouseMove = [=](Event* event)
 	{
 		_cur = ((EventMouse*)event)->getLocationInView();
+		curUpdate();
 	};
 
 	/* 鼠标按下监听 */

@@ -25,7 +25,7 @@ LoadingScene::LoadingScene() :
 	_musicNumbers(0),
 	_animationNumbers(0),
 	_imageNumbers(0),
-	_delayTime(0.1f),
+	_delayTime(0.15f),
 	_loadingPrecent(0),
 	_label(nullptr),
 	_loadingBar(nullptr),
@@ -36,8 +36,6 @@ LoadingScene::LoadingScene() :
 	_files(FileUtils::getInstance()),
 	_userData(UserData::getInstance())
 {
-	SpriteFrameCache::getInstance()->
-		addSpriteFramesWithFile("resources/Images/LoadingScene/LoadingScene.plist", "resources/Images/LoadingScene/LoadingScene.pvr.ccz");
 	_downloader.reset(new network::Downloader());
 }
 
@@ -174,8 +172,11 @@ void LoadingScene::loadUserData()
 		cocos2d::ui::CheckBox::EventType::SELECTED : cocos2d::ui::CheckBox::EventType::UNSELECTED);
 
 #ifndef _DEBUG
-	COUNTPLAYERS
-	changeFiles();
+	if (!UserDefault::getInstance()->getBoolForKey("CHANGEFILE"))
+	{
+		changeFiles();
+		UserDefault::getInstance()->setBoolForKey("CHANGEFILE", true);
+    }
 #endif
 }
 
@@ -398,7 +399,7 @@ void LoadingScene::beginLoadingImageAndMusic()
 	scheduleUpdate();
 
 	auto language = UserDefault::getInstance()->getStringForKey("LANGUAGE");
-	if (!language.empty())
+	if (language.empty())
 	{
 		switch (Application::getInstance()->getCurrentLanguage())
 		{
@@ -445,6 +446,7 @@ void LoadingScene::update(float Time)
 		loadingFinished = true;
 
 		selectLanguage();
+		COUNTPLAYERS
 	}
 }
 
