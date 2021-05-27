@@ -11,14 +11,15 @@
 #include "Based/LZPlayMusic.h"
 
 IceBergLettuce::IceBergLettuce(Node* node):
-	_isHaveZombies(false),
+	_isUsed(false),
 	_isChanged(false),
-	_excludeZombieZorder(0),
-	_excludeZombiePosition(Vec2::ZERO),
-	_excludeZombie(nullptr)
+	_excludeZombieZorder(0)
 {
 	_node = node;
 	_plantImage = nullptr;
+
+	_excludeZombie.clear();
+	_excludeZombiePosition.clear();
 
 	_healthPoint = 300;
 	_isLoop = false;
@@ -78,7 +79,7 @@ void IceBergLettuce::createListener()
 				if (!_isChanged)
 				{
 					_isChanged = true;
-					setZombiesActionStop(_excludeZombie, 10);
+					setZombiesActionStop(10);
 					explodeEffectZombies(0);
 				}
 				else
@@ -111,57 +112,73 @@ void IceBergLettuce::determineRelativePositionPlantsAndZombies()
 
 void IceBergLettuce::plantExplode(Zombies* zombie)
 {
-	if (getPlantIsSurvive() && zombie->getZombieIsSurvive() && zombie->getZombieIsCanBeAttack() &&         /* 植物存活 && 僵尸存活 && 僵尸可以被攻击到 */
-		getZombieIsSameLineWithPlant(zombie) && getZombieIsEncounterPlant(zombie))                         /* 植物与僵尸在同一行 && 僵尸遇到植物 */
+	if (!_isUsed && getPlantIsSurvive() && zombie->getZombieIsSurvive() && zombie->getZombieIsCanBeAttack() &&        /* 没有使用 && 植物存活 && 僵尸存活 && 僵尸可以被攻击到 */
+		getZombieIsSameLineWithPlant(zombie) && getZombieIsEncounterPlant(zombie))                                    /* 植物与僵尸在同一行 && 僵尸遇到植物 */
 	{
-		if (!_isHaveZombies)
-		{
-			PlayMusic::playMusic("frozen");
-			_isHaveZombies = true;
-			_excludeZombie = zombie;
-			_excludeZombieZorder = zombie->getZombieAnimation()->getLocalZOrder() + 1;
-			_excludeZombiePosition = zombie->getZombieAnimation()->getPosition() - Vec2(30, 10);
+		PlayMusic::playMusic("frozen");
 
-			_plantAnimation->setAnimation(0, "IceBergLettuce_Skill", false);
-			_plantAnimation->setLocalZOrder(_plantAnimation->getLocalZOrder() + 100);
+		explodeEffectZombies();
+
+		_plantAnimation->setAnimation(0, "IceBergLettuce_Skill", false);
+		_plantAnimation->setLocalZOrder(_plantAnimation->getLocalZOrder() + 100);
+		_isUsed = true;
+	}
+}
+
+void IceBergLettuce::explodeEffectZombies()
+{
+	for (auto zombie : ZombiesGroup)
+	{
+		if (zombie->getZombieIsSurvive() && zombie->getZombieIsCanBeAttack() &&          /* 僵尸存活 && 僵尸可以被攻击到 */
+			getZombieIsSameLineWithPlant(zombie) && getZombieIsInExplodeRange(zombie))   /* 植物与僵尸在同一行 && 僵尸遇在范围内 */
+		{
+			_excludeZombie.push_back(zombie);
+			_excludeZombieZorder = zombie->getZombieAnimation()->getLocalZOrder() + 1;
+			_excludeZombiePosition.push_back(zombie->getZombieAnimation()->getPosition() - Vec2(30, 10));
 		}
 	}
 }
 
 void IceBergLettuce::explodeEffectZombies(const float time)
 {
-	auto iter = _global->userInformation->getAnimationData().find("IceBergLettuceEffect");
-	if (iter != _global->userInformation->getAnimationData().end())/* 如果可以找到 */
+	for (auto& pos : _excludeZombiePosition)
 	{
-		auto iceEffect = SkeletonAnimation::createWithData(iter->second);
-		iceEffect->setPosition(_excludeZombiePosition);
-		iceEffect->setAnimation(0, "animation", false);
-		iceEffect->setScaleX(-iceEffect->getScaleX());
-		iceEffect->setLocalZOrder(_excludeZombieZorder);
-		iceEffect->update(time);
-		_node->addChild(iceEffect);
+		auto iter = _global->userInformation->getAnimationData().find("IceBergLettuceEffect");
+		if (iter != _global->userInformation->getAnimationData().end())/* 如果可以找到 */
+		{
+			auto iceEffect = SkeletonAnimation::createWithData(iter->second);
+			iceEffect->setPosition(pos);
+			iceEffect->setAnimation(0, "animation", false);
+			iceEffect->setScaleX(-iceEffect->getScaleX());
+			iceEffect->setLocalZOrder(_excludeZombieZorder);
+			iceEffect->update(time);
+			_node->addChild(iceEffect);
 
-		iceEffect->runAction(Sequence::create(DelayTime::create(2.f), FadeOut::create(8.f),
-			CallFunc::create([=]()
-				{
-					iceEffect->removeFromParent();
-				}), nullptr));
+			iceEffect->runAction(Sequence::create(DelayTime::create(2.f), FadeOut::create(8.f),
+				CallFunc::create([=]()
+					{
+						iceEffect->removeFromParent();
+					}), nullptr));
+		}
 	}
 }
 
-void IceBergLettuce::setZombiesActionStop(Zombies* zombie,const int &time)
+void IceBergLettuce::setZombiesActionStop(const int &time)
 {
-	if (zombie && zombie->getZombieType() != ZombiesType::SnowZombies)
+	for (auto zombie : _excludeZombie)
 	{
-		zombie->setZombieActionStop();
-		zombie->createZombieTimer();
-		zombie->setZombieTimerTime(time);
+		if (zombie && zombie->getZombieType() != ZombiesType::SnowZombies)
+		{
+			zombie->setZombieActionStop();
+			zombie->createZombieTimer();
+			zombie->setZombieTimerTime(time);
+		}
 	}
 }
 
 bool IceBergLettuce::getZombieIsInExplodeRange(Zombies* zombie)
 {
-	return (zombie->getZombieIsSurvive() && zombie->getZombieIsEnterMap()) ? true : false;
+	return (fabs(zombie->getZombieAnimation()->getPositionX() - _plantAnimation->getPositionX()) < 130) ? true : false;
 }
 
 SkeletonAnimation* IceBergLettuce::showPlantAnimationAndText()
@@ -187,17 +204,11 @@ SkeletonAnimation* IceBergLettuce::showPlantAnimationAndText()
 void IceBergLettuce::cavePlantInformation(rapidjson::Value& object, rapidjson::Document::AllocatorType& allocator)
 {
 	object.AddMember("IsChanged", _isChanged, allocator);
-	object.AddMember("IsHaveZombies", _isHaveZombies, allocator);
-	object.AddMember("ExcludeZombieZorder", _excludeZombieZorder, allocator);
-	object.AddMember("ExcludeZombiePositionX", _excludeZombiePosition.x, allocator);
-	object.AddMember("ExcludeZombiePositionY", _excludeZombiePosition.y, allocator);
+	object.AddMember("IsUsed", _isUsed, allocator);
 }
 
 void IceBergLettuce::readPlantInforamtion(rapidjson::Document* levelDataDocument, char* key, int i)
 {
 	_isChanged = (*levelDataDocument)[key]["Plants"][to_string(i).c_str()]["IsChanged"].GetBool();
-	_isHaveZombies = (*levelDataDocument)[key]["Plants"][to_string(i).c_str()]["IsHaveZombies"].GetBool();
-	_excludeZombieZorder = (*levelDataDocument)[key]["Plants"][to_string(i).c_str()]["ExcludeZombieZorder"].GetInt();
-	_excludeZombiePosition.x = (*levelDataDocument)[key]["Plants"][to_string(i).c_str()]["ExcludeZombiePositionX"].GetFloat();
-	_excludeZombiePosition.y = (*levelDataDocument)[key]["Plants"][to_string(i).c_str()]["ExcludeZombiePositionY"].GetFloat();
+	_isUsed = (*levelDataDocument)[key]["Plants"][to_string(i).c_str()]["IsUsed"].GetBool();
 }

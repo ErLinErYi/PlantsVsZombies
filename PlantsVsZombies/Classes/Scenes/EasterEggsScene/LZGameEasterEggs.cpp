@@ -45,7 +45,7 @@ bool GameEasterEggs::init()
 void GameEasterEggs::createEggText()
 {
 	_audioId = PlayMusic::changeBgMusic("ZombiesWinEggs", false);
-	AudioEngine::setVolume(_audioId, 1.0f);
+	if (_audioId != -1) AudioEngine::setVolume(_audioId, 1.0f);
 
 	const auto sumTime = QuitMenu::getSumRunTime();
 	const int hour = sumTime / 3600;
@@ -60,7 +60,7 @@ void GameEasterEggs::createEggText()
 但是我并没有真正的放弃，时隔一年（2019年）的暑假我从新开始制作植物大战僵尸。经过两三个月的学习与开发，终于制作出了一个具有\
 可玩性的测试版。游戏制作是一个困难而且艰辛的过程，期间遇到过无数问题，有过放弃，也有过兴奋。最终我坚持了下来！后面有更困难\
 的关卡等着你去挑战。继续加油吧！\n\
-      目前有16种僵尸和24种植物，植物和僵尸的动画都是本人做的，由于做动画的能力有限，有些僵尸和植物动画不能实现。\
+      目前有43种僵尸和24种植物，植物和僵尸的动画都是本人做的，由于做动画的能力有限，有些僵尸和植物动画不能实现。\
 （使用spine或者DragonBones制作的2D动画）。今后的更新是不定时的，可能会很慢。本人qq：2117610943 QQ群：926707238\n\n" };
 
 	auto eggstext = Text::create("", GAME_FONT_NAME_1, 36);

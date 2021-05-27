@@ -13,18 +13,18 @@ using namespace cocos2d::experimental;
 
 void PlayMusic::playMusic(const std::string& musicName, const bool isControlVolume)
 {
-	if (isControlVolume)
+	if (Global::getInstance()->userInformation->getSoundEffectVolume() > 0)
 	{
-		if (Global::getInstance()->userInformation->getSoundEffectVolume() > 0)
+		if (isControlVolume)
 		{
 			AudioEngine::setVolume(AudioEngine::play2d(
 				Global::getInstance()->userInformation->getMusicPath().find(musicName)->second),
 				Global::getInstance()->userInformation->getSoundEffectVolume());
 		}
-	}
-	else
-	{
-		AudioEngine::play2d(Global::getInstance()->userInformation->getMusicPath().find(musicName)->second);
+		else
+		{
+			AudioEngine::play2d(Global::getInstance()->userInformation->getMusicPath().find(musicName)->second);
+		}
 	}
 }
 
@@ -35,20 +35,27 @@ int PlayMusic::playMusic(const std::string& musicName, const int)
 
 int PlayMusic::changeBgMusic(const std::string& _musicName, bool _loop)
 {
-	/* 暂停先前的背景音乐 */
-	for (auto sp : Global::getInstance()->userInformation->getBackgroundMusic())
+	if (Global::getInstance()->userInformation->getBackGroundMusicVolume() > 0)
 	{
-		AudioEngine::stop(sp);
+		/* 暂停先前的背景音乐 */
+		for (auto sp : Global::getInstance()->userInformation->getBackgroundMusic())
+		{
+			AudioEngine::stop(sp);
+		}
+		Global::getInstance()->userInformation->getBackgroundMusic().clear();
+
+		/* 播放新的背景音乐 */
+		int AudioID = AudioEngine::play2d(Global::getInstance()->userInformation->getMusicPath().find(_musicName)->second, _loop);
+		AudioEngine::setVolume(AudioID, Global::getInstance()->userInformation->getBackGroundMusicVolume());
+
+		Global::getInstance()->userInformation->getBackgroundMusic().push_back(AudioID);
+
+		return AudioID;
 	}
-	Global::getInstance()->userInformation->getBackgroundMusic().clear();
-
-	/* 播放新的背景音乐 */
-	int AudioID = AudioEngine::play2d(Global::getInstance()->userInformation->getMusicPath().find(_musicName)->second, _loop);
-	AudioEngine::setVolume(AudioID, Global::getInstance()->userInformation->getBackGroundMusicVolume());
-
-	Global::getInstance()->userInformation->getBackgroundMusic().push_back(AudioID);
-
-	return AudioID;
+	else
+	{
+		return -1;
+	}
 }
 
 void PlayMusic::setMusicVolume(const int audioId)

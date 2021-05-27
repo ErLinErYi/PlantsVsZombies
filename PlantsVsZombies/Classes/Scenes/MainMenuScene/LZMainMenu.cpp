@@ -343,7 +343,7 @@ void MainMenu::checkTestingGroundIsUnLock()
 				_testingGroundUnlock = true;
 				curUpdate();
 			}
-		});
+		}, true);
 }
 
 void MainMenu::createAnimation()
@@ -723,7 +723,7 @@ void MainMenu::beginVasebreakerGame()
 				}
 			}
 #endif // !_DEBUG
-		});
+		}, true);
 }
 
 void MainMenu::beginSurvivalGame()

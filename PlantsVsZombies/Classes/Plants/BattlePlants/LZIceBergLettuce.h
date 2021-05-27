@@ -23,17 +23,18 @@ CC_CONSTRUCTOR_ACCESS:
 protected:
     virtual void createListener() override;
     virtual void plantExplode(Zombies* zombie);
+    virtual void explodeEffectZombies();
     virtual void explodeEffectZombies(const float time);
-    virtual void setZombiesActionStop(Zombies* zombie, const int &time);
+    virtual void setZombiesActionStop(const int &time);
     virtual bool getZombieIsInExplodeRange(Zombies* zombie) override;
     virtual SkeletonAnimation* showPlantAnimationAndText() override;
     virtual void cavePlantInformation(rapidjson::Value& object, rapidjson::Document::AllocatorType& allocator) override;
     virtual void readPlantInforamtion(rapidjson::Document* levelDataDocument, char* key, int i) override;
 
 private:
-    bool _isHaveZombies;
+    bool _isUsed;
     bool _isChanged;
     int _excludeZombieZorder;
-    Vec2 _excludeZombiePosition;
-    Zombies* _excludeZombie;
+    std::vector<Vec2> _excludeZombiePosition;
+    std::vector<Zombies*> _excludeZombie;
 };

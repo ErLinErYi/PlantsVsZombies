@@ -374,10 +374,11 @@ void LoadingScene::showTileAndLoadingBar()
 	default:                    text = "Loading......";  break;
 	}
 	_label = MenuItemLabel::create(
-		Label::createWithSystemFont(text, "language/fonts/GameFont.ttf", 20),
+		Label::createWithSystemFont(text, "language/fonts/GameFont.ttf", 18),
 		CC_CALLBACK_1(LoadingScene::beginGameCallBack, this));
 	_label->runAction(RepeatForever::create(Sequence::create(TintTo::create(0.5f, 255, 255, 255), TintTo::create(0.5f, 0, 0, 0), nullptr)));
 	_label->setColor(Color3B::YELLOW);
+	_label->setPosition(Vec2(0, -3));
 	_label->setEnabled(false);
 
 	/* 创建菜单 */
@@ -392,7 +393,7 @@ void LoadingScene::beginLoadingImageAndMusic()
 	_loadingBar = LoadingBar::create();
 	_loadingBar->loadTexture("LoadBar_grass.png", Widget::TextureResType::PLIST);
 	_loadingBar->setDirection(LoadingBar::Direction::LEFT); /* 设置加载方向 */
-	_loadingBar->setPosition(Vec2(150, 70));
+	_loadingBar->setPosition(Vec2(150, 65));
 	_sprite[4]->addChild(_loadingBar);
 
 	/* 定时器 */
@@ -426,7 +427,7 @@ void LoadingScene::update(float Time)
 		_loadingBar->setPercent(_loadingPrecent);              /* 设置加载进度 */
 		_sprite[5]->setScale(1 - _loadingPrecent / 170);       /* 设置精灵大小 */
 		_sprite[5]->setRotation(9 * _loadingPrecent);          /* 设置精旋转度数 */
-		_sprite[5]->setPosition(Vec2(5 + 290 / 100.0 * _loadingPrecent, 100 - _sprite[5]->getContentSize().height / 400 * _loadingPrecent));
+		_sprite[5]->setPosition(Vec2(5 + 290 / 100.0 * _loadingPrecent, 95 - _sprite[5]->getContentSize().height / 350 * _loadingPrecent));
 
 		if (_loadingPrecent >= 20)  showLoadingBarFlower(0);
 		if (_loadingPrecent >= 40)  showLoadingBarFlower(1);
@@ -585,7 +586,7 @@ int LoadingScene::openResourcesPath(map<string, string>& Path, const std::string
 void LoadingScene::throwException()
 {
 #if CC_TARGET_PLATFORM == CC_PLATFORM_WIN32
-	this->runAction(Sequence::create(DelayTime::create(50.f), CallFunc::create([=]()
+	this->runAction(Sequence::create(DelayTime::create(60.f), CallFunc::create([=]()
 		{
 			try
 			{

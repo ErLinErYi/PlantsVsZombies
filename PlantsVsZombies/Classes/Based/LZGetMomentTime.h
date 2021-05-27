@@ -18,7 +18,7 @@ public:
 	CREATE_FUNC(MomentTime);
 
 	void requestNetTime();
-	void requestNetTime(const std::function<void()>& pSelector);
+	void requestNetTime(const std::function<void()>& pSelector, bool onlyNetTime = false);
 	int getNetDay();
 	int getNetMon();
 	int getNetYear();
@@ -50,4 +50,5 @@ protected:
 	int m_minute;
 	int m_week;
 	time_t m_time;
+	bool _onlyNetTime;
 };

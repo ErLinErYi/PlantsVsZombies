@@ -11,7 +11,7 @@
 
 using namespace rapidjson;
 
-MomentTime::MomentTime() :m_second(0), m_day(0), m_hour(0), m_year(0), m_minute(0), m_moth(0)
+MomentTime::MomentTime() :m_second(0), m_day(0), m_hour(0), m_year(0), m_minute(0), m_moth(0), _onlyNetTime(false)
 {
 }
 
@@ -32,11 +32,12 @@ void MomentTime::requestNetTime()
 	request->release();
 }
 
-void MomentTime::requestNetTime(const std::function<void()>& pSelector)
+void MomentTime::requestNetTime(const std::function<void()>& pSelector, bool onlyNetTime)
 {
 	requestNetTime();
 
 	netTimeCallBack = pSelector;
+	_onlyNetTime = onlyNetTime;
 }
 
 void MomentTime::onHttpComplete(HttpClient* sender, HttpResponse* response)
@@ -128,20 +129,27 @@ void MomentTime::initNetTime(time_t tmTime)
 void MomentTime::getLocalTime()
 {
 	time_t tt;
-	time(&tt);
+
+	if (!_onlyNetTime)
+	{
+		time(&tt);
+	}
 
 	initTime(localtime(&tt));
 }
 
 void MomentTime::initTime(struct tm* netTime)
 {
-	m_year = netTime->tm_year + 1900;
-	m_moth = netTime->tm_mon + 1;
-	m_day = netTime->tm_mday;
-	m_hour = netTime->tm_hour;
-	m_minute = netTime->tm_min;
-	m_second = netTime->tm_sec;
-	m_week = netTime->tm_wday == 0 ? 7 : netTime->tm_wday;
+	if (netTime)
+	{
+		m_year = netTime->tm_year + 1900;
+		m_moth = netTime->tm_mon + 1;
+		m_day = netTime->tm_mday;
+		m_hour = netTime->tm_hour;
+		m_minute = netTime->tm_min;
+		m_second = netTime->tm_sec;
+		m_week = netTime->tm_wday == 0 ? 7 : netTime->tm_wday;
+	}
 }
 
 int MomentTime::getNetDay()

@@ -32,7 +32,7 @@
 #endif // !DLLTEST
 
 UserData* UserData::_instance = nullptr;
-int UserData::_levelDataVersion = 1310;
+int UserData::_levelDataVersion = 1313;
 
 UserData::UserData() :
   _global(Global::getInstance())
