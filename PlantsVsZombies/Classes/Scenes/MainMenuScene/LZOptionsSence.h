@@ -50,9 +50,9 @@ CC_CONSTRUCTOR_ACCESS:
 	
 protected:
 	virtual void createDialog();                                                                                      /* 创建对话框 */
-	virtual CheckBox* createCheckBox(Vec2&, Vec2&, const std::string&, OptionScene_CheckBox, const std::string,
+	virtual CheckBox* createCheckBox(const Vec2&, const Vec2&, const std::string&, OptionScene_CheckBox, const std::string,
 		const std::string, const bool IsNew = false);                                                                 /* 创建复选框 */
-	virtual ControlSlider* createSlider(Vec2&, Vec2&, const std::string&, OptionScene_Slider, Sprite*, Sprite*,
+	virtual ControlSlider* createSlider(const Vec2&, const Vec2&, const std::string&, OptionScene_Slider, Sprite*, Sprite*,
 		Sprite*, Sprite* = nullptr, const bool IsNew = false);                                                        /* 创建滑动条 */
 	virtual void deleteDialog() override;                                                                             /* 删除对话框 */
 
@@ -60,11 +60,12 @@ private:
 	void createButton();
 	void backGroundMusicVolumeChangeCallBack(Ref* sender, Control::EventType type);                                  /* 背景音乐音量调节回调函数*/
 	void soundEffectMusicVolumeChangeCallBack(Ref* sender, Control::EventType type);                                 /* 音效音乐音量调节回调函数*/
+	void updateFrameSynchronization();                                                                               /* 更新帧同步选项 */
 
 protected:
 	Sprite* _option;         /* 对话框 */
 	Director* _director;
-
+	CheckBox* _frameCheckBox;
 private:
 	UserDefault* _userDefault;
 };

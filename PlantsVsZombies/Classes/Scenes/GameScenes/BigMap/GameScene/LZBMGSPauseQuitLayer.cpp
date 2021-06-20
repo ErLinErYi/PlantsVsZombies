@@ -31,7 +31,7 @@ bool BMPauseQuitLayer::init()
 void BMPauseQuitLayer::setRestart()
 {
 	_director->getScheduler()->setTimeScale(1.0f);
-	UserData::getInstance()->caveUserData("BREAKTHROUGH", ++_global->userInformation->getBreakThroughNumbers());
+	UserData::getInstance()->caveUserData(const_cast<char*>("BREAKTHROUGH"), ++_global->userInformation->getBreakThroughNumbers());
 	GSGameEndLayer::judgeBreakThroughAboutJumpLevel();
 
 	_director->replaceScene(TransitionFade::create(1.0f, BMSelectPlantsScene::create()));

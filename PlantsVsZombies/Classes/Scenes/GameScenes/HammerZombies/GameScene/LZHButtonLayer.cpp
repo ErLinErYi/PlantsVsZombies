@@ -22,16 +22,16 @@ vector<Button*> HButtonLayer::hammerButton;
 HButtonLayer::HammerInformation hammerInformation[7] =
 { 
 		{  "D",     2,  100,    500,   0    },
-		{  "C",     2,  200,    600,   20   },
-		{  "B",     2,  300,    750,   40   },
-		{  "A",     1,  400,    900,   55   },
-		{  "S",     1,  500,    1100,  60   },
-		{  "SS",    0,  600,    1300,  80   },
-		{  "SSS",   0,  700,    1500,  100  },
+		{  "C",     2,  200,    600,   40   },
+		{  "B",     2,  300,    750,   70   },
+		{  "A",     1,  400,    900,   100  },
+		{  "S",     1,  500,    1100,  130  },
+		{  "SS",    0,  600,    1300,  150  },
+		{  "SSS",   0,  700,    1500,  170  },
 };
 
 HButtonLayer::HButtonLayer() :
-	_levelNumber(UserData::getInstance()->openIntUserData("HAMMERZOMBIES_LEVEL_NUMBER"))
+	_levelNumber(UserData::getInstance()->openIntUserData(const_cast<char*>("HAMMERZOMBIES_LEVEL_NUMBER")))
 {
 }
 
@@ -108,7 +108,7 @@ void HButtonLayer::createKeyBoardListener()
 void HButtonLayer::createHammerButton()
 {
 	hammerButton.clear();
-	selectedHammer = UserData::getInstance()->openIntUserData("SELECTHAMMER");
+	selectedHammer = UserData::getInstance()->openIntUserData(const_cast<char*>("SELECTHAMMER"));
 
 	for (int i = 0; i < 7; ++i)
 	{
@@ -133,7 +133,7 @@ void HButtonLayer::createHammerButton()
 					dynamic_cast<HControlLayer*>(controlLayerInformation)->updateHammerInformation();
 					button->getChildByName("SeedPacketFlash")->setColor(Color3B::ORANGE);
 					updateHammerButton();
-					UserData::getInstance()->caveUserData("SELECTHAMMER", i);
+					UserData::getInstance()->caveUserData(const_cast<char*>("SELECTHAMMER"), i);
 				}
 			});
 	}

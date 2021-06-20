@@ -30,6 +30,7 @@ protected:
 	virtual void mouseMoveControl() override;                                                    /* 鼠标移动控制 */
 	virtual void createPreviewPlants() override;                                                 /* 创建预览植物 */
 	virtual void mouseDownControl(EventMouse* eventmouse = nullptr) override;                    /* 鼠标按下控制 */
+	virtual void checkPlantType(const int type = 0) override;                                    /* 检测植物类型 */
 	virtual Vec2 addScrollViewOffset(Vec2& vec2);
 	virtual void changeScrollViewOffset();
 	

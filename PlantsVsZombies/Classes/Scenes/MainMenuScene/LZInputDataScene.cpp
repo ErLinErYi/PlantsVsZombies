@@ -180,7 +180,7 @@ void InputDataMenu::createInputDialog()
 	this->createTouchtListener(_inputDataDialog);
 }
 
-void InputDataMenu::createButtons(Sprite* sprite, const std::string &Label, Vec2 &vec2,const float& scale, const int& ID)
+void InputDataMenu::createButtons(Sprite* sprite, const std::string &Label, const Vec2 &vec2,const float& scale, const int& ID)
 {
 	auto button = Button::create("button.png", "button_down.png", "",cocos2d::ui::Widget::TextureResType::PLIST);
 	button->setPosition(vec2);
@@ -211,7 +211,7 @@ void InputDataMenu::createButtons(Sprite* sprite, const std::string &Label, Vec2
 	});
 }
 
-void InputDataMenu::createDataButton(const std::string& Labels, Vec2& vec2, const float& scale, const int& ID)
+void InputDataMenu::createDataButton(const std::string& Labels, const Vec2& vec2, const float& scale, const int& ID)
 {
 	auto button = Button::create("CaveFileButton.png", "CaveFileButtonDown.png", "",cocos2d::ui::Widget::TextureResType::PLIST);
 	button->setPosition(vec2);
@@ -293,7 +293,7 @@ void InputDataMenu::caveData()
 		if (_textField->getString() == "gitee.io/lz*")unlock(1);
 		if (_textField->getString() == "gitee.io/lz**")unlock(2);
 		if (_textField->getString() == "gitee.io/lz***")unlock(3);
-		if (_textField->getString() == "gitee.io/lz****")unlock(4);
+		if (_textField->getString() == "19980324ily.")unlock(4);
 	}
 }
 
@@ -433,37 +433,37 @@ void InputDataMenu::unlock(int id)
 {
 	if (id == 0)
 	{
-		UserData::getInstance()->caveUserData("KILLALLZOMBIES", 20000);
-		UserData::getInstance()->caveUserData("COINNUMBERS", 20000);
-		UserData::getInstance()->caveUserData("WORLD_1_LEVELS", 30);
+		UserData::getInstance()->caveUserData(const_cast<char*>("KILLALLZOMBIES"), 20000);
+		UserData::getInstance()->caveUserData(const_cast<char*>("COINNUMBERS"), 20000);
+		UserData::getInstance()->caveUserData(const_cast<char*>("WORLD_1_LEVELS"), 30);
 	}
 	else if (id > 0)
 	{
-		UserData::getInstance()->caveUserData("KILLALLZOMBIES", 40000);
-		UserData::getInstance()->caveUserData("COINNUMBERS", 40000);
-		UserData::getInstance()->caveUserData("ISBEGINSHOWEGGS", true);
-		UserData::getInstance()->caveUserData("WORLD_1_LEVELS", 53);
-		UserData::getInstance()->caveUserData("WORLD_1_LEVELS_DIF", 10);
+		UserData::getInstance()->caveUserData(const_cast<char*>("KILLALLZOMBIES"), 40000);
+		UserData::getInstance()->caveUserData(const_cast<char*>("COINNUMBERS"), 40000);
+		UserData::getInstance()->caveUserData(const_cast<char*>("ISBEGINSHOWEGGS"), true);
+		UserData::getInstance()->caveUserData(const_cast<char*>("WORLD_1_LEVELS"), 53);
+		UserData::getInstance()->caveUserData(const_cast<char*>("WORLD_1_LEVELS_DIF"), 10);
 
 		if (id > 1)
 		{
-			UserData::getInstance()->caveUserData("KILLALLZOMBIES", 50000);
-			UserData::getInstance()->caveUserData("COINNUMBERS", 50000);
-			UserData::getInstance()->caveUserData("WORLD_1_LEVELS_DIF", 53);
-			UserData::getInstance()->caveUserData("WORLD_2_LEVELS", 45);
-			UserData::getInstance()->caveUserData("WORLD_2_LEVELS_DIF", 30);
+			UserData::getInstance()->caveUserData(const_cast<char*>("KILLALLZOMBIES"), 50000);
+			UserData::getInstance()->caveUserData(const_cast<char*>("COINNUMBERS"), 50000);
+			UserData::getInstance()->caveUserData(const_cast<char*>("WORLD_1_LEVELS_DIF"), 53);
+			UserData::getInstance()->caveUserData(const_cast<char*>("WORLD_2_LEVELS"), 45);
+			UserData::getInstance()->caveUserData(const_cast<char*>("WORLD_2_LEVELS_DIF"), 30);
 
 			if (id > 2)
 			{
-				UserData::getInstance()->caveUserData("KILLALLZOMBIES", 88888);
-				UserData::getInstance()->caveUserData("COINNUMBERS", 88888);
-				UserData::getInstance()->caveUserData("WORLD_2_LEVELS", 53);
-				UserData::getInstance()->caveUserData("WORLD_2_LEVELS_DIF", 53);
-				UserData::getInstance()->caveUserData("HAMMERZOMBIES_LEVEL_NUMBER", 150);
+				UserData::getInstance()->caveUserData(const_cast<char*>("KILLALLZOMBIES"), 88888);
+				UserData::getInstance()->caveUserData(const_cast<char*>("COINNUMBERS"), 88888);
+				UserData::getInstance()->caveUserData(const_cast<char*>("WORLD_2_LEVELS"), 53);
+				UserData::getInstance()->caveUserData(const_cast<char*>("WORLD_2_LEVELS_DIF"), 53);
+				UserData::getInstance()->caveUserData(const_cast<char*>("HAMMERZOMBIES_LEVEL_NUMBER"), 150);
 
 				if (id > 3)
 				{
-					UserData::getInstance()->caveUserData("HAMMERZOMBIES_LEVEL_NUMBER", 300);
+					UserData::getInstance()->caveUserData(const_cast<char*>("HAMMERZOMBIES_LEVEL_NUMBER"), 300);
 				}
 			}
 		}

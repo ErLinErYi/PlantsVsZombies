@@ -15,7 +15,7 @@
 
 #define INIT Vec2(-1000,-1000)
 #define NOINITIALIZATION  -1
-#define PLANTSNUMBERS 24
+#define PLANTSNUMBERS 28
 
 using namespace spine;
 using namespace cocos2d;
@@ -35,13 +35,17 @@ enum class PlantsType
 	Spikeweed,          /* 地刺 */
 	Garlic,             /* 大蒜 */
 	IceBergLettuce,     /* 冰莴苣 */
+	Marigold,           /* 金盏花 */
 	Chomper,            /* 大嘴花 */
 	IcePeaShooter,      /* 寒冰豌豆射手 */
 	FirePeaShooter,     /* 火焰豌豆射手 */
 	AcidLemonShooter,   /* 强酸柠檬射手 */
+	Blover,             /* 三叶草 */
 	SunFlowerTwin,      /* 双胞向日葵 */
 	WaterMelonPult,     /* 西瓜投手 */
+	Pumpkin,            /* 南瓜头 */
 	Jalapeno,           /* 火爆辣椒 */
+	MagnetShroom,       /* 磁力菇 */
 	JalapenoVariation,  /* 火爆辣椒变异 */
 	ThreePeaShooter,    /* 三头豌豆射手 */
 	StarFruit,          /* 杨桃 */
@@ -50,7 +54,7 @@ enum class PlantsType
 	CatTail,            /* 香蒲 */
 	GloomShroom,        /* 忧郁菇 */
 	//...
-	None = 25
+	None = 28
 };  
 
 /**
@@ -130,6 +134,11 @@ public:
 	 * 子类重写该方法
 	 */
 	virtual void readPlantInforamtion(rapidjson::Document* levelDataDocument, char* key, int i) {};
+
+	/**
+	 * 设置植物其他信息 
+	 */
+	virtual void setPlantOtherInformation(rapidjson::Document* levelDataDocument, char* key, int i) {};
 
 	/**
 	 * 显示植物介绍信息与动画  

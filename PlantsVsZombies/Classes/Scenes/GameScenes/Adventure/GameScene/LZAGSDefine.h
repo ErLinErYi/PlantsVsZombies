@@ -76,7 +76,7 @@
 #define READ_LEVEL_DATA OpenLevelData::getInstance()->readLevelData(OpenLevelData::getInstance()->getLevelNumber())
 
 // 地图初始化
-#define MAP_INIT(__MAP__)  for(auto& __ROW__ : __MAP__) { for(auto& __COLUMN__ : __ROW__ ) { __COLUMN__ = NO_PLANTS;} }
+#define MAP_INIT(__MAP__,__NUMBER__)  for(auto& __ROW__ : __MAP__) { for(auto& __COLUMN__ : __ROW__ ) { __COLUMN__ = __NUMBER__;} }
 #define MAP_CAN_NOT_PLANT(__MAP__) do{ if(READ_LEVEL_DATA->getIsNoPlants()){ for(auto& __CAN__NOT__PLANT__ : READ_LEVEL_DATA->getNoPlantsPosition()){__MAP__[__CAN__NOT__PLANT__.y][__CAN__NOT__PLANT__.x] = CAN_NOT_PLANT;}}}while(0)
 
 // 地图没有种植

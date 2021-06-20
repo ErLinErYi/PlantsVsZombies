@@ -73,9 +73,13 @@ void UnlockDialogLayer::createText()
 	{
 		str = _global->userInformation->getGameText().find("锤僵尸模式")->second;
 	}
-	else
+	else if (_id == 1)
 	{
 		str = _global->userInformation->getGameText().find("植物试炼场解锁")->second;
+	}
+	else
+	{
+		str = _global->userInformation->getGameText().find("网络连接失败")->second;
 	}
 	auto information = Text::create(StringUtils::format(str->text.c_str(), unlockNeedNumbers), GAME_FONT_NAME_1, str->fontsize);
 	information->setColor(Color3B::RED);

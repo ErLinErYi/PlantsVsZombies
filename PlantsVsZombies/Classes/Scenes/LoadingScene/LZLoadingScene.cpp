@@ -164,11 +164,11 @@ void LoadingScene::loadUserData()
 	}
 
 	/* 是否隐藏鼠标 */
-	_global->userInformation->setIsSelectCursorNotHide(_userData->openBoolUserData("CURSORHIDE") ?
+	_global->userInformation->setIsSelectCursorNotHide(_userData->openBoolUserData(const_cast<char*>("CURSORHIDE")) ?
 		cocos2d::ui::CheckBox::EventType::SELECTED : cocos2d::ui::CheckBox::EventType::UNSELECTED);
 
 	/* 是否显示缓入动画 */
-	_global->userInformation->setIsEaseAnimation(_userData->openBoolUserData("EASEANIMATION") ?
+	_global->userInformation->setIsEaseAnimation(_userData->openBoolUserData(const_cast<char*>("EASEANIMATION")) ?
 		cocos2d::ui::CheckBox::EventType::SELECTED : cocos2d::ui::CheckBox::EventType::UNSELECTED);
 
 #ifndef _DEBUG
@@ -197,30 +197,30 @@ void LoadingScene::loadUserFileData()
 	Global::getInstance()->userInformation->setSoundEffectVolume(UserDefault::getInstance()->getFloatForKey("SOUNDEFFECT"));            /* 音效 */
 	Global::getInstance()->userInformation->setBackGroundMusicVolume(UserDefault::getInstance()->getFloatForKey("GLOBALMUSIC"));        /* 音乐 */
 
-	if (!UserData::getInstance()->openBoolUserData("FIRSTRUNGAME"))
+	if (!UserData::getInstance()->openBoolUserData(const_cast<char*>("FIRSTRUNGAME")))
 	{
-		UserData::getInstance()->caveUserData("EASEANIMATION", true);
-		UserData::getInstance()->caveUserData("CURSORHIDE", true);
-		UserData::getInstance()->caveUserData("JUMPLEVELNUMBERS", 5);
-		UserData::getInstance()->caveUserData("FIRSTRUNGAME", true);
+		UserData::getInstance()->caveUserData(const_cast<char*>("EASEANIMATION"), true);
+		UserData::getInstance()->caveUserData(const_cast<char*>("CURSORHIDE"), true);
+		UserData::getInstance()->caveUserData(const_cast<char*>("JUMPLEVELNUMBERS"), 5);
+		UserData::getInstance()->caveUserData(const_cast<char*>("FIRSTRUNGAME"), true);
 	}
 
-	Global::getInstance()->userInformation->setKillZombiesNumbers(UserData::getInstance()->openIntUserData("KILLALLZOMBIES"));          /* 杀死僵尸数 */
-	Global::getInstance()->userInformation->setUsePlantsNumbers(UserData::getInstance()->openIntUserData("USEPLANTSNUMBERS"));          /* 使用植物数量 */
-	Global::getInstance()->userInformation->setIsShowEggs(UserData::getInstance()->openBoolUserData("ISBEGINSHOWEGGS"));                /* 显示彩蛋 */
-	Global::getInstance()->userInformation->setCoinNumbers(UserData::getInstance()->openIntUserData("COINNUMBERS"));                    /* 金币数 */
-	Global::getInstance()->userInformation->setBreakThroughNumbers(UserData::getInstance()->openIntUserData("BREAKTHROUGH"));           /* 闯关失败个数 */
+	Global::getInstance()->userInformation->setKillZombiesNumbers(UserData::getInstance()->openIntUserData(const_cast<char*>("KILLALLZOMBIES")));          /* 杀死僵尸数 */
+	Global::getInstance()->userInformation->setUsePlantsNumbers(UserData::getInstance()->openIntUserData(const_cast<char*>("USEPLANTSNUMBERS")));          /* 使用植物数量 */
+	Global::getInstance()->userInformation->setIsShowEggs(UserData::getInstance()->openBoolUserData(const_cast<char*>("ISBEGINSHOWEGGS")));                /* 显示彩蛋 */
+	Global::getInstance()->userInformation->setCoinNumbers(UserData::getInstance()->openIntUserData(const_cast<char*>("COINNUMBERS")));                    /* 金币数 */
+	Global::getInstance()->userInformation->setBreakThroughNumbers(UserData::getInstance()->openIntUserData(const_cast<char*>("BREAKTHROUGH")));           /* 闯关失败个数 */
 
 	Global::getInstance()->userInformation->newUserSelectWorldData();
 }
 
 void LoadingScene::caveUserFileData()
 {
-	UserData::getInstance()->caveUserData("KILLALLZOMBIES", Global::getInstance()->userInformation->getKillZombiesNumbers());
-	UserData::getInstance()->caveUserData("USEPLANTSNUMBERS", Global::getInstance()->userInformation->getUsePlantsNumbers());
-	UserData::getInstance()->caveUserData("BREAKTHROUGH", Global::getInstance()->userInformation->getBreakThroughNumbers());
-	UserData::getInstance()->caveUserData("ISBEGINSHOWEGGS", Global::getInstance()->userInformation->getIsShowEggs());
-	UserData::getInstance()->caveUserData("COINNUMBERS", Global::getInstance()->userInformation->getCoinNumbers());
+	UserData::getInstance()->caveUserData(const_cast<char*>("KILLALLZOMBIES"), Global::getInstance()->userInformation->getKillZombiesNumbers());
+	UserData::getInstance()->caveUserData(const_cast<char*>("USEPLANTSNUMBERS"), Global::getInstance()->userInformation->getUsePlantsNumbers());
+	UserData::getInstance()->caveUserData(const_cast<char*>("BREAKTHROUGH"), Global::getInstance()->userInformation->getBreakThroughNumbers());
+	UserData::getInstance()->caveUserData(const_cast<char*>("ISBEGINSHOWEGGS"), Global::getInstance()->userInformation->getIsShowEggs());
+	UserData::getInstance()->caveUserData(const_cast<char*>("COINNUMBERS"), Global::getInstance()->userInformation->getCoinNumbers());
 }
 
 void LoadingScene::showLoadingBackGround()
@@ -447,7 +447,9 @@ void LoadingScene::update(float Time)
 		loadingFinished = true;
 
 		selectLanguage();
+#ifndef _DEBUG
 		COUNTPLAYERS
+#endif
 	}
 }
 

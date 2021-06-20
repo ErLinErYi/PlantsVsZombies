@@ -40,10 +40,8 @@ class GSButtonLayer :public SPSControlLayer
 public:
 	CREATE_FUNC(GSButtonLayer);
 
-	/**
-	 *添加到主场景中
-	 */
 	void addLayer(Node* node, const int order, const string& name) { node->addChild(this, order, name); }
+	virtual void updateShovel(bool isHaveShovel = true);
 
 CC_CONSTRUCTOR_ACCESS:
 	GSButtonLayer();
@@ -71,7 +69,7 @@ protected:
 public:
 	MouseSelectImage* mouseSelectImage;                            // 鼠标选择
 	PlantsInformation::PlantsCards plantsCards[PLANTSNUMBERS];     // 植物卡片
-	Button* nextWaveButton;                                       // 下一波按钮
+	Button* nextWaveButton;                                        // 下一波按钮
 	
 protected:
 	Global* _global;                                     // 全局变量
@@ -79,6 +77,7 @@ protected:
 	Layer* _quitLayer;                                   // 退出屏蔽层
 	Button* _accelerateButton;                           // 加速按钮
 	Button* _decelerateButton;                           // 减速按钮
+	Button* _shovelBank;                                 // 铲子
 	OpenLevelData* _openLevelData;
 };
 

@@ -42,7 +42,7 @@ void HInformationLayer::showUserText()
 		_global->userInformation->getGameText().find("手指灵活度与忍耐度训练")->second->text +
 		_global->userInformation->getGameText().find("锤僵尸小游戏")->second->text +
 		StringUtils::format(_global->userInformation->getGameText().find("第 %d 天")->second->text.c_str(),
-			max(UserData::getInstance()->openIntUserData("HAMMERZOMBIES_LEVEL_NUMBER"), 1)) +
+			max(UserData::getInstance()->openIntUserData(const_cast<char*>("HAMMERZOMBIES_LEVEL_NUMBER")), 1)) +
 		_global->userInformation->getGameText().find("无尽模式")->second->text);
 	username->setFontName(GAME_FONT_NAME_1);
 	username->setFontSize(_global->userInformation->getGameText().find("手指灵活度与忍耐度训练")->second->fontsize);

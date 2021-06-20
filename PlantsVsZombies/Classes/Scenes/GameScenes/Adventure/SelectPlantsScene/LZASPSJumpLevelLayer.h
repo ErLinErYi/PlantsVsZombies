@@ -32,7 +32,7 @@ private:
     void createText();
     void showButton();
     void jumpLevel();
-    void createButton(Vec2& vec2, string title, const int id);
+    void createButton(const Vec2& vec2, string title, const int id);
 
 private:
     Sprite* _jumpLevelDialog;

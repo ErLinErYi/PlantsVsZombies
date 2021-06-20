@@ -42,14 +42,14 @@ protected:
 	/**
 	 *创建标签
 	 */
-	virtual Label* label(const std::string &name, const float& fontsize, Vec2 &vec2 = Vec2(0, 0), 
+	virtual Label* label(const std::string &name, const float& fontsize, const Vec2 &vec2 = Vec2(0, 0), 
 		const float& space = 0, const Color3B& color = Color3B::GREEN, const float& scale = 1);
 
 	/**
 	 *创建按钮上的标签 
 	 */
 	virtual void createLabel(Sprite* sprite, MenuItemImage* MenuItem, const std::string &name, 
-		Vec2 &vec2, float& fontsize, const float& space = 0, const Color3B& color = Color3B::GREEN);
+		const Vec2 &vec2, float& fontsize, const float& space = 0, const Color3B& color = Color3B::GREEN);
 
 	/**
 	 *创建屏蔽层

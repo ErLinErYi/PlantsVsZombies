@@ -31,7 +31,7 @@ VideoPlayer::VideoPlayer() :
 
 VideoPlayer::~VideoPlayer()
 {
-    CCSprite::~CCSprite();
+    Sprite::~Sprite();
     free(videobuf);
 
     libvlc_media_player_stop(vlc_player);

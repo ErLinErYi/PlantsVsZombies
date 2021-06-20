@@ -26,7 +26,7 @@ bool HAnimationLayer::init()
 {
 	if (!Layer::init())return false;
 
-	if (UserData::getInstance()->openIntUserData("HAMMERZOMBIES_LEVEL_NUMBER") >= 50)showCars();
+	if (UserData::getInstance()->openIntUserData(const_cast<char*>("HAMMERZOMBIES_LEVEL_NUMBER")) >= 50)showCars();
 
 	schedule([&](float delta) { gameMainLoop(delta); }, "gameMainLoop");
 	schedule([&](float) { coinDeleteUpdate(); }, 2.0f, "coinDeleteUpdate");

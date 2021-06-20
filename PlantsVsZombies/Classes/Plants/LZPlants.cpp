@@ -28,21 +28,25 @@ PlantsInformation::PlantsCardInformation plantsCardInformation[] =
 	{"Torchwood",              "PlantsIcon2",     "C",    3,    6,          0,         0,      0, 0,     false,   PlantsType::Torchwood,           Color3B::RED                            },  /* 火炬树桩 */
 	{"Spikeweed",              "PlantsIcon12",    "B",    3,    7,          0,         0,      0, 0,     false,   PlantsType::Spikeweed,           Color3B(0,64,0)                         },  /* 地刺 */
 	{"Garlic",                 "PlantsIcon10",    "B",    3,    8,          0,         0,      0, 0,     false,   PlantsType::Garlic,              Color3B(218,205,182)                    },  /* 大蒜 */
-	{"IceBergLettuce",         "PlantsIcon15",    "B",    3,    9,          0,         0,      0, 0,     false,   PlantsType::IceBergLettuce,      Color3B(99,202,178),  { 1000,  800   }  },  /* 冰莴苣 */
-	{"Chomper",                "PlantsIcon8",     "B",    3,    10,         0,         0,      0, 0,     false,   PlantsType::Chomper,             Color3B(152,66,184),  { 2000,  2000  }  },  /* 大嘴花 */
-	{"IcePeaShooter",          "PlantsIcon15",    "A",    2,    11,         0,         0,      0, 0,     false,   PlantsType::IcePeaShooter,       Color3B(47,202,207),  { 4000,  4400  }  },  /* 寒冰豌豆射手 */
-	{"FirePeaShooter",         "PlantsIcon2",     "A",    2,    12,         0,         0,      0, 0,     false,   PlantsType::FirePeaShooter,      Color3B::RED,         { 6000,  7000  }  },  /* 火焰豌豆射手 */
-	{"LemonShooter",           "PlantsIcon10",    "A",    2,    13,         0,         0,      0, 0,     false,   PlantsType::AcidLemonShooter,    Color3B(232,199,23),  { 9000,  10000 }  },  /* 柠檬射手 */
-	{"SunFlowerTwin",          "PlantsIcon4",     "A",    2,    14,         0,         0,      0, 0,     false,   PlantsType::SunFlowerTwin,       Color3B::YELLOW,      { 12000, 14000 }  },  /* 双胞向日葵 */
-	{"WaterMelonPult",         "PlantsIcon3",     "A",    2,    15,         0,         0,      0, 0,     false,   PlantsType::WaterMelonPult,      Color3B(23,79,50),    { 15000, 18000 }  },  /* 西瓜投手 */
-	{"Jalapeno",               "PlantsIcon2",     "A",    2,    16,         0,         0,      0, 0,     false,   PlantsType::Jalapeno,            Color3B::RED,         { 18000, 23000 }  },  /* 火爆辣椒 */
-	{"JalapenoVariation",      "PlantsIcon2",     "S",    1,    17,         0,         0,      0, 0,     true,    PlantsType::JalapenoVariation,   Color3B(100,0,0),     { 22000, 28000 }  },  /* 火爆辣椒变异 */
-	{"ThreePeaShooter",        "PlantsIcon5",     "S",    1,    18,         0,         0,      0, 0,     false,   PlantsType::ThreePeaShooter,     Color3B::GREEN,       { 25000, 32000 }  },  /* 三头豌豆射手 */
-	{"StarFruit",              "PlantsIcon9",     "S",    1,    19,         0,         0,      0, 0,     false,   PlantsType::StarFruit,           Color3B::ORANGE,      { 30000, 36000 }  },  /* 杨桃 */
-	{"WinterMelonPult",        "PlantsIcon15",    "SSS",  1,    20,         0,         0,      0, 0,     false,   PlantsType::WinterMelonPult,     Color3B(47,202,207),  { 35000, 41000 }  },  /* 冰瓜投手 */
-	{"Citron",                 "PlantsIcon",      "SS",   1,    21,         0,         0,      0, 0,     false,   PlantsType::Citron,              Color3B(0,255,255),   { 40000, 46000 }  },  /* 离子缘 */
-	{"CatTail",                "PlantsIcon11",    "SSS",  1,    22,         0,         0,      0, 0,     false,   PlantsType::CatTail,             Color3B::MAGENTA,     { 44000, 50000 }  },  /* 香蒲 */
-	{"GloomShroom",            "PlantsIcon13",    "SSS",  1,    23,         0,         0,      0, 0,     false,   PlantsType::GloomShroom,         Color3B(163,73,164),  { 50666, 56666 }  },  /* 忧郁菇 */
+	{"IceBergLettuce",         "PlantsIcon15",    "B",    3,    9,          0,         0,      0, 0,     false,   PlantsType::IceBergLettuce,      Color3B(99,202,178),  { 1000,  1000  }  },  /* 冰莴苣 */
+	{"Marigold",               "PlantsIcon9",     "B",    3,    10,         0,         0,      0, 0,     false,   PlantsType::Marigold,            Color3B::ORANGE,      { 1500,  1500  }  },  /* 金盏花 */
+	{"Chomper",                "PlantsIcon8",     "B",    3,    11,         0,         0,      0, 0,     false,   PlantsType::Chomper,             Color3B(152,66,184),  { 2000,  2000  }  },  /* 大嘴花 */
+	{"IcePeaShooter",          "PlantsIcon15",    "A",    2,    12,         0,         0,      0, 0,     false,   PlantsType::IcePeaShooter,       Color3B(47,202,207),  { 4500,  4500  }  },  /* 寒冰豌豆射手 */
+	{"FirePeaShooter",         "PlantsIcon2",     "A",    2,    13,         0,         0,      0, 0,     false,   PlantsType::FirePeaShooter,      Color3B::RED,         { 7000,  7000  }  },  /* 火焰豌豆射手 */
+	{"LemonShooter",           "PlantsIcon10",    "A",    2,    14,         0,         0,      0, 0,     false,   PlantsType::AcidLemonShooter,    Color3B(232,199,23),  { 10000, 10000 }  },  /* 柠檬射手 */
+	{"Blover",                 "PlantsIcon11",    "B",    3,    15,         0,         0,      0, 0,     false,   PlantsType::Blover,              Color3B::GREEN,       { 12000, 12000 }  },  /* 三叶草 */
+	{"SunFlowerTwin",          "PlantsIcon4",     "A",    2,    16,         0,         0,      0, 0,     false,   PlantsType::SunFlowerTwin,       Color3B::YELLOW,      { 14000, 14000 }  },  /* 双胞向日葵 */
+	{"WaterMelonPult",         "PlantsIcon3",     "A",    2,    17,         0,         0,      0, 0,     false,   PlantsType::WaterMelonPult,      Color3B(23,79,50),    { 18000, 18000 }  },  /* 西瓜投手 */
+	{"Pumpkin",                "PlantsIcon6",     "A",    2,    18,         0,         0,      0, 0,     false,   PlantsType::Pumpkin,             Color3B::ORANGE,      { 23000, 23000 }  },  /* 南瓜头 */
+    {"Jalapeno",               "PlantsIcon2",     "A",    2,    19,         0,         0,      0, 0,     false,   PlantsType::Jalapeno,            Color3B::RED,         { 28000, 28000 }  },  /* 火爆辣椒 */
+	{"MagnetShroom",           "PlantsIcon",      "A",    2,    20,         0,         0,      0, 0,     false,   PlantsType::MagnetShroom,        Color3B(64,0,64),     { 33000, 33000 }  },  /* 磁力菇 */
+	{"JalapenoVariation",      "PlantsIcon2",     "S",    1,    21,         0,         0,      0, 0,     true,    PlantsType::JalapenoVariation,   Color3B(100,0,0),     { 38000, 38000 }  },  /* 火爆辣椒变异 */
+	{"ThreePeaShooter",        "PlantsIcon5",     "S",    1,    22,         0,         0,      0, 0,     false,   PlantsType::ThreePeaShooter,     Color3B::GREEN,       { 44000, 44000 }  },  /* 三头豌豆射手 */
+	{"StarFruit",              "PlantsIcon9",     "S",    1,    23,         0,         0,      0, 0,     false,   PlantsType::StarFruit,           Color3B::ORANGE,      { 50000, 50000 }  },  /* 杨桃 */
+	{"WinterMelonPult",        "PlantsIcon15",    "SSS",  1,    24,         0,         0,      0, 0,     false,   PlantsType::WinterMelonPult,     Color3B(47,202,207),  { 57000, 57000 }  },  /* 冰瓜投手 */
+	{"Citron",                 "PlantsIcon",      "SS",   1,    25,         0,         0,      0, 0,     false,   PlantsType::Citron,              Color3B(0,255,255),   { 64000, 64000 }  },  /* 离子缘 */
+	{"CatTail",                "PlantsIcon11",    "SSS",  1,    26,         0,         0,      0, 0,     false,   PlantsType::CatTail,             Color3B::MAGENTA,     { 72000, 72000 }  },  /* 香蒲 */
+	{"GloomShroom",            "PlantsIcon13",    "SSS",  1,    27,         0,         0,      0, 0,     false,   PlantsType::GloomShroom,         Color3B(163,73,164),  { 82000, 82000 }  },  /* 忧郁菇 */
 	/* 植物图片名称 */         /* 标志名称 */    /*品质*/    /*优先级*/  /*阳光数*/  /*时间*/           /*反转*/       /*植物类型*/                   /* 颜色 */            /* 要求 */
 };
 #else
@@ -57,21 +61,25 @@ PlantsInformation::PlantsCardInformation plantsCardInformation[] =
 	{"Torchwood",             "PlantsIcon2",    "C",    3,   6,          175,         7.5f,      0, 0,     false,   PlantsType::Torchwood,           Color3B::RED                            },  /* 火炬树桩 */
 	{"Spikeweed",             "PlantsIcon12",   "B",    3,   7,          100,         7.5f,      0, 0,     false,   PlantsType::Spikeweed,           Color3B(0,64,0)                         },  /* 地刺 */
 	{"Garlic",                "PlantsIcon10",   "B",    3,   8,          50,          10,        0, 0,     false,   PlantsType::Garlic,              Color3B(218,205,182)                    },  /* 大蒜 */
-	{"IceBergLettuce",        "PlantsIcon15",   "B",    3,   9,          0,           20,        0, 0,     false,   PlantsType::IceBergLettuce,      Color3B(99,202,178),  { 1000,  800   }  },  /* 冰莴苣 */
-	{"Chomper",               "PlantsIcon8",    "B",    3,   10,         150,         7.5f,      0, 0,     false,   PlantsType::Chomper,             Color3B(152,66,184),  { 2000,  2000  }  },  /* 大嘴花 */
-	{"IcePeaShooter",         "PlantsIcon15",   "B",    2,   11,         175,         10,        0, 0,     false,   PlantsType::IcePeaShooter,       Color3B(47,202,207),  { 4000,  4400  }  },  /* 寒冰豌豆射手 */
-	{"FirePeaShooter",        "PlantsIcon2",    "B",    2,   12,         200,         10,        0, 0,     false,   PlantsType::FirePeaShooter,      Color3B::RED,         { 6000,  7000  }  },  /* 火焰豌豆射手 */
-	{"LemonShooter",          "PlantsIcon10",   "A",    2,   13,         175,         7.5f,      0, 0,     false,   PlantsType::AcidLemonShooter,    Color3B(232,199,23),  { 9000,  10000 }  },  /* 柠檬射手 */
-	{"SunFlowerTwin",         "PlantsIcon4",    "A",    2,   14,         100,         15,        0, 0,     false,   PlantsType::SunFlowerTwin,       Color3B::YELLOW,      { 12000, 14000 }  },  /* 双胞向日葵 */
-	{"WaterMelonPult",        "PlantsIcon3",    "A",    2,   15,         225,         10,        0, 0,     false,   PlantsType::WaterMelonPult,      Color3B(23,79,50),    { 15000, 18000 }  },  /* 西瓜投手 */
-	{"Jalapeno",              "PlantsIcon2",    "A",    2,   16,         150,         37.5f,     0, 0,     false,   PlantsType::Jalapeno,            Color3B::RED,         { 18000, 23000 }  },  /* 火爆辣椒 */
-	{"JalapenoVariation",     "PlantsIcon2",    "S",    1,   17,         175,         37.5f,     0, 0,     true,    PlantsType::JalapenoVariation,   Color3B(100,0,0),     { 22000, 28000 }  },  /* 火爆辣椒变异 */
-	{"ThreePeaShooter",       "PlantsIcon5",    "S",    1,   18,         225,         7.5f,      0, 0,     false,   PlantsType::ThreePeaShooter,     Color3B::GREEN,       { 25000, 32000 }  },  /* 三头豌豆射手 */
-	{"StarFruit",             "PlantsIcon9",    "S",    1,   19,         125,         7.5f,      0, 0,     false,   PlantsType::StarFruit,           Color3B::ORANGE,      { 30000, 36000 }  },  /* 杨桃 */
-	{"WinterMelonPult",       "PlantsIcon15",   "SSS",  1,   20,         300,         20,        0, 0,     false,   PlantsType::WinterMelonPult,     Color3B(47,202,207),  { 35000, 41000 }  },  /* 冰瓜投手 */
-	{"Citron",                "PlantsIcon",     "SS",   1,   21,         275,         15,        0, 0,     false,   PlantsType::Citron,              Color3B(0,255,255),   { 40000, 46000 }  },  /* 离子缘 */
-	{"CatTail",               "PlantsIcon11",   "SSS",  1,   22,         225,         10,        0, 0,     false,   PlantsType::CatTail,             Color3B::MAGENTA,     { 44000, 50000 }  },  /* 香蒲 */
-	{"GloomShroom",           "PlantsIcon13",   "SSS",  1,   23,         275,         40,        0, 0,     false,   PlantsType::GloomShroom,         Color3B(163,73,164),  { 50666, 56666 }  },  /* 忧郁菇 */
+	{"IceBergLettuce",        "PlantsIcon15",   "B",    3,   9,          0,           20,        0, 0,     false,   PlantsType::IceBergLettuce,      Color3B(99,202,178),  { 1000,  1000  }  },  /* 冰莴苣 */
+	{"Marigold",              "PlantsIcon9",    "B",    3,   10,         50,          30,        0, 0,     false,   PlantsType::Marigold,            Color3B::ORANGE,      { 1500,  1500  }  },  /* 金盏花 */
+	{"Chomper",               "PlantsIcon8",    "B",    3,   11,         150,         7.5f,      0, 0,     false,   PlantsType::Chomper,             Color3B(152,66,184),  { 2000,  2000  }  },  /* 大嘴花 */
+	{"IcePeaShooter",         "PlantsIcon15",   "B",    2,   12,         175,         10,        0, 0,     false,   PlantsType::IcePeaShooter,       Color3B(47,202,207),  { 4500,  4500  }  },  /* 寒冰豌豆射手 */
+	{"FirePeaShooter",        "PlantsIcon2",    "B",    2,   13,         200,         10,        0, 0,     false,   PlantsType::FirePeaShooter,      Color3B::RED,         { 7000,  7000  }  },  /* 火焰豌豆射手 */
+	{"LemonShooter",          "PlantsIcon10",   "A",    2,   14,         175,         7.5f,      0, 0,     false,   PlantsType::AcidLemonShooter,    Color3B(232,199,23),  { 10000, 10000 }  },  /* 柠檬射手 */
+	{"Blover",                "PlantsIcon11",   "B",    3,   15,         50,          7.5f,      0, 0,     false,   PlantsType::Blover,              Color3B::GREEN,       { 12000, 12000 }  },  /* 三叶草 */
+	{"SunFlowerTwin",         "PlantsIcon4",    "A",    2,   16,         100,         15,        0, 0,     false,   PlantsType::SunFlowerTwin,       Color3B::YELLOW,      { 14000, 14000 }  },  /* 双胞向日葵 */
+	{"WaterMelonPult",        "PlantsIcon3",    "A",    2,   17,         225,         10,        0, 0,     false,   PlantsType::WaterMelonPult,      Color3B(23,79,50),    { 18000, 18000 }  },  /* 西瓜投手 */
+	{"Pumpkin",               "PlantsIcon6",    "A",    2,   18,         150,         30,        0, 0,     false,   PlantsType::Pumpkin,             Color3B::ORANGE,      { 23000, 23000 }  },  /* 南瓜头 */
+	{"Jalapeno",              "PlantsIcon2",    "A",    2,   19,         150,         37.5f,     0, 0,     false,   PlantsType::Jalapeno,            Color3B::RED,         { 28000, 28000 }  },  /* 火爆辣椒 */
+	{"MagnetShroom",          "PlantsIcon",     "A",    2,   20,         100,         10,        0, 0,     false,   PlantsType::MagnetShroom,        Color3B(64,0,64),     { 33000, 33000 }  },  /* 磁力菇 */
+	{"JalapenoVariation",     "PlantsIcon2",    "S",    1,   21,         175,         37.5f,     0, 0,     true,    PlantsType::JalapenoVariation,   Color3B(100,0,0),     { 38000, 38000 }  },  /* 火爆辣椒变异 */
+	{"ThreePeaShooter",       "PlantsIcon5",    "S",    1,   22,         225,         7.5f,      0, 0,     false,   PlantsType::ThreePeaShooter,     Color3B::GREEN,       { 44000, 44000 }  },  /* 三头豌豆射手 */
+	{"StarFruit",             "PlantsIcon9",    "S",    1,   23,         125,         7.5f,      0, 0,     false,   PlantsType::StarFruit,           Color3B::ORANGE,      { 50000, 50000 }  },  /* 杨桃 */
+	{"WinterMelonPult",       "PlantsIcon15",   "SSS",  1,   24,         300,         20,        0, 0,     false,   PlantsType::WinterMelonPult,     Color3B(47,202,207),  { 57000, 57000 }  },  /* 冰瓜投手 */
+	{"Citron",                "PlantsIcon",     "SS",   1,   25,         275,         15,        0, 0,     false,   PlantsType::Citron,              Color3B(0,255,255),   { 64000, 64000 }  },  /* 离子缘 */
+	{"CatTail",               "PlantsIcon11",   "SSS",  1,   26,         225,         10,        0, 0,     false,   PlantsType::CatTail,             Color3B::MAGENTA,     { 72000, 72000 }  },  /* 香蒲 */
+	{"GloomShroom",           "PlantsIcon13",   "SSS",  1,   27,         275,         40,        0, 0,     false,   PlantsType::GloomShroom,         Color3B(163,73,164),  { 82000, 82000 }  },  /* 忧郁菇 */
 	/* 植物图片名称 */       /* 标志名称 */    /*品质*/   /*优先级*/  /*阳光数*/   /*时间*/              /*反转*/       /*植物类型*/                   /* 颜色 */            /* 要求 */
 };
 #endif // _DEBUG
@@ -296,8 +304,8 @@ bool Plants::getZombieIsEncounterPlant(Zombies* zombie)
 
 void Plants::zombieEatPlant(Zombies* zombie)
 {
-	if (getPlantIsSurvive() && Plants::getZombieIsSameLineWithPlant(zombie) &&       /* 植物存活 && 植物与僵尸在同一行 */
-		Plants::getZombieIsEncounterPlant(zombie) && zombie->getZombieIsEatPlants()) /* 僵尸遇到植物 && 僵尸是吃植物的僵尸 */
+	if (getPlantIsSurvive() && Plants::getZombieIsSameLineWithPlant(zombie) &&                  /* 植物存活 && 植物与僵尸在同一行 */
+		Plants::getZombieIsEncounterPlant(zombie) && zombie->getZombieIsEatPlants())            /* 僵尸遇到植物 && 僵尸是吃植物的僵尸 */
 	{
 		setZombieEatPlantControl(zombie);
 	}

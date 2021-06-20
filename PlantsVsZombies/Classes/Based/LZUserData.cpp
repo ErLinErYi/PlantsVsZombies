@@ -32,7 +32,7 @@
 #endif // !DLLTEST
 
 UserData* UserData::_instance = nullptr;
-int UserData::_levelDataVersion = 1313;
+int UserData::_levelDataVersion = 1315;
 
 UserData::UserData() :
   _global(Global::getInstance())
@@ -824,9 +824,9 @@ void UserData::openLevelData(char* key)
 {
 	if (readLevelData())
 	{
+		openLevelOtherData(key);
 		openLevelPlantsData(key);
 		openLevelZombiesData(key);
-		openLevelOtherData(key);
 		openLevelSunData(key);
 		openLevelCoinData(key);
 		openLevelCarData(key);
@@ -913,9 +913,13 @@ void UserData::openLevelPlantsData(char* key)
 		plants->getPlantAnimation()->getChildByName("SplashOfSoil")->setOpacity(0);
 		plants->getPlantAnimation()->getChildByName("BufEffect")->setOpacity(0);
 
+		plants->setPlantOtherInformation(_levelDataDocument, key, i);
 		PlantsGroup.insert(pair<int, Plants*>((*_levelDataDocument)[key]["Plants"][to_string(i).c_str()]["PlantsTag"].GetInt(), plants));
 		
-		controlLayerInformation->gameMapInformation->plantsMap[plants->getPlantRow()][plants->getPlantColumn()] = static_cast<unsigned int>(type);/* 地图记录种植的植物 */
+		if (type != PlantsType::Pumpkin)
+		{
+			controlLayerInformation->gameMapInformation->plantsMap[plants->getPlantRow()][plants->getPlantColumn()] = static_cast<unsigned int>(type);/* 地图记录种植的植物 */
+		}
 	}
 }
 

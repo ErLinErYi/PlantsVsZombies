@@ -302,6 +302,8 @@ DWORD UserInformation::getScreenDisplayFrequency()
         ::EnumDisplaySettings(nullptr, ENUM_CURRENT_SETTINGS, &dm);
         _screenDisplayFrequency = dm.dmDisplayFrequency;
     }
+    if (!_screenDisplayFrequency)_screenDisplayFrequency = 60;
+
     return _screenDisplayFrequency;
 }
 

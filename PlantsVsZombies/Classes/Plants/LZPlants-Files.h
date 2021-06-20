@@ -28,9 +28,13 @@
 #include "Plants/BattlePlants/LZChomper.h"
 #include "Plants/BattlePlants/LZGloomShroom.h"
 #include "Plants/BattlePlants/LZIceBergLettuce.h"
+#include "Plants/BattlePlants/LZBlover.h"
 
 #include "Plants/DefensePlants/LZTorchwood.h"
 #include "Plants/DefensePlants/LZWallNut.h"
 #include "Plants/DefensePlants/LZGarlic.h"
 #include "Plants/DefensePlants/LZSunFlower.h"
 #include "Plants/DefensePlants/LZSunFlowerTwin.h"
+#include "Plants/DefensePlants/LZPumpkin.h"
+#include "Plants/DefensePlants/LZMarigold.h"
+#include "Plants/DefensePlants/LZMagnetShroom.h"

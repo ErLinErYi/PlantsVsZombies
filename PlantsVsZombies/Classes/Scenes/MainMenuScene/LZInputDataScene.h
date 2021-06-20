@@ -40,8 +40,8 @@ private:
 	void createDeleteDialog();
 
 	/* 创建按钮 */
-	void createButtons(Sprite* sprite, const std::string &Label, Vec2 &vec2, const float& scale, const int& ID);
-	void createDataButton(const std::string& Label, Vec2& vec2, const float& scale, const int& ID);
+	void createButtons(Sprite* sprite, const std::string &Label, const Vec2 &vec2, const float& scale, const int& ID);
+	void createDataButton(const std::string& Label, const Vec2& vec2, const float& scale, const int& ID);
 	void createShieldLayer();
 	void setButtonColor(Button* button);
 	void setButtonText(Button* button, const string& text, const float& scale);

@@ -27,7 +27,7 @@ protected:
 
 private:
 	void createDiglog();	/* 创建对话框 */
-	void createButtons(const std::string& Label, Vec2& vec2, const int& ID);/* 创建按钮 */
+	void createButtons(const std::string& Label, const Vec2& vec2, const int& ID);/* 创建按钮 */
 	void caveTime(const int time);
 	void quitGame();
 

@@ -70,9 +70,11 @@ void GSGameEndLayer::successfullEntry()
 
 void GSGameEndLayer::breakThrough(GameTypes gameType)
 {
+	GSPauseQuitLayer::pauseLayer();
+
 	Director::getInstance()->getOpenGLView()->setCursor("resources/Images/System/cursor.png", Point::ANCHOR_TOP_LEFT);
 
-	UserData::getInstance()->caveUserData("BREAKTHROUGH",++_global->userInformation->getBreakThroughNumbers());/* 记录闯关失败个数 */
+	UserData::getInstance()->caveUserData(const_cast<char*>("BREAKTHROUGH"),++_global->userInformation->getBreakThroughNumbers());/* 记录闯关失败个数 */
 	UserData::getInstance()->createNewLevelDataDocument();
 	UserData::getInstance()->removeLevelData(_global->userInformation->getCurrentCaveFileLevelWorldName());
 
@@ -194,7 +196,7 @@ void GSGameEndLayer::caveLevelNumber()
 
 	if (_global->userInformation->getCurrentPlayLevels() >= 52)
 	{
-		UserData::getInstance()->caveUserData("ISBEGINSHOWEGGS", true);
+		UserData::getInstance()->caveUserData(const_cast<char*>("ISBEGINSHOWEGGS"), true);
 		_global->userInformation->setIsShowEggs(true);
 	}
 }
@@ -267,7 +269,7 @@ void GSGameEndLayer::rewardCoin(Button* button)
 							CallFunc::create([=]()
 								{
 									/* 保存金币数 */
-									UserData::getInstance()->caveUserData("COINNUMBERS", _global->userInformation->getCoinNumbers());
+									UserData::getInstance()->caveUserData(const_cast<char*>("COINNUMBERS"), _global->userInformation->getCoinNumbers());
 									
 									ModernWorld::setPopEnter(true);
 									_director->popScene();

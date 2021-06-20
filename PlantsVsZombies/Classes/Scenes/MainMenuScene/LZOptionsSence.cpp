@@ -13,7 +13,8 @@
 
 OptionsMenu::OptionsMenu():
 	_userDefault(UserDefault::getInstance()),
-	_director(Director::getInstance())
+	_director(Director::getInstance()),
+	_frameCheckBox(nullptr)
 {
 }
  
@@ -56,9 +57,10 @@ void OptionsMenu::createDialog()
 		Sprite::createWithSpriteFrameName("options_sliderknob2.png"));
 
 	/* 创建复选框 */
-	this->createCheckBox(Vec2(300, 280), Vec2(140, 280), _global->userInformation->getGameText().find("信息")->second->text, OptionScene_CheckBox::显示信息, "options_checkbox0", "options_checkbox1");
+	_frameCheckBox = createCheckBox(Vec2(300, 280), Vec2(245, 280), _global->userInformation->getGameText().find("帧同步")->second->text, OptionScene_CheckBox::垂直同步, "options_checkbox0", "options_checkbox1");
+	this->createCheckBox(Vec2(190, 280), Vec2(135, 280), _global->userInformation->getGameText().find("高帧率")->second->text, OptionScene_CheckBox::高帧率, "options_checkbox0", "options_checkbox1");
 	this->createCheckBox(Vec2(300, 245), Vec2(140, 245), _global->userInformation->getGameText().find("全屏")->second->text, OptionScene_CheckBox::全屏, "options_checkbox0", "options_checkbox1");
-	this->createCheckBox(Vec2(300, 210), Vec2(140, 210), _global->userInformation->getGameText().find("高帧率")->second->text, OptionScene_CheckBox::高帧率, "options_checkbox0", "options_checkbox1");
+	this->createCheckBox(Vec2(300, 210), Vec2(140, 210), _global->userInformation->getGameText().find("信息")->second->text, OptionScene_CheckBox::显示信息, "options_checkbox0", "options_checkbox1");
 	this->createCheckBox(Vec2(300, 175), Vec2(140, 175), _global->userInformation->getGameText().find("拉伸显示")->second->text, OptionScene_CheckBox::拉伸显示, "options_checkbox0", "options_checkbox1");
 
 	/* 创建彩蛋 */
@@ -93,7 +95,7 @@ void OptionsMenu::createDialog()
 	this->createButton();
 }
 
-ControlSlider* OptionsMenu::createSlider(Vec2& vec2, Vec2& vec2_, const std::string& Label, OptionScene_Slider slider_type,
+ControlSlider* OptionsMenu::createSlider(const Vec2& vec2, const Vec2& vec2_, const std::string& Label, OptionScene_Slider slider_type,
 	Sprite* BgFile, Sprite* progressFile, Sprite* thumbFile, Sprite* selectthumbFile, const bool IsNew)
 {
 	/* 创建滑动条 */
@@ -167,13 +169,31 @@ void OptionsMenu::soundEffectMusicVolumeChangeCallBack(Ref* sender, Control::Eve
 	}
 }
 
+void OptionsMenu::updateFrameSynchronization()
+{
+	if (_frameCheckBox)
+	{
+		_frameCheckBox->setSelected(_global->userInformation->getIsVerticalSynchronization() == cocos2d::ui::CheckBox::EventType::SELECTED ? true : false);
+		if (_global->userInformation->getIsSelectHighFPS() == cocos2d::ui::CheckBox::EventType::SELECTED)
+		{
+			_frameCheckBox->setTouchEnabled(true);
+			_frameCheckBox->setColor(Color3B::WHITE);
+		}
+		else
+		{
+			_frameCheckBox->setTouchEnabled(false);
+			_frameCheckBox->setColor(Color3B(80, 80, 80));
+		}
+	}
+}
+
 void OptionsMenu::deleteDialog()
 {
 	setMouseListenerEnable();
 	this->removeFromParent();
 }
 
-CheckBox* OptionsMenu::createCheckBox(Vec2 &vec2, Vec2 &vec2_, const std::string &Label, OptionScene_CheckBox button_type,
+CheckBox* OptionsMenu::createCheckBox(const Vec2 &vec2, const Vec2 &vec2_, const std::string &Label, OptionScene_CheckBox button_type,
 	const std::string NotSelect, const std::string Select, const bool IsNew)
 {
 	auto checkbox = CheckBox::create();
@@ -203,7 +223,8 @@ CheckBox* OptionsMenu::createCheckBox(Vec2 &vec2, Vec2 &vec2_, const std::string
 		checkbox->setSelected(_global->userInformation->getIsEaseAnimation() == cocos2d::ui::CheckBox::EventType::SELECTED ? true : false);
 		break;
 	case OptionScene_CheckBox::垂直同步:
-		checkbox->setSelected(_global->userInformation->getIsVerticalSynchronization() == cocos2d::ui::CheckBox::EventType::SELECTED ? true : false);
+		_frameCheckBox = checkbox;
+		updateFrameSynchronization();
 		break;
 	default:
 		break;
@@ -229,10 +250,11 @@ CheckBox* OptionsMenu::createCheckBox(Vec2 &vec2, Vec2 &vec2_, const std::string
 			case OptionScene_CheckBox::高帧率: /* 高帧率 */
 				_userDefault->setBoolForKey("SHOWHIGHFPS", true);
 				_global->userInformation->setIsSelectHighFPS(CheckBox::EventType::SELECTED);
-				_director->setAnimationInterval(1.0f / UserInformation::getScreenDisplayFrequency());
+				_director->setAnimationInterval(1.0f / 60);
+				updateFrameSynchronization();
 				break;
 			case OptionScene_CheckBox::鼠标隐藏: /* 鼠标隐藏 */
-				UserData::getInstance()->caveUserData("CURSORHIDE", true);
+				UserData::getInstance()->caveUserData(const_cast<char*>("CURSORHIDE"), true);
 				_global->userInformation->setIsSelectCursorNotHide(CheckBox::EventType::SELECTED);
 				break;
 			case OptionScene_CheckBox::拉伸显示: /* 拉伸显示 */
@@ -241,11 +263,12 @@ CheckBox* OptionsMenu::createCheckBox(Vec2 &vec2, Vec2 &vec2_, const std::string
 				_global->userInformation->setIsSelectStretchingShow(CheckBox::EventType::SELECTED);
 				break;
 			case OptionScene_CheckBox::缓入动画: 
-				UserData::getInstance()->caveUserData("EASEANIMATION", true);
+				UserData::getInstance()->caveUserData(const_cast<char*>("EASEANIMATION"), true);
 				_global->userInformation->setIsEaseAnimation(CheckBox::EventType::SELECTED);
 				break;
 			case OptionScene_CheckBox::垂直同步:
 				_userDefault->setBoolForKey("VERTICALSYNCHRONIZATION", true);
+				_director->setAnimationInterval(1.0f / UserInformation::getScreenDisplayFrequency());
 				wglSwapIntervalEXT(1);
 				_global->userInformation->setIsVerticalSynchronization(CheckBox::EventType::SELECTED);
 				break;
@@ -270,9 +293,10 @@ CheckBox* OptionsMenu::createCheckBox(Vec2 &vec2, Vec2 &vec2_, const std::string
 				_userDefault->setBoolForKey("SHOWHIGHFPS", false);
 				_global->userInformation->setIsSelectHighFPS(CheckBox::EventType::UNSELECTED);
 				_director->setAnimationInterval(1.0f / 30);
+				updateFrameSynchronization();
 				break;
 			case OptionScene_CheckBox::鼠标隐藏:
-				UserData::getInstance()->caveUserData("CURSORHIDE", false);
+				UserData::getInstance()->caveUserData(const_cast<char*>("CURSORHIDE"), false);
 				_global->userInformation->setIsSelectCursorNotHide(CheckBox::EventType::UNSELECTED);
 				break;
 			case OptionScene_CheckBox::拉伸显示:
@@ -281,11 +305,12 @@ CheckBox* OptionsMenu::createCheckBox(Vec2 &vec2, Vec2 &vec2_, const std::string
 				_global->userInformation->setIsSelectStretchingShow(CheckBox::EventType::UNSELECTED);
 				break;
 			case OptionScene_CheckBox::缓入动画:
-				UserData::getInstance()->caveUserData("EASEANIMATION", false);
+				UserData::getInstance()->caveUserData(const_cast<char*>("EASEANIMATION"), false);
 				_global->userInformation->setIsEaseAnimation(CheckBox::EventType::UNSELECTED);
 				break;
 			case OptionScene_CheckBox::垂直同步:
 				_userDefault->setBoolForKey("VERTICALSYNCHRONIZATION", false);
+				_director->setAnimationInterval(1.0f / 60);
 				wglSwapIntervalEXT(0);
 				_global->userInformation->setIsVerticalSynchronization(CheckBox::EventType::UNSELECTED);
 				break;

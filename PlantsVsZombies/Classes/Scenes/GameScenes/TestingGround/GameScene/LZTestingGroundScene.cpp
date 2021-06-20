@@ -50,7 +50,7 @@ void TestingGroundScene::showGameLayer()
 
 void TestingGroundScene::controlPlayMusic()
 {
-	PlayMusic::changeBgMusic("bgMusic" + to_string(rand() % 14), true);
+	PlayMusic::changeBgMusic("bgMusic3", true);
 }
 
 void TestingGroundScene::backgroundLayer()

@@ -13,6 +13,7 @@
 #include "LZBMGSButtonLayer.h"
 #include "Scenes/GameScenes/Adventure/GameScene/LZAGSData.h"
 #include "Based/LZMouseEventControl.h"
+#include "Based/LZPlayMusic.h"
 
 extension::ScrollView* BigMapGameScene::scrollView = nullptr;
 
@@ -116,4 +117,9 @@ void BigMapGameScene::buttonLayer()
 {
 	buttonLayerInformation = BMButtonLayer::create();
 	buttonLayerInformation->addLayer(this, 4, "buttonLayer");
+}
+
+void BigMapGameScene::controlPlayMusic()
+{
+	PlayMusic::changeBgMusic("bgMusic1", true);
 }

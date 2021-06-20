@@ -38,7 +38,8 @@ GameMapInformation::GameMapInformation(unsigned int row, unsigned int column):
 
 void GameMapInformation::GameMapInit()
 {
-	MAP_INIT(plantsMap);
+	MAP_INIT(plantsMap, NO_PLANTS);
+	MAP_INIT(plantPumpkin, false);
 	MAP_CAN_NOT_PLANT(plantsMap);
 }
 
@@ -84,9 +85,16 @@ void GSControlLayer::initData()
 	_levelZombiesFrequence = _openLevelData->readLevelData(_openLevelData->getLevelNumber())->getZombiesFrequency();
 }
 
-void GSControlLayer::setPlantMapCanPlant(const unsigned int colum, const unsigned int row)
+void GSControlLayer::setPlantMapCanPlant(const unsigned int colum, const unsigned int row, PlantsType type)
 {
-	controlLayerInformation->gameMapInformation->plantsMap[colum][row] = NO_PLANTS;
+	if (type != PlantsType::Pumpkin)
+	{
+		controlLayerInformation->gameMapInformation->plantsMap[colum][row] = NO_PLANTS;
+	}
+	else
+	{
+		controlLayerInformation->gameMapInformation->plantPumpkin[colum][row] = false;
+	}
 }
 
 void GSControlLayer::createSchedule()
@@ -400,6 +408,8 @@ void GSControlLayer::controlRefurbishMusicAndText()
 		if (informationLayerInformation->updateProgressBarFlag())
 		{
 			_zombiesAppearControl->setIsShowWords(true);
+			
+			Marigold::stopCreateCoin();/* 暂停生产金币 */
 		}
 	}
 
@@ -447,16 +457,32 @@ bool GSControlLayer::judgeMousePositionIsInMap()
 
 bool GSControlLayer::judgeMousePositionIsCanPlant()
 {
-	return (gameMapInformation->plantsMap[static_cast<unsigned int>(_plantsPosition.y)][static_cast<unsigned int>(_plantsPosition.x)] != CAN_NOT_PLANT /* 不等于不能种植 （在能种植的范围在内）*/
-		&& gameMapInformation->plantsMap[static_cast<unsigned int>(_plantsPosition.y)][static_cast<unsigned int>(_plantsPosition.x)] == NO_PLANTS)     /* 能种植的范围内还没有种植 */
-		? true : false;
+	auto n = gameMapInformation->plantsMap[static_cast<unsigned int>(_plantsPosition.y)][static_cast<unsigned int>(_plantsPosition.x)];
+	auto m = gameMapInformation->plantPumpkin[static_cast<unsigned int>(_plantsPosition.y)][static_cast<unsigned int>(_plantsPosition.x)];
+
+	if (buttonLayerInformation->mouseSelectImage->selectPlantsId == PlantsType::Pumpkin)
+	{
+		return (n != CAN_NOT_PLANT && m == false);
+	}
+	else
+	{
+		return (n != CAN_NOT_PLANT && n == NO_PLANTS);
+	}
 }
 
 bool GSControlLayer::judgeMousePositionHavePlant()
 {
-	return (gameMapInformation->plantsMap[static_cast<unsigned int>(_plantsPosition.y)][static_cast<unsigned int>(_plantsPosition.x)] != CAN_NOT_PLANT
-		&& gameMapInformation->plantsMap[static_cast<unsigned int>(_plantsPosition.y)][static_cast<unsigned int>(_plantsPosition.x)] != NO_PLANTS)
-		? true : false;
+	auto n = gameMapInformation->plantsMap[static_cast<unsigned int>(_plantsPosition.y)][static_cast<unsigned int>(_plantsPosition.x)];
+	auto m = gameMapInformation->plantPumpkin[static_cast<unsigned int>(_plantsPosition.y)][static_cast<unsigned int>(_plantsPosition.x)];
+
+	if (m)
+	{
+		return true;
+	}
+	else
+	{
+		return  (n != CAN_NOT_PLANT && n != NO_PLANTS);
+	}
 }
 
 void GSControlLayer::removePreviewPlant()
@@ -471,6 +497,7 @@ void GSControlLayer::removePreviewPlant()
 void GSControlLayer::removeShovel()
 {
 	buttonLayerInformation->mouseSelectImage->isSelectShovel = false;
+	buttonLayerInformation->updateShovel();
 	_director->getOpenGLView()->setCursor("resources/Images/System/cursor.png", Point::ANCHOR_TOP_LEFT);
 }
 
@@ -491,6 +518,14 @@ void GSControlLayer::recoveryPlantsColor()
 			if (gameMapInformation->plantsMap[i][j] != CAN_NOT_PLANT && gameMapInformation->plantsMap[i][j] != NO_PLANTS)
 			{
 				auto plant = animationLayerInformation->getChildByTag(SET_TAG(Vec2(j, i)));
+				if (plant)
+				{
+					plant->setColor(Color3B::WHITE);
+				}
+			}
+			if (gameMapInformation->plantsMap[i][j] != CAN_NOT_PLANT && gameMapInformation->plantPumpkin[i][j])
+			{
+				auto plant = animationLayerInformation->getChildByTag(SET_TAG(Vec2(j, i)) + 1000);
 				if (plant)
 				{
 					plant->setColor(Color3B::WHITE);
@@ -550,15 +585,31 @@ void GSControlLayer::mouseMoveControl()
 		const int posY = static_cast<int>(_plantsPosition.y);
 		if (posX >= 0 && posY >= 0 && posX < 9 && posY < 5)
 		{
-			if (gameMapInformation->plantsMap[posY][posX] != NO_PLANTS)
+			if (buttonLayerInformation->mouseSelectImage->selectPlantsId == PlantsType::Pumpkin)
 			{
-				_plantPreviewImage->setPosition(SET_OUT_MAP);
+				if (gameMapInformation->plantPumpkin[posY][posX] == false)
+				{
+					const auto size = _plantPreviewImage->getContentSize() / 2.f;
+					_plantPreviewImage->setPosition(Vec2(GRASS_POSITION_LEFT + 122 *
+						_plantsPosition.x + size.width, GRASS_POSITION_BOTTOM + 138 * (_plantsPosition.y + 1) - size.height));
+				}
+				else
+				{
+					_plantPreviewImage->setPosition(SET_OUT_MAP);
+				}
 			}
 			else
 			{
-				const auto size = _plantPreviewImage->getContentSize() / 2.f;
-				_plantPreviewImage->setPosition(Vec2(GRASS_POSITION_LEFT + 122 *
-					_plantsPosition.x + size.width, GRASS_POSITION_BOTTOM + 138 * (_plantsPosition.y + 1) - size.height));
+				if (gameMapInformation->plantsMap[posY][posX] != NO_PLANTS)
+				{
+					_plantPreviewImage->setPosition(SET_OUT_MAP);
+				}
+				else
+				{
+					const auto size = _plantPreviewImage->getContentSize() / 2.f;
+					_plantPreviewImage->setPosition(Vec2(GRASS_POSITION_LEFT + 122 *
+						_plantsPosition.x + size.width, GRASS_POSITION_BOTTOM + 138 * (_plantsPosition.y + 1) - size.height));
+				}
 			}
 		}
 		else
@@ -576,11 +627,7 @@ void GSControlLayer::mouseMoveControl()
 
 		if (judgeMousePositionIsInMap() && judgeMousePositionHavePlant())  /* 如果在地图范围内 && 种有植物 */
 		{
-			auto plant = animationLayerInformation->getChildByTag(SET_TAG(_plantsPosition));
-			if (plant)
-			{
-				plant->setColor(Color3B(100, 100, 100));
-			}
+			checkPlantType(1);
 		}
 	}
 }
@@ -604,10 +651,8 @@ void GSControlLayer::mouseDownControl(EventMouse* eventmouse)
 	
 	if (_selectPlantsTag != PlantsType::None) 
 	{
-		buttonLayerInformation->plantsCards[static_cast<unsigned int>
-			(_selectPlantsTag)].plantsCards->getChildByName("seedPacketFlash")->setColor(Color3B::WHITE);
-		buttonLayerInformation->plantsCards[static_cast<unsigned int>
-			(_selectPlantsTag)].plantsCards->getChildByName("seedPacketFlash")->setVisible(false);
+		buttonLayerInformation->plantsCards[static_cast<unsigned int>(_selectPlantsTag)].plantsCards->getChildByName("seedPacketFlash")->setColor(Color3B::WHITE);
+		buttonLayerInformation->plantsCards[static_cast<unsigned int>(_selectPlantsTag)].plantsCards->getChildByName("seedPacketFlash")->setVisible(false);
 	}
 }
 
@@ -618,14 +663,21 @@ void GSControlLayer::mouseLeftButtonDownControl()
 		if (judgeMousePositionIsInMap() && judgeMousePositionIsCanPlant() && _cur.x > CARD_BAR_RIGHT) /* 如果在地图范围内 && 可以种植植物 */
 		{
 			/* 记录使用植物数量 */
-			UserData::getInstance()->caveUserData("USEPLANTSNUMBERS", ++_global->userInformation->getUsePlantsNumbers());
+			UserData::getInstance()->caveUserData(const_cast<char*>("USEPLANTSNUMBERS"), ++_global->userInformation->getUsePlantsNumbers());
 
 			/* 种植植物 */
 			animationLayerInformation->plantPlants();
 
-			/* 地图记录种植的植物 */
-			gameMapInformation->plantsMap[static_cast<unsigned int>(_plantsPosition.y)][static_cast<unsigned int>(_plantsPosition.x)] =
-				static_cast<unsigned int>(buttonLayerInformation->mouseSelectImage->selectPlantsId);
+			if (buttonLayerInformation->mouseSelectImage->selectPlantsId == PlantsType::Pumpkin)
+			{
+				gameMapInformation->plantPumpkin[static_cast<unsigned int>(_plantsPosition.y)][static_cast<unsigned int>(_plantsPosition.x)] = true;
+			}
+			else
+			{
+				/* 地图记录种植的植物 */
+				gameMapInformation->plantsMap[static_cast<unsigned int>(_plantsPosition.y)][static_cast<unsigned int>(_plantsPosition.x)] =
+					static_cast<unsigned int>(buttonLayerInformation->mouseSelectImage->selectPlantsId);
+			}
 
 			/* 设置倒计时并且按钮不可用 */
 			const unsigned int plantsTag = static_cast<unsigned int>(buttonLayerInformation->mouseSelectImage->selectPlantsId);
@@ -662,12 +714,13 @@ void GSControlLayer::mouseLeftButtonDownControl()
 			}
 		}
 	}
+
 	if (buttonLayerInformation->mouseSelectImage->isSelectShovel) /* 鼠标上有铲子 */
 	{
 		if (judgeMousePositionIsInMap() && judgeMousePositionHavePlant())    /* 如果在地图范围内 && 种有植物 */
 		{
 			PlayMusic::playMusic("plant2");
-			animationLayerInformation->deletePlants();/* 铲除植物 */
+			checkPlantType();
 			removeShovel();
 		}
 		else
@@ -713,4 +766,55 @@ void GSControlLayer::mouseRightButtonDownControl()
 
 void GSControlLayer::mouseMiddleButtonDownControl()
 {
+}
+
+void GSControlLayer::checkPlantType(const int type)
+{
+	auto n = gameMapInformation->plantsMap[static_cast<unsigned int>(_plantsPosition.y)][static_cast<unsigned int>(_plantsPosition.x)];
+	auto m = gameMapInformation->plantPumpkin[static_cast<unsigned int>(_plantsPosition.y)][static_cast<unsigned int>(_plantsPosition.x)];
+
+	if (n != CAN_NOT_PLANT && (n != NO_PLANTS || m))
+	{
+		auto plant = animationLayerInformation->getChildByTag(SET_TAG(_plantsPosition));
+		auto plant1 = animationLayerInformation->getChildByTag(SET_TAG(_plantsPosition) + 1000);
+
+		if (type == 0)
+		{
+			if (plant && plant1 && plant->isVisible() && plant1->isVisible())
+			{
+				if (plant->getBoundingBox().containsPoint(_cur))
+				{
+					animationLayerInformation->deletePlants();/* 铲除植物 */
+				}
+				else if (plant1->getBoundingBox().containsPoint(_cur))
+				{
+					animationLayerInformation->deletePlants(1);/* 铲除植物 */
+				}
+			}
+			else
+			{
+				if (plant)animationLayerInformation->deletePlants();
+				if (plant1)animationLayerInformation->deletePlants(1);
+			}
+		}
+		else
+		{
+			if (plant && plant1 && plant->isVisible() && plant1->isVisible())
+			{
+				if (plant->getBoundingBox().containsPoint(_cur))
+				{
+					plant->setColor(Color3B(100, 100, 100));
+				}
+				else if (plant1->getBoundingBox().containsPoint(_cur))
+				{
+					plant1->setColor(Color3B(100, 100, 100));
+				}
+			}
+			else
+			{
+				if (plant)plant->setColor(Color3B(100, 100, 100));
+				if (plant1)plant1->setColor(Color3B(100, 100, 100));
+			}
+		}
+	}
 }

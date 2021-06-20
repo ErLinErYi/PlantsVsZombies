@@ -89,7 +89,7 @@ void GameScene::controlPlayMusic()
 	case 50: PlayMusic::changeBgMusic("mainmusic.mo3.10", true);                     break;
 	case 51: PlayMusic::changeBgMusic("mainmusic.mo3.11", true);                     break;
 	case 52: PlayMusic::changeBgMusic("mainmusic.mo3.12", true);                     break;
-	default: PlayMusic::changeBgMusic("bgMusic" + to_string(rand() % 14), true);     break;
+	default: PlayMusic::changeBgMusic("bgMusic", true);                              break;
 	}
 }
 

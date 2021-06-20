@@ -86,7 +86,7 @@ void Dialog::showDeleteDialogAction(Sprite* sprite)
 	}
 }
 
-Label* Dialog::label(const std::string &name, const float& fontsize, Vec2 &vec2, const float& space, const Color3B& color, const float& scale)
+Label* Dialog::label(const std::string &name, const float& fontsize, const Vec2 &vec2, const float& space, const Color3B& color, const float& scale)
 {
 	auto label = Label::createWithTTF(name, GAME_FONT_NAME_1, fontsize);
 	label->setScaleX(scale);
@@ -97,7 +97,7 @@ Label* Dialog::label(const std::string &name, const float& fontsize, Vec2 &vec2,
 	return label;
 }
 
-void Dialog::createLabel(Sprite* sprite, MenuItemImage* MenuItem, const std::string &name, Vec2 &vec2, float& fontsize, const float& space, const Color3B& color)
+void Dialog::createLabel(Sprite* sprite, MenuItemImage* MenuItem, const std::string &name, const Vec2 &vec2, float& fontsize, const float& space, const Color3B& color)
 {
 	auto label = Label::createWithTTF(name, GAME_FONT_NAME_1, fontsize);
 	label->setPosition(vec2);

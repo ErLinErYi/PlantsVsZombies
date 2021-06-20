@@ -18,6 +18,7 @@ CC_CONSTRUCTOR_ACCESS:
 	HammerZombiesScene();
 	~HammerZombiesScene();
 	virtual bool init() override;
+	virtual void onEnterTransitionDidFinish() override;
 
 protected:
 	virtual void controlPlayMusic() override;

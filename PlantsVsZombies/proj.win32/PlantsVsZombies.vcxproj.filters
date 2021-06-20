@@ -629,6 +629,18 @@
     <ClCompile Include="..\Classes\Based\LZLoadingAnimationLayer.cpp">
       <Filter>Class\Based</Filter>
     </ClCompile>
+    <ClCompile Include="..\Classes\Plants\DefensePlants\LZPumpkin.cpp">
+      <Filter>Class\Plants\DefensePlants</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Classes\Plants\BattlePlants\LZBlover.cpp">
+      <Filter>Class\Plants\BattlePlants</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Classes\Plants\DefensePlants\LZMarigold.cpp">
+      <Filter>Class\Plants\DefensePlants</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Classes\Plants\DefensePlants\LZMagnetShroom.cpp">
+      <Filter>Class\Plants\DefensePlants</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="..\Classes\LZPlantsVsZombies.h">
@@ -1167,6 +1179,18 @@
     </ClInclude>
     <ClInclude Include="..\Classes\Based\LZLoadingAnimationLayer.h">
       <Filter>Class\Based</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Classes\Plants\DefensePlants\LZPumpkin.h">
+      <Filter>Class\Plants\DefensePlants</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Classes\Plants\BattlePlants\LZBlover.h">
+      <Filter>Class\Plants\BattlePlants</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Classes\Plants\DefensePlants\LZMarigold.h">
+      <Filter>Class\Plants\DefensePlants</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Classes\Plants\DefensePlants\LZMagnetShroom.h">
+      <Filter>Class\Plants\DefensePlants</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>

@@ -31,7 +31,7 @@ public:
 	static Bullet* createDifferentBullet(BulletType bulletType, Node* node);
 	virtual void addLayer(Node* node, const int order, const string& name) { node->addChild(this, order, name);}
 	virtual void plantPlants();
-	virtual void deletePlants();
+	virtual void deletePlants(const int type = 0);
 	virtual void createZombies();
 	virtual void createZombiesOnSurvival();
 	virtual GSAnimationLayer* getAnimationLayer();

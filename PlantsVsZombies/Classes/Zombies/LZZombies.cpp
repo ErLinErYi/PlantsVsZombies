@@ -288,7 +288,7 @@ void Zombies::zombiesDeleteUpdate(list<Zombies*>::iterator& zombie)
 			if (++_zombiesNewDieNumbers >= 20 || getZombiesNumbers() <= 0)
 			{
 				_zombiesNewDieNumbers = 0;
-				UserData::getInstance()->caveUserData("KILLALLZOMBIES", 
+				UserData::getInstance()->caveUserData(const_cast<char*>("KILLALLZOMBIES"),
 					Global::getInstance()->userInformation->getKillZombiesNumbers());/* 杀死僵尸数加一 */
 			}
 
@@ -486,6 +486,18 @@ void Zombies::setZombieMultipleBloodVolume(const float multiple)
 	_currentBloodVolume *= multiple;
 	_currentHeadShieldVolume *= multiple;
 	_currentBodyShieldVolume *= multiple;
+}
+
+void Zombies::setZombieShieldType(ShieldType type, bool head)
+{
+	if (head)
+	{
+		_headShieldType = type;
+	}
+	else
+	{
+		_bodyShieldType = type;
+	}
 }
 
 int Zombies::getZombieInRow() const
@@ -1030,7 +1042,7 @@ void Zombies::setSmallZombieAttribute()
 
 		/* 身体变小，动作变快 */
 		_timeScale += 0.4f;
-		_zombiesAnimation->setScale(0.7f);
+		_zombiesAnimation->setScale(0.5f);
 		_zombiesAnimation->setTimeScale(_timeScale);
 
 		_isUseForGameType = true;
@@ -1069,7 +1081,7 @@ void Zombies::setZombieAttributeForGameType(Node* sprite)
 		const auto data = _openLevelData->readLevelData(_openLevelData->getLevelNumber());
 		if (data->getZombiesIsSmall())
 		{
-			sprite->setScale(sprite->getScale() * 0.7f);
+			sprite->setScale(sprite->getScale() * 0.5f);
 		}
 		if (data->getZombiesIsBig())
 		{

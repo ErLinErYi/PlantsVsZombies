@@ -44,15 +44,15 @@ void TGButtonLayer::createQuitDialog()
 
 void TGButtonLayer::showShovelBank()
 {
-	auto shovelBank = Button::create("ShovelBank.png", "", "",cocos2d::ui::Widget::TextureResType::PLIST);
-	shovelBank->setPosition(Vec2(1520, 1080));
-	shovelBank->setScale(0.6f);
-	shovelBank->setAnchorPoint(Vec2(0, 1));
-	shovelBank->setName("ShovelBank");
-	this->addChild(shovelBank);
+	_shovelBank = Button::create("ShovelBank.png", "", "",cocos2d::ui::Widget::TextureResType::PLIST);
+	_shovelBank->setPosition(Vec2(1520, 1075));
+	_shovelBank->setScale(0.6f);
+	_shovelBank->setAnchorPoint(Vec2(0, 1));
+	_shovelBank->setName("ShovelBank");
+	this->addChild(_shovelBank);
 
 	/* 铲子监听 */
-	shovelBank->addTouchEventListener([=](Ref* sender, ui::Widget::TouchEventType type)
+	_shovelBank->addTouchEventListener([=](Ref* sender, ui::Widget::TouchEventType type)
 		{
 			switch (type)
 			{
@@ -63,10 +63,12 @@ void TGButtonLayer::showShovelBank()
 				switch (mouseSelectImage->isSelectShovel)
 				{
 				case true:
+					updateShovel();
 					Director::getInstance()->getOpenGLView()->setCursor("resources/Images/System/cursor.png", Point::ANCHOR_TOP_LEFT);
 					mouseSelectImage->isSelectShovel = false;
 					break;
 				case false:
+					updateShovel(false);
 					if (_global->userInformation->getIsSelectCursorNotHide() == cocos2d::ui::CheckBox::EventType::UNSELECTED)
 						Director::getInstance()->getOpenGLView()->setCursor("resources/Images/System/Shovel_hi_res.png", Point::ANCHOR_BOTTOM_LEFT);
 					else

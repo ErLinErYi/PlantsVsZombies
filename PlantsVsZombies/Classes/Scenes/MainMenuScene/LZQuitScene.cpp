@@ -46,7 +46,7 @@ void QuitMenu::createDiglog()
 	this->createTouchtListener(_quitDialog);
 }
 
-void QuitMenu::createButtons(const std::string &Label, Vec2 &vec2,const int& ID)
+void QuitMenu::createButtons(const std::string &Label, const Vec2 &vec2,const int& ID)
 {
 	auto button = Button::create("button.png", "button_down.png", "",cocos2d::ui::Widget::TextureResType::PLIST);
 	button->setTitleLabel(label(Label, 20));

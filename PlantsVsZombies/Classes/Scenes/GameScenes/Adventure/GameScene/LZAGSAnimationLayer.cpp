@@ -86,13 +86,17 @@ Plants* GSAnimationLayer::createDifferentPlants(PlantsType plantsType, Node* nod
 	case PlantsType::Spikeweed:           plants = new Spikeweed(node);               break;
 	case PlantsType::Garlic:              plants = new Garlic(node);                  break;
 	case PlantsType::IceBergLettuce:      plants = new IceBergLettuce(node);          break;
+	case PlantsType::Marigold:            plants = new Marigold(node);                break;
 	case PlantsType::Chomper:             plants = new Chomper(node);                 break;
 	case PlantsType::IcePeaShooter:       plants = new IcePeaShooter(node);           break;
 	case PlantsType::FirePeaShooter:      plants = new FirePeaShooter(node);          break;
 	case PlantsType::AcidLemonShooter:    plants = new AcidLemonShooter(node);        break;
+	case PlantsType::Blover:              plants = new Blover(node);                  break;
 	case PlantsType::SunFlowerTwin:       plants = new SunFlowerTwin(node);           break;
 	case PlantsType::WaterMelonPult:      plants = new WaterMelonPult(node);          break;
+	case PlantsType::Pumpkin:             plants = new Pumpkin(node);                 break;
 	case PlantsType::Jalapeno:            plants = new Jalapeno(node);                break;
+	case PlantsType::MagnetShroom:        plants = new MagnetShroom(node);            break;
 	case PlantsType::JalapenoVariation:   plants = new JalapenoVariation(node);       break;
 	case PlantsType::ThreePeaShooter:     plants = new ThreePeaShooter(node);         break;
 	case PlantsType::StarFruit:           plants = new StarFruit(node);               break;
@@ -190,20 +194,34 @@ void GSAnimationLayer::plantPlants()
 	plants->setPlantRowAndColumn(controlLayerInformation->_plantsPosition);
 	plants->setPlantTag(SET_TAG(controlLayerInformation->_plantsPosition));
 	plants->createPlantAnimation();
-
-	PlantsGroup.insert(pair<int, Plants*>(SET_TAG(controlLayerInformation->_plantsPosition), plants));
+	
+	PlantsGroup.insert(pair<int, Plants*>(plants->getPlantAnimation()->getTag(), plants));
 }
 
-void GSAnimationLayer::deletePlants()
+void GSAnimationLayer::deletePlants(const int type)
 {
-	auto multimap_iter = PlantsGroup.equal_range(SET_TAG(controlLayerInformation->_plantsPosition));
-	for (auto &plant = multimap_iter.first; plant != multimap_iter.second; ++plant)
+	if (!type)
 	{
-		plant->second->setPlantRemoveFromMap();
-	}
+		auto multimap_iter = PlantsGroup.equal_range(SET_TAG(controlLayerInformation->_plantsPosition));
+		for (auto& plant = multimap_iter.first; plant != multimap_iter.second; ++plant)
+		{
+			plant->second->setPlantRemoveFromMap();
+		}
 
-	controlLayerInformation->gameMapInformation->plantsMap[static_cast<int>(
-		controlLayerInformation->_plantsPosition.y)][static_cast<int>(controlLayerInformation->_plantsPosition.x)] = NO_PLANTS;
+		controlLayerInformation->gameMapInformation->plantsMap[static_cast<int>(
+			controlLayerInformation->_plantsPosition.y)][static_cast<int>(controlLayerInformation->_plantsPosition.x)] = NO_PLANTS;
+	}
+	else
+	{
+		auto multimap_iter = PlantsGroup.equal_range(SET_TAG(controlLayerInformation->_plantsPosition) + 1000);
+		for (auto& plant = multimap_iter.first; plant != multimap_iter.second; ++plant)
+		{
+			plant->second->setPlantRemoveFromMap();
+		}
+
+		controlLayerInformation->gameMapInformation->plantPumpkin[static_cast<int>(
+			controlLayerInformation->_plantsPosition.y)][static_cast<int>(controlLayerInformation->_plantsPosition.x)] = false;
+	}
 }
 
 void GSAnimationLayer::createZombies()
@@ -312,7 +330,8 @@ void GSAnimationLayer::plantsDeleteUpdate(map<int, Plants*>::iterator& plant)
 		if (!plant->second->getPlantIsCanDelete()[0])
 		{
 			plant->second->getPlantIsCanDelete()[0] = true;
-			GSControlLayer::setPlantMapCanPlant(plant->second->getPlantRow(), plant->second->getPlantColumn());
+			
+			GSControlLayer::setPlantMapCanPlant(plant->second->getPlantRow(), plant->second->getPlantColumn(), plant->second->getPlantType());
 
 			auto plants = plant;
 			plant->second->getPlantAnimation()->stopAllActions();

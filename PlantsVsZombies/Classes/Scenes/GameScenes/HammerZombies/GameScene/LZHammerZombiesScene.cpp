@@ -30,23 +30,28 @@ bool HammerZombiesScene::init()
 {
 	if (!Scene::init())return false;
 
-	controlPlayMusic();
 	backgroundLayer();   // 背景层
 	informationLayer();  // 信息层
 	buttonLayer();       // 按钮层
-	controlLayer();      // 控制层
-	animationLayer();    // 动画层
-	goodsLayer();        // 物品层
-	gameTimerLayer();    // 定时层
+	
 	setName("GameScene");
-	pauseGame();
 
 	return true;
 }
 
+void HammerZombiesScene::onEnterTransitionDidFinish()
+{
+	controlLayer();      // 控制层
+	animationLayer();    // 动画层
+	goodsLayer();        // 物品层
+	gameTimerLayer();    // 定时层
+	controlPlayMusic();
+	pauseGame();
+}
+
 void HammerZombiesScene::controlPlayMusic()
 {
-	PlayMusic::changeBgMusic("bgMusic" + to_string(rand() % 11), true);
+	PlayMusic::changeBgMusic("bgMusic2", true);
 }
 
 void HammerZombiesScene::backgroundLayer()

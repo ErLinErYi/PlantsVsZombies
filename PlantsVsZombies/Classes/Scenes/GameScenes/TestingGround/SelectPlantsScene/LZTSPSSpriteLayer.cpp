@@ -26,7 +26,15 @@ bool TSPSSpriteLayer::init()
 
 void TSPSSpriteLayer::controlPlantCanSelect(Button* button, int priority)
 {
-	/* 该模式下所有植物都可使用 */
+	/* 该模式下除金盏花,向日葵外所有植物都可使用 */
+	if (plantsCardInformation[priority].type == PlantsType::Marigold ||
+		plantsCardInformation[priority].type == PlantsType::SunFlower ||
+		plantsCardInformation[priority].type == PlantsType::SunFlowerTwin)
+	{
+		button->setColor(Color3B(70, 70, 70));
+		button->setCascadeColorEnabled(true);  /* 设置父节点影响子节点 */
+		isPlantIsCanSelect[static_cast<unsigned int>(plantsCardInformation[priority].type)] = false;
+	}
 }
 
 Text* TSPSSpriteLayer::showPlantsInformation(Button* button, bool showHeart)
@@ -35,7 +43,7 @@ Text* TSPSSpriteLayer::showPlantsInformation(Button* button, bool showHeart)
 	auto plantImage = Sprite::createWithSpriteFrameName(plantsCardInformation[button->getTag()].information[0] + ".png");
 	plantImage->setScale(0.8f);
 	plantImage->setFlippedX(plantsCardInformation[button->getTag()].flippedX);
-	plantImage->setPosition(Vec2(55, 50));
+	plantImage->setPosition(Vec2(85, 50));
 	button->addChild(plantImage);
 
 	string str[] = { "PlantsLevel_Gold.png","PlantsLevel_Silver.png","PlantsLevel_Copper.png" };

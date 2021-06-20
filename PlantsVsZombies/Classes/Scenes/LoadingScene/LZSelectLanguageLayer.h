@@ -28,7 +28,7 @@ private:
 	void showLanguageOptionBox();
 	void reloadLanguageText(const char* language);
 	void setNewLanguage();
-	void createButtons(Sprite* sprite, const std::string& Label, Vec2& vec2, const float& scale, const int& ID);
+	void createButtons(Sprite* sprite, const std::string& Label, const Vec2& vec2, const float& scale, const int& ID);
 	void onChangedRadioButtonSelect(RadioButton* radioButton, RadioButton::EventType type);
 	void createMouseListener();
 

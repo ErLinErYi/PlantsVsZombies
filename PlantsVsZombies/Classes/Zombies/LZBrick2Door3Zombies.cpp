@@ -81,7 +81,7 @@ void Brick2Door3Zombies::zombieInjuredEventUpdate()
 		{
 			setZombieBodyShieldSecondaryInjure("Zombie_screendoor", _doorName[2][_doorNumber]);
 		}
-		if (_currentBodyShieldVolume <= 0) /* 身体护盾消失 */
+		if (_currentBodyShieldVolume <= 0 && _bodyShieldType != ShieldType::none) /* 身体护盾消失 */
 		{
 			playBodyShieldSpiltAnimation();
 			setZombieBodyShieldThirdInjure("Zombie_screendoor", "tt_innerleg_foot3");

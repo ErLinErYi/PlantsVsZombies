@@ -49,7 +49,8 @@ void BMControlLayer::initData()
 {
 	srand(time(nullptr));
 	gameMapInformation = new GameMapInformation(10, 18);
-	MAP_INIT(gameMapInformation->plantsMap);
+	MAP_INIT(gameMapInformation->plantsMap,NO_PLANTS);
+	MAP_INIT(gameMapInformation->plantPumpkin, false);
 	gameMapInformation->mapLeft = GRASS_BIGMAP_POSITION_LEFT;
 	gameMapInformation->mapRight = GRASS_BIGMAP_POSITION_RIGHT;
 	gameMapInformation->mapTop = GRASS_BIGMAP_POSITION_TOP;
@@ -265,15 +266,31 @@ void BMControlLayer::mouseMoveControl()
 		const int posY = static_cast<int>(_plantsPosition.y);
 		if (posX >= 0 && posY >= 0 && posX < 18 && posY < 10)
 		{
-			if (gameMapInformation->plantsMap[posY][posX] != NO_PLANTS)
+			if (buttonLayerInformation->mouseSelectImage->selectPlantsId == PlantsType::Pumpkin)
 			{
-				_plantPreviewImage->setPosition(SET_OUT_MAP);
+				if (gameMapInformation->plantPumpkin[posY][posX] == false)
+				{
+					const auto size = _plantPreviewImage->getContentSize() / 2.f;
+					_plantPreviewImage->setPosition(Vec2(GRASS_BIGMAP_POSITION_LEFT + 121 *
+						_plantsPosition.x + size.width, GRASS_BIGMAP_POSITION_BOTTOM + 136 * (_plantsPosition.y + 1) - size.height));
+				}
+				else
+				{
+					_plantPreviewImage->setPosition(SET_OUT_MAP);
+				}
 			}
 			else
 			{
-				const auto size = _plantPreviewImage->getContentSize() / 2.f;
-				_plantPreviewImage->setPosition(Vec2(GRASS_BIGMAP_POSITION_LEFT + 121 *
-					_plantsPosition.x + size.width, GRASS_BIGMAP_POSITION_BOTTOM + 136 * (_plantsPosition.y + 1) - size.height));
+				if (gameMapInformation->plantsMap[posY][posX] != NO_PLANTS)
+				{
+					_plantPreviewImage->setPosition(SET_OUT_MAP);
+				}
+				else
+				{
+					const auto size = _plantPreviewImage->getContentSize() / 2.f;
+					_plantPreviewImage->setPosition(Vec2(GRASS_BIGMAP_POSITION_LEFT + 121 *
+						_plantsPosition.x + size.width, GRASS_BIGMAP_POSITION_BOTTOM + 136 * (_plantsPosition.y + 1) - size.height));
+				}
 			}
 		}
 		else
@@ -291,11 +308,7 @@ void BMControlLayer::mouseMoveControl()
 
 		if (judgeMousePositionIsInMap() && judgeMousePositionHavePlant())  /* 如果在地图范围内 && 种有植物 */
 		{
-			auto plant = animationLayerInformation->getChildByTag(SET_TAG(_plantsPosition));
-			if (plant)
-			{
-				plant->setColor(Color3B(100, 100, 100));
-			}
+			checkPlantType(1);
 		}
 	}
 }
@@ -321,5 +334,56 @@ void BMControlLayer::judgeZombiesWin(Zombies* zombie)
 		auto gameEndShieldLayer = GSGameEndLayer::create();
 		Director::getInstance()->getRunningScene()->addChild(gameEndShieldLayer, 10, "gameEndShieldLayer");
 		gameEndShieldLayer->breakThrough(GameTypes::UserLose);
+	}
+}
+
+void BMControlLayer::checkPlantType(const int type)
+{
+	auto n = gameMapInformation->plantsMap[static_cast<unsigned int>(_plantsPosition.y)][static_cast<unsigned int>(_plantsPosition.x)];
+	auto m = gameMapInformation->plantPumpkin[static_cast<unsigned int>(_plantsPosition.y)][static_cast<unsigned int>(_plantsPosition.x)];
+
+	if (n != CAN_NOT_PLANT && (n != NO_PLANTS || m))
+	{
+		auto plant = animationLayerInformation->getChildByTag(SET_TAG(_plantsPosition));
+		auto plant1 = animationLayerInformation->getChildByTag(SET_TAG(_plantsPosition) + 1000);
+
+		if (type == 0)
+		{
+			if (plant && plant1 && plant->isVisible() && plant1->isVisible())
+			{
+				if (plant->getBoundingBox().containsPoint(addScrollViewOffset(_cur)))
+				{
+					animationLayerInformation->deletePlants();/* 铲除植物 */
+				}
+				else if (plant1->getBoundingBox().containsPoint(addScrollViewOffset(_cur)))
+				{
+					animationLayerInformation->deletePlants(1);/* 铲除植物 */
+				}
+			}
+			else
+			{
+				if (plant)animationLayerInformation->deletePlants();
+				if (plant1)animationLayerInformation->deletePlants(1);
+			}
+		}
+		else
+		{
+			if (plant && plant1 && plant->isVisible() && plant1->isVisible())
+			{
+				if (plant->getBoundingBox().containsPoint(addScrollViewOffset(_cur)))
+				{
+					plant->setColor(Color3B(100, 100, 100));
+				}
+				else if (plant1->getBoundingBox().containsPoint(addScrollViewOffset(_cur)))
+				{
+					plant1->setColor(Color3B(100, 100, 100));
+				}
+			}
+			else
+			{
+				if (plant)plant->setColor(Color3B(100, 100, 100));
+				if (plant1)plant1->setColor(Color3B(100, 100, 100));
+			}
+		}
 	}
 }

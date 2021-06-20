@@ -253,8 +253,8 @@ void SPSSpriteLayer::createMoveButton(Button* button, const Vec2& vec2)
 	/* 创建移动卡牌 */
 	auto imageBg = "SeedPacket" + to_string(plantsCardInformation[button->getTag()].quality) + ".png";;
 	auto moveCard = ui::Button::create(imageBg, imageBg, "",cocos2d::ui::Widget::TextureResType::PLIST);
-	moveCard->setPosition(Vec2(vec2.x + 205, _plantCardScrollView->getInnerContainerSize().
-		height - moveCard->getContentSize().height - vec2.y - 40 + calculateScrollDistance()));
+	moveCard->setPosition(Vec2(vec2.x + 205, _plantCardScrollView->getInnerContainerSize().height - 
+		moveCard->getContentSize().height - vec2.y - 145 + calculateScrollDistance()));
 	moveCard->setTitleColor(Color3B::RED);
 	moveCard->setTitleFontSize(25);
 	moveCard->setTag(button->getTag());
@@ -303,7 +303,7 @@ void SPSSpriteLayer::plantsMoveCardButtonEvent(Button* button, Button* moveCard,
 	sortPlantsCard(plantsCardInformation[button->getTag()].type);          //对植物卡牌重新排序
 	_plantCardScrollView->scrollToPercentVertical(calculateScrollPrecent(plantCardRollingDistanceLast), 0.5f, true);//滚动到初始位置
 	moveCard->runAction(Sequence::create(MoveTo::create(0.2f, Vec2(vec2.x + 205, _plantCardScrollView->getInnerContainerSize().height -
-		moveCard->getContentSize().height - vec2.y - 40 + plantCardRollingDistanceLast)),
+		moveCard->getContentSize().height - vec2.y - 145 + plantCardRollingDistanceLast)),
 		CallFunc::create([=]()
 			{
 				moveCard->removeFromParent();   /* 删除移动卡牌 */
@@ -342,7 +342,7 @@ void SPSSpriteLayer::showPopulationButtonHoverEffect(EventMouse* e)
 	for (auto card : _plantsCards)
 	{
 		card.second->getChildByName("seedPacketFlash")->setVisible(
-			card.second->getBoundingBox().containsPoint(e->getLocationInView() - Vec2(205, calculateScrollDistance() - 90)));
+			card.second->getBoundingBox().containsPoint(e->getLocationInView() - Vec2(205, calculateScrollDistance() - 195)));
 	}
 }
 
@@ -377,7 +377,7 @@ Text* SPSSpriteLayer::showPlantsInformation(Button* button, bool showHeart)
 	auto plantImage = Sprite::createWithSpriteFrameName(plantsCardInformation[button->getTag()].information[0] + ".png");
 	plantImage->setScale(0.8f);
 	plantImage->setFlippedX(plantsCardInformation[button->getTag()].flippedX);
-	plantImage->setPosition(Vec2(55, 50));
+	plantImage->setPosition(Vec2(85, 50));
 	button->addChild(plantImage);
 
 	string str[] = { "PlantsLevel_Gold.png","PlantsLevel_Silver.png","PlantsLevel_Copper.png" };
@@ -453,7 +453,7 @@ float SPSSpriteLayer::calculateScrollPrecent(float distance)
 void SPSSpriteLayer::sortPlantsCard(PlantsType type)
 {
 	/* 删除取消选择的卡牌 */
-	for (auto& card = seedBankButton.begin(); card != seedBankButton.end();)
+	for (auto card = seedBankButton.begin(); card != seedBankButton.end();)
 	{
 		if (card->cardTag == static_cast<unsigned int>(type))
 		{

@@ -25,6 +25,7 @@ struct GameMapInformation
 	GameMapInformation(unsigned int row = 5, unsigned int column = 9);
 	void GameMapInit();
 	int plantsMap[10][18];             /* 植物种植地图 */
+	bool plantPumpkin[10][18];         /* 是否种植南瓜头 */
 	unsigned int rowNumbers;           /* 行数 */
 	unsigned int columnNumbers;        /* 列数 */
 	unsigned int mapLeft;              /* 地图左边位置 */
@@ -38,7 +39,7 @@ class GSControlLayer :public Layer
 public:
 	CREATE_FUNC(GSControlLayer);
 	virtual void addLayer(Node* node, const int order, const string& name) { node->addChild(this, order, name); }
-	static void setPlantMapCanPlant(const unsigned int colum, const unsigned int row);
+	static void setPlantMapCanPlant(const unsigned int colum, const unsigned int row, PlantsType type);
 	virtual void updateFlag();
 
 CC_CONSTRUCTOR_ACCESS:
@@ -62,6 +63,7 @@ protected:
 	virtual void mouseLeftButtonDownControl();                                          /* 鼠标左键按下控制 */
 	virtual void mouseRightButtonDownControl();                                         /* 鼠标右键键按下控制 */
 	virtual void mouseMiddleButtonDownControl();                                        /* 鼠标中键键按下控制 */
+	virtual void checkPlantType(const int type = 0);                                    /* 检测植物类型 */
 	virtual void createPlantsCardListener();                                            /* 创建植物卡牌监听 */
 	virtual void showSelectedButtonHoverEffect();                                       /* 显示卡牌鼠标悬停效果 */
 	virtual void selectPlantsPreviewImage();                                            /* 选择植物预览图片 */

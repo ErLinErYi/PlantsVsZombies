@@ -67,7 +67,7 @@ void UpdateClient::createDiglog()
 	}
 }
 
-void UpdateClient::createButton(const std::string& name, Vec2& vec2, Update_Button buttonType)
+void UpdateClient::createButton(const std::string& name, const Vec2& vec2, Update_Button buttonType)
 {
 	/* 创建返回主菜单按钮 */
 	auto button = ui::Button::create("ButtonNew2.png", "ButtonNew.png", "",cocos2d::ui::Widget::TextureResType::PLIST);

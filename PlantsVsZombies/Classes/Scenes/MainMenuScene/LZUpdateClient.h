@@ -34,8 +34,8 @@ private:
         下载器下载,
         网站下载
     };
-    void createDiglog();	                                                       /* 创建对话框 */
-    void createButton(const std::string& name, Vec2& vec2, Update_Button button);  /* 创建按钮 */
+    void createDiglog();	                                                             /* 创建对话框 */
+    void createButton(const std::string& name, const Vec2& vec2, Update_Button button);  /* 创建按钮 */
     void showText();
     void addScrollView();
     void addMouseEvent();

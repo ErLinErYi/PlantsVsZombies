@@ -53,7 +53,8 @@ void HGameEndLayer::breakThrough()
 void HGameEndLayer::rewardThing()
 {
 	auto moneybag_hi_res = ui::Button::create(
-		UserData::getInstance()->openIntUserData("HAMMERZOMBIES_LEVEL_NUMBER") == 50 ? "CarTrophy.png" : "moneybag_hi_res.png", "", "",cocos2d::ui::Widget::TextureResType::PLIST);
+		UserData::getInstance()->openIntUserData(const_cast<char*>("HAMMERZOMBIES_LEVEL_NUMBER")) == 50 ?
+		"CarTrophy.png" : "moneybag_hi_res.png", "", "", cocos2d::ui::Widget::TextureResType::PLIST);
 	moneybag_hi_res->setPosition(Vec2(700 + rand() % 1000, 100 + rand() % 700));
 	moneybag_hi_res->runAction(JumpBy::create(0.5f, Vec2(100 - rand() % 200, 0), 100 + rand() % 100, 1));
 	moneybag_hi_res->setName("moneybag_hi_res");
@@ -81,7 +82,7 @@ void HGameEndLayer::rewardThing()
 
 void HGameEndLayer::rewardCoin(Button* button)
 {
-	const auto coin = UserData::getInstance()->openIntUserData("HAMMERZOMBIES_LEVEL_NUMBER");
+	const auto coin = UserData::getInstance()->openIntUserData(const_cast<char*>("HAMMERZOMBIES_LEVEL_NUMBER"));
 	const int number = min(coin / 2, 10) + rand() % (coin / 2);
 
 	button->runAction(Sequence::create(Repeat::create(Sequence::create(MoveBy::create(0.05f, Vec2(5, 5)),
@@ -119,7 +120,7 @@ void HGameEndLayer::rewardCoin(Button* button)
 						White->runAction(Sequence::create(DelayTime::create(1.0f), FadeIn::create(7.0f),
 							CallFunc::create([=]()
 								{
-									UserData::getInstance()->caveUserData("COINNUMBERS", _global->userInformation->getCoinNumbers());
+									UserData::getInstance()->caveUserData(const_cast<char*>("COINNUMBERS"), _global->userInformation->getCoinNumbers());
 									Director::getInstance()->replaceScene(MainMenu::create());
 								}), nullptr));
 					}), nullptr));

@@ -366,6 +366,11 @@ public:
 	virtual void setZombieMultipleBloodVolume(const float multiple);
 
 	/**
+	 * 设置僵尸护盾  
+	 */
+	virtual void setZombieShieldType(ShieldType type, bool head = true);
+
+	/**
 	 * 获取僵尸所在行 
 	 */
 	virtual int getZombieInRow() const;

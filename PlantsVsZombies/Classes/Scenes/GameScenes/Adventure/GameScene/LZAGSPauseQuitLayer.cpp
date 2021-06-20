@@ -239,7 +239,7 @@ void GSPauseQuitLayer::openHandBook()
 void GSPauseQuitLayer::setRestart()
 {
 	_director->getScheduler()->setTimeScale(1.0f);
-	UserData::getInstance()->caveUserData("BREAKTHROUGH", ++_global->userInformation->getBreakThroughNumbers());
+	UserData::getInstance()->caveUserData(const_cast<char*>("BREAKTHROUGH"), ++_global->userInformation->getBreakThroughNumbers());
 	GSGameEndLayer::judgeBreakThroughAboutJumpLevel();
 
 	_director->replaceScene(TransitionFade::create(1.0f, SelectPlantsScene::create()));
@@ -251,7 +251,7 @@ void GSPauseQuitLayer::setRestart()
 void GSPauseQuitLayer::setQuitGame()
 {
 	_director->getScheduler()->setTimeScale(1.0f);
-	UserData::getInstance()->caveUserData("BREAKTHROUGH", ++_global->userInformation->getBreakThroughNumbers());
+	UserData::getInstance()->caveUserData(const_cast<char*>("BREAKTHROUGH"), ++_global->userInformation->getBreakThroughNumbers());
 	GSGameEndLayer::judgeBreakThroughAboutJumpLevel();
 
 	if (GameScene::isRunGameScene) /* 如果运行了游戏场景则保存 */

@@ -157,7 +157,7 @@ void SelectLanguage::setNewLanguage()
 	showDeleteDialogAction(_selectLanguageDialog);
 }
 
-void SelectLanguage::createButtons(Sprite* sprite, const std::string& Label, Vec2& vec2, const float& scale, const int& ID)
+void SelectLanguage::createButtons(Sprite* sprite, const std::string& Label, const Vec2& vec2, const float& scale, const int& ID)
 {
 	auto button = Button::create("ButtonNew.png", "ButtonNew2.png", "",cocos2d::ui::Widget::TextureResType::PLIST);
 	button->setPosition(vec2);

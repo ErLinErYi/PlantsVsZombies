@@ -231,7 +231,7 @@ void HControlLayer::createZombies()
 		_zombiesAppearControl->setTimeClear(); /* 距离上一波刷新时间清零 */
 		if (static_cast<unsigned int>(_zombiesAppearControl->getZombiesAppearFrequency()) < _maxFrequencyNumbers)
 		{
-			unsigned int zombiesNumbers = _frequencyZombiesNumbers + _zombiesAppearControl->getZombiesAppearFrequency() / 2;
+			unsigned int zombiesNumbers = _frequencyZombiesNumbers + _zombiesAppearControl->getZombiesAppearFrequency();
 			zombiesNumbers = zombiesNumbers + rand() % (zombiesNumbers / 3);
 			for (unsigned int i = 0; i < zombiesNumbers; ++i)
 			{
@@ -300,7 +300,7 @@ void HControlLayer::judgeLevelIsFinished()
 	if (ZombiesGroup.size() <= 0 && static_cast<unsigned int>(_zombiesAppearControl->getZombiesAppearFrequency()) >= _maxFrequencyNumbers)
 	{
 		_hammer->setVisible(false);
-		UserData::getInstance()->caveUserData("HAMMERZOMBIES_LEVEL_NUMBER", static_cast<int>(_currentLevelNumber + 1));
+		UserData::getInstance()->caveUserData(const_cast<char*>("HAMMERZOMBIES_LEVEL_NUMBER"), static_cast<int>(_currentLevelNumber + 1));
 
 		auto gameEndShieldLayer = HGameEndLayer::create();
 		_director->getRunningScene()->addChild(gameEndShieldLayer, 10, "gameEndShieldLayer");
@@ -338,8 +338,8 @@ void HControlLayer::showPowImage(Zombies* zombie, const Vec2& position)
 
 void HControlLayer::calculateZombiesData()
 {
-	_currentLevelNumber = max(UserData::getInstance()->openIntUserData("HAMMERZOMBIES_LEVEL_NUMBER"), 1);
-	_maxFrequencyNumbers += min(static_cast<int>(_currentLevelNumber / 2), 40);
+	_currentLevelNumber = max(UserData::getInstance()->openIntUserData(const_cast<char*>("HAMMERZOMBIES_LEVEL_NUMBER")), 1);
+	_maxFrequencyNumbers += min(static_cast<int>(_currentLevelNumber / 4), 15);
 	_zombiesTypeNumbers = min(static_cast<int>(_zombiesTypeNumbers + _currentLevelNumber / 3), ZOMBIESNUMBERS);
 	_currentLevelZombiesSpeed += _currentLevelNumber * 0.02f;
 	_attack = hammerInformation[HButtonLayer::selectedHammer].lowAttack + min(hammerInformation[HButtonLayer::selectedHammer].HigtAttack,

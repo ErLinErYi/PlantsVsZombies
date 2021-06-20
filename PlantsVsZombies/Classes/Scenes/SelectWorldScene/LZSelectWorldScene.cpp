@@ -21,7 +21,7 @@ SelectWorldScene::SelectWorldScene():
 	_scrollView(nullptr), 
 	_global(Global::getInstance())
 {
-	_selectWorldPosition = UserData::getInstance()->openDoubleUserData("SELECTWORLDPOSITION");
+	_selectWorldPosition = UserData::getInstance()->openDoubleUserData(const_cast<char*>("SELECTWORLDPOSITION"));
 }
 
 Scene* SelectWorldScene::createScene()
@@ -79,7 +79,7 @@ void SelectWorldScene::createGoBack()
 				break;
 			case ui::Widget::TouchEventType::ENDED:
 				Director::getInstance()->replaceScene(MainMenu::create());
-				UserData::getInstance()->caveUserData("SELECTWORLDPOSITION",
+				UserData::getInstance()->caveUserData(const_cast<char*>("SELECTWORLDPOSITION"),
 					_scrollView->getScrolledPercentHorizontal());
 				break;
 			}
@@ -88,7 +88,7 @@ void SelectWorldScene::createGoBack()
 
 void SelectWorldScene::createSelectDifficulty()
 {
-	_global->userInformation->setGameDifficulty(UserData::getInstance()->openIntUserData("DIFFICULTY"));
+	_global->userInformation->setGameDifficulty(UserData::getInstance()->openIntUserData(const_cast<char*>("DIFFICULTY")));
 		
 	auto checkbox = CheckBox::create();
 	checkbox->loadTextureBackGround("CheckBox2.png",cocos2d::ui::Widget::TextureResType::PLIST);
@@ -125,7 +125,7 @@ void SelectWorldScene::createSelectDifficulty()
 			}
 			_global->userInformation->getUserSelectWorldData().at(0)->isReadWoldInformation = false;
 			_global->userInformation->getUserSelectWorldData().at(1)->isReadWoldInformation = false;
-			UserData::getInstance()->caveUserData("DIFFICULTY", _global->userInformation->getGameDifficulty());
+			UserData::getInstance()->caveUserData(const_cast<char*>("DIFFICULTY"), _global->userInformation->getGameDifficulty());
 		});
 }
 
@@ -264,7 +264,7 @@ void SelectWorldScene::showDifferentWorlds()
 					}
 					break;
 				}
-				UserData::getInstance()->caveUserData("SELECTWORLDPOSITION", _scrollView->getScrolledPercentHorizontal());
+				UserData::getInstance()->caveUserData(const_cast<char*>("SELECTWORLDPOSITION"), _scrollView->getScrolledPercentHorizontal());
 			});
 	}
 }

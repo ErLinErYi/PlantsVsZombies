@@ -82,7 +82,7 @@ void BMAnimationLayer::plantPlants()
 	plants->setPlantTag(SET_TAG(controlLayerInformation->_plantsPosition));
 	plants->createPlantAnimation();
 
-	PlantsGroup.insert(pair<int, Plants*>(SET_TAG(controlLayerInformation->_plantsPosition), plants));
+	PlantsGroup.insert(pair<int, Plants*>(plants->getPlantAnimation()->getTag(), plants));
 }
 
 void BMAnimationLayer::createZombies()

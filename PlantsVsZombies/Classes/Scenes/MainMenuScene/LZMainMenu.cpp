@@ -714,8 +714,16 @@ void MainMenu::beginVasebreakerGame()
 			}
 			else
 			{
+				UnlockDialogLayer* lock = nullptr;
 				setMouseListenerEnable(false);
-				auto lock = UnlockDialogLayer::createScene(1);
+				if (_nowtime->getNetDay() == 0 && _nowtime->getNetHour() == 0 && _nowtime->getNetMon() == 0)
+				{
+					lock = UnlockDialogLayer::createScene(2);
+				}
+				else
+				{
+					lock = UnlockDialogLayer::createScene(1);
+				}
 				if (lock)
 				{
 					lock->setMouseListener(_mouse);

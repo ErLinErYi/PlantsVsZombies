@@ -26,6 +26,7 @@ GSButtonLayer::GSButtonLayer():
 	_quitLayer(nullptr),
 	_accelerateButton(nullptr),
 	_decelerateButton(nullptr),
+	_shovelBank(nullptr),
 	nextWaveButton(nullptr),
 	mouseSelectImage(new MouseSelectImage)
 {
@@ -208,15 +209,15 @@ void GSButtonLayer::showSeedBank()
 
 void GSButtonLayer::showShovelBank()
 {
-	auto shovelBank = Button::create("ShovelBank.png", "", "",cocos2d::ui::Widget::TextureResType::PLIST);
-	shovelBank->setPosition(_openLevelData->readLevelData(_openLevelData->getLevelNumber())->getGameType().size() > 0 ? Vec2(1425, 1080) : Vec2(1525, 1080));
-	shovelBank->setScale(0.6f);
-	shovelBank->setAnchorPoint(Vec2(0, 1));
-	shovelBank->setName("ShovelBank");
-	this->addChild(shovelBank, 1);
+	_shovelBank = Button::create("ShovelBank.png", "", "",cocos2d::ui::Widget::TextureResType::PLIST);
+	_shovelBank->setPosition(_openLevelData->readLevelData(_openLevelData->getLevelNumber())->getGameType().size() > 0 ? Vec2(1425, 1075) : Vec2(1525, 1075));
+	_shovelBank->setScale(0.6f);
+	_shovelBank->setAnchorPoint(Vec2(0, 1));
+	_shovelBank->setName("ShovelBank");
+	this->addChild(_shovelBank, 1);
 
 	/* 铲子监听 */
-	shovelBank->addTouchEventListener([=](Ref* sender, ui::Widget::TouchEventType type)
+	_shovelBank->addTouchEventListener([=](Ref* sender, ui::Widget::TouchEventType type)
 		{
 			switch (type)
 			{
@@ -227,10 +228,12 @@ void GSButtonLayer::showShovelBank()
 				switch (mouseSelectImage->isSelectShovel)
 				{
 				case true:
+					updateShovel();
 					Director::getInstance()->getOpenGLView()->setCursor("resources/Images/System/cursor.png", Point::ANCHOR_TOP_LEFT);
 					mouseSelectImage->isSelectShovel = false;
 					break;
 				case false:
+					updateShovel(false);
 					if (_global->userInformation->getIsSelectCursorNotHide() == cocos2d::ui::CheckBox::EventType::UNSELECTED)
 						Director::getInstance()->getOpenGLView()->setCursor("resources/Images/System/Shovel_hi_res.png", Point::ANCHOR_BOTTOM_LEFT);
 					else
@@ -241,6 +244,21 @@ void GSButtonLayer::showShovelBank()
 				break;
 			}
 		});
+}
+
+void GSButtonLayer::updateShovel(bool isHaveShovel)
+{
+	if (_shovelBank)
+	{
+		if (isHaveShovel)
+		{
+			_shovelBank->loadTextureNormal("ShovelBank.png", cocos2d::ui::Widget::TextureResType::PLIST);
+		}
+		else
+		{
+			_shovelBank->loadTextureNormal("ShovelBank1.png", cocos2d::ui::Widget::TextureResType::PLIST);
+		}
+	}
 }
 
 void GSButtonLayer::showNextWaveButton()

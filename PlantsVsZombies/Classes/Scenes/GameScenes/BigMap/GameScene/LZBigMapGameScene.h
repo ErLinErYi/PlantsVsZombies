@@ -26,6 +26,7 @@ protected:
 	virtual void informationLayer() override;
 	virtual void goodsLayer() override;
 	virtual void buttonLayer() override;
+	virtual void controlPlayMusic() override;
 
 public:
 	static extension::ScrollView* scrollView;

@@ -40,8 +40,8 @@ void TGControlLayer::initData()
 {
 	srand(time(nullptr));
 	gameMapInformation = new GameMapInformation();
-	MAP_INIT(gameMapInformation->plantsMap)
-
+	MAP_INIT(gameMapInformation->plantsMap, NO_PLANTS)
+	MAP_INIT(gameMapInformation->plantPumpkin, false)
 	_zombiesAppearControl = new ZombiesAppearControl();
 }
 
@@ -154,9 +154,16 @@ void TGControlLayer::mouseLeftButtonDownControl()
 			/* 种植植物 */
 			animationLayerInformation->plantPlants();
 
-			/* 地图记录种植的植物 */
-			gameMapInformation->plantsMap[static_cast<unsigned int>(_plantsPosition.y)][static_cast<unsigned int>(_plantsPosition.x)] =
-				static_cast<unsigned int>(buttonLayerInformation->mouseSelectImage->selectPlantsId);
+			if (buttonLayerInformation->mouseSelectImage->selectPlantsId == PlantsType::Pumpkin)
+			{
+				gameMapInformation->plantPumpkin[static_cast<unsigned int>(_plantsPosition.y)][static_cast<unsigned int>(_plantsPosition.x)] = true;
+			}
+			else
+			{
+				/* 地图记录种植的植物 */
+				gameMapInformation->plantsMap[static_cast<unsigned int>(_plantsPosition.y)][static_cast<unsigned int>(_plantsPosition.x)] =
+					static_cast<unsigned int>(buttonLayerInformation->mouseSelectImage->selectPlantsId);
+			}
 
 			buttonLayerInformation->plantsCards[static_cast<unsigned int>(buttonLayerInformation->mouseSelectImage->selectPlantsId)].progressTimer->setPercentage(0);
 			buttonLayerInformation->plantsCards[static_cast<unsigned int>(buttonLayerInformation->mouseSelectImage->selectPlantsId)].plantsCards->setColor(Color3B::WHITE);
@@ -184,7 +191,7 @@ void TGControlLayer::mouseLeftButtonDownControl()
 		if (judgeMousePositionIsInMap() && judgeMousePositionHavePlant())    /* 如果在地图范围内 && 种有植物 */
 		{
 			PlayMusic::playMusic("plant2");
-			animationLayerInformation->deletePlants();/* 铲除植物 */
+			checkPlantType();
 			removeShovel();
 		}
 		else

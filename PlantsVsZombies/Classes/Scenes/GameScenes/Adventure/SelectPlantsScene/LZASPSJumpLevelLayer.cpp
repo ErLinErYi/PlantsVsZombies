@@ -59,7 +59,7 @@ void SPSJumpLevelLayer::createText()
 	auto str = _global->userInformation->getGameText().find("跳关说明信息")->second;
 	
 	auto information = Text::create(StringUtils::format(str->text.c_str(), 
-		UserData::getInstance()->openIntUserData("JUMPLEVELNUMBERS")), GAME_FONT_NAME_1, str->fontsize);
+		UserData::getInstance()->openIntUserData(const_cast<char*>("JUMPLEVELNUMBERS"))), GAME_FONT_NAME_1, str->fontsize);
     information->setColor(Color3B::RED);
     information->setGlobalZOrder(10);
     information->setTextVerticalAlignment(TextVAlignment::CENTER);
@@ -79,7 +79,7 @@ void SPSJumpLevelLayer::jumpLevel()
 {
 	caveLevelNumber();
 
-	UserData::getInstance()->caveUserData("JUMPLEVELNUMBERS", UserData::getInstance()->openIntUserData("JUMPLEVELNUMBERS") - 1);
+	UserData::getInstance()->caveUserData(const_cast<char*>("JUMPLEVELNUMBERS"), UserData::getInstance()->openIntUserData(const_cast<char*>("JUMPLEVELNUMBERS")) - 1);
 
 	auto layer = LayerColor::create(Color4B(0, 0, 0, 0));
 	layer->setGlobalZOrder(10);
@@ -92,7 +92,7 @@ void SPSJumpLevelLayer::jumpLevel()
 			}), nullptr));
 }
 
-void SPSJumpLevelLayer::createButton(Vec2& vec2, string title, const int id)
+void SPSJumpLevelLayer::createButton(const Vec2& vec2, string title, const int id)
 {
 	auto button = Button::create("ButtonNew.png", "ButtonNew2.png", "",cocos2d::ui::Widget::TextureResType::PLIST);
 	button->setPosition(vec2);
@@ -104,7 +104,7 @@ void SPSJumpLevelLayer::createButton(Vec2& vec2, string title, const int id)
 	button->setGlobalZOrder(10);
 	_jumpLevelDialog->addChild(button);
 
-	if (UserData::getInstance()->openIntUserData("JUMPLEVELNUMBERS") <= 0 && id == 1)
+	if (UserData::getInstance()->openIntUserData(const_cast<char*>("JUMPLEVELNUMBERS")) <= 0 && id == 1)
 	{
 		button->setEnabled(false);
 	}
