@@ -1,3 +1,5 @@
+[[简体中文]](README.md)
+[[русский]](README_ru_ru.MD)
 # PlantsVsZombies
 * **Game engine based on version Cocos2d-X v3.16** [[Cocos2dx website]](https://www.cocos.com/)
 * **All games are developed with C++**
