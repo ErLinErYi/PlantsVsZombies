@@ -1,3 +1,5 @@
+[[简体中文]](README.md)
+[[English]](README_en_us.MD)
 # PlantsVsZombies
 * **Игровой движок основан на Cocos2d-X v3.16** [[Сайт Cocos2dx]](https://www.cocos.com/)
 * **Вся игра разработана на С++**
