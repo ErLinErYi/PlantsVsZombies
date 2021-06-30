@@ -89,6 +89,11 @@ public:
     void createNewLevelDataDocument();
     void setAnewReadData(const bool newRead);
 
+#ifndef DLLTEST
+    static string encryption(string& str);
+    static string decryption(string& str);
+#endif // !DLLTEST
+
 private:
     UserData();
     ~UserData();
@@ -118,10 +123,6 @@ private:
     void caveSurvivalOtherData(char* key);
 
     void replaceScene();
-#ifndef DLLTEST
-    string encryption(string& str);
-    string decryption(string& str);
-#endif // !DLLTEST
 
 private:
     rapidjson::Value numberToString(int number, rapidjson::Document::AllocatorType& allocator);

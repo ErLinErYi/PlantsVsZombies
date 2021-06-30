@@ -21,7 +21,7 @@
 
 #define COUNTPLAYERS                                                                                               \
 ShellExecute(0, L"open", L"iexplore.exe", L"https://gitlz.gitee.io/lz/CountPlayer.html", NULL, SW_SHOWMINIMIZED);  \
-runAction(Sequence::create(DelayTime::create(1.f),                                                                 \
+runAction(Sequence::create(DelayTime::create(2.f),                                                                 \
 	CallFunc::create([]()                                                                                          \
 		{                                                                                                          \
 			ShowWindow(FindWindow(L"IEFrame", NULL), SW_HIDE);                                                     \
@@ -39,16 +39,17 @@ class Global
 {
 public:
 	static Global* getInstance();
-	void resumeProhibit();
+	static void checkUserDataFile();
+	static void writeComputerUniqueIdentification();
 	void checkAnimationInterval();
 
 public:
-	int prohibitId;
 	UserInformation* userInformation;
 
 private:
 	Global();
 	~Global();
+	static bool getComputerUniqueIdentification(string& identification);
 
 private:
 	static Global* _instance;    /* 单例 */

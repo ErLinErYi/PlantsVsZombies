@@ -76,6 +76,8 @@ bool AppDelegate::applicationDidFinishLaunching()
         director->setOpenGLView(glview);
     }
    
+    RemoveMenu(GetSystemMenu(director->getOpenGLView()->getWin32Window(), false), SC_CLOSE, MF_BYCOMMAND);
+
     register_all_packages();
 
     // turn on display FPS

@@ -641,6 +641,9 @@
     <ClCompile Include="..\Classes\Plants\DefensePlants\LZMagnetShroom.cpp">
       <Filter>Class\Plants\DefensePlants</Filter>
     </ClCompile>
+    <ClCompile Include="..\Classes\Scenes\GameScenes\Adventure\WorldScene\LZDonateLayer.cpp">
+      <Filter>Class\Scenes\GameScenes\Adventure\WorldScene</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="..\Classes\LZPlantsVsZombies.h">
@@ -1191,6 +1194,9 @@
     </ClInclude>
     <ClInclude Include="..\Classes\Plants\DefensePlants\LZMagnetShroom.h">
       <Filter>Class\Plants\DefensePlants</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Classes\Scenes\GameScenes\Adventure\WorldScene\LZDonateLayer.h">
+      <Filter>Class\Scenes\GameScenes\Adventure\WorldScene</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>

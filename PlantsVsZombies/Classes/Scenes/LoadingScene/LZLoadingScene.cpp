@@ -171,7 +171,7 @@ void LoadingScene::loadUserData()
 	_global->userInformation->setIsEaseAnimation(_userData->openBoolUserData(const_cast<char*>("EASEANIMATION")) ?
 		cocos2d::ui::CheckBox::EventType::SELECTED : cocos2d::ui::CheckBox::EventType::UNSELECTED);
 
-#ifndef _DEBUG
+#ifdef _DEBUG
 	if (!UserDefault::getInstance()->getBoolForKey("CHANGEFILE"))
 	{
 		changeFiles();
@@ -447,6 +447,7 @@ void LoadingScene::update(float Time)
 		loadingFinished = true;
 
 		selectLanguage();
+
 #ifndef _DEBUG
 		COUNTPLAYERS
 #endif

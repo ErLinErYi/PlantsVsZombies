@@ -17,6 +17,7 @@
 #include "Scenes/GameScenes/Adventure/GameScene/LZAGSOpenCaveGameScene.h"
 #include "Scenes/GameScenes/Adventure/GameScene/LZAGSPauseQuitLayer.h"
 #include "Scenes/GameScenes/Adventure/GameScene/LZAGSData.h"
+#include "Scenes/GameScenes/Adventure/WorldScene/LZDonateLayer.h"
 #include "Scenes/GameScenes/BigMap/SelectPlantsScene/LZBMSelectPlantsScene.h"
 #include "Scenes/GameScenes/BigMap/GameScene/LZBMGSOpenCaveGameScene.h"
 
@@ -240,7 +241,7 @@ void ModernWorld::showLevels()
 	}
 	else
 	{
-		if (_global->prohibitId == -1)playProhibitMusic(sprite);
+		playProhibitMusic(sprite);
 	}
 	auto wgfd = Sprite::createWithSpriteFrameName("wgfd.png");
 	wgfd->setPosition(Vec2(40, 15));
@@ -574,9 +575,7 @@ void ModernWorld::playProhibitMusic(Button* button)
 				PlayMusic::playMusic("tap");
 				break;
 			case ui::Widget::TouchEventType::ENDED:
-				_global->prohibitId = AudioEngine::play2d(
-					Global::getInstance()->userInformation->getMusicPath().find("prohibit")->second);
-				button->setEnabled(false);
+				this->addChild(DonateLayer::create());
 				break;
 			}
 		});

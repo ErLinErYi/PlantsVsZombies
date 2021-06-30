@@ -142,12 +142,12 @@ void MagnetShroom::showShieldMoveAction(Zombies* zombie, const bool type)
 	case ZombiesType::CommonDoorZombies:     name = "Door";                             break;
 	case ZombiesType::ConeDoorFlagZombies:   name = "Door";                             break;
 	case ZombiesType::ConeDoorZombies:       name = "Door";                             break;
-	case ZombiesType::DoorZombies4:          name = "Doo2r";                            break;
+	case ZombiesType::DoorZombies4:          name = "Door2";                            break;
 	default:                                                                            break;
 	}
 
 	auto shield = Sprite::createWithSpriteFrameName(name + ".png");
-	shield->setPosition(zombie->getZombieAnimation()->getPosition() + (type ? Vec2(0, 100) : Vec2(0, 50)));
+	shield->setPosition(zombie->getZombieAnimation()->getPosition() + (type ? Vec2(-30, 190) : Vec2(0, 50)));
 	shield->setLocalZOrder(_plantAnimation->getLocalZOrder() + 1);
 	shield->setScale(zombie->getZombieAnimation()->getScale());
 	shield->runAction(Sequence::create(MoveTo::create(0.5f, _plantAnimation->getPosition() + Vec2(0, 100)),

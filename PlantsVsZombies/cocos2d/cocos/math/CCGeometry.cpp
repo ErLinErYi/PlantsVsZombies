@@ -124,7 +124,7 @@ Rect& Rect::operator= (const Rect& other)
     return *this;
 }
 
-Rect& Rect::operator-(const Rect& other)
+const Rect& Rect::operator-(const Rect& other)
 {
     return Rect(origin.x - other.origin.x, origin.y - other.origin.y, 
         size.width - other.size.width, size.height - other.size.height);

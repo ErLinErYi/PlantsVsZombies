@@ -86,6 +86,22 @@ void UpdateClient::createButton(const std::string& name, const Vec2& vec2, Updat
 		button->setVisible(false);
 	}
 
+	if (!checkCanPlay())
+	{
+		switch (buttonType)
+		{
+		case UpdateClient::Update_Button::百度网盘下载:
+		case UpdateClient::Update_Button::腾讯微云下载:
+		case UpdateClient::Update_Button::直接下载:
+		case UpdateClient::Update_Button::确定:
+		case UpdateClient::Update_Button::下载器下载:
+		case UpdateClient::Update_Button::网站下载:
+			button->setEnabled(false);
+		default:
+			break;
+		}
+	}
+
 	button->addTouchEventListener([=](Ref* sender, ui::Widget::TouchEventType type)
 		{
 			switch (type)
@@ -103,7 +119,7 @@ void UpdateClient::createButton(const std::string& name, const Vec2& vec2, Updat
 					Application::getInstance()->openURL(_global->userInformation->getGameText().find("腾讯微云网址")->second->text);
 					break;
 				case Update_Button::下载器下载:
-					ShellExecute(NULL, L"open", L"PVZUpdate.exe", NULL, NULL, SW_SHOWNORMAL);
+					ShellExecute(NULL, L"open", L"pvzupdate.exe", NULL, NULL, SW_SHOWNORMAL);
 					Director::getInstance()->end();
 					break;
 				case Update_Button::直接下载:

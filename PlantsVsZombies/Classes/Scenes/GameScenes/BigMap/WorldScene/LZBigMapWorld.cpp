@@ -230,7 +230,7 @@ void BigMapWorld::showLevels()
     }
     else
     {
-        if (_global->prohibitId == -1) playProhibitMusic(sprite);
+        playProhibitMusic(sprite);
     }
     auto wgfd = Sprite::createWithSpriteFrameName("wgfd.png");
     wgfd->setPosition(Vec2(40, 15));

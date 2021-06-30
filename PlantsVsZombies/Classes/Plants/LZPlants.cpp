@@ -62,7 +62,7 @@ PlantsInformation::PlantsCardInformation plantsCardInformation[] =
 	{"Spikeweed",             "PlantsIcon12",   "B",    3,   7,          100,         7.5f,      0, 0,     false,   PlantsType::Spikeweed,           Color3B(0,64,0)                         },  /* 地刺 */
 	{"Garlic",                "PlantsIcon10",   "B",    3,   8,          50,          10,        0, 0,     false,   PlantsType::Garlic,              Color3B(218,205,182)                    },  /* 大蒜 */
 	{"IceBergLettuce",        "PlantsIcon15",   "B",    3,   9,          0,           20,        0, 0,     false,   PlantsType::IceBergLettuce,      Color3B(99,202,178),  { 1000,  1000  }  },  /* 冰莴苣 */
-	{"Marigold",              "PlantsIcon9",    "B",    3,   10,         50,          30,        0, 0,     false,   PlantsType::Marigold,            Color3B::ORANGE,      { 1500,  1500  }  },  /* 金盏花 */
+	{"Marigold",              "PlantsIcon9",    "B",    3,   10,         50,          10,        0, 0,     false,   PlantsType::Marigold,            Color3B::ORANGE,      { 1500,  1500  }  },  /* 金盏花 */
 	{"Chomper",               "PlantsIcon8",    "B",    3,   11,         150,         7.5f,      0, 0,     false,   PlantsType::Chomper,             Color3B(152,66,184),  { 2000,  2000  }  },  /* 大嘴花 */
 	{"IcePeaShooter",         "PlantsIcon15",   "B",    2,   12,         175,         10,        0, 0,     false,   PlantsType::IcePeaShooter,       Color3B(47,202,207),  { 4500,  4500  }  },  /* 寒冰豌豆射手 */
 	{"FirePeaShooter",        "PlantsIcon2",    "B",    2,   13,         200,         10,        0, 0,     false,   PlantsType::FirePeaShooter,      Color3B::RED,         { 7000,  7000  }  },  /* 火焰豌豆射手 */

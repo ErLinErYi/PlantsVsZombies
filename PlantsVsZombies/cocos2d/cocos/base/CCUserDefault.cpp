@@ -426,6 +426,9 @@ UserDefault* UserDefault::getInstance()
 void UserDefault::destroyInstance()
 {
     CC_SAFE_DELETE(_userDefault);
+
+    _isFilePathInitialized = false;
+
 }
 
 void UserDefault::setDelegate(UserDefault *delegate)
@@ -458,7 +461,7 @@ void UserDefault::initXMLFilePath()
 {
     if (! _isFilePathInitialized)
     {
-        _filePath += FileUtils::getInstance()->getWritablePath() + XML_FILE_NAME;
+        _filePath = FileUtils::getInstance()->getWritablePath() + XML_FILE_NAME;
         _isFilePathInitialized = true;
     }    
 }

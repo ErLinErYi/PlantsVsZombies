@@ -629,7 +629,7 @@ protected:
 	/**
 	 *僵尸掉护盾动画
 	 */
-	virtual void zombieLoseShieldAnimation(const std::string& name, const float scale = 1.5f);
+	virtual void zombieLoseShieldAnimation(const std::string& name, const float scale = 1.f);
 
 	/**
 	 *僵尸消失动画

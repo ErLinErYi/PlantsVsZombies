@@ -395,6 +395,7 @@ xcopy "$(ProjectDir)..\Resources" "$(OutDir)" /D /E /I /F /Y
     <ClCompile Include="..\Classes\Scenes\GameScenes\Adventure\SelectPlantsScene\LZASPSRequriementLayer.cpp" />
     <ClCompile Include="..\Classes\Scenes\GameScenes\Adventure\SelectPlantsScene\LZASelectPlantsScene.cpp" />
     <ClCompile Include="..\Classes\Scenes\GameScenes\Adventure\SelectPlantsScene\LZASPSSpriteLayer.cpp" />
+    <ClCompile Include="..\Classes\Scenes\GameScenes\Adventure\WorldScene\LZDonateLayer.cpp" />
     <ClCompile Include="..\Classes\Scenes\GameScenes\Adventure\WorldScene\LZModernWorld.cpp" />
     <ClCompile Include="..\Classes\Scenes\GameScenes\BigMap\GameScene\LZBMGSAnimationLayer.cpp" />
     <ClCompile Include="..\Classes\Scenes\GameScenes\BigMap\GameScene\LZBMGSBackgroundLayer.cpp" />
@@ -579,6 +580,7 @@ xcopy "$(ProjectDir)..\Resources" "$(OutDir)" /D /E /I /F /Y
     <ClInclude Include="..\Classes\Scenes\GameScenes\Adventure\SelectPlantsScene\LZASPSRequriementLayer.h" />
     <ClInclude Include="..\Classes\Scenes\GameScenes\Adventure\SelectPlantsScene\LZASelectPlantsScene.h" />
     <ClInclude Include="..\Classes\Scenes\GameScenes\Adventure\SelectPlantsScene\LZASPSSpriteLayer.h" />
+    <ClInclude Include="..\Classes\Scenes\GameScenes\Adventure\WorldScene\LZDonateLayer.h" />
     <ClInclude Include="..\Classes\Scenes\GameScenes\Adventure\WorldScene\LZModernWorld.h" />
     <ClInclude Include="..\Classes\Scenes\GameScenes\BigMap\GameScene\LZBMGSAnimationLayer.h" />
     <ClInclude Include="..\Classes\Scenes\GameScenes\BigMap\GameScene\LZBMGSBackgroundLayer.h" />

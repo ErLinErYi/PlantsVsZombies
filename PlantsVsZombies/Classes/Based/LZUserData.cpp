@@ -278,7 +278,7 @@ void UserData::caveUserData(char* key, double value)
 		(*_userDataDocument)["UserData"].AddMember(rapidjson::StringRef(key), value, _userDataDocument->GetAllocator());
 		break;
 	case openUserDataReturnType::FileExistError:
-		remove(getUserDataFileName().c_str());
+		_fileUtils->removeFile(getUserDataFileName());
 		break;
 	}
 	flushUserData();
@@ -298,7 +298,7 @@ void UserData::caveUserData(char* key, bool value)
 		(*_userDataDocument)["UserData"].AddMember(rapidjson::StringRef(key), value, _userDataDocument->GetAllocator());
 		break;
 	case openUserDataReturnType::FileExistError:
-		remove(getUserDataFileName().c_str());
+		_fileUtils->removeFile(getUserDataFileName());
 		break;
 	}
 	flushUserData();
@@ -318,7 +318,7 @@ void UserData::caveUserData(char* key, char* value)
 		(*_userDataDocument)["UserData"].AddMember(rapidjson::StringRef(key), rapidjson::StringRef(value), _userDataDocument->GetAllocator());
 		break;
 	case openUserDataReturnType::FileExistError:
-		remove(getUserDataFileName().c_str());
+		_fileUtils->removeFile(getUserDataFileName());
 		break;
 	}
 	flushUserData();
@@ -338,7 +338,7 @@ void UserData::caveUserData(char* key, int value)
 		(*_userDataDocument)["UserData"].AddMember(rapidjson::StringRef(key), value, _userDataDocument->GetAllocator());
 		break;
 	case openUserDataReturnType::FileExistError:
-		remove(getUserDataFileName().c_str());
+		_fileUtils->removeFile(getUserDataFileName());
 		break;
 	}
 	flushUserData();
@@ -353,7 +353,7 @@ int UserData::openIntUserData(char* key)
 			return (*_userDataDocument)["UserData"][key].GetInt();
 		break;
 	case openUserDataReturnType::FileExistError:
-		remove(getUserDataFileName().c_str());
+		_fileUtils->removeFile(getUserDataFileName());
 		break;
 	default: break;
 	}
@@ -369,7 +369,7 @@ double UserData::openDoubleUserData(char* key)
 			return (*_userDataDocument)["UserData"][key].GetDouble();
 		break;
 	case openUserDataReturnType::FileExistError:
-		remove(getUserDataFileName().c_str());
+		_fileUtils->removeFile(getUserDataFileName());
 		break;
 	default: break;
 	}
@@ -385,7 +385,7 @@ bool UserData::openBoolUserData(char* key)
 			return (*_userDataDocument)["UserData"][key].GetBool();
 		break;
 	case openUserDataReturnType::FileExistError:
-		remove(getUserDataFileName().c_str());
+		_fileUtils->removeFile(getUserDataFileName());
 		break;
 	default: break;
 	}
@@ -401,7 +401,7 @@ const char* UserData::openStringUserData(char* key)
 			return (*_userDataDocument)["UserData"][key].GetString();
 		break;
 	case openUserDataReturnType::FileExistError:
-		remove(getUserDataFileName().c_str());
+		_fileUtils->removeFile(getUserDataFileName());
 		break;
 	default: break;
 	}
@@ -445,7 +445,7 @@ void UserData::caveLevelData(char* key)
 			(*_levelDataDocument).RemoveMember(key);
 		break;
 	case openUserDataReturnType::FileExistError:
-		remove(getLevelDataFileName().c_str());
+		_fileUtils->removeFile(getLevelDataFileName());
 		return;
 		break;
 	}
@@ -812,7 +812,7 @@ bool UserData::readLevelData()
 		return true;
 		break;
 	case openUserDataReturnType::FileExistError:
-		remove(getLevelDataFileName().c_str());
+		_fileUtils->removeFile(getLevelDataFileName());
 		return false;
 	default:
 		return false;
@@ -847,7 +847,7 @@ bool UserData::isHaveLevelData(char* key)
 			return true;
 		break;
 	case openUserDataReturnType::FileExistError:
-		remove(getLevelDataFileName().c_str());
+		_fileUtils->removeFile(getLevelDataFileName());
 		break;
 	default: break;
 	}
@@ -867,7 +867,7 @@ void UserData::openSurvivalData(char* key)
 		openLevelBulletData(key);
 		break;
 	case openUserDataReturnType::FileExistError:
-		remove(getSurvivalDataFileName().c_str());
+		_fileUtils->removeFile(getSurvivalDataFileName());
 		break;
 	}
 }
@@ -881,7 +881,7 @@ bool UserData::isHaveSurvivalData(char* key)
 			return true;
 		break;
 	case openUserDataReturnType::FileExistError:
-		remove(getSurvivalDataFileName().c_str());
+		_fileUtils->removeFile(getSurvivalDataFileName());
 		break;
 	default:break;
 	}

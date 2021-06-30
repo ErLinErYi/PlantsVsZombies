@@ -117,8 +117,8 @@ void GloomShroom::plantAttack(Zombies* zombie)
 bool GloomShroom::getZombieIsInAttackRange(Zombies* zombie)
 {
 	/* 僵尸是否在攻击范围判断 */
-	return sqrt(pow(zombie->getZombieAnimation()->getPositionX() - _plantAnimation->getPositionX(), 2) +
-		pow((zombie->getZombieAnimation()->getPositionY() + 50) - (_plantAnimation->getPositionY() + 60), 2)) <= 210 ? true : false;
+	return fabs(zombie->getZombieAnimation()->getPositionX() - _plantAnimation->getPositionX()) < (zombie->getZombieIsEat() ? 230 : 195) &&
+		fabs((zombie->getZombieAnimation()->getPositionY() + 50) - (_plantAnimation->getPositionY() + 60)) < 195;
 }
 
 void GloomShroom::plantRecovery(const string& name)

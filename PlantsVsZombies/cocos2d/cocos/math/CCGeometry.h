@@ -147,7 +147,7 @@ public:
      * @lua NA
      */
     Rect& operator= (const Rect& other);
-    Rect& operator- (const Rect& other);
+    const Rect& operator- (const Rect& other);
     /**
     Set the x, y, width and height of Rect.
      * @js NA

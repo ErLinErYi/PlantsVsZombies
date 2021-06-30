@@ -10,6 +10,7 @@
 #include "cocos2d.h"
 #include "LZPlantsVsZombies.h"
 #include "Based/LZAppDelegate.h"
+#include "Based/LZGlobalVariable.h"
 
 #include <powrprof.h>
 #pragma comment(lib,"powrprof.lib")
@@ -28,6 +29,10 @@ int WINAPI _tWinMain(HINSTANCE hInstance, HINSTANCE hPrevInstance, LPTSTR lpCmdL
 {
     // only one instance is allowed to run
     if (checkAlreadyRunning())return false;
+
+    // check file is legitimate
+    Global::checkUserDataFile();
+    Global::writeComputerUniqueIdentification();
 
     setPowerActiveScheme();
 

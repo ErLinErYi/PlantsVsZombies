@@ -83,12 +83,8 @@ void QuitMenu::quitGame()
 	caveTime(getSumRunTime());
 	LoadingScene::caveUserFileData();
 
-	_global->resumeProhibit();
-	if (_global->prohibitId == -1)
-	{
-		PowerSetActiveScheme(nullptr, &scheme_default);
-		Director::getInstance()->end();
-	}
+	PowerSetActiveScheme(nullptr, &scheme_default);
+	Director::getInstance()->end();
 }
 
 int QuitMenu::getSumRunTime()

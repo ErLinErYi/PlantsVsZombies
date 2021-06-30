@@ -351,13 +351,13 @@ void BMControlLayer::checkPlantType(const int type)
 		{
 			if (plant && plant1 && plant->isVisible() && plant1->isVisible())
 			{
-				if (plant->getBoundingBox().containsPoint(addScrollViewOffset(_cur)))
-				{
-					animationLayerInformation->deletePlants();/* 铲除植物 */
-				}
-				else if (plant1->getBoundingBox().containsPoint(addScrollViewOffset(_cur)))
+				if (plant1->getBoundingBox().containsPoint(addScrollViewOffset(_cur)))
 				{
 					animationLayerInformation->deletePlants(1);/* 铲除植物 */
+				}
+				else if (plant->getBoundingBox().containsPoint(addScrollViewOffset(_cur)))
+				{
+					animationLayerInformation->deletePlants();/* 铲除植物 */
 				}
 			}
 			else
@@ -370,13 +370,13 @@ void BMControlLayer::checkPlantType(const int type)
 		{
 			if (plant && plant1 && plant->isVisible() && plant1->isVisible())
 			{
-				if (plant->getBoundingBox().containsPoint(addScrollViewOffset(_cur)))
-				{
-					plant->setColor(Color3B(100, 100, 100));
-				}
-				else if (plant1->getBoundingBox().containsPoint(addScrollViewOffset(_cur)))
+				if (plant1->getBoundingBox().containsPoint(addScrollViewOffset(_cur)))
 				{
 					plant1->setColor(Color3B(100, 100, 100));
+				}
+				else if (plant->getBoundingBox().containsPoint(addScrollViewOffset(_cur)))
+				{
+					plant->setColor(Color3B(100, 100, 100));
 				}
 			}
 			else
