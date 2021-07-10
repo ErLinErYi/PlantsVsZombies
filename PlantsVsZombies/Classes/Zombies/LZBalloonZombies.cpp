@@ -56,6 +56,14 @@ void BalloonZombies::createPreviewZombie()
 	createZombieShadow();
 }
 
+Sprite* BalloonZombies::createPreviewZombieImage()
+{
+	imageInit("BalloonZombie", INIT);
+	_zombieImage->setScale(2.6f);
+	_zombieImage->setAnchorPoint(Vec2(0.5f, 0.15f));
+	return _zombieImage;
+}
+
 void BalloonZombies::playZombieSoundEffect()
 {
 	Zombies::playZombieSoundEffect(rand() % 2 ? "groan6" : "sukhbir6");
@@ -63,7 +71,7 @@ void BalloonZombies::playZombieSoundEffect()
 
 void BalloonZombies::playZombiesAshesAnimation()
 {
-	const uniform_real_distribution<float>number(0.f, 0.4f);
+	uniform_real_distribution<float>number(0.f, 0.4f);
 	auto ashes = SkeletonAnimation::createWithData(_global->userInformation->getAnimationData().find("BalloonZombiesAsh")->second);
 	ashes->setPosition(_zombiesAnimation->getPosition() + Vec2(0, -15));
 	ashes->setLocalZOrder(_zombiesAnimation->getLocalZOrder());

@@ -13,6 +13,7 @@ using namespace rapidjson;
 
 MomentTime::MomentTime() :m_second(0), m_day(0), m_hour(0), m_year(0), m_minute(0), m_moth(0), _onlyNetTime(false)
 {
+	_downloader.reset(new network::Downloader());
 }
 
 MomentTime::~MomentTime()
@@ -21,15 +22,40 @@ MomentTime::~MomentTime()
 
 void MomentTime::requestNetTime()
 {
-	HttpRequest* request = new HttpRequest();
-	request->setUrl("http://api.k780.com:88/?app=life.time&appkey=10003&sign=b59bc3ef6191eb9f747dd4e83c99f2a4&format=json"); //百度获取时间的api
+	const std::string sURLList = "http://api.m.taobao.com/rest/api3.do?api=mtop.common.getTimestamp";
+	_downloader->createDownloadDataTask(sURLList);
+	_downloader->onDataTaskSuccess = [this](const cocos2d::network::DownloadTask& task,
+		std::vector<unsigned char>& data)
+	{
+		std::string str;
+		for (auto p : data)
+		{
+			str += p;
+		}
 
-	request->setRequestType(HttpRequest::Type::GET);
-	request->setTag("WebTime");
-	request->setResponseCallback(this, httpresponse_selector(MomentTime::onHttpComplete));
-	HttpClient::getInstance()->send(request);
+		if (!readJson(str))
+		{
+			getLocalTime();
+		}
 
-	request->release();
+		if (netTimeCallBack)
+		{
+			netTimeCallBack();
+		}
+	};
+
+	_downloader->onTaskError = [this](const cocos2d::network::DownloadTask& task,
+		int errorCode,
+		int errorCodeInternal,
+		const std::string& errorStr)
+	{
+		getLocalTime();
+
+		if (netTimeCallBack)
+		{
+			netTimeCallBack();
+		}
+	};
 }
 
 void MomentTime::requestNetTime(const std::function<void()>& pSelector, bool onlyNetTime)
@@ -86,19 +112,21 @@ bool MomentTime::readJson(std::string jsonStr)
 	doc.Parse<0>(jsonStr.c_str());
 	if (doc.IsObject())
 	{
-		if (doc.HasMember("result"))
+		if (doc.HasMember("data"))
 		{
-			auto& temp = doc["result"];
-			if (temp.HasMember("timestamp"))
+			auto& temp = doc["data"];
+			if (temp.HasMember("t"))
 			{
-				m_time = atoi(temp["timestamp"].GetString());
+				std::string str = temp["t"].GetString();
+				auto s = str.substr(0, str.size() - 3);
+				m_time = atoi(s.c_str());
 				initNetTime(m_time);
 
 				return true;
 			}
 		}
 	}
-	return splitString(jsonStr, "timestamp");
+	return false;
 }
 
 bool MomentTime::splitString(const std::string content, std::string pattern)

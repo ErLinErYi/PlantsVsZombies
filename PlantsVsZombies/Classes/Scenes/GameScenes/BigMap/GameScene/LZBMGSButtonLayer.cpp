@@ -156,7 +156,6 @@ void BMButtonLayer::recoverySunControl()
 		{
 			PlayMusic::playMusic("points");
 			SunFlower::sunRecovery(sun);
-			break;
 		}
 	}
 }
@@ -169,7 +168,6 @@ void BMButtonLayer::recoveryCoinControl()
 		{
 			PlayMusic::playMusic("coin");
 			Coin::coinRecoveryAction(coin);
-			break;
 		}
 	}
 }

@@ -93,7 +93,7 @@ bool GSPauseQuitLayer::init()
 	if (!LayerColor::initWithColor(Color4B(0, 0, 0, 180)))return false;
 
 	createDialog();
-
+	
 	return true;
 }
 

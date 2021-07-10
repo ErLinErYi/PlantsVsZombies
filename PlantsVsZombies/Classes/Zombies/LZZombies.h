@@ -15,6 +15,7 @@
 #include "Based/LZLevelData.h"
 #include "Based/LZGlobalVariable.h"
 
+#define INIT Vec2(-1000,-1000)
 #define ZOMBIESNUMBERS 43
 
 using namespace spine;
@@ -158,7 +159,7 @@ public:
 	/**
 	 *奖励金币
 	 */
-	static void rewardCoin(SkeletonAnimation* zombies);
+	static void rewardCoin(Zombies* zombies);
 
 	/**
 	 *创建僵尸
@@ -171,9 +172,19 @@ public:
 	virtual void createPreviewZombie() = 0;
 
 	/**
+	 * 创建预览僵尸图片 
+	 */
+	virtual Sprite* createPreviewZombieImage() { return nullptr; }
+
+	/**
 	 *僵尸受伤事件更新
 	 */
 	virtual void zombieInjuredEventUpdate() = 0;
+
+	/**
+	 * 僵尸图片初始化
+	 */
+	virtual void imageInit(const std::string& name, const Vec2& position);
 
 	/**
 	 * 读取僵尸特有信息
@@ -401,6 +412,11 @@ public:
 	virtual void setZombieAttributeForGameTypeInvalid(const bool invalid);
 
 	/**
+	 * 设置僵尸死亡产生金币的概率
+	 */
+	virtual void setZombieDieRewardCoinPrecent(const int precent);
+
+	/**
 	 *获取僵尸动画
 	 */
 	virtual SkeletonAnimation* getZombieAnimation() const;
@@ -564,6 +580,11 @@ public:
 	 * 获取僵尸是否吃大蒜
 	 */
 	virtual bool getZombieIsEatGarlic() const;
+
+	/* 
+	 * 获取僵尸死亡产生金币的概率
+	 */
+	virtual int getZombieDieRewardCoinPrecent();
 
 	/**
 	 *播放僵尸灰烬动画
@@ -753,6 +774,7 @@ protected:
 	ShieldType _bodyShieldType;               // 身体护盾类型
 	ZombiesType _zombiesType;                 // 僵尸类型
 	string _animationName[7];                 // 动画名称
+	Sprite* _zombieImage;                     // 僵尸图片
 	default_random_engine _random;            // 随机数引擎
 	random_device _device;
 	static unsigned int _zombiesNumbers;      // 僵尸数量
@@ -760,6 +782,7 @@ protected:
 private:
 	int _zombieEatPlantNumber;
 	int _zombieHowlNumbers;
+	int _rewardCoinPrecent;
 	OpenLevelData* _openLevelData;
 	GLProgramState* _highLightGLProgramState;
 	float _highLightIntensity;                

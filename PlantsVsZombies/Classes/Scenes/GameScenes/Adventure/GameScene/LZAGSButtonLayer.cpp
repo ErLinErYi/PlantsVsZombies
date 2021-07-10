@@ -295,7 +295,7 @@ void GSButtonLayer::createPlantsCard()
 	int i = -1;
 	for (auto& card : _global->userInformation->getUserSelectCrads())
 	{
-		auto imageBg = "SeedPacket" + to_string(plantsCardInformation[card.cardTag].quality) + ".png";;
+		auto imageBg = "SeedPacket" + to_string(plantsCardInformation[card.cardTag].quality) + ".png";
 		auto cardBackgroundImag = Button::create(imageBg, imageBg, "",cocos2d::ui::Widget::TextureResType::PLIST);
 		cardBackgroundImag->setPosition(Vec2(105, 1008 - 103 * ++i));
 		cardBackgroundImag->setEnabled(false);

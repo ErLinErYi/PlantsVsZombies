@@ -18,6 +18,7 @@ Bullet::Bullet() :
 ,   _zombieInExplodeRangeNumbers(0)
 ,   _bulletRow(-1)
 ,   _isUsed(false)
+,   _animationLoop(true)
 ,   _bulletType(BulletType::None)
 ,   _position(Vec2::ZERO)
 ,   _global(Global::getInstance())
@@ -50,7 +51,7 @@ SkeletonAnimation* Bullet::bulletInit(const std::string& plantname, const std::s
 	if (iter != _global->userInformation->getAnimationData().end())/* 如果可以找到 */
 	{
 		_bulletAnimation = SkeletonAnimation::createWithData(iter->second);
-		_bulletAnimation->setAnimation(0, animaionname, true);
+		_bulletAnimation->setAnimation(0, animaionname, _animationLoop);
 		_bulletAnimation->setLocalZOrder(getZOrder());
 		_bulletAnimation->update(0);
 		_node->addChild(_bulletAnimation);

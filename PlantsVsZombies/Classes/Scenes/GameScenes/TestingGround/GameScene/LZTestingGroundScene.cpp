@@ -83,13 +83,6 @@ void TestingGroundScene::buttonLayer()
 	buttonLayerInformation->addLayer(this, 4, "buttonLayer");
 }
 
-void TestingGroundScene::goodsLayer()
-{
-	goodsLayerInformation = Layer::create();
-	this->addChild(goodsLayerInformation, 5, "goodsLayer");
-	MouseEventControl::goodsRecovery(goodsLayerInformation);
-}
-
 void TestingGroundScene::gameTimerLayer()
 {
 	addChild(TGGameTimerLayer::create(), 6, "gameTimerLayer");

@@ -28,6 +28,7 @@ GSGameResultJudgement* Zombies::_gameResultJudgement = nullptr;
 
 Zombies::Zombies() :
 	_node(nullptr)
+,   _rewardCoinPrecent(20)
 ,   _attackHeadSoundEffectType(0)
 ,   _attackBodySoundEffectType(0)
 ,   _bodyAnimationId(1)
@@ -56,6 +57,7 @@ Zombies::Zombies() :
 ,   _zombieEatPlantNumber(-1)
 ,   _zombieHowlNumbers(0)
 ,   _highLightIntensity(0.3f)
+,   _zombieImage(nullptr)
 ,   _highLightGLProgramState(nullptr)
 ,   _highLightFinished(false)
 ,   _headShieldType(ShieldType::none)
@@ -73,7 +75,7 @@ Zombies::~Zombies()
 
 void Zombies::zombieInit(const string& animation_name)
 {
-	const uniform_real_distribution<float>number(0.f, 0.45f);
+	uniform_real_distribution<float>number(0.f, 0.45f);
 	_timeScale = 0.6f + number(_random);
 
 	_zombiesAnimation = SkeletonAnimation::createWithData(_global->userInformation->getAnimationData().find(animation_name)->second);
@@ -87,6 +89,15 @@ void Zombies::zombieInit(const string& animation_name)
 
 	setZombieGLProgram();
 	setZombiesListener();
+}
+
+void Zombies::imageInit(const std::string& name, const Vec2& position)
+{
+	_zombieImage = Sprite::createWithSpriteFrameName(name + ".png");
+	_zombieImage->setPosition(position);
+	_zombieImage->setName("Preview");
+	_zombieImage->setOpacity(150);
+	_node->addChild(_zombieImage, 99);
 }
 
 void Zombies::setZombiesListener()
@@ -283,7 +294,7 @@ void Zombies::zombiesDeleteUpdate(list<Zombies*>::iterator& zombie)
 			informationLayerInformation->updateZombiesDieNumbers(); /* 更新显示 */
 
 			zombiesNumbersChange("--");  /* 僵尸总数更新 */
-			rewardCoin((*zombie)->getZombieAnimation());
+			rewardCoin((*zombie));
 
 			if (++_zombiesNewDieNumbers >= 20 || getZombiesNumbers() <= 0)
 			{
@@ -357,12 +368,12 @@ void Zombies::zombiesDeleteUpdateNotRecordDieNumbers(list<Zombies*>::iterator& z
 	}
 }
 
-void Zombies::rewardCoin(SkeletonAnimation* zombies)
+void Zombies::rewardCoin(Zombies* zombies)
 {
-	if (rand() % 100 < 5)
+	if (rand() % 100 < zombies->getZombieDieRewardCoinPrecent())
 	{
 		auto coin = new Coin(goodsLayerInformation);
-		coin->setPosition(zombies->getPosition());	
+		coin->setPosition(zombies->getZombieAnimation()->getPosition());	
 		coin->createCoin();
 
 		CoinsGroup.push_back(coin);
@@ -653,7 +664,7 @@ bool Zombies::getZombieReserveKill()
 
 void Zombies::playZombiesFillDownAnimation()
 {
-	const uniform_real_distribution<float>number(0.f, 0.45f);
+	uniform_real_distribution<float>number(0.f, 0.45f);
 	_zombiesAnimation->setTimeScale(0.6f + number(_random));
 	_zombiesAnimation->setEventListener([&](spTrackEntry* entry, spEvent* event)
 		{
@@ -672,7 +683,7 @@ void Zombies::playZombiesFillDownAnimation()
 
 void Zombies::playZombiesAshesAnimation()
 {
-	const uniform_real_distribution<float>number(0.f, 0.4f);
+	uniform_real_distribution<float>number(0.f, 0.4f);
 	auto ashes = SkeletonAnimation::createWithData(_global->userInformation->getAnimationData().find("Zombies_Ash")->second);
 	ashes->setPosition(_zombiesAnimation->getPosition() + Vec2(rand() % 2 ? number(_random) * 20 : -number(_random) * 20, -15));
 	ashes->setLocalZOrder(_zombiesAnimation->getLocalZOrder());
@@ -976,7 +987,7 @@ void Zombies::releaseFunction()
 
 void Zombies::playZombieSoundEffect(const string& name)
 {
-	const uniform_int_distribution<unsigned>number(0, 10000);
+	uniform_int_distribution<unsigned>number(0, 10000);
 	if (number(_random) < 5 && _zombieHowlNumbers< 3)
 	{
 		PlayMusic::playMusic(name);
@@ -997,6 +1008,11 @@ ShieldType Zombies::getZombieHeadShieldType() const
 bool Zombies::getZombieIsEatGarlic() const
 {
 	return _isEatGarlic;
+}
+
+int Zombies::getZombieDieRewardCoinPrecent()
+{
+	return _rewardCoinPrecent;
 }
 
 void Zombies::showZombieShadow(Node* node, const int posy)
@@ -1093,6 +1109,11 @@ void Zombies::setZombieAttributeForGameType(Node* sprite)
 void Zombies::setZombieAttributeForGameTypeInvalid(const bool invalid)
 {
 	_gameTypeInvalid = invalid;
+}
+
+void Zombies::setZombieDieRewardCoinPrecent(const int precent)
+{
+	_rewardCoinPrecent = precent;
 }
 
 void Zombies::setOpacityZombieAttribute()

@@ -69,6 +69,14 @@ void StrongNewspaperZombies::createPreviewZombie()
 	_zombiesAnimation->setAttachment("Zombie_screendoor", "54");
 }
 
+Sprite* StrongNewspaperZombies::createPreviewZombieImage()
+{
+	imageInit("NewPaperZombie", INIT);
+	_zombieImage->setScale(2.f);
+	_zombieImage->setAnchorPoint(Vec2(0.7f, 0.3f));
+	return _zombieImage;
+}
+
 void StrongNewspaperZombies::zombieInjuredEventUpdate()
 {
 	if (_isHaveShield)/* 如果有身体护盾 */

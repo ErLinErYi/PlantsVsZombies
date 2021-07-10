@@ -14,7 +14,7 @@
 CatTailBullet::CatTailBullet(Node* node):
     _targetZombie(nullptr),
     _distance(0xffff),
-    _speed{ 10,0 },
+    _speed{ 8,0 },
     _distanceY(69),
     _locationY(0),
     _isTrack(false)
@@ -32,7 +32,7 @@ void CatTailBullet::createBullet()
 {
     bulletInit("CatTailBullet", "CatTailBullet_Normal");
     _bulletAnimation->setPosition(_position + Vec2(70, 85));
-    _bulletAnimation->setScale(0.6f);
+    _bulletAnimation->setScale(0.75f);
     _bulletAnimation->setLocalZOrder(_bulletAnimation->getLocalZOrder() - 100);
     //createShadow();
     createListener();

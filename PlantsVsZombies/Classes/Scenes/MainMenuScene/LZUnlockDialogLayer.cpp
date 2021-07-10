@@ -8,7 +8,7 @@
 #include "LZUnlockDialogLayer.h"
 #include "Based/LZPlayMusic.h"
 
-unsigned int UnlockDialogLayer::unlockNeedNumbers = 10;
+unsigned int UnlockDialogLayer::unlockNeedNumbers = 35;
 int UnlockDialogLayer::_id = 0;
 
 UnlockDialogLayer* UnlockDialogLayer::createScene(int id)
@@ -20,7 +20,7 @@ UnlockDialogLayer* UnlockDialogLayer::createScene(int id)
 UnlockDialogLayer::UnlockDialogLayer() :
 	_lockDialog(nullptr)
 {
-	unlockNeedNumbers = 10;
+	unlockNeedNumbers = 35;
 }
 
 bool UnlockDialogLayer::init()
@@ -77,9 +77,13 @@ void UnlockDialogLayer::createText()
 	{
 		str = _global->userInformation->getGameText().find("植物试炼场解锁")->second;
 	}
-	else
+	else if (_id == 2)
 	{
 		str = _global->userInformation->getGameText().find("网络连接失败")->second;
+	}
+	else
+	{
+		str = _global->userInformation->getGameText().find("我是僵尸解锁")->second;
 	}
 	auto information = Text::create(StringUtils::format(str->text.c_str(), unlockNeedNumbers), GAME_FONT_NAME_1, str->fontsize);
 	information->setColor(Color3B::RED);

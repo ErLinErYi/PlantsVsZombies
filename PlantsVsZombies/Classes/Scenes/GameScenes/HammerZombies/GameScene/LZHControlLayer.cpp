@@ -339,7 +339,7 @@ void HControlLayer::showPowImage(Zombies* zombie, const Vec2& position)
 void HControlLayer::calculateZombiesData()
 {
 	_currentLevelNumber = max(UserData::getInstance()->openIntUserData(const_cast<char*>("HAMMERZOMBIES_LEVEL_NUMBER")), 1);
-	_maxFrequencyNumbers += min(static_cast<int>(_currentLevelNumber / 4), 15);
+	_maxFrequencyNumbers += min(static_cast<int>(_currentLevelNumber / 4), 10);
 	_zombiesTypeNumbers = min(static_cast<int>(_zombiesTypeNumbers + _currentLevelNumber / 3), ZOMBIESNUMBERS);
 	_currentLevelZombiesSpeed += _currentLevelNumber * 0.02f;
 	_attack = hammerInformation[HButtonLayer::selectedHammer].lowAttack + min(hammerInformation[HButtonLayer::selectedHammer].HigtAttack,

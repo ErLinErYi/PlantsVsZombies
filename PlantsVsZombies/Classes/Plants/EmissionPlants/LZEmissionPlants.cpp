@@ -20,7 +20,7 @@ EmissionPlants::~EmissionPlants()
 {
 }
 
-void EmissionPlants::createListener(std::string animationName, std::string actionName)
+void EmissionPlants::createListener(std::string animationName, std::string actionName, std::string musicName)
 {
     _plantAnimation->setEventListener([=](spTrackEntry* entry, spEvent* event)
         {
@@ -28,7 +28,14 @@ void EmissionPlants::createListener(std::string animationName, std::string actio
             {
                 if (!_isReadFileData)
                 {
-                    rand() % 2 == 0 ? PlayMusic::playMusic("throw") : PlayMusic::playMusic("throw2");
+                    if (musicName.empty())
+                    {
+                        rand() % 2 == 0 ? PlayMusic::playMusic("throw") : PlayMusic::playMusic("throw2");
+                    }
+                    else
+                    {
+                        PlayMusic::playMusic(musicName);
+                    }
                     createBullet();
                 }
             }

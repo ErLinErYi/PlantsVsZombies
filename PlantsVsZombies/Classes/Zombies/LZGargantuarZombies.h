@@ -14,6 +14,7 @@ public:
 	static GargantuarZombies* create(Node* node = nullptr);
 	virtual void createZombie() override;
 	virtual void createPreviewZombie() override;
+	virtual Sprite* createPreviewZombieImage() override;
 	virtual void playZombieSoundEffect() override;
 	virtual void playZombiesAshesAnimation() override;
 	virtual void zombieLoseHeadAnimation(const std::string& name, const float scale = 1.5f) override;

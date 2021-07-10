@@ -447,10 +447,6 @@ void LoadingScene::update(float Time)
 		loadingFinished = true;
 
 		selectLanguage();
-
-#ifndef _DEBUG
-		COUNTPLAYERS
-#endif
 	}
 }
 
@@ -589,7 +585,7 @@ int LoadingScene::openResourcesPath(map<string, string>& Path, const std::string
 void LoadingScene::throwException()
 {
 #if CC_TARGET_PLATFORM == CC_PLATFORM_WIN32
-	this->runAction(Sequence::create(DelayTime::create(60.f), CallFunc::create([=]()
+	this->runAction(Sequence::create(DelayTime::create(120.f), CallFunc::create([=]()
 		{
 			try
 			{

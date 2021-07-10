@@ -63,6 +63,14 @@ void ConeZombies::createPreviewZombie()
 	_zombiesAnimation->setAttachment("Zombie_bucket", "Zombie_cone1");
 }
 
+Sprite* ConeZombies::createPreviewZombieImage()
+{
+	imageInit("ConeZombie", INIT);
+	_zombieImage->setScale(2.2f);
+	_zombieImage->setAnchorPoint(Vec2(0.5f, 0.3f));
+	return _zombieImage;
+}
+
 void ConeZombies::playZombieSoundEffect()
 {
 	Zombies::playZombieSoundEffect(rand() % 2 ? "groan5" : "sukhbir5");

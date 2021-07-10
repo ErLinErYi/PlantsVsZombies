@@ -59,6 +59,13 @@ void LmpZombies::createPreviewZombie()
 	_zombiesAnimation->setScale(0.8f);
 }
 
+Sprite* LmpZombies::createPreviewZombieImage()
+{
+	imageInit("LmpZombie", INIT);
+	_zombieImage->setScale(1.4f);
+	return _zombieImage;
+}
+
 void LmpZombies::playZombieSoundEffect()
 {
 	Zombies::playZombieSoundEffect(rand() % 2 ? "imp" : "imp2");
@@ -66,7 +73,7 @@ void LmpZombies::playZombieSoundEffect()
 
 void LmpZombies::playZombiesAshesAnimation()
 {
-	const uniform_real_distribution<float>number(0.f, 0.4f);
+	uniform_real_distribution<float>number(0.f, 0.4f);
 	auto ashes = SkeletonAnimation::createWithData(_global->userInformation->getAnimationData().find("LmpZombies_Charre")->second);
 	ashes->setPosition(_zombiesAnimation->getPosition() + Vec2(0, -15));
 	ashes->setLocalZOrder(_zombiesAnimation->getLocalZOrder());

@@ -15,7 +15,7 @@
 
 #define INIT Vec2(-1000,-1000)
 #define NOINITIALIZATION  -1
-#define PLANTSNUMBERS 28
+#define PLANTSNUMBERS 32
 
 using namespace spine;
 using namespace cocos2d;
@@ -34,9 +34,12 @@ enum class PlantsType
 	Torchwood,          /* 火炬树桩 */
 	Spikeweed,          /* 地刺 */
 	Garlic,             /* 大蒜 */
+	ScaredyShroom,      /* 胆小姑 */
 	IceBergLettuce,     /* 冰莴苣 */
 	Marigold,           /* 金盏花 */
+	Imitater,           /* 模仿者 */
 	Chomper,            /* 大嘴花 */
+	Squash,             /* 倭瓜 */
 	IcePeaShooter,      /* 寒冰豌豆射手 */
 	FirePeaShooter,     /* 火焰豌豆射手 */
 	AcidLemonShooter,   /* 强酸柠檬射手 */
@@ -47,6 +50,7 @@ enum class PlantsType
 	Jalapeno,           /* 火爆辣椒 */
 	MagnetShroom,       /* 磁力菇 */
 	JalapenoVariation,  /* 火爆辣椒变异 */
+	FumeShroom,         /* 大喷菇 */
 	ThreePeaShooter,    /* 三头豌豆射手 */
 	StarFruit,          /* 杨桃 */
 	WinterMelonPult,    /* 冰瓜投手 */
@@ -54,7 +58,7 @@ enum class PlantsType
 	CatTail,            /* 香蒲 */
 	GloomShroom,        /* 忧郁菇 */
 	//...
-	None = 28
+	None = 34
 };  
 
 /**
@@ -255,6 +259,7 @@ protected:
 	 */
 	virtual void createListener() {};
 	virtual void createListener(std::string animationName, std::string actionName = "") {};
+	virtual void createListener(std::string animationName, std::string actionName = "", std::string musicName = "") {};
 
 	/**
 	 *种植植物

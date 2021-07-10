@@ -10,6 +10,7 @@
 using namespace cocos2d::experimental;
 
 Global* Global::_instance = nullptr;
+string Global::_computerUniqueIdentificationString= string("");
 
 Global* Global::getInstance()
 {
@@ -57,7 +58,7 @@ void Global::checkAnimationInterval()
 						Director::getInstance()->stopAnimation();
 
 						wstring str = L"        很抱歉！检测到程序运行的平均帧数太低对游戏的可玩性有极大的影响。所以请点击确定按钮关闭此游戏！关闭不使用的其他程序或提升电脑硬件配置等操作后再次尝试运行此游戏。";
-						if (MessageBoxW(Director::getInstance()->getOpenGLView()->getWin32Window(), str.c_str(), L"游戏平均帧数太低(平均FPS <= 20FPS)", MB_ICONERROR | MB_OK) == MB_OKCANCEL)
+						if (MessageBoxW(Director::getInstance()->getOpenGLView()->getWin32Window(), str.c_str(), L"游戏平均帧数太低(平均FPS <= 15FPS)", MB_ICONERROR | MB_OK) == MB_OKCANCEL)
 						{
 							Director::getInstance()->end();
 						}
@@ -72,17 +73,45 @@ void Global::checkAnimationInterval()
 
 void Global::checkUserDataFile()
 {
+	string computerId;
+	if (getComputerUniqueIdentification(computerId)) // 如果成功获取数据
+	{
+		_computerUniqueIdentificationString = computerId;
+		if (_computerUniqueIdentificationString.empty()) //如果获取结果为空
+		{
+			return;
+		}
+	}
+	else
+	{
+		return;
+	}
+
 	auto data = UserDefault::getInstance()->getStringForKey("COMPUTERID");
 	if (!data.empty()) // 如果已有记录
 	{
-		string computerId;
-		if (getComputerUniqueIdentification(computerId)) // 如果成功获取数据
+		if (data.compare(UserData::encryption(_computerUniqueIdentificationString))) // 如果数据不同 删除所有存档
 		{
-			if (data.compare(UserData::encryption(computerId))) // 如果数据不同 删除所有存档
+			showWanging();
+			return;
+		}
+	}
+
+	/* 读取用户存档名称 */
+	for (unsigned int i = 0; i < 8; ++i)
+	{
+		if (!UserDefault::getInstance()->getStringForKey(Global::getInstance()->userInformation->getUserCaveFileNameKey(i).c_str()).empty()) // 如果有存档
+		{
+			Global::getInstance()->userInformation->setUserCaveFileNumber(i);      /* 设置存档编号 */
+			UserData::getInstance()->createNewUserDataDocument();
+			string data = UserData::getInstance()->openStringUserData(const_cast<char*>("COMPUTERID"));
+			if (!data.empty())
 			{
-				auto str = FileUtils::getInstance()->getWritablePath();
-				FileUtils::getInstance()->removeDirectory(str);
-				UserDefault::destroyInstance();
+				if (_computerUniqueIdentificationString.compare(data)) // 如果数据不同 删除所有存档
+				{
+					showWanging();
+					return;
+				}
 			}
 		}
 	}
@@ -90,13 +119,28 @@ void Global::checkUserDataFile()
 
 void Global::writeComputerUniqueIdentification()
 {
+	if (_computerUniqueIdentificationString.empty())
+	{
+		return;
+	}
+
 	auto data = UserDefault::getInstance()->getStringForKey("COMPUTERID");
 	if (data.empty()) // 如果没有记录
 	{
-		string computerId;
-		if (getComputerUniqueIdentification(computerId)) // 如果成功获取数据
+		UserDefault::getInstance()->setStringForKey("COMPUTERID", UserData::encryption(_computerUniqueIdentificationString));
+	}
+
+	for (unsigned int i = 0; i < 8; ++i)
+	{
+		if (!UserDefault::getInstance()->getStringForKey(Global::getInstance()->userInformation->getUserCaveFileNameKey(i).c_str()).empty()) // 如果有存档
 		{
-			UserDefault::getInstance()->setStringForKey("COMPUTERID", UserData::encryption(computerId));
+			Global::getInstance()->userInformation->setUserCaveFileNumber(i);      /* 设置存档编号 */
+			UserData::getInstance()->createNewUserDataDocument();
+			string data = UserData::getInstance()->openStringUserData(const_cast<char*>("COMPUTERID"));
+			if (data.empty()) //如果没有记录
+			{
+				UserData::getInstance()->caveUserData(const_cast<char*>("COMPUTERID"), const_cast<char*>(_computerUniqueIdentificationString.c_str()));
+			}
 		}
 	}
 }
@@ -187,4 +231,13 @@ END:
 	CloseHandle(pi.hThread);
 
 	return bret;
+}
+
+void Global::showWanging()
+{
+	wstring str = L"        很抱歉！检测到您的存档存在异常，程序将自动重置存档。玩游戏循序渐进才有乐趣，禁止使用他人存档。点击确定关闭对话框。";
+	MessageBoxW(NULL, str.c_str(), L"游戏存档异常", MB_ICONERROR | MB_OK);
+
+	FileUtils::getInstance()->removeDirectory(FileUtils::getInstance()->getWritablePath());
+	UserDefault::destroyInstance();
 }

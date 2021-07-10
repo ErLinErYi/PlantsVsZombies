@@ -19,6 +19,7 @@ public:
 	void createRandomSuns();
 	Sprite* createPlantImage() override;
 	void createPlantAnimation() override;
+	void setIZombiesType(const bool type);
 	
 CC_CONSTRUCTOR_ACCESS:
 	SunFlower(Node* node = nullptr);
@@ -28,6 +29,7 @@ protected:
 	virtual void cavePlantInformation(rapidjson::Value& object, rapidjson::Document::AllocatorType& allocator) override;
 	virtual void readPlantInforamtion(rapidjson::Document* levelDataDocument, char* key, int i) override;
 	virtual SkeletonAnimation* showPlantAnimationAndText() override;
+	virtual void checkPlantHealthPoint() override;
 	virtual void createSuns();
 	virtual void createListener() override;
 	virtual void playAnimation();
@@ -38,6 +40,8 @@ protected:
 	Sun* _sun;
 	Vec2 _sunShowTime;
 	bool _isCreateSun;
+	int _iZombiesCreateSun;
+	bool _isIZombiesType;
 };
 
 class Sun

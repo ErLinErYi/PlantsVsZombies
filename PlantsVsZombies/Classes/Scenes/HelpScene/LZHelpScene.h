@@ -24,12 +24,12 @@ CC_CONSTRUCTOR_ACCESS:
 private:
 	void createBackground();
 	void createText();
-	void createGithubUrl();
+	void openUrl(string name, string url, Vec2 postion);
 	void createButton();
 	void createParticle();
 	void addScrollView();
 	void addMouseEvent();
-
+	
 private:
 	Global* _global;
 	const Size _size;

@@ -22,9 +22,6 @@
     <Filter Include="Class\Scenes\HelpScene">
       <UniqueIdentifier>{200ce446-1269-40f3-953a-cf17d04394a0}</UniqueIdentifier>
     </Filter>
-    <Filter Include="Class\Scenes\MainMenuScene">
-      <UniqueIdentifier>{b0039043-07b8-4e21-8a7b-f31cdb15cb5e}</UniqueIdentifier>
-    </Filter>
     <Filter Include="Class\Plants">
       <UniqueIdentifier>{f8ef0ba3-b2e7-44e4-8ae7-66d2e469924a}</UniqueIdentifier>
     </Filter>
@@ -96,6 +93,15 @@
     </Filter>
     <Filter Include="Class\Scenes\GameScenes\TestingGround\SelectPlantsScene">
       <UniqueIdentifier>{1611b634-6aeb-45c5-927f-9b57803b5f0c}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Class\Scenes\GameScenes\IZombies">
+      <UniqueIdentifier>{2d402ce2-fd0e-41e5-a2aa-ef6f37c2ff91}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Class\Scenes\GameScenes\IZombies\GameScene">
+      <UniqueIdentifier>{88c827a7-a2cc-4872-9862-a970434eb665}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Class\Scenes\MainMenuScene">
+      <UniqueIdentifier>{b0039043-07b8-4e21-8a7b-f31cdb15cb5e}</UniqueIdentifier>
     </Filter>
   </ItemGroup>
   <ItemGroup>
@@ -643,6 +649,57 @@
     </ClCompile>
     <ClCompile Include="..\Classes\Scenes\GameScenes\Adventure\WorldScene\LZDonateLayer.cpp">
       <Filter>Class\Scenes\GameScenes\Adventure\WorldScene</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Classes\Scenes\GameScenes\IZombies\GameScene\LZIZombiesScene.cpp">
+      <Filter>Class\Scenes\GameScenes\IZombies\GameScene</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Classes\Scenes\GameScenes\IZombies\GameScene\LZIBackGroundLayer.cpp">
+      <Filter>Class\Scenes\GameScenes\IZombies\GameScene</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Classes\Scenes\GameScenes\IZombies\GameScene\LZIInformationLayer.cpp">
+      <Filter>Class\Scenes\GameScenes\IZombies\GameScene</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Classes\Scenes\GameScenes\IZombies\GameScene\LZIButtonLayer.cpp">
+      <Filter>Class\Scenes\GameScenes\IZombies\GameScene</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Classes\Scenes\GameScenes\IZombies\GameScene\LZIPauseQuiteLayer.cpp">
+      <Filter>Class\Scenes\GameScenes\IZombies\GameScene</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Classes\Scenes\GameScenes\IZombies\GameScene\LZIAnimationLayer.cpp">
+      <Filter>Class\Scenes\GameScenes\IZombies\GameScene</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Classes\Scenes\GameScenes\IZombies\GameScene\LZIControlLayer.cpp">
+      <Filter>Class\Scenes\GameScenes\IZombies\GameScene</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Classes\Scenes\GameScenes\IZombies\GameScene\LZIGameEndLayer.cpp">
+      <Filter>Class\Scenes\GameScenes\IZombies\GameScene</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Classes\Scenes\GameScenes\IZombies\GameScene\LZIOpenCaveGameLayer.cpp">
+      <Filter>Class\Scenes\GameScenes\IZombies\GameScene</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Classes\Scenes\GameScenes\IZombies\GameScene\LZIGameTimerLayer.cpp">
+      <Filter>Class\Scenes\GameScenes\IZombies\GameScene</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Classes\Scenes\GameScenes\IZombies\GameScene\LZIZombiesData.cpp">
+      <Filter>Class\Scenes\GameScenes\IZombies\GameScene</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Classes\Plants\EmissionPlants\LZScaredyShroom.cpp">
+      <Filter>Class\Plants\EmissionPlants</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Classes\Plants\EmissionPlants\LZFumeShroom.cpp">
+      <Filter>Class\Plants\EmissionPlants</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Classes\Plants\BattlePlants\LZSquash.cpp">
+      <Filter>Class\Plants\BattlePlants</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Classes\Plants\DefensePlants\LZImitater.cpp">
+      <Filter>Class\Plants\DefensePlants</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Classes\Plants\EmissionPlants\Bullet\LZFumeShroomBullet.cpp">
+      <Filter>Class\Plants\EmissionPlants\Bullet</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Classes\Plants\EmissionPlants\Bullet\LZScaredyShroomBullet.cpp">
+      <Filter>Class\Plants\EmissionPlants\Bullet</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -1197,6 +1254,57 @@
     </ClInclude>
     <ClInclude Include="..\Classes\Scenes\GameScenes\Adventure\WorldScene\LZDonateLayer.h">
       <Filter>Class\Scenes\GameScenes\Adventure\WorldScene</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Classes\Scenes\GameScenes\IZombies\GameScene\LZIZombiesScene.h">
+      <Filter>Class\Scenes\GameScenes\IZombies\GameScene</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Classes\Scenes\GameScenes\IZombies\GameScene\LZIBackGroundLayer.h">
+      <Filter>Class\Scenes\GameScenes\IZombies\GameScene</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Classes\Scenes\GameScenes\IZombies\GameScene\LZIInformationLayer.h">
+      <Filter>Class\Scenes\GameScenes\IZombies\GameScene</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Classes\Scenes\GameScenes\IZombies\GameScene\LZIButtonLayer.h">
+      <Filter>Class\Scenes\GameScenes\IZombies\GameScene</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Classes\Scenes\GameScenes\IZombies\GameScene\LZIPauseQuiteLayer.h">
+      <Filter>Class\Scenes\GameScenes\IZombies\GameScene</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Classes\Scenes\GameScenes\IZombies\GameScene\LZIAnimationLayer.h">
+      <Filter>Class\Scenes\GameScenes\IZombies\GameScene</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Classes\Scenes\GameScenes\IZombies\GameScene\LZIControlLayer.h">
+      <Filter>Class\Scenes\GameScenes\IZombies\GameScene</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Classes\Scenes\GameScenes\IZombies\GameScene\LZIGameEndLayer.h">
+      <Filter>Class\Scenes\GameScenes\IZombies\GameScene</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Classes\Scenes\GameScenes\IZombies\GameScene\LZIOpenCaveGameLayer.h">
+      <Filter>Class\Scenes\GameScenes\IZombies\GameScene</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Classes\Scenes\GameScenes\IZombies\GameScene\LZIGameTimerLayer.h">
+      <Filter>Class\Scenes\GameScenes\IZombies\GameScene</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Classes\Scenes\GameScenes\IZombies\GameScene\LZIZombiesData.h">
+      <Filter>Class\Scenes\GameScenes\IZombies\GameScene</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Classes\Plants\EmissionPlants\LZScaredyShroom.h">
+      <Filter>Class\Plants\EmissionPlants</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Classes\Plants\EmissionPlants\LZFumeShroom.h">
+      <Filter>Class\Plants\EmissionPlants</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Classes\Plants\BattlePlants\LZSquash.h">
+      <Filter>Class\Plants\BattlePlants</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Classes\Plants\DefensePlants\LZImitater.h">
+      <Filter>Class\Plants\DefensePlants</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Classes\Plants\EmissionPlants\Bullet\LZFumeShroomBullet.h">
+      <Filter>Class\Plants\EmissionPlants\Bullet</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Classes\Plants\EmissionPlants\Bullet\LZScaredyShroomBullet.h">
+      <Filter>Class\Plants\EmissionPlants\Bullet</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>

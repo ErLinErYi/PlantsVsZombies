@@ -14,6 +14,7 @@ public:
 	static StrongNewspaperZombies* create(Node* node = nullptr);
 	virtual void createZombie() override;
 	virtual void createPreviewZombie() override;
+	virtual Sprite* createPreviewZombieImage() override;
 	
 CC_CONSTRUCTOR_ACCESS:
 	StrongNewspaperZombies(Node* node = nullptr);

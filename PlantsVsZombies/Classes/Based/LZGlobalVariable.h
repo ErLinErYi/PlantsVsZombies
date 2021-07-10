@@ -19,18 +19,11 @@
 
 #define MYRELEASE 1
 
-#define COUNTPLAYERS                                                                                               \
-ShellExecute(0, L"open", L"iexplore.exe", L"https://gitlz.gitee.io/lz/CountPlayer.html", NULL, SW_SHOWMINIMIZED);  \
-runAction(Sequence::create(DelayTime::create(2.f),                                                                 \
-	CallFunc::create([]()                                                                                          \
-		{                                                                                                          \
-			ShowWindow(FindWindow(L"IEFrame", NULL), SW_HIDE);                                                     \
-		}), DelayTime::create(5.f),                                                                                \
-	CallFunc::create([]()                                                                                          \
-		{                                                                                                          \
-			SendMessage(FindWindow(L"IEFrame", NULL), WM_CLOSE, NULL, NULL);                                       \
-		}), nullptr)); 
-
+#define COUNTPLAYERS                                                                                                                                    \
+HttpRequest * request = new HttpRequest();                                                                                                              \
+request->setUrl("http://api.k780.com/?app=code.punycode_encode&str=%E7%99%BE%E5%BA%A6&appkey=60122&sign=d4666cf57fc0d3a916e2c9d0a1b25c68&format=json"); \
+request->setRequestType(HttpRequest::Type::GET);                                                                                                        \
+HttpClient::getInstance()->send(request);                                                                                                               \
 
 using namespace std;
 using namespace cocos2d;
@@ -50,9 +43,11 @@ private:
 	Global();
 	~Global();
 	static bool getComputerUniqueIdentification(string& identification);
+	static void showWanging();
 
 private:
 	static Global* _instance;    /* 单例 */
+	static string _computerUniqueIdentificationString;
 	float _sumAnimationInterval;
 	int _frequence;
 };

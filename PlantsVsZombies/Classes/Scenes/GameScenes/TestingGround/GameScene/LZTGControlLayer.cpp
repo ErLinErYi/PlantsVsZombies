@@ -72,7 +72,7 @@ void TGControlLayer::createZombies()
 		zombiesNumbers += frequence / 10;
 		for (unsigned int i = 0; i < zombiesNumbers; ++i)
 		{
-			dynamic_cast<TGAnimationLayer*>(animationLayerInformation)->createZombies(static_cast<unsigned>(frequence / 3));
+			dynamic_cast<TGAnimationLayer*>(animationLayerInformation)->createZombies(static_cast<unsigned>(frequence));
 		}
 		/* 进攻波数自增一 */
 		_zombiesAppearControl->setZombiesAppearFrequency();

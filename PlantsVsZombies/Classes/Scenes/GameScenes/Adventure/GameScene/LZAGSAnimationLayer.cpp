@@ -52,20 +52,22 @@ Bullet* GSAnimationLayer::createDifferentBullet(BulletType bulletType, Node* nod
 	Bullet* bullet = nullptr;
 	switch (bulletType)
 	{
-	case BulletType::Pea:              bullet = new Pea(node);              break;
-	case BulletType::IcePea:           bullet = new IcePea(node);           break;
-	case BulletType::FirePea:          bullet = new FirePea(node);          break;
-	case BulletType::Cabbage:          bullet = new Cabbage(node);          break;
-	case BulletType::AcidLemonBullet:  bullet = new AcidLemonBullet(node);  break;
-	case BulletType::CitronBullet:     bullet = new CitronBullet(node, 0);  break;
-	case BulletType::StarFruitBullet:  bullet = new StarFruitBullet(node);  break;
-	case BulletType::WaterMelonBullet: bullet = new WaterMelonBullet(node); break;
-	case BulletType::WinterMelonBullet:bullet = new WinterMelonBullet(node);break;
-	case BulletType::CatTailBullet:    bullet = new CatTailBullet(node);    break;
+	case BulletType::Pea:                 bullet = new Pea(node);                 break;
+	case BulletType::IcePea:              bullet = new IcePea(node);              break;
+	case BulletType::FirePea:             bullet = new FirePea(node);             break;
+	case BulletType::Cabbage:             bullet = new Cabbage(node);             break;
+	case BulletType::AcidLemonBullet:     bullet = new AcidLemonBullet(node);     break;
+	case BulletType::CitronBullet:        bullet = new CitronBullet(node, 0);     break;
+	case BulletType::StarFruitBullet:     bullet = new StarFruitBullet(node);     break;
+	case BulletType::WaterMelonBullet:    bullet = new WaterMelonBullet(node);    break;
+	case BulletType::WinterMelonBullet:   bullet = new WinterMelonBullet(node);   break;
+	case BulletType::CatTailBullet:       bullet = new CatTailBullet(node);       break;
+	case BulletType::FumeShroomBullet:    bullet = new FumeShroomBullet(node);    break;
+	case BulletType::ScaredyShroomBullet: bullet = new ScaredyShroomBullet(node); break;
 #ifdef _DEBUG
-	default:                                                                break;
+	default:                                                                      break;
 #else
-	default:                           bullet = new Pea(node);              break;
+	default:                           bullet = new Pea(node);                    break;
 #endif
 	}
 	return bullet;
@@ -85,9 +87,12 @@ Plants* GSAnimationLayer::createDifferentPlants(PlantsType plantsType, Node* nod
 	case PlantsType::Torchwood:           plants = new Torchwood(node);               break;
 	case PlantsType::Spikeweed:           plants = new Spikeweed(node);               break;
 	case PlantsType::Garlic:              plants = new Garlic(node);                  break;
+	case PlantsType::ScaredyShroom:       plants = new ScaredyShroom(node);           break;
 	case PlantsType::IceBergLettuce:      plants = new IceBergLettuce(node);          break;
 	case PlantsType::Marigold:            plants = new Marigold(node);                break;
+	case PlantsType::Imitater:            plants = new Imitater(node);                break;
 	case PlantsType::Chomper:             plants = new Chomper(node);                 break;
+	case PlantsType::Squash:              plants = new Squash(node);                  break;
 	case PlantsType::IcePeaShooter:       plants = new IcePeaShooter(node);           break;
 	case PlantsType::FirePeaShooter:      plants = new FirePeaShooter(node);          break;
 	case PlantsType::AcidLemonShooter:    plants = new AcidLemonShooter(node);        break;
@@ -98,6 +103,7 @@ Plants* GSAnimationLayer::createDifferentPlants(PlantsType plantsType, Node* nod
 	case PlantsType::Jalapeno:            plants = new Jalapeno(node);                break;
 	case PlantsType::MagnetShroom:        plants = new MagnetShroom(node);            break;
 	case PlantsType::JalapenoVariation:   plants = new JalapenoVariation(node);       break;
+	case PlantsType::FumeShroom:          plants = new FumeShroom(node);              break;
 	case PlantsType::ThreePeaShooter:     plants = new ThreePeaShooter(node);         break;
 	case PlantsType::StarFruit:           plants = new StarFruit(node);               break;
 	case PlantsType::WinterMelonPult:     plants = new WinterMelonPult(node);         break;

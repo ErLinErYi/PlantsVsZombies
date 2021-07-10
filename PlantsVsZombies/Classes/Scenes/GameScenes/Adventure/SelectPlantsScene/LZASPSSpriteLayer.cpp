@@ -229,6 +229,13 @@ Button* SPSSpriteLayer::createButtons(const Vec2& vec2, int priority)
 
 void SPSSpriteLayer::plantsCardButtonEvent(Button* button, Vec2 vec2)
 {
+	if (plantsCardInformation[button->getTag()].type == PlantsType::Imitater && 
+		_global->userInformation->getCoinNumbers() >= plantsCardInformation[button->getTag()].requirement.x &&
+		_global->userInformation->getKillZombiesNumbers() >= plantsCardInformation[button->getTag()].requirement.y)
+	{
+		isPlantIsCanSelect[static_cast<unsigned int>(plantsCardInformation[button->getTag()].type)] = !seedBankButton.empty();
+	}
+
 	if (isPlantIsCanSelect[static_cast<unsigned int>(plantsCardInformation[button->getTag()].type)])
 	{
 		if (seedBankButton.size() > 4)/* 583 */
@@ -253,16 +260,15 @@ void SPSSpriteLayer::createMoveButton(Button* button, const Vec2& vec2)
 	/* 创建移动卡牌 */
 	auto imageBg = "SeedPacket" + to_string(plantsCardInformation[button->getTag()].quality) + ".png";;
 	auto moveCard = ui::Button::create(imageBg, imageBg, "",cocos2d::ui::Widget::TextureResType::PLIST);
-	moveCard->setPosition(Vec2(vec2.x + 205, _plantCardScrollView->getInnerContainerSize().height - 
-		moveCard->getContentSize().height - vec2.y - 145 + calculateScrollDistance()));
+	moveCard->setPosition(Vec2(vec2.x + 205, _plantCardScrollView->getInnerContainerSize().height -
+		moveCard->getContentSize().height - vec2.y - 145 - 105 + calculateScrollDistance()));
 	moveCard->setTitleColor(Color3B::RED);
 	moveCard->setTitleFontSize(25);
 	moveCard->setTag(button->getTag());
 	moveCard->setEnabled(false);
 	moveCard->setBright(true);
 	this->addChild(moveCard);
-	moveCard->runAction(Sequence::create(
-		MoveTo::create(0.35f, Vec2(105, 1008 - 103 * seedBankButton.size())), 
+	moveCard->runAction(Sequence::create(MoveTo::create(0.35f, Vec2(105, 1008 - 103 * seedBankButton.size())), 
 		CallFunc::create([moveCard]() {moveCard->setEnabled(true); }), nullptr));
 
 	showPlantsInformation(moveCard);   // 显示信息
@@ -303,7 +309,7 @@ void SPSSpriteLayer::plantsMoveCardButtonEvent(Button* button, Button* moveCard,
 	sortPlantsCard(plantsCardInformation[button->getTag()].type);          //对植物卡牌重新排序
 	_plantCardScrollView->scrollToPercentVertical(calculateScrollPrecent(plantCardRollingDistanceLast), 0.5f, true);//滚动到初始位置
 	moveCard->runAction(Sequence::create(MoveTo::create(0.2f, Vec2(vec2.x + 205, _plantCardScrollView->getInnerContainerSize().height -
-		moveCard->getContentSize().height - vec2.y - 145 + plantCardRollingDistanceLast)),
+		moveCard->getContentSize().height - vec2.y - 145 - 105 + plantCardRollingDistanceLast)),
 		CallFunc::create([=]()
 			{
 				moveCard->removeFromParent();   /* 删除移动卡牌 */
@@ -342,7 +348,7 @@ void SPSSpriteLayer::showPopulationButtonHoverEffect(EventMouse* e)
 	for (auto card : _plantsCards)
 	{
 		card.second->getChildByName("seedPacketFlash")->setVisible(
-			card.second->getBoundingBox().containsPoint(e->getLocationInView() - Vec2(205, calculateScrollDistance() - 195)));
+			card.second->getBoundingBox().containsPoint(e->getLocationInView() - Vec2(205, calculateScrollDistance() - 195 - 105)));
 	}
 }
 
@@ -418,11 +424,12 @@ Text* SPSSpriteLayer::showPlantsInformation(Button* button, bool showHeart)
 	/* 文本 */
 	auto plantsNeedSuns = ui::Text::create();
 	plantsNeedSuns->setFontName(GAME_FONT_NAME_3);
-	plantsNeedSuns->setColor(Color3B::BLACK);
+	plantsNeedSuns->setColor(Color3B::WHITE);
 	plantsNeedSuns->setAnchorPoint(Vec2(1, 0.5f));
 	plantsNeedSuns->setPosition(Vec2(175, 18));
-	plantsNeedSuns->setFontSize(35);
+	plantsNeedSuns->setFontSize(30);
 	plantsNeedSuns->setString(to_string(plantsCardInformation[button->getTag()].plantsNeedSunNumbers));
+	plantsNeedSuns->enableOutline(Color4B::BLACK, 2);
 	button->addChild(plantsNeedSuns);
 
 	auto plantsLevelText = ui::Text::create();

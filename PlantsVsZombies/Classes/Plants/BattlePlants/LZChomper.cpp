@@ -93,6 +93,7 @@ void Chomper::createListener()
 					{
 						_combatEffecttiveness = 80;
 						hurtZombies(_attackZombie);
+						_attackZombie->setZombieHurtBlink();
 					}
 					else
 					{

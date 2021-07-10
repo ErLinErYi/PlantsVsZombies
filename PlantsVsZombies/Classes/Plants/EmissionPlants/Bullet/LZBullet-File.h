@@ -16,3 +16,5 @@
 #include "Plants/EmissionPlants/Bullet/LZWaterMelonBullet.h"
 #include "Plants/EmissionPlants/Bullet/LZWinterMelonBullet.h"
 #include "Plants/EmissionPlants/Bullet/LZCatTailBullet.h"
+#include "Plants/EmissionPlants/Bullet/LZFumeShroomBullet.h"
+#include "Plants/EmissionPlants/Bullet/LZScaredyShroomBullet.h"

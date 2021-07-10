@@ -67,7 +67,7 @@ Button* HButtonLayer::createButton(const string& normal, const string& select, c
 				{
 				case GSLayerButton::stopButton:
 					createQuitDialog();
-					_director->getRunningScene()->addChild(HPauseQuitLayer::create(), 10, "pauseLayer");
+					_director->getRunningScene()->addChild(HPauseQuitLayer::create(), 10, "pauseQuitLayer");
 					break;
 				case GSLayerButton::accelerateButton:
 					controlAccelerateScheduler();
@@ -112,7 +112,8 @@ void HButtonLayer::createHammerButton()
 
 	for (int i = 0; i < 7; ++i)
 	{
-		auto button = Button::create("SeedPacket3.png", "SeedPacket3.png", "",cocos2d::ui::Widget::TextureResType::PLIST);
+		auto imageBg = "SeedPacket" + to_string(hammerInformation[i].quality + 1) + ".png";
+		auto button = Button::create(imageBg, imageBg, "",cocos2d::ui::Widget::TextureResType::PLIST);
 		button->setPosition(Vec2(-90, 840 - 100 * i));
 		button->setCascadeColorEnabled(true);
 		button->setTag(i);
@@ -162,11 +163,12 @@ void HButtonLayer::loadButtonInforamtion(Button* button)
 
 	auto attack = ui::Text::create();
 	attack->setFontName(GAME_FONT_NAME_3);
-	attack->setColor(Color3B::BLACK);
+	attack->setColor(Color3B::WHITE);
 	attack->setAnchorPoint(Vec2(1, 0.5f));
 	attack->setPosition(Vec2(175, 18));
-	attack->setFontSize(35);
+	attack->setFontSize(30);
 	attack->setString(to_string(hammerInformation[button->getTag()].HigtAttack + hammerInformation[button->getTag()].lowAttack));
+	attack->enableOutline(Color4B::BLACK, 2);
 	button->addChild(attack);
 
 	auto levelText = ui::Text::create();

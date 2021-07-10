@@ -76,11 +76,12 @@ Text* TSPSSpriteLayer::showPlantsInformation(Button* button, bool showHeart)
 	/* 文本 */
 	auto plantsNeedSuns = ui::Text::create();
 	plantsNeedSuns->setFontName(GAME_FONT_NAME_3);
-	plantsNeedSuns->setColor(Color3B::BLACK);
+	plantsNeedSuns->setColor(Color3B::WHITE);
 	plantsNeedSuns->setAnchorPoint(Vec2(1, 0.5f));
 	plantsNeedSuns->setPosition(Vec2(175, 18));
-	plantsNeedSuns->setFontSize(35);
+	plantsNeedSuns->setFontSize(30);
 	plantsNeedSuns->setString("0");
+	plantsNeedSuns->enableOutline(Color4B::BLACK, 2);
 	button->addChild(plantsNeedSuns);
 
 	auto plantsLevelText = ui::Text::create();

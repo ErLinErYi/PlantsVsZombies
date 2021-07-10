@@ -45,7 +45,7 @@ void SnowZombies::createZombie()
 
 	createZombieShadow();
 
-	const uniform_real_distribution<float>number(0.f, 0.3f);
+	uniform_real_distribution<float>number(0.f, 0.3f);
 	_zombiesAnimation->setScale(1.2f);
 	_zombiesAnimation->setTimeScale(0.3 + number(_random));
 }
@@ -58,7 +58,7 @@ void SnowZombies::createPreviewZombie()
 
 	createZombieShadow();
 
-	const uniform_real_distribution<float>number(0.f, 0.5f);
+	uniform_real_distribution<float>number(0.f, 0.5f);
 	_zombiesAnimation->setScale(1.2f);
 	_zombiesAnimation->setTimeScale(0.6 + number(_random));
 }
@@ -75,7 +75,7 @@ bool SnowZombies::getZombieIsEatPlants()
 
 void SnowZombies::playZombiesAshesAnimation()
 {
-	const uniform_real_distribution<float>number(0.f, 0.4f);
+	uniform_real_distribution<float>number(0.f, 0.4f);
 	auto ashes = SkeletonAnimation::createWithData(_global->userInformation->getAnimationData().find("SnowZombies")->second);
 	ashes->setPosition(_zombiesAnimation->getPosition());
 	ashes->setLocalZOrder(_zombiesAnimation->getLocalZOrder());

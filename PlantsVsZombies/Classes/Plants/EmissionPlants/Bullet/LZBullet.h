@@ -29,7 +29,9 @@ enum class BulletType
 	StarFruitBullet,
 	WaterMelonBullet,
 	WinterMelonBullet,
-	CatTailBullet
+	CatTailBullet,
+	FumeShroomBullet,
+	ScaredyShroomBullet
 };
 
 enum class SoundEffectType
@@ -208,6 +210,7 @@ protected:
 	SkeletonAnimation* _bulletAnimation;  // 动画
 	float _attack;                        // 攻击力
 	bool _isUsed;                         // 是否使用
+	bool _animationLoop;                  // 动画循环播放
 	int _bulletRow;                       // 所在行
 	int _zombieInExplodeRangeNumbers;     // 溅射伤害僵尸数
 	Node* _node;                          // 父节点

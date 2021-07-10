@@ -63,6 +63,13 @@ void CommonZombies::createPreviewZombie()
 	_zombiesAnimation->setAttachment("Zombie_bucket", "tt_innerleg_foot3");
 }
 
+Sprite* CommonZombies::createPreviewZombieImage()
+{
+	imageInit("CommonZombie", INIT);
+	_zombieImage->setScale(1.1f);
+	return _zombieImage;
+}
+
 void CommonZombies::playZombieSoundEffect()
 {
 	Zombies::playZombieSoundEffect(rand() % 2 ? "groan6" : "sukhbir6");

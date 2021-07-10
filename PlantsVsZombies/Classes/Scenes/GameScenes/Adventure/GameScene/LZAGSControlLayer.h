@@ -24,6 +24,7 @@ struct GameMapInformation
 {
 	GameMapInformation(unsigned int row = 5, unsigned int column = 9);
 	void GameMapInit();
+	void GameMapInitForIZombies();
 	int plantsMap[10][18];             /* 植物种植地图 */
 	bool plantPumpkin[10][18];         /* 是否种植南瓜头 */
 	unsigned int rowNumbers;           /* 行数 */

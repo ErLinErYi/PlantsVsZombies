@@ -8,6 +8,7 @@
 #pragma once
 #include "cocos2d.h"
 #include "network/HttpClient.h"
+#include "network/CCDownloader.h"
 
 using namespace cocos2d;
 using namespace network;
@@ -51,4 +52,5 @@ protected:
 	int m_week;
 	time_t m_time;
 	bool _onlyNetTime;
+	std::unique_ptr<network::Downloader> _downloader;
 };

@@ -48,87 +48,77 @@ class UserData :public Director
 {
 public:
     static UserData* getInstance();
-    void flushUserData();
-    void flushLevelData();
-    void flushSurvivalData();
+    virtual void flushUserData();
+    virtual void flushLevelData();
+    
+    virtual void caveUserData(char* key, double value);
+    virtual void caveUserData(char* key, bool value);
+    virtual void caveUserData(char* key, char* value);
+    virtual void caveUserData(char* key, int value);
 
-    void caveUserData(char* key, double value);
-    void caveUserData(char* key, bool value);
-    void caveUserData(char* key, char* value);
-    void caveUserData(char* key, int value);
+    virtual void caveLevelData(char* key);
+    virtual void openLevelData(char* key);
+    virtual bool isHaveLevelData(char* key);
 
-    void caveLevelData(char* key);
-    void openLevelData(char* key);
-    bool isHaveLevelData(char* key);
+    virtual void openLevelPlantsData(char* key);
+    virtual void openLevelPlantsAnimationData(char* key, const char* pl, Plants* plant);
+    virtual void openLevelZombiesData(char* key);
+    virtual void openLevelZombiesAnimationData(char* key, const char* zo, Zombies* zombie);
+    virtual void openLevelSelectCardData(char* key);
+    virtual void openLevelSunData(char* key);
+    virtual void openLevelCoinData(char* key);
+    virtual void openLevelCarData(char* key);
+    virtual void openLevelBulletData(char* key);
+    virtual void openLevelBulletAnimationData(char* key, const char* bu, Bullet* bullet);
+    virtual void openLevelOtherData(char* key);
+   
+    virtual void removeLevelData(char* key);
 
-    void caveSurvivalData(char* key);
-    void openSurvivalData(char* key);
-    bool isHaveSurvivalData(char* key);
+    virtual int openIntUserData(char* key);
+    virtual double openDoubleUserData(char* key);
+    virtual bool openBoolUserData(char* key);
+    virtual const char* openStringUserData(char* key);
 
-    void openLevelPlantsData(char* key);
-    void openLevelPlantsAnimationData(char* key, const char* pl, Plants* plant);
-    void openLevelZombiesData(char* key);
-    void openLevelZombiesAnimationData(char* key, const char* zo, Zombies* zombie);
-    void openLevelSelectCardData(char* key);
-    void openLevelSunData(char* key);
-    void openLevelCoinData(char* key);
-    void openLevelCarData(char* key);
-    void openLevelBulletData(char* key);
-    void openLevelBulletAnimationData(char* key, const char* bu, Bullet* bullet);
-    void openLevelOtherData(char* key);
-    void openSurvivalOtherData(char* key);
-
-    void removeLevelData(char* key);
-
-    int openIntUserData(char* key);
-    double openDoubleUserData(char* key);
-    bool openBoolUserData(char* key);
-    const char* openStringUserData(char* key);
-
-    void createNewUserDataDocument();
-    void createNewLevelDataDocument();
-    void setAnewReadData(const bool newRead);
+    virtual void createNewUserDataDocument();
+    virtual void createNewLevelDataDocument();
+    virtual void setAnewReadData(const bool newRead);
 
 #ifndef DLLTEST
     static string encryption(string& str);
     static string decryption(string& str);
 #endif // !DLLTEST
 
-private:
+protected:
     UserData();
     ~UserData();
-    string getUserDataFileName();
-    string getLevelDataFileName();
-    string getSurvivalDataFileName();
-    openUserDataReturnType openUserData();
-    openUserDataReturnType openLevelData();
-    openUserDataReturnType openSurvivalData();
+    virtual string getUserDataFileName();
+    virtual string getLevelDataFileName();
+    virtual openUserDataReturnType openUserData();
+    virtual openUserDataReturnType openLevelData();
+    
+    virtual bool isHaveMember(char* key);
+    virtual bool readLevelData();
 
-    bool isHaveMember(char* key);
-    bool readLevelData();
+    virtual bool checkLevelDataVersion();
+    virtual void caveLevelDataVersion();
+    virtual void caveLevelPlantsData(char* key);
+    virtual void caveLevelPlantsAnimationData(Plants* plant, rapidjson::Value& object);
+    virtual void caveLevelZombiesData(char* key);
+    virtual void caveLevelZombiesAnimationData(Zombies* zombie, rapidjson::Value& object);
+    virtual void caveLevelSelectPlantsData(char* key);
+    virtual void caveLevelSunData(char* key);
+    virtual void caveLevelCoinData(char* key);
+    virtual void caveLevelCarData(char* key);
+    virtual void caveLevelBulletData(char* key);
+    virtual void caveLevelBulletAnimationData(Bullet* bullet, rapidjson::Value& object);
+    virtual void caveLevelOtherData(char* key);
+    
+    virtual void replaceScene();
 
-    bool checkLevelDataVersion();
-    void caveLevelDataVersion();
-    void caveLevelPlantsData(char* key);
-    void caveLevelPlantsAnimationData(Plants* plant, rapidjson::Value& object);
-    void caveLevelZombiesData(char* key);
-    void caveLevelZombiesAnimationData(Zombies* zombie, rapidjson::Value& object);
-    void caveLevelSelectPlantsData(char* key);
-    void caveLevelSunData(char* key);
-    void caveLevelCoinData(char* key);
-    void caveLevelCarData(char* key);
-    void caveLevelBulletData(char* key);
-    void caveLevelBulletAnimationData(Bullet* bullet, rapidjson::Value& object);
-    void caveLevelOtherData(char* key);
-    void caveSurvivalOtherData(char* key);
-
-    void replaceScene();
-
-private:
     rapidjson::Value numberToString(int number, rapidjson::Document::AllocatorType& allocator);
     rapidjson::Value numberAddString(int number, string str, rapidjson::Document::AllocatorType& allocator);
 
-private:
+protected:
     Document* _userDataDocument;
     Document* _levelDataDocument;
     FileUtils* _fileUtils;

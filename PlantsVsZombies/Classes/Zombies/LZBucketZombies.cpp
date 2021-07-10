@@ -63,6 +63,14 @@ void BucketZombies::createPreviewZombie()
 	_zombiesAnimation->setAttachment("Zombie_bucket", "Zombie_bucket1");
 }
 
+Sprite* BucketZombies::createPreviewZombieImage()
+{
+	imageInit("BucketZombie", INIT);
+	_zombieImage->setScale(2.2f);
+	_zombieImage->setAnchorPoint(Vec2(0.5f, 0.3f));
+	return _zombieImage;
+}
+
 void BucketZombies::playZombieSoundEffect()
 {
 	Zombies::playZombieSoundEffect(rand() % 2 ? "groan4" : "sukhbir4");

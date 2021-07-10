@@ -22,12 +22,15 @@ int SunFlower::_sunTag = -1;
 SunFlower::SunFlower(Node* node) :
   _sun(nullptr)
 , _isCreateSun(false)
+, _isIZombiesType(false)
+, _iZombiesCreateSun(0)
 , _sunShowTime(Vec2(4 + rand() % 3, 16 + rand() % 5))
 {
 	_node = node;
 	_plantImage = nullptr;
 	_plantsType = PlantsType::SunFlower;
 	_healthPoint = 300;
+	_totalHealthPoint = 300;
 }
 
 SunFlower::~SunFlower()
@@ -74,9 +77,12 @@ void SunFlower::createPlantAnimation()
 
 void SunFlower::createListener()
 {
-	calculateSunShowTime();
+	if (!_isIZombiesType)
+	{
+		calculateSunShowTime();
 
-	playAnimation();
+		playAnimation();
+	}
 }
 
 void SunFlower::playAnimation()
@@ -111,7 +117,8 @@ void SunFlower::sunRecovery(Sun* sun)
 		{
 			Global::getInstance()->userInformation->setSunNumbers(Global::getInstance()->userInformation->getSunNumbers() + 50);
 			informationLayerInformation->updateSunNumbers();
-			informationLayerInformation->gameType->updateRequirementNumbers("阳光数量增加");
+			if (informationLayerInformation->gameType)
+				informationLayerInformation->gameType->updateRequirementNumbers("阳光数量增加");
 		});
 	auto actionCallFunc2 = CallFunc::create([temporary]()
 		{
@@ -185,6 +192,26 @@ void SunFlower::createRandomSuns()
 		});
 
 	_node->runAction(RepeatForever::create(Sequence::create(DelayTime::create(5), callFunc, DelayTime::create(20), nullptr)));
+}
+
+void SunFlower::setIZombiesType(const bool type)
+{
+	_isIZombiesType = type;
+}
+
+void SunFlower::checkPlantHealthPoint()
+{
+	if (_isIZombiesType)
+	{
+		for (int i = 0; i < 6; ++i)
+		{
+			if (_healthPoint <= _totalHealthPoint - 50 * (i + 1) && _iZombiesCreateSun == i)
+			{
+				createSuns();
+				_iZombiesCreateSun = i + 1;
+			}
+		}
+	}
 }
 
 void SunFlower::stopSun()

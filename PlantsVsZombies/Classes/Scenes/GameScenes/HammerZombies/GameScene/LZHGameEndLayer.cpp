@@ -36,7 +36,8 @@ void HGameEndLayer::successfullEntry()
 	PlayMusic::playMusic("achievement");
 	Director::getInstance()->getOpenGLView()->setCursorVisible(true);
 	Director::getInstance()->getOpenGLView()->setCursor("resources/Images/System/cursor.png", Point::ANCHOR_TOP_LEFT);
-	
+
+	carsToCoins();
 	rewardThing();
 }
 
@@ -82,8 +83,8 @@ void HGameEndLayer::rewardThing()
 
 void HGameEndLayer::rewardCoin(Button* button)
 {
-	const auto coin = UserData::getInstance()->openIntUserData(const_cast<char*>("HAMMERZOMBIES_LEVEL_NUMBER"));
-	const int number = min(coin / 2, 10) + rand() % (coin / 2);
+	const auto coin = max(UserData::getInstance()->openIntUserData(const_cast<char*>("HAMMERZOMBIES_LEVEL_NUMBER")), 1);
+	const int number = min(coin / 2, 10) + rand() % coin + 1;
 
 	button->runAction(Sequence::create(Repeat::create(Sequence::create(MoveBy::create(0.05f, Vec2(5, 5)),
 		MoveBy::create(0.05f, Vec2(-5, -5)), nullptr), number / 2), DelayTime::create(0.5f), FadeOut::create(0.5f),
@@ -95,19 +96,19 @@ void HGameEndLayer::rewardCoin(Button* button)
 
 		if (i >= number - 1)
 		{
+			auto audio = PlayMusic::playMusic("winmusic", 0);
+			PlayMusic::setMusicVolume(audio);
+			AudioEngine::setFinishCallback(audio, [=](int i, string name)
+				{
+					PlayMusic::playMusic("lightfill");
+				});
+
 			this->runAction(Sequence::create(DelayTime::create(2.0f),
 				CallFunc::create([=]()
 					{
-						auto audio = PlayMusic::playMusic("winmusic", 0);
-						PlayMusic::setMusicVolume(audio);
-						AudioEngine::setFinishCallback(audio, [=](int i, string name)
-							{
-								PlayMusic::playMusic("lightfill");
-							});
-
 						auto AwardRays = Sprite::createWithSpriteFrameName("AwardRays.png");
 						AwardRays->setPosition(_director->getWinSize() / 2.0f);
-						AwardRays->runAction(RepeatForever::create(Spawn::create(RotateBy::create(0.5f, 30), ScaleBy::create(0.5f, 1.5f), nullptr)));
+						AwardRays->runAction(RepeatForever::create(Spawn::create(RotateBy::create(0.3f, 30), ScaleBy::create(0.3f, 2.f), nullptr)));
 						AwardRays->setGlobalZOrder(20);
 						this->addChild(AwardRays);
 
@@ -117,7 +118,7 @@ void HGameEndLayer::rewardCoin(Button* button)
 						White->setOpacity(0);
 						White->setGlobalZOrder(20);
 						this->addChild(White);
-						White->runAction(Sequence::create(DelayTime::create(1.0f), FadeIn::create(7.0f),
+						White->runAction(Sequence::create(DelayTime::create(1.0f), FadeIn::create(3.0f),
 							CallFunc::create([=]()
 								{
 									UserData::getInstance()->caveUserData(const_cast<char*>("COINNUMBERS"), _global->userInformation->getCoinNumbers());

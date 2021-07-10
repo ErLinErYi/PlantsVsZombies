@@ -14,6 +14,7 @@ public:
 	static Bucket4Door4Zombies* create(Node* node = nullptr);
 	virtual void createZombie() override;
 	virtual void createPreviewZombie() override;
+	virtual Sprite* createPreviewZombieImage() override;
 
 CC_CONSTRUCTOR_ACCESS:
 	Bucket4Door4Zombies(Node* node = nullptr);

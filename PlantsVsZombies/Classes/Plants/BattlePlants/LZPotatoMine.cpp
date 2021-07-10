@@ -161,7 +161,10 @@ void PotatoMine::zombieEatPlant(Zombies* zombie)
 			_isBeginExplode = true;
 		}
 
-		setZombieEatPlantControl(zombie);
+		if (zombie->getZombieIsEatPlants()) /* 僵尸吃植物 */
+		{
+			setZombieEatPlantControl(zombie);
+		}
 	}
 }
 

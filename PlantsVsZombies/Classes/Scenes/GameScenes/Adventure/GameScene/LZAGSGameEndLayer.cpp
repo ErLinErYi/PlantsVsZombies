@@ -243,19 +243,19 @@ void GSGameEndLayer::rewardCoin(Button* button)
 
 		if (i >= number - 1)
 		{
+			auto audio = PlayMusic::playMusic("winmusic", 0);
+			PlayMusic::setMusicVolume(audio);
+			AudioEngine::setFinishCallback(audio, [=](int i, string name)
+				{
+					PlayMusic::playMusic("lightfill");
+				});
+
 			this->runAction(Sequence::create(DelayTime::create(2.0f),
 				CallFunc::create([=]()
 					{
-						auto audio = PlayMusic::playMusic("winmusic", 0);
-						PlayMusic::setMusicVolume(audio);
-						AudioEngine::setFinishCallback(audio, [=](int i, string name)
-							{
-								PlayMusic::playMusic("lightfill");
-							});
-
 						auto AwardRays = Sprite::createWithSpriteFrameName("AwardRays.png");
 						AwardRays->setPosition(_director->getWinSize() / 2.0f);
-						AwardRays->runAction(RepeatForever::create(Spawn::create(RotateBy::create(0.5f, 30), ScaleBy::create(0.5f, 1.5f), nullptr)));
+						AwardRays->runAction(RepeatForever::create(Spawn::create(RotateBy::create(0.3f, 30), ScaleBy::create(0.3f, 2.f), nullptr)));
 						AwardRays->setGlobalZOrder(20);
 						this->addChild(AwardRays);
 
@@ -265,7 +265,7 @@ void GSGameEndLayer::rewardCoin(Button* button)
 						White->setOpacity(0);
 						White->setGlobalZOrder(20);
 						this->addChild(White);
-						White->runAction(Sequence::create(DelayTime::create(1.0f), FadeIn::create(7.0f),
+						White->runAction(Sequence::create(DelayTime::create(1.0f), FadeIn::create(3.0f),
 							CallFunc::create([=]()
 								{
 									/* 保存金币数 */

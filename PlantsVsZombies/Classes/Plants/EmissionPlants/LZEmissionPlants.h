@@ -21,7 +21,7 @@ CC_CONSTRUCTOR_ACCESS:
 protected:
     virtual void createBullet() = 0;
     virtual void plantAttack(Zombies* zombie) = 0;
-    virtual void createListener(std::string animationName, std::string actionName = "shoot") override;
+    virtual void createListener(std::string animationName, std::string actionName = "shoot", std::string musicName = "") override;
 	virtual void cavePlantInformation(rapidjson::Value& object, rapidjson::Document::AllocatorType& allocator) override;
 	virtual void readPlantInforamtion(rapidjson::Document* levelDataDocument, char* key, int i) override;
 

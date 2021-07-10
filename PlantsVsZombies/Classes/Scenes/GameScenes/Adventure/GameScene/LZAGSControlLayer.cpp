@@ -43,6 +43,11 @@ void GameMapInformation::GameMapInit()
 	MAP_CAN_NOT_PLANT(plantsMap);
 }
 
+void GameMapInformation::GameMapInitForIZombies()
+{
+	MAP_INIT(plantsMap, NO_PLANTS);
+}
+
 GSControlLayer::GSControlLayer():
     gameMapInformation(nullptr)
 ,	_global(Global::getInstance())
@@ -122,7 +127,7 @@ void GSControlLayer::controlCardEnabled()
 		}
 		else
 		{
-			buttonLayerInformation->plantsCards[card.cardTag].plantsCardText->setColor(Color3B::BLACK);
+			buttonLayerInformation->plantsCards[card.cardTag].plantsCardText->setColor(Color3B::WHITE);
 		}
 		/* 如果卡牌填充倒计时完成 */
 		if (buttonLayerInformation->plantsCards[card.cardTag].timeBarIsFinished)

@@ -104,28 +104,6 @@ void UserData::flushLevelData()
 #endif
 }
 
-void UserData::flushSurvivalData()
-{
-	StringBuffer buffer;
-	rapidjson::Writer<StringBuffer> Writer(buffer);
-	_levelDataDocument->Accept(Writer);
-
-	string str = string(buffer.GetString());
-
-#ifdef DEBUG
-	_fileUtils->writeStringToFile(str, getSurvivalLevelDataFileName());
-#else
-#   ifndef DLLTEST
-	_fileUtils->writeStringToFile(encryption(str), getSurvivalDataFileName());
-#   else
-	char* buf = new char[str.length() * 3];
-	encryption(str.c_str(), buf);
-	_fileUtils->writeStringToFile(buf, getSurvivalDataFileName());
-	CC_SAFE_DELETE(buf);
-#   endif
-#endif
-}
-
 openUserDataReturnType UserData::openUserData()
 {
 	// 如果有这个存档
@@ -207,41 +185,6 @@ openUserDataReturnType UserData::openLevelData()
 	}
 }
 
-openUserDataReturnType UserData::openSurvivalData()
-{
-	// 如果有这个存档
-	if (_fileUtils->isFileExist(getSurvivalDataFileName()))
-	{
-#ifdef DEBUG
-		_levelData = _fileUtils->getStringFromFile(getSurvivalDataFileName());
-		_levelDataDocument->Parse<rapidjson::kParseDefaultFlags>(_levelData.c_str());
-#else
-#   ifndef DLLTEST
-		_levelData = _fileUtils->getStringFromFile(getSurvivalDataFileName());
-		_levelDataDocument->Parse<rapidjson::kParseDefaultFlags>(decryption(_levelData).c_str());
-#   else
-		_levelData = _fileUtils->getStringFromFile(getSurvivalDataFileName());
-		char* buf = new char[_levelData.length()];
-		if (decryption(_levelData.c_str(), buf)) {
-			_levelDataDocument->Parse<rapidjson::kParseDefaultFlags>(buf);
-		}
-		else {
-			CC_SAFE_DELETE(buf);
-			return openUserDataReturnType::FileExistError;
-		}
-		CC_SAFE_DELETE(buf);
-#   endif
-#endif
-		if (_levelDataDocument->HasParseError()) {
-			return openUserDataReturnType::FileExistError;
-		}
-		return openUserDataReturnType::FileExistCorrect;
-	}
-	else {
-		return openUserDataReturnType::FileNotExist;
-	}
-}
-
 bool UserData::isHaveMember(char* key)
 {
 	if ((*_userDataDocument)["UserData"].HasMember(key))
@@ -257,11 +200,6 @@ string UserData::getUserDataFileName()
 string UserData::getLevelDataFileName()
 {
 	return _fileUtils->getWritablePath() + "UserDataFile_" + to_string(_global->userInformation->getUserCaveFileNumber()) + ".sav";
-}
-
-string UserData::getSurvivalDataFileName()
-{
-	return _fileUtils->getWritablePath() + "UserSurvivalDataFile_" + to_string(_global->userInformation->getUserCaveFileNumber()) + ".sav";
 }
 
 void UserData::caveUserData(char* key, double value)
@@ -405,7 +343,7 @@ const char* UserData::openStringUserData(char* key)
 		break;
 	default: break;
 	}
-	return nullptr;
+	return "";
 }
 
 void UserData::createNewUserDataDocument()
@@ -466,35 +404,6 @@ void UserData::caveLevelData(char* key)
 	caveLevelBulletData(key);
 
 	flushLevelData();
-}
-
-void UserData::caveSurvivalData(char* key)
-{
-	switch (openSurvivalData())
-	{
-	case openUserDataReturnType::FileExistCorrect:
-		if ((*_levelDataDocument).HasMember(key))
-			(*_levelDataDocument).RemoveMember(key);
-		break;
-	case openUserDataReturnType::FileExistError:
-		return;
-		break;
-	}
-
-	if (!_levelDataDocument->IsObject())_levelDataDocument->SetObject();
-
-	rapidjson::Value object(rapidjson::kObjectType);
-	_levelDataDocument->AddMember(rapidjson::StringRef(key), object, _levelDataDocument->GetAllocator());
-
-	caveLevelPlantsData(key);
-	caveLevelZombiesData(key);
-	caveLevelSelectPlantsData(key);
-	caveLevelOtherData(key);
-	caveLevelSunData(key);
-	caveLevelCarData(key);
-	caveLevelBulletData(key);
-
-	flushSurvivalData();
 }
 
 bool UserData::checkLevelDataVersion()
@@ -793,17 +702,6 @@ void UserData::caveLevelOtherData(char* key)
 	(*_levelDataDocument)[key].AddMember("OtherData", object, _levelDataDocument->GetAllocator());
 }
 
-void UserData::caveSurvivalOtherData(char* key)
-{
-	rapidjson::Document::AllocatorType& allocator = _levelDataDocument->GetAllocator();
-
-	rapidjson::Value object(rapidjson::kObjectType);
-
-	object.AddMember("SunNumbers", _global->userInformation->getSunNumbers(), allocator);
-
-	(*_levelDataDocument)[key].AddMember("OtherData", object, _levelDataDocument->GetAllocator());
-}
-
 bool UserData::readLevelData()
 {
 	switch (openLevelData())
@@ -850,40 +748,6 @@ bool UserData::isHaveLevelData(char* key)
 		_fileUtils->removeFile(getLevelDataFileName());
 		break;
 	default: break;
-	}
-	return false;
-}
-
-void UserData::openSurvivalData(char* key)
-{
-	switch (openSurvivalData())
-	{
-	case openUserDataReturnType::FileExistCorrect:
-		openLevelPlantsData(key);
-		openLevelZombiesData(key);
-		openLevelOtherData(key);
-		openLevelSunData(key);
-		openLevelCarData(key);
-		openLevelBulletData(key);
-		break;
-	case openUserDataReturnType::FileExistError:
-		_fileUtils->removeFile(getSurvivalDataFileName());
-		break;
-	}
-}
-
-bool UserData::isHaveSurvivalData(char* key)
-{
-	switch (openSurvivalData())
-	{
-	case openUserDataReturnType::FileExistCorrect:
-		if ((*_levelDataDocument).HasMember(key))
-			return true;
-		break;
-	case openUserDataReturnType::FileExistError:
-		_fileUtils->removeFile(getSurvivalDataFileName());
-		break;
-	default:break;
 	}
 	return false;
 }
@@ -1160,13 +1024,6 @@ void UserData::openLevelOtherData(char* key)
 			(*_levelDataDocument)[key]["OtherData"]["BigMapOffsetX"].GetFloat(),
 			(*_levelDataDocument)[key]["OtherData"]["BigMapOffsetY"].GetFloat()));
 	}
-}
-
-void UserData::openSurvivalOtherData(char* key)
-{
-	_global->userInformation->setSunNumbers(
-		(*_levelDataDocument)[key]["OtherData"]["SunNumbers"].GetInt());
-	informationLayerInformation->updateSunNumbers();
 }
 
 void UserData::removeLevelData(char* key)

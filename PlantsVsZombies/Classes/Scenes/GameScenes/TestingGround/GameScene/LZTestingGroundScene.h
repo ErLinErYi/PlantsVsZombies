@@ -26,6 +26,5 @@ protected:
 	virtual void buttonLayer() override;
 	virtual void controlLayer() override;
 	virtual void animationLayer() override;
-	virtual void goodsLayer() override;
 	virtual void gameTimerLayer() override;
 };

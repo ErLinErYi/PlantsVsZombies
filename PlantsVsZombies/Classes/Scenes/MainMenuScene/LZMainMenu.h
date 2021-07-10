@@ -73,6 +73,7 @@ private:
 	void createFlowers(const float& Scale, const Vec2& vec2, const std::string& fileName, const int& ID);
 	bool checkHammerZombiesIsUnLock();                            /* 检查锤僵尸游戏是否解锁 */
 	void checkTestingGroundIsUnLock();                            /* 检查植物试炼场是否解锁 */
+	bool checkIZombiesIsUnLock();                                 /* 检查我是僵尸模式是否解锁 */
 
 	void setMouseListenerEnable(bool isEnable) { _mouse->setEnabled(isEnable); }
 

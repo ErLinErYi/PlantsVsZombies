@@ -46,7 +46,7 @@ void HammerZombiesScene::onEnterTransitionDidFinish()
 	goodsLayer();        // 物品层
 	gameTimerLayer();    // 定时层
 	controlPlayMusic();
-	pauseGame();
+	runAction(Sequence::create(DelayTime::create(1.f), CallFunc::create([&]() {pauseGame(); }), nullptr));
 }
 
 void HammerZombiesScene::controlPlayMusic()
@@ -93,23 +93,4 @@ void HammerZombiesScene::goodsLayer()
 {
 	goodsLayerInformation = Layer::create();
 	this->addChild(goodsLayerInformation, 5, "goodsLayer");
-}
-
-void HammerZombiesScene::pauseGame()
-{
-	runAction(Sequence::create(DelayTime::create(2.f),
-		CallFunc::create([=]() 
-			{
-				_director->getEventDispatcher()->addCustomEventListener(
-					GLViewImpl::EVENT_WINDOW_UNFOCUSED, [&](EventCustom* evt)
-					{
-						if (!GSPauseQuitLayer::getIsPause())
-						{
-							GSPauseQuitLayer::pauseLayer();
-							PlayMusic::playMusic("pause");
-							_director->getOpenGLView()->setCursorVisible(true);
-							_director->getRunningScene()->addChild(GSPauseLayer::addLayer(), 10);
-						}
-					});
-			}), nullptr));
 }

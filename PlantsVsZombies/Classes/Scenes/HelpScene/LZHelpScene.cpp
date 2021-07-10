@@ -14,14 +14,14 @@
 #include "Based/LZMouseEventControl.h"
 
 string INFORMATION_TEXT = { "\
-        此游戏全部由哔哩哔哩\"尔领尔亿\"（LZ）独立制作完成。此游戏与当前可以见到的众多改版不同。此程序不是基于原版游戏的二次开发，而是从新从零开始制作。\
-可以说此程序与原版程序没有任何关系。该程序使用Cocos2dx游戏开发框架以及C++语言制作完成。目前该程序的所有源代码已经开源到github以及gitee上。\n\
+        此游戏全部由哔哩哔哩\"尔领尔亿\"（LZ）独立制作完成（点击下方链接关注作者）。此游戏与当前可以见到的众多改版不同。此程序不是基于原版游戏的二次开发，\
+而是从新从零开始制作。可以说此程序与原版程序没有任何关系。该程序使用Cocos2dx游戏开发框架以及C++语言制作完成。目前该程序的所有源代码已经开源到github以及gitee上。\n\
         此游戏目前已经有多种游戏模式。有着不同种类的游戏关卡、有着超过几百关数量的游戏关卡、有着超大地图（10 × 18）的游戏模式、有着“锤僵尸”无尽版的游戏模式等等种类。\
 此游戏使用的绝大部分图片、音乐、音效、字体等资源文件来源于原版一代、二代、以及三代的游戏资源，少部分收集于网络以及自己制作。\n\
 	    此程序使用原版游戏素材所以不得用于商业用途，否则后果自负。当你运行此游戏或者使用其源代码时则认为默认同意此协议，否则请退出游戏并删除。\
-项目地址可以直接在github或gitee上搜索关键词\"PlantsVsZombies\"或浏览器中输入以下地址：https://github.com/ErLinErYi/PlantsVsZombies \n\
+项目地址可以直接在github或gitee上搜索关键词\"PlantsVsZombies\"或点击下方链接。\n\
 		目前有 43 种僵尸和 28 种植物，由于做动画的能力有限，有些僵尸和植物动画不能实现或动画与原版存在很大偏差。\
-（使用spine或者DragonBones制作的2D动画）目前已经有多种游戏模式和超过几百个游戏关卡。\nQQ:2117610943 \nQQ群:926707238 \n网址:https://gitlz.gitee.io/lz \n\n"
+（使用spine或者DragonBones制作的2D动画）目前已经有多种游戏模式和超过几百个游戏关卡。\nQQ:2117610943 \nQQ群:926707238 \n\n"
 };
 
 Scene* HelpScene::createHelpScene()
@@ -72,25 +72,29 @@ void HelpScene::createText()
 		});
 
 	addMouseEvent();
+
+	auto pos = Director::getInstance()->getWinSize().width / 2;
+	openUrl("官方网站", "https://gitlz.gitee.io/lz", Vec2(pos - 300, 30));
+	openUrl("关注作者", "https://space.bilibili.com/351783071", Vec2(pos - 100, 30));
+	openUrl("源码下载", "https://github.com/ErLinErYi/PlantsVsZombies", Vec2(pos + 100, 30));
+	openUrl("捐赠我们", "https://gitlz.gitee.io/lz/assets/images/fk.png", Vec2(pos + 300, 30));
 }
 
-void HelpScene::createGithubUrl()
+void HelpScene::openUrl(string name, string url, Vec2 postion)
 {
 	auto github = Button::create();
 	github->setTitleFontName(GAME_FONT_NAME_1);
-	github->setTitleFontSize(35);
-	github->setTitleText("点击此处打开github项目");
-	github->setPosition(Vec2(1220, 740));
+	github->setTitleFontSize(20);
+	github->setTitleText(name);
+	github->setPosition(postion);
 	github->setTitleColor(Color3B(0, 255, 255));
-	github->addTouchEventListener([&](Ref* sender, Widget::TouchEventType type)
+	github->addTouchEventListener([=](Ref* sender, Widget::TouchEventType type)
 		{
 			switch (type)
 			{
 			case Widget::TouchEventType::BEGAN:
 				PlayMusic::playMusic("tap2");
-				break;
-			case Widget::TouchEventType::ENDED:
-				Application::getInstance()->openURL("https://github.com/ErLinErYi/PlantsVsZombies");
+				Application::getInstance()->openURL(url);
 				break;
 			}
 		});

@@ -19,6 +19,8 @@
 #include "Plants/EmissionPlants/LZWaterMelonPult.h"
 #include "Plants/EmissionPlants/LZWinterMelonPult.h"
 #include "Plants/EmissionPlants/LZCatTail.h"
+#include "Plants/EmissionPlants/LZScaredyShroom.h"
+#include "Plants/EmissionPlants/LZFumeShroom.h"
 
 #include "Plants/BattlePlants/LZCherryBomb.h"
 #include "Plants/BattlePlants/LZPotatoMine.h"
@@ -29,6 +31,7 @@
 #include "Plants/BattlePlants/LZGloomShroom.h"
 #include "Plants/BattlePlants/LZIceBergLettuce.h"
 #include "Plants/BattlePlants/LZBlover.h"
+#include "Plants/BattlePlants/LZSquash.h"
 
 #include "Plants/DefensePlants/LZTorchwood.h"
 #include "Plants/DefensePlants/LZWallNut.h"
@@ -38,3 +41,4 @@
 #include "Plants/DefensePlants/LZPumpkin.h"
 #include "Plants/DefensePlants/LZMarigold.h"
 #include "Plants/DefensePlants/LZMagnetShroom.h"
+#include "Plants/DefensePlants/LZImitater.h"

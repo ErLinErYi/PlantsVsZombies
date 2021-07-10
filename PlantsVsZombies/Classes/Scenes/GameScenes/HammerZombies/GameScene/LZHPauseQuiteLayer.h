@@ -19,7 +19,6 @@ CC_CONSTRUCTOR_ACCESS:
 
 protected:
 	virtual void createDialog() override;
-	virtual void createButton(const Vec2& vec2, const std::string name, PauseQuitLayer_Button type) override;
 	virtual void setRestart() override;
 	virtual void setQuitGame() override;
 };

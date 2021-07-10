@@ -67,6 +67,14 @@ void CommonDoorZombies::createPreviewZombie()
 	_zombiesAnimation->setAttachment("Zombie_screendoor", "Zombie_screendoor1");
 }
 
+Sprite* CommonDoorZombies::createPreviewZombieImage()
+{
+	imageInit("DoorZombie", INIT);
+	_zombieImage->setScale(2.f);
+	_zombieImage->setAnchorPoint(Vec2(0.5f, 0.3f));
+	return _zombieImage;
+}
+
 void CommonDoorZombies::playZombieSoundEffect()
 {
 	Zombies::playZombieSoundEffect(rand() % 2 ? "groan3" : "sukhbir3");

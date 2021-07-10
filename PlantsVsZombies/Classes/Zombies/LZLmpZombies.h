@@ -17,6 +17,7 @@ public:
 	static LmpZombies* create(Node* node = nullptr);
 	virtual void createZombie() override;
 	virtual void createPreviewZombie() override;
+    virtual Sprite* createPreviewZombieImage() override;
     virtual void playZombieSoundEffect() override;
     virtual void playZombiesAshesAnimation() override;
 

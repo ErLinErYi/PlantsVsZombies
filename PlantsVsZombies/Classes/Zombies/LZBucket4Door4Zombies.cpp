@@ -69,6 +69,14 @@ void Bucket4Door4Zombies::createPreviewZombie()
 	_zombiesAnimation->setAttachment("Zombie_screendoor", "61");
 }
 
+Sprite* Bucket4Door4Zombies::createPreviewZombieImage()
+{
+	imageInit("BucketDoorZombie", INIT);
+	_zombieImage->setScale(2.5f);
+	_zombieImage->setAnchorPoint(Vec2(0.3f, 0.3f));
+	return _zombieImage;
+}
+
 void Bucket4Door4Zombies::zombieInjuredEventUpdate()
 {
 	if (_isHaveShield)/* 如果有身体护盾 */

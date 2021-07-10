@@ -15,7 +15,10 @@
 #include "Scenes/LoadingScene/LZLoadingScene.h"
 #include "Scenes/SelectWorldScene/LZSelectWorldScene.h"
 #include "Scenes/GameScenes/HammerZombies/GameScene/LZHammerZombiesScene.h"
+#include "Scenes/GameScenes/IZombies/GameScene/LZIZombiesScene.h"
 #include "Scenes/GameScenes/TestingGround/SelectPlantsScene/LZTSelectPlantsScene.h"
+#include "Scenes/GameScenes/IZombies/GameScene/LZIOpenCaveGameLayer.h"
+#include "Scenes/GameScenes/IZombies/GameScene/LZIZombiesData.h"
 
 #include "Based/LZPlayMusic.h"
 #include "Based/LZLoadingAnimationLayer.h"
@@ -67,6 +70,8 @@ bool MainMenu::init()
 	}
 #endif
 	schedule([this](float) {_global->checkAnimationInterval(); }, 1.f, "FPS");
+
+	COUNTPLAYERS
 	return true;
 }
 
@@ -141,6 +146,9 @@ void MainMenu::playMusicBleepInGameButtons(MainMenuButton button)
 		case MainMenu::MainMenuButton::ChallengesButton:
 			if (!checkHammerZombiesIsUnLock()) color = Color3B(110, 110, 110);
 			break;
+		case MainMenu::MainMenuButton::SurvivalButton:
+			if (!checkIZombiesIsUnLock()) color = Color3B(110, 110, 110);
+			break;
 		default:  color = Color3B(110, 110, 110); 
 			break;
 		}
@@ -167,6 +175,10 @@ void MainMenu::playMusicBleepInGameButtons(MainMenuButton button)
 			break;
 		case MainMenu::MainMenuButton::ChallengesButton:
 			if (!checkHammerZombiesIsUnLock()) color = Color3B(80, 80, 80);
+			else color = Color3B(180, 180, 180);
+			break;
+		case MainMenu::MainMenuButton::SurvivalButton:
+			if (!checkIZombiesIsUnLock()) color = Color3B(80, 80, 80);
 			else color = Color3B(180, 180, 180);
 			break;
 		default:  color = Color3B(80, 80, 80);
@@ -346,6 +358,11 @@ void MainMenu::checkTestingGroundIsUnLock()
 		}, true);
 }
 
+bool MainMenu::checkIZombiesIsUnLock()
+{
+	return UserData::getInstance()->openIntUserData(const_cast<char*>("HAMMERZOMBIES_LEVEL_NUMBER")) >= 50;
+}
+
 void MainMenu::createAnimation()
 {
 	/* 创建叶子动画 */
@@ -430,7 +447,7 @@ void MainMenu::createMouseListener()
 		case MainMenuButton::AdventureButton:     _mainButton[1]->setPosition(Vec2(902, 828));                            /* 冒险模式 */    break;
 		case MainMenuButton::ChallengesButton:    _mainButton[2]->setPosition(Vec2(882, 648));  beginHammerZombiesGame(); /* 锤僵尸模式 */  break;
 		case MainMenuButton::VasebreakerButton:   _mainButton[3]->setPosition(Vec2(872, 508));  beginVasebreakerGame();   /* 植物试炼场 */  break;
-		case MainMenuButton::SurvivalButton:      _mainButton[4]->setPosition(Vec2(852, 383));                            /* 生存模式 */    break;
+		case MainMenuButton::SurvivalButton:      _mainButton[4]->setPosition(Vec2(852, 383));  beginSurvivalGame();      /* 我是僵尸 */    break;
 		}
 	};
 
@@ -442,7 +459,7 @@ void MainMenu::createMouseListener()
 		case MainMenuButton::AdventureButton:    _mainButton[1]->setPosition(Vec2(900, 830)); beginAdventureGame();     /* 冒险模式 */   break;
 		case MainMenuButton::ChallengesButton:   _mainButton[2]->setPosition(Vec2(880, 650));                           /* 锤僵尸模式 */ break;
 		case MainMenuButton::VasebreakerButton:  _mainButton[3]->setPosition(Vec2(870, 510));                           /* 植物试炼场 */ break;
-		case MainMenuButton::SurvivalButton:     _mainButton[4]->setPosition(Vec2(850, 385)); beginSurvivalGame();      /* 生存模式 */   break;
+		case MainMenuButton::SurvivalButton:     _mainButton[4]->setPosition(Vec2(850, 385));                           /* 我是僵尸 */   break;
 		}
 	};
 
@@ -736,5 +753,34 @@ void MainMenu::beginVasebreakerGame()
 
 void MainMenu::beginSurvivalGame()
 {
-	Application::getInstance()->openURL(_global->userInformation->getGameText().find("官方网址")->second->text);
+	if (checkIZombiesIsUnLock())
+	{
+		IZombiesData::getInstance()->createNewLevelDataDocument();
+		if (IZombiesData::getInstance()->isHaveLevelData(const_cast<char*>("IZombiesData")))
+		{
+			auto layer = LayerColor::create(Color4B(0, 0, 0, 0));
+			layer->setGlobalZOrder(2);
+			this->addChild(layer);
+			layer->runAction(Sequence::create(FadeIn::create(0.5f),
+				CallFunc::create([=]()
+					{
+						layer->removeFromParent();
+						Director::getInstance()->replaceScene(IOpenCaveGameLayer::create());
+					}), nullptr));
+		}
+		else
+		{
+			Director::getInstance()->replaceScene(IZombiesScene::create());
+		}
+	}
+	else
+	{
+		setMouseListenerEnable(false);
+		auto lock = UnlockDialogLayer::createScene(3);
+		if (lock)
+		{
+			lock->setMouseListener(_mouse);
+			this->addChild(lock, 1, "_lockLayer");
+		}
+	}
 }

@@ -9,10 +9,6 @@
 #include "LZHammerZombiesScene.h"
 #include "Scenes/MainMenuScene/LZMainMenu.h"
 #include "Based/LZPlayMusic.h"
-#include "spine/spine.h"
-#include "spine/spine-cocos2dx.h"
-
-using namespace spine;
 
 HPauseQuitLayer::HPauseQuitLayer()
 {
@@ -87,40 +83,6 @@ void HPauseQuitLayer::createDialog()
 	createButton(Vec2(830, 170), _global->userInformation->getGameText().find("返回游戏")->second->text, PauseQuitLayer_Button::返回游戏);
 	createButton(Vec2(365, 70), _global->userInformation->getGameText().find("按键说明")->second->text, PauseQuitLayer_Button::按键说明);
 	createButton(Vec2(665, 70), _global->userInformation->getGameText().find("退出")->second->text, PauseQuitLayer_Button::退出游戏);
-}
-
-void HPauseQuitLayer::createButton(const Vec2& vec2, const std::string name, PauseQuitLayer_Button button_type)
-{
-	/* 创建返回主菜单按钮 */
-	auto button = ui::Button::create("ButtonNew2.png", "ButtonNew.png", "",cocos2d::ui::Widget::TextureResType::PLIST);
-	auto label = Label::createWithTTF(name, GAME_FONT_NAME_1, _global->userInformation->getGameText().find("退出并保存")->second->fontsize);
-	label->enableShadow(Color4B(0, 0, 0, 200));//设置阴影
-	label->setScale(2.0f);
-	button->setTitleLabel(label);
-	button->setTitleColor(Color3B::WHITE);
-	button->setPosition(vec2);
-	button->setScale(0.5f);
-	_option->addChild(button);
-
-	button->addTouchEventListener([=](Ref* sender, ui::Widget::TouchEventType type)
-		{
-			switch (type)
-			{
-			case ui::Widget::TouchEventType::BEGAN:
-				PlayMusic::playMusic("gravebutton");
-				break;
-			case ui::Widget::TouchEventType::ENDED:
-				switch (button_type)
-				{
-				case PauseQuitLayer_Button::查看图鉴: openHandBook();   break;
-				case PauseQuitLayer_Button::从新开始: setRestart();     break;
-				case PauseQuitLayer_Button::退出游戏: setQuitGame();    break;
-				case PauseQuitLayer_Button::按键说明: keyDescription(); break;
-				case PauseQuitLayer_Button::返回游戏: returnGame();     break;
-				default: break;
-				}
-			}
-		});
 }
 
 void HPauseQuitLayer::setRestart()
