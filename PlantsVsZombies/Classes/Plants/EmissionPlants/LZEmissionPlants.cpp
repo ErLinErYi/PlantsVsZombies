@@ -28,9 +28,10 @@ void EmissionPlants::createListener(std::string animationName, std::string actio
             {
                 if (!_isReadFileData)
                 {
+                    _isReadFileData = true;
                     if (musicName.empty())
                     {
-                        rand() % 2 == 0 ? PlayMusic::playMusic("throw") : PlayMusic::playMusic("throw2");
+                        PlayMusic::playMusic(rand() % 2 ? "throw" : "throw2");
                     }
                     else
                     {
@@ -53,10 +54,11 @@ void EmissionPlants::createListener(std::string animationName, std::string actio
 void EmissionPlants::cavePlantInformation(rapidjson::Value& object, rapidjson::Document::AllocatorType& allocator)
 {
     object.AddMember("isChanged", _isChanged, allocator);
+    object.AddMember("IsReadFileData", _isReadFileData, allocator);
 }
 
 void EmissionPlants::readPlantInforamtion(rapidjson::Document* levelDataDocument, char* key, int i)
 {
-    _isReadFileData = true;
+    _isReadFileData = (*levelDataDocument)[key]["Plants"][to_string(i).c_str()]["IsReadFileData"].GetBool();
     _isChanged = (*levelDataDocument)[key]["Plants"][to_string(i).c_str()]["isChanged"].GetBool();
 }

@@ -28,7 +28,7 @@ GSGameResultJudgement* Zombies::_gameResultJudgement = nullptr;
 
 Zombies::Zombies() :
 	_node(nullptr)
-,   _rewardCoinPrecent(20)
+,   _rewardCoinPrecent(25)
 ,   _attackHeadSoundEffectType(0)
 ,   _attackBodySoundEffectType(0)
 ,   _bodyAnimationId(1)
@@ -56,7 +56,7 @@ Zombies::Zombies() :
 ,   _isCanMove(true)
 ,   _zombieEatPlantNumber(-1)
 ,   _zombieHowlNumbers(0)
-,   _highLightIntensity(0.3f)
+,   _highLightIntensity(0.5f)
 ,   _zombieImage(nullptr)
 ,   _highLightGLProgramState(nullptr)
 ,   _highLightFinished(false)
@@ -173,7 +173,7 @@ void Zombies::setZombieMoveInformation()
 		_zombiesAnimation->getChildByName("shadow")->runAction(FadeIn::create(1.0f));
 	}
 
-	if (!_redWarning && getZombieWarning())
+	/*if (!_redWarning && getZombieWarning())
 	{
 		auto action = RepeatForever::create(
 			Sequence::create(TintTo::create(0.3f, Color3B(255, 100, 100)),
@@ -187,7 +187,7 @@ void Zombies::setZombieMoveInformation()
 	{
 		_zombiesAnimation->stopActionByTag(10);
 		_redWarning = false;
-	}
+	}*/
 }
 
 void Zombies::setZombieOpacity(GLubyte opacity)
@@ -290,7 +290,7 @@ void Zombies::zombiesDeleteUpdate(list<Zombies*>::iterator& zombie)
 		if (!(*zombie)->getIsCanDelete()[0])
 		{
 			(*zombie)->getIsCanDelete()[0] = true;
-			++Global::getInstance()->userInformation->getKillZombiesNumbers();
+			Global::getInstance()->userInformation->setKillZombiesNumbers(Global::getInstance()->userInformation->getKillZombiesNumbers() + 1);
 			informationLayerInformation->updateZombiesDieNumbers(); /* 更新显示 */
 
 			zombiesNumbersChange("--");  /* 僵尸总数更新 */
@@ -473,7 +473,7 @@ void Zombies::setZombieHurtBlink()
 					CallFunc::create([this]()
 						{
 							_zombiesAnimation->setGLProgram(_normalGLProgram);
-							_highLightIntensity = 0.3f;
+							_highLightIntensity = 0.5f;
 							_highLightFinished = false;
 						}), nullptr));
 	}
@@ -806,7 +806,7 @@ void Zombies::createZombieTimer()
 			CallFunc::create([=]()
 				{
 					if (_timerTimeSlow > 0) --_timerTimeSlow;
-					else if (_timerTimeSlow == 0) setZombieActionRecovery(true);
+					else if (_timerTimeSlow == 0 && _timerTimeStop <= 0) setZombieActionRecovery(true);
 
 					if (_timerTimeStop > 0) --_timerTimeStop;
 					else if (_timerTimeStop == 0) setZombieActionRecovery();
@@ -1152,21 +1152,16 @@ void Zombies::setZombieActionRecovery(bool slow)
 	if (slow)
 	{
 		_timerTimeSlow = -1;
-		_isFrozen = 0;
-		_zombiesAnimation->setColor(Color3B::WHITE);
-		_zombiesAnimation->setTimeScale(_timeScale);
-		_bloodVolume > 0 ? _currentSpeed = _speed : _currentSpeed = 0;
-		_isEat = false;
 	}
 	else
 	{
 		_timerTimeStop = -1;
-		_isFrozen = 0;
-		_zombiesAnimation->setColor(Color3B::WHITE);
-		_zombiesAnimation->setTimeScale(_timeScale);
-		_bloodVolume > 0 ? _currentSpeed = _speed : _currentSpeed = 0;
-		_isEat = false;
 	}
+	_isFrozen = 0;
+	_zombiesAnimation->setColor(Color3B::WHITE);
+	_zombiesAnimation->setTimeScale(_timeScale);
+	_bloodVolume > 0 ? _currentSpeed = _speed : _currentSpeed = 0;
+	_isEat = false;
 }
 
 void Zombies::setZombieGLProgram()
@@ -1180,7 +1175,7 @@ void Zombies::setZombieGLProgram()
 
 bool Zombies::getZombieWarning()
 {
-	return _zombiesAnimation->getPositionX() < 570 + 122 * 2;
+	return (_zombiesAnimation->getPositionX() < 570 + 122 * 2) && (_zombiesAnimation->getColor() == Color3B::WHITE);
 }
 
 GLProgram* Zombies::getHighLight()

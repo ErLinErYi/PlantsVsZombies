@@ -231,6 +231,21 @@ void IZombiesData::openLevelBrainData(char* key)
 	}
 }
 
+void IZombiesData::removeIZombieData(char* key)
+{
+	switch (UserData::openLevelData())
+	{
+	case openUserDataReturnType::FileExistCorrect:
+		if ((*_levelDataDocument).HasMember(key))
+			(*_levelDataDocument).RemoveMember(key);
+		break;
+	default:
+		return;
+		break;
+	}
+	flushLevelData();
+}
+
 void IZombiesData::openLevelOtherData(char* key)
 {
 	_global->userInformation->setSunNumbers((*_levelDataDocument)[key]["OtherData"]["SunNumbers"].GetInt());

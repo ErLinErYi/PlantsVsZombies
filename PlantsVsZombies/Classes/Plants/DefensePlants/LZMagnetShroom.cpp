@@ -85,8 +85,8 @@ void MagnetShroom::determineRelativePositionPlantsAndZombies()
 
 void MagnetShroom::plantAttack(Zombies* zombie)
 {
-	if (_isCanAttack && zombie->getZombieIsHaveShield() &&              /* 可以攻击 && 僵尸有护盾  */
-		getZombieIsInRange(zombie) && zombie->getZombieIsEnterMap())    /* 在攻击范围内 && 僵尸进入地图 */
+	if (_isCanAttack && getPlantIsSurvive() && zombie->getZombieIsHaveShield() &&       /* 可以攻击 && 植物存活 && 僵尸有护盾  */
+		getZombieIsInRange(zombie) && zombie->getZombieIsEnterMap())                    /* 在攻击范围内 && 僵尸进入地图 */
 	{
 		if (zombie->getZombieBodyShieldType() == ShieldType::IronBodyShield)
 		{
@@ -151,12 +151,21 @@ void MagnetShroom::showShieldMoveAction(Zombies* zombie, const bool type)
 	shield->setLocalZOrder(_plantAnimation->getLocalZOrder() + 1);
 	shield->setScale(zombie->getZombieAnimation()->getScale());
 	shield->runAction(Sequence::create(MoveTo::create(0.5f, _plantAnimation->getPosition() + Vec2(0, 100)),
-		DelayTime::create(2.f),ScaleTo::create(7.f, 0.f),
-		CallFunc::create([shield]()
+		CallFunc::create([=]()
 			{
+				showShield(name, shield->getScale());
 				shield->removeFromParent();
 			}), nullptr));
 	_node->addChild(shield);
+}
+
+void MagnetShroom::showShield(string name, float scale)
+{
+	auto shield1 = Sprite::createWithSpriteFrameName(name + ".png");
+	shield1->setPosition(Vec2(0, 100));
+	shield1->setScale(scale);
+	shield1->runAction(Sequence::create(DelayTime::create(1.f), ScaleTo::create(7.f, 0.f), nullptr));
+	_plantAnimation->addChild(shield1);
 }
 
 SkeletonAnimation* MagnetShroom::showPlantAnimationAndText()

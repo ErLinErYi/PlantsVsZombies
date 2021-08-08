@@ -65,7 +65,7 @@ void IControlLayer::initData()
 		informationLayerInformation->updateSunNumbers();
 
 		calculatePlantsNumbers();
-		runAction(Sequence::create(DelayTime::create(0.3f), CallFunc::create([=]() {selectPlantsType(); }), nullptr));
+		selectPlantsType();
 	}
 }
 
@@ -78,6 +78,7 @@ void IControlLayer::createSchedule()
 	schedule([&](float) {
 		judgeLevelIsFinished();
 		judgeZombiesFadeOut();
+		judgeUserLose();
 		}, 1.0f, "slowControl");
 }
 
@@ -349,7 +350,17 @@ void IControlLayer::judgeLevelIsFinished()
 
 void IControlLayer::judgeUserLose()
 {
-	if (_global->userInformation->getSunNumbers() < 50 && ZombiesGroup.empty())
+	bool flag = false;
+	for (auto zombie : ZombiesGroup)
+	{
+		if (zombie->getZombieAnimation()->isVisible())
+		{
+			flag = true;
+			break;
+		}
+	}
+
+	if (_global->userInformation->getSunNumbers() < 50 && !flag && !buttonLayerInformation->mouseSelectImage->isSelectPlants)
 	{
 		auto gameEndShieldLayer = IGameEndLayer::create();
 		_director->getRunningScene()->addChild(gameEndShieldLayer, 10, "gameEndShieldLayer");
@@ -372,16 +383,14 @@ void IControlLayer::judgeZombiesFadeOut()
 
 		for (auto brain =IAnimationLayer::BrainGroup.begin();brain!= IAnimationLayer::BrainGroup.end();)
 		{
-			if (brain->enable && zombie->getZombiePositionX() - 40 < brain->brain->getPositionX() && zombie->getZombieInRow() == brain->row)
+			if (brain->enable && zombie->getZombiePositionX() - 40 < brain->brain->getPositionX() &&
+				zombie->getZombieInRow() == brain->row && zombie->getZombieIsSurvive())
 			{
 				PlayMusic::playMusic("moneyfalls");
 
-				for (int i = 0; i < 5; ++i)
+				for (int i = 0; i < 10; ++i)
 				{
-					auto coin = new Coin(goodsLayerInformation);
-					coin->setPosition(brain->brain->getPosition() - Vec2(0, 120));
-					coin->createCoin();
-					CoinsGroup.push_back(coin);
+					coinRecovery(brain->brain->getPosition() - Vec2(0, 80), i);
 				}
 
 				brain->enable = false;
@@ -399,9 +408,13 @@ void IControlLayer::judgeZombiesFadeOut()
 void IControlLayer::calculatePlantsNumbers()
 {
 	// 控制向日葵数量
-	if (currentLevelNumber < 10)
+	if (currentLevelNumber < 5)
 	{
 		_sunFlowerNumbers = 6 + rand() % 4;
+	}
+	else if (currentLevelNumber < 10)
+	{
+		_sunFlowerNumbers = 4 + rand() % 4;
 	}
 	else
 	{
@@ -411,7 +424,7 @@ void IControlLayer::calculatePlantsNumbers()
 		}
 		else
 		{
-			_sunFlowerNumbers = 2 + rand() % 5;
+			_sunFlowerNumbers = 2 + rand() % 3;
 		}
 
 	}
@@ -425,7 +438,14 @@ void IControlLayer::calculatePlantsNumbers()
 
 	// 控制所选植物范围
 	_pultPlantRange = min(static_cast<int>(currentLevelNumber / 40), 2);
-	_otherPlantRange = min(static_cast<int>(currentLevelNumber / 4) + 7, 13) + min(max(0, static_cast<int>(currentLevelNumber) - 24) / 20, 4);
+	if (currentLevelNumber % 5 == 0)
+	{
+		_otherPlantRange = min(static_cast<int>(currentLevelNumber / 4) + 7, 13);
+	}
+	else
+	{
+		_otherPlantRange = min(static_cast<int>(currentLevelNumber / 4) + 7, 13) + min(max(0, static_cast<int>(currentLevelNumber) - 24) / 20, 4);
+	}
 }
 
 void IControlLayer::selectPlantsType()
@@ -468,7 +488,19 @@ void IControlLayer::createSelectPlantsType(PlantsType *type, int plantsNumber, u
 			j = number(_random);
 		} while (gameMapInformation->plantsMap[i][j] != NO_PLANTS);
 
-		autoCreatePlants(type[rand_engine(_random)], Vec2(i, j));
+		int strongPlant = 5;
+		PlantsType ptype;
+		do
+		{
+			ptype = type[rand_engine(_random)];
+		} while (strongPlant <= 0 && (ptype == PlantsType::Citron || ptype == PlantsType::CatTail || ptype == PlantsType::GloomShroom));
+
+		if (ptype == PlantsType::Citron || ptype == PlantsType::CatTail || ptype == PlantsType::GloomShroom)
+		{
+			--strongPlant;
+		}
+
+		autoCreatePlants(ptype, Vec2(i, j));
 		--plantsNumber;
 	}
 }
@@ -498,9 +530,34 @@ void IControlLayer::autoCreatePlants(PlantsType type, Vec2 vec2)
 void IControlLayer::showBlackFadeOutAnimation()
 {
 	auto layer = LayerColor::create(Color4B::BLACK);
-	layer->runAction(Sequence::create(DelayTime::create(0.3f), FadeOut::create(1.5f), CallFunc::create([=]() {layer->removeFromParent(); }), nullptr));
+	layer->runAction(Sequence::create(FadeOut::create(1.f), CallFunc::create([=]() {layer->removeFromParent(); }), nullptr));
 	layer->setGlobalZOrder(10);
 	this->addChild(layer);
+}
+
+void IControlLayer::coinRecovery(const Vec2& position, const int id)
+{
+	auto coin = SkeletonAnimation::createWithData(_global->userInformation->getAnimationData().find("coin")->second);
+	coin->setPosition(position);
+	coin->update(0);
+	coin->setScale(0.7f);
+	coin->setOpacity(0);
+	coin->setGlobalZOrder(3);
+	this->addChild(coin);
+
+	auto callFunc = CallFunc::create([=]()
+		{
+			PlayMusic::playMusic("moneyfalls");
+			coin->removeFromParent();
+			_global->userInformation->setCoinNumbers(_global->userInformation->getCoinNumbers() + 1);
+			informationLayerInformation->updateCoinNumbers();
+		});
+
+	auto action = Spawn::create(FadeIn::create(0.5f), JumpBy::create(0.5f, Vec2(150 - rand() % 300, 100 - rand() % 100), rand() % 100 + 200, 1),
+		Sequence::create(DelayTime::create(0.25f), nullptr), nullptr);
+	auto action1 = Spawn::create(ScaleTo::create(0.2f, 0.5f), FadeOut::create(0.2f), callFunc, nullptr);
+
+	coin->runAction(Sequence::create(DelayTime::create(id * 0.05f), action, DelayTime::create(0.05f), MoveTo::create(0.9f, Vec2(1655, 38)), action1, nullptr));
 }
 
 void IControlLayer::beginNewGame()

@@ -32,22 +32,17 @@ bool IZombiesScene::init()
 	backgroundLayer();   // 背景层
 	informationLayer();  // 信息层
 	buttonLayer();       // 按钮层
-	
-	runAction(Sequence::create(DelayTime::create(0.5f), CallFunc::create([=]() {isRunGameScene = true; }), nullptr));
-
-	return true;
-}
-
-void IZombiesScene::onEnterTransitionDidFinish()
-{
 	animationLayer();    // 动画层
 	controlLayer();      // 控制层
 	goodsLayer();        // 物品层
 	gameTimerLayer();    // 定时层
 	controlPlayMusic();
-	runAction(Sequence::create(DelayTime::create(1.f), CallFunc::create([&]() {pauseGame(); }), nullptr));
 
+	pauseGame();
 	setName("GameScene");
+	isRunGameScene = true;
+	
+	return true;
 }
 
 void IZombiesScene::controlPlayMusic()

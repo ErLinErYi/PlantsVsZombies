@@ -176,7 +176,7 @@ void GSPauseQuitLayer::createButton(const Vec2& vec2, const std::string name, Pa
 				PlayMusic::playMusic("gravebutton");
 				break;
 			case ui::Widget::TouchEventType::ENDED:
-				button->setTouchEnabled(false);
+				//button->setTouchEnabled(false);
 				switch (button_type)
 				{
 				case PauseQuitLayer_Button::查看图鉴: openHandBook();   break;
@@ -184,6 +184,7 @@ void GSPauseQuitLayer::createButton(const Vec2& vec2, const std::string name, Pa
 				case PauseQuitLayer_Button::退出游戏: setQuitGame();    break;
 				case PauseQuitLayer_Button::按键说明: keyDescription(); break;
 				case PauseQuitLayer_Button::返回游戏: returnGame();     break;
+				case PauseQuitLayer_Button::重置游戏: remakeGame();     break;
 				default: break;
 				}
 			}
@@ -238,29 +239,33 @@ void GSPauseQuitLayer::openHandBook()
 
 void GSPauseQuitLayer::setRestart()
 {
-	_director->getScheduler()->setTimeScale(1.0f);
-	UserData::getInstance()->caveUserData(const_cast<char*>("BREAKTHROUGH"), ++_global->userInformation->getBreakThroughNumbers());
-	GSGameEndLayer::judgeBreakThroughAboutJumpLevel();
+	CREATEDIALOG(
+		_director->getScheduler()->setTimeScale(1.0f);
+	    UserData::getInstance()->caveUserData(const_cast<char*>("BREAKTHROUGH"), ++_global->userInformation->getBreakThroughNumbers());
+	    GSGameEndLayer::judgeBreakThroughAboutJumpLevel();
 
-	_director->replaceScene(TransitionFade::create(1.0f, SelectPlantsScene::create()));
+	    _director->replaceScene(TransitionFade::create(1.0f, SelectPlantsScene::create()));
 
-	UserData::getInstance()->createNewLevelDataDocument();
-	UserData::getInstance()->removeLevelData(_levelName);
+	    UserData::getInstance()->createNewLevelDataDocument();
+	    UserData::getInstance()->removeLevelData(_levelName);
+	)
 }
 
 void GSPauseQuitLayer::setQuitGame()
 {
-	_director->getScheduler()->setTimeScale(1.0f);
-	UserData::getInstance()->caveUserData(const_cast<char*>("BREAKTHROUGH"), ++_global->userInformation->getBreakThroughNumbers());
-	GSGameEndLayer::judgeBreakThroughAboutJumpLevel();
+	CREATEDIALOG(
+	    _director->getScheduler()->setTimeScale(1.0f);
+	    UserData::getInstance()->caveUserData(const_cast<char*>("BREAKTHROUGH"), ++_global->userInformation->getBreakThroughNumbers());
+	    GSGameEndLayer::judgeBreakThroughAboutJumpLevel();
 
-	if (GameScene::isRunGameScene) /* 如果运行了游戏场景则保存 */
-	{
-		UserData::getInstance()->createNewLevelDataDocument();
-		UserData::getInstance()->caveLevelData(_levelName);
-	}
+	    if (GameScene::isRunGameScene) /* 如果运行了游戏场景则保存 */
+	    {
+		    UserData::getInstance()->createNewLevelDataDocument();
+		    UserData::getInstance()->caveLevelData(_levelName);
+	    }
 
-	popSceneAnimation();
+	    popSceneAnimation();
+	)
 }
 
 void GSPauseQuitLayer::keyDescription()
@@ -273,6 +278,10 @@ void GSPauseQuitLayer::returnGame()
 	GameScene::isRunGameScene = true;
 	resumeLayer();
 	this->removeFromParent();
+}
+
+void GSPauseQuitLayer::remakeGame()
+{
 }
 
 void GSPauseQuitLayer::popSceneAnimation()

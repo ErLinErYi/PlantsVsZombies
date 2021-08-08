@@ -243,14 +243,9 @@ void GSGameEndLayer::rewardCoin(Button* button)
 
 		if (i >= number - 1)
 		{
-			auto audio = PlayMusic::playMusic("winmusic", 0);
-			PlayMusic::setMusicVolume(audio);
-			AudioEngine::setFinishCallback(audio, [=](int i, string name)
-				{
-					PlayMusic::playMusic("lightfill");
-				});
-
-			this->runAction(Sequence::create(DelayTime::create(2.0f),
+			PlayMusic::playMusic("winmusic");
+			
+			this->runAction(Sequence::create(DelayTime::create(0.05f * number),
 				CallFunc::create([=]()
 					{
 						auto AwardRays = Sprite::createWithSpriteFrameName("AwardRays.png");
@@ -265,12 +260,13 @@ void GSGameEndLayer::rewardCoin(Button* button)
 						White->setOpacity(0);
 						White->setGlobalZOrder(20);
 						this->addChild(White);
-						White->runAction(Sequence::create(DelayTime::create(1.0f), FadeIn::create(3.0f),
+						White->runAction(Sequence::create(DelayTime::create(1.f),
+							CallFunc::create([]() {PlayMusic::playMusic("lightfill"); }),FadeIn::create(3.f),
 							CallFunc::create([=]()
 								{
 									/* 保存金币数 */
 									UserData::getInstance()->caveUserData(const_cast<char*>("COINNUMBERS"), _global->userInformation->getCoinNumbers());
-									
+
 									ModernWorld::setPopEnter(true);
 									_director->popScene();
 								}), nullptr));

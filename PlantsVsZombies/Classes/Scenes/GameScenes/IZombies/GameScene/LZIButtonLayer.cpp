@@ -18,7 +18,7 @@ IButtonLayer::ZombiesCardButton zombiesCardInformation[9] =
 {
 		{  nullptr,  "LmpZombie",             "D",     2,   50,  0, ZombiesType::LmpZombies               },
 		{  nullptr,  "ConeZombie",            "C",     2,   100, 1, ZombiesType::ConeZombies              },
-		{  nullptr,  "NewPaperZombie",        "C",     2,   100, 2, ZombiesType::StrongNewspaperZombies   },
+		{  nullptr,  "NewPaperZombie",        "C",     2,   150, 2, ZombiesType::StrongNewspaperZombies   },
 		{  nullptr,  "DoorZombie",            "B",     2,   200, 3, ZombiesType::CommonDoorZombies        },
 		{  nullptr,  "BucketZombie",          "B",     2,   200, 4, ZombiesType::BucketZombies            },
 		{  nullptr,  "BrickZombie",           "A",     1,   275, 5, ZombiesType::BrickZombies             },

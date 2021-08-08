@@ -28,6 +28,7 @@ HControlLayer::HControlLayer() :
 	_maxFrequencyNumbers(5),
 	_currentLevelNumber(1),
 	_zombiesTypeNumbers(1),
+	_mostLevelNumber(1),
 	_currentLevelZombiesSpeed(2.f),
 	_isShowHammerButton(false)
 {
@@ -301,6 +302,7 @@ void HControlLayer::judgeLevelIsFinished()
 	{
 		_hammer->setVisible(false);
 		UserData::getInstance()->caveUserData(const_cast<char*>("HAMMERZOMBIES_LEVEL_NUMBER"), static_cast<int>(_currentLevelNumber + 1));
+		UserData::getInstance()->caveUserData(const_cast<char*>("MOST_HAMMERZOMBIES_LEVEL_NUMBER"), static_cast<int>(max(_currentLevelNumber + 1, _mostLevelNumber)));
 
 		auto gameEndShieldLayer = HGameEndLayer::create();
 		_director->getRunningScene()->addChild(gameEndShieldLayer, 10, "gameEndShieldLayer");
@@ -339,6 +341,7 @@ void HControlLayer::showPowImage(Zombies* zombie, const Vec2& position)
 void HControlLayer::calculateZombiesData()
 {
 	_currentLevelNumber = max(UserData::getInstance()->openIntUserData(const_cast<char*>("HAMMERZOMBIES_LEVEL_NUMBER")), 1);
+	_mostLevelNumber = max(static_cast<int>(_currentLevelNumber), UserData::getInstance()->openIntUserData(const_cast<char*>("MOST_HAMMERZOMBIES_LEVEL_NUMBER")));
 	_maxFrequencyNumbers += min(static_cast<int>(_currentLevelNumber / 4), 10);
 	_zombiesTypeNumbers = min(static_cast<int>(_zombiesTypeNumbers + _currentLevelNumber / 3), ZOMBIESNUMBERS);
 	_currentLevelZombiesSpeed += _currentLevelNumber * 0.02f;

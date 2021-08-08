@@ -48,3 +48,9 @@ void IInformationLayer::showUserText()
 	username->setPosition(Vec2(Director::getInstance()->getWinSize().width / 2.0f, 950));
 	this->addChild(username);
 }
+
+void IInformationLayer::showSunNumbers()
+{
+	GSInformationLayer::showSunNumbers();
+	this->getChildByName("SunBank")->setColor(Color3B::MAGENTA);
+}

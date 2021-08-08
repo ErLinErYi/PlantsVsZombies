@@ -19,6 +19,7 @@ public:
     virtual void openLevelOtherData(char* key) override;
     virtual void openLevelZombiesData(char* key) override;
     virtual void openLevelBrainData(char* key);
+    virtual void removeIZombieData(char* key);
 
 protected:
     IZombiesData();

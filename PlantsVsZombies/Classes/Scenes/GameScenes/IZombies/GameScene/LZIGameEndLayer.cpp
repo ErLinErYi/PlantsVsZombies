@@ -7,7 +7,8 @@
 
 #include "LZIGameEndLayer.h"
 #include "LZIControlLayer.h"
-#include "LZIZombiesScene.h"
+#include "LZITemporaryReplaceScene.h"
+#include "LZIZombiesData.h"
 #include "Based/LZPlayMusic.h"
 #include "Based/LZUserData.h"
 #include "Scenes/GameScenes/Adventure/GameScene/LZAGSPauseQuitLayer.h"
@@ -85,7 +86,7 @@ void IGameEndLayer::rewardCoin(Button* button)
 						white->setGlobalZOrder(20);
 						white->setColor(Color3B::BLACK);
 						this->addChild(white);
-						white->runAction(Sequence::create(DelayTime::create(1.0f), FadeIn::create(0.5f),
+						white->runAction(Sequence::create(DelayTime::create(1.2f + 0.05f * number), FadeIn::create(0.5f),
 							CallFunc::create([=]()
 								{
 									if (IControlLayer::currentLevelNumber == IControlLayer::mostLevelNumber)
@@ -95,7 +96,7 @@ void IGameEndLayer::rewardCoin(Button* button)
 									UserData::getInstance()->caveUserData(const_cast<char*>("COINNUMBERS"), _global->userInformation->getCoinNumbers());
 									UserData::getInstance()->caveUserData(const_cast<char*>("IZOMBIES_LEVEL_NUMBER"), static_cast<int>(IControlLayer::currentLevelNumber + 1));
 									UserData::getInstance()->caveUserData(const_cast<char*>("IZOMBIES_SUN_NUMBER"), _global->userInformation->getSunNumbers());
-									Director::getInstance()->replaceScene(IZombiesScene::create());
+									Director::getInstance()->replaceScene(TransitionFade::create(0.1f, TemporaryReplaceScene::create()));
 
 								}), nullptr));
 					}), nullptr));
@@ -112,6 +113,17 @@ void IGameEndLayer::showFailText()
 	lose->setPosition(Vec2(2500, Director::getInstance()->getWinSize().height / 2.0f));
 	lose->runAction(RepeatForever::create(Sequence::create(MoveBy::create(0.05f, Vec2(10, 0)), MoveBy::create(0.05f, Vec2(-10, 0)), nullptr)));
 	lose->runAction(Sequence::create(JumpTo::create(1.0f, Director::getInstance()->getWinSize() / 2.0f, 250, 3),
-		DelayTime::create(5), CallFunc::create([this]() {Director::getInstance()->replaceScene(TransitionFade::create(0.5f, MainMenu::create())); }), nullptr));
+		DelayTime::create(2), CallFunc::create([this]() {Director::getInstance()->replaceScene(TransitionFade::create(0.5f, MainMenu::create())); }), nullptr));
 	this->addChild(lose);
+
+	auto str = _global->userInformation->getGameText().find("你输了")->second;
+	auto text = Text::create(str->text, GAME_FONT_NAME_1, str->fontsize);
+	text->setPosition(Director::getInstance()->getWinSize() / 2.f);
+	text->setColor(Color3B::RED);
+	text->setOpacity(0);
+	text->runAction(FadeIn::create(2.f));
+	this->addChild(text);
+
+	IZombiesData::getInstance()->createNewLevelDataDocument();
+	IZombiesData::getInstance()->removeLevelData(const_cast<char*>("IZombiesData"));
 }

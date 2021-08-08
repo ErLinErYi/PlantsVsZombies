@@ -114,8 +114,8 @@ void NewspaperZombies::setZombieBodyShieldThirdInjure(const string& oldName, con
 
 		PlayMusic::playMusic(rand() % 2 ? "newspaper_rarrgh" : "newspaper_rarrgh2");
 
-		_speed == _currentSpeed ? _speed = _currentSpeed = 60 : _speed = 60;
-		_zombiesAnimation->setTimeScale(_zombiesAnimation->getTimeScale() * 2.f);
+		_speed == _currentSpeed ? _speed = _currentSpeed = 160 : _speed = 160;
+		_zombiesAnimation->setTimeScale(_zombiesAnimation->getTimeScale() * 4.f);
 
 		if (_currentSpeed > 0)
 		{

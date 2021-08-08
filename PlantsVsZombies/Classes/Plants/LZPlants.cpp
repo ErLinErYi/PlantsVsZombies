@@ -65,12 +65,12 @@ PlantsInformation::PlantsCardInformation plantsCardInformation[] =
 	{"Torchwood",             "PlantsIcon2",    "C",    3,   6,          175,         7.5f,      0, 0,     false,   PlantsType::Torchwood,           Color3B::RED                            },  /* 火炬树桩 */
 	{"Spikeweed",             "PlantsIcon12",   "B",    3,   7,          100,         7.5f,      0, 0,     false,   PlantsType::Spikeweed,           Color3B(0,64,0)                         },  /* 地刺 */
 	{"Garlic",                "PlantsIcon10",   "B",    3,   8,          50,          10,        0, 0,     false,   PlantsType::Garlic,              Color3B(218,205,182)                    },  /* 大蒜 */
-	{"ScaredyShroom",         "PlantsIcon13",   "B",    3,   9,          75,          7.5f,      0, 0,     false,   PlantsType::ScaredyShroom,       Color3B(163,73,164),  { 200,   200   }  },  /* 胆小菇 */
+	{"ScaredyShroom",         "PlantsIcon13",   "B",    3,   9,          50,          7.5f,      0, 0,     false,   PlantsType::ScaredyShroom,       Color3B(163,73,164),  { 200,   200   }  },  /* 胆小菇 */
 	{"IceBergLettuce",        "PlantsIcon15",   "B",    3,   10,         0,           20,        0, 0,     false,   PlantsType::IceBergLettuce,      Color3B(99,202,178),  { 500,   500   }  },  /* 冰莴苣 */
 	{"Marigold",              "PlantsIcon9",    "B",    3,   11,         50,          10,        0, 0,     false,   PlantsType::Marigold,            Color3B::ORANGE,      { 1000,  1000  }  },  /* 金盏花 */
 	{"Imitater",              "PlantsIcon9",    "B",    3,   12,         0,           0,         0, 0,     false,   PlantsType::Imitater,            Color3B::ORANGE,      { 2000,  2000  }  },  /* 模仿者 */
 	{"Chomper",               "PlantsIcon8",    "B",    3,   13,         150,         7.5f,      0, 0,     false,   PlantsType::Chomper,             Color3B(152,66,184),  { 3000,  3000  }  },  /* 大嘴花 */
-	{"Squash",                "PlantsIcon8",    "B",    3,   14,         50,          30,        0, 0,     false,   PlantsType::Squash,              Color3B(152,66,184),  { 4000,  4000  }  },  /* 倭瓜 */
+	{"Squash",                "PlantsIcon8",    "B",    3,   14,         50,          30,        0, 0,     false,   PlantsType::Squash,              Color3B(181,230,29),  { 4000,  4000  }  },  /* 倭瓜 */
 	{"IcePeaShooter",         "PlantsIcon15",   "B",    2,   15,         175,         10,        0, 0,     false,   PlantsType::IcePeaShooter,       Color3B(47,202,207),  { 5500,  5500  }  },  /* 寒冰豌豆射手 */
 	{"FirePeaShooter",        "PlantsIcon2",    "B",    2,   16,         200,         10,        0, 0,     false,   PlantsType::FirePeaShooter,      Color3B::RED,         { 7000,  7000  }  },  /* 火焰豌豆射手 */
 	{"LemonShooter",          "PlantsIcon10",   "A",    2,   17,         175,         7.5f,      0, 0,     false,   PlantsType::AcidLemonShooter,    Color3B(232,199,23),  { 10000, 10000 }  },  /* 柠檬射手 */
@@ -240,12 +240,12 @@ void Plants::setPlantHurtBlink()
 				{
 					_plantAnimation->setGLProgram(_highLightGLProgram);
 					_highLightGLProgramState = _plantAnimation->getGLProgramState();
-					_highLightGLProgramState->setUniformFloat("intensity", 0.6f);
+					_highLightGLProgramState->setUniformFloat("intensity", 0.5f);
 				}), DelayTime::create(0.15f),
 			CallFunc::create([this]()
 				{
 					_plantAnimation->setGLProgram(_normalGLProgram);
-					_highLightIntensity = 0.6f;
+					_highLightIntensity = 0.5f;
 				}), nullptr));
 	}
 }
@@ -307,7 +307,8 @@ bool Plants::getZombieIsSameLineWithPlant(Zombies* zombie)
 
 bool Plants::getZombieIsEncounterPlant(Zombies* zombie)
 {
-	return fabs(zombie->getZombiePositionX() - _plantAnimation->getPositionX()) <= 70 ? true : false;
+	return zombie->getZombiePositionX() + 20 > _plantAnimation->getPositionX() &&
+		zombie->getZombiePositionX() - _plantAnimation->getPositionX() <= 70;
 }
 
 void Plants::zombieEatPlant(Zombies* zombie)
@@ -334,8 +335,7 @@ void Plants::setZombieEatPlantControl(Zombies* zombie)
 		else
 		{
 			const string eateffect[3] = { "chomp","chomp2","chompsoft" };
-			auto track = zombie->getZombieAnimation()->setAnimation(0,
-				zombie->getZombieType() == ZombiesType::LmpZombies ? "Zombies_Eat" : rand() % 4 ? "Zombies_Eat" : "Zombies_Eat1", true);
+			auto track = zombie->getZombieAnimation()->setAnimation(0, "Zombies_Eat", true);
 			zombie->getZombieAnimation()->setTrackEventListener(track, [=](spTrackEntry* entry, spEvent* event)
 				{
 					if (!strcmp(event->data->name, "eat") && zombie->getZombieIsSurvive())
@@ -354,16 +354,19 @@ void Plants::setZombieEatPlantControl(Zombies* zombie)
 
 void Plants::zombieAttackPlant(Zombies* zombie)
 {
-	auto track = zombie->getZombieAnimation()->setAnimation(0, "Zombies_Attack", true);
-	zombie->getZombieAnimation()->setTrackEventListener(track,[=](spTrackEntry* entry, spEvent* event)
-		{
-			if (!strcmp(event->data->name, "attack") && zombie->getZombieIsSurvive())
+	if (!strcmp(zombie->getZombieAnimation()->getCurrent()->animation->name, "Zombies_Walk"))
+	{
+		auto track = zombie->getZombieAnimation()->setAnimation(0, "Zombies_Attack", true);
+		zombie->getZombieAnimation()->setTrackEventListener(track, [=](spTrackEntry* entry, spEvent* event)
 			{
-				PlayMusic::playMusic("gargantuar_thump");
-				GSBackgroundLayer::backgroundRunAction();
-				setPlantHealthPoint(0);
-			}
-		});
+				if (!strcmp(event->data->name, "attack") && zombie->getZombieIsSurvive())
+				{
+					PlayMusic::playMusic("gargantuar_thump");
+					GSBackgroundLayer::backgroundRunAction();
+					setPlantHealthPoint(0);
+				}
+			});
+	}
 }
 
 void Plants::zombieRecoveryMove(Zombies* zombie)
@@ -374,7 +377,8 @@ void Plants::zombieRecoveryMove(Zombies* zombie)
 		setPlantRemoveFromMap();
 
 		if (getPlantType() != PlantsType::PotatoMine && getPlantType() != PlantsType::CherryBomb &&
-			getPlantType() != PlantsType::Jalapeno && getPlantType() != PlantsType::JalapenoVariation)
+			getPlantType() != PlantsType::Jalapeno && getPlantType() != PlantsType::JalapenoVariation&&
+			getPlantType() != PlantsType::Squash)
 		{
 			PlayMusic::playMusic("gulp");
 		}

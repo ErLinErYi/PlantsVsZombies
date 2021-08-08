@@ -59,6 +59,7 @@ GSControlLayer::GSControlLayer():
 ,   _listener(nullptr)
 ,   _cur(SET_OUT_MAP)
 ,   _isShowEggScene(false)
+,   _isImitater(false)
 {
 }
 
@@ -92,13 +93,16 @@ void GSControlLayer::initData()
 
 void GSControlLayer::setPlantMapCanPlant(const unsigned int colum, const unsigned int row, PlantsType type)
 {
-	if (type != PlantsType::Pumpkin)
+	if (type != PlantsType::Imitater)
 	{
-		controlLayerInformation->gameMapInformation->plantsMap[colum][row] = NO_PLANTS;
-	}
-	else
-	{
-		controlLayerInformation->gameMapInformation->plantPumpkin[colum][row] = false;
+		if (type != PlantsType::Pumpkin)
+		{
+			controlLayerInformation->gameMapInformation->plantsMap[colum][row] = NO_PLANTS;
+		}
+		else
+		{
+			controlLayerInformation->gameMapInformation->plantPumpkin[colum][row] = false;
+		}
 	}
 }
 
@@ -204,9 +208,19 @@ void GSControlLayer::createMouseListener()
 
 void GSControlLayer::createPlantsCardListener()
 {
+	int t = -1;
+	for (int i = _global->userInformation->getUserSelectCrads().size() - 1; i >= 0; --i)
+	{
+		if (_global->userInformation->getUserSelectCrads()[i].cardTag == static_cast<int>(PlantsType::Imitater))
+		{
+			t = i - 1;
+			break;
+		}
+	}
+
 	for (auto& card : _global->userInformation->getUserSelectCrads())
 	{
-		buttonLayerInformation->plantsCards[card.cardTag].plantsCards->addTouchEventListener([&, card](Ref* sender, ui::Widget::TouchEventType type)
+		buttonLayerInformation->plantsCards[card.cardTag].plantsCards->addTouchEventListener([=](Ref* sender, ui::Widget::TouchEventType type)
 			{
 				switch (type)
 				{
@@ -214,6 +228,16 @@ void GSControlLayer::createPlantsCardListener()
 					if (!buttonLayerInformation->mouseSelectImage->isSelectPlants)
 					{
 						_selectPlantsTag = static_cast<PlantsType>(card.cardTag);
+						if (static_cast<PlantsType>(card.cardTag) == PlantsType::Imitater)
+						{
+							buttonLayerInformation->mouseSelectImage->selectPlantsId= static_cast<PlantsType>(_global->userInformation->getUserSelectCrads()[t].cardTag);
+							_isImitater = true;
+						}
+						else
+						{
+							buttonLayerInformation->mouseSelectImage->selectPlantsId = _selectPlantsTag;
+							_isImitater = false;
+						}
 					}
 					selectPlantsPreviewImage();
 					break;
@@ -290,7 +314,7 @@ void GSControlLayer::selectPlantsPreviewImage()
 
 			/* 鼠标选择标记 */
 			buttonLayerInformation->mouseSelectImage->isSelectPlants = true;
-			buttonLayerInformation->mouseSelectImage->selectPlantsId = _selectPlantsTag;
+			//buttonLayerInformation->mouseSelectImage->selectPlantsId = _selectPlantsTag;
 
 			createPreviewPlants();
 
@@ -503,7 +527,7 @@ void GSControlLayer::removeShovel()
 {
 	buttonLayerInformation->mouseSelectImage->isSelectShovel = false;
 	buttonLayerInformation->updateShovel();
-	_director->getOpenGLView()->setCursor("resources/Images/System/cursor.png", Point::ANCHOR_TOP_LEFT);
+	buttonLayerInformation->shovelImage->removeFromParent();
 }
 
 void GSControlLayer::removeMouseListener()
@@ -634,6 +658,7 @@ void GSControlLayer::mouseMoveControl()
 		{
 			checkPlantType(1);
 		}
+		buttonLayerInformation->shovelImage->setPosition(_cur + Vec2(35, 50));
 	}
 }
 
@@ -670,9 +695,6 @@ void GSControlLayer::mouseLeftButtonDownControl()
 			/* 记录使用植物数量 */
 			UserData::getInstance()->caveUserData(const_cast<char*>("USEPLANTSNUMBERS"), ++_global->userInformation->getUsePlantsNumbers());
 
-			/* 种植植物 */
-			animationLayerInformation->plantPlants();
-
 			if (buttonLayerInformation->mouseSelectImage->selectPlantsId == PlantsType::Pumpkin)
 			{
 				gameMapInformation->plantPumpkin[static_cast<unsigned int>(_plantsPosition.y)][static_cast<unsigned int>(_plantsPosition.x)] = true;
@@ -684,13 +706,20 @@ void GSControlLayer::mouseLeftButtonDownControl()
 					static_cast<unsigned int>(buttonLayerInformation->mouseSelectImage->selectPlantsId);
 			}
 
+			if (_isImitater)
+			{
+				buttonLayerInformation->mouseSelectImage->selectPlantsId = PlantsType::Imitater;
+			}
+			/* 种植植物 */
+			animationLayerInformation->plantPlants();
+
 			/* 设置倒计时并且按钮不可用 */
 			const unsigned int plantsTag = static_cast<unsigned int>(buttonLayerInformation->mouseSelectImage->selectPlantsId);
 			buttonLayerInformation->plantsCards[static_cast<unsigned int>(buttonLayerInformation->mouseSelectImage->selectPlantsId)].timeBarIsFinished = false;
 			buttonLayerInformation->plantsCards[static_cast<unsigned int>(buttonLayerInformation->mouseSelectImage->selectPlantsId)].plantsCards->setEnabled(false);
 			buttonLayerInformation->plantsCards[static_cast<unsigned int>(buttonLayerInformation->mouseSelectImage->selectPlantsId)].plantsCards->setColor(Color3B::GRAY);
 			buttonLayerInformation->plantsCards[static_cast<unsigned int>(buttonLayerInformation->mouseSelectImage->selectPlantsId)].progressTimer->runAction(
-				Sequence::create(ProgressFromTo::create(plantsCardInformation[static_cast<unsigned int>(buttonLayerInformation->mouseSelectImage->selectPlantsId)].plantsCoolTime, 100, 0),
+				Sequence::create(ProgressFromTo::create(buttonLayerInformation->plantsCards[static_cast<unsigned int>(buttonLayerInformation->mouseSelectImage->selectPlantsId)].plantsCoolTime, 100, 0),
 					CallFunc::create([=]() { buttonLayerInformation->plantsCards[plantsTag].timeBarIsFinished = true; }), nullptr)
 			);
 			removePreviewPlant();
@@ -700,6 +729,11 @@ void GSControlLayer::mouseLeftButtonDownControl()
 			if (_cur.x > CARD_BAR_RIGHT)
 			{
 				PlayMusic::playMusic("buzzer");
+
+				if (_isImitater)
+				{
+					buttonLayerInformation->mouseSelectImage->selectPlantsId = PlantsType::Imitater;
+				}
 				/* 卡牌颜色恢复 */
 				buttonLayerInformation->plantsCards[static_cast<unsigned int>(buttonLayerInformation->mouseSelectImage->selectPlantsId)].progressTimer->setPercentage(0);
 				buttonLayerInformation->plantsCards[static_cast<unsigned int>(buttonLayerInformation->mouseSelectImage->selectPlantsId)].plantsCards->setColor(Color3B::WHITE);
@@ -711,7 +745,7 @@ void GSControlLayer::mouseLeftButtonDownControl()
 
 				/* 加上所需的阳光数并更新 */
 				_global->userInformation->setSunNumbers(_global->userInformation->getSunNumbers() +
-					plantsCardInformation[static_cast<unsigned int>(buttonLayerInformation->mouseSelectImage->selectPlantsId)].plantsNeedSunNumbers);
+					buttonLayerInformation->plantsCards[static_cast<unsigned int>(buttonLayerInformation->mouseSelectImage->selectPlantsId)].plantsNeedSunNumbers);
 				informationLayerInformation->updateSunNumbers();
 
 				/* 植物要求更新 */
@@ -746,13 +780,18 @@ void GSControlLayer::mouseRightButtonDownControl()
 	{
 		if (_cur.x > CARD_BAR_RIGHT)
 		{
+			if (_isImitater)
+			{
+				buttonLayerInformation->mouseSelectImage->selectPlantsId = PlantsType::Imitater;
+			}
+
 			PlayMusic::playMusic("tap2");
 			buttonLayerInformation->plantsCards[static_cast<unsigned int>(buttonLayerInformation->mouseSelectImage->selectPlantsId)].progressTimer->setPercentage(0);
 			buttonLayerInformation->plantsCards[static_cast<unsigned int>(buttonLayerInformation->mouseSelectImage->selectPlantsId)].plantsCards->setColor(Color3B::WHITE);
 
 			/* 加上所需的阳光数并更新 */
 			_global->userInformation->setSunNumbers(_global->userInformation->getSunNumbers() +
-				plantsCardInformation[static_cast<unsigned int>(buttonLayerInformation->mouseSelectImage->selectPlantsId)].plantsNeedSunNumbers);
+				buttonLayerInformation->plantsCards[static_cast<unsigned int>(buttonLayerInformation->mouseSelectImage->selectPlantsId)].plantsNeedSunNumbers);
 			informationLayerInformation->updateSunNumbers();
 
 			/* 植物要求更新 */

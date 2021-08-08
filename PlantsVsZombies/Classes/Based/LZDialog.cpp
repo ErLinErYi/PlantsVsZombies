@@ -5,10 +5,12 @@
  */
 
 #include "Based/LZDialog.h"
+#include "Based/LZPlayMusic.h"
 
 Dialog::Dialog():
 	_shieldListener(nullptr),
 	_mouseListener(nullptr),
+	_dialog(nullptr),
 	_phasePosition(Vec2::ZERO),
 	_global(Global::getInstance())
 {
@@ -18,6 +20,88 @@ Dialog::~Dialog()
 {
 }
 
+bool Dialog::init()
+{
+	if (!LayerColor::initWithColor(Color4B(0, 0, 0, 180)))return false;
+
+	createShieldLayer(this);
+	createDialog();
+	
+	return true;
+}
+
+void Dialog::createDialog()
+{
+	_dialog = Sprite::createWithSpriteFrameName("LevelObjiectives.png");
+	_dialog->setPosition(Director::getInstance()->getWinSize() / 2);
+	_dialog->setScale(1.5f);
+	this->addChild(_dialog);
+
+	/* 创建触摸监听 */
+	createTouchtListener(_dialog);
+}
+
+void Dialog::createButtons(string name, float position, int id)
+{
+	auto button = Button::create("ButtonNew.png", "ButtonNew2.png", "", cocos2d::ui::Widget::TextureResType::PLIST);
+	auto label = Label::createWithTTF(_global->userInformation->getGameText().find(name)->second->text,
+		GAME_FONT_NAME_1, _global->userInformation->getGameText().find(name)->second->fontsize);
+	label->enableShadow(Color4B(0, 0, 0, 200));//设置阴影
+	label->setScale(3.5f);
+	button->setTitleLabel(label);
+	button->setPosition(Vec2(position, 10));
+	button->setScale(0.25f);
+	_dialog->addChild(button);
+
+	button->addTouchEventListener([=](Ref* sender, Widget::TouchEventType type)
+		{
+			switch (type)
+			{
+			case Widget::TouchEventType::ENDED:
+				PlayMusic::playMusic("gravebutton");
+				if (id == 0)
+				{
+					selectButtonCallBack(true);
+				}
+				else
+				{
+					selectButtonCallBack(false);
+					deleteDialog();
+				}
+				break;
+			}
+		});
+}
+
+void Dialog::getData(const std::function<void(bool flag)>& pSelector)
+{
+	selectButtonCallBack = pSelector;
+}
+
+void Dialog::createText()
+{
+	auto str = _global->userInformation->getGameText().find("确认操作")->second;
+	auto information = Text::create(str->text, GAME_FONT_NAME_1, str->fontsize);
+	information->setColor(Color3B::RED);
+	information->setTextVerticalAlignment(TextVAlignment::CENTER);
+	information->setTextHorizontalAlignment(TextHAlignment::CENTER);
+	information->setTextAreaSize(Size(_dialog->getContentSize().width - 90, 70));
+	information->setPosition(Vec2(_dialog->getContentSize().width / 2.0f, _dialog->getContentSize().height / 2.0f + 80));
+	_dialog->addChild(information);
+
+	auto information1 = Text::create(_strText, GAME_FONT_NAME_1, 30);
+	information1->setColor(Color3B::RED);
+	information1->setPosition(Vec2(_dialog->getContentSize().width / 2.0f, _dialog->getContentSize().height / 2.0f));
+	_dialog->addChild(information1);
+}
+
+void Dialog::setString(string str)
+{
+	_strText = str;
+
+	createText();
+}
+
 void Dialog::setMouseListener(EventListenerMouse* listener)
 {
 	_mouseListener = listener;
@@ -25,7 +109,10 @@ void Dialog::setMouseListener(EventListenerMouse* listener)
 
 void Dialog::setMouseListenerEnable(bool isEnable)
 {
-	_mouseListener->setEnabled(isEnable);
+	if (_mouseListener)
+	{
+		_mouseListener->setEnabled(isEnable);
+	}
 }
 
 EventListenerTouchOneByOne* Dialog::createTouchtListener(Sprite* sprite)
@@ -118,4 +205,9 @@ void Dialog::createShieldLayer(Node* node)
 	_shieldListener->onTouchBegan = [](Touch* touch, Event* event)-> bool { return true; };
 	_shieldListener->setSwallowTouches(true);
 	_eventDispatcher->addEventListenerWithSceneGraphPriority(_shieldListener, node);
+}
+
+void Dialog::deleteDialog()
+{
+	this->removeFromParent();
 }

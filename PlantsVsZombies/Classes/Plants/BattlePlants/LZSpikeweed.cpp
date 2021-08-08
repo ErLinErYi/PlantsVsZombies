@@ -93,8 +93,8 @@ void Spikeweed::plantAttack()
 {
 	for (auto zombie : ZombiesGroup)
 	{
-		if (zombie->getZombieIsSurvive() && getZombieIsSameLineWithPlant(zombie) &&      /* 僵尸没有死亡 && 僵尸与植物在同一行 */
-			getZombieIsEncounterPlant(zombie) && zombie->getZombieIsCanBeAttack())       /* 僵尸遇到植物 && 僵尸可以被攻击到 */
+		if (zombie->getZombieIsSurvive() && getZombieIsSameLineWithPlant(zombie) &&                             /* 僵尸没有死亡 && 僵尸与植物在同一行 */
+			getPlantIsSurvive() && getZombieIsEncounterPlant(zombie) && zombie->getZombieIsCanBeAttack())       /* 植物存活 && 僵尸遇到植物 && 僵尸可以被攻击到 */
 		{
 			_isHaveZombies = true; /* 有僵尸标记 */
 

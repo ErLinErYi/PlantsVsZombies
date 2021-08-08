@@ -82,7 +82,7 @@ public:
 	float getSoundEffectVolume() const;
 	float getBackGroundMusicVolume() const;
 	int getUserCaveFileNumber() const;
-	int& getKillZombiesNumbers();
+	int getKillZombiesNumbers();
 	int& getUsePlantsNumbers();
 	int& getBreakThroughNumbers();
 	int getSunNumbers() const;
@@ -178,6 +178,10 @@ private:
 	list<int>_backGroundMusic;
 
 	int _userCaveFileNumber;                             // 用户游戏存档编号 
+
+	int _encryptKZKey;                                   // 加密
+	int _encryptSNKey;                                   // 加密
+	int _encryptCNKey;                                   // 加密
 
 	int _killZombiesNumbers;                             // 杀死僵尸总数 
 	int _usePlantsNumbers;                               // 使用植物数量 

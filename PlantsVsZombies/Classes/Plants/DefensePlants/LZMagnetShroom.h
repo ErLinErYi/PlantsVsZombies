@@ -28,6 +28,7 @@ protected:
 	virtual bool getZombieIsInRange(Zombies* zombie);
 	virtual void showShieldMoveAction(Zombies* zombie, const bool type);
 	virtual void changeAnimation();
+	virtual void showShield(string name, float scale);
 
 protected:
 	bool _isCanAttack;

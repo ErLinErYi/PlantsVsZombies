@@ -27,7 +27,7 @@
 
 #include "cocos2d.h"
 
-#define LZPVZNAME "PlantsVsZombies_1.3.3.0 beta(2021.07.10)"
+#define LZPVZNAME "PlantsVsZombies_1.3.3.5 (2021.08.10)"
 
 extern GUID scheme_default;
 /**

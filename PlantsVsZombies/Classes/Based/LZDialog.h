@@ -18,6 +18,7 @@ using namespace cocos2d::experimental;
 class Dialog :public LayerColor
 {
 public:
+	CREATE_FUNC(Dialog);
 	/**
 	 *创建触摸监听
 	 */
@@ -37,6 +38,21 @@ public:
 	 *设置鼠标监听
 	 */
 	virtual void setMouseListener(EventListenerMouse* listener);
+
+    /**
+	 * 设置文本 
+	 */
+	virtual void setString(string str);
+
+	/**
+	 * 创建按钮
+	 */
+	virtual void createButtons(string name, float position, int id);
+
+	/**
+	 * 获取返回值 
+	 */
+	virtual void getData(const std::function<void(bool flag)>& pSelector);
 
 protected:
 	/**
@@ -59,22 +75,48 @@ protected:
 	/**
 	 *删除层
 	 */
-	virtual void deleteDialog(){}
+	virtual void deleteDialog();
 
 	/**
 	 *设置鼠标监听是否可用
 	 */
 	virtual void setMouseListenerEnable(bool isEnable = true);
 
+	/**
+	 *  创建对话框
+	 */
+	virtual void createDialog();        	     
+
+	
+	virtual void createText();
+
 CC_CONSTRUCTOR_ACCESS:
 	Dialog();
 	~Dialog();
+	virtual bool init() override;
 
 protected:
 	Global* _global;
 	EventListenerMouse* _mouseListener;
+	Sprite* _dialog;
+	string _strText;
+	std::function<void(bool flag)> selectButtonCallBack;
 
 private:
 	Vec2 _phasePosition; /* 相差位置 */
 	EventListenerTouchOneByOne* _shieldListener;
 };
+
+#define CREATEDIALOG(__DATA__)                                                           \
+Dialog* dia = Dialog::create();                                                          \
+dia->setString(_global->userInformation->getGameText().find("确认说明")->second->text);   \
+dia->createButtons("确认", 150, 0);                                                      \
+dia->createButtons("取消", 380, 1);                                                      \
+dia->getData([this](bool flag)                                                           \
+	{                                                                                    \
+		if (flag)                                                                        \
+		{                                                                                \
+			__DATA__                                                                     \
+		}                                                                                \
+	});                                                                                  \
+this->addChild(dia);

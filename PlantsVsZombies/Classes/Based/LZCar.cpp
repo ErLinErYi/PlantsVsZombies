@@ -18,7 +18,7 @@ Car::Car(Node* node) :
 	_tag(-1),
 	_row(-1),
 	_carState(1),
-	_scale(0),
+	_scale(1),
 	_node(node),
 	_carType(CarType::null),
 	_global(Global::getInstance())
@@ -179,8 +179,7 @@ void Car::deleteCar(list<Car*>::iterator& car)
 void Car::createCarShadow()
 {
 	auto shadow = Sprite::createWithSpriteFrameName("plantshadow.png");
-	shadow->setScaleX(4.0f);
-	shadow->setScaleY(3.0f);
+	shadow->setScale(_carImage->getScale() * 3);
 	shadow->setPosition(Vec2(120, 30));
 	_carImage->addChild(shadow, -1);
 }

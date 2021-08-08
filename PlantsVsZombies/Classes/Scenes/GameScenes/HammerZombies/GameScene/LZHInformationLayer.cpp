@@ -37,12 +37,13 @@ bool HInformationLayer::init()
 
 void HInformationLayer::showUserText()
 {
+	auto currentNumber = max(UserData::getInstance()->openIntUserData(const_cast<char*>("HAMMERZOMBIES_LEVEL_NUMBER")), 1);
+	auto mostNumber = max(currentNumber, UserData::getInstance()->openIntUserData(const_cast<char*>("MOST_HAMMERZOMBIES_LEVEL_NUMBER")));
 	auto username = ui::Text::create();
 	username->setString("“" + _global->userInformation->getUserName() + "”" +
 		_global->userInformation->getGameText().find("手指灵活度与忍耐度训练")->second->text +
 		_global->userInformation->getGameText().find("锤僵尸小游戏")->second->text +
-		StringUtils::format(_global->userInformation->getGameText().find("第 %d 天")->second->text.c_str(),
-			max(UserData::getInstance()->openIntUserData(const_cast<char*>("HAMMERZOMBIES_LEVEL_NUMBER")), 1)) +
+		StringUtils::format(_global->userInformation->getGameText().find("我是僵尸记录")->second->text.c_str(), currentNumber, mostNumber) +
 		_global->userInformation->getGameText().find("无尽模式")->second->text);
 	username->setFontName(GAME_FONT_NAME_1);
 	username->setFontSize(_global->userInformation->getGameText().find("手指灵活度与忍耐度训练")->second->fontsize);

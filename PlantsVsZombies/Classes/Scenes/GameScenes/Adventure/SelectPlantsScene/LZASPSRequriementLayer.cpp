@@ -45,14 +45,14 @@ void SPSRequriementLayer::createDialog()
 	button->setOpacity(0);
 	button->setScale(0.5f);
 	button->runAction(FadeIn::create(0.5f));
-	button->addTouchEventListener([=](Ref* sender, ui::Widget::TouchEventType type)
+	button->addTouchEventListener([=](Ref* sender, cocos2d::ui::Widget::TouchEventType type)
 		{
 			switch (type)
 			{
-			case ui::Widget::TouchEventType::BEGAN:
+			case cocos2d::ui::Widget::TouchEventType::BEGAN:
 				PlayMusic::playMusic("tap");
 				break;
-			case ui::Widget::TouchEventType::ENDED:
+			case cocos2d::ui::Widget::TouchEventType::ENDED:
 				_requirement->setDelectDialogAction();
 				this->runAction(Sequence::create(Spawn::create(DelayTime::create(0.2f), FadeOut::create(0.2f), nullptr),
 					CallFunc::create([&]()

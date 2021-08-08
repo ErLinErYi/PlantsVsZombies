@@ -25,7 +25,7 @@ LoadingScene::LoadingScene() :
 	_musicNumbers(0),
 	_animationNumbers(0),
 	_imageNumbers(0),
-	_delayTime(0.15f),
+	_delayTime(0.2f),
 	_loadingPrecent(0),
 	_label(nullptr),
 	_loadingBar(nullptr),
@@ -447,6 +447,8 @@ void LoadingScene::update(float Time)
 		loadingFinished = true;
 
 		selectLanguage();
+
+		COUNTPLAYERS
 	}
 }
 
@@ -585,7 +587,7 @@ int LoadingScene::openResourcesPath(map<string, string>& Path, const std::string
 void LoadingScene::throwException()
 {
 #if CC_TARGET_PLATFORM == CC_PLATFORM_WIN32
-	this->runAction(Sequence::create(DelayTime::create(120.f), CallFunc::create([=]()
+	this->runAction(Sequence::create(DelayTime::create(180.f), CallFunc::create([=]()
 		{
 			try
 			{
@@ -747,7 +749,7 @@ void LoadingScene::loadingAnimation()
 	for (auto& i : _global->userInformation->getAnimationPath())
 	{
 		runAction(Sequence::create(DelayTime::create(++number * _delayTime),
-			CallFunc::create([=]() 
+			CallFunc::create([=]()
 				{
 					/* 加载 */
 					auto json = spSkeletonJson_createWithLoader((spAttachmentLoader*)Cocos2dAttachmentLoader_create(

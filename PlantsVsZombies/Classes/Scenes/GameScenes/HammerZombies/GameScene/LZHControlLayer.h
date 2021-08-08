@@ -54,6 +54,7 @@ protected:
 	unsigned int _frequencyZombiesNumbers;  // 每一波僵尸个数
 	unsigned int _maxFrequencyNumbers;      // 最大波数
 	unsigned int _currentLevelNumber;       // 当前关卡数
+	unsigned int _mostLevelNumber;          // 最高关卡数
 	unsigned int _zombiesTypeNumbers;       // 僵尸总类数
 	float _currentLevelZombiesSpeed;        // 当前僵尸运动速度
 	bool _isShowHammerButton;

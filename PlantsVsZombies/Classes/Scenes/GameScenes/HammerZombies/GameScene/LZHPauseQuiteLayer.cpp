@@ -9,6 +9,7 @@
 #include "LZHammerZombiesScene.h"
 #include "Scenes/MainMenuScene/LZMainMenu.h"
 #include "Based/LZPlayMusic.h"
+#include "Based/LZUserData.h"
 
 HPauseQuitLayer::HPauseQuitLayer()
 {
@@ -81,18 +82,43 @@ void HPauseQuitLayer::createDialog()
 	createButton(Vec2(210, 170), _global->userInformation->getGameText().find("查看图鉴")->second->text, PauseQuitLayer_Button::查看图鉴);
 	createButton(Vec2(520, 170), _global->userInformation->getGameText().find("重新开始")->second->text, PauseQuitLayer_Button::从新开始);
 	createButton(Vec2(830, 170), _global->userInformation->getGameText().find("返回游戏")->second->text, PauseQuitLayer_Button::返回游戏);
-	createButton(Vec2(365, 70), _global->userInformation->getGameText().find("按键说明")->second->text, PauseQuitLayer_Button::按键说明);
-	createButton(Vec2(665, 70), _global->userInformation->getGameText().find("退出")->second->text, PauseQuitLayer_Button::退出游戏);
+
+	if (UserData::getInstance()->openIntUserData(const_cast<char*>("HAMMERZOMBIES_LEVEL_NUMBER")) >= 170)
+	{
+		createButton(Vec2(210, 70), _global->userInformation->getGameText().find("按键说明")->second->text, PauseQuitLayer_Button::按键说明);
+		createButton(Vec2(520, 70), _global->userInformation->getGameText().find("重置游戏")->second->text, PauseQuitLayer_Button::重置游戏);
+		createButton(Vec2(830, 70), _global->userInformation->getGameText().find("退出")->second->text, PauseQuitLayer_Button::退出游戏);
+	}
+	else
+	{
+		createButton(Vec2(365, 70), _global->userInformation->getGameText().find("按键说明")->second->text, PauseQuitLayer_Button::按键说明);
+		createButton(Vec2(665, 70), _global->userInformation->getGameText().find("退出")->second->text, PauseQuitLayer_Button::退出游戏);
+	}
 }
 
 void HPauseQuitLayer::setRestart()
 {
-	_director->getScheduler()->setTimeScale(1.0f);
-	_director->replaceScene(TransitionFade::create(1.5f, HammerZombiesScene::create()));
+	CREATEDIALOG(
+		_director->getScheduler()->setTimeScale(1.0f);
+	    _director->replaceScene(TransitionFade::create(1.5f, HammerZombiesScene::create()));
+	)
 }
 
 void HPauseQuitLayer::setQuitGame()
 {
-	_director->getScheduler()->setTimeScale(1.0f);
-	_director->replaceScene(TransitionFade::create(0.5f, MainMenu::create()));
+	CREATEDIALOG(
+		_director->getScheduler()->setTimeScale(1.0f);
+	    _director->replaceScene(TransitionFade::create(0.5f, MainMenu::create()));
+	)
+}
+
+void HPauseQuitLayer::remakeGame()
+{
+	CREATEDIALOG(
+	    UserData::getInstance()->caveUserData(const_cast<char*>("MOST_HAMMERZOMBIES_LEVEL_NUMBER"), UserData::getInstance()->openIntUserData(const_cast<char*>("HAMMERZOMBIES_LEVEL_NUMBER")));
+	    UserData::getInstance()->caveUserData(const_cast<char*>("HAMMERZOMBIES_LEVEL_NUMBER"), 1);
+
+	    _director->getScheduler()->setTimeScale(1.0f);
+	    _director->replaceScene(TransitionFade::create(1.5f, HammerZombiesScene::create()));
+	)
 }

@@ -28,6 +28,7 @@ GSButtonLayer::GSButtonLayer():
 	_decelerateButton(nullptr),
 	_shovelBank(nullptr),
 	nextWaveButton(nullptr),
+	shovelImage(nullptr),
 	mouseSelectImage(new MouseSelectImage)
 {
 }
@@ -216,30 +217,16 @@ void GSButtonLayer::showShovelBank()
 	_shovelBank->setName("ShovelBank");
 	this->addChild(_shovelBank, 1);
 
-	/* 铲子监听 */
-	_shovelBank->addTouchEventListener([=](Ref* sender, ui::Widget::TouchEventType type)
+	_shovelBank->addTouchEventListener([=](Ref* sender, cocos2d::ui::Widget::TouchEventType type)
 		{
 			switch (type)
 			{
-			case ui::Widget::TouchEventType::BEGAN:
+			case cocos2d::ui::Widget::TouchEventType::BEGAN:
 				PlayMusic::playMusic("shovel");
-				break;
-			case ui::Widget::TouchEventType::ENDED:
 				switch (mouseSelectImage->isSelectShovel)
 				{
-				case true:
-					updateShovel();
-					Director::getInstance()->getOpenGLView()->setCursor("resources/Images/System/cursor.png", Point::ANCHOR_TOP_LEFT);
-					mouseSelectImage->isSelectShovel = false;
-					break;
-				case false:
-					updateShovel(false);
-					if (_global->userInformation->getIsSelectCursorNotHide() == cocos2d::ui::CheckBox::EventType::UNSELECTED)
-						Director::getInstance()->getOpenGLView()->setCursor("resources/Images/System/Shovel_hi_res.png", Point::ANCHOR_BOTTOM_LEFT);
-					else
-						Director::getInstance()->getOpenGLView()->setCursor("resources/Images/System/Shovel_hi_res1.png", Vec2(0.125, 0.2f));
-					mouseSelectImage->isSelectShovel = true;
-					break;
+				case true:  deleteShovelImage(); break;
+				case false: createShovelImage(); break;
 				}
 				break;
 			}
@@ -292,6 +279,21 @@ void GSButtonLayer::nextWaveButtonControl()
 
 void GSButtonLayer::createPlantsCard()
 {
+	int t = -1, n, m;
+	for (int i = _global->userInformation->getUserSelectCrads().size() - 1; i >= 0; --i)
+	{
+		if (_global->userInformation->getUserSelectCrads()[i].cardTag == static_cast<int>(PlantsType::Imitater))
+		{
+			t = i - 1;
+			break;
+		}
+	}
+	if (t != -1)
+	{
+		n = _global->userInformation->getUserSelectCrads()[t].cardTag;
+		m = _global->userInformation->getUserSelectCrads()[t + 1].cardTag;
+	}
+
 	int i = -1;
 	for (auto& card : _global->userInformation->getUserSelectCrads())
 	{
@@ -305,7 +307,18 @@ void GSButtonLayer::createPlantsCard()
 		this->addChild(cardBackgroundImag);
 
 		SPSSpriteLayer* sps_spriteLayer = new SPSSpriteLayer;
-		auto cardInformation = sps_spriteLayer->showPlantsInformation(cardBackgroundImag);
+		Text* cardInformation = nullptr;
+		if (plantsCardInformation[card.cardTag].type == PlantsType::Imitater)
+		{
+			cardBackgroundImag->setTag(_global->userInformation->getUserSelectCrads()[t].cardTag);
+			cardInformation = sps_spriteLayer->showPlantsInformation(cardBackgroundImag);
+			cardBackgroundImag->getChildByName("plantImage")->setGLProgram(greyScaleShader());
+			cardBackgroundImag->setTag(card.cardTag);
+		}
+		else
+		{
+			cardInformation = sps_spriteLayer->showPlantsInformation(cardBackgroundImag);
+		}
 		delete sps_spriteLayer;
 
 		ProgressTimer* timerBar;
@@ -317,9 +330,22 @@ void GSButtonLayer::createPlantsCard()
 		}
 		else
 		{
-			if (plantsCardInformation[card.cardTag].type != PlantsType::SunFlower && plantsCardInformation[card.cardTag].type != PlantsType::SunFlowerTwin)
-				timerBar = createProgressTimer(cardBackgroundImag, plantsCardInformation[card.cardTag].plantsCoolTime, 100, card.cardTag);
-			else timerBar = createProgressTimer(cardBackgroundImag, 0, 100, card.cardTag);
+			if (plantsCardInformation[card.cardTag].type != PlantsType::SunFlower &&
+				plantsCardInformation[card.cardTag].type != PlantsType::SunFlowerTwin)
+			{
+				if (plantsCardInformation[card.cardTag].type == PlantsType::Imitater)
+				{
+					timerBar = createProgressTimer(cardBackgroundImag, plantsCardInformation[n].plantsCoolTime, 100, card.cardTag);
+				}
+				else
+				{
+					timerBar = createProgressTimer(cardBackgroundImag, plantsCardInformation[card.cardTag].plantsCoolTime, 100, card.cardTag);
+				}
+			}
+			else
+			{
+				timerBar = createProgressTimer(cardBackgroundImag, 0, 100, card.cardTag);
+			}
 		}
 
 		SPSSpriteLayer::createButtonHoverEffect(cardBackgroundImag);
@@ -328,7 +354,15 @@ void GSButtonLayer::createPlantsCard()
 		plantsCards[card.cardTag].tag = card.cardTag;
 		plantsCards[card.cardTag].plantsCardText = cardInformation;
 		plantsCards[card.cardTag].plantsNeedSunNumbers = plantsCardInformation[card.cardTag].plantsNeedSunNumbers;
+		plantsCards[card.cardTag].plantsCoolTime = plantsCardInformation[card.cardTag].plantsCoolTime;
 		plantsCards[card.cardTag].progressTimer = timerBar;
+	}
+
+	if (t != -1)
+	{
+		// 设置模仿者数据
+		plantsCards[m].plantsNeedSunNumbers = plantsCardInformation[n].plantsNeedSunNumbers;
+		plantsCards[m].plantsCoolTime = plantsCardInformation[n].plantsCoolTime;
 	}
 }
 
@@ -377,6 +411,36 @@ ProgressTimer* GSButtonLayer::createProgressTimer(Button* button, const float _t
 			}), nullptr));
 	button->addChild(timerBar);
 	return timerBar;
+}
+
+void GSButtonLayer::createShovelImage()
+{
+	mouseSelectImage->isSelectShovel = true;
+	shovelImage = Sprite::create("resources/Images/System/Shovel_hi_res.png");
+	shovelImage->setGlobalZOrder(1);
+	shovelImage->setPosition(_shovelBank->getPosition() + Vec2(80, -40));
+	this->addChild(shovelImage);
+	updateShovel(false);
+}
+
+void GSButtonLayer::deleteShovelImage()
+{
+	mouseSelectImage->isSelectShovel = false;
+	shovelImage->removeFromParent();
+	updateShovel();
+}
+
+GLProgram* GSButtonLayer::greyScaleShader()
+{
+	auto program = GLProgram::createWithByteArrays(ccPositionTextureColor_noMVP_vert,
+		FileUtils::getInstance()->getStringFromFile("resources/Text/GreyScale.reanim.compiled").c_str());
+	program->bindAttribLocation(GLProgram::ATTRIBUTE_NAME_POSITION, GLProgram::VERTEX_ATTRIB_POSITION);
+	program->bindAttribLocation(GLProgram::ATTRIBUTE_NAME_COLOR, GLProgram::VERTEX_ATTRIB_COLOR);
+	program->bindAttribLocation(GLProgram::ATTRIBUTE_NAME_TEX_COORD, GLProgram::VERTEX_ATTRIB_TEX_COORD);
+	program->link();
+	program->updateUniforms();
+
+	return program;
 }
 
 void GSButtonLayer::recoverySunControl()

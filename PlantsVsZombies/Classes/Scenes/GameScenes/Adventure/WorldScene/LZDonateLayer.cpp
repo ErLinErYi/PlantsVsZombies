@@ -84,5 +84,6 @@ void DonateLayer::createButtons()
 
 void DonateLayer::deleteDialog()
 {
+	setMouseListenerEnable(true);
 	this->removeFromParent();
 }

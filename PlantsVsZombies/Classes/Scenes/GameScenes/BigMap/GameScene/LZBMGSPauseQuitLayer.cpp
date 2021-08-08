@@ -30,12 +30,14 @@ bool BMPauseQuitLayer::init()
 
 void BMPauseQuitLayer::setRestart()
 {
-	_director->getScheduler()->setTimeScale(1.0f);
-	UserData::getInstance()->caveUserData(const_cast<char*>("BREAKTHROUGH"), ++_global->userInformation->getBreakThroughNumbers());
-	GSGameEndLayer::judgeBreakThroughAboutJumpLevel();
+	CREATEDIALOG(
+	    _director->getScheduler()->setTimeScale(1.0f);
+	    UserData::getInstance()->caveUserData(const_cast<char*>("BREAKTHROUGH"), ++_global->userInformation->getBreakThroughNumbers());
+	    GSGameEndLayer::judgeBreakThroughAboutJumpLevel();
 
-	_director->replaceScene(TransitionFade::create(1.0f, BMSelectPlantsScene::create()));
+	    _director->replaceScene(TransitionFade::create(1.0f, BMSelectPlantsScene::create()));
 
-	UserData::getInstance()->createNewLevelDataDocument();
-	UserData::getInstance()->removeLevelData(_levelName);
+	    UserData::getInstance()->createNewLevelDataDocument();
+	    UserData::getInstance()->removeLevelData(_levelName);
+	)
 }

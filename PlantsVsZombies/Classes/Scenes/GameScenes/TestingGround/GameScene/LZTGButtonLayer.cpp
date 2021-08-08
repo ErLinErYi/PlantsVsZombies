@@ -62,19 +62,8 @@ void TGButtonLayer::showShovelBank()
 			case ui::Widget::TouchEventType::ENDED:
 				switch (mouseSelectImage->isSelectShovel)
 				{
-				case true:
-					updateShovel();
-					Director::getInstance()->getOpenGLView()->setCursor("resources/Images/System/cursor.png", Point::ANCHOR_TOP_LEFT);
-					mouseSelectImage->isSelectShovel = false;
-					break;
-				case false:
-					updateShovel(false);
-					if (_global->userInformation->getIsSelectCursorNotHide() == cocos2d::ui::CheckBox::EventType::UNSELECTED)
-						Director::getInstance()->getOpenGLView()->setCursor("resources/Images/System/Shovel_hi_res.png", Point::ANCHOR_BOTTOM_LEFT);
-					else
-						Director::getInstance()->getOpenGLView()->setCursor("resources/Images/System/Shovel_hi_res1.png", Vec2(0.125, 0.2f));
-					mouseSelectImage->isSelectShovel = true;
-					break;
+				case true:  deleteShovelImage();break;
+				case false: createShovelImage();break;
 				}
 				break;
 			}
@@ -113,6 +102,18 @@ void TGButtonLayer::createKeyBoardListener()
 
 void TGButtonLayer::createPlantsCard()
 {
+	int t = 0;
+	for (int i = _global->userInformation->getUserSelectCrads().size() - 1; i >= 0; --i)
+	{
+		if (_global->userInformation->getUserSelectCrads()[i].cardTag == static_cast<int>(PlantsType::Imitater))
+		{
+			t = i - 1;
+			break;
+		}
+	}
+	auto n = _global->userInformation->getUserSelectCrads()[t].cardTag;
+	auto m = _global->userInformation->getUserSelectCrads()[t + 1].cardTag;
+
 	int i = -1;
 	for (auto& card : _global->userInformation->getUserSelectCrads())
 	{
@@ -126,7 +127,18 @@ void TGButtonLayer::createPlantsCard()
 		this->addChild(cardBackgroundImag);
 
 		TSPSSpriteLayer* sps_spriteLayer = new TSPSSpriteLayer;
-		auto cardInformation = sps_spriteLayer->showPlantsInformation(cardBackgroundImag);
+		Text* cardInformation = nullptr;
+		if (plantsCardInformation[card.cardTag].type == PlantsType::Imitater)
+		{
+			cardBackgroundImag->setTag(_global->userInformation->getUserSelectCrads()[t].cardTag);
+			cardInformation = sps_spriteLayer->showPlantsInformation(cardBackgroundImag);
+			cardBackgroundImag->getChildByName("plantImage")->setGLProgram(GSButtonLayer::greyScaleShader());
+			cardBackgroundImag->setTag(card.cardTag);
+		}
+		else
+		{
+			cardInformation = sps_spriteLayer->showPlantsInformation(cardBackgroundImag);
+		}
 		delete sps_spriteLayer;
 
 		ProgressTimer* timerBar;
@@ -138,6 +150,7 @@ void TGButtonLayer::createPlantsCard()
 		plantsCards[card.cardTag].tag = card.cardTag;
 		plantsCards[card.cardTag].plantsCardText = cardInformation;
 		plantsCards[card.cardTag].plantsNeedSunNumbers = 0;
+		plantsCards[card.cardTag].plantsCoolTime = 0;
 		plantsCards[card.cardTag].progressTimer = timerBar;
 	}
 }

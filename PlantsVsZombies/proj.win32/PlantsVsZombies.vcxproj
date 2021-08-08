@@ -432,6 +432,7 @@ xcopy "$(ProjectDir)..\Resources" "$(OutDir)" /D /E /I /F /Y
     <ClCompile Include="..\Classes\Scenes\GameScenes\IZombies\GameScene\LZIInformationLayer.cpp" />
     <ClCompile Include="..\Classes\Scenes\GameScenes\IZombies\GameScene\LZIOpenCaveGameLayer.cpp" />
     <ClCompile Include="..\Classes\Scenes\GameScenes\IZombies\GameScene\LZIPauseQuiteLayer.cpp" />
+    <ClCompile Include="..\Classes\Scenes\GameScenes\IZombies\GameScene\LZITemporaryReplaceScene.cpp" />
     <ClCompile Include="..\Classes\Scenes\GameScenes\IZombies\GameScene\LZIZombiesData.cpp" />
     <ClCompile Include="..\Classes\Scenes\GameScenes\IZombies\GameScene\LZIZombiesScene.cpp" />
     <ClCompile Include="..\Classes\Scenes\GameScenes\Survival\GameScene\LZSSurvivalControlLayer.cpp" />
@@ -634,6 +635,7 @@ xcopy "$(ProjectDir)..\Resources" "$(OutDir)" /D /E /I /F /Y
     <ClInclude Include="..\Classes\Scenes\GameScenes\IZombies\GameScene\LZIInformationLayer.h" />
     <ClInclude Include="..\Classes\Scenes\GameScenes\IZombies\GameScene\LZIOpenCaveGameLayer.h" />
     <ClInclude Include="..\Classes\Scenes\GameScenes\IZombies\GameScene\LZIPauseQuiteLayer.h" />
+    <ClInclude Include="..\Classes\Scenes\GameScenes\IZombies\GameScene\LZITemporaryReplaceScene.h" />
     <ClInclude Include="..\Classes\Scenes\GameScenes\IZombies\GameScene\LZIZombiesData.h" />
     <ClInclude Include="..\Classes\Scenes\GameScenes\IZombies\GameScene\LZIZombiesScene.h" />
     <ClInclude Include="..\Classes\Scenes\GameScenes\Survival\GameScene\LZSSurvivalControlLayer.h" />

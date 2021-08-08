@@ -73,7 +73,8 @@ void Marigold::createPlantAnimation()
 
 void Marigold::createListener()
 {
-	if (controlLayerInformation && controlLayerInformation->_zombiesAppearControl->getZombiesAppearFrequency() !=
+	if (controlLayerInformation && controlLayerInformation->_zombiesAppearControl && 
+		controlLayerInformation->_zombiesAppearControl->getZombiesAppearFrequency() !=
 		OpenLevelData::getInstance()->readLevelData(OpenLevelData::getInstance()->getLevelNumber())->getZombiesFrequency())
 	{
 		calculateCoinShowTime();

@@ -9,6 +9,7 @@
 #include "Scenes/GameScenes/Adventure/SelectPlantsScene/LZASPSSpriteLayer.h"
 #include "Scenes/GameScenes/Adventure/GameScene/LZAGSData.h"
 #include "Scenes/GameScenes/Adventure/GameScene/LZAGSAnimationLayer.h"
+#include "Scenes/GameScenes/Adventure/GameScene/LZAGSButtonLayer.h"
 
 Imitater::Imitater(Node* node)
 {
@@ -42,6 +43,11 @@ Sprite* Imitater::createPlantImage()
 	_plantImage->setScale(1.2f);
 	_plantImage->setAnchorPoint(Vec2(0.4f, 0.55f));
 	return _plantImage;
+}
+
+void Imitater::setPlantNoramlAnimation()
+{
+	_plantAnimation->setAnimation(0, "Imitater_Normal", true);
 }
 
 void Imitater::createPlantAnimation()
@@ -89,8 +95,7 @@ void Imitater::createOtherPlant()
 	plants->setPlantRowAndColumn(getPlantRowAndColumn());
 	plants->setPlantTag(_plantAnimation->getTag());
 	plants->createPlantAnimation();
-	plants->getPlantAnimation()->setColor(Color3B::ORANGE);
-
+	
 	PlantsGroup.insert(pair<int, Plants*>(plants->getPlantAnimation()->getTag(), plants));
 }
 
@@ -108,8 +113,8 @@ SkeletonAnimation* Imitater::showPlantAnimationAndText()
 	SPSSpriteLayer::createPlantsText(0, lta.find("IMITATER_1")->second->text, Vec2(190, 910), lta.find("IMITATER_1")->second->fontsize);
 	SPSSpriteLayer::createPlantsText(2, lta.find("IMITATER_2")->second->text, Vec2(360, 1000), lta.find("IMITATER_2")->second->fontsize, Color3B::YELLOW, false);
 	SPSSpriteLayer::createPlantsText(3, lta.find("IMITATER_3")->second->text, Vec2(360, 910), lta.find("IMITATER_3")->second->fontsize, Color3B::RED, false);
-	SPSSpriteLayer::createPlantsText(1, SPSSpriteLayer::selectRequirementText(lta, PlantsType::AcidLemonShooter, "IMITATER_4", "IMITATER_5"), Vec2(360, 890),
-		lta.find("IMITATER_4")->second->fontsize, SPSSpriteLayer::isPlantIsCanSelect[static_cast<unsigned int>(PlantsType::AcidLemonShooter)] ? Color3B::ORANGE : Color3B(255, 70, 0), false);
+	SPSSpriteLayer::createPlantsText(1, SPSSpriteLayer::selectRequirementText(lta, PlantsType::Imitater, "IMITATER_4", "IMITATER_5"), Vec2(360, 890),
+		lta.find("IMITATER_4")->second->fontsize, SPSSpriteLayer::isPlantIsCanSelect[static_cast<unsigned int>(PlantsType::Imitater)] ? Color3B::ORANGE : Color3B(255, 70, 0), false);
 
 	return _plantAnimation;
 }

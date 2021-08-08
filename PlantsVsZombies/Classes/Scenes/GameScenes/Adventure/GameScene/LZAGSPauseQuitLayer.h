@@ -17,7 +17,8 @@ enum class PauseQuitLayer_Button
 	从新开始,
 	退出游戏,
 	按键说明,
-	返回游戏
+	返回游戏,
+	重置游戏
 };
 
 class GSPauseQuitLayer :public OptionsMenu
@@ -44,6 +45,7 @@ protected:
 	virtual void setQuitGame();
 	virtual void keyDescription();
 	virtual void returnGame();
+	virtual void remakeGame();
 
 protected:
 	EventListenerTouchOneByOne* _touchListener;

@@ -19,6 +19,7 @@ CC_CONSTRUCTOR_ACCESS:
 
 protected:
 	virtual void showUserText() override;
+	virtual void showSunNumbers() override;
 
 private:
 	Layer* _informationLayer;

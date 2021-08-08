@@ -75,6 +75,7 @@ public:
 		Button* plantsCards;            /* 卡牌 */
 		Text* plantsCardText;           /* 卡牌文字 */
 		ProgressTimer* progressTimer;   /* 倒计时 */
+		float plantsCoolTime;           /* 植物冷却时间 */
 		int plantsNeedSunNumbers;       /* 所需阳光 */
 		bool timeBarIsFinished;         /* 倒计时是否完成 */
 		int tag;                        /* 编号 */

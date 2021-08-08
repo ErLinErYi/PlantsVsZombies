@@ -14,7 +14,6 @@
 
 Squash::Squash(Node* node):
 	_isUsed(false),
-	_isAttack(false),
 	_delete(false),
 	_direction(1),
 	_zombiePositionX(0)
@@ -79,10 +78,11 @@ void Squash::createListener()
 				_plantAnimation->runAction(Sequence::create(EaseExponentialOut::create(MoveTo::create(0.5f, Vec2(_zombiePositionX - 40, _position.y + 230))),
 					CallFunc::create([=]() 
 						{
-							_isAttack = true;
 							_plantAnimation->addAnimation(0, "Squash_LeftDown", false);
-						}), EaseExponentialIn::create(MoveBy::create(0.3f, Vec2(0, -230))),
-					CallFunc::create([]() 
+						}), 
+					Spawn::create(EaseExponentialIn::create(MoveBy::create(0.3f, Vec2(0, -230))), 
+						Sequence::create(DelayTime::create(0.25f), CallFunc::create([=]() {plantExplode(); }), nullptr), nullptr),
+					CallFunc::create([=]() 
 						{
 							PlayMusic::playMusic("gargantuar_thump");
 							GSBackgroundLayer::backgroundRunAction();
@@ -115,15 +115,14 @@ void Squash::determineRelativePositionPlantsAndZombies()
 		 
 		zombieRecoveryMove(zombie);  /* 僵尸恢复移动 */
 	}
-
-	plantExplode();
 }
 
 void Squash::plantAttack(Zombies* zombie)
 {
 	for (auto zombie : ZombiesGroup)
 	{
-		if (zombie->getZombieIsSurvive() && zombie->getZombieIsEnterMap()&& getZombieIsSameLineWithPlant(zombie)) /* 僵尸存活 && 僵尸进入地图 && 与僵尸同一行 */
+		if (zombie->getZombieIsSurvive() && zombie->getZombieIsEnterMap() && getPlantIsSurvive() &&        /* 僵尸存活 && 僵尸进入地图 && 植物存活 */
+			getZombieIsSameLineWithPlant(zombie) && zombie->getZombieIsCanBeAttack())                      /* 与僵尸同一行 && 可以被攻击 */
 		{
 			if (checkZombiesPosition(zombie) == 0)
 			{
@@ -133,7 +132,7 @@ void Squash::plantAttack(Zombies* zombie)
 				_plantAnimation->setLocalZOrder(_plantAnimation->getLocalZOrder() + 21);
 				_plantAnimation->setAnimation(0, "Squash_LeftJump", false);
 			}
-			else if(checkZombiesPosition(zombie) == 1)
+			else if (checkZombiesPosition(zombie) == 1)
 			{
 				PlayMusic::playMusic(rand() % 2 ? "squash_hmm" : "squash_hmm2");
 				_isUsed = true;
@@ -166,13 +165,11 @@ int Squash::checkZombiesPosition(Zombies* zombie)
 
 void Squash::plantExplode()
 {
-	bool flag = false;
 	for (auto zombie : ZombiesGroup)
 	{
-		if (_isAttack && getZombieIsSameLineWithPlant(zombie) && zombie->getZombieIsSurvive() && zombie->getZombieIsEnterMap() &&
-			zombie->getZombieAnimation()->getBoundingBox().intersectsRect(_plantAnimation->getBoundingBox()))
+		if (getZombieIsSameLineWithPlant(zombie) && zombie->getZombieIsSurvive() &&
+			zombie->getZombieIsEnterMap() && zombie->getZombieIsCanBeAttack() && getZombieIsEncounterPlant(zombie))
 		{
-			flag = true;
 			hurtZombies(zombie);
 			zombie->setZombieHurtBlink();
 
@@ -182,16 +179,10 @@ void Squash::plantExplode()
 			}
 		}
 	}
-
-	if (flag)
-	{
-		_isAttack = false;
-	}
 }
 
 bool Squash::getZombieIsInExplodeRange(Zombies* zombie)
 {
-	/* 僵尸是否在爆炸范围判断 */
 	return fabs(zombie->getZombieAnimation()->getPositionX() - _plantAnimation->getPositionX()) < 200;
 }
 
@@ -209,8 +200,8 @@ SkeletonAnimation* Squash::showPlantAnimationAndText()
 	SPSSpriteLayer::createPlantsText(0, lta.find("SQUASH_1")->second->text, Vec2(190, 910), lta.find("SQUASH_1")->second->fontsize);
 	SPSSpriteLayer::createPlantsText(2, lta.find("SQUASH_2")->second->text, Vec2(360, 1000), lta.find("SQUASH_2")->second->fontsize, Color3B::YELLOW, false);
 	SPSSpriteLayer::createPlantsText(3, lta.find("SQUASH_3")->second->text, Vec2(440, 1000), lta.find("SQUASH_3")->second->fontsize, Color3B::RED, false);
-	SPSSpriteLayer::createPlantsText(1, SPSSpriteLayer::selectRequirementText(lta, PlantsType::AcidLemonShooter, "SQUASH_4", "SQUASH_5"), Vec2(360, 870),
-		lta.find("SQUASH_4")->second->fontsize, SPSSpriteLayer::isPlantIsCanSelect[static_cast<unsigned int>(PlantsType::AcidLemonShooter)] ? Color3B::ORANGE : Color3B(255, 70, 0), false);
+	SPSSpriteLayer::createPlantsText(1, SPSSpriteLayer::selectRequirementText(lta, PlantsType::Squash, "SQUASH_4", "SQUASH_5"), Vec2(360, 870),
+		lta.find("SQUASH_4")->second->fontsize, SPSSpriteLayer::isPlantIsCanSelect[static_cast<unsigned int>(PlantsType::Squash)] ? Color3B::ORANGE : Color3B(255, 70, 0), false);
 
 	return _plantAnimation;
 }
@@ -232,7 +223,6 @@ void Squash::setPlantOtherInformation(rapidjson::Document* levelDataDocument, ch
 	if (_delete)
 	{
 		_healthPoint = 0;
-		_isAttack = false;
 		_isUsed = true;
 		_plantAnimation->setVisible(false);
 		_plantAnimation->stopAllActions();

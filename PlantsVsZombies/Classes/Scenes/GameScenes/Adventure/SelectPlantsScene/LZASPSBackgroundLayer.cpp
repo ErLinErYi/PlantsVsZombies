@@ -138,10 +138,10 @@ void SPSBackgroundLayer::createMordernPreviewZombies()
 	uniform_int_distribution<unsigned>n2(0, 650);
 	auto &type=_openLevelData->readLevelData(_openLevelData->getLevelNumber())->getZombiesType();
 
+	int k = roundf(15.f / type.size());
+	k = k <= 0 ? 1 : k;
 	for (unsigned int i = 0; i < type.size(); ++i)
 	{
-		int k;
-		_previewZombies.size() < 15 ? k = n(_random) + 1 : k = 1;
 		for (int j = 0; j < k; ++j)
 		{
 			auto zombies = GSAnimationLayer::createDifferentZombies(static_cast<ZombiesType>(type.at(i)), this);

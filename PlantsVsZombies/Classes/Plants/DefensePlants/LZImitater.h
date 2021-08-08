@@ -23,4 +23,5 @@ protected:
 	SkeletonAnimation* showPlantAnimationAndText() override;
 	virtual void createOtherPlant();
 	virtual void createListener() override;
+	virtual void setPlantNoramlAnimation() override;
 };

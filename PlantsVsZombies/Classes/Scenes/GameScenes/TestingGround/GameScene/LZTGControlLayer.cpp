@@ -138,7 +138,7 @@ void TGControlLayer::selectPlantsPreviewImage()
 
 		/* 鼠标选择标记 */
 		buttonLayerInformation->mouseSelectImage->isSelectPlants = true;
-		buttonLayerInformation->mouseSelectImage->selectPlantsId = _selectPlantsTag;
+		//buttonLayerInformation->mouseSelectImage->selectPlantsId = _selectPlantsTag;
 
 		createPreviewPlants();
 		break;
@@ -151,9 +151,6 @@ void TGControlLayer::mouseLeftButtonDownControl()
 	{
 		if (judgeMousePositionIsInMap() && judgeMousePositionIsCanPlant() && _cur.x > CARD_BAR_RIGHT) /* 如果在地图范围内 && 可以种植植物 */
 		{
-			/* 种植植物 */
-			animationLayerInformation->plantPlants();
-
 			if (buttonLayerInformation->mouseSelectImage->selectPlantsId == PlantsType::Pumpkin)
 			{
 				gameMapInformation->plantPumpkin[static_cast<unsigned int>(_plantsPosition.y)][static_cast<unsigned int>(_plantsPosition.x)] = true;
@@ -165,6 +162,13 @@ void TGControlLayer::mouseLeftButtonDownControl()
 					static_cast<unsigned int>(buttonLayerInformation->mouseSelectImage->selectPlantsId);
 			}
 
+			if (_isImitater)
+			{
+				buttonLayerInformation->mouseSelectImage->selectPlantsId = PlantsType::Imitater;
+			}
+			/* 种植植物 */
+			animationLayerInformation->plantPlants();
+
 			buttonLayerInformation->plantsCards[static_cast<unsigned int>(buttonLayerInformation->mouseSelectImage->selectPlantsId)].progressTimer->setPercentage(0);
 			buttonLayerInformation->plantsCards[static_cast<unsigned int>(buttonLayerInformation->mouseSelectImage->selectPlantsId)].plantsCards->setColor(Color3B::WHITE);
 
@@ -175,6 +179,11 @@ void TGControlLayer::mouseLeftButtonDownControl()
 			if (_cur.x > CARD_BAR_RIGHT)
 			{
 				PlayMusic::playMusic("buzzer");
+
+				if (_isImitater)
+				{
+					buttonLayerInformation->mouseSelectImage->selectPlantsId = PlantsType::Imitater;
+				}
 				/* 卡牌颜色恢复 */
 				buttonLayerInformation->plantsCards[static_cast<unsigned int>(buttonLayerInformation->mouseSelectImage->selectPlantsId)].progressTimer->setPercentage(0);
 				buttonLayerInformation->plantsCards[static_cast<unsigned int>(buttonLayerInformation->mouseSelectImage->selectPlantsId)].plantsCards->setColor(Color3B::WHITE);
@@ -212,6 +221,11 @@ void TGControlLayer::mouseRightButtonDownControl()
 	{
 		if (_cur.x > CARD_BAR_RIGHT)
 		{
+			if (_isImitater)
+			{
+				buttonLayerInformation->mouseSelectImage->selectPlantsId = PlantsType::Imitater;
+			}
+
 			PlayMusic::playMusic("tap2");
 			buttonLayerInformation->plantsCards[static_cast<unsigned int>(buttonLayerInformation->mouseSelectImage->selectPlantsId)].progressTimer->setPercentage(0);
 			buttonLayerInformation->plantsCards[static_cast<unsigned int>(buttonLayerInformation->mouseSelectImage->selectPlantsId)].plantsCards->setColor(Color3B::WHITE);

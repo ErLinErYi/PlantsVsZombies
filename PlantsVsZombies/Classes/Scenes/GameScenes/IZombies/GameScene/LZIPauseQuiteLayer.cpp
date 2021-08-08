@@ -35,21 +35,28 @@ bool IPauseQuitLayer::init()
 
 void IPauseQuitLayer::setRestart()
 {
-	IControlLayer::beginNewGame();
+	CREATEDIALOG(
+	    IControlLayer::beginNewGame();
 
-	_director->getScheduler()->setTimeScale(1.0f);
-	_director->replaceScene(IZombiesScene::create());
+	    _director->getScheduler()->setTimeScale(1.0f);
+	    _director->replaceScene(IZombiesScene::create());
+
+	    IZombiesData::getInstance()->createNewLevelDataDocument();
+	    IZombiesData::getInstance()->removeLevelData(_levelName);
+	)
 }
 
 void IPauseQuitLayer::setQuitGame()
 {
-	_director->getScheduler()->setTimeScale(1.0f);
+	CREATEDIALOG(
+	    _director->getScheduler()->setTimeScale(1.0f);
 
-	if (GameScene::isRunGameScene) /* 如果运行了游戏场景则保存 */
-	{
-		IZombiesData::getInstance()->createNewLevelDataDocument();
-		IZombiesData::getInstance()->caveLevelData(_levelName);
-	}
+	    if (GameScene::isRunGameScene) /* 如果运行了游戏场景则保存 */
+	    {
+		    IZombiesData::getInstance()->createNewLevelDataDocument();
+		    IZombiesData::getInstance()->caveLevelData(_levelName);
+	    }
 
-	Director::getInstance()->replaceScene(TransitionFade::create(0.5f, MainMenu::create()));
+	    Director::getInstance()->replaceScene(TransitionFade::create(0.5f, MainMenu::create()));
+	)
 }

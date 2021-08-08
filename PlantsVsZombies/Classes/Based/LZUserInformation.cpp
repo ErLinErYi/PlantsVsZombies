@@ -179,9 +179,9 @@ int UserInformation::getUserCaveFileNumber() const
     return _userCaveFileNumber;
 }
 
-int& UserInformation::getKillZombiesNumbers()
+int UserInformation::getKillZombiesNumbers()
 {
-    return _killZombiesNumbers;
+    return _killZombiesNumbers ^ _encryptKZKey;
 }
 
 int& UserInformation::getUsePlantsNumbers()
@@ -196,12 +196,12 @@ int& UserInformation::getBreakThroughNumbers()
 
 int UserInformation::getSunNumbers() const
 {
-    return _sunNumbers;
+    return _sunNumbers ^ _encryptSNKey;
 }
 
 int UserInformation::getCoinNumbers() const
 {
-    return _coinNumbers;
+    return _coinNumbers ^ _encryptCNKey;
 }
 
 int UserInformation::getFps() const
@@ -365,6 +365,8 @@ void UserInformation::setUserCaveFileNumber(const int number)
 void UserInformation::setKillZombiesNumbers(const int number)
 {
     number <= 999999999 ? _killZombiesNumbers = number : _killZombiesNumbers = 999999999;
+    _encryptKZKey = rand();
+    _killZombiesNumbers ^= _encryptKZKey;
 }
 
 void UserInformation::setUsePlantsNumbers(const int number)
@@ -380,11 +382,15 @@ void UserInformation::setBreakThroughNumbers(const int number)
 void UserInformation::setSunNumbers(const int number)
 {
     number <= 999999 ? _sunNumbers = number : _sunNumbers = 999999;
+    _encryptSNKey = rand();
+    _sunNumbers ^= _encryptSNKey;
 }
 
 void UserInformation::setCoinNumbers(const int number)
 {
     number <= 999999999 ? _coinNumbers = number : _coinNumbers = 999999999;
+    _encryptCNKey = rand();
+    _coinNumbers ^= _encryptCNKey;
 }
 
 void UserInformation::setFps(const int fps)

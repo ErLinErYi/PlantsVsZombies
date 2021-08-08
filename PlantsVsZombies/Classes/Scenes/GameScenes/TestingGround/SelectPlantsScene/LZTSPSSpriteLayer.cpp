@@ -44,6 +44,7 @@ Text* TSPSSpriteLayer::showPlantsInformation(Button* button, bool showHeart)
 	plantImage->setScale(0.8f);
 	plantImage->setFlippedX(plantsCardInformation[button->getTag()].flippedX);
 	plantImage->setPosition(Vec2(85, 50));
+	plantImage->setName("plantImage");
 	button->addChild(plantImage);
 
 	string str[] = { "PlantsLevel_Gold.png","PlantsLevel_Silver.png","PlantsLevel_Copper.png" };

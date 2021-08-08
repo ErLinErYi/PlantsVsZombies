@@ -14,6 +14,7 @@
 #include "Scenes/HelpScene/LZHelpScene.h"
 #include "Scenes/LoadingScene/LZLoadingScene.h"
 #include "Scenes/SelectWorldScene/LZSelectWorldScene.h"
+#include "Scenes/GameScenes/Adventure/WorldScene/LZDonateLayer.h"
 #include "Scenes/GameScenes/HammerZombies/GameScene/LZHammerZombiesScene.h"
 #include "Scenes/GameScenes/IZombies/GameScene/LZIZombiesScene.h"
 #include "Scenes/GameScenes/TestingGround/SelectPlantsScene/LZTSelectPlantsScene.h"
@@ -71,7 +72,6 @@ bool MainMenu::init()
 #endif
 	schedule([this](float) {_global->checkAnimationInterval(); }, 1.f, "FPS");
 
-	COUNTPLAYERS
 	return true;
 }
 
@@ -360,7 +360,9 @@ void MainMenu::checkTestingGroundIsUnLock()
 
 bool MainMenu::checkIZombiesIsUnLock()
 {
-	return UserData::getInstance()->openIntUserData(const_cast<char*>("HAMMERZOMBIES_LEVEL_NUMBER")) >= 50;
+	auto currentNumber = UserData::getInstance()->openIntUserData(const_cast<char*>("HAMMERZOMBIES_LEVEL_NUMBER"));
+	auto mostNumber = UserData::getInstance()->openIntUserData(const_cast<char*>("MOST_HAMMERZOMBIES_LEVEL_NUMBER"));
+	return max(currentNumber, mostNumber) >= 50;
 }
 
 void MainMenu::createAnimation()
@@ -585,7 +587,13 @@ void MainMenu::createMainSprite()
 				switch (type)
 				{
 				case cocos2d::ui::Widget::TouchEventType::ENDED:
+				{
 					PlayMusic::playMusic(rand() % 2 ? "trophy" : rand() % 2 ? "trophy1" : "trophy2");
+					setMouseListenerEnable(false);
+					auto donate = DonateLayer::create();
+					donate->setMouseListener(_mouse);
+					this->addChild(donate);
+				}
 					break;
 				}
 			});

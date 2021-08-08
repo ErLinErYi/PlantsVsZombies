@@ -48,7 +48,7 @@ void IOpenCaveGameLayer::onEnterTransitionDidFinish()
 	controlPlayMusic();
 	
 	openLevelData();
-	runAction(Sequence::create(DelayTime::create(1.f), CallFunc::create([&]() {pauseGame(); }), nullptr));
+	runAction(Sequence::create(DelayTime::create(1.3f), CallFunc::create([&]() {pauseGame(); }), nullptr));
 
 	GSPauseQuitLayer::pauseLayer();
 	_director->getRunningScene()->addChild(IPauseQuitLayer::create(), 10, "pauseLayer");

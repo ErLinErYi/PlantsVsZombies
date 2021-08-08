@@ -20,4 +20,5 @@ CC_CONSTRUCTOR_ACCESS:
 
 protected:
     virtual bool getBulletIsEncounterWithZombie(Zombies* zombie) override;
+    virtual void bulletAttackHurtZombies(Zombies* zombie) override;
 };

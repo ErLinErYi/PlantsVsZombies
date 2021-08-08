@@ -49,6 +49,7 @@ private:
 	void showSelectedButtonHoverEffect();
 	void judgeUserLose();
 	void showBlackFadeOutAnimation();
+	void coinRecovery(const Vec2& position, const int id);
 	
 public:
 	static unsigned int currentLevelNumber;

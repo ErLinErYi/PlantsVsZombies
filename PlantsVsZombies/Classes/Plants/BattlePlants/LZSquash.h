@@ -35,7 +35,6 @@ protected:
 
 protected:
     bool _isUsed;
-    bool _isAttack;
     bool _delete;
     int _direction;
     float _zombiePositionX;

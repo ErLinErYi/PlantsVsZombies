@@ -19,6 +19,7 @@ CC_CONSTRUCTOR_ACCESS:
 	virtual bool init() override;
 
 protected:
+	virtual void createDialog() override;
 	virtual void setRestart() override;
 	virtual void setQuitGame() override;
 	virtual void popSceneAnimation() override;

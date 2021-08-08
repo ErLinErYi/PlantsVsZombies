@@ -208,6 +208,7 @@ void SunFlower::checkPlantHealthPoint()
 			if (_healthPoint <= _totalHealthPoint - 50 * (i + 1) && _iZombiesCreateSun == i)
 			{
 				createSuns();
+				_sun->getSun()->setColor(Color3B::MAGENTA);
 				_iZombiesCreateSun = i + 1;
 			}
 		}

@@ -60,3 +60,31 @@ bool FumeShroomBullet::getBulletIsEncounterWithZombie(Zombies* zombie)
 {
 	return  (zombie->getZombiePositionX() >= _position.x) && (zombie->getZombiePositionX() - _position.x < 600);
 }
+
+void FumeShroomBullet::bulletAttackHurtZombies(Zombies* zombie)
+{
+	if (zombie->getZombieCurrentHeadShieldVolume() < _attack) /* 如果当前头部护盾血量小于攻击伤害 */
+	{
+		if (zombie->getZombieCurrentHeadShieldVolume() +
+			zombie->getZombieCurrentBloodVolume() <= _attack) /* 如果僵尸所有血量小于伤害（僵尸死亡） */
+		{
+			/* 僵尸死亡 */
+			zombie->setZombieCurrentBloodVolume(0);
+			zombie->setZombieCurrentHeadShieldVolume(0);
+		}
+		else
+		{
+			/* 计算僵尸本体血量 */
+			zombie->setZombieCurrentBloodVolume(
+				zombie->getZombieCurrentHeadShieldVolume() +
+				zombie->getZombieCurrentBloodVolume() - _attack);
+			zombie->setZombieCurrentHeadShieldVolume(0);
+		}
+	}
+	else
+	{
+		/* 计算僵尸护盾剩于血量 */
+		zombie->setZombieCurrentHeadShieldVolume(
+			zombie->getZombieCurrentHeadShieldVolume() - _attack);
+	}
+}

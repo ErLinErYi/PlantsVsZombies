@@ -21,4 +21,5 @@ protected:
 	virtual void createDialog() override;
 	virtual void setRestart() override;
 	virtual void setQuitGame() override;
+	virtual void remakeGame() override;
 };

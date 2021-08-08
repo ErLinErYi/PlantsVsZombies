@@ -40,6 +40,7 @@ class GSButtonLayer :public SPSControlLayer
 public:
 	CREATE_FUNC(GSButtonLayer);
 
+	static GLProgram* greyScaleShader();
 	void addLayer(Node* node, const int order, const string& name) { node->addChild(this, order, name); }
 	virtual void updateShovel(bool isHaveShovel = true);
 
@@ -64,12 +65,15 @@ protected:
 	virtual void createJumpLevelButton();
 	virtual void recoverySunControl();
 	virtual void recoveryCoinControl();
+	virtual void createShovelImage();
+	virtual void deleteShovelImage();
 	virtual ProgressTimer* createProgressTimer(Button* button, const float _time, const int from, const unsigned int& id);
 	
 public:
 	MouseSelectImage* mouseSelectImage;                            // 鼠标选择
 	PlantsInformation::PlantsCards plantsCards[PLANTSNUMBERS];     // 植物卡片
 	Button* nextWaveButton;                                        // 下一波按钮
+	Sprite* shovelImage;                                           // 铲子图片
 	
 protected:
 	Global* _global;                                     // 全局变量

@@ -32,7 +32,7 @@
 #endif // !DLLTEST
 
 UserData* UserData::_instance = nullptr;
-int UserData::_levelDataVersion = 1315;
+int UserData::_levelDataVersion = 1330;
 
 UserData::UserData() :
   _global(Global::getInstance())
@@ -670,7 +670,7 @@ void UserData::caveLevelSelectPlantsData(char* key)
 
 		object.AddMember("CardTag", card.cardTag, allocator);
 		object.AddMember("Percent", buttonLayerInformation->plantsCards[card.cardTag].progressTimer->getPercentage(), allocator);
-		object.AddMember("LastTime", buttonLayerInformation->plantsCards[card.cardTag].progressTimer->getPercentage() / 100.f * plantsCardInformation[card.cardTag].plantsCoolTime, allocator);
+		object.AddMember("LastTime", buttonLayerInformation->plantsCards[card.cardTag].progressTimer->getPercentage() / 100.f * buttonLayerInformation->plantsCards[card.cardTag].plantsCoolTime, allocator);
 
 		(*_levelDataDocument)[key]["SelectPlants"].AddMember(numberToString(++plantsNumber, allocator), object, _levelDataDocument->GetAllocator());
 	}
@@ -778,7 +778,7 @@ void UserData::openLevelPlantsData(char* key)
 		plants->getPlantAnimation()->getChildByName("BufEffect")->setOpacity(0);
 
 		plants->setPlantOtherInformation(_levelDataDocument, key, i);
-		PlantsGroup.insert(pair<int, Plants*>((*_levelDataDocument)[key]["Plants"][to_string(i).c_str()]["PlantsTag"].GetInt(), plants));
+		PlantsGroup.insert(pair<int, Plants*>(plants->getPlantAnimation()->getTag(), plants));
 		
 		if (type != PlantsType::Pumpkin)
 		{
