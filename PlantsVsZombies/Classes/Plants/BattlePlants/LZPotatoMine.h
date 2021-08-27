@@ -31,6 +31,7 @@ private:
 	void createListener() override;
 	void explodeHurtZombies();
 	bool getZombieIsInExplodeRange(Zombies* zombie) override;
+	void setPlantNoramlAnimation() override;
 	
 private:
 	bool _isReady;                 // 是否准备好

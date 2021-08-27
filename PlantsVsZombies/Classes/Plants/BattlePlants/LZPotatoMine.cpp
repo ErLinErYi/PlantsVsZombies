@@ -81,6 +81,11 @@ void PotatoMine::createPlantAnimation()
 	createListener();
 }
 
+void PotatoMine::setPlantNoramlAnimation()
+{
+	_plantAnimation->setAnimation(0, "PotatoMine_Normal", true);
+}
+
 void PotatoMine::createListener()
 {
 	if (_breakGround > 0)

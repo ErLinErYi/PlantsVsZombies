@@ -339,9 +339,11 @@ void MainMenu::createFlowers(const float& Scale, const Vec2& vec2, const std::st
 
 bool MainMenu::checkHammerZombiesIsUnLock()
 {
-	return UserData::getInstance()->openIntUserData(const_cast<char*>(
-		StringUtils::format(_global->userInformation->getSystemCaveFileName().c_str(), 1).c_str())) >
-		static_cast<int>(UnlockDialogLayer::unlockNeedNumbers);
+	auto number = UserData::getInstance()->openIntUserData(const_cast<char*>(
+		StringUtils::format(_global->userInformation->getSystemCaveFileName().c_str(), 1).c_str()));
+	auto number1 = UserData::getInstance()->openIntUserData(const_cast<char*>(
+		StringUtils::format(_global->userInformation->getSystemDifCaveFileName().c_str(), 1).c_str()));
+	return max(number, number1) > static_cast<int>(UnlockDialogLayer::unlockNeedNumbers);
 }
 
 void MainMenu::checkTestingGroundIsUnLock()

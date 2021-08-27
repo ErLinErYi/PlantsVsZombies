@@ -70,6 +70,7 @@ private:
 	int _textNumbers;                                 // 文本文件总数
 	float _delayTime;                                 // 延迟时间
 	bool _flowerVisible[5] = { false };               // 加载花朵是否可见 
+	bool _loadFailed;                                 // 加载失败
 	float _loadingPrecent;                            // 加载进度 
 	Sprite* _sprite[8];                               // 精灵图片 
 	MenuItemLabel* _label;                            // 文字标签 

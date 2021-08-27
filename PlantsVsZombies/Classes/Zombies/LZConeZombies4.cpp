@@ -13,10 +13,10 @@ ConeZombies4::ConeZombies4(Node* node)
 	_attackHeadSoundEffectType = 2;
 	_attackBodySoundEffectType = 0;
 	_bloodVolume = 200;
-	_headShieldVolume = 700;
+	_headShieldVolume = 800;
 	_bodyShieldVolume = 0;
 	_currentBloodVolume = 200;
-	_currentHeadShieldVolume = 700;
+	_currentHeadShieldVolume = 800;
 	_currentBodyShieldVolume = 0;
 	_speed = 40;
 	_currentSpeed = 40;

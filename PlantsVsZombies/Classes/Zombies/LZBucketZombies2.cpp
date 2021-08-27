@@ -13,10 +13,10 @@ BucketZombies2::BucketZombies2(Node* node)
 	_attackHeadSoundEffectType = 1;
 	_attackBodySoundEffectType = 0;
 	_bloodVolume = 200;
-	_headShieldVolume = 1300;
+	_headShieldVolume = 1400;
 	_bodyShieldVolume = 0;
 	_currentBloodVolume = 200;
-	_currentHeadShieldVolume = 1300;
+	_currentHeadShieldVolume = 1400;
 	_currentBodyShieldVolume = 0;
 	_speed = 40;
 	_currentSpeed = 40;

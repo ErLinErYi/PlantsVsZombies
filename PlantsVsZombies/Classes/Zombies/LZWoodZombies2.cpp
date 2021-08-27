@@ -13,10 +13,10 @@ WoodZombies2::WoodZombies2(Node* node)
 	_attackHeadSoundEffectType = 0;
 	_attackBodySoundEffectType = 0;
 	_bloodVolume = 200;
-	_headShieldVolume = 900;
+	_headShieldVolume = 1000;
 	_bodyShieldVolume = 0;
 	_currentBloodVolume = 200;
-	_currentHeadShieldVolume = 900;
+	_currentHeadShieldVolume = 1000;
 	_currentBodyShieldVolume = 0;
 	_speed = 40;
 	_currentSpeed = 40;

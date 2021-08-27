@@ -97,6 +97,8 @@ void SelectWorldScene::createSelectDifficulty()
 	checkbox->setAnchorPoint(Vec2(0, 1));
 	checkbox->setSelected(_global->userInformation->getGameDifficulty() ? true : false);
 	this->addChild(checkbox);
+
+	if (!checkWorldUnlock())checkbox->setEnabled(false);
 	
 	auto text = Text::create();
 	text->setPosition(Vec2(47, -20));
@@ -271,7 +273,9 @@ void SelectWorldScene::showDifferentWorlds()
 
 bool SelectWorldScene::checkWorldUnlock()
 {
-	return UserData::getInstance()->openIntUserData(const_cast<char*>(
-		StringUtils::format(_global->userInformation->getSystemCaveFileName().c_str(), 1).c_str())) >
-		static_cast<int>(SWSUnlockDialogLayer::unlockNeedNumbers);
+	auto number = UserData::getInstance()->openIntUserData(const_cast<char*>(
+		StringUtils::format(_global->userInformation->getSystemCaveFileName().c_str(), 1).c_str()));
+	auto number1= UserData::getInstance()->openIntUserData(const_cast<char*>(
+		StringUtils::format(_global->userInformation->getSystemDifCaveFileName().c_str(), 1).c_str()));
+	return max(number, number1) > static_cast<int>(SWSUnlockDialogLayer::unlockNeedNumbers);
 }

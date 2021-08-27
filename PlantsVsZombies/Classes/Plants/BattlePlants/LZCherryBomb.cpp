@@ -65,6 +65,11 @@ void CherryBomb::createPlantAnimation()
 	createListener();
 }
 
+void CherryBomb::setPlantNoramlAnimation()
+{
+	_plantAnimation->setAnimation(0, "CherryBomb_Normal", true);
+}
+
 void CherryBomb::createListener()
 {
 	_plantAnimation->setEventListener([this](spTrackEntry* entry, spEvent* event)

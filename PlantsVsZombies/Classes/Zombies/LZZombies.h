@@ -35,45 +35,42 @@ enum class ZombiesType
 	LmpZombies,                     /* 200  3*/
 	BalloonZombies,                 /* 200  4*/
 
-	ConeZombies,                    /* 600+200 800 5*/
+	ConeZombies,                    /* 600+200 800 5*/ /* 一级护盾 */
 	ConeZombies3,                   /* 600+200 800 6*/
 	ConeFlagZombies,                /* 600+200 800 7*/
 	DoorZombies,                    /* 600+200 800 8*/
 	NewspaperZombies,               /* 600+200 800 9*/
 
-	ConeZombies4,                   /* 700+200 900 10*/
-
-	ConeZombies2,                   /* 700+300 1000 11*/
+	ConeZombies4,                   /* 800+200 1000 10*/ /* 二级护盾 */
+	ConeZombies2,                   /* 800+200 1000 11*/
 	WoodZombies3,                   /* 800+200 1000 12*/
 	DoorZombies2,                   /* 800+200 1000 13*/
 
-	WoodZombies2,                   /* 900+200 1100 14*/
-
+	WoodZombies2,                   /* 1000+200 1200 14*/ /* 三级护盾 */
 	StrongNewspaperZombies,         /* 1000+200 1200 15*/
 	WoodZombies,                    /* 1000+200 1200 16*/
 	DoorZombies3,                   /* 1000+200 1200 17*/
 
-	CommonDoorZombies,              /* 1200+200 1400 18*/
+	CommonDoorZombies,              /* 1200+200 1400 18*/ /* 四级护盾 */
 	CommonDoorFlagZombies,          /* 1200+200 1400 19*/
 	BucketZombies,                  /* 1200+200 1400 20*/
 	BucketFlagZombies,              /* 1200+200 1400 21*/
 
-	BucketZombies2,                 /* 1300+200 1500 22*/
-	BucketZombies3,                 /* 1300+200 1500 23*/
-	BucketZombies4,                 /* 1300+200 1500 24*/
-
+	BucketZombies2,                 /* 1400+200 1500 22*/ /* 五级护盾 */
+	BucketZombies3,                 /* 1400+200 1500 23*/
+	BucketZombies4,                 /* 1400+200 1500 24*/
 	BucketZombies5,                 /* 1400+200 1600 25*/
 	BonesZombies2,                  /* 1400+200 1600 26*/
 
-	DoorZombies4,                   /* 1600+200 1800 27*/
+	DoorZombies4,                   /* 1600+200 1800 27*/ /* 六级护盾 */
 	BucketZombies6,                 /* 1600+200 1800 28*/
 
 	ConeDoorZombies,                /* 600+1200+200 2000 29*/
 	ConeDoorFlagZombies,            /* 600+1200+200 2000 30*/
-	BonesZombies,                   /* 1800+200 2000 31*/
+	BonesZombies,                   /* 1800+200 2000 31*/  /* 七级护盾 */
 	SnowZombies,                    /* 2000 32*/
 
-	DoorZombies5,                   /* 2000+200 2200 33*/
+	DoorZombies5,                   /* 2000+200 2200 33*/  /* 八级护盾 */
 	BrickZombies,                   /* 2000+200 2200 34*/
 	BrickZombies2,                  /* 2000+200 2200 35*/
 

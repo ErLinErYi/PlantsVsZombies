@@ -27,6 +27,7 @@ LoadingScene::LoadingScene() :
 	_imageNumbers(0),
 	_delayTime(0.2f),
 	_loadingPrecent(0),
+	_loadFailed(false),
 	_label(nullptr),
 	_loadingBar(nullptr),
 	_listener(nullptr),
@@ -289,6 +290,7 @@ void LoadingScene::runLoGoCallBack(Node* node, const int& ID)
 	case 1:
 		this->removeChildByName("7"); /* 从场景中移除名字为5的孩子 */
 		_sprite[0]->setVisible(true);  /* 设置精灵0可见 */
+		_sprite[0]->runAction(ScaleBy::create(2.f,1.1f));
 		_sprite[0]->runAction(Sequence::create(FadeIn::create(1.f),
 			FadeOut::create(1.f), CallFuncN::create(CC_CALLBACK_1(LoadingScene::runLoGoCallBack, this, 5)), nullptr));
 		break;
@@ -307,6 +309,7 @@ void LoadingScene::runLoGoCallBack(Node* node, const int& ID)
 	case 5:
 		this->removeChildByName("0"); /* 从场景中移除名字为1的孩子 */
 		_sprite[1]->setVisible(true);  /* 设置精灵1可见 */
+		_sprite[1]->runAction(ScaleBy::create(2.f, 1.1f));
 		_sprite[1]->runAction(Sequence::create(FadeIn::create(1.f),
 			FadeOut::create(1.f), CallFuncN::create(CC_CALLBACK_1(LoadingScene::runLoGoCallBack, this, 2)), nullptr));
 		break;
@@ -586,14 +589,21 @@ int LoadingScene::openResourcesPath(map<string, string>& Path, const std::string
 
 void LoadingScene::throwException()
 {
-#if CC_TARGET_PLATFORM == CC_PLATFORM_WIN32
+	wstring str = L"糟糕！发生了一些错误，部分资源文件加载失败！\n选择“重试”重新启动游戏，选择“取消”关闭游戏。";
+
+	if (_loadFailed)
+	{
+		PlayMusic::playMusic("buzzer", false);
+		MessageBoxW(_director->getOpenGLView()->getWin32Window(), str.c_str(), L"资源加载异常", MB_RETRYCANCEL);
+		Director::getInstance()->end();
+	}
+
 	this->runAction(Sequence::create(DelayTime::create(180.f), CallFunc::create([=]()
 		{
 			try
 			{
 				if (_loadFileNumbers > 10 && _loadFileNumbers < _allFileNumbers)
 				{
-					wstring str = L"糟糕！发生了一些错误，部分资源文件加载失败！\n选择“重试”重新启动游戏，选择“取消”关闭游戏。";
 					PlayMusic::playMusic("buzzer", false);
 					throw str;
 				}
@@ -601,6 +611,7 @@ void LoadingScene::throwException()
 			catch (wstring str)
 			{
 				const auto yon = MessageBoxW(_director->getOpenGLView()->getWin32Window(), str.c_str(), L"资源加载异常", MB_RETRYCANCEL);
+				Director::getInstance()->end();
 				/*if (yon == IDRETRY)
 				{
 					TCHAR szPath[MAX_PATH];
@@ -616,10 +627,8 @@ void LoadingScene::throwException()
 				{
 					Director::getInstance()->end();
 				}*/
-				Director::getInstance()->end();
 			}
 		}), nullptr));
-#endif
 }
 
 void LoadingScene::checkEdition()
@@ -679,7 +688,11 @@ void LoadingScene::loadingText(const char* language)
 			rapidjson::Document d;
 			d.Parse<rapidjson::kParseDefaultFlags>(str.c_str());
 
-			if (d.HasParseError()) continue;
+			if (d.HasParseError())
+			{
+				_loadFailed = true;
+				continue;
+			}
 
 			/* 读取语言 */
 			if (d.HasMember(language))
@@ -712,9 +725,16 @@ void LoadingScene::loadingImage()
 				{
 					_director->getTextureCache()->addImageAsync(i.second + "pvr.ccz", [=](Texture2D* texture)
 						{
-							SpriteFrameCache::getInstance()->addSpriteFramesWithFile(i.second + "plist", texture);
-							_loadFileNumbers++;     /* 文件数加一 */
-							_loadingPrecent = ((_loadFileNumbers * 1.0f) / _allFileNumbers) * 100;  /* 计算加载的百分比 */
+							try
+							{
+								SpriteFrameCache::getInstance()->addSpriteFramesWithFile(i.second + "plist", texture);
+								_loadFileNumbers++;     /* 文件数加一 */
+								_loadingPrecent = ((_loadFileNumbers * 1.0f) / _allFileNumbers) * 100;  /* 计算加载的百分比 */
+							}
+							catch (...)
+							{
+								_loadFailed = true;
+							}
 						});
 				}), nullptr));
 	}
@@ -736,6 +756,10 @@ void LoadingScene::loadingMusic()
 								_loadFileNumbers++;     /* 文件数加一 */
 								_loadingPrecent = ((_loadFileNumbers * 1.0f) / _allFileNumbers) * 100;  /* 计算加载的百分比 */
 							}
+							else
+							{
+								_loadFailed = true;
+							}
 						});
 				}), nullptr));
 		
@@ -751,17 +775,24 @@ void LoadingScene::loadingAnimation()
 		runAction(Sequence::create(DelayTime::create(++number * _delayTime),
 			CallFunc::create([=]()
 				{
-					/* 加载 */
-					auto json = spSkeletonJson_createWithLoader((spAttachmentLoader*)Cocos2dAttachmentLoader_create(
-						spAtlas_createFromFile(("resources/Animations/reanim/" + i.second + ".reanim").c_str(), nullptr)));
-					auto skeletonData = spSkeletonJson_readSkeletonDataFile(json, ("resources/Animations/compiled/" + i.second + ".compiled").c_str());
-					spSkeletonJson_dispose(json);
+					try
+					{
+						/* 加载 */
+						auto json = spSkeletonJson_createWithLoader((spAttachmentLoader*)Cocos2dAttachmentLoader_create(
+							spAtlas_createFromFile(("resources/Animations/reanim/" + i.second + ".reanim").c_str(), nullptr)));
+						auto skeletonData = spSkeletonJson_readSkeletonDataFile(json, ("resources/Animations/compiled/" + i.second + ".compiled").c_str());
+						spSkeletonJson_dispose(json);
 
-					/* 把加载到的动画放入map中 */
-					_global->userInformation->getAnimationData().insert(pair<string, spSkeletonData*>(i.second, skeletonData));
+						/* 把加载到的动画放入map中 */
+						_global->userInformation->getAnimationData().insert(pair<string, spSkeletonData*>(i.second, skeletonData));
 
-					/* 进行回调 */
-					loadingAnimationCallBack();
+						/* 进行回调 */
+						loadingAnimationCallBack();
+					}
+					catch(...)
+					{
+						_loadFailed = true;
+					}
 				}), nullptr));
 	}
 }

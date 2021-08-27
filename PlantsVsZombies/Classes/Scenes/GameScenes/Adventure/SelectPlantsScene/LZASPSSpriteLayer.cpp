@@ -238,7 +238,7 @@ void SPSSpriteLayer::plantsCardButtonEvent(Button* button, Vec2 vec2)
 
 	if (isPlantIsCanSelect[static_cast<unsigned int>(plantsCardInformation[button->getTag()].type)])
 	{
-		if (seedBankButton.size() > 4)/* 583 */
+		if (seedBankButton.size() >= 2)/* 583 */
 		{
 			((Button*)_seedChooser->getChildByName("Begin"))->setEnabled(true);
 			((Button*)_seedChooser->getChildByName("Begin"))->setTitleColor(Color3B::YELLOW);
@@ -480,7 +480,7 @@ void SPSSpriteLayer::sortPlantsCard(PlantsType type)
 		card.cardbutton->runAction(MoveTo::create(0.2f, Vec2(105, 1008 - 103 * ++i)));
 	}
 
-	if (seedBankButton.size() <= 4)
+	if (seedBankButton.size() < 3)
 	{
 		((Button*)_seedChooser->getChildByName("Begin"))->setEnabled(false);
 		((Button*)_seedChooser->getChildByName("Begin"))->setTitleColor(Color3B::WHITE);
@@ -523,7 +523,7 @@ void SPSSpriteLayer::startGame()
 		card.cardbutton->setColor(Color3B::GRAY);
 		card.cardbutton->setCascadeColorEnabled(true);
 	}
-	if (seedBankButton.size() > 4)
+	if (seedBankButton.size() > 2)
 	{
 		_seedChooser->runAction(Sequence::create(MoveTo::create(0.35f, Vec2(605, -600)),
 			CallFuncN::create(CC_CALLBACK_1(SPSSpriteLayer::selectPlantsCallBack, this)), nullptr));
@@ -537,11 +537,12 @@ void SPSSpriteLayer::controlPlantCanSelect(Button* button, int priority)
 	const auto coinNumber = _global->userInformation->getCoinNumbers();
 	const auto killZombiesNumber = _global->userInformation->getKillZombiesNumbers();
 
-	if (static_cast<unsigned int>(plantsCardInformation[priority].type) >= 9)
+	if (static_cast<unsigned int>(plantsCardInformation[priority].type) >= 0)
 	{
 		if (coinNumber < plantsCardInformation[priority].requirement.x ||
 			killZombiesNumber < plantsCardInformation[priority].requirement.y)
 		{
+			button->setVisible(false);
 			button->setColor(Color3B(70, 70, 70));
 			button->setCascadeColorEnabled(true);  /* 设置父节点影响子节点 */
 			isPlantIsCanSelect[static_cast<unsigned int>(plantsCardInformation[priority].type)] = false;

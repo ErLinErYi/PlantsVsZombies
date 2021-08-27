@@ -29,10 +29,6 @@ bool IOpenCaveGameLayer::init()
 	if (!Scene::init())return false;
 
 	isReadFile = true;
-
-	backgroundLayer();   // 背景层
-	informationLayer();  // 信息层
-	buttonLayer();       // 按钮层
 	
 	setName("GameScene");
 
@@ -41,6 +37,9 @@ bool IOpenCaveGameLayer::init()
 
 void IOpenCaveGameLayer::onEnterTransitionDidFinish()
 {
+	backgroundLayer();   // 背景层
+	informationLayer();  // 信息层
+	buttonLayer();       // 按钮层
 	animationLayer();    // 动画层
 	controlLayer();      // 控制层
 	goodsLayer();        // 物品层

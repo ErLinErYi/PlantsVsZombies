@@ -29,6 +29,14 @@ bool IZombiesScene::init()
 {
 	if (!Scene::init())return false;
 
+	setName("GameScene");
+	isRunGameScene = true;
+	
+	return true;
+}
+
+void IZombiesScene::onEnterTransitionDidFinish()
+{
 	backgroundLayer();   // 背景层
 	informationLayer();  // 信息层
 	buttonLayer();       // 按钮层
@@ -39,10 +47,6 @@ bool IZombiesScene::init()
 	controlPlayMusic();
 
 	pauseGame();
-	setName("GameScene");
-	isRunGameScene = true;
-	
-	return true;
 }
 
 void IZombiesScene::controlPlayMusic()

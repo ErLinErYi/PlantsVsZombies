@@ -1053,8 +1053,8 @@ void Zombies::setSmallZombieAttribute()
 		_currentBodyShieldVolume /= 2.0f;
 		
 		/* 速度增加 */
-		_speed = 40;
-		_currentSpeed = 40;
+		_speed *= 1.5f;
+		_currentSpeed *= 1.5f;
 
 		/* 身体变小，动作变快 */
 		_timeScale += 0.4f;
@@ -1070,16 +1070,16 @@ void Zombies::setBigZombieAttribute()
 	if (!_isUseForGameType)
 	{
 		/* 血量增大 */
-		_bloodVolume *= 2.0f;
-		_headShieldVolume *= 2.0f;
-		_bodyShieldVolume *= 2.0f;
-		_currentBloodVolume *= 2.0f;
-		_currentHeadShieldVolume *= 2.0f;
-		_currentBodyShieldVolume *= 2.0f;
+		_bloodVolume *= 2.5f;
+		_headShieldVolume *= 2.5f;
+		_bodyShieldVolume *= 2.5f;
+		_currentBloodVolume *= 2.5f;
+		_currentHeadShieldVolume *= 2.5f;
+		_currentBodyShieldVolume *= 2.5f;
 		
 		/* 速度减少 */
-		_speed = 20;
-		_currentSpeed = 20;
+		_speed /= 2.f;
+		_currentSpeed /= 2.f;
 
 		/* 身体变大，动作变慢 */
 		_timeScale -= 0.3f;
