@@ -678,12 +678,6 @@ void GSControlLayer::mouseDownControl(EventMouse* eventmouse)
 	default:
 		break;
 	}
-	
-	if (_selectPlantsTag != PlantsType::None) 
-	{
-		buttonLayerInformation->plantsCards[static_cast<unsigned int>(_selectPlantsTag)].plantsCards->getChildByName("seedPacketFlash")->setColor(Color3B::WHITE);
-		buttonLayerInformation->plantsCards[static_cast<unsigned int>(_selectPlantsTag)].plantsCards->getChildByName("seedPacketFlash")->setVisible(false);
-	}
 }
 
 void GSControlLayer::mouseLeftButtonDownControl()
@@ -723,6 +717,9 @@ void GSControlLayer::mouseLeftButtonDownControl()
 					CallFunc::create([=]() { buttonLayerInformation->plantsCards[plantsTag].timeBarIsFinished = true; }), nullptr)
 			);
 			removePreviewPlant();
+
+			buttonLayerInformation->plantsCards[static_cast<unsigned int>(_selectPlantsTag)].plantsCards->getChildByName("seedPacketFlash")->setColor(Color3B::WHITE);
+			buttonLayerInformation->plantsCards[static_cast<unsigned int>(_selectPlantsTag)].plantsCards->getChildByName("seedPacketFlash")->setVisible(false);
 		}
 		else
 		{
@@ -730,26 +727,13 @@ void GSControlLayer::mouseLeftButtonDownControl()
 			{
 				PlayMusic::playMusic("buzzer");
 
-				if (_isImitater)
-				{
-					buttonLayerInformation->mouseSelectImage->selectPlantsId = PlantsType::Imitater;
-				}
-				/* 卡牌颜色恢复 */
-				buttonLayerInformation->plantsCards[static_cast<unsigned int>(buttonLayerInformation->mouseSelectImage->selectPlantsId)].progressTimer->setPercentage(0);
-				buttonLayerInformation->plantsCards[static_cast<unsigned int>(buttonLayerInformation->mouseSelectImage->selectPlantsId)].plantsCards->setColor(Color3B::WHITE);
-
 				/* 提示信息 */
 				informationLayerInformation->createPromptText();
-
-				removePreviewPlant();
-
-				/* 加上所需的阳光数并更新 */
-				_global->userInformation->setSunNumbers(_global->userInformation->getSunNumbers() +
-					buttonLayerInformation->plantsCards[static_cast<unsigned int>(buttonLayerInformation->mouseSelectImage->selectPlantsId)].plantsNeedSunNumbers);
-				informationLayerInformation->updateSunNumbers();
-
-				/* 植物要求更新 */
-				informationLayerInformation->gameType->updateRequirementNumbers("植物数量增加");
+			}
+			else
+			{
+				buttonLayerInformation->plantsCards[static_cast<unsigned int>(_selectPlantsTag)].plantsCards->getChildByName("seedPacketFlash")->setColor(Color3B::WHITE);
+				buttonLayerInformation->plantsCards[static_cast<unsigned int>(_selectPlantsTag)].plantsCards->getChildByName("seedPacketFlash")->setVisible(false);
 			}
 		}
 	}
@@ -799,6 +783,9 @@ void GSControlLayer::mouseRightButtonDownControl()
 
 			removePreviewPlant();
 		}
+
+		buttonLayerInformation->plantsCards[static_cast<unsigned int>(_selectPlantsTag)].plantsCards->getChildByName("seedPacketFlash")->setColor(Color3B::WHITE);
+		buttonLayerInformation->plantsCards[static_cast<unsigned int>(_selectPlantsTag)].plantsCards->getChildByName("seedPacketFlash")->setVisible(false);
 	}
 
 	if (buttonLayerInformation->mouseSelectImage->isSelectShovel) /* 鼠标上有铲子 */

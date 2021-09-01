@@ -218,6 +218,7 @@ Button* SPSSpriteLayer::createButtons(const Vec2& vec2, int priority)
 			{
 			case ui::Widget::TouchEventType::ENDED:
 				PlayMusic::playMusic("tap");
+
 				plantsCardButtonEvent(button, vec2);
 				break;
 			}
@@ -245,7 +246,7 @@ void SPSSpriteLayer::plantsCardButtonEvent(Button* button, Vec2 vec2)
 		}
 		if (seedBankButton.size() < 9)
 		{
-			button->setEnabled(false);
+			button->setTouchEnabled(false);
 			button->setColor(Color3B(70, 70, 70));
 			button->setCascadeColorEnabled(true);  /* 设置父节点影响子节点 */
 
@@ -265,11 +266,10 @@ void SPSSpriteLayer::createMoveButton(Button* button, const Vec2& vec2)
 	moveCard->setTitleColor(Color3B::RED);
 	moveCard->setTitleFontSize(25);
 	moveCard->setTag(button->getTag());
-	moveCard->setEnabled(false);
-	moveCard->setBright(true);
-	this->addChild(moveCard);
+	moveCard->setTouchEnabled(false);
 	moveCard->runAction(Sequence::create(MoveTo::create(0.35f, Vec2(105, 1008 - 103 * seedBankButton.size())), 
-		CallFunc::create([moveCard]() {moveCard->setEnabled(true); }), nullptr));
+		CallFunc::create([moveCard]() {moveCard->setTouchEnabled(true); }), nullptr));
+	this->addChild(moveCard);
 		
 	showPlantsInformation(moveCard);   // 显示信息
 	createButtonHoverEffect(moveCard); // 鼠标悬停信息
@@ -287,6 +287,7 @@ void SPSSpriteLayer::createMoveButton(Button* button, const Vec2& vec2)
 			{
 			case ui::Widget::TouchEventType::ENDED: 
 				PlayMusic::playMusic("tap2");
+				moveCard->setTouchEnabled(false);
 				plantsMoveCardButtonEvent(button, moveCard, vec2, plantCardRollingDistanceLast);
 				break;
 			}
@@ -313,7 +314,7 @@ void SPSSpriteLayer::plantsMoveCardButtonEvent(Button* button, Button* moveCard,
 		CallFunc::create([=]()
 			{
 				moveCard->removeFromParent();   /* 删除移动卡牌 */
-				button->setEnabled(true);       /* 设置卡牌精灵可以再次选择 */
+				button->setTouchEnabled(true);  /* 设置卡牌精灵可以再次选择 */
 				button->setColor(Color3B::WHITE);
 			}), nullptr));
 }
@@ -477,6 +478,7 @@ void SPSSpriteLayer::sortPlantsCard(PlantsType type)
 	int i = -1;
 	for (auto& card : seedBankButton)
 	{
+		card.cardbutton->stopAllActions();
 		card.cardbutton->runAction(MoveTo::create(0.2f, Vec2(105, 1008 - 103 * ++i)));
 	}
 

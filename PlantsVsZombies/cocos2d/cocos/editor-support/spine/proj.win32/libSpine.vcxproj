@@ -117,6 +117,9 @@
     <ClInclude Include="..\VertexAttachment.h" />
     <ClInclude Include="..\VertexEffect.h" />
   </ItemGroup>
+  <ItemGroup>
+    <Text Include="..\CMakeLists.txt" />
+  </ItemGroup>
   <PropertyGroup Label="Globals">
     <ProjectGuid>{B7C2A162-DEC9-4418-972E-240AB3CBFCAE}</ProjectGuid>
     <RootNamespace>libSpine</RootNamespace>

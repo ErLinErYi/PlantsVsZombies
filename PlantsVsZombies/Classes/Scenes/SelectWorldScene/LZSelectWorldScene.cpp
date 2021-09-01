@@ -98,7 +98,16 @@ void SelectWorldScene::createSelectDifficulty()
 	checkbox->setSelected(_global->userInformation->getGameDifficulty() ? true : false);
 	this->addChild(checkbox);
 
-	if (!checkWorldUnlock())checkbox->setEnabled(false);
+	if (!checkWorldUnlock())
+	{
+		checkbox->setEnabled(false);
+		if (checkbox->isSelected())
+		{
+			checkbox->setSelected(false);
+			_global->userInformation->setGameDifficulty(0);
+			UserData::getInstance()->caveUserData(const_cast<char*>("DIFFICULTY"), _global->userInformation->getGameDifficulty());
+		}
+	}
 	
 	auto text = Text::create();
 	text->setPosition(Vec2(47, -20));

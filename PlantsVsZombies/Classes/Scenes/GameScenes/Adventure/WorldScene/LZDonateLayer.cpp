@@ -59,16 +59,27 @@ void DonateLayer::createText()
 
 void DonateLayer::createButtons()
 {
+	int n = rand() % 2 ? -1 : 1;
 	auto button = Button::create("ButtonNew.png", "ButtonNew2.png", "", cocos2d::ui::Widget::TextureResType::PLIST);
 	auto label = Label::createWithTTF(_global->userInformation->getGameText().find("无情离开")->second->text,
 		GAME_FONT_NAME_1, _global->userInformation->getGameText().find("无情离开")->second->fontsize);
 	label->enableShadow(Color4B(0, 0, 0, 200));//设置阴影
 	label->setScale(2.0f);
 	button->setTitleLabel(label);
-	button->setPosition(Vec2(Director::getInstance()->getWinSize().width / 2.f, 200));
+	button->setPosition(Vec2(Director::getInstance()->getWinSize().width / 2.f - 200 * n, 200));
 	button->setScale(0.5f);
 	button->setGlobalZOrder(1);
 	this->addChild(button);
+
+	auto button1 = Button::create("ButtonNew.png", "ButtonNew2.png", "", cocos2d::ui::Widget::TextureResType::PLIST);
+	auto label1 = Label::createWithTTF("捐赠者名单", GAME_FONT_NAME_1, 30);
+	label1->enableShadow(Color4B(0, 0, 0, 200));//设置阴影
+	label1->setScale(2.0f);
+	button1->setTitleLabel(label1);
+	button1->setPosition(Vec2(Director::getInstance()->getWinSize().width / 2.f + 200 * n, 200));
+	button1->setScale(0.5f);
+	button1->setGlobalZOrder(1);
+	this->addChild(button1);
 
 	button->addTouchEventListener([=](Ref* sender, Widget::TouchEventType type)
 		{
@@ -77,6 +88,17 @@ void DonateLayer::createButtons()
 			case Widget::TouchEventType::ENDED:
 				PlayMusic::playMusic("gravebutton");
 				deleteDialog();
+				break;
+			}
+		});
+
+	button1->addTouchEventListener([=](Ref* sender, Widget::TouchEventType type)
+		{
+			switch (type)
+			{
+			case Widget::TouchEventType::ENDED:
+				PlayMusic::playMusic("gravebutton");
+				Application::getInstance()->openURL("https://gitlz.gitee.io/lz/donate.html");
 				break;
 			}
 		});

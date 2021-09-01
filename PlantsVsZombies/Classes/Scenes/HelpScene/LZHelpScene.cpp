@@ -74,10 +74,12 @@ void HelpScene::createText()
 	addMouseEvent();
 
 	auto pos = Director::getInstance()->getWinSize().width / 2;
-	openUrl("官方网站", "https://gitlz.gitee.io/lz", Vec2(pos - 300, 30));
-	openUrl("关注作者", "https://space.bilibili.com/351783071", Vec2(pos - 100, 30));
-	openUrl("源码下载", "https://github.com/ErLinErYi/PlantsVsZombies", Vec2(pos + 100, 30));
-	openUrl("捐赠我们", "https://gitlz.gitee.io/lz/assets/images/fk.png", Vec2(pos + 300, 30));
+	openUrl("官方网站", "https://gitlz.gitee.io/lz", Vec2(pos - 500, 30));
+	openUrl("关注作者", "https://space.bilibili.com/351783071", Vec2(pos - 300, 30));
+	openUrl("源码下载", "https://github.com/ErLinErYi/PlantsVsZombies", Vec2(pos - 100, 30));
+	openUrl("捐赠我们", "https://gitlz.gitee.io/lz/assets/images/fk.png", Vec2(pos + 100, 30));
+	openUrl("捐赠者名单", "https://gitlz.gitee.io/lz/donate.html", Vec2(pos + 300, 30));
+	openUrl("bug反馈", "https://support.qq.com/product/348645", Vec2(pos + 500, 30));
 }
 
 void HelpScene::openUrl(string name, string url, Vec2 postion)
