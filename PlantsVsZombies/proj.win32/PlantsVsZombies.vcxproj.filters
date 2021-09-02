@@ -704,6 +704,9 @@
     <ClCompile Include="..\Classes\Scenes\GameScenes\IZombies\GameScene\LZITemporaryReplaceScene.cpp">
       <Filter>Class\Scenes\GameScenes\IZombies\GameScene</Filter>
     </ClCompile>
+    <ClCompile Include="..\Classes\Scenes\GameScenes\IZombies\GameScene\LZIRequirementLayer.cpp">
+      <Filter>Class\Scenes\GameScenes\IZombies\GameScene</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="..\Classes\LZPlantsVsZombies.h">
@@ -1310,6 +1313,9 @@
       <Filter>Class\Plants\EmissionPlants\Bullet</Filter>
     </ClInclude>
     <ClInclude Include="..\Classes\Scenes\GameScenes\IZombies\GameScene\LZITemporaryReplaceScene.h">
+      <Filter>Class\Scenes\GameScenes\IZombies\GameScene</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Classes\Scenes\GameScenes\IZombies\GameScene\LZIRequirementLayer.h">
       <Filter>Class\Scenes\GameScenes\IZombies\GameScene</Filter>
     </ClInclude>
   </ItemGroup>

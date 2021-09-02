@@ -24,7 +24,8 @@ protected:
 	virtual void createQuitDialog() override;
 	virtual void createKeyBoardListener() override;
 	virtual void createZombiesCard();
-	virtual void showZombiesInformation(Button* button, int type);;
+	virtual void showZombiesInformation(Button* button, int type);
+	virtual void showModeInformation();
 
 public:
 	struct ZombiesCardButton

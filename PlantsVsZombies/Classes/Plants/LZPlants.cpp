@@ -307,7 +307,7 @@ bool Plants::getZombieIsSameLineWithPlant(Zombies* zombie)
 
 bool Plants::getZombieIsEncounterPlant(Zombies* zombie)
 {
-	return zombie->getZombiePositionX() + 35 > _plantAnimation->getPositionX() &&
+	return zombie->getZombiePositionX() + 20 > _plantAnimation->getPositionX() &&
 		zombie->getZombiePositionX() - _plantAnimation->getPositionX() <= 70;
 }
 

@@ -23,6 +23,7 @@ CC_CONSTRUCTOR_ACCESS:
 private:
 	void zombieEatPlant(Zombies* zombie) override;
 	void zombieRecoveryMove(Zombies* zombie) override;
+	void zombieAttackPlant(Zombies* zombie) override;
 	void checkPlantHealthPoint() override;
 	bool getPlantIsSurvive() const override;
 	SkeletonAnimation* showPlantAnimationAndText() override;

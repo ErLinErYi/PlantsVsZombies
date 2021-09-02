@@ -24,8 +24,8 @@
 HControlLayer::HControlLayer() :
 	_hammer(nullptr),
 	_attack(100),
-	_frequencyZombiesNumbers(15),
-	_maxFrequencyNumbers(5),
+	_frequencyZombiesNumbers(10),
+	_maxFrequencyNumbers(3),
 	_currentLevelNumber(1),
 	_zombiesTypeNumbers(1),
 	_mostLevelNumber(1),
@@ -342,7 +342,7 @@ void HControlLayer::calculateZombiesData()
 {
 	_currentLevelNumber = max(UserData::getInstance()->openIntUserData(const_cast<char*>("HAMMERZOMBIES_LEVEL_NUMBER")), 1);
 	_mostLevelNumber = max(static_cast<int>(_currentLevelNumber), UserData::getInstance()->openIntUserData(const_cast<char*>("MOST_HAMMERZOMBIES_LEVEL_NUMBER")));
-	_maxFrequencyNumbers += min(static_cast<int>(_currentLevelNumber / 4), 10);
+	_maxFrequencyNumbers += min(static_cast<int>(_currentLevelNumber / 20), 3);
 	_zombiesTypeNumbers = min(static_cast<int>(_zombiesTypeNumbers + _currentLevelNumber / 3), ZOMBIESNUMBERS);
 	_currentLevelZombiesSpeed += _currentLevelNumber * 0.02f;
 	_attack = hammerInformation[HButtonLayer::selectedHammer].lowAttack + min(hammerInformation[HButtonLayer::selectedHammer].HigtAttack,

@@ -7,6 +7,7 @@
 
 #include "LZIButtonLayer.h"
 #include "LZIPauseQuiteLayer.h"
+#include "LZIRequirementLayer.h"
 #include "Scenes/GameScenes/Adventure/GameScene/LZAGSPauseLayer.h"
 #include "Scenes/GameScenes/Adventure/SelectPlantsScene/LZASPSSpriteLayer.h"
 #include "Based/LZPlayMusic.h"
@@ -44,6 +45,7 @@ bool IButtonLayer::init()
 	createZombiesCard();
 	stopButton = createButton("StopButton", "StopButtonDown", Vec2(1870, 1030), GSLayerButton::stopButton);
 	_accelerateButton = createButton("SpeedButton", "SpeedButtonDown", Vec2(1770, 1030), GSLayerButton::accelerateButton);
+	createButton("Requirement", "RequirementDown", Vec2(1670, 1030), GSLayerButton::informationButton);
 	createKeyBoardListener();
 
 	return true;
@@ -69,6 +71,9 @@ Button* IButtonLayer::createButton(const string& normal, const string& select, c
 					break;
 				case GSLayerButton::accelerateButton:
 					controlAccelerateScheduler();
+					break;
+				case GSLayerButton::informationButton:
+					showModeInformation();
 					break;
 				}
 				break;
@@ -168,4 +173,9 @@ void IButtonLayer::showZombiesInformation(Button* button, int type)
 	plantsLevelText->setFontSize(25);
 	plantsLevelText->setString(zombiesCardInformation[type].information[1]);
 	button->addChild(plantsLevelText);
+}
+
+void IButtonLayer::showModeInformation()
+{
+	Director::getInstance()->getRunningScene()->addChild(IRequriementLayer::create(),10);
 }

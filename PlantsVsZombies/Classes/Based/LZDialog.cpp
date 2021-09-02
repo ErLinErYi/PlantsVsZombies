@@ -89,7 +89,7 @@ void Dialog::createText()
 	information->setPosition(Vec2(_dialog->getContentSize().width / 2.0f, _dialog->getContentSize().height / 2.0f + 80));
 	_dialog->addChild(information);
 
-	auto information1 = Text::create(_strText, GAME_FONT_NAME_1, 30);
+	auto information1 = Text::create(_strText, GAME_FONT_NAME_1, _global->userInformation->getGameText().find("确认说明")->second->fontsize);
 	information1->setColor(Color3B::RED);
 	information1->setPosition(Vec2(_dialog->getContentSize().width / 2.0f, _dialog->getContentSize().height / 2.0f));
 	_dialog->addChild(information1);

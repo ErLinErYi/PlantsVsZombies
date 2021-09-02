@@ -10,6 +10,7 @@
 #include "Zombies/LZZombies.h"
 #include "Scenes/GameScenes/Adventure/GameScene/LZAGSData.h"
 #include "Scenes/GameScenes/Adventure/SelectPlantsScene/LZASPSSpriteLayer.h"
+#include "Scenes/GameScenes/Adventure/GameScene/LZAGSBackgroundLayer.h"
 #include "Based/LZPlayMusic.h"
 
 Garlic::Garlic(Node* node):
@@ -77,20 +78,29 @@ void Garlic::zombieEatPlant(Zombies* zombie)
 	{
 		if (zombie->getZombieIsSurvive() && !zombie->getZombieIsEat() && zombie->getZombieIsFrozen() != 2)
 		{
-			const string eateffect[3] = { "chomp","chomp2","chompsoft" };
-			PlayMusic::playMusic(eateffect[rand() % 3]);
-
-			setPlantHurtBlink();
 			zombie->setZombieEatPlantNumber(_plantNumber);
 			zombie->setZombieStop();
 			zombie->setZombieIsEat(true);
-			zombie->setZombieIsEatGarlic(true);
-			zombie->getZombieAnimation()->setAnimation(0, "Zombies_Eat", true);
-			zombie->getZombieAnimation()->runAction(Sequence::create(DelayTime::create(1.0f),
-				CallFunc::create([=]()
-					{
-						effectZombies(zombie);
-					}), nullptr));
+
+			if (zombie->getZombieType() == ZombiesType::GargantuarZombies)
+			{
+				zombieAttackPlant(zombie);
+			}
+			else
+			{
+				const string eateffect[3] = { "chomp","chomp2","chompsoft" };
+				PlayMusic::playMusic(eateffect[rand() % 3]);
+
+				setPlantHurtBlink();
+				
+				zombie->setZombieIsEatGarlic(true);
+				zombie->getZombieAnimation()->setAnimation(0, "Zombies_Eat", true);
+				zombie->getZombieAnimation()->runAction(Sequence::create(DelayTime::create(1.0f),
+					CallFunc::create([=]()
+						{
+							effectZombies(zombie);
+						}), nullptr));
+			}
 		}
 	}
 }
@@ -116,6 +126,28 @@ void Garlic::effectZombies(Zombies* zombie)
 						}), nullptr));
 			}
 		}
+	}
+}
+
+void Garlic::zombieAttackPlant(Zombies* zombie)
+{
+	if (!strcmp(zombie->getZombieAnimation()->getCurrent()->animation->name, "Zombies_Walk"))
+	{
+		auto track = zombie->getZombieAnimation()->setAnimation(0, "Zombies_Attack", true);
+		zombie->getZombieAnimation()->setTrackEventListener(track, [=](spTrackEntry* entry, spEvent* event)
+			{
+				if (!strcmp(event->data->name, "attack") && zombie->getZombieIsSurvive())
+				{
+					PlayMusic::playMusic("gargantuar_thump");
+					GSBackgroundLayer::backgroundRunAction();
+					setPlantHealthPoint(0);
+
+					zombie->getZombieAnimation()->setTrackEventListener(zombie->getZombieAnimation()->getCurrent(), nullptr);
+					zombie->getZombieAnimation()->addAnimation(0, "Zombies_Walk", true);
+					zombie->setZombieIsEat(false);
+					zombie->setZombieCurrentSpeed(zombie->getZombieSpeed());
+				}
+			});
 	}
 }
 
