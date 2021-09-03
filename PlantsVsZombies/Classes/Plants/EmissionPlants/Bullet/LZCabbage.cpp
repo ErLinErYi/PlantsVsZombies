@@ -215,8 +215,17 @@ Vec2 Cabbage::getBulletInitialPosition()
 bool Cabbage::getBulletIsEncounterWithZombie(Zombies* zombie)
 {
 	const auto& rect = zombie->getZombieAnimation()->getBoundingBox();
-	return _bulletAnimation->getBoundingBox().intersectsRect(
-		Rect(rect.origin.x + 70, rect.origin.y - 70, rect.size.width, rect.size.height));
+	const auto data = OpenLevelData::getInstance()->readLevelData(OpenLevelData::getInstance()->getLevelNumber());
+	if (data && data->getZombiesIsSmall())
+	{
+		return _bulletAnimation->getBoundingBox().intersectsRect(
+			Rect(rect.origin.x + 35, rect.origin.y - 35, rect.size.width, rect.size.height));
+	}
+	else
+	{
+		return _bulletAnimation->getBoundingBox().intersectsRect(
+			Rect(rect.origin.x + 70, rect.origin.y - 70, rect.size.width, rect.size.height));
+	}
 }
 
 void Cabbage::bulletAttackHurtZombies(Zombies* zombie)
