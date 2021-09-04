@@ -19,6 +19,7 @@
 #include "Based/LZPlayMusic.h"
 #include "Based/LZUserData.h"
 #include "Plants/LZPlants.h"
+#include "Plants/DefensePlants/LZPumpkin.h"
 #include "Zombies/LZZombies.h"
 
 bool BMControlLayer::isLose = false;
@@ -112,17 +113,17 @@ void BMControlLayer::createMouseListener()
 {
 	/* 创建鼠标监听 */
 	_listener = EventListenerMouse::create();
-	_listener->setEnabled(false);
+	//_listener->setEnabled(false);
 
 	/* 鼠标移动 */
 	_listener->onMouseMove = [&](Event* event)
 	{
 		/* 获取鼠标位置 */
-		_cur = static_cast<EventMouse*>(event)->getLocationInView();
+		_cur = static_cast<EventMouse*>(event)->getLocationInView() * 2;
 		calculatePlantPosition();
 		mouseMoveControl();
-		showSelectedButtonHoverEffect();
-		changeScrollViewOffset();
+		showSelectedButtonHoverEffect(_cur / 2.f);
+		//changeScrollViewOffset();
 	};
 
 	/* 鼠标按下 */
@@ -134,26 +135,37 @@ void BMControlLayer::createMouseListener()
 
 	_listener->onMouseScroll = [&](Event* event)
 	{
-		const float scrollY = static_cast<EventMouse*>(event)->getScrollY() * 300;
-		auto offset = BigMapGameScene::scrollView->getContentOffset();
-		offset = Vec2(offset.x, offset.y + scrollY);
-		if (offset.y > 0)offset.y = 0;
-		if (offset.y < -1080)offset.y = -1080;
-		BigMapGameScene::scrollView->setContentOffsetInDuration(offset, 0.1f);
+		//const float scrollY = static_cast<EventMouse*>(event)->getScrollY() * 300;
+		//auto offset = BigMapGameScene::scrollView->getContentOffset();
+		//offset = Vec2(offset.x, offset.y + scrollY);
+		//if (offset.y > 0)offset.y = 0;
+		//if (offset.y < -1080)offset.y = -1080;
+		//BigMapGameScene::scrollView->setContentOffsetInDuration(offset, 0.1f);
+		//auto layer = BigMapGameScene::scrollView->getContainer();
+		//if (!layer->getActionByTag(0))
+		//{
+		//	BigMapGameScene::scrollView->setContentOffsetInDuration(Vec2(-1120, -540), 0.5f, 2);
+		//	auto action = Sequence::create(
+		//		EaseSineOut::create(ScaleTo::create(0.5f, .5f)), DelayTime::create(0.5f),
+		//		EaseSineOut::create(ScaleTo::create(1.f, 1.f)), nullptr);
+		//	action->setTag(0);
+		//	layer->runAction(action);
+		//}
 	};
 
 	_director->getEventDispatcher()->addEventListenerWithSceneGraphPriority(_listener, this);
-	runAction(Sequence::create(DelayTime::create(3.1f), 
+	/*runAction(Sequence::create(DelayTime::create(3.1f), 
 		CallFunc::create([=]() 
 			{
 				_listener->setEnabled(true);
-			}), nullptr));
+			}), nullptr));*/
 }
 
-Vec2 BMControlLayer::addScrollViewOffset(Vec2& vec2)
+Vec2 BMControlLayer::addScrollViewOffset(const Vec2& vec2)
 {
-	auto offset = BigMapGameScene::scrollView->getContentOffset();
-	return Vec2(vec2.x + fabs(offset.x), vec2.y + fabs(offset.y));
+	//auto offset = BigMapGameScene::scrollView->getContentOffset();
+	//return Vec2(vec2.x + fabs(offset.x), vec2.y + fabs(offset.y)) + Vec2(220, 0);
+	return vec2 + Vec2(220, 0);
 }
 
 void BMControlLayer::changeScrollViewOffset()
@@ -225,10 +237,11 @@ void BMControlLayer::createPreviewPlants()
 	curPlants = GSAnimationLayer::createDifferentPlants(_selectPlantsTag, animationLayerInformation);
 
 	_plantPreviewImage = previewPlants->createPlantImage();
-
+	
 	_plantCurImage = curPlants->createPlantImage();
 	_plantCurImage->setOpacity(255);
-	_plantCurImage->setPosition(addScrollViewOffset(_cur));
+	//_plantCurImage->setPosition(addScrollViewOffset(_cur));
+	_plantCurImage->setPosition(SET_OUT_MAP);
 	_plantCurImage->setGlobalZOrder(10);
 }
 
@@ -246,14 +259,6 @@ void BMControlLayer::mouseDownControl(EventMouse* eventmouse)
 		break;
 	default:
 		break;
-	}
-
-	if (_selectPlantsTag != PlantsType::None)
-	{
-		buttonLayerInformation->plantsCards[static_cast<unsigned int>
-			(_selectPlantsTag)].plantsCards->getChildByName("seedPacketFlash")->setColor(Color3B::WHITE);
-		buttonLayerInformation->plantsCards[static_cast<unsigned int>
-			(_selectPlantsTag)].plantsCards->getChildByName("seedPacketFlash")->setVisible(false);
 	}
 }
 
@@ -310,7 +315,7 @@ void BMControlLayer::mouseMoveControl()
 		{
 			checkPlantType(1);
 		}
-		buttonLayerInformation->shovelImage->setPosition(_cur + Vec2(35, 50));
+		buttonLayerInformation->shovelImage->setPosition(_cur / 2.f + Vec2(35, 50));
 	}
 }
 
@@ -346,17 +351,17 @@ void BMControlLayer::checkPlantType(const int type)
 	if (n != CAN_NOT_PLANT && (n != NO_PLANTS || m))
 	{
 		auto plant = animationLayerInformation->getChildByTag(SET_TAG(_plantsPosition));
-		auto plant1 = animationLayerInformation->getChildByTag(SET_TAG(_plantsPosition) + 1000);
+		auto plant1 = animationLayerInformation->getChildByTag(SET_TAG(_plantsPosition) + Pumpkin::tagAddition);
 
 		if (type == 0)
 		{
 			if (plant && plant1 && plant->isVisible() && plant1->isVisible())
 			{
-				if (plant1->getBoundingBox().containsPoint(addScrollViewOffset(_cur)))
+				if (plant1->getBoundingBox().containsPoint(addScrollViewOffset(_cur * 2)))
 				{
 					animationLayerInformation->deletePlants(1);/* 铲除植物 */
 				}
-				else if (plant->getBoundingBox().containsPoint(addScrollViewOffset(_cur)))
+				else if (plant->getBoundingBox().containsPoint(addScrollViewOffset(_cur * 2)))
 				{
 					animationLayerInformation->deletePlants();/* 铲除植物 */
 				}

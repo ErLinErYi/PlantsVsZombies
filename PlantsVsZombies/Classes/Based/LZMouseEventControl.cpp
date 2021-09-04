@@ -43,9 +43,11 @@ void MouseEventControl::goodsRecovery(Node* node, SkeletonAnimation* animation)
 
 		if (BigMapGameScene::scrollView)
 		{
-			offset = BigMapGameScene::scrollView->getContentOffset();
+			//offset = BigMapGameScene::scrollView->getContentOffset();
+			point = point * 2 + Vec2(220, 0);
 		}
-		goodsRecovery(Vec2(point.x + fabs(offset.x), point.y + fabs(offset.y)), animation);
+		//goodsRecovery(Vec2(point.x + fabs(offset.x), point.y + fabs(offset.y)), animation);
+		goodsRecovery(point, animation);
 		return true;
 	};
 	Director::getInstance()->getEventDispatcher()->addEventListenerWithSceneGraphPriority(linster, node);

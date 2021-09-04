@@ -193,7 +193,7 @@ void GSControlLayer::createMouseListener()
 		_cur = ((EventMouse*)event)->getLocationInView();
 		calculatePlantPosition();
 		mouseMoveControl();
-		showSelectedButtonHoverEffect();
+		showSelectedButtonHoverEffect(_cur);
 	};
 
 	/* 鼠标按下 */
@@ -246,7 +246,7 @@ void GSControlLayer::createPlantsCardListener()
 	}
 }
 
-void GSControlLayer::showSelectedButtonHoverEffect()
+void GSControlLayer::showSelectedButtonHoverEffect(Vec2 vec2)
 {
 	for (auto& card : _global->userInformation->getUserSelectCrads())
 	{
@@ -256,7 +256,7 @@ void GSControlLayer::showSelectedButtonHoverEffect()
 				buttonLayerInformation->plantsCards[card.cardTag].plantsNeedSunNumbers <= _global->userInformation->getSunNumbers())
 			{
 				buttonLayerInformation->plantsCards[card.cardTag].plantsCards->getChildByName("seedPacketFlash")->setVisible(
-					buttonLayerInformation->plantsCards[card.cardTag].plantsCards->getBoundingBox().containsPoint(_cur));
+					buttonLayerInformation->plantsCards[card.cardTag].plantsCards->getBoundingBox().containsPoint(vec2));
 			}
 			else
 			{
@@ -554,7 +554,7 @@ void GSControlLayer::recoveryPlantsColor()
 			}
 			if (gameMapInformation->plantsMap[i][j] != CAN_NOT_PLANT && gameMapInformation->plantPumpkin[i][j])
 			{
-				auto plant = animationLayerInformation->getChildByTag(SET_TAG(Vec2(j, i)) + 1000);
+				auto plant = animationLayerInformation->getChildByTag(SET_TAG(Vec2(j, i)) + Pumpkin::tagAddition);
 				if (plant)
 				{
 					plant->setColor(Color3B::WHITE);
@@ -807,7 +807,7 @@ void GSControlLayer::checkPlantType(const int type)
 	if (n != CAN_NOT_PLANT && (n != NO_PLANTS || m))
 	{
 		auto plant = animationLayerInformation->getChildByTag(SET_TAG(_plantsPosition));
-		auto plant1 = animationLayerInformation->getChildByTag(SET_TAG(_plantsPosition) + 1000);
+		auto plant1 = animationLayerInformation->getChildByTag(SET_TAG(_plantsPosition) + Pumpkin::tagAddition);
 
 		if (type == 0)
 		{

@@ -219,7 +219,7 @@ void GSAnimationLayer::deletePlants(const int type)
 	}
 	else
 	{
-		auto multimap_iter = PlantsGroup.equal_range(SET_TAG(controlLayerInformation->_plantsPosition) + 1000);
+		auto multimap_iter = PlantsGroup.equal_range(SET_TAG(controlLayerInformation->_plantsPosition) + Pumpkin::tagAddition);
 		for (auto& plant = multimap_iter.first; plant != multimap_iter.second; ++plant)
 		{
 			plant->second->setPlantRemoveFromMap();
@@ -286,6 +286,7 @@ void GSAnimationLayer::showCars()
 					auto car = new Car(this);
 					car->setPosition(Vec2(490, 180 + 138 * i));
 					car->setInRow(i);
+					car->setScale(0.8f);
 					car->showCar(CarType::ModernCar);
 
 					CarsGroup.push_back(car);

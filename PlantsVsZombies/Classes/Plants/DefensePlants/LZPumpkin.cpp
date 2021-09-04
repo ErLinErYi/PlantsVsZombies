@@ -11,6 +11,8 @@
 #include "Scenes/GameScenes/Adventure/GameScene/LZAGSData.h"
 #include "Scenes/GameScenes/Adventure/GameScene/LZAGSControlLayer.h"
 
+int Pumpkin::tagAddition = 10000;
+
 Pumpkin::Pumpkin(Node* node) :
 	_skinId(1),
 	_plantAnimationBack(nullptr)
@@ -65,7 +67,7 @@ void Pumpkin::createPlantAnimation()
 	_plantAnimation->setScale(1.2f);
 	_plantAnimation->setTimeScale(1.f);
 	_plantAnimation->setLocalZOrder(_plantAnimation->getLocalZOrder() + 1);
-	_plantAnimation->setTag(_plantAnimation->getTag() + 1000);
+	_plantAnimation->setTag(_plantAnimation->getTag() + tagAddition);
 	_plantAnimation->setPosition(_plantAnimation->getPosition() - Vec2(0, 10));
 	_node->addChild(_plantAnimation);
 

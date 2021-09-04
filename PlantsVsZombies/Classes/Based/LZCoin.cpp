@@ -58,8 +58,15 @@ void Coin::releaseFunction()
 
 void Coin::coinRecoveryAction(Coin* coin)
 {
+    auto pos = Vec2(1655, 38);
     auto temporary = coin->getCoin();
-    auto actionMoveTo = EaseSineOut::create(MoveTo::create(0.5f, Vec2(1655, 38)));
+    if (BigMapGameScene::scrollView)
+    {
+        pos = pos * 2 + Vec2(220, 0);
+        temporary->setGlobalZOrder(1);
+    }
+
+    auto actionMoveTo = EaseSineOut::create(MoveTo::create(0.5f, pos));
     auto actionScaleFade = Spawn::create(ScaleTo::create(0.2f, 0.3f), FadeOut::create(0.2f), nullptr);
     auto actionCallFunc = CallFunc::create([=]()
         {
@@ -72,16 +79,16 @@ void Coin::coinRecoveryAction(Coin* coin)
             temporary->setVisible(false);
         });
 
-    if (BigMapGameScene::scrollView)
-    {
-        auto offset = BigMapGameScene::scrollView->getContentOffset();
-        auto point = temporary->getPosition();
+    //if (BigMapGameScene::scrollView)
+    //{
+    //    auto offset = BigMapGameScene::scrollView->getContentOffset();
+    //    auto point = temporary->getPosition();
 
-        temporary->retain();
-        temporary->removeFromParent();
-        informationLayerInformation->addChild(temporary);
-        temporary->setPosition(Vec2(point.x - fabs(offset.x), point.y - fabs(offset.y)));
-    }
+    //    temporary->retain();
+    //    temporary->removeFromParent();
+    //    informationLayerInformation->addChild(temporary);
+    //    temporary->setPosition(Vec2(point.x - fabs(offset.x), point.y - fabs(offset.y)));
+    //}
 
     coin->setEnable(false);
     temporary->stopAllActions();

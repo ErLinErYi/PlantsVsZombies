@@ -32,7 +32,7 @@
 #endif // !DLLTEST
 
 UserData* UserData::_instance = nullptr;
-int UserData::_levelDataVersion = 1330;
+int UserData::_levelDataVersion = 1338;
 
 UserData::UserData() :
   _global(Global::getInstance())
@@ -600,6 +600,7 @@ void UserData::caveLevelCarData(char* key)
 		object.AddMember("PositionY", car->getCar()->getPositionY(), allocator);
 		object.AddMember("CarRow", car->getInRow(), allocator);
 		object.AddMember("CarType", static_cast<int>(car->getCarType()), allocator);
+		object.AddMember("CarScale", car->getCar()->getScale(), allocator);
 		
 		(*_levelDataDocument)[key]["Car"].AddMember(numberToString(++carsNumber, allocator), object, _levelDataDocument->GetAllocator());
 	}
@@ -693,11 +694,11 @@ void UserData::caveLevelOtherData(char* key)
 	object.AddMember("ProgressBarPercent", informationLayerInformation->getProgressBarPercent(), allocator);
 	object.AddMember("ProgressBarLastPercent", informationLayerInformation->getProgressBarLastPercent(), allocator);
 
-	if (BigMapGameScene::scrollView)
-	{
-		object.AddMember("BigMapOffsetX", BigMapGameScene::scrollView->getContentOffset().x, allocator);
-		object.AddMember("BigMapOffsetY", BigMapGameScene::scrollView->getContentOffset().y, allocator);
-	}
+	//if (BigMapGameScene::scrollView)
+	//{
+	//	object.AddMember("BigMapOffsetX", BigMapGameScene::scrollView->getContentOffset().x, allocator);
+	//	object.AddMember("BigMapOffsetY", BigMapGameScene::scrollView->getContentOffset().y, allocator);
+	//}
 
 	(*_levelDataDocument)[key].AddMember("OtherData", object, _levelDataDocument->GetAllocator());
 }
@@ -814,6 +815,7 @@ void UserData::openLevelZombiesData(char* key)
 			(*_levelDataDocument)[key]["Zombies"][to_string(i).c_str()]["ZombiePositionY"].GetFloat()));
 		zombies->setZombieInRow((*_levelDataDocument)[key]["Zombies"][to_string(i).c_str()]["ZombieInRow"].GetInt());
 		zombies->createZombie();
+		zombies->setZombieScale();
 		zombies->setZombieAttributeForGameType();
 
 		openLevelZombiesAnimationData(key, to_string(i).c_str(), zombies);
@@ -930,8 +932,8 @@ void UserData::openLevelCarData(char* key)
 		car->setPosition(Vec2(
 			(*_levelDataDocument)[key]["Car"][to_string(i).c_str()]["PositionX"].GetFloat(),
 			(*_levelDataDocument)[key]["Car"][to_string(i).c_str()]["PositionY"].GetFloat()));
+		car->setScale((*_levelDataDocument)[key]["Car"][to_string(i).c_str()]["CarScale"].GetFloat());
 		car->showCar(static_cast<CarType>((*_levelDataDocument)[key]["Car"][to_string(i).c_str()]["CarType"].GetInt()));
-		car->getCar()->setScale(0.8f);
 		car->getCar()->getChildByName("fog")->setOpacity(0);
 		CarsGroup.push_back(car);
 	}
@@ -1018,12 +1020,12 @@ void UserData::openLevelOtherData(char* key)
 		(*_levelDataDocument)[key]["OtherData"]["SurPlusPlantsNumbers"].GetInt();
 	informationLayerInformation->gameType->updateRequirementNumbers();
 
-	if (BigMapGameScene::scrollView)
-	{
-		BigMapGameScene::scrollView->setContentOffset(Vec2(
-			(*_levelDataDocument)[key]["OtherData"]["BigMapOffsetX"].GetFloat(),
-			(*_levelDataDocument)[key]["OtherData"]["BigMapOffsetY"].GetFloat()));
-	}
+	//if (BigMapGameScene::scrollView)
+	//{
+	//	BigMapGameScene::scrollView->setContentOffset(Vec2(
+	//		(*_levelDataDocument)[key]["OtherData"]["BigMapOffsetX"].GetFloat(),
+	//		(*_levelDataDocument)[key]["OtherData"]["BigMapOffsetY"].GetFloat()));
+	//}
 }
 
 void UserData::removeLevelData(char* key)

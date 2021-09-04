@@ -271,6 +271,7 @@ void Plants::setPlantRemoveFromMap()
 	setPlantVisible(false);
 	_plantAnimation->setTimeScale(0);
 	_plantAnimation->stopAllActions();
+	_plantAnimation->setTag(-1);
 }
 
 bool Plants::getPlantIsSurvive() const

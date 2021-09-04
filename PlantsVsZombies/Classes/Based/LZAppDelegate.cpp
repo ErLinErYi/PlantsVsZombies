@@ -128,8 +128,7 @@ void AppDelegate::applicationDidFocusCallBack()
 {
 #if USE_AUDIO_ENGINE
     const auto scene = Director::getInstance()->getRunningScene();
-    auto name = scene->getName();
-    if (scene && name != "GameScene")
+    if (scene && scene->getName() != "GameScene")
     {
         AudioEngine::resumeAll();
     }
@@ -143,8 +142,7 @@ void AppDelegate::applicationDidUnFocusCallBack()
 {
 #if USE_AUDIO_ENGINE
     const auto scene = Director::getInstance()->getRunningScene();
-    auto name = scene->getName();
-    if (scene && name != "GameScene")
+    if (scene && scene->getName() != "GameScene")
     {
         AudioEngine::pauseAll();
     }

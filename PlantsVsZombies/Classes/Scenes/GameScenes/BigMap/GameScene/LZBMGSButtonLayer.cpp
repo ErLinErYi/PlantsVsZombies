@@ -56,60 +56,60 @@ void BMButtonLayer::createQuitDialog()
 void BMButtonLayer::createKeyBoardListener()
 {
 	auto keyBoard = EventListenerKeyboard::create();
-	keyBoard->setEnabled(false);
+	//keyBoard->setEnabled(false);
 
-	keyBoard->onKeyPressed = [&](EventKeyboard::KeyCode code, Event* event)
-	{
-		switch (code)
-		{
-		case cocos2d::EventKeyboard::KeyCode::KEY_CAPITAL_W:                 /* 大小写w或者向上箭头加速 */
-		case cocos2d::EventKeyboard::KeyCode::KEY_W:
-		case cocos2d::EventKeyboard::KeyCode::KEY_UP_ARROW:
-			this->runAction(RepeatForever::create(Sequence::create(
-				CallFunc::create([&]()
-					{
-						_offset = BigMapGameScene::scrollView->getContentOffset();
-						_offset = Vec2(_offset.x, _offset.y - 20);
-						changeScrollViewOffset();
-					}), DelayTime::create(0.02f), nullptr)));
-			break;
-		case cocos2d::EventKeyboard::KeyCode::KEY_CAPITAL_S:                /* 大小写s或者向下箭头减速 */
-		case cocos2d::EventKeyboard::KeyCode::KEY_S:
-		case cocos2d::EventKeyboard::KeyCode::KEY_DOWN_ARROW:
-			this->runAction(RepeatForever::create(Sequence::create(
-				CallFunc::create([&]()
-					{
-						_offset = BigMapGameScene::scrollView->getContentOffset();
-						_offset = Vec2(_offset.x, _offset.y + 20);
-						changeScrollViewOffset();
-					}), DelayTime::create(0.02f), nullptr)));
-			break;
-		case cocos2d::EventKeyboard::KeyCode::KEY_A:
-		case cocos2d::EventKeyboard::KeyCode::KEY_CAPITAL_A:
-		case cocos2d::EventKeyboard::KeyCode::KEY_LEFT_ARROW:
-			this->runAction(RepeatForever::create(Sequence::create(
-				CallFunc::create([&]()
-					{
-						_offset = BigMapGameScene::scrollView->getContentOffset();
-						_offset = Vec2(_offset.x + 20, _offset.y);
-						changeScrollViewOffset();
-					}), DelayTime::create(0.02f), nullptr)));
-			break;
-		case cocos2d::EventKeyboard::KeyCode::KEY_D:
-		case cocos2d::EventKeyboard::KeyCode::KEY_CAPITAL_D:
-		case cocos2d::EventKeyboard::KeyCode::KEY_RIGHT_ARROW:
-			this->runAction(RepeatForever::create(Sequence::create(
-				CallFunc::create([&]()
-					{
-						_offset = BigMapGameScene::scrollView->getContentOffset();
-						_offset = Vec2(_offset.x - 20, _offset.y);
-						changeScrollViewOffset();
-					}), DelayTime::create(0.02f), nullptr)));
-			break;
-		default:
-			break;
-		}
-	};
+	//keyBoard->onKeyPressed = [&](EventKeyboard::KeyCode code, Event* event)
+	//{
+	//	switch (code)
+	//	{
+	//	case cocos2d::EventKeyboard::KeyCode::KEY_CAPITAL_W:                 /* 大小写w或者向上箭头加速 */
+	//	case cocos2d::EventKeyboard::KeyCode::KEY_W:
+	//	case cocos2d::EventKeyboard::KeyCode::KEY_UP_ARROW:
+	//		this->runAction(RepeatForever::create(Sequence::create(
+	//			CallFunc::create([&]()
+	//				{
+	//					_offset = BigMapGameScene::scrollView->getContentOffset();
+	//					_offset = Vec2(_offset.x, _offset.y - 20);
+	//					changeScrollViewOffset();
+	//				}), DelayTime::create(0.02f), nullptr)));
+	//		break;
+	//	case cocos2d::EventKeyboard::KeyCode::KEY_CAPITAL_S:                /* 大小写s或者向下箭头减速 */
+	//	case cocos2d::EventKeyboard::KeyCode::KEY_S:
+	//	case cocos2d::EventKeyboard::KeyCode::KEY_DOWN_ARROW:
+	//		this->runAction(RepeatForever::create(Sequence::create(
+	//			CallFunc::create([&]()
+	//				{
+	//					_offset = BigMapGameScene::scrollView->getContentOffset();
+	//					_offset = Vec2(_offset.x, _offset.y + 20);
+	//					changeScrollViewOffset();
+	//				}), DelayTime::create(0.02f), nullptr)));
+	//		break;
+	//	case cocos2d::EventKeyboard::KeyCode::KEY_A:
+	//	case cocos2d::EventKeyboard::KeyCode::KEY_CAPITAL_A:
+	//	case cocos2d::EventKeyboard::KeyCode::KEY_LEFT_ARROW:
+	//		this->runAction(RepeatForever::create(Sequence::create(
+	//			CallFunc::create([&]()
+	//				{
+	//					_offset = BigMapGameScene::scrollView->getContentOffset();
+	//					_offset = Vec2(_offset.x + 20, _offset.y);
+	//					changeScrollViewOffset();
+	//				}), DelayTime::create(0.02f), nullptr)));
+	//		break;
+	//	case cocos2d::EventKeyboard::KeyCode::KEY_D:
+	//	case cocos2d::EventKeyboard::KeyCode::KEY_CAPITAL_D:
+	//	case cocos2d::EventKeyboard::KeyCode::KEY_RIGHT_ARROW:
+	//		this->runAction(RepeatForever::create(Sequence::create(
+	//			CallFunc::create([&]()
+	//				{
+	//					_offset = BigMapGameScene::scrollView->getContentOffset();
+	//					_offset = Vec2(_offset.x - 20, _offset.y);
+	//					changeScrollViewOffset();
+	//				}), DelayTime::create(0.02f), nullptr)));
+	//		break;
+	//	default:
+	//		break;
+	//	}
+	//};
 
 	keyBoard->onKeyReleased = [&](EventKeyboard::KeyCode code, Event* event)
 	{
@@ -127,11 +127,11 @@ void BMButtonLayer::createKeyBoardListener()
 	};
 	_director->getEventDispatcher()->addEventListenerWithSceneGraphPriority(keyBoard, this);
 
-	runAction(Sequence::create(DelayTime::create(3.1f),
-		CallFunc::create([=]()
-			{
-				keyBoard->setEnabled(true);
-			}), nullptr));
+	//runAction(Sequence::create(DelayTime::create(3.1f),
+	//	CallFunc::create([=]()
+	//		{
+	//			keyBoard->setEnabled(true);
+	//		}), nullptr));
 }
 
 void BMButtonLayer::createRequirementButton()
@@ -156,6 +156,7 @@ void BMButtonLayer::recoverySunControl()
 		{
 			PlayMusic::playMusic("points");
 			SunFlower::sunRecovery(sun);
+			break;
 		}
 	}
 }
@@ -168,6 +169,7 @@ void BMButtonLayer::recoveryCoinControl()
 		{
 			PlayMusic::playMusic("coin");
 			Coin::coinRecoveryAction(coin);
+			break;
 		}
 	}
 }

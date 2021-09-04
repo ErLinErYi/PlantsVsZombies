@@ -66,7 +66,7 @@ protected:
 	virtual void mouseMiddleButtonDownControl();                                        /* 鼠标中键键按下控制 */
 	virtual void checkPlantType(const int type = 0);                                    /* 检测植物类型 */
 	virtual void createPlantsCardListener();                                            /* 创建植物卡牌监听 */
-	virtual void showSelectedButtonHoverEffect();                                       /* 显示卡牌鼠标悬停效果 */
+	virtual void showSelectedButtonHoverEffect(Vec2 vec2);                              /* 显示卡牌鼠标悬停效果 */
 	virtual void selectPlantsPreviewImage();                                            /* 选择植物预览图片 */
 	virtual void createPreviewPlants();                                                 /* 创建预览植物 */
 	virtual bool judgeMousePositionIsInMap();                                           /* 判断鼠标点击方位是否在地图内 */

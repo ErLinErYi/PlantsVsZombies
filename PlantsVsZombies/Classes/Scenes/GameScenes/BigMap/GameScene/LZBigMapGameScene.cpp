@@ -62,16 +62,16 @@ void BigMapGameScene::createScrollView()
 	_scrollLayer->setScale(0.5f);
 	_scrollLayer->setIgnoreAnchorPointForPosition(false);
 	_scrollLayer->setAnchorPoint(Vec2::ANCHOR_MIDDLE);
-	_scrollLayer->runAction(Sequence::create(DelayTime::create(time),
-		EaseSineOut::create(ScaleTo::create(1.f, 1.f)),
-		CallFunc::create([=]()
-			{
-				_scrollLayer->setIgnoreAnchorPointForPosition(true);
-				scrollView->setContentOffset(Vec2(-1120, -540));
-				scrollView->setTouchEnabled(true);
-			}), nullptr));
+	//_scrollLayer->runAction(Sequence::create(DelayTime::create(time),
+	//	EaseSineOut::create(ScaleTo::create(.5f, .5f)),
+	//	CallFunc::create([=]()
+	//		{
+	//			_scrollLayer->setIgnoreAnchorPointForPosition(true);
+	//			scrollView->setContentOffset(Vec2(-1120, -540));
+	//			scrollView->setTouchEnabled(true);
+	//		}), nullptr));
 
-	//创建滚动视图
+	//创建滚动视图 
 	scrollView = extension::ScrollView::create(_director->getWinSize(), _scrollLayer);
 	scrollView->setPosition(Vec2(0, 0));
 	scrollView->setBounceable(false);

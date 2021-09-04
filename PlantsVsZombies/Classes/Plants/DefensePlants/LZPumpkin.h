@@ -29,4 +29,7 @@ protected:
 private:
 	SkeletonAnimation* _plantAnimationBack;
 	int _skinId;
+
+public:
+	static int tagAddition;
 };

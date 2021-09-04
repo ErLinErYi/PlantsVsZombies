@@ -110,8 +110,15 @@ void SunFlower::calculateSunShowTime()
 
 void SunFlower::sunRecovery(Sun* sun)
 {
+	auto pos = Vec2(290, 1025);
 	auto temporary = sun->getSun();
-	auto actionMoveTo = EaseSineOut::create(MoveTo::create(sun->calculateMoveTime(), Vec2(290, 1025)));
+	if (BigMapGameScene::scrollView)
+	{
+		pos = pos * 2 + Vec2(200, 10);
+		temporary->setGlobalZOrder(1);
+	}
+
+	auto actionMoveTo = EaseSineOut::create(MoveTo::create(sun->calculateMoveTime(), pos));
 	auto actionScaleFade = Spawn::create(ScaleTo::create(0.2f, 0.3f), FadeOut::create(0.2f), nullptr);
 	auto actionCallFunc = CallFunc::create([=]()
 		{
@@ -125,7 +132,7 @@ void SunFlower::sunRecovery(Sun* sun)
 			temporary->setVisible(false);
 		});
 
-	if (BigMapGameScene::scrollView)
+	/*if (BigMapGameScene::scrollView)
 	{
 		auto offset = BigMapGameScene::scrollView->getContentOffset();
 		auto point = temporary->getPosition();
@@ -134,7 +141,8 @@ void SunFlower::sunRecovery(Sun* sun)
 		temporary->removeFromParent();
 		informationLayerInformation->addChild(temporary);
 		temporary->setPosition(Vec2(point.x - fabs(offset.x), point.y - fabs(offset.y)));
-	}
+		temporary->setScale(0.5f);
+	}*/
 
 	sun->setEnable(false);
 	temporary->stopAllActions();

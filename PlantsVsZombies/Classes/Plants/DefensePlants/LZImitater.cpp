@@ -95,6 +95,7 @@ void Imitater::createOtherPlant()
 	plants->setPlantRowAndColumn(getPlantRowAndColumn());
 	plants->setPlantTag(_plantAnimation->getTag());
 	plants->createPlantAnimation();
+	_plantAnimation->setTag(-1);
 	
 	PlantsGroup.insert(pair<int, Plants*>(plants->getPlantAnimation()->getTag(), plants));
 }

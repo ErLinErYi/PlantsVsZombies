@@ -74,6 +74,7 @@ void TGAnimationLayer::showCars()
 					auto car = new Car(this);
 					car->setPosition(Vec2(490, 180 + 138 * i));
 					car->setInRow(i);
+					car->setScale(0.8f);
 					car->showCar(CarType::WildWestCar);
 
 					CarsGroup.push_back(car);

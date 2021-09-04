@@ -64,7 +64,7 @@ void Car::showCar(CarType type)
 	createAppearSpecialEffect();
 
 	if (!_global->userInformation->getIsReadFileData())
-		_carImage->runAction(ScaleTo::create(0.2f, 0.8f));
+		_carImage->runAction(ScaleTo::create(0.2f, _scale));
 }
 
 void Car::setPosition(const Vec2& position)
