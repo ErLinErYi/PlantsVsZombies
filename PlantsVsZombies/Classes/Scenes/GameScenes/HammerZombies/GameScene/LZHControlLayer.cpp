@@ -30,7 +30,9 @@ HControlLayer::HControlLayer() :
 	_zombiesTypeNumbers(1),
 	_mostLevelNumber(1),
 	_currentLevelZombiesSpeed(2.f),
-	_isShowHammerButton(false)
+	_isShowHammerButton(false),
+	_isHammerCheat(false),
+	_hammerNumbers(0)
 {
 	srand(time(nullptr));
 	createHammerAnimation();
@@ -71,6 +73,17 @@ void HControlLayer::createSchedule()
 		judgeZombiesWin();
 		judgeLevelIsFinished();
 		}, 1.0f, "zombiesComing");
+
+	schedule([&](float) {
+		if (_hammerNumbers >= 40)
+		{
+			_isHammerCheat = true;
+		}
+		else
+		{
+			_hammerNumbers = 0;
+		}
+		}, 5.0f, "hummerNumbers");
 
 	runAction(Sequence::create(DelayTime::create(1.f), 
 		CallFunc::create([=]()
@@ -118,11 +131,18 @@ void HControlLayer::createMouseListener()
 	/* 鼠标按下 */
 	listener->onMouseDown = [=](Event* event)
 	{
-		_cur = ((EventMouse*)event)->getLocationInView();
-		_hammer->setAnimation(0, "Hammer_Attack", false);
-		judgeHammerZombies(_cur);
+		if (((EventMouse*)event)->getMouseButton() == EventMouse::MouseButton::BUTTON_LEFT)
+		{
+			++_hammerNumbers;
+			_cur = ((EventMouse*)event)->getLocationInView();
+			_hammer->setAnimation(0, "Hammer_Attack", false);
+			judgeHammerZombies(_cur);
 
-		if (_hammer->isVisible())PlayMusic::playMusic("swing");
+			if (_hammer->isVisible())
+			{
+				PlayMusic::playMusic("swing");
+			}
+		}
 	};
 
 	_director->getEventDispatcher()->addEventListenerWithSceneGraphPriority(listener, this);
@@ -132,7 +152,12 @@ void HControlLayer::judgeHammerZombies(const Vec2& position)
 {
 	for (auto zombie : ZombiesGroup)
 	{
-		if (zombie->getZombieIsSurvive() && zombie->getZombieIsEnterMap() && _hammer->isVisible())
+		if (_isHammerCheat)
+		{
+			zombie->setZombieDieRewardCoinPrecent(0);
+		}
+
+		if (zombie->getZombieIsSurvive() && zombie->getZombieIsEnterMap() && _hammer->isVisible() && !_isHammerCheat)
 		{
 			const auto& box = zombie->getZombieAnimation()->getBoundingBox();
 			if (_hammer->getBoundingBox().intersectsRect(Rect(box.origin.x + 60, box.origin.y + 50, box.size.width, box.size.height - 50)))

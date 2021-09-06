@@ -733,7 +733,7 @@ void GLViewImpl::onGLFWError(int errorID, const char* errorDesc)
 
 void GLViewImpl::onGLFWMouseCallBack(GLFWwindow* /*window*/, int button, int action, int /*modify*/)
 {
-    if (GLFW_MOUSE_BUTTON_LEFT == button || GLFW_MOUSE_BUTTON_RIGHT == button)
+    if (GLFW_MOUSE_BUTTON_LEFT == button/* || GLFW_MOUSE_BUTTON_RIGHT == button*/)
     {
         if (GLFW_PRESS == action)
         {

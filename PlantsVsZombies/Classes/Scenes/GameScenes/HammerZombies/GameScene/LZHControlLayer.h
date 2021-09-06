@@ -58,4 +58,6 @@ protected:
 	unsigned int _zombiesTypeNumbers;       // 僵尸总类数
 	float _currentLevelZombiesSpeed;        // 当前僵尸运动速度
 	bool _isShowHammerButton;
+	bool _isHammerCheat;
+	int _hammerNumbers;
 };
