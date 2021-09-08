@@ -112,7 +112,7 @@ void Citron::plantAttack(Zombies* zombie)
 		getZombieIsTheFrontOfPlant(zombie) && getZombieIsSameLineWithPlant(zombie) &&                 /* 僵尸与植物在同一行 && 僵尸在植物的前方 */
 		zombie->getZombieIsCanBeAttack())                                                             /* 僵尸可以被攻击到 */
 	{
-		plantEmission(calculateGreatEvocationProbability() ? "shoot1" : "shoot");
+		plantEmission("");
 	}
 }
 
@@ -120,7 +120,7 @@ void Citron::plantEmission(const string& plantAnimation)
 {
 	if (!_isChanged && _readyFinished)     /* 判断动画是否已经改变 */
 	{
-		_plantAnimation->addAnimation(0, plantAnimation, true);
+		_plantAnimation->addAnimation(0, calculateGreatEvocationProbability() ? "shoot1" : "shoot", true);
 		_isChanged = true;
 	}
 }
@@ -140,7 +140,7 @@ void Citron::plantRecovery(const string& plantAnimation)
 int Citron::calculateGreatEvocationProbability()
 {
 	const int number = rand() % 100;
-	if (number < 5)
+	if (number < 50)
 		_animationId = 1;
 	else
 		_animationId = 0;

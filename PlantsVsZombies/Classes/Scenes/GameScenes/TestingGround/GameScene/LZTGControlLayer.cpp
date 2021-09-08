@@ -169,10 +169,12 @@ void TGControlLayer::mouseLeftButtonDownControl()
 			/* 种植植物 */
 			animationLayerInformation->plantPlants();
 
+			removePreviewPlant();
+
 			buttonLayerInformation->plantsCards[static_cast<unsigned int>(buttonLayerInformation->mouseSelectImage->selectPlantsId)].progressTimer->setPercentage(0);
 			buttonLayerInformation->plantsCards[static_cast<unsigned int>(buttonLayerInformation->mouseSelectImage->selectPlantsId)].plantsCards->setColor(Color3B::WHITE);
-
-			removePreviewPlant();
+			buttonLayerInformation->plantsCards[static_cast<unsigned int>(_selectPlantsTag)].plantsCards->getChildByName("seedPacketFlash")->setColor(Color3B::WHITE);
+			buttonLayerInformation->plantsCards[static_cast<unsigned int>(_selectPlantsTag)].plantsCards->getChildByName("seedPacketFlash")->setVisible(false);
 		}
 		else
 		{
@@ -180,18 +182,13 @@ void TGControlLayer::mouseLeftButtonDownControl()
 			{
 				PlayMusic::playMusic("buzzer");
 
-				if (_isImitater)
-				{
-					buttonLayerInformation->mouseSelectImage->selectPlantsId = PlantsType::Imitater;
-				}
-				/* 卡牌颜色恢复 */
-				buttonLayerInformation->plantsCards[static_cast<unsigned int>(buttonLayerInformation->mouseSelectImage->selectPlantsId)].progressTimer->setPercentage(0);
-				buttonLayerInformation->plantsCards[static_cast<unsigned int>(buttonLayerInformation->mouseSelectImage->selectPlantsId)].plantsCards->setColor(Color3B::WHITE);
-
 				/* 提示信息 */
 				informationLayerInformation->createPromptText();
-
-				removePreviewPlant();
+			}
+			else
+			{
+				buttonLayerInformation->plantsCards[static_cast<unsigned int>(_selectPlantsTag)].plantsCards->getChildByName("seedPacketFlash")->setColor(Color3B::WHITE);
+				buttonLayerInformation->plantsCards[static_cast<unsigned int>(_selectPlantsTag)].plantsCards->getChildByName("seedPacketFlash")->setVisible(false);
 			}
 		}
 	}
@@ -232,6 +229,9 @@ void TGControlLayer::mouseRightButtonDownControl()
 
 			removePreviewPlant();
 		}
+
+		buttonLayerInformation->plantsCards[static_cast<unsigned int>(_selectPlantsTag)].plantsCards->getChildByName("seedPacketFlash")->setColor(Color3B::WHITE);
+		buttonLayerInformation->plantsCards[static_cast<unsigned int>(_selectPlantsTag)].plantsCards->getChildByName("seedPacketFlash")->setVisible(false);
 	}
 
 	if (buttonLayerInformation->mouseSelectImage->isSelectShovel) /* 鼠标上有铲子 */

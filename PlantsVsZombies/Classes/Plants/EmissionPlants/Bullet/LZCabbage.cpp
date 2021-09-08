@@ -140,23 +140,19 @@ void Cabbage::createShadow(float scale)
 {
 	/* 创建影子 */
 	auto bulletShadow = Sprite::createWithSpriteFrameName("plantshadow.png");
-	bulletShadow->setPosition(Vec2(_initPosition.x, _position.y));
+	bulletShadow->setPosition(Vec2(_initPosition.x, _position.y + 10));
 	bulletShadow->setLocalZOrder(getZOrder());
 	bulletShadow->setOpacity(180);
 	bulletShadow->setName("shadow");
 	bulletShadow->setScale(scale);
-	_node->addChild(bulletShadow);
-	bulletShadow->runAction(RepeatForever::create(Sequence::create(
+	
+	auto t = (_endPosition - (_zombiePosition - Vec2(20, 0))).x / _endPosition.x * _actionTime;
+	bulletShadow->runAction(Sequence::create(MoveTo::create(_actionTime - t, _zombiePosition - Vec2(20, 0)),
 		CallFunc::create([=]()
-			{
-				bulletShadow->setPositionX(_bulletAnimation->getPositionX());
-			}), DelayTime::create(0.02f),nullptr)));
-
-	bulletShadow->runAction(Sequence::create(DelayTime::create(_actionTime), 
-		CallFunc::create([=]() 
 			{
 				bulletShadow->removeFromParent();
 			}), nullptr));
+	_node->addChild(bulletShadow);
 }
 
 void Cabbage::createExplodeAnimation(const string& animationName, const string& actionName,const float scale)
