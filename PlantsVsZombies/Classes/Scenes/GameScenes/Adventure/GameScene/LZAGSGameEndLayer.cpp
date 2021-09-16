@@ -269,6 +269,10 @@ void GSGameEndLayer::rewardCoin(Button* button)
 
 									ModernWorld::setPopEnter(true);
 									_director->popScene();
+									if (_global->userInformation->getCurrentPlayLevels() >= 52)
+									{
+										_director->getInstance()->pushScene(TransitionFade::create(0.5f, GameEasterEggs::create()));
+									}
 								}), nullptr));
 					}), nullptr));
 		}

@@ -38,7 +38,7 @@ bool GameEasterEggs::init()
     playVideo();
 #   endif
 #endif
-
+	setName("GameScene");
 	return true;
 }
 
@@ -78,12 +78,12 @@ void GameEasterEggs::createEggText()
 	eggstext->runAction(Sequence::create(MoveTo::create(25.0f, Director::getInstance()->getWinSize() / 2.0f),
 		CallFunc::create([=]()
 			{
-				auto text = Text::create("静静的享受音乐播放完毕", GAME_FONT_NAME_1, 36);
-				text->setPosition(Vec2(Director::getInstance()->getWinSize().width / 2.0f, 70));
-				text->setColor(Color3B::WHITE);
-				text->setName("Text");
-				this->addChild(text);
-				if (UserDefault::getInstance()->getBoolForKey("EASTEREGGSHOW"))text->setVisible(false);
+				//auto text = Text::create("静静的享受音乐播放完毕", GAME_FONT_NAME_1, 36);
+				//text->setPosition(Vec2(Director::getInstance()->getWinSize().width / 2.0f, 70));
+				//text->setColor(Color3B::WHITE);
+				//text->setName("Text");
+				//this->addChild(text);
+				//if (UserDefault::getInstance()->getBoolForKey("EASTEREGGSHOW"))text->setVisible(false);
 
 				eggstext->runAction(RepeatForever::create(Sequence::create(
 					CallFunc::create([=]()
@@ -105,19 +105,19 @@ void GameEasterEggs::createEggText()
 							}
 						}), DelayTime::create(eggstext->getString().size() * 0.05f / 3.0f), nullptr)));
 
-				eggstext->runAction(RepeatForever::create(Sequence::create(
-					CallFunc::create([=]()
-						{
-							const auto size1 = text->getString().size();
-							for (unsigned int i = 0; i < size1; ++i)
-							{
-								auto letter = text->getLetter(i);
-								if (letter)
-								{
-									letter->runAction(Sequence::create(DelayTime::create(0.1f * i), JumpBy::create(0.5f, Vec2(0, 0), 30, 1), nullptr));
-								}
-							}
-						}), DelayTime::create(text->getString().size() * 0.1f), nullptr)));
+				//eggstext->runAction(RepeatForever::create(Sequence::create(
+				//	CallFunc::create([=]()
+				//		{
+				//			const auto size1 = text->getString().size();
+				//			for (unsigned int i = 0; i < size1; ++i)
+				//			{
+				//				auto letter = text->getLetter(i);
+				//				if (letter)
+				//				{
+				//					letter->runAction(Sequence::create(DelayTime::create(0.1f * i), JumpBy::create(0.5f, Vec2(0, 0), 30, 1), nullptr));
+				//				}
+				//			}
+				//		}), DelayTime::create(text->getString().size() * 0.1f), nullptr)));
 
 			}), nullptr));
 }
@@ -130,17 +130,20 @@ void GameEasterEggs::musicCallBack()
 	}
 	else
 	{
-		AudioEngine::setFinishCallback(_audioId, [=](int i, string name)
-			{
-				if (this->getChildByName("Text"))
-					this->getChildByName("Text")->setVisible(false);
+		//AudioEngine::setFinishCallback(_audioId, [=](int i, string name)
+		//	{
+		//		if (this->getChildByName("Text"))
+		//			this->getChildByName("Text")->setVisible(false);
 
-				PlayMusic::changeBgMusic("mainmusic", true);
+		//		PlayMusic::changeBgMusic("mainmusic", true);
 
-				backButton();
+		//		backButton();
 
-				UserDefault::getInstance()->setBoolForKey("EASTEREGGSHOW", true);
-			});
+		//		UserDefault::getInstance()->setBoolForKey("EASTEREGGSHOW", true);
+		//	});
+		backButton();
+
+		UserDefault::getInstance()->setBoolForKey("EASTEREGGSHOW", true);
 	}
 }
 

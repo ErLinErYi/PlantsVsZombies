@@ -11,7 +11,7 @@
 
 using namespace rapidjson;
 
-MomentTime::MomentTime() :m_second(0), m_day(0), m_hour(0), m_year(0), m_minute(0), m_moth(0), _onlyNetTime(false)
+MomentTime::MomentTime() :m_second(0), m_day(0), m_hour(0), m_year(0), m_minute(0), m_moth(0), _onlyNetTime(false), _netTimeResquest(false)
 {
 	_downloader.reset(new network::Downloader());
 }
@@ -27,20 +27,25 @@ void MomentTime::requestNetTime()
 	_downloader->onDataTaskSuccess = [this](const cocos2d::network::DownloadTask& task,
 		std::vector<unsigned char>& data)
 	{
-		std::string str;
-		for (auto p : data)
+		if (!_netTimeResquest)
 		{
-			str += p;
-		}
+			std::string str;
+			for (auto p : data)
+			{
+				str += p;
+			}
 
-		if (!readJson(str))
-		{
-			getLocalTime();
-		}
+			if (!readJson(str))
+			{
+				getLocalTime();
+			}
 
-		if (netTimeCallBack)
-		{
-			netTimeCallBack();
+			if (netTimeCallBack)
+			{
+				netTimeCallBack();
+			}
+
+			_netTimeResquest = true;
 		}
 	};
 
@@ -49,13 +54,38 @@ void MomentTime::requestNetTime()
 		int errorCodeInternal,
 		const std::string& errorStr)
 	{
-		getLocalTime();
-
-		if (netTimeCallBack)
+		if (!_netTimeResquest)
 		{
-			netTimeCallBack();
+			getLocalTime();
+
+			if (netTimeCallBack)
+			{
+				netTimeCallBack();
+			}
+
+			_netTimeResquest = true;
 		}
 	};
+
+	auto node = Director::getInstance()->getRunningScene();
+	if (node)
+	{
+		node->runAction(Sequence::create(DelayTime::create(5.f),
+			CallFunc::create([this]()
+				{
+					if (!_netTimeResquest)
+					{
+						getLocalTime();
+
+						if (netTimeCallBack)
+						{
+							netTimeCallBack();
+						}
+
+						_netTimeResquest = true;
+					}
+				}), nullptr));
+	}
 }
 
 void MomentTime::requestNetTime(const std::function<void()>& pSelector, bool onlyNetTime)

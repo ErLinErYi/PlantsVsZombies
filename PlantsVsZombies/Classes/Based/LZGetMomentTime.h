@@ -52,5 +52,6 @@ protected:
 	int m_week;
 	time_t m_time;
 	bool _onlyNetTime;
+	bool _netTimeResquest;
 	std::unique_ptr<network::Downloader> _downloader;
 };

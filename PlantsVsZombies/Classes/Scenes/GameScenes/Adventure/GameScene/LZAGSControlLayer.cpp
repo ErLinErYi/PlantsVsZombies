@@ -578,15 +578,7 @@ void GSControlLayer::judgeLevelIsFinished()
 		const auto winOrLose = judgeUserWin->judgeUserIsWin();
 		if (winOrLose == GameTypes::None)
 		{
-			if (_global->userInformation->getCurrentPlayLevels() >= 52 && !_isShowEggScene)
-			{
-				_isShowEggScene = true;
-				_director->getInstance()->pushScene(TransitionFade::create(0.5f, GameEasterEggs::create()));
-			}
-			else
-			{
-				_gameEndShieldLayer->successfullEntry();
-			}
+			_gameEndShieldLayer->successfullEntry();
 		}
 		else
 		{

@@ -544,7 +544,7 @@ void SPSSpriteLayer::controlPlantCanSelect(Button* button, int priority)
 		if (coinNumber < plantsCardInformation[priority].requirement.x ||
 			killZombiesNumber < plantsCardInformation[priority].requirement.y)
 		{
-			button->setVisible(false);
+			//button->setVisible(false);
 			button->setColor(Color3B(70, 70, 70));
 			button->setCascadeColorEnabled(true);  /* 设置父节点影响子节点 */
 			isPlantIsCanSelect[static_cast<unsigned int>(plantsCardInformation[priority].type)] = false;

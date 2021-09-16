@@ -78,16 +78,16 @@ void Garlic::zombieEatPlant(Zombies* zombie)
 	{
 		if (zombie->getZombieIsSurvive() && !zombie->getZombieIsEat() && zombie->getZombieIsFrozen() != 2)
 		{
-			zombie->setZombieEatPlantNumber(_plantNumber);
-			zombie->setZombieStop();
-			zombie->setZombieIsEat(true);
-
 			if (zombie->getZombieType() == ZombiesType::GargantuarZombies)
 			{
 				zombieAttackPlant(zombie);
 			}
 			else
 			{
+				zombie->setZombieEatPlantNumber(_plantNumber);
+				zombie->setZombieStop();
+				zombie->setZombieIsEat(true);
+
 				const string eateffect[3] = { "chomp","chomp2","chompsoft" };
 				PlayMusic::playMusic(eateffect[rand() % 3]);
 
@@ -133,6 +133,10 @@ void Garlic::zombieAttackPlant(Zombies* zombie)
 {
 	if (!strcmp(zombie->getZombieAnimation()->getCurrent()->animation->name, "Zombies_Walk"))
 	{
+		zombie->setZombieEatPlantNumber(_plantNumber);
+		zombie->setZombieStop();
+		zombie->setZombieIsEat(true);
+
 		auto track = zombie->getZombieAnimation()->setAnimation(0, "Zombies_Attack", true);
 		zombie->getZombieAnimation()->setTrackEventListener(track, [=](spTrackEntry* entry, spEvent* event)
 			{
