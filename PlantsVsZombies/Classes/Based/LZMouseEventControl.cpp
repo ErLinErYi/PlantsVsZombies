@@ -50,6 +50,17 @@ void MouseEventControl::goodsRecovery(Node* node, SkeletonAnimation* animation)
 		goodsRecovery(point, animation);
 		return true;
 	};
+	linster->onTouchMoved = [=](Touch* t, Event* e)
+	{
+		Vec2 offset = Vec2::ZERO;
+		auto point = t->getLocation();
+
+		if (BigMapGameScene::scrollView)
+		{
+			point = point * 2 + Vec2(220, 0);
+		}
+		goodsRecovery(point, animation);
+	};
 	Director::getInstance()->getEventDispatcher()->addEventListenerWithSceneGraphPriority(linster, node);
 }
 

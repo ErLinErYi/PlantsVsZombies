@@ -308,8 +308,16 @@ bool Plants::getZombieIsSameLineWithPlant(Zombies* zombie)
 
 bool Plants::getZombieIsEncounterPlant(Zombies* zombie)
 {
-	return zombie->getZombiePositionX() + 20 > _plantAnimation->getPositionX() &&
-		zombie->getZombiePositionX() - _plantAnimation->getPositionX() <= 70;
+	if (zombie->getZombieType() == ZombiesType::GargantuarZombies)
+	{
+		return zombie->getZombiePositionX() + 20 > _plantAnimation->getPositionX() &&
+			zombie->getZombiePositionX() - _plantAnimation->getPositionX() <= 170;
+	}
+	else
+	{
+		return zombie->getZombiePositionX() + 20 > _plantAnimation->getPositionX() &&
+			zombie->getZombiePositionX() - _plantAnimation->getPositionX() <= 70;
+	}
 }
 
 void Plants::zombieEatPlant(Zombies* zombie)

@@ -287,7 +287,7 @@ void SPSSpriteLayer::createMoveButton(Button* button, const Vec2& vec2)
 			{
 			case ui::Widget::TouchEventType::ENDED: 
 				PlayMusic::playMusic("tap2");
-				moveCard->setTouchEnabled(false);
+				
 				plantsMoveCardButtonEvent(button, moveCard, vec2, plantCardRollingDistanceLast);
 				break;
 			}
@@ -306,17 +306,41 @@ void SPSSpriteLayer::createButtonHoverEffect(Button* button)
 
 void SPSSpriteLayer::plantsMoveCardButtonEvent(Button* button, Button* moveCard, Vec2 vec2, float plantCardRollingDistanceLast)
 {
-	createAnimationAndText(plantsCardInformation[button->getTag()].type);  //创建植物动画
-	sortPlantsCard(plantsCardInformation[button->getTag()].type);          //对植物卡牌重新排序
-	_plantCardScrollView->scrollToPercentVertical(calculateScrollPrecent(plantCardRollingDistanceLast), 0.5f, true);//滚动到初始位置
-	moveCard->runAction(Sequence::create(MoveTo::create(0.2f, Vec2(vec2.x + 205, _plantCardScrollView->getInnerContainerSize().height -
-		moveCard->getContentSize().height - vec2.y - 145 - 105 + plantCardRollingDistanceLast)),
-		CallFunc::create([=]()
-			{
-				moveCard->removeFromParent();   /* 删除移动卡牌 */
-				button->setTouchEnabled(true);  /* 设置卡牌精灵可以再次选择 */
-				button->setColor(Color3B::WHITE);
-			}), nullptr));
+	if (checkCanDelletMoveCard(moveCard))
+	{
+		moveCard->setTouchEnabled(false);
+
+		createAnimationAndText(plantsCardInformation[button->getTag()].type);  //创建植物动画
+		sortPlantsCard(plantsCardInformation[button->getTag()].type);          //对植物卡牌重新排序
+		_plantCardScrollView->scrollToPercentVertical(calculateScrollPrecent(plantCardRollingDistanceLast), 0.5f, true);//滚动到初始位置
+		moveCard->runAction(Sequence::create(MoveTo::create(0.2f, Vec2(vec2.x + 205, _plantCardScrollView->getInnerContainerSize().height -
+			moveCard->getContentSize().height - vec2.y - 145 - 105 + plantCardRollingDistanceLast)),
+			CallFunc::create([=]()
+				{
+					moveCard->removeFromParent();   /* 删除移动卡牌 */
+					button->setTouchEnabled(true);  /* 设置卡牌精灵可以再次选择 */
+					button->setColor(Color3B::WHITE);
+				}), nullptr));
+	}
+}
+
+bool SPSSpriteLayer::checkCanDelletMoveCard(Button* moveCard)
+{
+	int n = 0;
+	for (auto card = seedBankButton.begin(); card != seedBankButton.end(); ++card)
+	{
+		if (n == 0 && card->cardbutton == moveCard && seedBankButton.size() >= 2 &&
+			seedBankButton[1].cardTag == static_cast<int>(PlantsType::Imitater))
+		{
+			return false;
+		}
+		else
+		{
+			return true;
+		}
+		++n;
+	}
+	return false;
 }
 
 void SPSSpriteLayer::pauseButtonHoverEffect()

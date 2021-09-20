@@ -36,6 +36,7 @@ public:
 protected:
 	virtual void controlPlantCanSelect(Button* button, int priority);
 	virtual void createSelectPlantsDialog();
+	virtual bool checkCanDelletMoveCard(Button* moveCard);
 
 private:
 	void alreadySelectPlantsDialog();

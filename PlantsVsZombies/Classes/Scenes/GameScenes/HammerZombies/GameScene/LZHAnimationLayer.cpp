@@ -85,7 +85,7 @@ void HAnimationLayer::createZombies(const float mulSpeed, const float addSpeed, 
 	zombies->createZombie();
 	zombies->setZombieCurrentSpeed(zombies->getZombieCurrentSpeed() * mulSpeed + addSpeed);
 	zombies->getZombieAnimation()->setTimeScale(zombies->getZombieAnimation()->getTimeScale() * mulSpeed + addSpeed);
-	zombies->setZombieDieRewardCoinPrecent(50);
+	zombies->setZombieDieRewardCoinPrecent(40);
 	ZombiesGroup.push_back(zombies);
 	Zombies::zombiesNumbersChange("++");
 }

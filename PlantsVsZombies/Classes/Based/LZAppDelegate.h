@@ -27,7 +27,7 @@
 
 #include "cocos2d.h"
 
-#define LZPVZNAME "lzscpvz_1.3.4.2 (2021.09.16)"
+#define LZPVZNAME "lzscpvz_1.3.4.3 (2021.09.20)"
 
 extern GUID scheme_default;
 /**

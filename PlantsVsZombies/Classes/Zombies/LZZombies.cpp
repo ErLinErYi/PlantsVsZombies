@@ -28,7 +28,7 @@ GSGameResultJudgement* Zombies::_gameResultJudgement = nullptr;
 
 Zombies::Zombies() :
 	_node(nullptr)
-,   _rewardCoinPrecent(25)
+,   _rewardCoinPrecent(20)
 ,   _attackHeadSoundEffectType(0)
 ,   _attackBodySoundEffectType(0)
 ,   _bodyAnimationId(1)
