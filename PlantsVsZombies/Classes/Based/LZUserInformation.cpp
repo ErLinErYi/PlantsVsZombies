@@ -32,6 +32,7 @@ UserInformation::UserInformation():
 , _background(nullptr)
 , _currentPlayLevels(1)
 , _currentPlayWorldTag(0)
+, _dynamicDifficultyValue(0)
 , _showInformation(CheckBox::EventType::SELECTED)
 , _highFPS(CheckBox::EventType::SELECTED)
 , _fullScreen(CheckBox::EventType::UNSELECTED)
@@ -247,6 +248,11 @@ string& UserInformation::getCurrentPlayWorldName()
 int UserInformation::getGameDifficulty() const
 {
     return _gameDifficulty;
+}
+
+int UserInformation::getDynamicDifficultyValue() const
+{
+    return _dynamicDifficultyValue;
 }
 
 bool UserInformation::getIsMirrorScene() const
@@ -509,4 +515,9 @@ void UserInformation::gameTextInit()
         p.second = nullptr;
     }
     _gameText.clear();
+}
+
+void UserInformation::setDynamicDifficultyValue(const int value)
+{
+    _dynamicDifficultyValue = value > 30 ? 30 : value < -30 ? -30 : value;
 }

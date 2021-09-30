@@ -14,6 +14,9 @@ public:
 	static UnlockDialogLayer* createScene(int id = 0);
 	virtual bool init() override;
 
+	void getSelectButton(std::function<void(bool isPay)> pc);
+	std::function<void(bool isPay)> payCoin;
+
 CC_CONSTRUCTOR_ACCESS:
 	UnlockDialogLayer();
 

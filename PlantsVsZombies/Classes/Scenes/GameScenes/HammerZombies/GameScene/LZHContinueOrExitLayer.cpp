@@ -1,40 +1,63 @@
 ﻿/**
  *Copyright (c) 2021 LZ.All Right Reserved
  *Author : LZ
- *Date: 2021.7.21
+ *Date: 2021.09.21
  *Email: 2117610943@qq.com
  */
 
-#include "LZITemporaryReplaceScene.h"
-#include "LZIZombiesScene.h"
+#include "LZHContinueOrExitLayer.h"
+#include "LZHammerZombiesScene.h"
+#include "Scenes/SelectWorldScene/LZSelectWorldScene.h"
+#include "Scenes/MainMenuScene/LZMainMenu.h"
 #include "Based/LZPlayMusic.h"
 
-IContinueOrExitLayer::IContinueOrExitLayer()
+int HContinueOrExitLayer::type = 0;
+
+HContinueOrExitLayer::HContinueOrExitLayer():
+	_global(Global::getInstance())
 {
 }
 
-IContinueOrExitLayer::~IContinueOrExitLayer()
-{
-}
-
-IContinueOrExitLayer* IContinueOrExitLayer::createScene(int type)
+HContinueOrExitLayer* HContinueOrExitLayer::createScene(int type)
 {
 	HContinueOrExitLayer::type = type;
-	return IContinueOrExitLayer::create();
+	return HContinueOrExitLayer::create();
 }
 
-bool IContinueOrExitLayer::init()
+HContinueOrExitLayer::~HContinueOrExitLayer()
+{
+	HContinueOrExitLayer::type = 0;
+}
+
+bool HContinueOrExitLayer::init()
 {
 	if (!Scene::init()) return false;
 
 	createBackground();
-	createButton("下一关", Vec2(Director::getInstance()->getWinSize().width / 2.f, 100), 2);
 	createText();
+
+	auto size = Director::getInstance()->getWinSize();
+	
+	if (HContinueOrExitLayer::type == 1)
+	{
+		createButton("主菜单", Vec2(size.width / 2.f - 200, 100), 1);
+		createButton("下一关", Vec2(size.width / 2.f + 200, 100), 2);
+	}
+	else
+	{
+		createButton("主菜单", Vec2(size.width / 2.f - 200, 100), 1);
+		createButton("重新开始", Vec2(size.width / 2.f + 200, 100), 2);
+	}
 
 	return true;
 }
 
-void IContinueOrExitLayer::createButton(const string& text, const Vec2& pos, const int buttonType)
+void HContinueOrExitLayer::createBackground()
+{
+	SelectWorldScene::createGalaxy(this);
+}
+
+void HContinueOrExitLayer::createButton(const string& text, const Vec2& pos, const int buttonType)
 {
 	/* 创建按钮 */
 	auto button = Button::create("ButtonNew2.png", "ButtonNew.png", "", cocos2d::ui::Widget::TextureResType::PLIST);
@@ -55,9 +78,10 @@ void IContinueOrExitLayer::createButton(const string& text, const Vec2& pos, con
 				switch (buttonType)
 				{
 				case 1:
+					Director::getInstance()->replaceScene(MainMenu::create());
 					break;
 				case 2:
-					Director::getInstance()->replaceScene(IZombiesScene::create());
+					Director::getInstance()->replaceScene(TransitionFade::create(0.5f, HammerZombiesScene::create()));
 					break;
 				default:
 					break;
@@ -67,7 +91,7 @@ void IContinueOrExitLayer::createButton(const string& text, const Vec2& pos, con
 		});
 }
 
-void IContinueOrExitLayer::createText()
+void HContinueOrExitLayer::createText()
 {
 	auto objiectivesText = Text::create();
 	objiectivesText->setString(_global->userInformation->getGameText().find("模式说明")->second->text);
@@ -77,8 +101,8 @@ void IContinueOrExitLayer::createText()
 	objiectivesText->setPosition(Vec2(Director::getInstance()->getWinSize().width / 2.f, 980));
 	this->addChild(objiectivesText);
 
-	auto str = _global->userInformation->getGameText().find("我是僵尸模式介绍")->second;
-	auto information = Text::create(str->text, GAME_FONT_NAME_1, 50);
+	auto str = _global->userInformation->getGameText().find("锤僵尸模式介绍")->second;
+	auto information = Text::create(str->text, GAME_FONT_NAME_1, str->fontsize);
 	information->setColor(Color3B::BLACK);
 	information->setGlobalZOrder(10);
 	information->setTextVerticalAlignment(TextVAlignment::CENTER);

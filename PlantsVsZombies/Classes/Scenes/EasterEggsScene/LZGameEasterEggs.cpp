@@ -67,8 +67,8 @@ void GameEasterEggs::createEggText()
 	eggstext->setString(buff + "游戏过程中经历 " + std::to_string(_global->userInformation->getBreakThroughNumbers()) +
 		" 次闯关失败！\n游戏过程中使用 " + std::to_string(_global->userInformation->getUsePlantsNumbers()) +
 		" 株植物进行防御！\n游戏过程中共有 " + std::to_string(_global->userInformation->getKillZombiesNumbers()) + " 个僵尸牺牲了！\n" +
-		UserDefault::getInstance()->getStringForKey("FIRSTRUNTIME") + " 是你第一次运行此游戏的时间！\n" +
-		"到目前为止你已经游戏了 " + to_string(hour) + "小时 " + to_string(min) + "分钟 " + to_string(sec) + "秒！");
+		UserDefault::getInstance()->getStringForKey("FIRSTRUNTIME") + " 是你第一次运行此游戏的时间！\n" /*+
+		"到目前为止你已经游戏了 " + to_string(hour) + "小时 " + to_string(min) + "分钟 " + to_string(sec) + "秒！"*/);
 	eggstext->setPosition(Vec2(Director::getInstance()->getWinSize().width / 2.0f, -430));
 	eggstext->setColor(Color3B(0, 255, 255));
 	eggstext->enableGlow(Color4B::BLUE);

@@ -172,6 +172,9 @@ void LoadingScene::loadUserData()
 	_global->userInformation->setIsEaseAnimation(_userData->openBoolUserData(const_cast<char*>("EASEANIMATION")) ?
 		cocos2d::ui::CheckBox::EventType::SELECTED : cocos2d::ui::CheckBox::EventType::UNSELECTED);
 
+	/* 动态难度数值 */
+	_global->userInformation->setDynamicDifficultyValue(_userData->openIntUserData(const_cast<char*>("DYNAMICDIFFICULTYVALUE")));
+
 #ifdef _DEBUG
 	if (!UserDefault::getInstance()->getBoolForKey("CHANGEFILE"))
 	{

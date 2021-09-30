@@ -1078,8 +1078,8 @@ void Zombies::setBigZombieAttribute()
 		_currentBodyShieldVolume *= 2.5f;
 		
 		/* 速度减少 */
-		_speed /= 2.f;
-		_currentSpeed /= 2.f;
+		_speed /= 1.3f;
+		_currentSpeed /= 1.3f;
 
 		/* 身体变大，动作变慢 */
 		_timeScale -= 0.3f;

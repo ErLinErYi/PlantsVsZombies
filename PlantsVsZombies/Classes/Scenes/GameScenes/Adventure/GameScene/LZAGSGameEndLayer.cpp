@@ -42,17 +42,23 @@ bool GSGameEndLayer::init()
 
     createShieldLayer(this);
 
+	_director->getScheduler()->setTimeScale(1.0f); /* 恢复播放倍数 */
+
     return true;
 }
 
 void GSGameEndLayer::judgeBreakThroughAboutJumpLevel()
 {
 	// 如果此次闯关时间超过150秒并且闯关失败，则满足一次闯关失败
-	if (GSGameTimerLayer::breakThroughTime > 150) 
+	if (GSGameTimerLayer::breakThroughTime > 150)
 	{
-		UserData::getInstance()->caveUserData(
-			Global::getInstance()->userInformation->getCurrentCaveFileLevelWorldName(),
-			SPSControlLayer::getLevelBreakThroughNumbers() + 1);
+		UserData::getInstance()->caveUserData(Global::getInstance()->userInformation->getCurrentCaveFileLevelWorldName(), SPSControlLayer::getLevelBreakThroughNumbers() + 1);
+	}
+
+	if (GSGameTimerLayer::breakThroughTime > 60)
+	{
+		Global::getInstance()->userInformation->setDynamicDifficultyValue(Global::getInstance()->userInformation->getDynamicDifficultyValue() - 5 - rand() % 5);
+		UserData::getInstance()->caveUserData(const_cast<char*>("DYNAMICDIFFICULTYVALUE"), Global::getInstance()->userInformation->getDynamicDifficultyValue());
 	}
 }
 
@@ -61,6 +67,9 @@ void GSGameEndLayer::successfullEntry()
 	Director::getInstance()->getOpenGLView()->setCursor("resources/Images/System/cursor.png", Point::ANCHOR_TOP_LEFT);
 	UserData::getInstance()->createNewLevelDataDocument();
 	UserData::getInstance()->removeLevelData(_global->userInformation->getCurrentCaveFileLevelWorldName());
+
+	_global->userInformation->setDynamicDifficultyValue(_global->userInformation->getDynamicDifficultyValue() + 5 + rand() % 5);
+	UserData::getInstance()->caveUserData(const_cast<char*>("DYNAMICDIFFICULTYVALUE"), _global->userInformation->getDynamicDifficultyValue());
 
 	caveLevelNumber();
 	carsToCoins();

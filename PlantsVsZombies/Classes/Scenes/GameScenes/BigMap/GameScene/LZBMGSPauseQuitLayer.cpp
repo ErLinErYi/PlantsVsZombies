@@ -35,6 +35,9 @@ void BMPauseQuitLayer::setRestart()
 	    UserData::getInstance()->caveUserData(const_cast<char*>("BREAKTHROUGH"), ++_global->userInformation->getBreakThroughNumbers());
 	    GSGameEndLayer::judgeBreakThroughAboutJumpLevel();
 
+		_global->userInformation->setDynamicDifficultyValue(_global->userInformation->getDynamicDifficultyValue() - rand() % 3);
+		UserData::getInstance()->caveUserData(const_cast<char*>("DYNAMICDIFFICULTYVALUE"), _global->userInformation->getDynamicDifficultyValue());
+
 	    _director->replaceScene(TransitionFade::create(1.0f, BMSelectPlantsScene::create()));
 
 	    UserData::getInstance()->createNewLevelDataDocument();

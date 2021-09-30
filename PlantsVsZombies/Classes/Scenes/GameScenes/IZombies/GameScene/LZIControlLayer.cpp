@@ -420,7 +420,7 @@ void IControlLayer::calculatePlantsNumbers()
 	{
 		if (currentLevelNumber % 5 == 0)
 		{
-			_sunFlowerNumbers = 6 + rand() % 4;
+			_sunFlowerNumbers = 8 + rand() % 4;
 		}
 		else
 		{

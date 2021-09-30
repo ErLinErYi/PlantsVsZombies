@@ -32,6 +32,7 @@ HControlLayer::HControlLayer() :
 	_currentLevelZombiesSpeed(2.f),
 	_isShowHammerButton(false),
 	_isHammerCheat(false),
+	_levelFinished(false),
 	_hammerNumbers(0)
 {
 	srand(time(nullptr));
@@ -323,8 +324,9 @@ void HControlLayer::controlRefurbishMusicAndText()
 void HControlLayer::judgeLevelIsFinished()
 {
 	/* 关卡结束 */
-	if (ZombiesGroup.size() <= 0 && static_cast<unsigned int>(_zombiesAppearControl->getZombiesAppearFrequency()) >= _maxFrequencyNumbers)
+	if (!_levelFinished && ZombiesGroup.size() <= 0 && static_cast<unsigned int>(_zombiesAppearControl->getZombiesAppearFrequency()) >= _maxFrequencyNumbers)
 	{
+		_levelFinished = true;
 		_hammer->setVisible(false);
 		UserData::getInstance()->caveUserData(const_cast<char*>("HAMMERZOMBIES_LEVEL_NUMBER"), static_cast<int>(_currentLevelNumber + 1));
 		UserData::getInstance()->caveUserData(const_cast<char*>("MOST_HAMMERZOMBIES_LEVEL_NUMBER"), static_cast<int>(max(_currentLevelNumber + 1, _mostLevelNumber)));
@@ -339,8 +341,9 @@ void HControlLayer::judgeZombiesWin()
 {
 	for (auto zombie : ZombiesGroup)
 	{
-		if (zombie->getZombieIsSurvive() && zombie->getZombiePositionX() < GRASS_POSITION_LEFT - 60)
+		if (!_levelFinished && zombie->getZombieIsSurvive() && zombie->getZombiePositionX() < GRASS_POSITION_LEFT - 60)
 		{
+			_levelFinished = true;
 			_hammer->setVisible(false);
 			auto gameEndShieldLayer = HGameEndLayer::create();
 			_director->getRunningScene()->addChild(gameEndShieldLayer, 10, "gameEndShieldLayer");

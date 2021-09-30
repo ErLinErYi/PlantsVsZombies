@@ -707,6 +707,9 @@
     <ClCompile Include="..\Classes\Scenes\GameScenes\IZombies\GameScene\LZIRequirementLayer.cpp">
       <Filter>Class\Scenes\GameScenes\IZombies\GameScene</Filter>
     </ClCompile>
+    <ClCompile Include="..\Classes\Scenes\GameScenes\HammerZombies\GameScene\LZHContinueOrExitLayer.cpp">
+      <Filter>Class\Scenes\GameScenes\HammerZombies\GameScene</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="..\Classes\LZPlantsVsZombies.h">
@@ -1317,6 +1320,9 @@
     </ClInclude>
     <ClInclude Include="..\Classes\Scenes\GameScenes\IZombies\GameScene\LZIRequirementLayer.h">
       <Filter>Class\Scenes\GameScenes\IZombies\GameScene</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Classes\Scenes\GameScenes\HammerZombies\GameScene\LZHContinueOrExitLayer.h">
+      <Filter>Class\Scenes\GameScenes\HammerZombies\GameScene</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>

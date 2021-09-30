@@ -59,5 +59,6 @@ protected:
 	float _currentLevelZombiesSpeed;        // 当前僵尸运动速度
 	bool _isShowHammerButton;
 	bool _isHammerCheat;
+	bool _levelFinished;
 	int _hammerNumbers;
 };

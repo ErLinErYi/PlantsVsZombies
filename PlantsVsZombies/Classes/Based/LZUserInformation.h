@@ -96,6 +96,7 @@ public:
 	Sprite* getBackground() const;
 	string& getCurrentPlayWorldName();
 	int getGameDifficulty() const;
+	int getDynamicDifficultyValue() const;
 	bool getIsMirrorScene() const;
 	void setGameDifficulty(const int difficulty);
 	void setCurrentPlayWorldName(const string& worldName);
@@ -132,6 +133,7 @@ public:
 	void newUserSelectWorldData();
 	void deleteUserSelectWorldData();
 	void gameTextInit();
+	void setDynamicDifficultyValue(const int vale);
 
 	static string getClientEdition();
 	static void setNewEditionName(const string& editionName);
@@ -199,6 +201,8 @@ private:
 	int _currentPlayWorldTag;                            // 当前世界编号 
 	Sprite* _background;                                 // 当前世界地图 
 	string _currentPlayWorldName;                        // 当前世界名字
+
+	int _dynamicDifficultyValue;                         // 动态难度数值
 
 	static string _editionName;                          // 版本名称
 	static bool _updateRequired;                         // 是否需要更新

@@ -693,7 +693,20 @@ void MainMenu::beginHammerZombiesGame()
 {
 	if (checkHammerZombiesIsUnLock())
 	{
-		Director::getInstance()->replaceScene(TransitionFade::create(0.5f, HammerZombiesScene::create()));
+		setMouseListenerEnable(false);
+		auto lock = UnlockDialogLayer::createScene(4);
+		if (lock)
+		{
+			lock->setMouseListener(_mouse);
+			lock->getSelectButton([](bool pay) 
+				{
+					if (pay)
+					{
+						Director::getInstance()->replaceScene(TransitionFade::create(0.5f, HammerZombiesScene::create()));
+					}
+				});
+			this->addChild(lock, 1, "_lockLayer");
+		}
 	}
 	else
 	{
@@ -765,22 +778,35 @@ void MainMenu::beginSurvivalGame()
 {
 	if (checkIZombiesIsUnLock())
 	{
-		IZombiesData::getInstance()->createNewLevelDataDocument();
-		if (IZombiesData::getInstance()->isHaveLevelData(const_cast<char*>("IZombiesData")))
+		setMouseListenerEnable(false);
+		auto lock = UnlockDialogLayer::createScene(4);
+		if (lock)
 		{
-			auto layer = LayerColor::create(Color4B(0, 0, 0, 0));
-			layer->setGlobalZOrder(2);
-			this->addChild(layer);
-			layer->runAction(Sequence::create(FadeIn::create(0.5f),
-				CallFunc::create([=]()
+			lock->setMouseListener(_mouse);
+			lock->getSelectButton([=](bool pay)
+				{
+					if (pay)
 					{
-						layer->removeFromParent();
-						Director::getInstance()->replaceScene(IOpenCaveGameLayer::create());
-					}), nullptr));
-		}
-		else
-		{
-			Director::getInstance()->replaceScene(IZombiesScene::create());
+						IZombiesData::getInstance()->createNewLevelDataDocument();
+						if (IZombiesData::getInstance()->isHaveLevelData(const_cast<char*>("IZombiesData")))
+						{
+							auto layer = LayerColor::create(Color4B(0, 0, 0, 0));
+							layer->setGlobalZOrder(2);
+							this->addChild(layer);
+							layer->runAction(Sequence::create(FadeIn::create(0.5f),
+								CallFunc::create([=]()
+									{
+										layer->removeFromParent();
+										Director::getInstance()->replaceScene(IOpenCaveGameLayer::create());
+									}), nullptr));
+						}
+						else
+						{
+							Director::getInstance()->replaceScene(IZombiesScene::create());
+						}
+					}
+				});
+			this->addChild(lock, 1, "_lockLayer");
 		}
 	}
 	else

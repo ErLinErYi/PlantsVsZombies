@@ -178,7 +178,14 @@ void IceBergLettuce::setZombiesActionStop(const int &time)
 
 bool IceBergLettuce::getZombieIsInExplodeRange(Zombies* zombie)
 {
-	return (fabs(zombie->getZombieAnimation()->getPositionX() - _plantAnimation->getPositionX()) < 130) ? true : false;
+	if (zombie->getZombieType() == ZombiesType::GargantuarZombies)
+	{
+		return (fabs(zombie->getZombieAnimation()->getPositionX() - _plantAnimation->getPositionX()) < 180) ? true : false;
+	}
+	else
+	{
+		return (fabs(zombie->getZombieAnimation()->getPositionX() - _plantAnimation->getPositionX()) < 130) ? true : false;
+	}
 }
 
 SkeletonAnimation* IceBergLettuce::showPlantAnimationAndText()

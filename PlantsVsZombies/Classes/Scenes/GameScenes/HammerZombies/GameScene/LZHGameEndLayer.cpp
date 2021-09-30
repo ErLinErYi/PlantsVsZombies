@@ -9,7 +9,7 @@
 #include "Based/LZPlayMusic.h"
 #include "Based/LZUserData.h"
 #include "Scenes/GameScenes/Adventure/GameScene/LZAGSPauseQuitLayer.h"
-#include "Scenes/MainMenuScene/LZMainMenu.h"
+#include "LZHContinueOrExitLayer.h"
 
 HGameEndLayer::HGameEndLayer()
 {
@@ -118,7 +118,7 @@ void HGameEndLayer::rewardCoin(Button* button)
 							CallFunc::create([=]()
 								{
 									UserData::getInstance()->caveUserData(const_cast<char*>("COINNUMBERS"), _global->userInformation->getCoinNumbers());
-									Director::getInstance()->replaceScene(MainMenu::create());
+									Director::getInstance()->replaceScene(TransitionFade::create(0.5f, HContinueOrExitLayer::createScene(1)));
 								}), nullptr));
 					}), nullptr));
 		}
@@ -138,6 +138,6 @@ void HGameEndLayer::showFailText()
 	lose->setPosition(Vec2(2500, Director::getInstance()->getWinSize().height / 2.0f));
 	lose->runAction(RepeatForever::create(Sequence::create(MoveBy::create(0.05f, Vec2(10, 0)), MoveBy::create(0.05f, Vec2(-10, 0)), nullptr)));
 	lose->runAction(Sequence::create(JumpTo::create(1.0f, Director::getInstance()->getWinSize() / 2.0f, 250, 3),
-		DelayTime::create(5), CallFunc::create([this]() {Director::getInstance()->replaceScene(TransitionFade::create(0.5f, MainMenu::create())); }), nullptr));
+		DelayTime::create(5), CallFunc::create([this]() {Director::getInstance()->replaceScene(TransitionFade::create(0.5f, HContinueOrExitLayer::createScene(2))); }), nullptr));
 	this->addChild(lose);
 }
