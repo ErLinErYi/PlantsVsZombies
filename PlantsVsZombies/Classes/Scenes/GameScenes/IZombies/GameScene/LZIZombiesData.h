@@ -13,7 +13,7 @@ class IZombiesData :public UserData
 public:
     static IZombiesData* getInstance();
     
-    virtual void caveLevelData(char* key) override;
+    virtual void caveLevelData(char* key, bool correct = false) override;
     virtual void openLevelData(char* key) override;
     virtual void openLevelPlantsData(char* key) override;
     virtual void openLevelOtherData(char* key) override;

@@ -56,9 +56,10 @@ public:
     virtual void caveUserData(char* key, char* value);
     virtual void caveUserData(char* key, int value);
 
-    virtual void caveLevelData(char* key);
+    virtual void caveLevelData(char* key, bool correct = false);
     virtual void openLevelData(char* key);
     virtual bool isHaveLevelData(char* key);
+    virtual bool checkLevelData(char* key);
 
     virtual void openLevelPlantsData(char* key);
     virtual void openLevelPlantsAnimationData(char* key, const char* pl, Plants* plant);

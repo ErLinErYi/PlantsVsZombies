@@ -653,11 +653,10 @@ void ModernWorld::readWorldLevel()
 	/* 读取该世界关卡数据 */
 	if (!_global->userInformation->getUserSelectWorldData().at(0)->isReadWoldInformation)
 	{
-		OpenLevelData::getInstance()->openLevelsData(
-			_global->userInformation->getTextPath().find(
-				_global->userInformation->getGameDifficulty() ?
+		OpenLevelData::getInstance()->openLevelsData(_global->userInformation->getTextPath().find(_global->userInformation->getGameDifficulty() ?
 				"GameDataModernWorldDif" : "GameDataModernWorld")->second);
 		_global->userInformation->getUserSelectWorldData().at(0)->isReadWoldInformation = true;
+		_global->userInformation->getUserSelectWorldData().at(1)->isReadWoldInformation = false;
 	}
 
 	string worldFile;

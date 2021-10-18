@@ -122,11 +122,10 @@ void BigMapWorld::readWorldLevel()
     /* 读取该世界关卡数据 */
     if (!_global->userInformation->getUserSelectWorldData().at(1)->isReadWoldInformation)
     {
-        OpenLevelData::getInstance()->openLevelsData(
-            _global->userInformation->getTextPath().find(
-                _global->userInformation->getGameDifficulty() ?
+        OpenLevelData::getInstance()->openLevelsData(_global->userInformation->getTextPath().find(_global->userInformation->getGameDifficulty() ?
                 "GameDataBigMapWorldDif" : "GameDataBigMapWorld")->second);
         _global->userInformation->getUserSelectWorldData().at(1)->isReadWoldInformation = true;
+        _global->userInformation->getUserSelectWorldData().at(0)->isReadWoldInformation = false;
     }
 
     string worldFile;

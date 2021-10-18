@@ -478,6 +478,8 @@ void IControlLayer::selectPlantsType()
 
 void IControlLayer::createSelectPlantsType(PlantsType *type, int plantsNumber, uniform_int_distribution<int> &rand_engine)
 {
+	int strongPlant = 5;
+
 	while (plantsNumber > 0)
 	{
 		int i = 0, j = 0;
@@ -488,7 +490,6 @@ void IControlLayer::createSelectPlantsType(PlantsType *type, int plantsNumber, u
 			j = number(_random);
 		} while (gameMapInformation->plantsMap[i][j] != NO_PLANTS);
 
-		int strongPlant = 5;
 		PlantsType ptype;
 		do
 		{

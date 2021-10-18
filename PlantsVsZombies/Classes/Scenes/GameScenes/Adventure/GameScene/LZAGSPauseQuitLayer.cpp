@@ -244,7 +244,7 @@ void GSPauseQuitLayer::setRestart()
 	    UserData::getInstance()->caveUserData(const_cast<char*>("BREAKTHROUGH"), ++_global->userInformation->getBreakThroughNumbers());
 	    GSGameEndLayer::judgeBreakThroughAboutJumpLevel();
 
-		_global->userInformation->setDynamicDifficultyValue(_global->userInformation->getDynamicDifficultyValue() - rand() % 3);
+		_global->userInformation->setDynamicDifficultyValue(_global->userInformation->getDynamicDifficultyValue() - 10 - rand() % 10);
 		UserData::getInstance()->caveUserData(const_cast<char*>("DYNAMICDIFFICULTYVALUE"), _global->userInformation->getDynamicDifficultyValue());
 
 	    _director->replaceScene(TransitionFade::create(1.0f, SelectPlantsScene::create()));
@@ -264,7 +264,7 @@ void GSPauseQuitLayer::setQuitGame()
 	    if (GameScene::isRunGameScene) /* 如果运行了游戏场景则保存 */
 	    {
 		    UserData::getInstance()->createNewLevelDataDocument();
-		    UserData::getInstance()->caveLevelData(_levelName);
+			UserData::getInstance()->caveLevelData(_levelName, true);
 	    }
 
 	    popSceneAnimation();

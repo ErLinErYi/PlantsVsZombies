@@ -35,7 +35,7 @@ IZombiesData* IZombiesData::getInstance()
 	return _instance;
 }
 
-void IZombiesData::caveLevelData(char* key)
+void IZombiesData::caveLevelData(char* key, bool correct)
 {
 	switch (UserData::openLevelData())
 	{

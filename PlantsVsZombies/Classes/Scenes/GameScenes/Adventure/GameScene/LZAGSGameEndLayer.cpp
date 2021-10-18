@@ -57,7 +57,7 @@ void GSGameEndLayer::judgeBreakThroughAboutJumpLevel()
 
 	if (GSGameTimerLayer::breakThroughTime > 60)
 	{
-		Global::getInstance()->userInformation->setDynamicDifficultyValue(Global::getInstance()->userInformation->getDynamicDifficultyValue() - 5 - rand() % 5);
+		Global::getInstance()->userInformation->setDynamicDifficultyValue(Global::getInstance()->userInformation->getDynamicDifficultyValue() - 20 - rand() % 20);
 		UserData::getInstance()->caveUserData(const_cast<char*>("DYNAMICDIFFICULTYVALUE"), Global::getInstance()->userInformation->getDynamicDifficultyValue());
 	}
 }

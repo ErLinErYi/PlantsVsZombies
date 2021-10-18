@@ -519,5 +519,5 @@ void UserInformation::gameTextInit()
 
 void UserInformation::setDynamicDifficultyValue(const int value)
 {
-    _dynamicDifficultyValue = value > 30 ? 30 : value < -30 ? -30 : value;
+    _dynamicDifficultyValue = value > 30 ? 30 : value < -50 ? -50 : value;
 }

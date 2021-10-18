@@ -32,7 +32,7 @@
 #endif // !DLLTEST
 
 UserData* UserData::_instance = nullptr;
-int UserData::_levelDataVersion = 1338;
+int UserData::_levelDataVersion = 1350;
 
 UserData::UserData() :
   _global(Global::getInstance())
@@ -175,7 +175,7 @@ openUserDataReturnType UserData::openLevelData()
 		CC_SAFE_DELETE(buf);
 #   endif
 #endif
-		if (_levelDataDocument->HasParseError()|| checkLevelDataVersion()) {
+		if (_levelDataDocument->HasParseError() || checkLevelDataVersion()) {
 			return openUserDataReturnType::FileExistError;
 		}
 		return openUserDataReturnType::FileExistCorrect;
@@ -374,7 +374,7 @@ void UserData::setAnewReadData(const bool newRead)
 	_isAnewReadData = newRead;
 }
 
-void UserData::caveLevelData(char* key)
+void UserData::caveLevelData(char* key, bool correct)
 {
 	switch (openLevelData())
 	{
@@ -403,6 +403,8 @@ void UserData::caveLevelData(char* key)
 	caveLevelCarData(key);
 	caveLevelBulletData(key);
 
+	(*_levelDataDocument)[key].AddMember(rapidjson::StringRef("DataCorrect"), correct, _levelDataDocument->GetAllocator());
+	
 	flushLevelData();
 }
 
@@ -743,7 +745,12 @@ bool UserData::isHaveLevelData(char* key)
 	{
 	case openUserDataReturnType::FileExistCorrect:
 		if ((*_levelDataDocument).HasMember(key))
-			return true;
+		{
+			if (checkLevelData(key))
+			{
+				return true;
+			}
+		}
 		break;
 	case openUserDataReturnType::FileExistError:
 		_fileUtils->removeFile(getLevelDataFileName());
@@ -751,6 +758,20 @@ bool UserData::isHaveLevelData(char* key)
 	default: break;
 	}
 	return false;
+}
+
+bool UserData::checkLevelData(char* key)
+{
+	auto data = (*_levelDataDocument)[key]["DataCorrect"].GetBool();
+	if (!data)
+	{
+		(*_levelDataDocument).RemoveMember(key);
+		return false;
+	}
+	else
+	{
+		return true;
+	}
 }
 
 void UserData::openLevelPlantsData(char* key)
