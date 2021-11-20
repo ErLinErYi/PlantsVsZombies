@@ -172,6 +172,10 @@ void LoadingScene::loadUserData()
 	_global->userInformation->setIsEaseAnimation(_userData->openBoolUserData(const_cast<char*>("EASEANIMATION")) ?
 		cocos2d::ui::CheckBox::EventType::SELECTED : cocos2d::ui::CheckBox::EventType::UNSELECTED);
 
+	/* 动态难度 */
+	_global->userInformation->setDynamicDifficult(_userData->openBoolUserData(const_cast<char*>("DYNAMICDIFFICULT")) ?
+		cocos2d::ui::CheckBox::EventType::SELECTED : cocos2d::ui::CheckBox::EventType::UNSELECTED);
+
 	/* 动态难度数值 */
 	_global->userInformation->setDynamicDifficultyValue(_userData->openIntUserData(const_cast<char*>("DYNAMICDIFFICULTYVALUE")));
 
@@ -209,11 +213,14 @@ void LoadingScene::loadUserFileData()
 		UserData::getInstance()->caveUserData(const_cast<char*>("FIRSTRUNGAME"), true);
 	}
 
-	Global::getInstance()->userInformation->setKillZombiesNumbers(UserData::getInstance()->openIntUserData(const_cast<char*>("KILLALLZOMBIES")));          /* 杀死僵尸数 */
-	Global::getInstance()->userInformation->setUsePlantsNumbers(UserData::getInstance()->openIntUserData(const_cast<char*>("USEPLANTSNUMBERS")));          /* 使用植物数量 */
-	Global::getInstance()->userInformation->setIsShowEggs(UserData::getInstance()->openBoolUserData(const_cast<char*>("ISBEGINSHOWEGGS")));                /* 显示彩蛋 */
-	Global::getInstance()->userInformation->setCoinNumbers(UserData::getInstance()->openIntUserData(const_cast<char*>("COINNUMBERS")));                    /* 金币数 */
-	Global::getInstance()->userInformation->setBreakThroughNumbers(UserData::getInstance()->openIntUserData(const_cast<char*>("BREAKTHROUGH")));           /* 闯关失败个数 */
+	Global::getInstance()->userInformation->setKillZombiesNumbers(UserData::getInstance()->openIntUserData(const_cast<char*>("KILLALLZOMBIES")));               /* 杀死僵尸数 */
+	Global::getInstance()->userInformation->setUsePlantsNumbers(UserData::getInstance()->openIntUserData(const_cast<char*>("USEPLANTSNUMBERS")));               /* 使用植物数量 */
+	Global::getInstance()->userInformation->setIsShowEggs(UserData::getInstance()->openBoolUserData(const_cast<char*>("ISBEGINSHOWEGGS")));                     /* 显示彩蛋 */
+	Global::getInstance()->userInformation->setCoinNumbers(UserData::getInstance()->openIntUserData(const_cast<char*>("COINNUMBERS")));                         /* 金币数 */
+	Global::getInstance()->userInformation->setBreakThroughNumbers(UserData::getInstance()->openIntUserData(const_cast<char*>("BREAKTHROUGH")));                /* 闯关失败个数 */
+	Global::getInstance()->userInformation->setDynamicDifficultyValue(UserData::getInstance()->openIntUserData(const_cast<char*>("DYNAMICDIFFICULTYVALUE")));   /* 动态难度数值 */
+	Global::getInstance()->userInformation->setDynamicDifficult(UserData::getInstance()->openBoolUserData(const_cast<char*>("DYNAMICDIFFICULT")) ?              /* 是否选择开启动态难度 */
+		cocos2d::ui::CheckBox::EventType::SELECTED : cocos2d::ui::CheckBox::EventType::UNSELECTED);
 
 	Global::getInstance()->userInformation->newUserSelectWorldData();
 }

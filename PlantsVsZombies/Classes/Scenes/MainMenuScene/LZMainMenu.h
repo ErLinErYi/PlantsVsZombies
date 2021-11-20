@@ -60,6 +60,7 @@ private:
 	void menuOptionCallBack(Ref* pSender);                        /* 选项 */
 	void menuQuitCallBack(Ref* pSender);                          /* 退出 */
 	void menuDataCallBack(Ref* pSender);                          /* 数据 */
+	void detailedListCallBack();
 
 	/*创建函数*/
 	void createMainSprite();                                      /* 创建煮主菜单精灵 */

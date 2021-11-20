@@ -66,6 +66,7 @@ public:
 	CheckBox::EventType getIsSelectStretchingShow() const;
 	CheckBox::EventType getIsEaseAnimation() const;
 	CheckBox::EventType getIsVerticalSynchronization() const;
+	CheckBox::EventType getDynamicDifficult() const;
 	map<string, spSkeletonData*>& getAnimationData();
 	map<string, LanguageTextAttribute*>& getGameText();
 	map<string, string>& getImagePath();
@@ -126,6 +127,7 @@ public:
 	void setIsShowInformation(CheckBox::EventType isShow);
 	void setIsEaseAnimation(CheckBox::EventType easeAnimation);
 	void setIsVerticalSynchronization(CheckBox::EventType verticalSynchronization);
+	void setDynamicDifficult(CheckBox::EventType dynamicDifficult);
 	void setIsMirrorScene(const bool isMirror);
 	void setIsReadFileData(const bool isRead);
 	bool getIsReadFileData() const;
@@ -159,6 +161,7 @@ private:
 	CheckBox::EventType _stretchingShow;                 // 拉伸显示
 	CheckBox::EventType _easeAnimation;                  // 缓入动画
 	CheckBox::EventType _verticalSynchronization;        // 垂直同步
+	CheckBox::EventType _dynamicDifficult;               // 动态难度
 
 	map<string, spSkeletonData*> _animationData;         // 动画存储
 	map<string, LanguageTextAttribute*> _gameText;       // 游戏文本

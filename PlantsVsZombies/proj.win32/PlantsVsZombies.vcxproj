@@ -458,6 +458,7 @@ xcopy "$(ProjectDir)..\Resources" "$(OutDir)" /D /E /I /F /Y
     <ClCompile Include="..\Classes\Scenes\HelpScene\LZHelpScene.cpp" />
     <ClCompile Include="..\Classes\Scenes\LoadingScene\LZLoadingScene.cpp" />
     <ClCompile Include="..\Classes\Scenes\LoadingScene\LZSelectLanguageLayer.cpp" />
+    <ClCompile Include="..\Classes\Scenes\MainMenuScene\LZDetailedListLayer.cpp" />
     <ClCompile Include="..\Classes\Scenes\MainMenuScene\LZInputDataScene.cpp" />
     <ClCompile Include="..\Classes\Scenes\MainMenuScene\LZMainMenu.cpp" />
     <ClCompile Include="..\Classes\Scenes\MainMenuScene\LZOptionsSence.cpp" />
@@ -663,6 +664,7 @@ xcopy "$(ProjectDir)..\Resources" "$(OutDir)" /D /E /I /F /Y
     <ClInclude Include="..\Classes\Scenes\HelpScene\LZHelpScene.h" />
     <ClInclude Include="..\Classes\Scenes\LoadingScene\LZLoadingScene.h" />
     <ClInclude Include="..\Classes\Scenes\LoadingScene\LZSelectLanguageLayer.h" />
+    <ClInclude Include="..\Classes\Scenes\MainMenuScene\LZDetailedListLayer.h" />
     <ClInclude Include="..\Classes\Scenes\MainMenuScene\LZInputDataScene.h" />
     <ClInclude Include="..\Classes\Scenes\MainMenuScene\LZMainMenu.h" />
     <ClInclude Include="..\Classes\Scenes\MainMenuScene\LZOptionsSence.h" />

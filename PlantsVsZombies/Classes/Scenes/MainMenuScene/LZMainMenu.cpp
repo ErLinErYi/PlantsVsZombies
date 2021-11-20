@@ -11,6 +11,7 @@
 #include "LZQuitScene.h"
 #include "LZOptionsSence.h"
 #include "LZUnlockDialogLayer.h"
+#include "LZDetailedListLayer.h"
 #include "Scenes/HelpScene/LZHelpScene.h"
 #include "Scenes/LoadingScene/LZLoadingScene.h"
 #include "Scenes/SelectWorldScene/LZSelectWorldScene.h"
@@ -98,6 +99,10 @@ void MainMenu::curUpdate()
 	_menuItem[3]->getBoundingBox().containsPoint(_cur) ?
 		_menuItem[3]->setNormalImage(Sprite::createWithSpriteFrameName("SelectorScreen_WoodSign2_press.png")) :
 		_menuItem[3]->setNormalImage(Sprite::createWithSpriteFrameName("SelectorScreen_WoodSign2.png"));
+
+	auto detailedList = _sprite[3]->getChildByName("detailedList");
+	detailedList->getBoundingBox().containsPoint(Vec2(_cur.x - 606, _cur.y)) ?
+		detailedList->setColor(Color3B::WHITE) : detailedList->setColor(Color3B(200, 200, 200));
 }
 
 void MainMenu::updateUserNameOnce(float Time)
@@ -415,16 +420,22 @@ void MainMenu::createAnimation()
 		_sprite[1]->addChild(PeaShooter);
 	}
 
-	iter = _global->userInformation->getAnimationData().find("powerup");
-	if (iter != _global->userInformation->getAnimationData().end())/* 如果可以找到 */
-	{
-		auto littlesprite = SkeletonAnimation::createWithData(iter->second);
-		littlesprite->setPosition(Vec2(350, 0));
-		littlesprite->setAnimation(0, "animation", true);
-		littlesprite->setScale(1.2f);
-		littlesprite->update(0);
-		_sprite[3]->addChild(littlesprite);
-	}
+	auto detailedList = Sprite::createWithSpriteFrameName("detailedList.png");
+	detailedList->setPosition(Vec2(600, 150));
+	detailedList->setName("detailedList");
+	detailedList->setColor(Color3B(200, 200, 200));
+	_sprite[3]->addChild(detailedList);
+
+	//iter = _global->userInformation->getAnimationData().find("powerup");
+	//if (iter != _global->userInformation->getAnimationData().end())/* 如果可以找到 */
+	//{
+	//	auto littlesprite = SkeletonAnimation::createWithData(iter->second);
+	//	littlesprite->setPosition(Vec2(350, 0));
+	//	littlesprite->setAnimation(0, "animation", true);
+	//	littlesprite->setScale(1.2f);
+	//	littlesprite->update(0);
+	//	_sprite[3]->addChild(littlesprite);
+	//}
 }
 
 void MainMenu::createMouseListener()
@@ -452,6 +463,11 @@ void MainMenu::createMouseListener()
 		case MainMenuButton::ChallengesButton:    _mainButton[2]->setPosition(Vec2(882, 648));  beginHammerZombiesGame(); /* 锤僵尸模式 */  break;
 		case MainMenuButton::VasebreakerButton:   _mainButton[3]->setPosition(Vec2(872, 508));  beginVasebreakerGame();   /* 植物试炼场 */  break;
 		case MainMenuButton::SurvivalButton:      _mainButton[4]->setPosition(Vec2(852, 383));  beginSurvivalGame();      /* 我是僵尸 */    break;
+		}
+
+		if (_sprite[3]->getChildByName("detailedList")->getBoundingBox().containsPoint(Vec2(_cur.x - 606, _cur.y)))
+		{
+			detailedListCallBack();
 		}
 	};
 
@@ -647,6 +663,19 @@ void MainMenu::menuDataCallBack(Ref* pSender)
 	{
 		input->setMouseListener(_mouse);
 		this->addChild(input, 1, "_inputLayer");
+	}
+}
+
+void MainMenu::detailedListCallBack()
+{
+	PlayMusic::playMusic("tap2");
+
+	setMouseListenerEnable(false);
+	auto detaled = DetailedList::create();
+	if (detaled)
+	{
+		detaled->setMouseListener(_mouse);
+		this->addChild(detaled, 1, "_detaled");
 	}
 }
 

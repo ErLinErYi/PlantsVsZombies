@@ -28,8 +28,14 @@ ZombiesAppearControl::~ZombiesAppearControl()
 ZombiesType ZombiesAppearControl::createDifferentTypeZombies(const unsigned int& zombiesAppearFrequency)
 {
 	int number = rand() % 100;
-	auto n = number + Global::getInstance()->userInformation->getDynamicDifficultyValue();
-	number = max(0, min(n, 99));
+	if (Global::getInstance()->userInformation->getDynamicDifficult() == CheckBox::EventType::SELECTED &&
+		Global::getInstance()->userInformation->getUserSelectWorldData().at(
+		Global::getInstance()->userInformation->getCurrentPlayWorldTag())->levels ==
+		Global::getInstance()->userInformation->getCurrentPlayLevels())
+	{
+		auto n = number + Global::getInstance()->userInformation->getDynamicDifficultyValue();
+		number = max(0, min(n, 99));
+	}
 
 	int sum = 0, i = -1;
 	auto zombiesTypeProbability = _openLevelData->readLevelData(
@@ -44,7 +50,7 @@ ZombiesType ZombiesAppearControl::createDifferentTypeZombies(const unsigned int&
 				_openLevelData->readLevelData(_openLevelData->getLevelNumber())->getZombiesType().at(i));
 		}
 	}
-	return ZombiesType::None;
+	return ZombiesType::CommonZombies;
 }
 
 ZombiesType ZombiesAppearControl::createDifferentTypeZombies()

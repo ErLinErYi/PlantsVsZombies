@@ -226,6 +226,9 @@ CheckBox* OptionsMenu::createCheckBox(const Vec2 &vec2, const Vec2 &vec2_, const
 		_frameCheckBox = checkbox;
 		updateFrameSynchronization();
 		break;
+	case OptionScene_CheckBox::动态难度:
+		checkbox->setSelected(_global->userInformation->getDynamicDifficult() == cocos2d::ui::CheckBox::EventType::SELECTED ? true : false);
+		break;
 	default:
 		break;
 	}
@@ -272,6 +275,10 @@ CheckBox* OptionsMenu::createCheckBox(const Vec2 &vec2, const Vec2 &vec2_, const
 				wglSwapIntervalEXT(1);
 				_global->userInformation->setIsVerticalSynchronization(CheckBox::EventType::SELECTED);
 				break;
+			case OptionScene_CheckBox::动态难度:
+				UserData::getInstance()->caveUserData(const_cast<char*>("DYNAMICDIFFICULT"), true);
+				_global->userInformation->setDynamicDifficult(CheckBox::EventType::SELECTED);
+				break;
 			default:
 				break;
 			}
@@ -313,6 +320,10 @@ CheckBox* OptionsMenu::createCheckBox(const Vec2 &vec2, const Vec2 &vec2_, const
 				_director->setAnimationInterval(1.0f / 60);
 				wglSwapIntervalEXT(0);
 				_global->userInformation->setIsVerticalSynchronization(CheckBox::EventType::UNSELECTED);
+				break;
+			case OptionScene_CheckBox::动态难度:
+				UserData::getInstance()->caveUserData(const_cast<char*>("DYNAMICDIFFICULT"), false);
+				_global->userInformation->setDynamicDifficult(CheckBox::EventType::UNSELECTED);
 				break;
 			default:
 				break;

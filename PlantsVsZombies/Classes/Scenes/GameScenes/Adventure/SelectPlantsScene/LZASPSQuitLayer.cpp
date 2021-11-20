@@ -58,7 +58,7 @@ void SPSQuitLayer::createDialog()
 	SoundEffectslider->setScale(1.2f);
 
 	/* 创建复选框 */
-	auto check = createCheckBox(Vec2(350, 340), Vec2(150, 340), _global->userInformation->getGameText().find("信息")->second->text, OptionScene_CheckBox::显示信息, "CheckBox2", "CheckBox", true);
+	auto check = createCheckBox(Vec2(350, 340), Vec2(150, 340), _global->userInformation->getGameText().find("动态难度")->second->text, OptionScene_CheckBox::动态难度, "CheckBox2", "CheckBox", true);
 	auto check1 = createCheckBox(Vec2(800, 340), Vec2(600, 340), _global->userInformation->getGameText().find("全屏")->second->text, OptionScene_CheckBox::全屏, "CheckBox2", "CheckBox", true);
 	auto check2 = createCheckBox(Vec2(350, 265), Vec2(150, 265), _global->userInformation->getGameText().find("高帧率")->second->text, OptionScene_CheckBox::高帧率, "CheckBox2", "CheckBox", true);
 	auto check3 = createCheckBox(Vec2(800, 265), Vec2(600, 265), _global->userInformation->getGameText().find("垂直同步")->second->text, OptionScene_CheckBox::垂直同步, "CheckBox2", "CheckBox", true);

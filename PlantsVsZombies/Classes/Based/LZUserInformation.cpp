@@ -38,6 +38,7 @@ UserInformation::UserInformation():
 , _fullScreen(CheckBox::EventType::UNSELECTED)
 , _cursorNotHide(CheckBox::EventType::UNSELECTED)
 , _stretchingShow(CheckBox::EventType::SELECTED)
+, _dynamicDifficult(CheckBox::EventType::UNSELECTED)
 , _selectWorldName(WorldName::Mordern)
 , _systemCaveFileName("WORLD_%d_LEVELS")
 , _systemCaveFileName_difficult("WORLD_%d_LEVELS_DIF")
@@ -98,6 +99,11 @@ CheckBox::EventType UserInformation::getIsEaseAnimation() const
 CheckBox::EventType UserInformation::getIsVerticalSynchronization() const
 {
     return _verticalSynchronization;
+}
+
+CheckBox::EventType UserInformation::getDynamicDifficult() const
+{
+    return _dynamicDifficult;
 }
 
 map<string, spSkeletonData*>& UserInformation::getAnimationData()
@@ -459,6 +465,11 @@ void UserInformation::setIsVerticalSynchronization(CheckBox::EventType verticalS
     _verticalSynchronization = verticalSynchronization;
 }
 
+void UserInformation::setDynamicDifficult(CheckBox::EventType dynamicDifficult)
+{
+    _dynamicDifficult = dynamicDifficult;
+}
+
 void UserInformation::setIsMirrorScene(const bool isMirror)
 {
     _isMirrorScene = isMirror;
@@ -519,5 +530,5 @@ void UserInformation::gameTextInit()
 
 void UserInformation::setDynamicDifficultyValue(const int value)
 {
-    _dynamicDifficultyValue = value > 30 ? 30 : value < -50 ? -50 : value;
+    _dynamicDifficultyValue = value > 30 ? 30 : value < -30 ? -30 : value;
 }

@@ -133,7 +133,7 @@ void GSPauseQuitLayer::createDialog()
 	SoundEffectslider->setScale(1.2f);
 
 	/* 创建复选框 */
-	auto check   = createCheckBox(Vec2(350, 380), Vec2(150, 380), _global->userInformation->getGameText().find("信息")->second->text, OptionScene_CheckBox::显示信息, "CheckBox2", "CheckBox", true);
+	auto check   = createCheckBox(Vec2(350, 380), Vec2(150, 380), _global->userInformation->getGameText().find("动态难度")->second->text, OptionScene_CheckBox::动态难度, "CheckBox2", "CheckBox", true);
 	auto check1  = createCheckBox(Vec2(800, 380), Vec2(600, 380), _global->userInformation->getGameText().find("全屏")->second->text, OptionScene_CheckBox::全屏, "CheckBox2", "CheckBox", true);
 	auto check2  = createCheckBox(Vec2(350, 310), Vec2(150, 310), _global->userInformation->getGameText().find("高帧率")->second->text, OptionScene_CheckBox::高帧率, "CheckBox2", "CheckBox", true);
 	auto check3  = createCheckBox(Vec2(800, 310), Vec2(600, 310), _global->userInformation->getGameText().find("鼠标显示")->second->text, OptionScene_CheckBox::鼠标隐藏, "CheckBox2", "CheckBox", true);
@@ -244,7 +244,7 @@ void GSPauseQuitLayer::setRestart()
 	    UserData::getInstance()->caveUserData(const_cast<char*>("BREAKTHROUGH"), ++_global->userInformation->getBreakThroughNumbers());
 	    GSGameEndLayer::judgeBreakThroughAboutJumpLevel();
 
-		_global->userInformation->setDynamicDifficultyValue(_global->userInformation->getDynamicDifficultyValue() - 10 - rand() % 10);
+		_global->userInformation->setDynamicDifficultyValue(_global->userInformation->getDynamicDifficultyValue() - 5 - rand() % 5);
 		UserData::getInstance()->caveUserData(const_cast<char*>("DYNAMICDIFFICULTYVALUE"), _global->userInformation->getDynamicDifficultyValue());
 
 	    _director->replaceScene(TransitionFade::create(1.0f, SelectPlantsScene::create()));

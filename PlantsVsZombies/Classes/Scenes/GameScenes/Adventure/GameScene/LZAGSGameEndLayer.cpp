@@ -49,15 +49,11 @@ bool GSGameEndLayer::init()
 
 void GSGameEndLayer::judgeBreakThroughAboutJumpLevel()
 {
-	// 如果此次闯关时间超过150秒并且闯关失败，则满足一次闯关失败
-	if (GSGameTimerLayer::breakThroughTime > 150)
-	{
-		UserData::getInstance()->caveUserData(Global::getInstance()->userInformation->getCurrentCaveFileLevelWorldName(), SPSControlLayer::getLevelBreakThroughNumbers() + 1);
-	}
-
+	// 如果此次闯关时间超过60秒并且闯关失败，则满足一次闯关失败
 	if (GSGameTimerLayer::breakThroughTime > 60)
 	{
-		Global::getInstance()->userInformation->setDynamicDifficultyValue(Global::getInstance()->userInformation->getDynamicDifficultyValue() - 20 - rand() % 20);
+		UserData::getInstance()->caveUserData(Global::getInstance()->userInformation->getCurrentCaveFileLevelWorldName(), SPSControlLayer::getLevelBreakThroughNumbers() + 1);
+		Global::getInstance()->userInformation->setDynamicDifficultyValue(Global::getInstance()->userInformation->getDynamicDifficultyValue() - 15 - rand() % 5);
 		UserData::getInstance()->caveUserData(const_cast<char*>("DYNAMICDIFFICULTYVALUE"), Global::getInstance()->userInformation->getDynamicDifficultyValue());
 	}
 }
