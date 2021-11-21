@@ -36,6 +36,7 @@ MainMenu::MainMenu() :
 	_optionLayer(nullptr),
 	_nowtime(nullptr),
 	_playMusic{false},
+	_buttonPlayMusic{ false },
 	_testingGroundUnlock(false)
 {
 	/* 播放音乐 */
@@ -88,6 +89,7 @@ void MainMenu::curUpdate()
 	this->playMusicBleepInGameButtons(MainMenuButton::SurvivalButton);
 	this->playMusicBleepInGameButtons(MainMenuButton::ChallengesButton);
 	this->playMusicBleepInGameButtons(MainMenuButton::VasebreakerButton);
+	this->playMusicBleepInGameButtons(MainMenuButton::DetailedListButton);
 
 	/* 鼠标移动到按钮式更换图片 */
 	_menuItem[0]->getBoundingBox().containsPoint(Vec2(_cur.x - 606, _cur.y)) ?
@@ -99,10 +101,6 @@ void MainMenu::curUpdate()
 	_menuItem[3]->getBoundingBox().containsPoint(_cur) ?
 		_menuItem[3]->setNormalImage(Sprite::createWithSpriteFrameName("SelectorScreen_WoodSign2_press.png")) :
 		_menuItem[3]->setNormalImage(Sprite::createWithSpriteFrameName("SelectorScreen_WoodSign2.png"));
-
-	auto detailedList = _sprite[3]->getChildByName("detailedList");
-	detailedList->getBoundingBox().containsPoint(Vec2(_cur.x - 606, _cur.y)) ?
-		detailedList->setColor(Color3B::WHITE) : detailedList->setColor(Color3B(200, 200, 200));
 }
 
 void MainMenu::updateUserNameOnce(float Time)
@@ -154,20 +152,23 @@ void MainMenu::playMusicBleepInGameButtons(MainMenuButton button)
 		case MainMenu::MainMenuButton::SurvivalButton:
 			if (!checkIZombiesIsUnLock()) color = Color3B(110, 110, 110);
 			break;
+		case MainMenuButton::DetailedListButton:
+			_sprite[3]->getChildByName("detailedList")->setColor(Color3B::WHITE);
+			break;
 		default:  color = Color3B(110, 110, 110); 
 			break;
 		}
 		_mainButton[ID]->setColor(color);
 		/* 如果没有播放音乐 */
-		if (!_playMusic[ID - 1])
+		if (!_buttonPlayMusic[ID - 1])
 		{
 			PlayMusic::playMusic("bleep");
-			_playMusic[ID - 1] = true;
+			_buttonPlayMusic[ID - 1] = true;
 		}
 	}
 	else
 	{
-		if (_playMusic[ID - 1])  _playMusic[ID - 1] = false;
+		if (_buttonPlayMusic[ID - 1])  _buttonPlayMusic[ID - 1] = false;
 		
 		switch (button)
 		{
@@ -186,6 +187,9 @@ void MainMenu::playMusicBleepInGameButtons(MainMenuButton button)
 			if (!checkIZombiesIsUnLock()) color = Color3B(80, 80, 80);
 			else color = Color3B(180, 180, 180);
 			break;
+		case MainMenuButton::DetailedListButton:
+			_sprite[3]->getChildByName("detailedList")->setColor(Color3B::Color3B(200, 200, 200));
+			break;
 		default:  color = Color3B(80, 80, 80);
 			break;
 		}
@@ -198,15 +202,15 @@ void MainMenu::playMusicBleepInMainButtons(int ID, const Vec2& vec2)
 	if (_menuItem[ID]->getBoundingBox().containsPoint(vec2))
 	{
 		/* 如果没有播放音乐 */
-		if (!_playMusic[ID + 4])
+		if (!_playMusic[ID])
 		{
 			PlayMusic::playMusic("bleep");
-			_playMusic[ID + 4] = true;
+			_playMusic[ID] = true;
 		}
 	}
 	else
 	{
-		if (_playMusic[ID + 4]) _playMusic[ID + 4] = false;
+		if (_playMusic[ID]) _playMusic[ID] = false;
 	}
 }
 
@@ -247,6 +251,10 @@ MainMenu::MainMenuButton MainMenu::checkCurInButtons()
 		(_cur.x >= 1650 && _cur.x <= 1690 && _cur.y >= 280 && _cur.y <= 400))
 	{
 		return MainMenuButton::SurvivalButton;
+	}
+	else if (_sprite[3]->getChildByName("detailedList")->getBoundingBox().containsPoint(Vec2(_cur.x - 606, _cur.y)))
+	{
+		return MainMenuButton::DetailedListButton;
 	}
 	else
 	{
@@ -463,11 +471,7 @@ void MainMenu::createMouseListener()
 		case MainMenuButton::ChallengesButton:    _mainButton[2]->setPosition(Vec2(882, 648));  beginHammerZombiesGame(); /* 锤僵尸模式 */  break;
 		case MainMenuButton::VasebreakerButton:   _mainButton[3]->setPosition(Vec2(872, 508));  beginVasebreakerGame();   /* 植物试炼场 */  break;
 		case MainMenuButton::SurvivalButton:      _mainButton[4]->setPosition(Vec2(852, 383));  beginSurvivalGame();      /* 我是僵尸 */    break;
-		}
-
-		if (_sprite[3]->getChildByName("detailedList")->getBoundingBox().containsPoint(Vec2(_cur.x - 606, _cur.y)))
-		{
-			detailedListCallBack();
+		case MainMenuButton::DetailedListButton:                                                detailedListCallBack();   /* 游戏清单 */    break;
 		}
 	};
 

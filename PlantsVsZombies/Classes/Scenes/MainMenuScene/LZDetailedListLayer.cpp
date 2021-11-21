@@ -38,17 +38,9 @@ bool DetailedList::init()
 	auto jlevels1 = getWorldMostLevel(false, 2);
 	auto klevels1 = getWorldMostLevel(true, 2);
 
-	auto ize = UserData::getInstance()->openIntUserData(const_cast<char*>("MOST_HAMMERZOMBIES_LEVEL_NUMBER"));
-
-	/*onShowChart("普通世界清单", Vec2(475, 1020), "简单模式", Vec2(40, 940), "困难模式",
-		Vec2(40, 860), to_string(jlevels) + " / 52", Vec2(440, 940), to_string(klevels) + " / 52", Vec2(440, 860),
-		Vec2(450, 955), Vec2(450, 875), jlevels * 480 / 52.f, klevels * 480 / 52.f, Color4F::ORANGE, Color4F::YELLOW);
-	onShowChart("大地图世界清单", Vec2(475, 755), "简单模式", Vec2(40, 675), "困难模式",
-		Vec2(40, 595), to_string(jlevels1) + " / 52", Vec2(440, 675), to_string(klevels1) + " / 52", Vec2(440, 595),
-		Vec2(450, 690), Vec2(450, 610), jlevels1 * 480 / 52.f, klevels1 * 480 / 52.f, Color4F::ORANGE, Color4F::YELLOW);*/
-	/*onShowChart("小游戏清单", Vec2(475, 755), "锤僵尸模式", Vec2(40, 675), "我是僵尸模式",
-		Vec2(40, 595), to_string(ize) + " / 170", Vec2(440, 675), to_string(klevels1) + " / 200", Vec2(440, 595),
-		Vec2(450, 690), Vec2(450, 610), ize * 480 / 170.f, klevels1 * 480 / 200.f, Color4F::ORANGE, Color4F::YELLOW);*/
+	auto hammer = UserData::getInstance()->openIntUserData(const_cast<char*>("MOST_HAMMERZOMBIES_LEVEL_NUMBER"));
+	auto testGround = UserData::getInstance()->openIntUserData(const_cast<char*>("TESTINGGROUND"));
+	auto ize = UserData::getInstance()->openIntUserData(const_cast<char*>("IZOMBIES_MOST_LEVEL"));
 	
 	string mName[3] = { "简单模式","困难模式" };
 	string mNumber[3] = { to_string(jlevels) + " / 52",to_string(klevels) + " / 52" };
@@ -73,61 +65,34 @@ bool DetailedList::init()
 	color[1] = Color4F::YELLOW;
 	onShowChart("大地图世界清单", Vec2(475, 755), mName, mPos, mNumber, mNPos, pos, number, color);
 
+	mName[0] = "锤僵尸模式";
+	mName[1] = "植物试炼场";
+	mName[2] = "我是僵尸模式";
+	mNumber[0] = to_string(hammer) + " / 170";
+	mNumber[1] = to_string(testGround) + " / 200";
+	mNumber[2] = to_string(ize) + " / 251";
+	mPos[0] = Vec2(40, 440);
+	mPos[1] = Vec2(40, 380);
+	mPos[2] = Vec2(40, 320);
+	mNPos[0] = Vec2(440, 440);
+	mNPos[1] = Vec2(440, 380);
+	mNPos[2] = Vec2(440, 320);
+	pos[0] = Vec2(450, 455);
+	pos[1] = Vec2(450, 395);
+	pos[2] = Vec2(450, 335);
+	number[0] = min(hammer * 480 / 170.f, 480.f);
+	number[1] = min(testGround * 480 / 200.f,480.f);
+	number[2] = min(ize * 480 / 251.f, 480.f);
+	color[0] = Color4F::ORANGE;
+	color[1] = Color4F::YELLOW;
+	color[2] = Color4F::BLUE;
+	onShowChart("小游戏清单", Vec2(475, 490), mName, mPos, mNumber, mNPos, pos, number, color, 3);
+
+	onShowOtherThings();
+
 	onShowBackButton();
 
 	return true;
-}
-
-void DetailedList::onShowChart(const string gName, const Vec2& gPos,
-	const string& mName, const Vec2& mPos, const string& mName2, const Vec2& mPos2,
-	const string& mNumber, const Vec2& mNPos, const string& mNumber2, const Vec2& mNPos2,
-	const Vec2& pos, const Vec2& pos2, float number, float number2, Color4F color, Color4F color2)
-{
-	auto gameName = ui::Text::create();
-	gameName->setString(gName);
-	gameName->setPosition(gPos);
-	gameName->setFontName(GAME_FONT_NAME_1);
-	gameName->setFontSize(30);
-	this->addChild(gameName);
-
-	
-	auto modeName = ui::Text::create();
-	modeName->setString(mName);
-	modeName->setPosition(mPos);
-	modeName->setFontName(GAME_FONT_NAME_1);
-	modeName->setAnchorPoint(Vec2::ANCHOR_MIDDLE_LEFT);
-	modeName->setFontSize(25);
-	this->addChild(modeName);
-
-	auto modeName2 = ui::Text::create();
-	modeName2->setString(mName2);
-	modeName2->setPosition(mPos2);
-	modeName2->setFontName(GAME_FONT_NAME_1);
-	modeName2->setAnchorPoint(Vec2::ANCHOR_MIDDLE_LEFT);
-	modeName2->setFontSize(25);
-	this->addChild(modeName2);
-
-	auto modeNumber = ui::Text::create();
-	modeNumber->setString(mNumber);
-	modeNumber->setPosition(mNPos);
-	modeNumber->setFontName(GAME_FONT_NAME_2);
-	modeNumber->setAnchorPoint(Vec2::ANCHOR_MIDDLE_RIGHT);
-	modeNumber->setFontSize(25);
-	this->addChild(modeNumber);
-
-	auto modeNumber2 = ui::Text::create();
-	modeNumber2->setString(mNumber2);
-	modeNumber2->setPosition(mNPos2);
-	modeNumber2->setFontName(GAME_FONT_NAME_2);
-	modeNumber2->setAnchorPoint(Vec2::ANCHOR_MIDDLE_RIGHT);
-	modeNumber2->setFontSize(25);
-	this->addChild(modeNumber2);
-
-	_drawNode->drawSolidRect(pos, pos + Vec2(480, -30), Color4F(0.5f, 0.5f, 0.5f, 0.5f));
-	_drawNode->drawSolidRect(pos2, pos2 + Vec2(480, -30), Color4F(0.5f, 0.5f, 0.5f, 0.5f));
-
-	_drawNode->drawSolidRect(pos, pos + Vec2(number, -30), color);
-	_drawNode->drawSolidRect(pos2, pos2 + Vec2(number2, -30), color2);
 }
 
 void DetailedList::onShowChart(const string& gName, const Vec2& gPos, 
@@ -139,6 +104,7 @@ void DetailedList::onShowChart(const string& gName, const Vec2& gPos,
 	gameName->setString(gName);
 	gameName->setPosition(gPos);
 	gameName->setFontName(GAME_FONT_NAME_1);
+	gameName->setAnchorPoint(Vec2::ANCHOR_MIDDLE);
 	gameName->setFontSize(30);
 	this->addChild(gameName);
 
@@ -203,4 +169,14 @@ void DetailedList::onShowBackButton()
 				break;
 			}
 		});
+}
+
+void DetailedList::onShowOtherThings()
+{
+	_drawNode->drawRect(Vec2(40, 40), Vec2(930, 245), Color4F(0.5f, 0.5f, 0.5f, 0.7f));
+	_drawNode->drawLine(Vec2(40, 177), Vec2(930, 177), Color4F(0.5f, 0.5f, 0.5f, 0.7f));
+	_drawNode->drawLine(Vec2(40, 109), Vec2(930, 109), Color4F(0.5f, 0.5f, 0.5f, 0.7f));
+	_drawNode->drawLine(Vec2(445, 245), Vec2(445, 40), Color4F(0.5f, 0.5f, 0.5f, 0.7f));
+	_drawNode->drawLine(Vec2(300, 245), Vec2(300, 109), Color4F(0.5f, 0.5f, 0.5f, 0.7f));
+	_drawNode->drawLine(Vec2(830, 245), Vec2(830, 109), Color4F(0.5f, 0.5f, 0.5f, 0.7f));
 }

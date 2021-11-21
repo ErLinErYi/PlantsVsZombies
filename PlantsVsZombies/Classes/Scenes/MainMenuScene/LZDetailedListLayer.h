@@ -21,10 +21,6 @@ CC_CONSTRUCTOR_ACCESS:
 	virtual bool init() override;
 
 private:
-	void onShowChart(const string gName, const Vec2& gPos,
-		const string& mName, const Vec2& mPos, const string& mName2, const Vec2& mPos2,
-		const string& mNumber, const Vec2& mNPos, const string& mNumber2, const Vec2& mNPos2,
-		const Vec2& pos, const Vec2& pos2, float number, float number2, Color4F color, Color4F color2);
 	void onShowChart(const string& gName, const Vec2& gPos,
 		string* mName, Vec2* mPos,
 		string* mNumber, Vec2* mNPos,
@@ -32,6 +28,7 @@ private:
 
 	int getWorldMostLevel(bool dif, int id);
 	void onShowBackButton();
+	void onShowOtherThings();
 
 private:
 	DrawNode* _drawNode;

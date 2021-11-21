@@ -39,6 +39,7 @@ private:
 		ChallengesButton,
 		VasebreakerButton,
 		SurvivalButton,
+		DetailedListButton
 	};
 
 	MainMenuButton checkCurInButtons();                           /* 判断鼠标光标位置*/
@@ -79,7 +80,8 @@ private:
 	void setMouseListenerEnable(bool isEnable) { _mouse->setEnabled(isEnable); }
 
 private:
-	bool _playMusic[8];                      /* 音乐是否播放 */
+	bool _playMusic[5];                      /* 音乐是否播放 */
+	bool _buttonPlayMusic[5];                /* 音乐是否播放 */
 	bool _testingGroundUnlock;               /* 植物试炼场是否解锁 */
 	Vec2 _cur;                               /* 鼠标光标位置 */
 	Text* _userText;                         /* 储存用户名字 */
