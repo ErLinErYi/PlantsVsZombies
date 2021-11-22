@@ -36,7 +36,7 @@ bool DetailedList::init()
 	_drawNode->drawSolidRect(Vec2(20, 285), Vec2(950, 530), Color4F(0.2f, 0.2f, 0.2f, 0.7f));
 	_drawNode->drawSolidRect(Vec2(20, 20), Vec2(950, 265), Color4F(0.2f, 0.2f, 0.2f, 0.7f));
 
-	_drawNode->drawSolidRect(Vec2(960, 20), Vec2(1900, 1060), Color4F(0.2f, 0.2f, 0.2f, 0.7f));
+	_drawNode->drawSolidRect(Vec2(970, 20), Vec2(1900, 1060), Color4F(0.2f, 0.2f, 0.2f, 0.7f));
 	this->addChild(_drawNode);
 
 	_modernPLevel = getWorldMostLevel(false, 1);
@@ -188,12 +188,17 @@ void DetailedList::onShowOtherThings()
 	_drawNode->drawLine(Vec2(445, 245), Vec2(445, 40), Color4F(0.5f, 0.5f, 0.5f, 0.7f));
 	_drawNode->drawLine(Vec2(300, 245), Vec2(300, 109), Color4F(0.5f, 0.5f, 0.5f, 0.7f));
 	_drawNode->drawLine(Vec2(785, 245), Vec2(785, 109), Color4F(0.5f, 0.5f, 0.5f, 0.7f));
+	/*_drawNode->drawLine(Vec2(687, 177), Vec2(687, 109), Color4F(0.5f, 0.5f, 0.5f, 0.7f));
+	_drawNode->drawLine(Vec2(600, 177), Vec2(600, 109), Color4F(0.5f, 0.5f, 0.5f, 0.7f));
+	_drawNode->drawLine(Vec2(843, 177), Vec2(843, 109), Color4F(0.5f, 0.5f, 0.5f, 0.7f));*/
 
 	onShowTextData("闯关失败次数", to_string(_global->userInformation->getBreakThroughNumbers()), Vec2(170, 210), Vec2(372, 210));
-	onShowTextData("僵尸死亡数量", to_string(_global->userInformation->getKillZombiesNumbers()), Vec2(170, 142), Vec2(372, 142));
+	onShowTextData("僵尸死亡总量", to_string(_global->userInformation->getKillZombiesNumbers()), Vec2(170, 142), Vec2(372, 142));
 	onShowTextData("当前金币数量", to_string(_global->userInformation->getCoinNumbers()), Vec2(615, 210), Vec2(857, 210));
-	onShowTextData("使用植物数量", to_string(_global->userInformation->getUsePlantsNumbers()), Vec2(615, 142), Vec2(857, 142));
-	onShowTextData("第一次游戏的时间", UserDefault::getInstance()->getStringForKey("FIRSTRUNTIME"), Vec2(242, 74), Vec2(687, 74));
+	onShowTextData("使用植物总量", to_string(_global->userInformation->getUsePlantsNumbers()), Vec2(615, 142), Vec2(857, 142));
+	/*onShowTextData("使用植物数量", to_string(_global->userInformation->getUsePlantsNumbers()), Vec2(522, 142), Vec2(643, 142));
+	onShowTextData("解锁植物数量", to_string(_global->userInformation->getUsePlantsNumbers()), Vec2(765, 142), Vec2(886, 142));*/
+	onShowTextData("第一次游戏时间", UserDefault::getInstance()->getStringForKey("FIRSTRUNTIME"), Vec2(242, 74), Vec2(687, 74));
 }
 
 void DetailedList::onShowTextData(const string& name, const string& name2, const Vec2& pos, const Vec2& pos2, int size, int size2)
@@ -220,16 +225,23 @@ void DetailedList::onShowSumList()
 	auto num2 = min(_hammerLevel, 170);
 	auto num3 = min(_testGroundLevel, 200);
 	auto num4 = min(_izeLevel, 251);
-	auto mGame = num / 208.f * 180;
-	auto lGame = num2 / 170.f * 54;
-	auto lGame2 = num3 / 200.f * 36;
-	auto lGame3 = num4 / 251.f * 90;
-	auto sum = to_string(round((num + num2 + num3 + num4) / 829.f * 10000) / 100.f);
-	sum.erase(sum.find(".") + 3);
+	
+	auto sum = num / 208.f;
+	auto sum2 = num2 / 170.f;
+	auto sum3 = num3 / 200.f;
+	auto sum4 = num4 / 251.f;
 
-	onShowTextData("游戏100%清单", sum + "%", Vec2(1435, 1015), Vec2(1435, 520), 50, 130);
+	auto mGame = sum * 180;
+	auto lGame = sum2 * 54;
+	auto lGame2 = sum3 * 36;
+	auto lGame3 = sum4 * 90;
 
-	for (float i = 0; i < 360; i+=0.1f)
+	auto allSum = to_string(round((sum * 0.5f + sum2 * 0.15f + sum3 * 0.1f + sum4 * 0.25f) * 10000) / 100.f);
+	allSum.erase(allSum.find(".") + 3);
+
+	onShowTextData("游戏100%清单", allSum + "%", Vec2(1435, 1015), Vec2(1435, 520), 50, 130);
+
+	for (float i = 0; i < 360; i+=0.02f)
 	{
 		auto rad = i * M_PI / 180.f;
 
