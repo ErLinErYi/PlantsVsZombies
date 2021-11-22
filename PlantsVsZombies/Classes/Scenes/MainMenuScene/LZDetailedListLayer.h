@@ -29,7 +29,16 @@ private:
 	int getWorldMostLevel(bool dif, int id);
 	void onShowBackButton();
 	void onShowOtherThings();
+	void onShowTextData(const string& name, const string& name2, const Vec2& pos, const Vec2& pos2, int size = 25, int size2 = 25);
+	void onShowSumList();
 
 private:
 	DrawNode* _drawNode;
+	int _modernPLevel;
+	int _modernKLevel;
+	int _bigMapPLevel;
+	int _bigMapKLevel;
+	int _hammerLevel;
+	int _testGroundLevel;
+	int _izeLevel;
 };
