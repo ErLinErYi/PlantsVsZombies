@@ -25,7 +25,7 @@ LoadingScene::LoadingScene() :
 	_musicNumbers(0),
 	_animationNumbers(0),
 	_imageNumbers(0),
-	_delayTime(0.2f),
+	_delayTime(0.1f),
 	_loadingPrecent(0),
 	_loadFailed(false),
 	_label(nullptr),
