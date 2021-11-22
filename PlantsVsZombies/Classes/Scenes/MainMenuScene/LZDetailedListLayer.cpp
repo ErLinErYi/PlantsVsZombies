@@ -54,7 +54,7 @@ bool DetailedList::init()
 	Vec2 mPos[3] = { Vec2(40, 940) ,Vec2(40, 860) };
 	Vec2 mNPos[3] = { Vec2(440, 940) ,Vec2(440, 860) };
 	Vec2 pos[3] = { Vec2(450, 955), Vec2(450, 875) };
-	float number[3] = { _modernPLevel * 480 / 52.f, _modernKLevel * 480 / 52.f };
+	float number[3] = { _modernPLevel / 52.f * 480, _modernKLevel / 52.f * 480 };
 	Color4F color[3] = { Color4F(0,1,0,0.5f), Color4F(1,0,0,0.5f) };
 	onShowChart("普通世界清单", Vec2(475, 1020), mName, mPos, mNumber, mNPos, pos, number, color);
 
@@ -66,8 +66,8 @@ bool DetailedList::init()
 	mNPos[1] = Vec2(440, 595);
 	pos[0] = Vec2(450, 690);
 	pos[1] = Vec2(450, 610);
-	number[0] = _bigMapPLevel * 480 / 52.f;
-	number[1] = _bigMapKLevel * 480 / 52.f;
+	number[0] = _bigMapPLevel / 52.f * 480;
+	number[1] = _bigMapKLevel / 52.f * 480;
 	color[0] = Color4F(1, 0.5f, 0, 0.5f);
 	color[1] = Color4F(0.35f, 0, 0.35f, 0.5f);
 	onShowChart("大地图世界清单", Vec2(475, 755), mName, mPos, mNumber, mNPos, pos, number, color);
@@ -87,9 +87,9 @@ bool DetailedList::init()
 	pos[0] = Vec2(450, 455);
 	pos[1] = Vec2(450, 395);
 	pos[2] = Vec2(450, 335);
-	number[0] = min(_hammerLevel * 480 / 170.f, 480.f);
-	number[1] = min(_testGroundLevel * 480 / 200.f,480.f);
-	number[2] = min(_izeLevel * 480 / 251.f, 480.f);
+	number[0] = max(min(_hammerLevel / 170.f * 480, 480.f), 0.f);
+	number[1] = max(min(_testGroundLevel / 200.f * 480, 480.f), 0.f);
+	number[2] = max(min(_izeLevel / 251.f * 480, 480.f), 0.f);
 	color[0] = Color4F(0, 0, 1, 0.5f);
 	color[1] = Color4F(1, 1, 0, 0.5f);
 	color[2] = Color4F(1, 0, 0.5f, 0.5f);
