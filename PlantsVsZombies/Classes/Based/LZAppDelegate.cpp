@@ -47,8 +47,6 @@ void AppDelegate::initGLContextAttrs()
     GLView::setGLContextAttrs(glContextAttrs);
 }
 
-// if you want to use the package manager to install more packages,  
-// don't modify or remove this function
 static int register_all_packages()
 {
     SpriteFrameCache::getInstance()->addSpriteFramesWithFile(
