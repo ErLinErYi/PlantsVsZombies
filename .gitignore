@@ -3,7 +3,7 @@
 ##
 ## Get latest from https://github.com/github/gitignore/blob/master/VisualStudio.gitignore
 
-LZAppDelegate.cpp
+PlantsVsZombies/Classes/Based/LZAppDelegate.cpp
 
 # User-specific files
 *.rsuser
