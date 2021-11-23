@@ -52,7 +52,7 @@ static int register_all_packages()
     SpriteFrameCache::getInstance()->addSpriteFramesWithFile(
         "resources/Images/LoadingScene/LoadingScene.plist",
         "resources/Images/LoadingScene/LoadingScene.pvr.ccz");
-    return 0; //flag for packages manager
+    return 0; 
 }
 
 bool AppDelegate::applicationDidFinishLaunching() 
