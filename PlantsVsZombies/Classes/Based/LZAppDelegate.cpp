@@ -39,8 +39,6 @@ AppDelegate::~AppDelegate()
 #endif
 }
 
-// if you want a different context, modify the value of glContextAttrs
-// it will affect all platforms
 void AppDelegate::initGLContextAttrs()
 {
     // set OpenGL context attributes: red,green,blue,alpha,depth,stencil,multisamplesCount
