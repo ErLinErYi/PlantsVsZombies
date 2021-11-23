@@ -9,6 +9,7 @@
 #include "Based/LZLevelData.h"
 #include "Based/LZUserData.h"
 #include "Based/LZPlayMusic.h"
+#include "Based/LZDefine.h"
 #include "Based/LZMouseEventControl.h"
 #include "Scenes/SelectWorldScene/LZSelectWorldScene.h"
 #include "Scenes/GameScenes/BigMap/SelectPlantsScene/LZBMSelectPlantsScene.h"
@@ -18,7 +19,7 @@ BigMapWorld::BigMapWorld()
     PlayMusic::changeBgMusic("mainmusic2", true);
 
     _global->userInformation->setCurrentPlayWorldTag(1);
-    _global->userInformation->setCurrentPlayWorldName(_global->userInformation->getGameText().find("- 大地图模式 -")->second->text);
+    _global->userInformation->setCurrentPlayWorldName(GAME_TEXT("- 大地图模式 -"));
     _worldPosition = UserData::getInstance()->openDoubleUserData(const_cast<char*>(getScrollViewPositionString().c_str()));
 
     _isPopEnter = false;

@@ -516,6 +516,7 @@ xcopy "$(ProjectDir)..\Resources" "$(OutDir)" /D /E /I /F /Y
     <ClInclude Include="..\Classes\Based\LZAppDelegate.h" />
     <ClInclude Include="..\Classes\Based\LZCar.h" />
     <ClInclude Include="..\Classes\Based\LZCoin.h" />
+    <ClInclude Include="..\Classes\Based\LZDefine.h" />
     <ClInclude Include="..\Classes\Based\LZDialog.h" />
     <ClInclude Include="..\Classes\Based\LZGameType.h" />
     <ClInclude Include="..\Classes\Based\LZGetMomentTime.h" />

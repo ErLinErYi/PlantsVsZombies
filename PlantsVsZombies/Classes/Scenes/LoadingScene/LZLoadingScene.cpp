@@ -13,6 +13,7 @@
 #include "Based/LZLevelData.h"
 #include "Based/LZUserInformation.h"
 #include "Based/LZPlayMusic.h"
+#include "Based/LZDefine.h"
 
 #define MYDEBUG 1
 
@@ -451,7 +452,7 @@ void LoadingScene::update(float Time)
 	}
 	if (_loadingPrecent >= 100 && !loadingFinished)            /* 如果加载完成 */
 	{
-		_label->setString(_global->userInformation->getGameText().find("点击开始")->second->text);  /* 重新设置标签文字内容 */
+		_label->setString(GAME_TEXT("点击开始"));  /* 重新设置标签文字内容 */
 		auto action = TintBy::create(0.5f, 0, 255, 255);
 		_label->runAction(RepeatForever::create(Sequence::create(action, action->reverse(), nullptr)));
 		_sprite[5]->setVisible(false);  /* 设置精灵5为不可见 */
@@ -540,8 +541,8 @@ void LoadingScene::setRunFirstTime()
 void LoadingScene::selectLanguage()
 {
 	auto lang = Button::create("ButtonNew.png", "ButtonNew2.png", "",cocos2d::ui::Widget::TextureResType::PLIST);
-	lang->setTitleText(_global->userInformation->getGameText().find("语言")->second->text);
-	lang->setTitleFontSize(_global->userInformation->getGameText().find("语言")->second->fontsize);
+	lang->setTitleText(GAME_TEXT("语言"));
+	lang->setTitleFontSize(GAME_TEXT_SIZE("语言"));
 	lang->setTitleFontName(GAME_FONT_NAME_1);
 	lang->setScale(0.5f);
 	lang->setTitleColor(Color3B::WHITE);

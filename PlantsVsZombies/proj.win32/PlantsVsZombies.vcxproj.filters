@@ -1330,6 +1330,9 @@
     <ClInclude Include="..\Classes\Scenes\MainMenuScene\LZDetailedListLayer.h">
       <Filter>Class\Scenes\MainMenuScene</Filter>
     </ClInclude>
+    <ClInclude Include="..\Classes\Based\LZDefine.h">
+      <Filter>Class\Based</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <None Include="ClassDiagram.cd" />

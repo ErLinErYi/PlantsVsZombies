@@ -7,6 +7,7 @@
 #include "LZDetailedListLayer.h"
 #include "Based/LZUserData.h"
 #include "Based/LZPlayMusic.h"
+#include "Based/LZDefine.h"
 
 DetailedList::DetailedList():
 	_drawNode(nullptr),
@@ -49,14 +50,15 @@ bool DetailedList::init()
 	_testGroundLevel = UserData::getInstance()->openIntUserData(const_cast<char*>("TESTINGGROUND"));
 	_izeLevel = UserData::getInstance()->openIntUserData(const_cast<char*>("IZOMBIES_MOST_LEVEL"));
 	
-	string mName[3] = { "简单模式","困难模式" };
+	
+	string mName[3] = { GAME_TEXT("简单模式"),GAME_TEXT("噩梦模式") };
 	string mNumber[3] = { to_string(_modernPLevel) + " / 52",to_string(_modernKLevel) + " / 52" };
 	Vec2 mPos[3] = { Vec2(40, 940) ,Vec2(40, 860) };
 	Vec2 mNPos[3] = { Vec2(440, 940) ,Vec2(440, 860) };
 	Vec2 pos[3] = { Vec2(450, 955), Vec2(450, 875) };
 	float number[3] = { _modernPLevel / 52.f * 480, _modernKLevel / 52.f * 480 };
 	Color4F color[3] = { Color4F(0,1,0,0.5f), Color4F(1,0,0,0.5f) };
-	onShowChart("普通世界清单", Vec2(475, 1020), mName, mPos, mNumber, mNPos, pos, number, color);
+	onShowChart(GAME_TEXT("普通世界清单"), Vec2(475, 1020), mName, mPos, mNumber, mNPos, pos, number, color);
 
 	mNumber[0] = to_string(_bigMapPLevel) + " / 52";
 	mNumber[1] = to_string(_bigMapKLevel) + " / 52";
@@ -70,11 +72,11 @@ bool DetailedList::init()
 	number[1] = _bigMapKLevel / 52.f * 480;
 	color[0] = Color4F(1, 0.5f, 0, 0.5f);
 	color[1] = Color4F(0.35f, 0, 0.35f, 0.5f);
-	onShowChart("大地图世界清单", Vec2(475, 755), mName, mPos, mNumber, mNPos, pos, number, color);
+	onShowChart(GAME_TEXT("大地图世界清单"), Vec2(475, 755), mName, mPos, mNumber, mNPos, pos, number, color);
 
-	mName[0] = "锤僵尸模式";
-	mName[1] = "植物试炼场";
-	mName[2] = "我是僵尸模式";
+	mName[0] = GAME_TEXT("锤僵尸模式原译");
+	mName[1] = GAME_TEXT("植物试炼场模式");
+	mName[2] = GAME_TEXT("我是僵尸模式");
 	mNumber[0] = to_string(_hammerLevel) + " / 170";
 	mNumber[1] = to_string(_testGroundLevel) + " / 200";
 	mNumber[2] = to_string(_izeLevel) + " / 251";
@@ -93,7 +95,7 @@ bool DetailedList::init()
 	color[0] = Color4F(0, 0, 1, 0.5f);
 	color[1] = Color4F(1, 1, 0, 0.5f);
 	color[2] = Color4F(1, 0, 0.5f, 0.5f);
-	onShowChart("小游戏清单", Vec2(475, 490), mName, mPos, mNumber, mNPos, pos, number, color, 3);
+	onShowChart(GAME_TEXT("小游戏清单"), Vec2(475, 490), mName, mPos, mNumber, mNPos, pos, number, color, 3);
 
 	onShowOtherThings();
 	onShowSumList();
@@ -159,9 +161,9 @@ int DetailedList::getWorldMostLevel(bool dif, int id)
 void DetailedList::onShowBackButton()
 {
 	auto button = Button::create("SeedChooser_Button2.png", "SeedChooser_Button2_Glow.png", "", cocos2d::ui::Widget::TextureResType::PLIST);
-	button->setTitleText(_global->userInformation->getGameText().find("退出")->second->text);
+	button->setTitleText(GAME_TEXT("退出"));
 	button->setTitleColor(Color3B(0, 255, 255));
-	button->setTitleFontSize(_global->userInformation->getGameText().find("退出")->second->fontsize);
+	button->setTitleFontSize(GAME_TEXT_SIZE("退出"));
 	button->setScale(2.0f);
 	button->setPosition(Vec2(1785, 50));
 	this->addChild(button);
@@ -192,13 +194,13 @@ void DetailedList::onShowOtherThings()
 	_drawNode->drawLine(Vec2(600, 177), Vec2(600, 109), Color4F(0.5f, 0.5f, 0.5f, 0.7f));
 	_drawNode->drawLine(Vec2(843, 177), Vec2(843, 109), Color4F(0.5f, 0.5f, 0.5f, 0.7f));*/
 
-	onShowTextData("闯关失败次数", to_string(_global->userInformation->getBreakThroughNumbers()), Vec2(170, 210), Vec2(372, 210));
-	onShowTextData("僵尸死亡总量", to_string(_global->userInformation->getKillZombiesNumbers()), Vec2(170, 142), Vec2(372, 142));
-	onShowTextData("当前金币数量", to_string(_global->userInformation->getCoinNumbers()), Vec2(615, 210), Vec2(857, 210));
-	onShowTextData("使用植物总量", to_string(_global->userInformation->getUsePlantsNumbers()), Vec2(615, 142), Vec2(857, 142));
-	/*onShowTextData("使用植物数量", to_string(_global->userInformation->getUsePlantsNumbers()), Vec2(522, 142), Vec2(643, 142));
-	onShowTextData("解锁植物数量", to_string(_global->userInformation->getUsePlantsNumbers()), Vec2(765, 142), Vec2(886, 142));*/
-	onShowTextData("第一次游戏时间", UserDefault::getInstance()->getStringForKey("FIRSTRUNTIME"), Vec2(242, 74), Vec2(687, 74));
+	onShowTextData(GAME_TEXT("闯关失败次数"), to_string(_global->userInformation->getBreakThroughNumbers()), Vec2(170, 210), Vec2(372, 210));
+	onShowTextData(GAME_TEXT("僵尸死亡总量"), to_string(_global->userInformation->getKillZombiesNumbers()), Vec2(170, 142), Vec2(372, 142));
+	onShowTextData(GAME_TEXT("当前金币数量"), to_string(_global->userInformation->getCoinNumbers()), Vec2(615, 210), Vec2(857, 210));
+	onShowTextData(GAME_TEXT("使用植物总量"), to_string(_global->userInformation->getUsePlantsNumbers()), Vec2(615, 142), Vec2(857, 142));
+	/*onShowTextData(GAME_TEXT("使用植物数量"), to_string(_global->userInformation->getUsePlantsNumbers()), Vec2(522, 142), Vec2(643, 142));
+	onShowTextData(GAME_TEXT("解锁植物数量"), to_string(_global->userInformation->getUsePlantsNumbers()), Vec2(765, 142), Vec2(886, 142));*/
+	onShowTextData(GAME_TEXT("第一次游戏时间"), UserDefault::getInstance()->getStringForKey("FIRSTRUNTIME"), Vec2(242, 74), Vec2(687, 74));
 }
 
 void DetailedList::onShowTextData(const string& name, const string& name2, const Vec2& pos, const Vec2& pos2, int size, int size2)
@@ -239,7 +241,7 @@ void DetailedList::onShowSumList()
 	auto allSum = to_string(round((sum * 0.5f + sum2 * 0.15f + sum3 * 0.1f + sum4 * 0.25f) * 10000) / 100.f);
 	allSum.erase(allSum.find(".") + 3);
 
-	onShowTextData("游戏100%清单", allSum + "%", Vec2(1435, 1015), Vec2(1435, 520), 50, 130);
+	onShowTextData(GAME_TEXT("游戏100%清单"), allSum + "%", Vec2(1435, 1015), Vec2(1435, 520), 50, 130);
 
 	for (float i = 0; i < 360; i+=0.02f)
 	{

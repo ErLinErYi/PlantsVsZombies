@@ -10,6 +10,7 @@
 #include "Based/LZPlayMusic.h"
 #include "Based/LZMouseEventControl.h"
 #include "Based/LZUserData.h"
+#include "Based/LZDefine.h"
 #include "Plants/LZPlants.h"
 #include "LZASPSSpriteLayer.h"
 #include "LZASPSPlantSCardUnlockLayer.h"
@@ -115,8 +116,7 @@ void SPSSpriteLayer::alreadyHavePlantsDialog()
 	bufEffect->update(0);
 	_seedChooser->addChild(bufEffect, 1);
 
-	auto SeedChooserText = ui::Text::create(_global->userInformation->getGameText().find("请选择你出战的植物！")->second->text, GAME_FONT_NAME_1,
-		_global->userInformation->getGameText().find("请选择你出战的植物！")->second->fontsize);
+	auto SeedChooserText = ui::Text::create(GAME_TEXT("请选择你出战的植物！"), GAME_FONT_NAME_1, GAME_TEXT_SIZE("请选择你出战的植物！"));
 	SeedChooserText->setColor(Color3B::YELLOW);
 	SeedChooserText->setPosition(Vec2(400, 1000));
 	_seedChooser->addChild(SeedChooserText);
@@ -516,10 +516,10 @@ void SPSSpriteLayer::sortPlantsCard(PlantsType type)
 void SPSSpriteLayer::createBeginButton()
 {
 	auto button = Button::create("SeedChooser_Button_Disabled.png", "SeedChooser_Button.png", "",cocos2d::ui::Widget::TextureResType::PLIST);
-	button->setTitleText(_global->userInformation->getGameText().find("开始战斗吧！")->second->text);
+	button->setTitleText(GAME_TEXT("开始战斗吧！"));
 	button->setTitleColor(Color3B::WHITE);
 	button->setTitleFontName(GAME_FONT_NAME_1);
-	button->setTitleFontSize(_global->userInformation->getGameText().find("开始战斗吧！")->second->fontsize);
+	button->setTitleFontSize(GAME_TEXT_SIZE("开始战斗吧！"));
 	button->setPosition(Vec2(390, 70));
 	button->setScale(2.0f);
 	button->setEnabled(false);

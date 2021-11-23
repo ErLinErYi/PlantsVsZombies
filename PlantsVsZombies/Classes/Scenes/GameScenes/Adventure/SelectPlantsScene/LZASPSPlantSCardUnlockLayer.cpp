@@ -8,6 +8,7 @@
 #include "LZASPSPlantSCardUnlockLayer.h"
 #include "LZASPSSpriteLayer.h"
 #include "Based/LZPlayMusic.h"
+#include "Based/LZDefine.h"
 #include "Based/LZMouseEventControl.h"
 #include "Scenes/GameScenes/Adventure/GameScene/LZAGSData.h"
 #include "Scenes/GameScenes/Adventure/GameScene/LZAGSAnimationLayer.h"
@@ -69,7 +70,7 @@ void PlantsCardUnlock::createButtons()
 	_button->setScale(0.25f);
 	_button->setTitleFontSize(70);
 	_button->setTitleFontName(GAME_FONT_NAME_1);
-	_button->setTitleText(_global->userInformation->getGameText().find("确定")->second->text);
+	_button->setTitleText(GAME_TEXT("确定"));
 	_button->setTitleColor(Color3B::BLACK);
 	_plantsCardUnlockDialog->addChild(_button);
 

@@ -6,6 +6,7 @@
 
 #include "Based/LZDialog.h"
 #include "Based/LZPlayMusic.h"
+#include "Based/LZDefine.h"
 
 Dialog::Dialog():
 	_shieldListener(nullptr),
@@ -44,8 +45,7 @@ void Dialog::createDialog()
 void Dialog::createButtons(string name, float position, int id)
 {
 	auto button = Button::create("ButtonNew.png", "ButtonNew2.png", "", cocos2d::ui::Widget::TextureResType::PLIST);
-	auto label = Label::createWithTTF(_global->userInformation->getGameText().find(name)->second->text,
-		GAME_FONT_NAME_1, _global->userInformation->getGameText().find(name)->second->fontsize);
+	auto label = Label::createWithTTF(GAME_TEXT(name),GAME_FONT_NAME_1, GAME_TEXT_SIZE(name));
 	label->enableShadow(Color4B(0, 0, 0, 200));//设置阴影
 	label->setScale(3.5f);
 	button->setTitleLabel(label);
@@ -80,8 +80,7 @@ void Dialog::getData(const std::function<void(bool flag)>& pSelector)
 
 void Dialog::createText()
 {
-	auto str = _global->userInformation->getGameText().find("确认操作")->second;
-	auto information = Text::create(str->text, GAME_FONT_NAME_1, str->fontsize);
+	auto information = Text::create(GAME_TEXT("确认操作"), GAME_FONT_NAME_1, GAME_TEXT_SIZE("确认操作"));
 	information->setColor(Color3B::RED);
 	information->setTextVerticalAlignment(TextVAlignment::CENTER);
 	information->setTextHorizontalAlignment(TextHAlignment::CENTER);
@@ -89,7 +88,7 @@ void Dialog::createText()
 	information->setPosition(Vec2(_dialog->getContentSize().width / 2.0f, _dialog->getContentSize().height / 2.0f + 80));
 	_dialog->addChild(information);
 
-	auto information1 = Text::create(_strText, GAME_FONT_NAME_1, _global->userInformation->getGameText().find("确认说明")->second->fontsize);
+	auto information1 = Text::create(_strText, GAME_FONT_NAME_1, GAME_TEXT_SIZE("确认说明"));
 	information1->setColor(Color3B::RED);
 	information1->setPosition(Vec2(_dialog->getContentSize().width / 2.0f, _dialog->getContentSize().height / 2.0f));
 	_dialog->addChild(information1);

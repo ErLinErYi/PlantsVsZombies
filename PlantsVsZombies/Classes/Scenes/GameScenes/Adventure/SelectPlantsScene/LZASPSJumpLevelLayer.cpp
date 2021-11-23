@@ -9,6 +9,7 @@
 #include "LZASPSSpriteLayer.h"
 #include "Based/LZPlayMusic.h"
 #include "Based/LZUserData.h"
+#include "Based/LZDefine.h"
 
 #include "Scenes/GameScenes/Adventure/WorldScene/LZModernWorld.h"
 
@@ -48,18 +49,14 @@ void SPSJumpLevelLayer::createDialog()
 
 void SPSJumpLevelLayer::createText()
 {
-	auto text = Text::create(
-		_global->userInformation->getGameText().find("跳关说明")->second->text, GAME_FONT_NAME_1,
-		_global->userInformation->getGameText().find("跳关说明")->second->fontsize);
+	auto text = Text::create(GAME_TEXT("跳关说明"), GAME_FONT_NAME_1, GAME_TEXT_SIZE("跳关说明"));
     text->setColor(Color3B(0, 255, 255));
     text->setPosition(Vec2(_jumpLevelDialog->getContentSize().width / 2, 245));
     text->setGlobalZOrder(10);
     _jumpLevelDialog->addChild(text);
 
-	auto str = _global->userInformation->getGameText().find("跳关说明信息")->second;
-	
-	auto information = Text::create(StringUtils::format(str->text.c_str(), 
-		UserData::getInstance()->openIntUserData(const_cast<char*>("JUMPLEVELNUMBERS"))), GAME_FONT_NAME_1, str->fontsize);
+	auto information = Text::create(StringUtils::format(GAME_TEXT("跳关说明信息").c_str(),
+		UserData::getInstance()->openIntUserData(const_cast<char*>("JUMPLEVELNUMBERS"))), GAME_FONT_NAME_1, GAME_TEXT_SIZE("跳关说明信息"));
     information->setColor(Color3B::RED);
     information->setGlobalZOrder(10);
     information->setTextVerticalAlignment(TextVAlignment::CENTER);
@@ -71,8 +68,8 @@ void SPSJumpLevelLayer::createText()
 
 void SPSJumpLevelLayer::showButton()
 {
-	createButton(Vec2(150, 10), _global->userInformation->getGameText().find("确定")->second->text, 1);
-	createButton(Vec2(360, 10), _global->userInformation->getGameText().find("取消")->second->text, 2);
+	createButton(Vec2(150, 10), GAME_TEXT("确定"), 1);
+	createButton(Vec2(360, 10), GAME_TEXT("取消"), 2);
 }
 
 void SPSJumpLevelLayer::jumpLevel()

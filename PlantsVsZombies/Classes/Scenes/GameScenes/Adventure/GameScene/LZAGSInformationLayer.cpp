@@ -9,6 +9,7 @@
 
 #include "Based/LZGameType.h"
 #include "Based/LZPlayMusic.h"
+#include "Based/LZDefine.h"
 #include "Scenes/GameScenes/Adventure/SelectPlantsScene/LZASPSControlLayer.h"
 
 GSInformationLayer::GSInformationLayer():
@@ -45,15 +46,12 @@ bool GSInformationLayer::init()
 void GSInformationLayer::showUserText()
 {
 	auto username = ui::Text::create();
-	username->setString("“" + _global->userInformation->getUserName() + "”" +
-		_global->userInformation->getGameText().find("的时空冒险之旅")->second->text +
+	username->setString("“" + _global->userInformation->getUserName() + "”" + GAME_TEXT("的时空冒险之旅") +
 		_global->userInformation->getCurrentPlayWorldName() + (_global->userInformation->getGameDifficulty() == 1 ?
-			_global->userInformation->getGameText().find("噩梦模式")->second->text + " - " :
-			_global->userInformation->getGameText().find("简单模式")->second->text + " - ") +
-		StringUtils::format(_global->userInformation->getGameText().find("第 %d 天")->second->text.c_str(),
+			GAME_TEXT("噩梦模式") + " - " : GAME_TEXT("简单模式") + " - ") + StringUtils::format(GAME_TEXT("第 %d 天").c_str(),
 			_global->userInformation->getCurrentPlayLevels()));
 	username->setFontName(GAME_FONT_NAME_1);
-	username->setFontSize(_global->userInformation->getGameText().find("的时空冒险之旅")->second->fontsize);
+	username->setFontSize(GAME_TEXT_SIZE("的时空冒险之旅"));
 	username->setColor(Color3B(0, 255, 255));
 	username->enableGlow(Color4B::ORANGE);
 	username->setName("userName");
@@ -184,9 +182,7 @@ void GSInformationLayer::createPromptText()
 	promptText->setName("PromptText");
 	this->addChild(promptText);
 
-	auto requiretext = Text::create(
-		_global->userInformation->getGameText().find("提示信息")->second->text, GAME_FONT_NAME_1,
-		_global->userInformation->getGameText().find("提示信息")->second->fontsize);
+	auto requiretext = Text::create(GAME_TEXT("提示信息"), GAME_FONT_NAME_1, GAME_TEXT_SIZE("提示信息"));
 	requiretext->setColor(Color3B::WHITE);
 	requiretext->setPosition(Vec2(Director::getInstance()->getWinSize().width / 2.0f, 300));
 	requiretext->setName("requiretext");

@@ -12,6 +12,7 @@
 #include "LZASPSJumpLevelLayer.h"
 #include "Based/LZPlayMusic.h"
 #include "Based/LZUserData.h"
+#include "Based/LZDefine.h"
 
 SPSControlLayer::SPSControlLayer():
 	_global(Global::getInstance())
@@ -82,10 +83,10 @@ void SPSControlLayer::createButton()
 		breakButton->setPosition(Vec2(1250, 5));
 		breakButton->setScale(1.5f);
 		breakButton->setAnchorPoint(Vec2::ANCHOR_MIDDLE_BOTTOM);
-		breakButton->setTitleText(_global->userInformation->getGameText().find("跳过此关")->second->text);
+		breakButton->setTitleText(GAME_TEXT("跳过此关"));
 		breakButton->setTitleColor(Color3B(0, 255, 255));
 		breakButton->setTitleFontName(GAME_FONT_NAME_1);
-		breakButton->setTitleFontSize(_global->userInformation->getGameText().find("跳过此关")->second->fontsize);
+		breakButton->setTitleFontSize(GAME_TEXT_SIZE("跳过此关"));
 		this->addChild(breakButton);
 		breakButton->addTouchEventListener([&](Ref* sender, ui::Widget::TouchEventType type)
 			{
@@ -116,16 +117,12 @@ void SPSControlLayer::createButton()
 void SPSControlLayer::showUserName()
 {
 	auto username = Text::create();
-	username->setString("“" + _global->userInformation->getUserName() + "”" +
-		_global->userInformation->getGameText().find("的时空冒险之旅")->second->text +
+	username->setString("“" + _global->userInformation->getUserName() + "”" + GAME_TEXT("的时空冒险之旅") +
 		_global->userInformation->getCurrentPlayWorldName() +
-		(_global->userInformation->getGameDifficulty() == 1 ? 
-			_global->userInformation->getGameText().find("噩梦模式")->second->text + " - " : 
-			_global->userInformation->getGameText().find("简单模式")->second->text + " - ") + 
-		StringUtils::format(_global->userInformation->getGameText().find("第 %d 天")->second->text.c_str(), 
-			_global->userInformation->getCurrentPlayLevels()));
+		(_global->userInformation->getGameDifficulty() == 1 ? GAME_TEXT("噩梦模式") + " - " : GAME_TEXT("简单模式") + " - ") +
+		StringUtils::format(GAME_TEXT("第 %d 天").c_str(), _global->userInformation->getCurrentPlayLevels()));
 	username->setFontName(GAME_FONT_NAME_1);
-	username->setFontSize(_global->userInformation->getGameText().find("的时空冒险之旅")->second->fontsize);
+	username->setFontSize(GAME_TEXT_SIZE("的时空冒险之旅"));
 	username->setColor(Color3B::YELLOW);
 	username->setName("username");
 	username->enableGlow(Color4B::ORANGE);
