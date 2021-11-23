@@ -14,7 +14,6 @@
 #include "Scenes/GameScenes/Adventure/GameScene/LZAGSInformationLayer.h"
 #include "Scenes/GameScenes/Adventure/GameScene/LZAGSZombiesAppearControl.h"
 #include "Scenes/GameScenes/Adventure/GameScene/LZAGSData.h"
-#include "Scenes/GameScenes/Adventure/GameScene/LZAGSDefine.h"
 #include "Zombies/LZZombies.h"
 #include "Plants/EmissionPlants/Bullet/LZBullet.h"
 #include "Based/LZPlayMusic.h"

@@ -14,7 +14,6 @@
 #include "LZAGSPauseQuitLayer.h"
 #include "LZAGSPauseLayer.h"
 #include "LZAGSGameTimerLayer.h"
-#include "LZAGSDefine.h"
 #include "LZAGSData.h"
 
 #include "Based/LZCar.h"

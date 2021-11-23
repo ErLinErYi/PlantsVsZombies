@@ -11,7 +11,6 @@
 #include "LZIOpenCaveGameLayer.h"
 #include "Scenes/GameScenes/Adventure/GameScene/LZAGSInformationLayer.h"
 #include "Scenes/GameScenes/Adventure/GameScene/LZAGSData.h"
-#include "Scenes/GameScenes/Adventure/GameScene/LZAGSDefine.h"
 #include "Scenes/GameScenes/HammerZombies/GameScene/LZHGameEndLayer.h"
 #include "Zombies/LZZombies.h"
 #include "Plants/DefensePlants/LZSunFlower.h"

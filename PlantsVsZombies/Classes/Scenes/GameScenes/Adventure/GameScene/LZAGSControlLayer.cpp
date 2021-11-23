@@ -6,7 +6,6 @@
  */
 
 #include "LZAGSControlLayer.h"
-#include "LZAGSDefine.h"
 #include "LZAGSData.h"
 #include "LZAGSGameResultJudgement.h"
 #include "LZAGSGameEndLayer.h"

@@ -8,7 +8,6 @@
 #include "LZTGAnimationLayer.h"
 #include "LZTGGameOverLayer.h"
 #include "Scenes/GameScenes/Adventure/GameScene/LZAGSData.h"
-#include "Scenes/GameScenes/Adventure/GameScene/LZAGSDefine.h"
 #include "Scenes/GameScenes/Adventure/GameScene/LZAGSControlLayer.h"
 #include "Scenes/GameScenes/Adventure/GameScene/LZAGSZombiesAppearControl.h"
 #include "Scenes/GameScenes/Adventure/GameScene/LZAGSPauseQuitLayer.h"

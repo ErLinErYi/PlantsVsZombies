@@ -8,7 +8,6 @@
 #include "LZBMGSControlLayer.h"
 #include "LZBigMapGameScene.h"
 #include "Scenes/GameScenes/Adventure/GameScene/LZAGSData.h"
-#include "Scenes/GameScenes/Adventure/GameScene/LZAGSDefine.h"
 #include "Scenes/GameScenes/Adventure/GameScene/LZAGSZombiesAppearControl.h"
 #include "Scenes/GameScenes/Adventure/GameScene/LZAGSAnimationLayer.h"
 #include "Scenes/GameScenes/Adventure/GameScene/LZAGSButtonLayer.h"

@@ -12,7 +12,6 @@
 #include "LZBMGSControlLayer.h"
 
 #include "Scenes/GameScenes/Adventure/GameScene/LZAGSData.h"
-#include "Scenes/GameScenes/Adventure/GameScene/LZAGSDefine.h"
 #include "Scenes/GameScenes/Adventure/GameScene/LZAGSButtonLayer.h"
 #include "Scenes/GameScenes/Adventure/GameScene/LZAGSZombiesAppearControl.h"
 

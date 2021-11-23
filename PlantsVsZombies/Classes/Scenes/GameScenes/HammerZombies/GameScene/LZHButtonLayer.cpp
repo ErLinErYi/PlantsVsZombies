@@ -10,7 +10,6 @@
 #include "LZHPauseQuiteLayer.h"
 #include "Scenes/GameScenes/Adventure/GameScene/LZAGSPauseQuitLayer.h"
 #include "Scenes/GameScenes/Adventure/GameScene/LZAGSPauseLayer.h"
-#include "Scenes/GameScenes/Adventure/GameScene/LZAGSDefine.h"
 #include "Scenes/GameScenes/Adventure/GameScene/LZAGSData.h"
 #include "Based/LZPlayMusic.h"
 #include "Based/LZUserData.h"

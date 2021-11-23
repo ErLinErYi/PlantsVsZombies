@@ -1039,9 +1039,6 @@
     <ClInclude Include="..\Classes\Scenes\GameScenes\Adventure\GameScene\LZAGSData.h">
       <Filter>Class\Scenes\GameScenes\Adventure\GameScene</Filter>
     </ClInclude>
-    <ClInclude Include="..\Classes\Scenes\GameScenes\Adventure\GameScene\LZAGSDefine.h">
-      <Filter>Class\Scenes\GameScenes\Adventure\GameScene</Filter>
-    </ClInclude>
     <ClInclude Include="..\Classes\Scenes\GameScenes\Adventure\GameScene\LZAGSGameEndLayer.h">
       <Filter>Class\Scenes\GameScenes\Adventure\GameScene</Filter>
     </ClInclude>

@@ -12,7 +12,6 @@
 #include "Scenes/GameScenes/Adventure/GameScene/LZAGSAnimationLayer.h"
 #include "Scenes/GameScenes/Adventure/GameScene/LZAGSButtonLayer.h"
 #include "Scenes/GameScenes/Adventure/GameScene/LZAGSInformationLayer.h"
-#include "Scenes/GameScenes/Adventure/GameScene/LZAGSDefine.h"
 #include "Scenes/GameScenes/Adventure/GameScene/LZAGSData.h"
 #include "Based/LZPlayMusic.h"
 

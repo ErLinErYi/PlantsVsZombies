@@ -1,4 +1,4 @@
-/**
+Ôªø/**
  *Copyright (c) 2020 LZ.All Right Reserved
  *Author : LZ
  *Date: 2021.11.20
@@ -51,14 +51,14 @@ bool DetailedList::init()
 	_izeLevel = UserData::getInstance()->openIntUserData(const_cast<char*>("IZOMBIES_MOST_LEVEL"));
 	
 	
-	string mName[3] = { GAME_TEXT("ºÚµ•ƒ£ Ω"),GAME_TEXT("ÿ¨√Œƒ£ Ω") };
+	string mName[3] = { GAME_TEXT("ÁÆÄÂçïÊ®°Âºè"),GAME_TEXT("Âô©Ê¢¶Ê®°Âºè") };
 	string mNumber[3] = { to_string(_modernPLevel) + " / 52",to_string(_modernKLevel) + " / 52" };
 	Vec2 mPos[3] = { Vec2(40, 940) ,Vec2(40, 860) };
 	Vec2 mNPos[3] = { Vec2(440, 940) ,Vec2(440, 860) };
 	Vec2 pos[3] = { Vec2(450, 955), Vec2(450, 875) };
 	float number[3] = { _modernPLevel / 52.f * 480, _modernKLevel / 52.f * 480 };
 	Color4F color[3] = { Color4F(0,1,0,0.5f), Color4F(1,0,0,0.5f) };
-	onShowChart(GAME_TEXT("∆’Õ® ¿ΩÁ«Âµ•"), Vec2(475, 1020), mName, mPos, mNumber, mNPos, pos, number, color);
+	onShowChart(GAME_TEXT("ÊôÆÈÄö‰∏ñÁïåÊ∏ÖÂçï"), Vec2(475, 1020), mName, mPos, mNumber, mNPos, pos, number, color);
 
 	mNumber[0] = to_string(_bigMapPLevel) + " / 52";
 	mNumber[1] = to_string(_bigMapKLevel) + " / 52";
@@ -72,11 +72,11 @@ bool DetailedList::init()
 	number[1] = _bigMapKLevel / 52.f * 480;
 	color[0] = Color4F(1, 0.5f, 0, 0.5f);
 	color[1] = Color4F(0.35f, 0, 0.35f, 0.5f);
-	onShowChart(GAME_TEXT("¥ÛµÿÕº ¿ΩÁ«Âµ•"), Vec2(475, 755), mName, mPos, mNumber, mNPos, pos, number, color);
+	onShowChart(GAME_TEXT("Â§ßÂú∞Âõæ‰∏ñÁïåÊ∏ÖÂçï"), Vec2(475, 755), mName, mPos, mNumber, mNPos, pos, number, color);
 
-	mName[0] = GAME_TEXT("¥∏Ω© ¨ƒ£ Ω‘≠“Î");
-	mName[1] = GAME_TEXT("÷≤ŒÔ ‘¡∂≥°ƒ£ Ω");
-	mName[2] = GAME_TEXT("Œ“ «Ω© ¨ƒ£ Ω");
+	mName[0] = GAME_TEXT("Èî§ÂÉµÂ∞∏Ê®°ÂºèÂéüËØë");
+	mName[1] = GAME_TEXT("Ê§çÁâ©ËØïÁÇºÂú∫Ê®°Âºè");
+	mName[2] = GAME_TEXT("ÊàëÊòØÂÉµÂ∞∏Ê®°Âºè");
 	mNumber[0] = to_string(_hammerLevel) + " / 170";
 	mNumber[1] = to_string(_testGroundLevel) + " / 200";
 	mNumber[2] = to_string(_izeLevel) + " / 251";
@@ -95,7 +95,7 @@ bool DetailedList::init()
 	color[0] = Color4F(0, 0, 1, 0.5f);
 	color[1] = Color4F(1, 1, 0, 0.5f);
 	color[2] = Color4F(1, 0, 0.5f, 0.5f);
-	onShowChart(GAME_TEXT("–°”Œœ∑«Âµ•"), Vec2(475, 490), mName, mPos, mNumber, mNPos, pos, number, color, 3);
+	onShowChart(GAME_TEXT("Â∞èÊ∏∏ÊàèÊ∏ÖÂçï"), Vec2(475, 490), mName, mPos, mNumber, mNPos, pos, number, color, 3);
 
 	onShowOtherThings();
 	onShowSumList();
@@ -161,9 +161,9 @@ int DetailedList::getWorldMostLevel(bool dif, int id)
 void DetailedList::onShowBackButton()
 {
 	auto button = Button::create("SeedChooser_Button2.png", "SeedChooser_Button2_Glow.png", "", cocos2d::ui::Widget::TextureResType::PLIST);
-	button->setTitleText(GAME_TEXT("ÕÀ≥ˆ"));
+	button->setTitleText(GAME_TEXT("ÈÄÄÂá∫"));
 	button->setTitleColor(Color3B(0, 255, 255));
-	button->setTitleFontSize(GAME_TEXT_SIZE("ÕÀ≥ˆ"));
+	button->setTitleFontSize(GAME_TEXT_SIZE("ÈÄÄÂá∫"));
 	button->setScale(2.0f);
 	button->setPosition(Vec2(1785, 50));
 	this->addChild(button);
@@ -194,13 +194,13 @@ void DetailedList::onShowOtherThings()
 	_drawNode->drawLine(Vec2(600, 177), Vec2(600, 109), Color4F(0.5f, 0.5f, 0.5f, 0.7f));
 	_drawNode->drawLine(Vec2(843, 177), Vec2(843, 109), Color4F(0.5f, 0.5f, 0.5f, 0.7f));*/
 
-	onShowTextData(GAME_TEXT("¥≥πÿ ß∞‹¥Œ ˝"), to_string(_global->userInformation->getBreakThroughNumbers()), Vec2(170, 210), Vec2(372, 210));
-	onShowTextData(GAME_TEXT("Ω© ¨À¿Õˆ◊‹¡ø"), to_string(_global->userInformation->getKillZombiesNumbers()), Vec2(170, 142), Vec2(372, 142));
-	onShowTextData(GAME_TEXT("µ±«∞Ω±“ ˝¡ø"), to_string(_global->userInformation->getCoinNumbers()), Vec2(615, 210), Vec2(857, 210));
-	onShowTextData(GAME_TEXT(" π”√÷≤ŒÔ◊‹¡ø"), to_string(_global->userInformation->getUsePlantsNumbers()), Vec2(615, 142), Vec2(857, 142));
-	/*onShowTextData(GAME_TEXT(" π”√÷≤ŒÔ ˝¡ø"), to_string(_global->userInformation->getUsePlantsNumbers()), Vec2(522, 142), Vec2(643, 142));
-	onShowTextData(GAME_TEXT("Ω‚À¯÷≤ŒÔ ˝¡ø"), to_string(_global->userInformation->getUsePlantsNumbers()), Vec2(765, 142), Vec2(886, 142));*/
-	onShowTextData(GAME_TEXT("µ⁄“ª¥Œ”Œœ∑ ±º‰"), UserDefault::getInstance()->getStringForKey("FIRSTRUNTIME"), Vec2(242, 74), Vec2(687, 74));
+	onShowTextData(GAME_TEXT("ÈóØÂÖ≥Â§±Ë¥•Ê¨°Êï∞"), to_string(_global->userInformation->getBreakThroughNumbers()), Vec2(170, 210), Vec2(372, 210));
+	onShowTextData(GAME_TEXT("ÂÉµÂ∞∏Ê≠ª‰∫°ÊÄªÈáè"), to_string(_global->userInformation->getKillZombiesNumbers()), Vec2(170, 142), Vec2(372, 142));
+	onShowTextData(GAME_TEXT("ÂΩìÂâçÈáëÂ∏ÅÊï∞Èáè"), to_string(_global->userInformation->getCoinNumbers()), Vec2(615, 210), Vec2(857, 210));
+	onShowTextData(GAME_TEXT("‰ΩøÁî®Ê§çÁâ©ÊÄªÈáè"), to_string(_global->userInformation->getUsePlantsNumbers()), Vec2(615, 142), Vec2(857, 142));
+	/*onShowTextData(GAME_TEXT("‰ΩøÁî®Ê§çÁâ©Êï∞Èáè"), to_string(_global->userInformation->getUsePlantsNumbers()), Vec2(522, 142), Vec2(643, 142));
+	onShowTextData(GAME_TEXT("Ëß£ÈîÅÊ§çÁâ©Êï∞Èáè"), to_string(_global->userInformation->getUsePlantsNumbers()), Vec2(765, 142), Vec2(886, 142));*/
+	onShowTextData(GAME_TEXT("Á¨¨‰∏ÄÊ¨°Ê∏∏ÊàèÊó∂Èó¥"), UserDefault::getInstance()->getStringForKey("FIRSTRUNTIME"), Vec2(242, 74), Vec2(687, 74));
 }
 
 void DetailedList::onShowTextData(const string& name, const string& name2, const Vec2& pos, const Vec2& pos2, int size, int size2)
@@ -241,7 +241,7 @@ void DetailedList::onShowSumList()
 	auto allSum = to_string(round((sum * 0.5f + sum2 * 0.15f + sum3 * 0.1f + sum4 * 0.25f) * 10000) / 100.f);
 	allSum.erase(allSum.find(".") + 3);
 
-	onShowTextData(GAME_TEXT("”Œœ∑100%«Âµ•"), allSum + "%", Vec2(1435, 1015), Vec2(1435, 520), 50, 130);
+	onShowTextData(GAME_TEXT("Ê∏∏Êàè100%Ê∏ÖÂçï"), allSum + "%", Vec2(1435, 1015), Vec2(1435, 520), 50, 130);
 
 	for (float i = 0; i < 360; i+=0.02f)
 	{

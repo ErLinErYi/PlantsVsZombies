@@ -7,7 +7,6 @@
 #include <random>
 
 #include "LZAGSAnimationLayer.h"
-#include "LZAGSDefine.h"
 #include "LZAGSData.h"
 #include "LZAGSControlLayer.h"
 #include "LZAGSButtonLayer.h"

@@ -587,7 +587,6 @@ xcopy "$(ProjectDir)..\Resources" "$(OutDir)" /D /E /I /F /Y
     <ClInclude Include="..\Classes\Scenes\GameScenes\Adventure\GameScene\LZAGSButtonLayer.h" />
     <ClInclude Include="..\Classes\Scenes\GameScenes\Adventure\GameScene\LZAGSControlLayer.h" />
     <ClInclude Include="..\Classes\Scenes\GameScenes\Adventure\GameScene\LZAGSData.h" />
-    <ClInclude Include="..\Classes\Scenes\GameScenes\Adventure\GameScene\LZAGSDefine.h" />
     <ClInclude Include="..\Classes\Scenes\GameScenes\Adventure\GameScene\LZAGSGameEndLayer.h" />
     <ClInclude Include="..\Classes\Scenes\GameScenes\Adventure\GameScene\LZAGSGameResultJudgement.h" />
     <ClInclude Include="..\Classes\Scenes\GameScenes\Adventure\GameScene\LZAGameScene.h" />

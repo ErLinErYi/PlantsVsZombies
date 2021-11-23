@@ -6,7 +6,6 @@
 
 #include "Based/LZGameType.h"
 #include "Scenes/GameScenes/Adventure/GameScene/LZAGSData.h"
-#include "Scenes/GameScenes/Adventure/GameScene/LZAGSDefine.h"
 #include "Scenes/GameScenes/Adventure/GameScene/LZAGSBackgroundLayer.h"
 #include "Scenes/GameScenes/Adventure/GameScene/LZAGSControlLayer.h"
 
