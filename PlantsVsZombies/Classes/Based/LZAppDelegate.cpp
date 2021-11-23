@@ -39,6 +39,8 @@ AppDelegate::~AppDelegate()
 #endif
 }
 
+// if you want a different context, modify the value of glContextAttrs
+// it will affect all platforms
 void AppDelegate::initGLContextAttrs()
 {
     // set OpenGL context attributes: red,green,blue,alpha,depth,stencil,multisamplesCount
@@ -47,12 +49,14 @@ void AppDelegate::initGLContextAttrs()
     GLView::setGLContextAttrs(glContextAttrs);
 }
 
+// if you want to use the package manager to install more packages,  
+// don't modify or remove this function
 static int register_all_packages()
 {
     SpriteFrameCache::getInstance()->addSpriteFramesWithFile(
         "resources/Images/LoadingScene/LoadingScene.plist",
         "resources/Images/LoadingScene/LoadingScene.pvr.ccz");
-    return 0; 
+    return 0; //flag for packages manager
 }
 
 bool AppDelegate::applicationDidFinishLaunching() 
