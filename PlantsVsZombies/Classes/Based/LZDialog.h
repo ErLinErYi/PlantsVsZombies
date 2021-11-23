@@ -106,17 +106,3 @@ private:
 	Vec2 _phasePosition; /* 相差位置 */
 	EventListenerTouchOneByOne* _shieldListener;
 };
-
-#define CREATEDIALOG(__DATA__)                                                           \
-Dialog* dia = Dialog::create();                                                          \
-dia->setString(_global->userInformation->getGameText().find("确认说明")->second->text);   \
-dia->createButtons("确认", 150, 0);                                                      \
-dia->createButtons("取消", 380, 1);                                                      \
-dia->getData([this](bool flag)                                                           \
-	{                                                                                    \
-		if (flag)                                                                        \
-		{                                                                                \
-			__DATA__                                                                     \
-		}                                                                                \
-	});                                                                                  \
-this->addChild(dia);

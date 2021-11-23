@@ -179,7 +179,7 @@ void GameEasterEggs::playVideo()
 	/*_pPlayer = VideoPlayer::instance();
 	this->addChild(_pPlayer);
 
-	string str = FileUtils::getInstance()->fullPathForFilename(_global->userInformation->getGameText().find("Video地址")->second->text);
+	string str = FileUtils::getInstance()->fullPathForFilename(GAME_TEXT("Video地址"));
 
 	auto n = str.find("/");
 	while (n != string::npos)

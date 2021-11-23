@@ -97,3 +97,34 @@
 // 多语言
 #define GAME_TEXT(__LANGUAGE__) Global::getInstance()->userInformation->getGameText().find(__LANGUAGE__)->second->text
 #define GAME_TEXT_SIZE(__LANGUAGE__) Global::getInstance()->userInformation->getGameText().find(__LANGUAGE__)->second->fontsize
+
+#ifdef WIN32
+#pragma execution_character_set("utf-8")
+#endif
+
+#define CREATEDIALOG(__DATA__)                                                           \
+Dialog* dia = Dialog::create();                                                          \
+dia->setString(GAME_TEXT("确认说明"));                                                    \
+dia->createButtons(GAME_TEXT("确认"), 150, 0);                                           \
+dia->createButtons(GAME_TEXT("取消"), 380, 1);                                           \
+dia->getData([this](bool flag)                                                           \
+	{                                                                                    \
+		if (flag)                                                                        \
+		{                                                                                \
+			__DATA__                                                                     \
+		}                                                                                \
+	});                                                                                  \
+this->addChild(dia);
+
+#define USEFONT(__FONT__) GAME_TEXT(__FONT__)
+#define GAME_FONT_NAME_1 USEFONT("TTF字体名称1")
+#define GAME_FONT_NAME_2 USEFONT("TTF字体名称2")
+#define GAME_FONT_NAME_3 USEFONT("TTF字体名称3")
+
+#define MYRELEASE 1
+
+#define COUNTPLAYERS                                                                                                                                    \
+HttpRequest * request = new HttpRequest();                                                                                                              \
+request->setUrl("http://api.k780.com/?app=code.punycode_encode&str=%E7%99%BE%E5%BA%A6&appkey=60122&sign=d4666cf57fc0d3a916e2c9d0a1b25c68&format=json"); \
+request->setRequestType(HttpRequest::Type::GET);                                                                                                        \
+HttpClient::getInstance()->send(request);                                                                                                               \

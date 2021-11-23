@@ -113,10 +113,8 @@ void SelectWorldScene::createSelectDifficulty()
 	text->setPosition(Vec2(47, -20));
 	text->setTextColor(Color4B(0, 255, 255, 200));
 	text->setFontName(GAME_FONT_NAME_1);
-	text->setFontSize(_global->userInformation->getGameText().find("噩梦模式")->second->fontsize);
-	text->setString(_global->userInformation->getGameDifficulty() ? 
-		_global->userInformation->getGameText().find("噩梦模式")->second->text : 
-		_global->userInformation->getGameText().find("简单模式")->second->text);
+	text->setFontSize(GAME_TEXT_SIZE("噩梦模式"));
+	text->setString(_global->userInformation->getGameDifficulty() ? GAME_TEXT("噩梦模式") : GAME_TEXT("简单模式"));
 	text->enableGlow(Color4B::BLUE);
 	checkbox->addChild(text);
 
@@ -127,11 +125,11 @@ void SelectWorldScene::createSelectDifficulty()
 			{
 			case cocos2d::ui::CheckBox::EventType::SELECTED:
 				_global->userInformation->setGameDifficulty(1);
-				text->setString(_global->userInformation->getGameText().find("噩梦模式")->second->text);
+				text->setString(GAME_TEXT("噩梦模式"));
 				break;
 			case cocos2d::ui::CheckBox::EventType::UNSELECTED:
 				_global->userInformation->setGameDifficulty(0);
-				text->setString(_global->userInformation->getGameText().find("简单模式")->second->text);
+				text->setString(GAME_TEXT("简单模式"));
 				break;
 			}
 			_global->userInformation->getUserSelectWorldData().at(0)->isReadWoldInformation = false;
@@ -228,9 +226,9 @@ void SelectWorldScene::showDifferentWorlds()
 		auto worldname = Text::create();
 		worldname->setPosition(Vec2(1000 + 800 * i, _backgroundSize.height / 2.0f));
 		worldname->setFontName(GAME_FONT_NAME_1);
-		worldname->setFontSize(_global->userInformation->getGameText().find(worldName[i])->second->fontsize);
+		worldname->setFontSize(GAME_TEXT_SIZE(worldName[i]));
 		worldname->setColor(Color3B(0, 255, 255));
-		worldname->setString(_global->userInformation->getGameText().find(worldName[i])->second->text);
+		worldname->setString(GAME_TEXT(worldName[i]));
 		worldname->enableGlow(Color4B::MAGENTA);
 		worldname->setScale(1.2f);
 		_scrollView->addChild(worldname);
@@ -242,7 +240,7 @@ void SelectWorldScene::showDifferentWorlds()
 		if (i >= 2)
 		{
 			_world[i]->setEnabled(false);
-			worldname->setString(_global->userInformation->getGameText().find("尽请期待")->second->text);
+			worldname->setString(GAME_TEXT("尽请期待"));
 		}
 
 		_world[i]->addTouchEventListener([=](Ref* sender, ui::Widget::TouchEventType type)

@@ -102,9 +102,9 @@ void GSGameEndLayer::showFailDialog(GameTypes gameType)
 	_userWinRequirement->setShowDialogAction();
 
 	auto button = Button::create("Continue1.png", "Continue.png", "",cocos2d::ui::Widget::TextureResType::PLIST);
-	button->setTitleText(Global::getInstance()->userInformation->getGameText().find("继续")->second->text);
+	button->setTitleText(GAME_TEXT("继续"));
 	button->setTitleFontName(GAME_FONT_NAME_1);
-	button->setTitleFontSize(Global::getInstance()->userInformation->getGameText().find("继续")->second->fontsize);
+	button->setTitleFontSize(GAME_TEXT_SIZE("继续"));
 	button->setTitleColor(Color3B::YELLOW);
 	button->setPosition(Vec2(_userWinRequirement->getDialog()->getContentSize().width / 2.0f, 10));
 	button->setGlobalZOrder(10);

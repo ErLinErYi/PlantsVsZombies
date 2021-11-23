@@ -36,9 +36,9 @@ void GSRequirementLayer::showRequirement()
 	_requirement->setShowDialogAction();
 
 	auto button = Button::create("Continue1.png", "Continue.png", "",cocos2d::ui::Widget::TextureResType::PLIST);
-	button->setTitleText(Global::getInstance()->userInformation->getGameText().find("确定")->second->text);
+	button->setTitleText(GAME_TEXT("确定"));
 	button->setTitleFontName(GAME_FONT_NAME_1);
-	button->setTitleFontSize(Global::getInstance()->userInformation->getGameText().find("确定")->second->fontsize);
+	button->setTitleFontSize(GAME_TEXT_SIZE("确定"));
 	button->setTitleColor(Color3B::YELLOW);
 	button->setPosition(Vec2(_requirement->getDialog()->getContentSize().width / 2.0f, 10));
 	button->setGlobalZOrder(10);

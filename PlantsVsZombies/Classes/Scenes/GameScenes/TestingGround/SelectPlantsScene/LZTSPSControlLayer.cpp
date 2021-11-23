@@ -51,9 +51,9 @@ void TSPSControlLayer::createButton()
 void TSPSControlLayer::showUserName()
 {
 	auto username = Text::create();
-	username->setString("“" + _global->userInformation->getUserName() + "”" + _global->userInformation->getGameText().find("植物试炼场")->second->text);
+	username->setString("“" + _global->userInformation->getUserName() + "”" + GAME_TEXT("植物试炼场"));
 	username->setFontName(GAME_FONT_NAME_1);
-	username->setFontSize(_global->userInformation->getGameText().find("的时空冒险之旅")->second->fontsize);
+	username->setFontSize(GAME_TEXT_SIZE("的时空冒险之旅"));
 	username->setColor(Color3B::YELLOW);
 	username->setName("username");
 	username->enableGlow(Color4B::ORANGE);

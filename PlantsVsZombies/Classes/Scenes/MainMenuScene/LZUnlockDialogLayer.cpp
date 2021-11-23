@@ -52,7 +52,7 @@ void UnlockDialogLayer::createButtons()
 	if (_id != 4)
 	{
 		auto button = Button::create("button.png", "button_down.png", "", cocos2d::ui::Widget::TextureResType::PLIST);
-		button->setTitleLabel(label(_global->userInformation->getGameText().find("确定")->second->text, 20, Vec2(0, 0), 15, Color3B::GREEN, 1 / 2.f));
+		button->setTitleLabel(label(GAME_TEXT("确定"), 20, Vec2(0, 0), 15, Color3B::GREEN, 1 / 2.f));
 		button->setPosition(Vec2(_lockDialog->getContentSize().width / 2.f, 60));
 		button->setScaleX(2.f);
 		_lockDialog->addChild(button);
@@ -71,7 +71,7 @@ void UnlockDialogLayer::createButtons()
 	else
 	{
 		auto button = Button::create("button.png", "button_down.png", "", cocos2d::ui::Widget::TextureResType::PLIST);
-		button->setTitleLabel(label(_global->userInformation->getGameText().find("取消")->second->text, 20, Vec2(0, 0), 15, Color3B::GREEN));
+		button->setTitleLabel(label(GAME_TEXT("取消"), 20, Vec2(0, 0), 15, Color3B::GREEN));
 		button->setPosition(Vec2(_lockDialog->getContentSize().width / 2.f - 70, 60));
 		_lockDialog->addChild(button);
 
@@ -87,7 +87,7 @@ void UnlockDialogLayer::createButtons()
 			});
 
 		auto button2 = Button::create("button.png", "button_down.png", "", cocos2d::ui::Widget::TextureResType::PLIST);
-		button2->setTitleLabel(label(_global->userInformation->getGameText().find("确定")->second->text, 20, Vec2(0, 0), 15, Color3B::GREEN));
+		button2->setTitleLabel(label(GAME_TEXT("确定"), 20, Vec2(0, 0), 15, Color3B::GREEN));
 		button2->setPosition(Vec2(_lockDialog->getContentSize().width / 2.f + 70, 60));
 		_lockDialog->addChild(button2);
 
@@ -107,7 +107,7 @@ void UnlockDialogLayer::createButtons()
 						}
 						else
 						{
-							((Text*)(_lockDialog->getChildByName("information")))->setString(_global->userInformation->getGameText().find("金币支付失败")->second->text);
+							((Text*)(_lockDialog->getChildByName("information")))->setString(GAME_TEXT("金币支付失败"));
 							button2->setEnabled(false);
 						}
 					}
@@ -128,28 +128,8 @@ void UnlockDialogLayer::getSelectButton(std::function<void(bool isPay)> pc)
 
 void UnlockDialogLayer::createText()
 {
-	LanguageTextAttribute* str;
-	if (_id == 0)
-	{
-		str = _global->userInformation->getGameText().find("锤僵尸模式")->second;
-	}
-	else if (_id == 1)
-	{
-		str = _global->userInformation->getGameText().find("植物试炼场解锁")->second;
-	}
-	else if (_id == 2)
-	{
-		str = _global->userInformation->getGameText().find("网络连接失败")->second;
-	}
-	else if (_id == 3)
-	{
-		str = _global->userInformation->getGameText().find("我是僵尸解锁")->second;
-	}
-	else if (_id == 4)
-	{
-		str = _global->userInformation->getGameText().find("锤僵尸模式支付金币")->second;
-	}
-	auto information = Text::create(StringUtils::format(str->text.c_str(), unlockNeedNumbers), GAME_FONT_NAME_1, str->fontsize);
+	string str[] = { "锤僵尸模式","植物试炼场解锁","网络连接失败","我是僵尸解锁","锤僵尸模式支付金币" };
+	auto information = Text::create(StringUtils::format(GAME_TEXT(str[_id]).c_str(), unlockNeedNumbers), GAME_FONT_NAME_1, GAME_TEXT_SIZE(str[_id]));
 	information->setColor(Color3B::RED);
 	information->setTextVerticalAlignment(TextVAlignment::CENTER);
 	information->setTextHorizontalAlignment(TextHAlignment::CENTER);

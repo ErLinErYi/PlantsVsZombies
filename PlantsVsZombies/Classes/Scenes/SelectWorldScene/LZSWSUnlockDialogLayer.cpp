@@ -40,8 +40,7 @@ void SWSUnlockDialogLayer::createDiglog()
 
 void SWSUnlockDialogLayer::createText()
 {
-	auto str = _global->userInformation->getGameText().find("大地图模式")->second;
-	auto information = Text::create(StringUtils::format(str->text.c_str(), SWSUnlockDialogLayer::unlockNeedNumbers), GAME_FONT_NAME_1, str->fontsize);
+	auto information = Text::create(StringUtils::format(GAME_TEXT("大地图模式").c_str(), SWSUnlockDialogLayer::unlockNeedNumbers), GAME_FONT_NAME_1, GAME_TEXT_SIZE("大地图模式"));
 	information->setColor(Color3B::RED);
 	information->setTextVerticalAlignment(TextVAlignment::CENTER);
 	information->setTextHorizontalAlignment(TextHAlignment::CENTER);
@@ -49,8 +48,7 @@ void SWSUnlockDialogLayer::createText()
 	information->setPosition(Vec2(_lockDialog->getContentSize().width / 2.0f, _lockDialog->getContentSize().height / 2.0f + 10));
 	_lockDialog->addChild(information);
 
-	auto str1 = _global->userInformation->getGameText().find("此模式未解锁")->second;
-	auto information1 = Text::create(str1->text, GAME_FONT_NAME_1, str1->fontsize);
+	auto information1 = Text::create(GAME_TEXT("此模式未解锁"), GAME_FONT_NAME_1, GAME_TEXT_SIZE("此模式未解锁"));
 	information1->setColor(Color3B::RED);
 	information1->setPosition(Vec2(_lockDialog->getContentSize().width / 2.0f, _lockDialog->getContentSize().height / 2.0f + 80));
 	_lockDialog->addChild(information1);
@@ -59,8 +57,7 @@ void SWSUnlockDialogLayer::createText()
 void SWSUnlockDialogLayer::createButtons()
 {
 	auto button = Button::create("ButtonNew.png", "ButtonNew2.png", "",cocos2d::ui::Widget::TextureResType::PLIST);
-	auto label = Label::createWithTTF(_global->userInformation->getGameText().find("确定")->second->text,
-		GAME_FONT_NAME_1, _global->userInformation->getGameText().find("确定")->second->fontsize);
+	auto label = Label::createWithTTF(GAME_TEXT("确定"),GAME_FONT_NAME_1, GAME_TEXT_SIZE("确定"));
 	label->enableShadow(Color4B(0, 0, 0, 200));//设置阴影
 	label->setScale(2.0f);
 	button->setTitleLabel(label);

@@ -37,9 +37,9 @@ void UserWinRequirement::createDialogBox(GameTypes finishedid)
 	_node->addChild(_levelObjiectives);
 
 	auto LevelObjiectivesText = Text::create();
-	LevelObjiectivesText->setString(_global->userInformation->getGameText().find("通关要求！")->second->text);
+	LevelObjiectivesText->setString(GAME_TEXT("通关要求！"));
 	LevelObjiectivesText->setFontName(GAME_FONT_NAME_1);
-	LevelObjiectivesText->setFontSize(_global->userInformation->getGameText().find("通关要求！")->second->fontsize);
+	LevelObjiectivesText->setFontSize(GAME_TEXT_SIZE("通关要求！"));
 	LevelObjiectivesText->setScale(0.5f);
 	LevelObjiectivesText->setColor(Color3B(0, 255, 255));
 	LevelObjiectivesText->setPosition(Vec2(_levelObjiectives->getContentSize().width / 2, 245));
@@ -102,41 +102,41 @@ void UserWinRequirement::showRequirement(GameTypes finishedid)
 		switch (static_cast<GameTypes>(leveldata->getGameType().at(i)))
 		{
 		case GameTypes::CreateWall:
-			showText(_global->userInformation->getGameText().find("建立你的防线，阻止僵尸的进攻！")->second->text, i);
+			showText(GAME_TEXT("建立你的防线，阻止僵尸的进攻！"), i);
 			break;
 		case GameTypes::AtLeastSunNumbers:
 		{
-			auto buff = StringUtils::format(_global->userInformation->getGameText().find("至少产生 %d 的阳光！")->second->text.c_str(), leveldata->getAtLeastSunNumbers());
+			auto buff = StringUtils::format(GAME_TEXT("至少产生 %d 的阳光！").c_str(), leveldata->getAtLeastSunNumbers());
 			finishedid == GameTypes::AtLeastSunNumbers ? showText(buff, i, Color3B::RED) : showText(buff, i);
 		}
 			break;
 		case GameTypes::FlowerPosition:
-			finishedid == GameTypes::FlowerPosition ? showText(_global->userInformation->getGameText().find("僵尸踩坏了你的花坛！")->second->text, i, Color3B::RED) :
-				showText(_global->userInformation->getGameText().find("不要让僵尸踩坏你的花坛！")->second->text, i);
+			finishedid == GameTypes::FlowerPosition ? showText(GAME_TEXT("僵尸踩坏了你的花坛！"), i, Color3B::RED) :
+				showText(GAME_TEXT("不要让僵尸踩坏你的花坛！"), i);
 			break;
 		case GameTypes::CarNumbers:
 		{
-			auto buff = StringUtils::format(_global->userInformation->getGameText().find("僵尸进攻结束后至少存留 %d 辆小车！")->second->text.c_str(), leveldata->getCarNumbers());
+			auto buff = StringUtils::format(GAME_TEXT("僵尸进攻结束后至少存留 %d 辆小车！").c_str(), leveldata->getCarNumbers());
 			finishedid == GameTypes::CarNumbers ? showText(buff, i, Color3B::RED) : showText(buff, i);
 		}
 			break;
 		case GameTypes::UserPlantsNumbers:
 		{
-			auto buff = StringUtils::format(_global->userInformation->getGameText().find("最多使用 %d 株植物来建立你的防线！")->second->text.c_str(), leveldata->getUsePlantsNumbers());
+			auto buff = StringUtils::format(GAME_TEXT("最多使用 %d 株植物来建立你的防线！").c_str(), leveldata->getUsePlantsNumbers());
 			showText(buff, i);
 		}
 			break;
 		case GameTypes::ZombiesInvisible:
-			showText(_global->userInformation->getGameText().find("阻止隐形的僵尸的进攻！")->second->text, i);
+			showText(GAME_TEXT("阻止隐形的僵尸的进攻！"), i);
 			break;
 		case GameTypes::SmallZombies:
-			showText(_global->userInformation->getGameText().find("小僵尸大麻烦！")->second->text, i);
+			showText(GAME_TEXT("小僵尸大麻烦！"), i);
 			break;
 		case GameTypes::BigZombies:
-			showText(_global->userInformation->getGameText().find("抵御巨人僵尸的进攻！")->second->text, i);
+			showText(GAME_TEXT("抵御巨人僵尸的进攻！"), i);
 			break;
 		case GameTypes::NoPlants:
-			showText(_global->userInformation->getGameText().find("请把植物种植在合适的地方！")->second->text, i);
+			showText(GAME_TEXT("请把植物种植在合适的地方！"), i);
 			break;
 		default:
 			break;
@@ -146,7 +146,7 @@ void UserWinRequirement::showRequirement(GameTypes finishedid)
 
 void UserWinRequirement::showText(const string& text, const int& ID, Color3B color)
 {
-	auto requiretext = Label::createWithTTF(text, GAME_FONT_NAME_1, _global->userInformation->getGameText().find("小僵尸大麻烦！")->second->fontsize);
+	auto requiretext = Label::createWithTTF(text, GAME_FONT_NAME_1, GAME_TEXT_SIZE("小僵尸大麻烦！"));
 	requiretext->setColor(Color3B::BLACK);
 	requiretext->setScale(0.5f);
 	requiretext->setLineBreakWithoutSpace(true);

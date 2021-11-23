@@ -40,13 +40,10 @@ void HInformationLayer::showUserText()
 	auto currentNumber = max(UserData::getInstance()->openIntUserData(const_cast<char*>("HAMMERZOMBIES_LEVEL_NUMBER")), 1);
 	auto mostNumber = max(currentNumber, UserData::getInstance()->openIntUserData(const_cast<char*>("MOST_HAMMERZOMBIES_LEVEL_NUMBER")));
 	auto username = ui::Text::create();
-	username->setString("“" + _global->userInformation->getUserName() + "”" +
-		_global->userInformation->getGameText().find("手指灵活度与忍耐度训练")->second->text +
-		_global->userInformation->getGameText().find("锤僵尸小游戏")->second->text +
-		StringUtils::format(_global->userInformation->getGameText().find("我是僵尸记录")->second->text.c_str(), currentNumber, mostNumber) +
-		_global->userInformation->getGameText().find("无尽模式")->second->text);
+	username->setString("“" + _global->userInformation->getUserName() + "”" + GAME_TEXT("手指灵活度与忍耐度训练") +
+		GAME_TEXT("锤僵尸小游戏") + StringUtils::format(GAME_TEXT("我是僵尸记录").c_str(), currentNumber, mostNumber) + GAME_TEXT("无尽模式"));
 	username->setFontName(GAME_FONT_NAME_1);
-	username->setFontSize(_global->userInformation->getGameText().find("手指灵活度与忍耐度训练")->second->fontsize);
+	username->setFontSize(GAME_TEXT_SIZE("手指灵活度与忍耐度训练"));
 	username->setColor(Color3B(0, 255, 255));
 	username->enableGlow(Color4B::ORANGE);
 	username->setPosition(Vec2(Director::getInstance()->getWinSize().width / 2.0f, 950));
@@ -90,8 +87,8 @@ void HInformationLayer::showTipsText()
 	const auto n = rand() % 2 + 1;
 	auto tips = Text::create();
 	tips->setFontName(GAME_FONT_NAME_1);
-	tips->setString(_global->userInformation->getGameText().find("锤僵尸小提示" + to_string(n))->second->text);
-	tips->setFontSize(_global->userInformation->getGameText().find("锤僵尸小提示" + to_string(n))->second->fontsize);
+	tips->setString(GAME_TEXT("锤僵尸小提示" + to_string(n)));
+	tips->setFontSize(GAME_TEXT_SIZE("锤僵尸小提示" + to_string(n)));
 	tips->setColor(Color3B::MAGENTA);
 	tips->enableGlow(Color4B::GREEN);
 	tips->setPosition(Vec2(Director::getInstance()->getWinSize().width / 2.0f, 85));
@@ -166,7 +163,7 @@ void HInformationLayer::showHammerInformation(Button* button)
 	_informationLayer->setPosition(button->getPosition() - Vec2(-80, _informationLayer->getContentSize().height / 2.f));
 	_hammerText->setString(text.find("初始攻击力")->second->text + to_string(hammerInformation[tag].lowAttack) + "\n" +
 		text.find("最高攻击力")->second->text + to_string(hammerInformation[button->getTag()].lowAttack + hammerInformation[tag].HigtAttack) + "\n" +
-		text.find("解锁条件")->second->text + StringUtils::format(_global->userInformation->getGameText().find("解锁该武器")->second->text.c_str(), hammerInformation[tag].unLock));
+		text.find("解锁条件")->second->text + StringUtils::format(GAME_TEXT("解锁该武器").c_str(), hammerInformation[tag].unLock));
 }
 
 void HInformationLayer::deleteHammerInformation()

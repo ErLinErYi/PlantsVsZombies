@@ -50,13 +50,13 @@ void UpdateClient::createDiglog()
 
 	showText();
 
-	createButton(_global->userInformation->getGameText().find("下载器下载")->second->text, Vec2(165, 100), Update_Button::下载器下载);
-	createButton(_global->userInformation->getGameText().find("直接下载")->second->text, Vec2(405, 100), Update_Button::直接下载);
-	createButton(_global->userInformation->getGameText().find("网站下载")->second->text, Vec2(645, 100), Update_Button::网站下载);
-	//createButton(_global->userInformation->getGameText().find("百度网盘下载")->second->text, Vec2(645, 100), Update_Button::百度网盘下载);
-	//createButton(_global->userInformation->getGameText().find("腾讯微云下载")->second, Vec2(405, 100), Update_Button::腾讯微云下载);
-	createButton(_global->userInformation->getGameText().find("关闭游戏")->second->text, Vec2(885, 100), Update_Button::退出游戏);
-	createButton(_global->userInformation->getGameText().find("确定")->second->text, Vec2(520, 100), Update_Button::确定);
+	createButton(GAME_TEXT("下载器下载"), Vec2(165, 100), Update_Button::下载器下载);
+	createButton(GAME_TEXT("直接下载"), Vec2(405, 100), Update_Button::直接下载);
+	createButton(GAME_TEXT("网站下载"), Vec2(645, 100), Update_Button::网站下载);
+	//createButton(GAME_TEXT("百度网盘下载")->second->text, Vec2(645, 100), Update_Button::百度网盘下载);
+	//createButton(GAME_TEXT("腾讯微云下载")->second, Vec2(405, 100), Update_Button::腾讯微云下载);
+	createButton(GAME_TEXT("关闭游戏"), Vec2(885, 100), Update_Button::退出游戏);
+	createButton(GAME_TEXT("确定"), Vec2(520, 100), Update_Button::确定);
 
 	/* 创建触摸监听 */
 	createTouchtListener(_dialog);
@@ -71,7 +71,7 @@ void UpdateClient::createButton(const std::string& name, const Vec2& vec2, Updat
 {
 	/* 创建返回主菜单按钮 */
 	auto button = ui::Button::create("ButtonNew2.png", "ButtonNew.png", "",cocos2d::ui::Widget::TextureResType::PLIST);
-	auto label = Label::createWithTTF(name, GAME_FONT_NAME_1, _global->userInformation->getGameText().find("确定")->second->fontsize);
+	auto label = Label::createWithTTF(name, GAME_FONT_NAME_1, GAME_TEXT_SIZE("确定"));
 	label->enableShadow(Color4B(0, 0, 0, 200));//设置阴影
 	label->setScale(2.0f);
 	button->setTitleLabel(label);
@@ -113,17 +113,17 @@ void UpdateClient::createButton(const std::string& name, const Vec2& vec2, Updat
 				switch (buttonType)
 				{
 				case Update_Button::百度网盘下载:
-					Application::getInstance()->openURL(_global->userInformation->getGameText().find("百度网盘网址")->second->text);
+					Application::getInstance()->openURL(GAME_TEXT("百度网盘网址"));
 					break;
 				case Update_Button::腾讯微云下载:
-					Application::getInstance()->openURL(_global->userInformation->getGameText().find("腾讯微云网址")->second->text);
+					Application::getInstance()->openURL(GAME_TEXT("腾讯微云网址"));
 					break;
 				case Update_Button::下载器下载:
 					ShellExecute(NULL, L"open", L"pvzupdate.exe", NULL, NULL, SW_SHOWNORMAL);
 					Director::getInstance()->end();
 					break;
 				case Update_Button::直接下载:
-					_remindText->setString(_global->userInformation->getGameText().find("正在连接中，请稍等！")->second->text);
+					_remindText->setString(GAME_TEXT("正在连接中，请稍等！"));
 					button->setEnabled(false);
 					((Button*)_dialog->getChildByName(to_string(static_cast<int>(Update_Button::退出游戏))))->setEnabled(false);
 					((Button*)_dialog->getChildByName(to_string(static_cast<int>(Update_Button::下载器下载))))->setEnabled(false);
@@ -135,7 +135,7 @@ void UpdateClient::createButton(const std::string& name, const Vec2& vec2, Updat
 					downloadData();
 					break;
 				case Update_Button::网站下载:
-					Application::getInstance()->openURL(_global->userInformation->getGameText().find("官方网址")->second->text);
+					Application::getInstance()->openURL(GAME_TEXT("官方网址"));
 					break;
 				case Update_Button::退出游戏:
 					if (checkCanPlay())Director::getInstance()->end();
@@ -157,8 +157,7 @@ void UpdateClient::createButton(const std::string& name, const Vec2& vec2, Updat
 void UpdateClient::showText()
 {
 	addScrollView();
-	_historyText = Label::createWithTTF(_global->userInformation->getGameText().find("更新信息加载中！")->second->text, GAME_FONT_NAME_1, 
-		_global->userInformation->getGameText().find("更新信息加载中！")->second->fontsize);
+	_historyText = Label::createWithTTF(GAME_TEXT("更新信息加载中！"), GAME_FONT_NAME_1, GAME_TEXT_SIZE("更新信息加载中！"));
 	_historyText->setAnchorPoint(Vec2::ANCHOR_MIDDLE_TOP);
 	_historyText->setColor(Color3B::BLACK);
 	_historyText->setMaxLineWidth(650); 
@@ -168,8 +167,7 @@ void UpdateClient::showText()
 	downloadHistoryText();
 
 	/* 标题 */
-	_remindText = Label::createWithTTF(_global->userInformation->getGameText().find("检测到有新版本，请选择更新方式！")->second->text, GAME_FONT_NAME_1, 
-		_global->userInformation->getGameText().find("检测到有新版本，请选择更新方式！")->second->fontsize);
+	_remindText = Label::createWithTTF(GAME_TEXT("检测到有新版本，请选择更新方式！"), GAME_FONT_NAME_1, GAME_TEXT_SIZE("检测到有新版本，请选择更新方式！"));
 	_remindText->setPosition(Vec2(_dialog->getContentSize().width / 2.f, _dialog->getContentSize().height / 2.f + 200));
 	_remindText->setColor(Color3B::BLACK);
 	_remindText->setMaxLineWidth(900);
@@ -221,7 +219,7 @@ void UpdateClient::addMouseEvent()
 
 void UpdateClient::downloadHistoryText()
 {
-	const string sURLList = _global->userInformation->getGameText().find("更新信息网址")->second->text;
+	const string sURLList = GAME_TEXT("更新信息网址");
 	_downloader->createDownloadDataTask(sURLList);
 	_downloader->onDataTaskSuccess = [this](const cocos2d::network::DownloadTask& task,
 		std::vector<unsigned char>& data)
@@ -243,7 +241,7 @@ void UpdateClient::downloadHistoryText()
 		int errorCodeInternal,
 		const std::string& errorStr)
 	{
-		_historyText->setString(_global->userInformation->getGameText().find("更新信息加载失败！")->second->text);
+		_historyText->setString(GAME_TEXT("更新信息加载失败！"));
 		_textScrollView->setInnerContainerSize(_historyText->getContentSize());
 	};
 }
@@ -272,10 +270,10 @@ void UpdateClient::downloadData()
 	_explanText->setColor(Color3B::BLACK);
 	_explanText->setString("");
 
-	_fileName = _global->userInformation->getGameText().find("资源名称")->second->text + UserInformation::getNewEditionName(true) + ".exe";
+	_fileName = GAME_TEXT("资源名称") + UserInformation::getNewEditionName(true) + ".exe";
 	static string path = FileUtils::getInstance()->fullPathForFilename("PlantsVsZombies.exe");
 	path = path.replace(path.rfind("PlantsVsZombies.exe"), sizeof("PlantsVsZombies.exe"), "") + _fileName;
-	_downloader->createDownloadFileTask(_global->userInformation->getGameText().find("资源网址")->second->text, path, _fileName);
+	_downloader->createDownloadFileTask(GAME_TEXT("资源网址"), path, _fileName);
 	
 	downloadProgress();
 	downloadSuccess();
@@ -292,24 +290,22 @@ void UpdateClient::downloadProgress()
 		if (totalBytesExpected <= 0)
 		{
 			_loadingBar->setPercent(100);
-			_explanText->setString(_global->userInformation->getGameText().find("解释说明_快")->second->text);
+			_explanText->setString(GAME_TEXT("解释说明_快"));
 
 			if (bytesReceived / 1024.f * 10 >= 1000)
 			{
-				_progressText->setString(StringUtils::format(
-					_global->userInformation->getGameText().find("%.1fMB/s  [已下载 : %dKB]")->second->text.c_str(),
+				_progressText->setString(StringUtils::format(GAME_TEXT("%.1fMB/s  [已下载 : %dKB]").c_str(),
 					float(bytesReceived / 1024.f / 1024.f) * 10, int(totalBytesReceived / 1024)));
 			}
 			else
 			{
-				_progressText->setString(StringUtils::format(
-					_global->userInformation->getGameText().find("%.1fKB/s  [已下载 : %dKB]")->second->text.c_str(),
+				_progressText->setString(StringUtils::format(GAME_TEXT("%.1fKB/s  [已下载 : %dKB]").c_str(),
 					float(bytesReceived / 1024.f) * 10, int(totalBytesReceived / 1024)));
 			}
 		}
 		else
 		{
-			_explanText->setString(_global->userInformation->getGameText().find("解释说明_慢")->second->text);
+			_explanText->setString(GAME_TEXT("解释说明_慢"));
 
 			const float percent = float(totalBytesReceived * 100) / totalBytesExpected;
 			_loadingBar->setPercent(percent);
@@ -320,19 +316,17 @@ void UpdateClient::downloadProgress()
 
 			if (bytesReceived / 1024.f * 10 >= 1000)
 			{
-				_progressText->setString(StringUtils::format(
-					_global->userInformation->getGameText().find("%.1fMB/s  %dKB/%dKB  %.2f%%  time:%02d:%02d:%02d")->second->text.c_str(),
+				_progressText->setString(StringUtils::format(GAME_TEXT("%.1fMB/s  %dKB/%dKB  %.2f%%  time:%02d:%02d:%02d").c_str(),
 					bytesReceived / 1024.f / 1024.f * 10, int(totalBytesReceived / 1024), int(totalBytesExpected / 1024), percent, hour, min, second));
 			}
 			else
 			{
-				_progressText->setString(StringUtils::format(
-					_global->userInformation->getGameText().find("%.1fKB/s  %dKB/%dKB  %.2f%%  time:%02d:%02d:%02d")->second->text.c_str(),
+				_progressText->setString(StringUtils::format(GAME_TEXT("%.1fKB/s  %dKB/%dKB  %.2f%%  time:%02d:%02d:%02d").c_str(),
 					bytesReceived / 1024.f * 10, int(totalBytesReceived / 1024), int(totalBytesExpected / 1024), percent, hour, min, second));
 			}
 		}
 
-		_remindText->setString(_global->userInformation->getGameText().find("文件正在下载中！请稍等！")->second->text);
+		_remindText->setString(GAME_TEXT("文件正在下载中！请稍等！"));
 };
 }
 
@@ -342,10 +336,10 @@ void UpdateClient::downloadSuccess()
 	{
 		ShellExecute(NULL, L"open", stringToWstring(_fileName), NULL, NULL, SW_SHOWNORMAL);
 		Director::getInstance()->end();
-		//_progressText->setString(_global->userInformation->getGameText().find("下载成功")->second->text +
-		//	_global->userInformation->getGameText().find("存放路径")->second->text + task.identifier + " ]");
-		//_remindText->setString(_global->userInformation->getGameText().find("点击确定退出游戏！")->second->text);
-		//_explanText->setString(_global->userInformation->getGameText().find("下载成功说明")->second->text);
+		//_progressText->setString(GAME_TEXT("下载成功")->second->text +
+		//	GAME_TEXT("存放路径")->second->text + task.identifier + " ]");
+		//_remindText->setString(GAME_TEXT("点击确定退出游戏！"));
+		//_explanText->setString(GAME_TEXT("下载成功说明"));
 
 		//((Button*)_dialog->getChildByName(to_string(static_cast<int>(Update_Button::百度网盘下载))))->setVisible(false);
 		//((Button*)_dialog->getChildByName(to_string(static_cast<int>(Update_Button::下载器下载))))->setVisible(false);
@@ -362,13 +356,13 @@ void UpdateClient::downloadError()
 		int errorCodeInternal,
 		const std::string& errorStr)
 	{
-		_remindText->setString(_global->userInformation->getGameText().find("下载失败")->second->text);
+		_remindText->setString(GAME_TEXT("下载失败"));
 		((Button*)_dialog->getChildByName(to_string(static_cast<int>(Update_Button::下载器下载))))->setEnabled(true);
 		((Button*)_dialog->getChildByName(to_string(static_cast<int>(Update_Button::直接下载))))->setEnabled(true);
 		((Button*)_dialog->getChildByName(to_string(static_cast<int>(Update_Button::退出游戏))))->setEnabled(true);
 
 		_explanText->setString(StringUtils::format(
-			_global->userInformation->getGameText().find("错误信息")->second->text.c_str()
+			GAME_TEXT("错误信息").c_str()
 			, task.identifier.c_str()
 			, errorCode
 			, errorCodeInternal

@@ -39,8 +39,8 @@ void QuitMenu::createDiglog()
 	_quitDialog->setScale(2.0f);
 	this->addChild(_quitDialog);
 
-	this->createButtons(_global->userInformation->getGameText().find("退出游戏")->second->text, Vec2(90, 65), 1);
-	this->createButtons(_global->userInformation->getGameText().find("取消")->second->text, Vec2(225, 65), 2);
+	this->createButtons(GAME_TEXT("退出游戏"), Vec2(90, 65), 1);
+	this->createButtons(GAME_TEXT("取消"), Vec2(225, 65), 2);
 
 	/* 创建触摸监听 */
 	this->createTouchtListener(_quitDialog);
@@ -53,9 +53,8 @@ void QuitMenu::createButtons(const std::string &Label, const Vec2 &vec2,const in
 	button->setPosition(vec2);
 	_quitDialog->addChild(button);
 
-	_quitDialog->addChild(label(_global->userInformation->getGameText().find("退出")->second->text, 25, Vec2(155, 160), 0, Color3B::YELLOW));
-	_quitDialog->addChild(label(_global->userInformation->getGameText().find("确定要退出游戏吗？")->second->text, 
-		_global->userInformation->getGameText().find("确定要退出游戏吗？")->second->fontsize, Vec2(160, 130), 0, Color3B::YELLOW));
+	_quitDialog->addChild(label(GAME_TEXT("退出"), 25, Vec2(155, 160), 0, Color3B::YELLOW));
+	_quitDialog->addChild(label(GAME_TEXT("确定要退出游戏吗？"), GAME_TEXT_SIZE("确定要退出游戏吗？"), Vec2(160, 130), 0, Color3B::YELLOW));
 
 	button->addTouchEventListener([=](Ref* sender, Widget::TouchEventType type){
 		switch (type)

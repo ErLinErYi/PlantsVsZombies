@@ -45,23 +45,23 @@ void OptionsMenu::createDialog()
 	createTouchtListener(_option);
 
 	/* 创建滑动条 */
-	this->createSlider(Vec2(250, 350), Vec2(140, 350), _global->userInformation->getGameText().find("音乐")->second->text, OptionScene_Slider::音乐,
+	this->createSlider(Vec2(250, 350), Vec2(140, 350), GAME_TEXT("音乐"), OptionScene_Slider::音乐,
 		Sprite::createWithSpriteFrameName("options_sliderslot.png"),
 		Sprite::createWithSpriteFrameName("options_sliderslot.png"),
 		Sprite::createWithSpriteFrameName("options_sliderknob2.png"),
 		Sprite::createWithSpriteFrameName("options_sliderknob2.png"));
-	this->createSlider(Vec2(250, 310), Vec2(140, 310), _global->userInformation->getGameText().find("音效")->second->text, OptionScene_Slider::音效, 
+	this->createSlider(Vec2(250, 310), Vec2(140, 310), GAME_TEXT("音效"), OptionScene_Slider::音效, 
 		Sprite::createWithSpriteFrameName("options_sliderslot.png"),
 		Sprite::createWithSpriteFrameName("options_sliderslot.png"),
 		Sprite::createWithSpriteFrameName("options_sliderknob2.png"),
 		Sprite::createWithSpriteFrameName("options_sliderknob2.png"));
 
 	/* 创建复选框 */
-	_frameCheckBox = createCheckBox(Vec2(300, 280), Vec2(245, 280), _global->userInformation->getGameText().find("帧同步")->second->text, OptionScene_CheckBox::垂直同步, "options_checkbox0", "options_checkbox1");
-	this->createCheckBox(Vec2(190, 280), Vec2(135, 280), _global->userInformation->getGameText().find("高帧率")->second->text, OptionScene_CheckBox::高帧率, "options_checkbox0", "options_checkbox1");
-	this->createCheckBox(Vec2(300, 245), Vec2(140, 245), _global->userInformation->getGameText().find("全屏")->second->text, OptionScene_CheckBox::全屏, "options_checkbox0", "options_checkbox1");
-	this->createCheckBox(Vec2(300, 210), Vec2(140, 210), _global->userInformation->getGameText().find("信息")->second->text, OptionScene_CheckBox::显示信息, "options_checkbox0", "options_checkbox1");
-	this->createCheckBox(Vec2(300, 175), Vec2(140, 175), _global->userInformation->getGameText().find("拉伸显示")->second->text, OptionScene_CheckBox::拉伸显示, "options_checkbox0", "options_checkbox1");
+	_frameCheckBox = createCheckBox(Vec2(300, 280), Vec2(245, 280), GAME_TEXT("帧同步"), OptionScene_CheckBox::垂直同步, "options_checkbox0", "options_checkbox1");
+	this->createCheckBox(Vec2(190, 280), Vec2(135, 280), GAME_TEXT("高帧率"), OptionScene_CheckBox::高帧率, "options_checkbox0", "options_checkbox1");
+	this->createCheckBox(Vec2(300, 245), Vec2(140, 245), GAME_TEXT("全屏"), OptionScene_CheckBox::全屏, "options_checkbox0", "options_checkbox1");
+	this->createCheckBox(Vec2(300, 210), Vec2(140, 210), GAME_TEXT("信息"), OptionScene_CheckBox::显示信息, "options_checkbox0", "options_checkbox1");
+	this->createCheckBox(Vec2(300, 175), Vec2(140, 175), GAME_TEXT("拉伸显示"), OptionScene_CheckBox::拉伸显示, "options_checkbox0", "options_checkbox1");
 
 	/* 创建彩蛋 */
 	if (_global->userInformation->getIsShowEggs() &&
@@ -71,9 +71,7 @@ void OptionsMenu::createDialog()
 			_global->userInformation->getSystemDifCaveFileName().c_str(), 1).c_str())) >= 52))
 	{
 		auto button = Button::create("button.png", "button_down.png", "",cocos2d::ui::Widget::TextureResType::PLIST);
-		button->setTitleLabel(label(
-			_global->userInformation->getGameText().find("制作者")->second->text,
-			_global->userInformation->getGameText().find("制作者")->second->fontsize, Vec2(0, 0), 0, Color3B::GRAY, 0.5f));
+		button->setTitleLabel(label(GAME_TEXT("制作者"),GAME_TEXT_SIZE("制作者"), Vec2(0, 0), 0, Color3B::GRAY, 0.5f));
 		button->setPosition(Vec2(210, 140));
 		button->setScaleX(2.0f);
 		_option->addChild(button);
@@ -350,9 +348,7 @@ CheckBox* OptionsMenu::createCheckBox(const Vec2 &vec2, const Vec2 &vec2_, const
 void OptionsMenu::createButton()
 {
 	auto button = Button::create("options_backtogamebutton0.png","options_backtogamebutton2.png","", cocos2d::ui::Widget::TextureResType::PLIST);
-	button->setTitleLabel(label(
-		_global->userInformation->getGameText().find("返回")->second->text, 
-		_global->userInformation->getGameText().find("返回")->second->fontsize));
+	button->setTitleLabel(label(GAME_TEXT("返回"), GAME_TEXT_SIZE("返回")));
 	button->setPosition(Vec2(210, 55));
 	_option->addChild(button);
 	button->addTouchEventListener([&](Ref* sender, Widget::TouchEventType type)

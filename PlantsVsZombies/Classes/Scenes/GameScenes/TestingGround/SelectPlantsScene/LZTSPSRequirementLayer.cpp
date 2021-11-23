@@ -45,16 +45,15 @@ void TSPSRequriementLayer::createDialog()
 void TSPSRequriementLayer::createText()
 {
 	auto objiectivesText = Text::create();
-	objiectivesText->setString(_global->userInformation->getGameText().find("模式说明")->second->text);
+	objiectivesText->setString(GAME_TEXT("模式说明"));
 	objiectivesText->setFontName(GAME_FONT_NAME_1);
-	objiectivesText->setFontSize(_global->userInformation->getGameText().find("模式说明")->second->fontsize);
+	objiectivesText->setFontSize(GAME_TEXT_SIZE("模式说明"));
 	objiectivesText->setScale(0.5f);
 	objiectivesText->setColor(Color3B(0, 255, 255));
 	objiectivesText->setPosition(Vec2(_objiectives->getContentSize().width / 2, 245));
 	_objiectives->addChild(objiectivesText);
 
-	auto str = _global->userInformation->getGameText().find("模式介绍")->second;
-	auto information = Text::create(str->text, GAME_FONT_NAME_1, str->fontsize);
+	auto information = Text::create(GAME_TEXT("模式介绍"), GAME_FONT_NAME_1, GAME_TEXT_SIZE("模式介绍"));
 	information->setColor(Color3B::BLACK);
 	information->setGlobalZOrder(10);
 	information->setTextVerticalAlignment(TextVAlignment::CENTER);
@@ -67,9 +66,9 @@ void TSPSRequriementLayer::createText()
 void TSPSRequriementLayer::showButton()
 {
 	auto button = Button::create("Continue1.png", "Continue.png", "",cocos2d::ui::Widget::TextureResType::PLIST);
-	button->setTitleText(Global::getInstance()->userInformation->getGameText().find("确定")->second->text);
+	button->setTitleText(GAME_TEXT("确定"));
 	button->setTitleFontName(GAME_FONT_NAME_1);
-	button->setTitleFontSize(Global::getInstance()->userInformation->getGameText().find("确定")->second->fontsize);
+	button->setTitleFontSize(GAME_TEXT_SIZE("确定"));
 	button->setTitleColor(Color3B::YELLOW);
 	button->setPosition(Vec2(_objiectives->getContentSize().width / 2.0f, 10));
 	button->setOpacity(0);

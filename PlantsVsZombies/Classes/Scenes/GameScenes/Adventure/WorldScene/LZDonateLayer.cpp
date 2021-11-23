@@ -7,6 +7,7 @@
 
 #include "LZDonateLayer.h"
 #include "Based/LZPlayMusic.h"
+#include "Based/LZDefine.h"
 
 DonateLayer::DonateLayer():
 	_image(nullptr)
@@ -39,15 +40,13 @@ void DonateLayer::createDiglog()
 
 void DonateLayer::createText()
 {
-	auto d = _global->userInformation->getGameText().find("捐赠我们")->second;
-	auto donate = Text::create(d->text, GAME_FONT_NAME_1, d->fontsize);
+	auto donate = Text::create(GAME_TEXT("捐赠我们"), GAME_FONT_NAME_1, GAME_TEXT_SIZE("捐赠我们"));
 	donate->setColor(Color3B::RED);
 	donate->setPosition(Vec2(Director::getInstance()->getWinSize().width / 2.f, 900));
 	donate->setGlobalZOrder(1);
 	this->addChild(donate);
 
-	auto str = _global->userInformation->getGameText().find("捐赠信息说明")->second;
-	auto information = Text::create(str->text, GAME_FONT_NAME_1, str->fontsize);
+	auto information = Text::create(GAME_TEXT("捐赠信息说明"), GAME_FONT_NAME_1, GAME_TEXT_SIZE("捐赠信息说明"));
 	information->setColor(Color3B::WHITE);
 	information->setTextVerticalAlignment(TextVAlignment::CENTER);
 	information->setTextHorizontalAlignment(TextHAlignment::CENTER);
@@ -61,8 +60,7 @@ void DonateLayer::createButtons()
 {
 	int n = rand() % 2 ? -1 : 1;
 	auto button = Button::create("ButtonNew.png", "ButtonNew2.png", "", cocos2d::ui::Widget::TextureResType::PLIST);
-	auto label = Label::createWithTTF(_global->userInformation->getGameText().find("无情离开")->second->text,
-		GAME_FONT_NAME_1, _global->userInformation->getGameText().find("无情离开")->second->fontsize);
+	auto label = Label::createWithTTF(GAME_TEXT("无情离开"), GAME_FONT_NAME_1, GAME_TEXT_SIZE("无情离开"));
 	label->enableShadow(Color4B(0, 0, 0, 200));//设置阴影
 	label->setScale(2.0f);
 	button->setTitleLabel(label);

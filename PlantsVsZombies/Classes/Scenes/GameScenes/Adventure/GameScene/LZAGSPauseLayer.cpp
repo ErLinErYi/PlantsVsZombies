@@ -45,9 +45,9 @@ void GSPauseLayer::createDialog()
     this->addChild(_levelObjiectives);
 
     auto LevelObjiectivesText = Text::create();
-    LevelObjiectivesText->setString(_global->getInstance()->userInformation->getGameText().find("休息一会吧！")->second->text);
+    LevelObjiectivesText->setString(GAME_TEXT("休息一会吧！"));
     LevelObjiectivesText->setFontName(GAME_FONT_NAME_1);
-    LevelObjiectivesText->setFontSize(_global->getInstance()->userInformation->getGameText().find("休息一会吧！")->second->fontsize);
+    LevelObjiectivesText->setFontSize(GAME_TEXT_SIZE("休息一会吧！"));
     LevelObjiectivesText->setScale(0.5f);
     LevelObjiectivesText->setColor(Color3B(0, 255, 255));
     LevelObjiectivesText->setPosition(Vec2(_levelObjiectives->getContentSize().width / 2, 245));
@@ -70,9 +70,9 @@ void GSPauseLayer::showAniamtions()
 void GSPauseLayer::showButton()
 {
     auto button = Button::create("Continue1.png", "Continue.png", "",cocos2d::ui::Widget::TextureResType::PLIST);
-    button->setTitleText(Global::getInstance()->userInformation->getGameText().find("确定")->second->text);
+    button->setTitleText(GAME_TEXT("确定"));
     button->setTitleFontName(GAME_FONT_NAME_1);
-    button->setTitleFontSize(Global::getInstance()->userInformation->getGameText().find("确定")->second->fontsize);
+    button->setTitleFontSize(GAME_TEXT_SIZE("确定"));
     button->setTitleColor(Color3B::YELLOW);
     button->setPosition(Vec2(_levelObjiectives->getContentSize().width / 2.0f, 10));
     button->setGlobalZOrder(10);

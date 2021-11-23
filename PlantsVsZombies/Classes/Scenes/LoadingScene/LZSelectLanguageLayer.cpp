@@ -42,21 +42,19 @@ void SelectLanguage::createDialog()
 	_selectLanguageDialog->setScale(2.0f);
 	this->addChild(_selectLanguageDialog);
 
-	auto question = Text::create(_global->userInformation->getGameText().find("选择你界面显示的语言！")->second->text, GAME_FONT_NAME_1,
-		_global->userInformation->getGameText().find("选择你界面显示的语言！")->second->fontsize);
+	auto question = Text::create(GAME_TEXT("选择你界面显示的语言！"), GAME_FONT_NAME_1, GAME_TEXT_SIZE("选择你界面显示的语言！"));
 	question->setTextColor(Color4B(0, 255, 255, 255));
 	question->setPosition(Vec2(_selectLanguageDialog->getContentSize().width / 2, _selectLanguageDialog->getContentSize().height - 70));
 	_selectLanguageDialog->addChild(question);
 
-	auto prompt = Text::create(_global->userInformation->getGameText().find("重启后生效！")->second->text, GAME_FONT_NAME_1,
-		_global->userInformation->getGameText().find("重启后生效！")->second->fontsize);
+	auto prompt = Text::create(GAME_TEXT("重启后生效！"), GAME_FONT_NAME_1, GAME_TEXT_SIZE("重启后生效！"));
 	prompt->setTextColor(Color4B::RED);
 	prompt->setPosition(Vec2(_selectLanguageDialog->getContentSize().width / 2, _selectLanguageDialog->getContentSize().height - 95));
 	_selectLanguageDialog->addChild(prompt);
 
 	/* 创建按钮 */
-	createButtons(_selectLanguageDialog, _global->userInformation->getGameText().find("确定")->second->text, Vec2(130, 10), 0.25f, 1);
-	createButtons(_selectLanguageDialog, _global->userInformation->getGameText().find("取消")->second->text, Vec2(380, 10), 0.25f, 2);
+	createButtons(_selectLanguageDialog, GAME_TEXT("确定"), Vec2(130, 10), 0.25f, 1);
+	createButtons(_selectLanguageDialog, GAME_TEXT("取消"), Vec2(380, 10), 0.25f, 2);
 
 	showLanguageOptionBox();
 
@@ -87,8 +85,7 @@ void SelectLanguage::showLanguageOptionBox()
 	_document.Parse<rapidjson::kParseDefaultFlags>(FileUtils::getInstance()->getStringFromFile(_global->userInformation->getTextPath().find("language")->second).c_str());
 	if (_document.HasParseError()) 
 	{
-		auto question = Text::create(_global->userInformation->getGameText().find("语言加载失败！")->second->text, GAME_FONT_NAME_1,
-			_global->userInformation->getGameText().find("语言加载失败！")->second->fontsize);
+		auto question = Text::create(GAME_TEXT("语言加载失败！"), GAME_FONT_NAME_1, GAME_TEXT_SIZE("语言加载失败！"));
 		question->setTextColor(Color4B::RED);
 		question->setPosition(Vec2(_selectLanguageDialog->getContentSize().width / 2.f, _selectLanguageDialog->getContentSize().height / 2.f - 30));
 		_selectLanguageDialog->addChild(question);
@@ -114,9 +111,7 @@ void SelectLanguage::showLanguageOptionBox()
 				precent = i * 1.0f / 4 * 100;
 			}
 
-			auto text = Text::create(_document["language"][i].GetString(),
-				_global->userInformation->getGameText().find("系统字体名称")->second->text,
-				_global->userInformation->getGameText().find("系统字体名称")->second->fontsize);
+			auto text = Text::create(_document["language"][i].GetString(), GAME_TEXT("系统字体名称"), GAME_TEXT_SIZE("系统字体名称"));
 			text->setColor(Color3B::BLACK);
 			text->setPosition(Vec2(50, -40));
 			select->addChild(text);

@@ -14,7 +14,7 @@
 TGInformationLayer::TGInformationLayer():
 	_userName(nullptr)
 {
-	_text = "“" + _global->userInformation->getUserName() + "”" + _global->userInformation->getGameText().find("植物试炼场")->second->text + " - ";
+	_text = "“" + _global->userInformation->getUserName() + "”" + GAME_TEXT("植物试炼场") + " - ";
 	_mostFrenquence = UserData::getInstance()->openIntUserData(const_cast<char*>("TESTINGGROUND"));
 }
 
@@ -36,10 +36,9 @@ bool TGInformationLayer::init()
 void TGInformationLayer::showUserText()
 {
 	_userName = ui::Text::create();
-	_userName->setString(_text + StringUtils::format(
-		_global->userInformation->getGameText().find("试炼场记录")->second->text.c_str(), 1, _mostFrenquence > 1 ? _mostFrenquence : 1));
+	_userName->setString(_text + StringUtils::format(GAME_TEXT("试炼场记录").c_str(), 1, _mostFrenquence > 1 ? _mostFrenquence : 1));
 	_userName->setFontName(GAME_FONT_NAME_1);
-	_userName->setFontSize(_global->userInformation->getGameText().find("植物试炼场")->second->fontsize);
+	_userName->setFontSize(GAME_TEXT_SIZE("植物试炼场"));
 	_userName->setColor(Color3B(0, 255, 255));
 	_userName->enableGlow(Color4B::RED);
 	_userName->setName("userName");
@@ -80,7 +79,7 @@ void TGInformationLayer::updateText()
 	{
 		const auto number = controlLayerInformation->_zombiesAppearControl->getZombiesAppearFrequency();
 		if (number > _mostFrenquence)_mostFrenquence = number;
-		_userName->setString(_text + StringUtils::format(_global->userInformation->getGameText().find("试炼场记录")->second->text.c_str(), number, _mostFrenquence));
+		_userName->setString(_text + StringUtils::format(GAME_TEXT("试炼场记录").c_str(), number, _mostFrenquence));
 		UserData::getInstance()->caveUserData(const_cast<char*>("TESTINGGROUND"), _mostFrenquence);
 	}
 }

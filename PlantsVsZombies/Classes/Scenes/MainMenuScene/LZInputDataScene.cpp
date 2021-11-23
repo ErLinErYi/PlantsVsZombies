@@ -62,8 +62,7 @@ void InputDataMenu::createDialog()
 	_caveFileDialog->setName("CaveFileDialog");
 	this->addChild(_caveFileDialog);
 
-	auto question = Text::create(_global->userInformation->getGameText().find("选择你的存档")->second->text, GAME_FONT_NAME_1, 
-		_global->userInformation->getGameText().find("选择你的存档")->second->fontsize);
+	auto question = Text::create(GAME_TEXT("选择你的存档"), GAME_FONT_NAME_1, GAME_TEXT_SIZE("选择你的存档"));
 	question->setTextColor(Color4B::YELLOW);
 	question->setPosition(Vec2(_caveFileDialog->getContentSize().width / 2, _caveFileDialog->getContentSize().height - 110));
 	_caveFileDialog->addChild(question);
@@ -91,10 +90,10 @@ void InputDataMenu::createDialog()
 	}
 
 	/* 创建按钮 */
-	this->createButtons(_caveFileDialog, _global->userInformation->getGameText().find("确定")->second->text, Vec2(150, 55), 1.6f, 3);
-	this->createButtons(_caveFileDialog, _global->userInformation->getGameText().find("取消")->second->text, Vec2(350, 55), 1.6f, 4);
-	this->createButtons(_caveFileDialog, _global->userInformation->getGameText().find("重命名")->second->text, Vec2(150, 100), 1.6f, 5);
-	this->createButtons(_caveFileDialog, _global->userInformation->getGameText().find("删除")->second->text, Vec2(350, 100), 1.6f, 6);
+	this->createButtons(_caveFileDialog, GAME_TEXT("确定"), Vec2(150, 55), 1.6f, 3);
+	this->createButtons(_caveFileDialog, GAME_TEXT("取消"), Vec2(350, 55), 1.6f, 4);
+	this->createButtons(_caveFileDialog, GAME_TEXT("重命名"), Vec2(150, 100), 1.6f, 5);
+	this->createButtons(_caveFileDialog, GAME_TEXT("删除"), Vec2(350, 100), 1.6f, 6);
 
 	/* 创建监听 */
 	this->createTouchtListener(_caveFileDialog);
@@ -120,8 +119,7 @@ void InputDataMenu::createInputDialog()
 	_inputDataDialog->addChild(_inputCursor);
 	_inputCursor->runAction(RepeatForever::create(Sequence::create(FadeOut::create(0.25f), FadeIn::create(0.25f), nullptr)));
 
-	auto textName = _global->userInformation->getGameText().find("点击此处进行输入存档名称")->second;
-	_textField = TextField::create(textName->text,GAME_FONT_NAME_1, textName->fontsize);
+	_textField = TextField::create(GAME_TEXT("点击此处进行输入存档名称"),GAME_FONT_NAME_1, GAME_TEXT_SIZE("点击此处进行输入存档名称"));
 	_inputDataDialog->addChild(_textField);
 	_textField->setPosition(Vec2(155, 137));
 	_textField->setMaxLengthEnabled(true);
@@ -135,7 +133,7 @@ void InputDataMenu::createInputDialog()
 				_inputCursor->setVisible(true);
 				break;
 			case cocos2d::ui::TextField::EventType::DETACH_WITH_IME:
-				_textField->setPlaceHolder(_global->userInformation->getGameText().find("点击此处进行输入存档名称")->second->text);
+				_textField->setPlaceHolder(GAME_TEXT("点击此处进行输入存档名称"));
 				_inputCursor->setVisible(false);
 				break;
 			case cocos2d::ui::TextField::EventType::INSERT_TEXT:
@@ -173,8 +171,8 @@ void InputDataMenu::createInputDialog()
 		});
 
 	/* 创建按钮 */
-	this->createButtons(_inputDataDialog, _global->userInformation->getGameText().find("确定")->second->text, Vec2(90, 65),1.0f, 1);
-	this->createButtons(_inputDataDialog, _global->userInformation->getGameText().find("取消")->second->text, Vec2(225, 65),1.0f, 2);
+	this->createButtons(_inputDataDialog, GAME_TEXT("确定"), Vec2(90, 65),1.0f, 1);
+	this->createButtons(_inputDataDialog, GAME_TEXT("取消"), Vec2(225, 65),1.0f, 2);
 	
 	/* 创建监听 */
 	this->createTouchtListener(_inputDataDialog);
@@ -412,8 +410,7 @@ void InputDataMenu::createDeleteDialog()
 	_deleteFileDialog->setName("InputDataDialog");
 	_shieldDialogLayer->addChild(_deleteFileDialog);
 
-	auto text = Text::create(_global->userInformation->getGameText().find("删除提示")->second->text, GAME_FONT_NAME_1,
-		_global->userInformation->getGameText().find("删除提示")->second->fontsize);
+	auto text = Text::create(GAME_TEXT("删除提示"), GAME_FONT_NAME_1, GAME_TEXT_SIZE("删除提示"));
 	text->setColor(Color3B::RED);
 	text->setPosition(Vec2(_deleteFileDialog->getContentSize().width / 2.0f, _deleteFileDialog->getContentSize().height / 2.0f + 10));
 	text->setTextVerticalAlignment(TextVAlignment::CENTER);
@@ -422,8 +419,8 @@ void InputDataMenu::createDeleteDialog()
 	_deleteFileDialog->addChild(text);
 
 	/* 创建按钮 */
-	this->createButtons(_deleteFileDialog, _global->userInformation->getGameText().find("确定")->second->text, Vec2(90, 65), 1.0f, 7);
-	this->createButtons(_deleteFileDialog, _global->userInformation->getGameText().find("取消")->second->text, Vec2(225, 65), 1.0f, 8);
+	this->createButtons(_deleteFileDialog, GAME_TEXT("确定"), Vec2(90, 65), 1.0f, 7);
+	this->createButtons(_deleteFileDialog, GAME_TEXT("取消"), Vec2(225, 65), 1.0f, 8);
 
 	/* 创建监听 */
 	this->createTouchtListener(_deleteFileDialog);

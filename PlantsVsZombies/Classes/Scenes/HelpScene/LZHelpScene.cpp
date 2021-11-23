@@ -112,9 +112,9 @@ void HelpScene::createButton()
 {
 	/* 创建按钮 */
 	auto button = Button::create("SeedChooser_Button2.png", "SeedChooser_Button2_Glow.png", "",cocos2d::ui::Widget::TextureResType::PLIST);
-	button->setTitleText(_global->userInformation->getGameText().find("主菜单")->second->text);
+	button->setTitleText(GAME_TEXT("主菜单"));
 	button->setTitleColor(Color3B(0, 255, 255));
-	button->setTitleFontSize(_global->userInformation->getGameText().find("主菜单")->second->fontsize);
+	button->setTitleFontSize(GAME_TEXT_SIZE("主菜单"));
 	button->setScale(2.0f);
 	button->setPosition(Vec2(_size.width / 2, 100));
 	this->addChild(button);

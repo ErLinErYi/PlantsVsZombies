@@ -24,7 +24,7 @@ void TSPSQuitLayer::createButton(const Vec2& vec2, const std::string name, Pause
 {
 	/* 创建返回主菜单按钮 */
 	auto button = ui::Button::create("ButtonNew2.png", "ButtonNew.png", "",cocos2d::ui::Widget::TextureResType::PLIST);
-	auto label = Label::createWithTTF(name, GAME_FONT_NAME_1, _global->userInformation->getGameText().find("返回游戏")->second->fontsize);
+	auto label = Label::createWithTTF(name, GAME_FONT_NAME_1, GAME_TEXT_SIZE("返回游戏"));
 	label->enableShadow(Color4B(0, 0, 0, 200));//设置阴影
 	label->setScale(2.0f);
 	button->setTitleLabel(label);

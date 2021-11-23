@@ -35,7 +35,7 @@ ModernWorld::ModernWorld():
 	srand(time(nullptr));
 
 	_global->userInformation->setCurrentPlayWorldTag(0);
-	_global->userInformation->setCurrentPlayWorldName(_global->userInformation->getGameText().find(" - 现代世界 - ")->second->text);
+	_global->userInformation->setCurrentPlayWorldName(GAME_TEXT(" - 现代世界 - "));
 	_worldPosition = UserData::getInstance()->openDoubleUserData(const_cast<char*>(getScrollViewPositionString().c_str()));
 
 	_isPopEnter = false;
@@ -497,11 +497,9 @@ void ModernWorld::createLevelModeText()
 {
 	auto  levelModeText = Text::create();
 	levelModeText->setFontName(GAME_FONT_NAME_1);
-	levelModeText->setFontSize(_global->userInformation->getGameText().find("噩梦模式")->second->fontsize);
+	levelModeText->setFontSize(GAME_TEXT_SIZE("噩梦模式"));
 	levelModeText->setTextColor(_global->userInformation->getGameDifficulty() ? Color4B::MAGENTA : Color4B(0, 255, 255, 200));
-	levelModeText->setString(_global->userInformation->getGameDifficulty() ?
-		_global->userInformation->getGameText().find("噩梦模式")->second->text :
-		_global->userInformation->getGameText().find("简单模式")->second->text);
+	levelModeText->setString(_global->userInformation->getGameDifficulty() ? GAME_TEXT("噩梦模式") : GAME_TEXT("简单模式"));
 	levelModeText->enableGlow(_global->userInformation->getGameDifficulty() ? Color4B::RED : Color4B::YELLOW);
 	levelModeText->setPosition(Vec2(_director->getWinSize().width / 2.f, 50));
 	levelModeText->runAction(RepeatForever::create(Sequence::create(ScaleTo::create(0.5f, 0.85f), ScaleTo::create(0.5f, 1.15f), nullptr)));

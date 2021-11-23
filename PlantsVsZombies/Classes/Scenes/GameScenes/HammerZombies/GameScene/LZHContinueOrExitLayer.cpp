@@ -10,6 +10,7 @@
 #include "Scenes/SelectWorldScene/LZSelectWorldScene.h"
 #include "Scenes/MainMenuScene/LZMainMenu.h"
 #include "Based/LZPlayMusic.h"
+#include "Based/LZDefine.h"
 
 int HContinueOrExitLayer::type = 0;
 
@@ -61,7 +62,7 @@ void HContinueOrExitLayer::createButton(const string& text, const Vec2& pos, con
 {
 	/* 创建按钮 */
 	auto button = Button::create("ButtonNew2.png", "ButtonNew.png", "", cocos2d::ui::Widget::TextureResType::PLIST);
-	button->setTitleText(_global->userInformation->getGameText().find(text)->second->text);
+	button->setTitleText(GAME_TEXT(text));
 	button->setTitleColor(Color3B(0, 255, 255));
 	button->setTitleFontSize(50);
 	button->setScale(.7f);
@@ -94,15 +95,14 @@ void HContinueOrExitLayer::createButton(const string& text, const Vec2& pos, con
 void HContinueOrExitLayer::createText()
 {
 	auto objiectivesText = Text::create();
-	objiectivesText->setString(_global->userInformation->getGameText().find("模式说明")->second->text);
+	objiectivesText->setString(GAME_TEXT("模式说明"));
 	objiectivesText->setFontName(GAME_FONT_NAME_1);
-	objiectivesText->setFontSize(_global->userInformation->getGameText().find("模式说明")->second->fontsize);
+	objiectivesText->setFontSize(GAME_TEXT_SIZE("模式说明"));
 	objiectivesText->setColor(Color3B(0, 255, 255));
 	objiectivesText->setPosition(Vec2(Director::getInstance()->getWinSize().width / 2.f, 980));
 	this->addChild(objiectivesText);
 
-	auto str = _global->userInformation->getGameText().find("锤僵尸模式介绍")->second;
-	auto information = Text::create(str->text, GAME_FONT_NAME_1, str->fontsize);
+	auto information = Text::create(GAME_TEXT("锤僵尸模式介绍"), GAME_FONT_NAME_1, GAME_TEXT_SIZE("锤僵尸模式介绍"));
 	information->setColor(Color3B::BLACK);
 	information->setGlobalZOrder(10);
 	information->setTextVerticalAlignment(TextVAlignment::CENTER);

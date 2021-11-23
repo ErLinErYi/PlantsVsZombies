@@ -116,8 +116,7 @@ void IGameEndLayer::showFailText()
 		DelayTime::create(2), CallFunc::create([this]() {Director::getInstance()->replaceScene(TransitionFade::create(0.5f, MainMenu::create())); }), nullptr));
 	this->addChild(lose);
 
-	auto str = _global->userInformation->getGameText().find("你输了")->second;
-	auto text = Text::create(str->text, GAME_FONT_NAME_1, str->fontsize);
+	auto text = Text::create(GAME_TEXT("你输了"), GAME_FONT_NAME_1, GAME_TEXT_SIZE("你输了"));
 	text->setPosition(Director::getInstance()->getWinSize() / 2.f);
 	text->setColor(Color3B::RED);
 	text->setOpacity(0);
