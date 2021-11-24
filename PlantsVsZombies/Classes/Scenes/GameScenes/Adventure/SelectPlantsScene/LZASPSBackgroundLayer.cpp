@@ -79,30 +79,54 @@ void SPSBackgroundLayer::showPreviewZombies()
 
 void SPSBackgroundLayer::createMordernBackgroundImage()
 {
-	switch (_global->userInformation->getCurrentPlayLevels())
+	auto world = _global->userInformation->getGameDifficulty();
+	auto level = _global->userInformation->getCurrentPlayLevels();
+	if (!world)
 	{
-	case 35:
-		_global->userInformation->setBackground(Sprite::createWithSpriteFrameName("background6.png"));
-		createSnowParticle();
-		break;
-	case 36:
-		_global->userInformation->setBackground(Sprite::createWithSpriteFrameName("background1.png"));
-		break;
-	case 37:
-		_global->userInformation->setBackground(Sprite::createWithSpriteFrameName("background4.png"));
-		break;
-	case 50:
-		_global->userInformation->setBackground(Sprite::createWithSpriteFrameName("background5.png"));
-		break;
-	case 51:
-		_global->userInformation->setBackground(Sprite::createWithSpriteFrameName("background3.png"));
-		break;
-	case 52:
-		_global->userInformation->setBackground(Sprite::createWithSpriteFrameName("background2.png"));
-		break;
-	default:
-		_global->userInformation->setBackground(Sprite::createWithSpriteFrameName("background.png"));
-		break;
+		if (level >= 0 && level <= 10)
+		{
+			_global->userInformation->setBackground(Sprite::createWithSpriteFrameName("background.png"));
+		}
+		else if (level >= 11 && level <= 20)
+		{
+			_global->userInformation->setBackground(Sprite::createWithSpriteFrameName("background6.png"));
+			createSnowParticle();
+		}
+		else if (level >= 21 && level <= 30)
+		{
+			_global->userInformation->setBackground(Sprite::createWithSpriteFrameName("background1.png"));
+		}
+		else if (level >= 31 && level <= 40)
+		{
+			_global->userInformation->setBackground(Sprite::createWithSpriteFrameName("background4.png"));
+		}
+		else if (level >= 41)
+		{
+			_global->userInformation->setBackground(Sprite::createWithSpriteFrameName("background5.png"));
+		}
+	}
+	else
+	{
+		if (level >= 0 && level <= 10)
+		{
+			_global->userInformation->setBackground(Sprite::createWithSpriteFrameName("background.png"));
+		}
+		else if (level >= 11 && level <= 20)
+		{
+			_global->userInformation->setBackground(Sprite::createWithSpriteFrameName("background3.png"));
+		}
+		else if (level >= 21 && level <= 30)
+		{
+			_global->userInformation->setBackground(Sprite::createWithSpriteFrameName("background2.png"));
+		}
+		else if (level >= 31 && level <= 40)
+		{
+			_global->userInformation->setBackground(Sprite::createWithSpriteFrameName("background7.png"));
+		}
+		else if (level >= 41)
+		{
+			_global->userInformation->setBackground(Sprite::createWithSpriteFrameName("background9.png"));
+		}
 	}
 }
 

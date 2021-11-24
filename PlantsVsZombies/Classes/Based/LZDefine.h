@@ -105,8 +105,8 @@
 #define CREATEDIALOG(__DATA__)                                                           \
 Dialog* dia = Dialog::create();                                                          \
 dia->setString(GAME_TEXT("确认说明"));                                                    \
-dia->createButtons(GAME_TEXT("确认"), 150, 0);                                           \
-dia->createButtons(GAME_TEXT("取消"), 380, 1);                                           \
+dia->createButtons("确认", 150, 0);                                                      \
+dia->createButtons("取消", 380, 1);                                                      \
 dia->getData([this](bool flag)                                                           \
 	{                                                                                    \
 		if (flag)                                                                        \

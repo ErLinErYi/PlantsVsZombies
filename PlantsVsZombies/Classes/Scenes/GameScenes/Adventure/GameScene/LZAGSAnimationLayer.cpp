@@ -264,11 +264,23 @@ GSAnimationLayer* GSAnimationLayer::getAnimationLayer()
 void GSAnimationLayer::createRandomSuns()
 {
 	// ? 条件......
+	auto world = _global->userInformation->getGameDifficulty();
 	const auto level = _global->userInformation->getCurrentPlayLevels();
-	if (level != 36 && level != 50 && level != 52)
+	if (!world)
 	{
-		_randomSuns = new SunFlower(this);
-		_randomSuns->createRandomSuns();
+		if ((level >= 0 && level <= 20) || (level >= 31 && level <= 40))
+		{
+			_randomSuns = new SunFlower(this);
+			_randomSuns->createRandomSuns();
+		}
+	}
+	else
+	{
+		if ((level >= 0 && level <= 20) || (level >= 41))
+		{
+			_randomSuns = new SunFlower(this);
+			_randomSuns->createRandomSuns();
+		}
 	}
 }
 
