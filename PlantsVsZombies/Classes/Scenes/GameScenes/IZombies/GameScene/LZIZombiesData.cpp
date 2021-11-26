@@ -63,6 +63,8 @@ void IZombiesData::caveLevelData(char* key, bool correct)
 	caveLevelBulletData(key);
 	caveLevelBrainData(key);
 
+	(*_levelDataDocument)[key].AddMember(rapidjson::StringRef("DataCorrect"), correct, _levelDataDocument->GetAllocator());
+
 	flushLevelData();
 }
 

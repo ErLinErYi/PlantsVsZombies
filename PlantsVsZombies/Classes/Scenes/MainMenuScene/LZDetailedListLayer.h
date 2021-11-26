@@ -34,6 +34,7 @@ private:
 
 private:
 	DrawNode* _drawNode;
+	DrawNode* _drawAction;
 	int _modernPLevel;
 	int _modernKLevel;
 	int _bigMapPLevel;

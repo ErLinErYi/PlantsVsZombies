@@ -31,6 +31,8 @@ bool DetailedList::init()
 
 	createShieldLayer(this);
 
+	_drawAction = DrawNode::create();
+	this->addChild(_drawAction,1);
 	_drawNode = DrawNode::create();
 	_drawNode->drawSolidRect(Vec2(20, 815), Vec2(950, 1060), Color4F(0.2f, 0.2f, 0.2f, 0.7f));
 	_drawNode->drawSolidRect(Vec2(20, 550), Vec2(950, 795), Color4F(0.2f, 0.2f, 0.2f, 0.7f));
@@ -139,7 +141,16 @@ void DetailedList::onShowChart(const string& gName, const Vec2& gPos,
 
 		_drawNode->drawSolidRect(pos[i], pos[i] + Vec2(480, -30), Color4F(0.5f, 0.5f, 0.5f, 0.5f));
 
-		_drawNode->drawSolidRect(pos[i], pos[i] + Vec2(number[i], -30), color[i]);
+		auto a = pos[i];
+		auto b = color[i];
+		for (int j = 0; j <= number[i]; j+=10)
+		{
+			runAction(Sequence::create(DelayTime::create(0.001f*j), CallFunc::create([=]() {
+				//_drawAction->clear();
+				_drawAction->drawSolidRect(a, a + Vec2(j, -30), b); 
+				}), nullptr));
+		}
+		//_drawNode->drawSolidRect(pos[i], pos[i] + Vec2(number[i], -30), color[i]);
 	}
 }
 

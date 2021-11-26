@@ -54,7 +54,7 @@ void IPauseQuitLayer::setQuitGame()
 	    if (GameScene::isRunGameScene) /* 如果运行了游戏场景则保存 */
 	    {
 		    IZombiesData::getInstance()->createNewLevelDataDocument();
-		    IZombiesData::getInstance()->caveLevelData(_levelName);
+			IZombiesData::getInstance()->caveLevelData(_levelName, true);
 	    }
 
 	    Director::getInstance()->replaceScene(TransitionFade::create(0.5f, MainMenu::create()));
