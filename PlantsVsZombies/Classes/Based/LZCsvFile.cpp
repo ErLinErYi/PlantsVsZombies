@@ -1,4 +1,4 @@
-//
+ï»¿//
 //  CSVFile.cpp
 //
 //  Created by quasi_lee on 15-7-7.
@@ -14,7 +14,7 @@ CSVFile::CSVFile():
 
 }
 
-//Îö¹¹º¯Êı,ÊÍ·ÅÄÚ´æ
+//ææ„å‡½æ•°,é‡Šæ”¾å†…å­˜
 CSVFile::~CSVFile()
 {
     for (int i = 0; i < data.size(); i++)
@@ -24,7 +24,7 @@ CSVFile::~CSVFile()
     data.clear();
 }
 
-//»ñÈ¡Ö¸¶¨ĞĞÁĞµÄÊı¾İ
+//è·å–æŒ‡å®šè¡Œåˆ—çš„æ•°æ®
 const char* CSVFile::getData(int rows, int cols)
 {
     if (rows < 0
@@ -37,7 +37,7 @@ const char* CSVFile::getData(int rows, int cols)
     return data[rows][cols].c_str();
 }
 
-//»ñÈ¡Ö¸¶¨Êı¾İµÄÁĞÏÂ±ê
+//è·å–æŒ‡å®šæ•°æ®çš„åˆ—ä¸‹æ ‡
 int CSVFile::findColsData(int cols, const char* value)
 {
     for (int i = 0; i < data.size(); i++)
@@ -50,7 +50,7 @@ int CSVFile::findColsData(int cols, const char* value)
     return -1;
 }
 
-//½âÎöCSVÎÄ¼ş
+//è§£æCSVæ–‡ä»¶
 bool CSVFile::openFile(const char* fileName)
 {
     string pathKey = CCFileUtils::getInstance()->fullPathForFilename(fileName);

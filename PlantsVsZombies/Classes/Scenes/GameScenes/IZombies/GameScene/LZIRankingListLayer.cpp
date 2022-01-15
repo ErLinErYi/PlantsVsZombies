@@ -1,4 +1,4 @@
-/**
+ï»¿/**
  *Copyright (c) 2022 LZ.All Right Reserved
  *Author : LZ
  *Date: 2022.01.14
@@ -74,12 +74,12 @@ void IRankingListLayer::onShowTitle()
 
 	auto title = ui::Text::create();
 	title->setFontName(GAME_FONT_NAME_1);
-	title->setFontSize(GAME_TEXT_SIZE("¡°ÎÒÊÇ½©Ê¬Ä£Ê½¡± Íæ¼Ò´³¹Ø¼ÇÂ¼ÅÅĞĞ°ñ"));
-	title->setString(GAME_TEXT("¡°ÎÒÊÇ½©Ê¬Ä£Ê½¡± Íæ¼Ò´³¹Ø¼ÇÂ¼ÅÅĞĞ°ñ"));
+	title->setFontSize(GAME_TEXT_SIZE("â€œæˆ‘æ˜¯åƒµå°¸æ¨¡å¼â€ ç©å®¶é—¯å…³è®°å½•æ’è¡Œæ¦œ"));
+	title->setString(GAME_TEXT("â€œæˆ‘æ˜¯åƒµå°¸æ¨¡å¼â€ ç©å®¶é—¯å…³è®°å½•æ’è¡Œæ¦œ"));
 	title->setPosition(Vec2(660, 980));
 	this->addChild(title);
 
-	string str[3] = { "ÅÅÃû","Íæ¼ÒÃû³Æ","×î¸ß¼ÇÂ¼" };
+	string str[3] = { "æ’å","ç©å®¶åç§°","æœ€é«˜è®°å½•" };
 	Vec2 pos[3] = { Vec2(200, 850),Vec2(600, 850),Vec2(1060, 850) };
 	for (int i = 0; i < 3; ++i)
 	{
@@ -96,9 +96,9 @@ void IRankingListLayer::onShowTitle()
 void IRankingListLayer::onShowBackButton()
 {
 	_uploadButton = Button::create("SeedChooser_Button2.png", "SeedChooser_Button2_Glow.png", "", cocos2d::ui::Widget::TextureResType::PLIST);
-	_uploadButton->setTitleText(GAME_TEXT("Êı¾İÉÏ´«"));
+	_uploadButton->setTitleText(GAME_TEXT("æ•°æ®ä¸Šä¼ "));
 	_uploadButton->setTitleColor(Color3B(0, 255, 255));
-	_uploadButton->setTitleFontSize(GAME_TEXT_SIZE("ÍË³ö"));
+	_uploadButton->setTitleFontSize(GAME_TEXT_SIZE("é€€å‡º"));
 	_uploadButton->setScale(2.0f);
 	_uploadButton->setPosition(Vec2(1440, 50));
 	_uploadButton->setEnabled(false);
@@ -117,9 +117,9 @@ void IRankingListLayer::onShowBackButton()
 		});
 
 	auto button2 = Button::create("SeedChooser_Button2.png", "SeedChooser_Button2_Glow.png", "", cocos2d::ui::Widget::TextureResType::PLIST);
-	button2->setTitleText(GAME_TEXT("ÍË³ö"));
+	button2->setTitleText(GAME_TEXT("é€€å‡º"));
 	button2->setTitleColor(Color3B(0, 255, 255));
-	button2->setTitleFontSize(GAME_TEXT_SIZE("ÍË³ö"));
+	button2->setTitleFontSize(GAME_TEXT_SIZE("é€€å‡º"));
 	button2->setScale(2.0f);
 	button2->setPosition(Vec2(1785, 50));
 	this->addChild(button2);
@@ -172,7 +172,7 @@ void IRankingListLayer::onDownloadRankingList()
 		int errorCodeInternal,
 		const std::string& errorStr)
 	{
-		_loadingText->setString(GAME_TEXT("ÅÅĞĞ°ñ¼ÓÔØÊ§°Ü£¡"));
+		_loadingText->setString(GAME_TEXT("æ’è¡Œæ¦œåŠ è½½å¤±è´¥ï¼"));
 		_loadingText->setColor(Color3B::RED);
 	};
 }
@@ -183,7 +183,7 @@ void IRankingListLayer::onParseCsvData()
 	_csvFile->openFile(_strRankingList);
 
 	vector<string> data;
-	data.push_back(GAME_TEXT("(ÎÒ)--> ") + _global->userInformation->getUserName());
+	data.push_back(GAME_TEXT("(æˆ‘)--> ") + _global->userInformation->getUserName());
 	data.push_back(to_string(IControlLayer::mostLevelNumber));
 	_csvFile->addNewData(data);
 	_csvFile->sortData(1);
@@ -225,7 +225,7 @@ void IRankingListLayer::onParseCsvData()
 						level->setPosition(Vec2(960, h - 50 - 100 * i));
 						_rankingListScrollView->addChild(level);
 
-						if (nameStr.find(GAME_TEXT("(ÎÒ)--> ")) != nameStr.npos)
+						if (nameStr.find(GAME_TEXT("(æˆ‘)--> ")) != nameStr.npos)
 						{
 							name->setColor(Color3B(0, 255, 255));
 							name->runAction(RepeatForever::create(Sequence::create(ScaleTo::create(0.5f, 1.08f), ScaleTo::create(0.5f, 0.92f), nullptr)));
@@ -234,8 +234,8 @@ void IRankingListLayer::onParseCsvData()
 
 							auto own = ui::Text::create();
 							own->setFontName(GAME_FONT_NAME_1);
-							own->setFontSize(GAME_TEXT_SIZE("ÎÒµÄµ±Ç°ÅÅÃûÔÚÅÅĞĞ°ñµÄµÚ"));
-							own->setString(StringUtils::format(GAME_TEXT("ÎÒµÄµ±Ç°ÅÅÃûÔÚÅÅĞĞ°ñµÄµÚ").c_str(), i + 1));
+							own->setFontSize(GAME_TEXT_SIZE("æˆ‘çš„å½“å‰æ’ååœ¨æ’è¡Œæ¦œçš„ç¬¬"));
+							own->setString(StringUtils::format(GAME_TEXT("æˆ‘çš„å½“å‰æ’ååœ¨æ’è¡Œæ¦œçš„ç¬¬").c_str(), i + 1));
 							own->setPosition(Vec2(660, 57));
 							own->setColor(Color3B(0, 255, 255));
 							this->addChild(own);
@@ -270,7 +270,7 @@ void IRankingListLayer::onParseCsvData()
 
 void IRankingListLayer::onMouseEvent()
 {
-	/* Êó±ê»¬¶¯¼àÌı */
+	/* é¼ æ ‡æ»‘åŠ¨ç›‘å¬ */
 	auto mouse = EventListenerMouse::create();
 	mouse->onMouseScroll = [=](Event* event)
 	{
@@ -286,8 +286,8 @@ void IRankingListLayer::onShowLoadingText()
 {
 	_loadingText = ui::Text::create();
 	_loadingText->setFontName(GAME_FONT_NAME_1);
-	_loadingText->setFontSize(GAME_TEXT_SIZE("ÅÅĞĞ°ñ¼ÓÔØÖĞ£¡"));
-	_loadingText->setString(GAME_TEXT("ÅÅĞĞ°ñ¼ÓÔØÖĞ£¡"));
+	_loadingText->setFontSize(GAME_TEXT_SIZE("æ’è¡Œæ¦œåŠ è½½ä¸­ï¼"));
+	_loadingText->setString(GAME_TEXT("æ’è¡Œæ¦œåŠ è½½ä¸­ï¼"));
 	_loadingText->setPosition(Vec2(660, 542));
 	_loadingText->setColor(Color3B(0, 255, 255));
 	this->addChild(_loadingText);
@@ -311,16 +311,16 @@ void IRankingListLayer::onShowUploadDataRequirement()
 
 	auto uploadTitle = ui::Text::create();
 	uploadTitle->setFontName(GAME_FONT_NAME_1);
-	uploadTitle->setFontSize(GAME_TEXT_SIZE("ÉÏ´«ËµÃ÷"));
-	uploadTitle->setString(GAME_TEXT("ÉÏ´«ËµÃ÷"));
+	uploadTitle->setFontSize(GAME_TEXT_SIZE("ä¸Šä¼ è¯´æ˜"));
+	uploadTitle->setString(GAME_TEXT("ä¸Šä¼ è¯´æ˜"));
 	uploadTitle->setPosition(Vec2(1450, 1002));
 	uploadTitle->setColor(Color3B(0,255,255));
 	this->addChild(uploadTitle);
 
 	auto uploadReq = ui::Text::create();
 	uploadReq->setFontName(GAME_FONT_NAME_1);
-	uploadReq->setFontSize(GAME_TEXT_SIZE("ÉÏ´«ËµÃ÷ÏêÏ¸"));
-	uploadReq->setString(GAME_TEXT("ÉÏ´«ËµÃ÷ÏêÏ¸"));
+	uploadReq->setFontSize(GAME_TEXT_SIZE("ä¸Šä¼ è¯´æ˜è¯¦ç»†"));
+	uploadReq->setString(GAME_TEXT("ä¸Šä¼ è¯´æ˜è¯¦ç»†"));
 	uploadReq->setPosition(Vec2(1615,765));
 	uploadReq->setTextAreaSize(Size(540, 410));
 	uploadReq->setTextHorizontalAlignment(cocos2d::TextHAlignment::LEFT);
@@ -337,16 +337,16 @@ void IRankingListLayer::onShowRankingListUpdateInformation()
 
 	auto uploadTitle = ui::Text::create();
 	uploadTitle->setFontName(GAME_FONT_NAME_1);
-	uploadTitle->setFontSize(GAME_TEXT_SIZE("ÆäËûËµÃ÷"));
-	uploadTitle->setString(GAME_TEXT("ÆäËûËµÃ÷"));
+	uploadTitle->setFontSize(GAME_TEXT_SIZE("å…¶ä»–è¯´æ˜"));
+	uploadTitle->setString(GAME_TEXT("å…¶ä»–è¯´æ˜"));
 	uploadTitle->setPosition(Vec2(1450, 470));
 	uploadTitle->setColor(Color3B(0, 255, 255));
 	this->addChild(uploadTitle);
 
 	auto uploadReq = ui::Text::create();
 	uploadReq->setFontName(GAME_FONT_NAME_1);
-	uploadReq->setFontSize(GAME_TEXT_SIZE("ÆäËûËµÃ÷ÏêÏ¸"));
-	uploadReq->setString(GAME_TEXT("ÆäËûËµÃ÷ÏêÏ¸"));
+	uploadReq->setFontSize(GAME_TEXT_SIZE("å…¶ä»–è¯´æ˜è¯¦ç»†"));
+	uploadReq->setString(GAME_TEXT("å…¶ä»–è¯´æ˜è¯¦ç»†"));
 	uploadReq->setPosition(Vec2(1615, 260));
 	uploadReq->setTextAreaSize(Size(540, 410));
 	uploadReq->setTextHorizontalAlignment(cocos2d::TextHAlignment::LEFT);
@@ -372,7 +372,7 @@ void IRankingListLayer::onCheckUploadButtonEnable()
 
 				auto mostUpload = UserData::getInstance()->openIntUserData(const_cast<char*>("IRANKINGLISTDATAUPLOAD"));
 				auto recordDay = UserData::getInstance()->openIntUserData(const_cast<char*>("RECORDDAY"));
-				if (_nowNettime->getNetDay() != recordDay && mostUpload < static_cast<int>(IControlLayer::mostLevelNumber)) // ²»ÔÚÍ¬Ò»Ìì²¢ÇÒÉÏ´«µÄ×î¸ß¼ÇÂ¼Ğ¡ÓÚµ±Ç°¼ÇÂ¼
+				if (_nowNettime->getNetDay() != recordDay && mostUpload < static_cast<int>(IControlLayer::mostLevelNumber)) // ä¸åœ¨åŒä¸€å¤©å¹¶ä¸”ä¸Šä¼ çš„æœ€é«˜è®°å½•å°äºå½“å‰è®°å½•
 				{
 					_uploadButton->setEnabled(true);
 				}

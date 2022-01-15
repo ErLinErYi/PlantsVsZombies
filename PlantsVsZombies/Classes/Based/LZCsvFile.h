@@ -1,4 +1,4 @@
-//
+ï»¿//
 //  CSVFile.h
 //
 //  Created by quasi_lee on 15-7-7.
@@ -18,24 +18,24 @@ public:
     CSVFile();
     ~CSVFile();
 
-    //ÓÃÒÔ´æ´¢Êı¾İ
+    //ç”¨ä»¥å­˜å‚¨æ•°æ®
     vector<vector<string> > data;
 
 public:
-    //´ò¿ªCSVÎÄ¼ş
+    //æ‰“å¼€CSVæ–‡ä»¶
     bool openFile(const char* fileName);
     bool openFile(string& str);
-    //¸ù¾İĞĞÁĞ»ñÈ¡Êı¾İ
+    //æ ¹æ®è¡Œåˆ—è·å–æ•°æ®
     const char* getData(int rows, int cols);
-    //»ñÈ¡Ö¸¶¨Êı¾İµÄÁĞÏÂ±ê
+    //è·å–æŒ‡å®šæ•°æ®çš„åˆ—ä¸‹æ ‡
     int findColsData(int cols, const char* value);
-    //µÃµ½×ÜÁĞÊı
+    //å¾—åˆ°æ€»åˆ—æ•°
     inline int getCols() { return cols; }
-    //µÃµ½×ÜĞĞÊı
+    //å¾—åˆ°æ€»è¡Œæ•°
     inline int getRows() { return data.size(); }
-    //Ìí¼ÓĞÂÊı¾İ
+    //æ·»åŠ æ–°æ•°æ®
     void addNewData(vector<string>& newData);
-    //Êı¾İÅÅĞò,posÎªÅÅĞòÊ±ÒÔpos²ÎÊıÎ»ÖÃÎª»ù×¼£¬cmpÄ¬ÈÏ½µĞò
+    //æ•°æ®æ’åº,posä¸ºæ’åºæ—¶ä»¥poså‚æ•°ä½ç½®ä¸ºåŸºå‡†ï¼Œcmpé»˜è®¤é™åº
     void sortData(int pos, bool cmp = false);
 
 private:
