@@ -30,6 +30,8 @@ protected:
 	virtual void onParseCsvData();
 	virtual void onMouseEvent();
 	virtual void onShowLoadingText();
+	virtual void onShowUploadDataRequirement();
+	virtual void onShowRankingListUpdateInformation();
 
 protected:
 	DrawNode* _draw;
