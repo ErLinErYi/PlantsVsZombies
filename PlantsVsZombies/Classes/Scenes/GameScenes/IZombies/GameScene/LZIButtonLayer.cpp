@@ -8,6 +8,7 @@
 #include "LZIButtonLayer.h"
 #include "LZIPauseQuiteLayer.h"
 #include "LZIRequirementLayer.h"
+#include "LZIRankingListLayer.h"
 #include "Scenes/GameScenes/Adventure/GameScene/LZAGSPauseLayer.h"
 #include "Scenes/GameScenes/Adventure/SelectPlantsScene/LZASPSSpriteLayer.h"
 #include "Based/LZPlayMusic.h"
@@ -46,6 +47,13 @@ bool IButtonLayer::init()
 	stopButton = createButton("StopButton", "StopButtonDown", Vec2(1870, 1030), GSLayerButton::stopButton);
 	_accelerateButton = createButton("SpeedButton", "SpeedButtonDown", Vec2(1770, 1030), GSLayerButton::accelerateButton);
 	createButton("Requirement", "RequirementDown", Vec2(1670, 1030), GSLayerButton::informationButton);
+
+	auto rankList = createButton("ButtonNew", "ButtonNew2", Vec2(1470, 1030), GSLayerButton::rankingListButton);
+	rankList->setTitleText("闯关记录排行榜");
+	rankList->setTitleFontSize(50);
+	rankList->setTitleFontName(GAME_FONT_NAME_1);
+	rankList->setTitleColor(Color3B::BLACK);
+
 	createKeyBoardListener();
 
 	return true;
@@ -57,7 +65,6 @@ Button* IButtonLayer::createButton(const string& normal, const string& select, c
 	button->setPosition(position);
 	button->setScale(0.7f);
 	button->setFlippedX(isFlippedX);
-	this->addChild(button);
 	button->addTouchEventListener([&, buttonName](Ref* sender, cocos2d::ui::Widget::TouchEventType type)
 		{
 			switch (type)
@@ -75,10 +82,14 @@ Button* IButtonLayer::createButton(const string& normal, const string& select, c
 				case GSLayerButton::informationButton:
 					showModeInformation();
 					break;
+				case GSLayerButton::rankingListButton:
+					showRannkingListButton();
+					break;
 				}
 				break;
 			}
 		});
+	this->addChild(button);
 	return button;
 }
 
@@ -178,4 +189,11 @@ void IButtonLayer::showZombiesInformation(Button* button, int type)
 void IButtonLayer::showModeInformation()
 {
 	Director::getInstance()->getRunningScene()->addChild(IRequriementLayer::create(),10);
+}
+
+void IButtonLayer::showRannkingListButton()
+{
+	PlayMusic::playMusic("pause");
+
+	_director->getRunningScene()->addChild(IRankingListLayer::create(), 10, "IRankingListLayer");
 }

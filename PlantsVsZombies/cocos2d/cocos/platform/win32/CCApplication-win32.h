@@ -111,6 +111,8 @@ public:
         return _startupScriptFilename;
     }
 
+    virtual void sendLeveData(const std::string& name, int level);
+
 protected:
     HINSTANCE           _instance;
     HACCEL              _accelTable;

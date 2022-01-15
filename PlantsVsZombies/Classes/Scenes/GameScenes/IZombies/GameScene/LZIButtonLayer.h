@@ -26,6 +26,7 @@ protected:
 	virtual void createZombiesCard();
 	virtual void showZombiesInformation(Button* button, int type);
 	virtual void showModeInformation();
+	virtual void showRannkingListButton();
 
 public:
 	struct ZombiesCardButton

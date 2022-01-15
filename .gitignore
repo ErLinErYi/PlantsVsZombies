@@ -31,6 +31,7 @@ bld/
 Release.win32/
 [Rr]esources/
 libGif/
+libum/
 
 # Visual Studio 2015/2017 cache/options directory
 .vs/

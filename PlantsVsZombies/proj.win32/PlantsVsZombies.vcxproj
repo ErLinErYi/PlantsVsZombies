@@ -314,6 +314,7 @@ xcopy "$(ProjectDir)..\Resources" "$(OutDir)" /D /E /I /F /Y
     <ClCompile Include="..\Classes\Based\LZAppDelegate.cpp" />
     <ClCompile Include="..\Classes\Based\LZCar.cpp" />
     <ClCompile Include="..\Classes\Based\LZCoin.cpp" />
+    <ClCompile Include="..\Classes\Based\LZCsvFile.cpp" />
     <ClCompile Include="..\Classes\Based\LZDialog.cpp" />
     <ClCompile Include="..\Classes\Based\LZGameType.cpp" />
     <ClCompile Include="..\Classes\Based\LZGetMomentTime.cpp" />
@@ -433,6 +434,7 @@ xcopy "$(ProjectDir)..\Resources" "$(OutDir)" /D /E /I /F /Y
     <ClCompile Include="..\Classes\Scenes\GameScenes\IZombies\GameScene\LZIInformationLayer.cpp" />
     <ClCompile Include="..\Classes\Scenes\GameScenes\IZombies\GameScene\LZIOpenCaveGameLayer.cpp" />
     <ClCompile Include="..\Classes\Scenes\GameScenes\IZombies\GameScene\LZIPauseQuiteLayer.cpp" />
+    <ClCompile Include="..\Classes\Scenes\GameScenes\IZombies\GameScene\LZIRankingListLayer.cpp" />
     <ClCompile Include="..\Classes\Scenes\GameScenes\IZombies\GameScene\LZIRequirementLayer.cpp" />
     <ClCompile Include="..\Classes\Scenes\GameScenes\IZombies\GameScene\LZITemporaryReplaceScene.cpp" />
     <ClCompile Include="..\Classes\Scenes\GameScenes\IZombies\GameScene\LZIZombiesData.cpp" />
@@ -516,6 +518,7 @@ xcopy "$(ProjectDir)..\Resources" "$(OutDir)" /D /E /I /F /Y
     <ClInclude Include="..\Classes\Based\LZAppDelegate.h" />
     <ClInclude Include="..\Classes\Based\LZCar.h" />
     <ClInclude Include="..\Classes\Based\LZCoin.h" />
+    <ClInclude Include="..\Classes\Based\LZCsvFile.h" />
     <ClInclude Include="..\Classes\Based\LZDefine.h" />
     <ClInclude Include="..\Classes\Based\LZDialog.h" />
     <ClInclude Include="..\Classes\Based\LZGameType.h" />
@@ -639,6 +642,7 @@ xcopy "$(ProjectDir)..\Resources" "$(OutDir)" /D /E /I /F /Y
     <ClInclude Include="..\Classes\Scenes\GameScenes\IZombies\GameScene\LZIInformationLayer.h" />
     <ClInclude Include="..\Classes\Scenes\GameScenes\IZombies\GameScene\LZIOpenCaveGameLayer.h" />
     <ClInclude Include="..\Classes\Scenes\GameScenes\IZombies\GameScene\LZIPauseQuiteLayer.h" />
+    <ClInclude Include="..\Classes\Scenes\GameScenes\IZombies\GameScene\LZIRankingListLayer.h" />
     <ClInclude Include="..\Classes\Scenes\GameScenes\IZombies\GameScene\LZIRequirementLayer.h" />
     <ClInclude Include="..\Classes\Scenes\GameScenes\IZombies\GameScene\LZITemporaryReplaceScene.h" />
     <ClInclude Include="..\Classes\Scenes\GameScenes\IZombies\GameScene\LZIZombiesData.h" />

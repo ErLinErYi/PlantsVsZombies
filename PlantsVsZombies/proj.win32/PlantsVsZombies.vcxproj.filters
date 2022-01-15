@@ -713,6 +713,12 @@
     <ClCompile Include="..\Classes\Scenes\MainMenuScene\LZDetailedListLayer.cpp">
       <Filter>Class\Scenes\MainMenuScene</Filter>
     </ClCompile>
+    <ClCompile Include="..\Classes\Scenes\GameScenes\IZombies\GameScene\LZIRankingListLayer.cpp">
+      <Filter>Class\Scenes\GameScenes\IZombies\GameScene</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Classes\Based\LZCsvFile.cpp">
+      <Filter>Class\Based</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="..\Classes\LZPlantsVsZombies.h">
@@ -1328,6 +1334,12 @@
       <Filter>Class\Scenes\MainMenuScene</Filter>
     </ClInclude>
     <ClInclude Include="..\Classes\Based\LZDefine.h">
+      <Filter>Class\Based</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Classes\Scenes\GameScenes\IZombies\GameScene\LZIRankingListLayer.h">
+      <Filter>Class\Scenes\GameScenes\IZombies\GameScene</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Classes\Based\LZCsvFile.h">
       <Filter>Class\Based</Filter>
     </ClInclude>
   </ItemGroup>

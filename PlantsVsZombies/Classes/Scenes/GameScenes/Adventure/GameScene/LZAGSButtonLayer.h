@@ -33,7 +33,8 @@ enum class GSLayerButton
 	nextWaveButton,
 	recoverySunButton,
 	recoveryCoinButton,
-	informationButton
+	informationButton,
+	rankingListButton
 };
 
 class GSButtonLayer :public SPSControlLayer

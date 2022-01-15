@@ -306,6 +306,11 @@ bool Application::openURL(const std::string &url)
     return (size_t)r>32;
 }
 
+void Application::sendLeveData(const std::string& name, int level)
+{
+    //JniHelper::callStaticVoidMethod("org/cocos2dx/cpp/AppActivity", "sendLeveData", name, level);
+}
+
 void Application::setResourceRootPath(const std::string& rootResDir)
 {
     _resourceRootPath = rootResDir;
