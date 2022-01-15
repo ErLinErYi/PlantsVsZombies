@@ -13,6 +13,8 @@
 #include "Based/LZUserData.h"
 #include "Based/LZGetMomentTime.h"
 
+bool IRankingListLayer::notUploadData = false;
+
 IRankingListLayer::IRankingListLayer():
 	_rankingListScrollView(nullptr),
 	_draw(nullptr),
@@ -28,6 +30,14 @@ IRankingListLayer::~IRankingListLayer()
 {
 	if (_nowNettime)delete _nowNettime;
 	delete _csvFile;
+
+	IRankingListLayer::notUploadData = false;
+}
+
+IRankingListLayer* IRankingListLayer::createLayer(bool notUploadData)
+{
+	IRankingListLayer::notUploadData = notUploadData;
+	return IRankingListLayer::create();
 }
 
 bool IRankingListLayer::init()
@@ -64,8 +74,8 @@ void IRankingListLayer::onShowTitle()
 
 	auto title = ui::Text::create();
 	title->setFontName(GAME_FONT_NAME_1);
-	title->setFontSize(50);
-	title->setString("“我是僵尸模式” 玩家闯关记录排行榜");
+	title->setFontSize(GAME_TEXT_SIZE("“我是僵尸模式” 玩家闯关记录排行榜"));
+	title->setString(GAME_TEXT("“我是僵尸模式” 玩家闯关记录排行榜"));
 	title->setPosition(Vec2(660, 980));
 	this->addChild(title);
 
@@ -75,8 +85,8 @@ void IRankingListLayer::onShowTitle()
 	{
 		auto ranking = ui::Text::create();
 		ranking->setFontName(GAME_FONT_NAME_1);
-		ranking->setFontSize(35);
-		ranking->setString(str[i]);
+		ranking->setFontSize(GAME_TEXT_SIZE(str[i]));
+		ranking->setString(GAME_TEXT(str[i]));
 		ranking->setPosition(pos[i]);
 		ranking->setColor(Color3B(0, 255, 255));
 		this->addChild(ranking);
@@ -86,7 +96,7 @@ void IRankingListLayer::onShowTitle()
 void IRankingListLayer::onShowBackButton()
 {
 	_uploadButton = Button::create("SeedChooser_Button2.png", "SeedChooser_Button2_Glow.png", "", cocos2d::ui::Widget::TextureResType::PLIST);
-	_uploadButton->setTitleText("数据上传");
+	_uploadButton->setTitleText(GAME_TEXT("数据上传"));
 	_uploadButton->setTitleColor(Color3B(0, 255, 255));
 	_uploadButton->setTitleFontSize(GAME_TEXT_SIZE("退出"));
 	_uploadButton->setScale(2.0f);
@@ -135,7 +145,7 @@ void IRankingListLayer::onCreateScrollView()
 	_rankingListScrollView->setContentSize(Size(1120.f, 700.f));
 	_rankingListScrollView->setPosition(Vec2(660.f, 450.f));
 	_rankingListScrollView->setBounceEnabled(true);
-	_rankingListScrollView->setScrollBarPositionFromCorner(Vec2(0, 0));
+	_rankingListScrollView->setScrollBarPositionFromCorner(Vec2(2, 0));
 	_rankingListScrollView->setScrollBarWidth(10);
 	_rankingListScrollView->setScrollBarColor(Color3B(200, 200, 200));
 	this->addChild(_rankingListScrollView, 1);
@@ -162,7 +172,7 @@ void IRankingListLayer::onDownloadRankingList()
 		int errorCodeInternal,
 		const std::string& errorStr)
 	{
-		_loadingText->setString("排行榜加载失败！");
+		_loadingText->setString(GAME_TEXT("排行榜加载失败！"));
 		_loadingText->setColor(Color3B::RED);
 	};
 }
@@ -173,7 +183,7 @@ void IRankingListLayer::onParseCsvData()
 	_csvFile->openFile(_strRankingList);
 
 	vector<string> data;
-	data.push_back("(我)--> " + _global->userInformation->getUserName());
+	data.push_back(GAME_TEXT("(我)--> ") + _global->userInformation->getUserName());
 	data.push_back(to_string(IControlLayer::mostLevelNumber));
 	_csvFile->addNewData(data);
 	_csvFile->sortData(1);
@@ -215,7 +225,7 @@ void IRankingListLayer::onParseCsvData()
 						level->setPosition(Vec2(960, h - 50 - 100 * i));
 						_rankingListScrollView->addChild(level);
 
-						if (nameStr.find("(我)--> ") != nameStr.npos)
+						if (nameStr.find(GAME_TEXT("(我)--> ")) != nameStr.npos)
 						{
 							name->setColor(Color3B(0, 255, 255));
 							name->runAction(RepeatForever::create(Sequence::create(ScaleTo::create(0.5f, 1.08f), ScaleTo::create(0.5f, 0.92f), nullptr)));
@@ -224,8 +234,8 @@ void IRankingListLayer::onParseCsvData()
 
 							auto own = ui::Text::create();
 							own->setFontName(GAME_FONT_NAME_1);
-							own->setFontSize(35);
-							own->setString("我的当前排名在排行榜的第" + to_string(i + 1) + "位");
+							own->setFontSize(GAME_TEXT_SIZE("我的当前排名在排行榜的第"));
+							own->setString(StringUtils::format(GAME_TEXT("我的当前排名在排行榜的第").c_str(), i + 1));
 							own->setPosition(Vec2(660, 57));
 							own->setColor(Color3B(0, 255, 255));
 							this->addChild(own);
@@ -276,8 +286,8 @@ void IRankingListLayer::onShowLoadingText()
 {
 	_loadingText = ui::Text::create();
 	_loadingText->setFontName(GAME_FONT_NAME_1);
-	_loadingText->setFontSize(35);
-	_loadingText->setString("排行榜加载中！");
+	_loadingText->setFontSize(GAME_TEXT_SIZE("排行榜加载中！"));
+	_loadingText->setString(GAME_TEXT("排行榜加载中！"));
 	_loadingText->setPosition(Vec2(660, 542));
 	_loadingText->setColor(Color3B(0, 255, 255));
 	this->addChild(_loadingText);
@@ -301,16 +311,16 @@ void IRankingListLayer::onShowUploadDataRequirement()
 
 	auto uploadTitle = ui::Text::create();
 	uploadTitle->setFontName(GAME_FONT_NAME_1);
-	uploadTitle->setFontSize(35);
-	uploadTitle->setString("上传说明");
+	uploadTitle->setFontSize(GAME_TEXT_SIZE("上传说明"));
+	uploadTitle->setString(GAME_TEXT("上传说明"));
 	uploadTitle->setPosition(Vec2(1450, 1002));
 	uploadTitle->setColor(Color3B(0,255,255));
 	this->addChild(uploadTitle);
 
 	auto uploadReq = ui::Text::create();
 	uploadReq->setFontName(GAME_FONT_NAME_1);
-	uploadReq->setFontSize(35);
-	uploadReq->setString("1.玩家每天只能上传一次记录。\n2.玩家上传记录数据后，只有获得新记录后才可以再次上传，但是要保证不在同一天之内。\n3.玩家存档名称中最好不要有特殊的文字符号。\n4.只有同时满足以上条件才能上传数据，不满足条件时上传按钮不可使用。");
+	uploadReq->setFontSize(GAME_TEXT_SIZE("上传说明详细"));
+	uploadReq->setString(GAME_TEXT("上传说明详细"));
 	uploadReq->setPosition(Vec2(1615,765));
 	uploadReq->setTextAreaSize(Size(540, 410));
 	uploadReq->setTextHorizontalAlignment(cocos2d::TextHAlignment::LEFT);
@@ -327,16 +337,16 @@ void IRankingListLayer::onShowRankingListUpdateInformation()
 
 	auto uploadTitle = ui::Text::create();
 	uploadTitle->setFontName(GAME_FONT_NAME_1);
-	uploadTitle->setFontSize(35);
-	uploadTitle->setString("其他说明");
+	uploadTitle->setFontSize(GAME_TEXT_SIZE("其他说明"));
+	uploadTitle->setString(GAME_TEXT("其他说明"));
 	uploadTitle->setPosition(Vec2(1450, 470));
 	uploadTitle->setColor(Color3B(0, 255, 255));
 	this->addChild(uploadTitle);
 
 	auto uploadReq = ui::Text::create();
 	uploadReq->setFontName(GAME_FONT_NAME_1);
-	uploadReq->setFontSize(35);
-	uploadReq->setString("1.排行榜一天只更新一次。\n2.排行榜最多显示500位玩家的记录。\n3.排行榜每月清空并重新排名。\n4.玩家上传的记录数据不会实时更新，一般在第二天更新显示。");
+	uploadReq->setFontSize(GAME_TEXT_SIZE("其他说明详细"));
+	uploadReq->setString(GAME_TEXT("其他说明详细"));
 	uploadReq->setPosition(Vec2(1615, 260));
 	uploadReq->setTextAreaSize(Size(540, 410));
 	uploadReq->setTextHorizontalAlignment(cocos2d::TextHAlignment::LEFT);
@@ -347,22 +357,25 @@ void IRankingListLayer::onShowRankingListUpdateInformation()
 
 void IRankingListLayer::onCheckUploadButtonEnable()
 {
-	_nowNettime = new MomentTime();
-	_nowNettime->requestNetTime([this]()
-		{
-			auto recordMon = UserData::getInstance()->openIntUserData(const_cast<char*>("RECORDMON"));
-			if (_nowNettime->getNetMon() != recordMon)
+	if (!notUploadData)
+	{
+		_nowNettime = new MomentTime();
+		_nowNettime->requestNetTime([this]()
 			{
-				UserData::getInstance()->caveUserData(const_cast<char*>("IRANKINGLISTDATAUPLOAD"), 0);
-				UserData::getInstance()->caveUserData(const_cast<char*>("RECORDDAY"), 0);
-				UserData::getInstance()->caveUserData(const_cast<char*>("RECORDMON"), 0);
-			}
+				auto recordMon = UserData::getInstance()->openIntUserData(const_cast<char*>("RECORDMON"));
+				if (_nowNettime->getNetMon() != recordMon)
+				{
+					UserData::getInstance()->caveUserData(const_cast<char*>("IRANKINGLISTDATAUPLOAD"), 0);
+					UserData::getInstance()->caveUserData(const_cast<char*>("RECORDDAY"), 0);
+					UserData::getInstance()->caveUserData(const_cast<char*>("RECORDMON"), 0);
+				}
 
-			auto mostUpload = UserData::getInstance()->openIntUserData(const_cast<char*>("IRANKINGLISTDATAUPLOAD"));
-			auto recordDay = UserData::getInstance()->openIntUserData(const_cast<char*>("RECORDDAY"));
-			if (_nowNettime->getNetDay() != recordDay && mostUpload < static_cast<int>(IControlLayer::mostLevelNumber)) // 不在同一天并且上传的最高记录小于当前记录
-			{
-				_uploadButton->setEnabled(true);
-			}
-		}, true);
+				auto mostUpload = UserData::getInstance()->openIntUserData(const_cast<char*>("IRANKINGLISTDATAUPLOAD"));
+				auto recordDay = UserData::getInstance()->openIntUserData(const_cast<char*>("RECORDDAY"));
+				if (_nowNettime->getNetDay() != recordDay && mostUpload < static_cast<int>(IControlLayer::mostLevelNumber)) // 不在同一天并且上传的最高记录小于当前记录
+				{
+					_uploadButton->setEnabled(true);
+				}
+			}, true);
+	}
 }

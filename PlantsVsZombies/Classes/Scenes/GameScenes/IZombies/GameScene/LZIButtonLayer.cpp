@@ -49,8 +49,8 @@ bool IButtonLayer::init()
 	createButton("Requirement", "RequirementDown", Vec2(1670, 1030), GSLayerButton::informationButton);
 
 	auto rankList = createButton("ButtonNew", "ButtonNew2", Vec2(1470, 1030), GSLayerButton::rankingListButton);
-	rankList->setTitleText("闯关记录排行榜");
-	rankList->setTitleFontSize(50);
+	rankList->setTitleText(GAME_TEXT("闯关记录排行榜"));
+	rankList->setTitleFontSize(GAME_TEXT_SIZE("闯关记录排行榜"));
 	rankList->setTitleFontName(GAME_FONT_NAME_1);
 	rankList->setTitleColor(Color3B::BLACK);
 
@@ -193,7 +193,6 @@ void IButtonLayer::showModeInformation()
 
 void IButtonLayer::showRannkingListButton()
 {
-	PlayMusic::playMusic("pause");
-
+	PlayMusic::playMusic("tap2");
 	_director->getRunningScene()->addChild(IRankingListLayer::create(), 10, "IRankingListLayer");
 }

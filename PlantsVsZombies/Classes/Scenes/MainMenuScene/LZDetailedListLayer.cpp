@@ -5,6 +5,7 @@
  *Email: 2117610943@qq.com
  */
 #include "LZDetailedListLayer.h"
+#include "Scenes/GameScenes/IZombies/GameScene/LZIRankingListLayer.h"
 #include "Based/LZUserData.h"
 #include "Based/LZPlayMusic.h"
 #include "Based/LZDefine.h"
@@ -191,6 +192,26 @@ void DetailedList::onShowBackButton()
 			case Widget::TouchEventType::ENDED:
 				setMouseListenerEnable();
 				deleteDialog();
+				break;
+			}
+		});
+
+	auto button2 = Button::create("SeedChooser_Button2.png", "SeedChooser_Button2_Glow.png", "", cocos2d::ui::Widget::TextureResType::PLIST);
+	button2->setTitleText(GAME_TEXT("排行榜"));
+	button2->setTitleColor(Color3B(0, 255, 255));
+	button2->setTitleFontSize(GAME_TEXT_SIZE("排行榜"));
+	button2->setScale(2.0f);
+	button2->setPosition(Vec2(1090, 50));
+	this->addChild(button2);
+	button2->addTouchEventListener([&](Ref* sender, Widget::TouchEventType type)
+		{
+			switch (type)
+			{
+			case Widget::TouchEventType::BEGAN:
+				PlayMusic::playMusic("tap2");
+				break;
+			case Widget::TouchEventType::ENDED:
+				_director->getRunningScene()->addChild(IRankingListLayer::createLayer(), 10, "IRankingListLayer");
 				break;
 			}
 		});

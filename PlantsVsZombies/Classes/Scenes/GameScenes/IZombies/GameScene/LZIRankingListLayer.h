@@ -19,6 +19,8 @@ class IRankingListLayer :public Dialog
 public:
 	CREATE_FUNC(IRankingListLayer);
 
+	static IRankingListLayer* createLayer(bool notUploadData = true);
+
 CC_CONSTRUCTOR_ACCESS:
 	IRankingListLayer();
 	~IRankingListLayer();
@@ -38,6 +40,7 @@ protected:
 	virtual void onCheckUploadButtonEnable();
 
 protected:
+	static bool notUploadData;
 	DrawNode* _draw;
 	string _strRankingList;
 	ui::Text* _loadingText;

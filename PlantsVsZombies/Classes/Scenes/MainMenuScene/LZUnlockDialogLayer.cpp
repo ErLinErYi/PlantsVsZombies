@@ -52,7 +52,7 @@ void UnlockDialogLayer::createButtons()
 	if (_id != 4)
 	{
 		auto button = Button::create("button.png", "button_down.png", "", cocos2d::ui::Widget::TextureResType::PLIST);
-		button->setTitleLabel(label(GAME_TEXT("确定"), 20, Vec2(0, 0), 15, Color3B::GREEN, 1 / 2.f));
+		button->setTitleLabel(label(GAME_TEXT("确定"), 20, Vec2(0, 0), 0, Color3B::GREEN, 1 / 2.f));
 		button->setPosition(Vec2(_lockDialog->getContentSize().width / 2.f, 60));
 		button->setScaleX(2.f);
 		_lockDialog->addChild(button);
@@ -71,7 +71,7 @@ void UnlockDialogLayer::createButtons()
 	else
 	{
 		auto button = Button::create("button.png", "button_down.png", "", cocos2d::ui::Widget::TextureResType::PLIST);
-		button->setTitleLabel(label(GAME_TEXT("取消"), 20, Vec2(0, 0), 15, Color3B::GREEN));
+		button->setTitleLabel(label(GAME_TEXT("取消"), 20, Vec2(0, 0), 0, Color3B::GREEN));
 		button->setPosition(Vec2(_lockDialog->getContentSize().width / 2.f - 70, 60));
 		_lockDialog->addChild(button);
 
@@ -87,7 +87,7 @@ void UnlockDialogLayer::createButtons()
 			});
 
 		auto button2 = Button::create("button.png", "button_down.png", "", cocos2d::ui::Widget::TextureResType::PLIST);
-		button2->setTitleLabel(label(GAME_TEXT("确定"), 20, Vec2(0, 0), 15, Color3B::GREEN));
+		button2->setTitleLabel(label(GAME_TEXT("确定"), 20, Vec2(0, 0), 0, Color3B::GREEN));
 		button2->setPosition(Vec2(_lockDialog->getContentSize().width / 2.f + 70, 60));
 		_lockDialog->addChild(button2);
 
