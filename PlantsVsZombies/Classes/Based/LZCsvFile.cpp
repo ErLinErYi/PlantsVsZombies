@@ -91,8 +91,6 @@ bool CSVFile::openFile(string& str)
 void CSVFile::addNewData(vector<string>& newData)
 {
     data.push_back(newData);
-
-    sortData(1);
 }
 
 void CSVFile::StringSplit(const std::string& str, vector<string>& tokens, const char& delimiters)

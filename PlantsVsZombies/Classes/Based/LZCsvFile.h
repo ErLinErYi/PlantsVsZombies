@@ -35,7 +35,7 @@ public:
     inline int getRows() { return data.size(); }
     //添加新数据
     void addNewData(vector<string>& newData);
-    //数据排序,pos为排序时参数的位置，cmp默认降序
+    //数据排序,pos为排序时以pos参数位置为基准，cmp默认降序
     void sortData(int pos, bool cmp = false);
 
 private:

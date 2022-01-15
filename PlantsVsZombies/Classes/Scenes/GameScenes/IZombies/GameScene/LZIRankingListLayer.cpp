@@ -6,6 +6,7 @@
  */
 
 #include "LZIRankingListLayer.h"
+#include "LZIControlLayer.h"
 #include "Based/LZPlayMusic.h"
 #include "Based/LZCsvFile.h"
 #include "Based/LZMouseEventControl.h"
@@ -138,6 +139,12 @@ void IRankingListLayer::onParseCsvData()
 	auto csv = new CSVFile();
 	csv->openFile(_strRankingList);
 
+	vector<string> data;
+	data.push_back(_global->userInformation->getUserName()+"--( ÎÒ )");
+	data.push_back(to_string(IControlLayer::mostLevelNumber));
+	csv->addNewData(data);
+	csv->sortData(1);
+
 	auto row = csv->getRows();
 	auto draw = DrawNode::create();
 
@@ -160,10 +167,11 @@ void IRankingListLayer::onParseCsvData()
 
 	for (int i = 0; i < row; ++i)
 	{
+		string nameStr = csv->getData(i, 0);
 		auto name = ui::Text::create();
 		name->setFontName(GAME_FONT_NAME_1);
 		name->setFontSize(35);
-		name->setString(csv->getData(i, 0));
+		name->setString(nameStr);
 		name->setPosition(Vec2(500, h - 50 - 100 * i));
 		_rankingListScrollView->addChild(name);
 
@@ -173,6 +181,12 @@ void IRankingListLayer::onParseCsvData()
 		level->setString(csv->getData(i, 1));
 		level->setPosition(Vec2(960, h - 50 - 100 * i));
 		_rankingListScrollView->addChild(level);
+
+		if (nameStr.rfind("--( ÎÒ )") != nameStr.npos)
+		{
+			name->setColor(Color3B::ORANGE);
+			level->setColor(Color3B::ORANGE);
+		}
 	}
 
 	delete csv;
