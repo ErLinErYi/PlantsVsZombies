@@ -12,6 +12,8 @@
 
 using namespace cocos2d;
 
+class MomentTime;
+class CSVFile;
 class IRankingListLayer :public Dialog
 {
 public:
@@ -30,13 +32,18 @@ protected:
 	virtual void onParseCsvData();
 	virtual void onMouseEvent();
 	virtual void onShowLoadingText();
+	virtual void onUploadData();
 	virtual void onShowUploadDataRequirement();
 	virtual void onShowRankingListUpdateInformation();
+	virtual void onCheckUploadButtonEnable();
 
 protected:
 	DrawNode* _draw;
 	string _strRankingList;
 	ui::Text* _loadingText;
+	ui::Button* _uploadButton;
+	MomentTime* _nowNettime;
+	CSVFile* _csvFile;
 	cocos2d::ui::ScrollView* _rankingListScrollView;
 	std::unique_ptr<network::Downloader> _downloader;
 };
