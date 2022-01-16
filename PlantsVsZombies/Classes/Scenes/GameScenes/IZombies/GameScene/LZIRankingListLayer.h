@@ -38,13 +38,14 @@ protected:
 	virtual void onShowUploadDataRequirement();
 	virtual void onShowRankingListUpdateInformation();
 	virtual void onCheckUploadButtonEnable();
+	virtual void onSuccessfulFeedback();
 
 protected:
 	static bool notUploadData;
 	DrawNode* _draw;
 	string _strRankingList;
-	ui::Text* _loadingText;
-	ui::Button* _uploadButton;
+	cocos2d::ui::Text* _loadingText;
+	cocos2d::ui::Button* _uploadButton;
 	MomentTime* _nowNettime;
 	CSVFile* _csvFile;
 	cocos2d::ui::ScrollView* _rankingListScrollView;

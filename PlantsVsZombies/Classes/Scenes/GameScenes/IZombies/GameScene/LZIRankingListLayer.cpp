@@ -12,6 +12,7 @@
 #include "Based/LZMouseEventControl.h"
 #include "Based/LZUserData.h"
 #include "Based/LZGetMomentTime.h"
+#include "Based/LZDefine.h"
 
 bool IRankingListLayer::notUploadData = false;
 
@@ -72,7 +73,7 @@ void IRankingListLayer::onShowTitle()
 	_draw->drawLine(Vec2(1220, 900), Vec2(1220, 100), Color4F(0.5f, 0.5f, 0.5f, 0.7f));
 	this->addChild(_draw);
 
-	auto title = ui::Text::create();
+	auto title = cocos2d::ui::Text::create();
 	title->setFontName(GAME_FONT_NAME_1);
 	title->setFontSize(GAME_TEXT_SIZE("“我是僵尸模式” 玩家闯关记录排行榜"));
 	title->setString(GAME_TEXT("“我是僵尸模式” 玩家闯关记录排行榜"));
@@ -83,7 +84,7 @@ void IRankingListLayer::onShowTitle()
 	Vec2 pos[3] = { Vec2(200, 850),Vec2(600, 850),Vec2(1060, 850) };
 	for (int i = 0; i < 3; ++i)
 	{
-		auto ranking = ui::Text::create();
+		auto ranking = cocos2d::ui::Text::create();
 		ranking->setFontName(GAME_FONT_NAME_1);
 		ranking->setFontSize(GAME_TEXT_SIZE(str[i]));
 		ranking->setString(GAME_TEXT(str[i]));
@@ -100,7 +101,7 @@ void IRankingListLayer::onShowBackButton()
 	_uploadButton->setTitleColor(Color3B(0, 255, 255));
 	_uploadButton->setTitleFontSize(GAME_TEXT_SIZE("退出"));
 	_uploadButton->setScale(2.0f);
-	_uploadButton->setPosition(Vec2(1440, 50));
+	_uploadButton->setPosition(Vec2(1440, 70));
 	_uploadButton->setEnabled(false);
 	this->addChild(_uploadButton);
 	_uploadButton->addTouchEventListener([&](Ref* sender, Widget::TouchEventType type)
@@ -121,7 +122,7 @@ void IRankingListLayer::onShowBackButton()
 	button2->setTitleColor(Color3B(0, 255, 255));
 	button2->setTitleFontSize(GAME_TEXT_SIZE("退出"));
 	button2->setScale(2.0f);
-	button2->setPosition(Vec2(1785, 50));
+	button2->setPosition(Vec2(1785, 70));
 	this->addChild(button2);
 	button2->addTouchEventListener([&](Ref* sender, Widget::TouchEventType type)
 		{
@@ -139,8 +140,8 @@ void IRankingListLayer::onShowBackButton()
 
 void IRankingListLayer::onCreateScrollView()
 {
-	_rankingListScrollView = ui::ScrollView::create();
-	_rankingListScrollView->setDirection(ui::ScrollView::Direction::VERTICAL);
+	_rankingListScrollView = cocos2d::ui::ScrollView::create();
+	_rankingListScrollView->setDirection(cocos2d::ui::ScrollView::Direction::VERTICAL);
 	_rankingListScrollView->setAnchorPoint(Vec2::ANCHOR_MIDDLE);
 	_rankingListScrollView->setContentSize(Size(1120.f, 700.f));
 	_rankingListScrollView->setPosition(Vec2(660.f, 450.f));
@@ -179,11 +180,16 @@ void IRankingListLayer::onDownloadRankingList()
 
 void IRankingListLayer::onParseCsvData()
 {
+	if (notUploadData)
+	{
+		IControlLayer::mostLevelNumber = UserData::getInstance()->openIntUserData(const_cast<char*>("IZOMBIES_MOST_LEVEL"));
+	}
+
 	_csvFile = new CSVFile();
 	_csvFile->openFile(_strRankingList);
 
 	vector<string> data;
-	data.push_back(GAME_TEXT("(我)--> ") + _global->userInformation->getUserName());
+	data.push_back(GAME_TEXT("本地 我：") + _global->userInformation->getUserName());
 	data.push_back(to_string(IControlLayer::mostLevelNumber));
 	_csvFile->addNewData(data);
 	_csvFile->sortData(1);
@@ -203,61 +209,72 @@ void IRankingListLayer::onParseCsvData()
 
 					if (i != row)
 					{
-						auto num = ui::Text::create();
-						num->setFontName(GAME_FONT_NAME_1);
+						auto num = cocos2d::ui::Text::create();
+						num->setFontName(GAME_FONT_NAME_2);
 						num->setFontSize(35);
 						num->setString(to_string(i + 1));
 						num->setPosition(Vec2(100, h - 50 - 100 * i));
 						_rankingListScrollView->addChild(num);
 
 						string nameStr = _csvFile->getData(i, 0);
-						auto name = ui::Text::create();
+						auto name = cocos2d::ui::Text::create();
 						name->setFontName(GAME_FONT_NAME_1);
 						name->setFontSize(35);
 						name->setString(nameStr);
 						name->setPosition(Vec2(500, h - 50 - 100 * i));
 						_rankingListScrollView->addChild(name);
 
-						auto level = ui::Text::create();
-						level->setFontName(GAME_FONT_NAME_1);
+						auto level = cocos2d::ui::Text::create();
+						level->setFontName(GAME_FONT_NAME_2);
 						level->setFontSize(35);
 						level->setString(_csvFile->getData(i, 1));
 						level->setPosition(Vec2(960, h - 50 - 100 * i));
 						_rankingListScrollView->addChild(level);
 
-						if (nameStr.find(GAME_TEXT("(我)--> ")) != nameStr.npos)
+						if (nameStr.find(GAME_TEXT("本地 我：")) != nameStr.npos)
 						{
+							num->setColor(Color3B(0, 255, 255));
 							name->setColor(Color3B(0, 255, 255));
 							name->runAction(RepeatForever::create(Sequence::create(ScaleTo::create(0.5f, 1.08f), ScaleTo::create(0.5f, 0.92f), nullptr)));
 							level->setColor(Color3B(0, 255, 255));
 							level->runAction(RepeatForever::create(Sequence::create(ScaleTo::create(0.5f, 1.08f), ScaleTo::create(0.5f, 0.92f), nullptr)));
 
-							auto own = ui::Text::create();
+							auto own = cocos2d::ui::Text::create();
 							own->setFontName(GAME_FONT_NAME_1);
-							own->setFontSize(GAME_TEXT_SIZE("我的当前排名在排行榜的第"));
-							own->setString(StringUtils::format(GAME_TEXT("我的当前排名在排行榜的第").c_str(), i + 1));
+							own->setFontSize(GAME_TEXT_SIZE("我的排名名称记录"));
+							own->setString(StringUtils::format(GAME_TEXT("我的排名名称记录").c_str(), i + 1, _global->userInformation->getUserName().c_str(), IControlLayer::mostLevelNumber));
 							own->setPosition(Vec2(660, 57));
 							own->setColor(Color3B(0, 255, 255));
 							this->addChild(own);
+
+							_draw->drawRect(Vec2(100, 22), Vec2(1220, 98), Color4F(0, 1, 1, 0.5f));
+							_draw->drawSolidRect(Vec2(100, 22), Vec2(1220, 98), Color4F(0, 1, 1, 0.2f));
+							draw->drawSolidRect(Vec2(0, h - 100 * i - 2), Vec2(1120, h - 100 * (i + 1) + 2), Color4F(0, 1, 1, 0.2f));
 						}
 						if (i == 0)
 						{
-							name->setColor(Color3B::ORANGE);
+							num->setColor(Color3B::YELLOW);
+							name->setColor(Color3B::YELLOW);
 							name->enableGlow(Color4B(0, 255, 255, 255));
-							level->setColor(Color3B::ORANGE);
+							level->setColor(Color3B::YELLOW);
 							level->enableGlow(Color4B(0, 255, 255, 255));
+							draw->drawSolidRect(Vec2(0, h - 100 * i - 2), Vec2(1120, h - 100 * (i + 1) + 2), Color4F(1, 1, 0, 0.3f));
 						}
 						else if (i == 1)
 						{
-							name->setColor(Color3B(128, 0, 64));
-							name->enableOutline(Color4B::BLUE);
-							level->setColor(Color3B(128, 0, 64));
-							level->enableOutline(Color4B::BLUE);
+							num->setColor(Color3B(192, 192, 192));
+							name->setColor(Color3B(192, 192, 192));
+							name->enableOutline(Color4B::WHITE);
+							level->setColor(Color3B(192, 192, 192));
 						}
 						else if (i == 2)
 						{
-							name->setColor(Color3B::GREEN);
-							level->setColor(Color3B::GREEN);
+							num->setColor(Color3B(117, 60, 43));
+							num->enableOutline(Color4B(187, 124, 104, 255));
+							name->setColor(Color3B(117, 60, 43));
+							name->enableOutline(Color4B(187, 124, 104, 255));
+							level->setColor(Color3B(117, 60, 43));
+							level->enableOutline(Color4B(187, 124, 104, 255));
 						}
 					}
 				}), nullptr));
@@ -277,14 +294,14 @@ void IRankingListLayer::onMouseEvent()
 		const auto mouseEvent = static_cast<EventMouse*>(event);
 		const float movex = mouseEvent->getScrollY() * (300 / _rankingListScrollView->getInnerContainerSize().height) * 100;
 
-		MouseEventControl::mouseScrollControlListener(_rankingListScrollView, movex, ui::ScrollView::Direction::VERTICAL);
+		MouseEventControl::mouseScrollControlListener(_rankingListScrollView, movex, cocos2d::ui::ScrollView::Direction::VERTICAL);
 	};
 	Director::getInstance()->getEventDispatcher()->addEventListenerWithSceneGraphPriority(mouse, _rankingListScrollView);
 }
 
 void IRankingListLayer::onShowLoadingText()
 {
-	_loadingText = ui::Text::create();
+	_loadingText = cocos2d::ui::Text::create();
 	_loadingText->setFontName(GAME_FONT_NAME_1);
 	_loadingText->setFontSize(GAME_TEXT_SIZE("排行榜加载中！"));
 	_loadingText->setString(GAME_TEXT("排行榜加载中！"));
@@ -299,8 +316,10 @@ void IRankingListLayer::onUploadData()
 
 	Application::getInstance()->sendLeveData(_global->userInformation->getUserName(), IControlLayer::mostLevelNumber);
 	UserData::getInstance()->caveUserData(const_cast<char*>("IRANKINGLISTDATAUPLOAD"), static_cast<int>(IControlLayer::mostLevelNumber));
-	UserData::getInstance()->caveUserData(const_cast<char*>("RECORDDAY"),_nowNettime->getNetDay());
-	UserData::getInstance()->caveUserData(const_cast<char*>("RECORDMON"), _nowNettime->getNetMon());
+	UserDefault::getInstance()->setIntegerForKey("RECORDDAY",_nowNettime->getNetDay());
+	UserDefault::getInstance()->setIntegerForKey("RECORDMON", _nowNettime->getNetMon());
+
+	onSuccessfulFeedback();
 }
 
 void IRankingListLayer::onShowUploadDataRequirement()
@@ -309,7 +328,7 @@ void IRankingListLayer::onShowUploadDataRequirement()
 	draw->drawRect(Vec2(1350, 1030), Vec2(1550, 980), Color4F(0, 1, 1, 1));
 	this->addChild(draw);
 
-	auto uploadTitle = ui::Text::create();
+	auto uploadTitle = cocos2d::ui::Text::create();
 	uploadTitle->setFontName(GAME_FONT_NAME_1);
 	uploadTitle->setFontSize(GAME_TEXT_SIZE("上传说明"));
 	uploadTitle->setString(GAME_TEXT("上传说明"));
@@ -317,7 +336,7 @@ void IRankingListLayer::onShowUploadDataRequirement()
 	uploadTitle->setColor(Color3B(0,255,255));
 	this->addChild(uploadTitle);
 
-	auto uploadReq = ui::Text::create();
+	auto uploadReq = cocos2d::ui::Text::create();
 	uploadReq->setFontName(GAME_FONT_NAME_1);
 	uploadReq->setFontSize(GAME_TEXT_SIZE("上传说明详细"));
 	uploadReq->setString(GAME_TEXT("上传说明详细"));
@@ -335,7 +354,7 @@ void IRankingListLayer::onShowRankingListUpdateInformation()
 	draw->drawRect(Vec2(1350, 500), Vec2(1550, 450), Color4F(0, 1, 1, 1));
 	this->addChild(draw);
 
-	auto uploadTitle = ui::Text::create();
+	auto uploadTitle = cocos2d::ui::Text::create();
 	uploadTitle->setFontName(GAME_FONT_NAME_1);
 	uploadTitle->setFontSize(GAME_TEXT_SIZE("其他说明"));
 	uploadTitle->setString(GAME_TEXT("其他说明"));
@@ -343,7 +362,7 @@ void IRankingListLayer::onShowRankingListUpdateInformation()
 	uploadTitle->setColor(Color3B(0, 255, 255));
 	this->addChild(uploadTitle);
 
-	auto uploadReq = ui::Text::create();
+	auto uploadReq = cocos2d::ui::Text::create();
 	uploadReq->setFontName(GAME_FONT_NAME_1);
 	uploadReq->setFontSize(GAME_TEXT_SIZE("其他说明详细"));
 	uploadReq->setString(GAME_TEXT("其他说明详细"));
@@ -362,20 +381,40 @@ void IRankingListLayer::onCheckUploadButtonEnable()
 		_nowNettime = new MomentTime();
 		_nowNettime->requestNetTime([this]()
 			{
-				auto recordMon = UserData::getInstance()->openIntUserData(const_cast<char*>("RECORDMON"));
+				auto recordMon = UserDefault::getInstance()->getIntegerForKey("RECORDMON");
 				if (_nowNettime->getNetMon() != recordMon)
 				{
 					UserData::getInstance()->caveUserData(const_cast<char*>("IRANKINGLISTDATAUPLOAD"), 0);
-					UserData::getInstance()->caveUserData(const_cast<char*>("RECORDDAY"), 0);
-					UserData::getInstance()->caveUserData(const_cast<char*>("RECORDMON"), 0);
+					UserDefault::getInstance()->setIntegerForKey("RECORDDAY", 0);
+					UserDefault::getInstance()->setIntegerForKey("RECORDMON", 0);
 				}
 
 				auto mostUpload = UserData::getInstance()->openIntUserData(const_cast<char*>("IRANKINGLISTDATAUPLOAD"));
-				auto recordDay = UserData::getInstance()->openIntUserData(const_cast<char*>("RECORDDAY"));
+				auto recordDay = UserDefault::getInstance()->getIntegerForKey("RECORDDAY");
 				if (_nowNettime->getNetDay() != recordDay && mostUpload < static_cast<int>(IControlLayer::mostLevelNumber)) // 不在同一天并且上传的最高记录小于当前记录
 				{
 					_uploadButton->setEnabled(true);
 				}
 			}, true);
 	}
+}
+
+void IRankingListLayer::onSuccessfulFeedback()
+{
+	auto layer = LayerColor::create(Color4B(40, 40, 40, 255));
+	layer->setContentSize(Size(350, 100));
+	layer->setPosition(Vec2(810, 465));
+	layer->runAction(Sequence::create(DelayTime::create(3.f), CallFunc::create([layer]() {layer->removeFromParent(); }), nullptr));
+	this->addChild(layer, 5);
+
+	auto draw = DrawNode::create();
+	draw->drawRect(Vec2(0, 0), Vec2(350, 100), Color4F(0, 1, 1, 1));
+	layer->addChild(draw);
+
+	auto text = cocos2d::ui::Text::create();
+	text->setString(GAME_TEXT("数据上传成功！"));
+	text->setFontName(GAME_FONT_NAME_1);
+	text->setFontSize(GAME_TEXT_SIZE("数据上传成功！"));
+	text->setPosition(Vec2(175, 50));
+	layer->addChild(text);
 }

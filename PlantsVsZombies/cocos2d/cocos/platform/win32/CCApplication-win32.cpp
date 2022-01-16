@@ -32,6 +32,8 @@ THE SOFTWARE.
 #include "platform/CCFileUtils.h"
 #include <shellapi.h>
 #include <WinVer.h>
+
+#include "../Resources/launcher/include/jni.h"
 /**
 @brief    This function change the PVRFrame show/hide setting in register.
 @param  bEnable If true show the PVRFrame window, otherwise hide.
@@ -308,7 +310,64 @@ bool Application::openURL(const std::string &url)
 
 void Application::sendLeveData(const std::string& name, int level)
 {
-    //JniHelper::callStaticVoidMethod("org/cocos2dx/cpp/AppActivity", "sendLeveData", name, level);
+    //JavaVMOption options[3];
+    //options[0].optionString = "-Djava.compiler=NONE"; //Disabled JIT
+    //options[1].optionString = "-Djava.class.path=.;D:/CConSys/CConSys/proj.win32/Debug.win32/jar/lane_detect_integration.jar";
+    //options[2].optionString = "-verbose:NONE";
+
+    ////options.optionString = "-Djava.class.path=Text.jar";
+
+    //JNIEnv* env = nullptr;
+    //JavaVM* jvm = nullptr;
+
+    //JavaVMInitArgs vm_args;
+    //RtlZeroMemory(&vm_args, sizeof(JavaVMInitArgs));
+
+    //vm_args.version = JNI_VERSION_1_6;
+    //vm_args.nOptions = 3;
+    //vm_args.options = options;
+    //vm_args.ignoreUnrecognized = JNI_TRUE;
+
+    //HINSTANCE hInstance = LoadLibrary(L"");
+    ////HINSTANCE hInstance = LoadLibrary(L"E:/Java/JDK1.8/jre/bin/client/jvm.dll");
+    //if (hInstance == NULL)
+    //    return;
+    //_CreateJavaVM m_CreateJavaVM = (_CreateJavaVM)GetProcAddress(hInstance, "JNI_CreateJavaVM");
+    //long status = (*m_CreateJavaVM)(&jvm, (void**)&env, &vm_args);
+
+    ////long status = JNI_CreateJavaVM(&jvm, (void**)&env, &vm_args);
+    //if (status == JNI_ERR)
+    //{
+    //   // std::cout << "failed" << status << std::endl;
+    //    return;
+    //}
+
+    ////jclass cls = env->FindClass("integretion/LaneDetect");
+    //jclass cls = env->FindClass("integretion/CameraRun");
+    //if (cls == 0)
+    //{
+    //    //std::cout << "找不到该类！" << std::endl;
+    //    jvm->DestroyJavaVM();
+    //    return;
+    //}
+
+    //jmethodID mid = env->GetMethodID(cls, "run", "()V");
+    ////jmethodID mid = env->GetMethodID(cls, "cameraTest", "()Ljava/lang/Integer");
+    ////jmethodID mid = env->GetMethodID(cls, "returnAngleArray", "()[D");
+    ////jmethodID mid = env->GetStaticMethodID(cls, "fun", "(Ljava/lang/String;)Ljava/lang/String");
+    //if (mid == 0)
+    //{
+    //    //std::cout << "找不到该函数！" << std::endl;
+    //    jvm->DestroyJavaVM();
+    //    return;
+    //}
+
+    ////std::cout << env->CallStaticObjectMethod(cls, mid) << std::endl;
+    //auto obj = env->AllocObject(cls);
+    //env->CallVoidMethod(obj, mid);
+    ////auto s = env->CallDoubleMethod(obj, mid);
+    ////CCLOG("%lf", s);
+    ////env->CallIntMethod(obj, mid);
 }
 
 void Application::setResourceRootPath(const std::string& rootResDir)
