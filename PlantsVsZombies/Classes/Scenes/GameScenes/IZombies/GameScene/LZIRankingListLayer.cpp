@@ -146,8 +146,8 @@ void IRankingListLayer::onCreateScrollView()
 	_rankingListScrollView->setContentSize(Size(1120.f, 700.f));
 	_rankingListScrollView->setPosition(Vec2(660.f, 450.f));
 	_rankingListScrollView->setBounceEnabled(true);
-	_rankingListScrollView->setScrollBarPositionFromCorner(Vec2(2, 0));
-	_rankingListScrollView->setScrollBarWidth(10);
+	_rankingListScrollView->setScrollBarPositionFromCorner(Vec2(3, 0));
+	_rankingListScrollView->setScrollBarWidth(5);
 	_rankingListScrollView->setScrollBarColor(Color3B(200, 200, 200));
 	this->addChild(_rankingListScrollView, 1);
 }
@@ -249,7 +249,7 @@ void IRankingListLayer::onParseCsvData()
 
 							_draw->drawRect(Vec2(100, 22), Vec2(1220, 98), Color4F(0, 1, 1, 0.5f));
 							_draw->drawSolidRect(Vec2(100, 22), Vec2(1220, 98), Color4F(0, 1, 1, 0.2f));
-							draw->drawSolidRect(Vec2(0, h - 100 * i - 2), Vec2(1120, h - 100 * (i + 1) + 2), Color4F(0, 1, 1, 0.2f));
+							draw->drawSolidRect(Vec2(0, h - 100 * i - 1), Vec2(1120, h - 100 * (i + 1) + 1), Color4F(0, 1, 1, 0.2f));
 						}
 						if (i == 0)
 						{
@@ -258,23 +258,25 @@ void IRankingListLayer::onParseCsvData()
 							name->enableGlow(Color4B(0, 255, 255, 255));
 							level->setColor(Color3B::YELLOW);
 							level->enableGlow(Color4B(0, 255, 255, 255));
-							draw->drawSolidRect(Vec2(0, h - 100 * i - 2), Vec2(1120, h - 100 * (i + 1) + 2), Color4F(1, 1, 0, 0.3f));
+							draw->drawSolidRect(Vec2(0, h - 100 * i - 1), Vec2(1120, h - 100 * (i + 1) + 1), Color4F(1, 1, 0, 0.3f));
 						}
 						else if (i == 1)
 						{
 							num->setColor(Color3B(192, 192, 192));
+							num->enableGlow(Color4B::WHITE);
 							name->setColor(Color3B(192, 192, 192));
-							name->enableOutline(Color4B::WHITE);
+							name->enableGlow(Color4B::WHITE);
 							level->setColor(Color3B(192, 192, 192));
+							level->enableGlow(Color4B::WHITE);
 						}
 						else if (i == 2)
 						{
 							num->setColor(Color3B(117, 60, 43));
-							num->enableOutline(Color4B(187, 124, 104, 255));
+							num->enableGlow(Color4B(187, 124, 104, 255));
 							name->setColor(Color3B(117, 60, 43));
-							name->enableOutline(Color4B(187, 124, 104, 255));
+							name->enableGlow(Color4B(187, 124, 104, 255));
 							level->setColor(Color3B(117, 60, 43));
-							level->enableOutline(Color4B(187, 124, 104, 255));
+							level->enableGlow(Color4B(187, 124, 104, 255));
 						}
 					}
 				}), nullptr));

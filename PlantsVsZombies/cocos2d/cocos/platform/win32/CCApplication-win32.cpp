@@ -33,7 +33,7 @@ THE SOFTWARE.
 #include <shellapi.h>
 #include <WinVer.h>
 
-#include "../Resources/launcher/include/jni.h"
+//#include "../Resources/launcher/include/jni.h"
 /**
 @brief    This function change the PVRFrame show/hide setting in register.
 @param  bEnable If true show the PVRFrame window, otherwise hide.
