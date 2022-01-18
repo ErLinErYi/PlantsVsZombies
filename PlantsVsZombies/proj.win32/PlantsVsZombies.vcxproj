@@ -451,6 +451,7 @@ xcopy "$(ProjectDir)..\Resources" "$(OutDir)" /D /E /I /F /Y
     <ClCompile Include="..\Classes\Scenes\GameScenes\TestingGround\GameScene\LZTGGameTimerLayer.cpp" />
     <ClCompile Include="..\Classes\Scenes\GameScenes\TestingGround\GameScene\LZTGInformationLayer.cpp" />
     <ClCompile Include="..\Classes\Scenes\GameScenes\TestingGround\GameScene\LZTGPauseQuitLayer.cpp" />
+    <ClCompile Include="..\Classes\Scenes\GameScenes\TestingGround\GameScene\LZTRankingListLayer.cpp" />
     <ClCompile Include="..\Classes\Scenes\GameScenes\TestingGround\SelectPlantsScene\LZTSelectPlantsScene.cpp" />
     <ClCompile Include="..\Classes\Scenes\GameScenes\TestingGround\SelectPlantsScene\LZTSPSBackgroundLayer.cpp" />
     <ClCompile Include="..\Classes\Scenes\GameScenes\TestingGround\SelectPlantsScene\LZTSPSControlLayer.cpp" />
@@ -659,6 +660,7 @@ xcopy "$(ProjectDir)..\Resources" "$(OutDir)" /D /E /I /F /Y
     <ClInclude Include="..\Classes\Scenes\GameScenes\TestingGround\GameScene\LZTGGameTimerLayer.h" />
     <ClInclude Include="..\Classes\Scenes\GameScenes\TestingGround\GameScene\LZTGInformationLayer.h" />
     <ClInclude Include="..\Classes\Scenes\GameScenes\TestingGround\GameScene\LZTGPauseQuitLayer.h" />
+    <ClInclude Include="..\Classes\Scenes\GameScenes\TestingGround\GameScene\LZTRankingListLayer.h" />
     <ClInclude Include="..\Classes\Scenes\GameScenes\TestingGround\SelectPlantsScene\LZTSelectPlantsScene.h" />
     <ClInclude Include="..\Classes\Scenes\GameScenes\TestingGround\SelectPlantsScene\LZTSPSBackgroundLayer.h" />
     <ClInclude Include="..\Classes\Scenes\GameScenes\TestingGround\SelectPlantsScene\LZTSPSControlLayer.h" />

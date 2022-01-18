@@ -28,6 +28,7 @@ CC_CONSTRUCTOR_ACCESS:
 
 protected:
 	virtual void onShowTitle();
+	virtual void onShowDifferentTitle();
 	virtual void onShowBackButton();
 	virtual void onCreateScrollView();
 	virtual void onDownloadRankingList();
@@ -39,15 +40,19 @@ protected:
 	virtual void onShowRankingListUpdateInformation();
 	virtual void onCheckUploadButtonEnable();
 	virtual void onSuccessfulFeedback();
+	virtual void onSelectCsvFile(int id);
 
 protected:
 	static bool notUploadData;
 	DrawNode* _draw;
+	LayerColor* _layerColor[3];
 	string _strRankingList;
 	cocos2d::ui::Text* _loadingText;
 	cocos2d::ui::Button* _uploadButton;
 	MomentTime* _nowNettime;
-	CSVFile* _csvFile;
 	cocos2d::ui::ScrollView* _rankingListScrollView;
 	std::unique_ptr<network::Downloader> _downloader;
+
+private:
+	CSVFile* _csvFile;
 };

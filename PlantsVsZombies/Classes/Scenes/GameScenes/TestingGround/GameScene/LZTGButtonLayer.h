@@ -24,5 +24,6 @@ protected:
 	virtual void showShovelBank() override;
 	virtual void createKeyBoardListener() override;
 	virtual void createPlantsCard() override;
+	virtual void onShowRankingLayer() override;
 };
 

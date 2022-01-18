@@ -7,6 +7,7 @@
 
 #include "LZTGButtonLayer.h"
 #include "LZTGPauseQuitLayer.h"
+#include "LZTRankingListLayer.h"
 #include "../SelectPlantsScene/LZTSPSSpriteLayer.h"
 #include "Scenes/GameScenes/Adventure/GameScene/LZAGSPauseQuitLayer.h"
 #include "Based/LZPlayMusic.h"
@@ -29,6 +30,12 @@ bool TGButtonLayer::init()
 	createButton("StopButton", "StopButtonDown", Vec2(1870, 1030), GSLayerButton::stopButton);
 	_accelerateButton = createButton("SpeedButton", "SpeedButtonDown", Vec2(1770, 1030), GSLayerButton::accelerateButton);
 	_decelerateButton = createButton("SpeedButton", "SpeedButtonDown", Vec2(1670, 1030), GSLayerButton::decelerateButton, true);
+
+	auto rankList = createButton("ButtonNew", "ButtonNew2", Vec2(1365, 1030), GSLayerButton::rankingListButton);
+	rankList->setTitleText(GAME_TEXT("闯关记录排行榜"));
+	rankList->setTitleFontSize(GAME_TEXT_SIZE("闯关记录排行榜"));
+	rankList->setTitleFontName(GAME_FONT_NAME_1);
+	rankList->setTitleColor(Color3B::BLACK);
 
 	createKeyBoardListener();
 
@@ -153,4 +160,11 @@ void TGButtonLayer::createPlantsCard()
 		plantsCards[card.cardTag].plantsCoolTime = 0;
 		plantsCards[card.cardTag].progressTimer = timerBar;
 	}
+}
+
+void TGButtonLayer::onShowRankingLayer()
+{
+	GSPauseQuitLayer::pauseLayer();
+	PlayMusic::playMusic("tap2");
+	_director->getRunningScene()->addChild(TRankingListLayer::create(), 5, "RankingListLayer");
 }

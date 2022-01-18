@@ -88,6 +88,9 @@ Button* GSButtonLayer::createButton(const string& normal, const string& select, 
 				case GSLayerButton::recoveryCoinButton:
 					recoveryCoinControl();
 					break;
+				case GSLayerButton::rankingListButton:
+					onShowRankingLayer();
+					break;
 				}
 				break;
 			}
@@ -441,6 +444,11 @@ GLProgram* GSButtonLayer::greyScaleShader()
 	program->updateUniforms();
 
 	return program;
+}
+
+void GSButtonLayer::onShowRankingLayer()
+{
+	/* 子类中实现 */
 }
 
 void GSButtonLayer::recoverySunControl()

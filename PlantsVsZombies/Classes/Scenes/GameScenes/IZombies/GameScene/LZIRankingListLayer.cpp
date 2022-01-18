@@ -13,6 +13,7 @@
 #include "Based/LZUserData.h"
 #include "Based/LZGetMomentTime.h"
 #include "Based/LZDefine.h"
+#include "Scenes/GameScenes/TestingGround/GameScene/LZTRankingListLayer.h"
 
 bool IRankingListLayer::notUploadData = false;
 
@@ -73,13 +74,7 @@ void IRankingListLayer::onShowTitle()
 	_draw->drawLine(Vec2(1220, 900), Vec2(1220, 100), Color4F(0.5f, 0.5f, 0.5f, 0.7f));
 	this->addChild(_draw);
 
-	auto title = cocos2d::ui::Text::create();
-	title->setFontName(GAME_FONT_NAME_1);
-	title->setFontSize(GAME_TEXT_SIZE("“我是僵尸模式” 玩家闯关记录排行榜"));
-	title->setString(GAME_TEXT("“我是僵尸模式” 玩家闯关记录排行榜"));
-	title->setPosition(Vec2(660, 980));
-	this->addChild(title);
-
+	
 	string str[3] = { "排名","玩家名称","最高记录" };
 	Vec2 pos[3] = { Vec2(200, 850),Vec2(600, 850),Vec2(1060, 850) };
 	for (int i = 0; i < 3; ++i)
@@ -91,6 +86,72 @@ void IRankingListLayer::onShowTitle()
 		ranking->setPosition(pos[i]);
 		ranking->setColor(Color3B(0, 255, 255));
 		this->addChild(ranking);
+	}
+
+	onShowDifferentTitle();
+}
+
+void IRankingListLayer::onShowDifferentTitle()
+{
+	if (!notUploadData)
+	{
+		auto title = cocos2d::ui::Text::create();
+		title->setFontName(GAME_FONT_NAME_1);
+		title->setFontSize(GAME_TEXT_SIZE("“我是僵尸模式” 玩家闯关记录排行榜"));
+		title->setString(GAME_TEXT("“我是僵尸模式” 玩家闯关记录排行榜"));
+		title->setPosition(Vec2(660, 980));
+		this->addChild(title);
+	}
+	else
+	{
+		Vec2 pos[3] = { Vec2(100, 950) ,Vec2(480, 950) ,Vec2(860, 950) };
+		string str[3] = { "我是僵尸模式排行榜","植物试炼场排行榜","锤僵尸模式排行榜" };
+		for (int i = 0; i < 3; ++i)
+		{
+			_layerColor[i] = LayerColor::create(Color4B(i == 0 ? 0 : 255, 255, 255, 51));
+			_layerColor[i]->setContentSize(Size(360, 50));
+			_layerColor[i]->setPosition(pos[i]);
+			this->addChild(_layerColor[i]);
+
+			auto draw = DrawNode::create();
+			draw->drawRect(Vec2(0, 0), Vec2(360, 50), Color4F(0, 1, 1, 0.5f));
+			draw->setName("Layerline");
+			_layerColor[i]->addChild(draw);
+
+			auto button = Button::create();
+			button->ignoreContentAdaptWithSize(false);
+			button->setContentSize(Size(360, 50));
+			button->setTitleText(str[i]);
+			button->setTitleColor(Color3B(i == 0 ? 0 : 255, 255, 255));
+			button->setTitleFontSize(30);
+			button->setTitleFontName(GAME_FONT_NAME_1);
+			button->setPosition(Vec2(180, 25));
+			button->setName("button");
+			button->addTouchEventListener([=](Ref* sender, Widget::TouchEventType type)
+				{
+					switch (type)
+					{
+					case Widget::TouchEventType::BEGAN:
+						PlayMusic::playMusic("tap2");
+						break;
+					case Widget::TouchEventType::ENDED:
+						for (int j = 0; j < 3; ++j)
+						{
+							if (i != j)
+							{
+								_layerColor[j]->setColor(Color3B(255, 255, 255));
+								dynamic_cast<Button*>(_layerColor[j]->getChildByName("button"))->setTitleColor(Color3B(255, 255, 255));
+							}
+
+							_layerColor[i]->setColor(Color3B(0, 255, 255));
+							dynamic_cast<Button*>(_layerColor[i]->getChildByName("button"))->setTitleColor(Color3B(0, 255, 255));
+						}
+						onSelectCsvFile(i);
+						break;
+					}
+				});
+			_layerColor[i]->addChild(button);
+		}
 	}
 }
 
@@ -154,7 +215,7 @@ void IRankingListLayer::onCreateScrollView()
 
 void IRankingListLayer::onDownloadRankingList()
 {
-	const string sURLList = "https://gitee.com/GITLZ/PVZDownLoader/raw/master/csv.csv";
+	const string sURLList = "https://gitee.com/GITLZ/PVZDownLoader/raw/master/ize.csv";
 	_downloader->createDownloadDataTask(sURLList);
 	_downloader->onDataTaskSuccess = [this](const cocos2d::network::DownloadTask& task,
 		std::vector<unsigned char>& data)
@@ -185,18 +246,23 @@ void IRankingListLayer::onParseCsvData()
 		IControlLayer::mostLevelNumber = UserData::getInstance()->openIntUserData(const_cast<char*>("IZOMBIES_MOST_LEVEL"));
 	}
 
-	_csvFile = new CSVFile();
-	_csvFile->openFile(_strRankingList);
+	if (!_csvFile)
+	{
+		_csvFile = new CSVFile();
+		_csvFile->openFile(_strRankingList);
 
-	vector<string> data;
-	data.push_back(GAME_TEXT("本地 我：") + _global->userInformation->getUserName());
-	data.push_back(to_string(IControlLayer::mostLevelNumber));
-	_csvFile->addNewData(data);
-	_csvFile->sortData(1);
+		vector<string> data;
+		data.push_back(GAME_TEXT("本地 我：") + _global->userInformation->getUserName());
+		data.push_back(to_string(IControlLayer::mostLevelNumber));
+		_csvFile->addNewData(data);
+		_csvFile->sortData(1);
+	}
+	
+	_rankingListScrollView->removeAllChildren();
 
 	auto row = _csvFile->getRows();
 	auto draw = DrawNode::create();
-
+	
 	_rankingListScrollView->setInnerContainerSize(Size(1120.f, max(700, 100 * row)));
 
 	auto h = max(700, 100 * row);
@@ -239,16 +305,20 @@ void IRankingListLayer::onParseCsvData()
 							level->setColor(Color3B(0, 255, 255));
 							level->runAction(RepeatForever::create(Sequence::create(ScaleTo::create(0.5f, 1.08f), ScaleTo::create(0.5f, 0.92f), nullptr)));
 
-							auto own = cocos2d::ui::Text::create();
-							own->setFontName(GAME_FONT_NAME_1);
-							own->setFontSize(GAME_TEXT_SIZE("我的排名名称记录"));
-							own->setString(StringUtils::format(GAME_TEXT("我的排名名称记录").c_str(), i + 1, _global->userInformation->getUserName().c_str(), IControlLayer::mostLevelNumber));
-							own->setPosition(Vec2(660, 57));
-							own->setColor(Color3B(0, 255, 255));
-							this->addChild(own);
+							if (!this->getChildByName("myList"))
+							{
+								auto own = cocos2d::ui::Text::create();
+								own->setFontName(GAME_FONT_NAME_1);
+								own->setFontSize(GAME_TEXT_SIZE("我的排名名称记录"));
+								own->setString(StringUtils::format(GAME_TEXT("我的排名名称记录").c_str(), i + 1, _global->userInformation->getUserName().c_str(), IControlLayer::mostLevelNumber));
+								own->setPosition(Vec2(660, 57));
+								own->setColor(Color3B(0, 255, 255));
+								own->setName("myList");
+								this->addChild(own);
 
-							_draw->drawRect(Vec2(100, 22), Vec2(1220, 98), Color4F(0, 1, 1, 0.5f));
-							_draw->drawSolidRect(Vec2(100, 22), Vec2(1220, 98), Color4F(0, 1, 1, 0.2f));
+								_draw->drawRect(Vec2(100, 22), Vec2(1220, 98), Color4F(0, 1, 1, 0.5f));
+								_draw->drawSolidRect(Vec2(100, 22), Vec2(1220, 98), Color4F(0, 1, 1, 0.2f));
+							}
 							draw->drawSolidRect(Vec2(0, h - 100 * i - 1), Vec2(1120, h - 100 * (i + 1) + 1), Color4F(0, 1, 1, 0.2f));
 						}
 						if (i == 0)
@@ -419,4 +489,18 @@ void IRankingListLayer::onSuccessfulFeedback()
 	text->setFontSize(GAME_TEXT_SIZE("数据上传成功！"));
 	text->setPosition(Vec2(175, 50));
 	layer->addChild(text);
+}
+
+void IRankingListLayer::onSelectCsvFile(int id)
+{
+	if (id == 0)
+	{
+		onParseCsvData();
+	}
+	else if (id == 1)
+	{
+		auto rank = new TRankingListLayer();
+		rank->onParseCsvData();
+		delete rank;
+	}
 }

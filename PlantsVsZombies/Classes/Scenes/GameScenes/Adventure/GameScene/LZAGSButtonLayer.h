@@ -69,6 +69,7 @@ protected:
 	virtual void recoveryCoinControl();
 	virtual void createShovelImage();
 	virtual void deleteShovelImage();
+	virtual void onShowRankingLayer();
 	virtual ProgressTimer* createProgressTimer(Button* button, const float _time, const int from, const unsigned int& id);
 	
 public:
