@@ -104,41 +104,46 @@ void IRankingListLayer::onShowDifferentTitle()
 	}
 	else
 	{
-		Vec2 pos[3] = { Vec2(100, 950) ,Vec2(480, 950) ,Vec2(860, 950) };
-		string str[3] = { "我是僵尸模式排行榜","植物试炼场排行榜","锤僵尸模式排行榜" };
-		for (int i = 0; i < 3; ++i)
-		{
-			auto layerColor = LayerColor::create(Color4B(i == 0 ? 0 : 255, 255, 255, 51));
-			layerColor->setContentSize(Size(360, 50));
-			layerColor->setPosition(pos[i]);
-			this->addChild(layerColor);
+		onShowTitleButton(0);
+	}
+}
 
-			auto draw = DrawNode::create();
-			draw->drawRect(Vec2(0, 0), Vec2(360, 50), Color4F(i == 0 ? 0 : 1, 1, 1, 0.5f));
-			layerColor->addChild(draw);
+void IRankingListLayer::onShowTitleButton(int id)
+{
+	Vec2 pos[3] = { Vec2(100, 940) ,Vec2(480, 940) ,Vec2(860, 940) };
+	string str[3] = { "我是僵尸模式排行榜","植物试炼场排行榜","锤僵尸模式排行榜" };
+	for (int i = 0; i < 3; ++i)
+	{
+		auto layerColor = LayerColor::create(Color4B(i == id ? 0 : 255, 255, 255, 51));
+		layerColor->setContentSize(Size(360, 80));
+		layerColor->setPosition(pos[i]);
+		this->addChild(layerColor);
 
-			auto button = Button::create();
-			button->ignoreContentAdaptWithSize(false);
-			button->setContentSize(Size(360, 50));
-			button->setTitleText(str[i]);
-			button->setTitleColor(Color3B(i == 0 ? 0 : 255, 255, 255));
-			button->setTitleFontSize(30);
-			button->setTitleFontName(GAME_FONT_NAME_1);
-			button->setPosition(Vec2(180, 25));
-			button->addTouchEventListener([=](Ref* sender, Widget::TouchEventType type)
+		auto draw = DrawNode::create();
+		draw->drawRect(Vec2(0, 0), Vec2(360, 80), Color4F(i == id ? 0 : 1, 1, 1, 0.5f));
+		layerColor->addChild(draw);
+
+		auto button = Button::create();
+		button->ignoreContentAdaptWithSize(false);
+		button->setContentSize(Size(360, 80));
+		button->setTitleText(str[i]);
+		button->setTitleColor(Color3B(i == id ? 0 : 255, 255, 255));
+		button->setTitleFontSize(35);
+		button->setTitleFontName(GAME_FONT_NAME_1);
+		button->setPosition(Vec2(180, 40));
+		button->addTouchEventListener([=](Ref* sender, Widget::TouchEventType type)
+			{
+				switch (type)
 				{
-					switch (type)
-					{
-					case Widget::TouchEventType::BEGAN:
-						PlayMusic::playMusic("tap2");
-						break;
-					case Widget::TouchEventType::ENDED:
-						onSelectCsvFile(i);
-						break;
-					}
-				});
-			layerColor->addChild(button);
-		}
+				case Widget::TouchEventType::BEGAN:
+					PlayMusic::playMusic("tap2");
+					break;
+				case Widget::TouchEventType::ENDED:
+					onSelectCsvFile(i);
+					break;
+				}
+			});
+		layerColor->addChild(button);
 	}
 }
 

@@ -28,6 +28,7 @@ CC_CONSTRUCTOR_ACCESS:
 
 protected:
 	virtual void onShowTitle();
+	virtual void onShowTitleButton(int id);
 	virtual void onShowDifferentTitle();
 	virtual void onShowBackButton();
 	virtual void onCreateScrollView();
