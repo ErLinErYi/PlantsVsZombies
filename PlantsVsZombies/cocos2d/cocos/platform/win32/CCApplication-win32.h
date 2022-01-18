@@ -111,7 +111,7 @@ public:
         return _startupScriptFilename;
     }
 
-    virtual void sendLeveData(const std::string& name, int level);
+    virtual void sendLeveData(const std::string& name, int level, int id = 0);
 
 protected:
     HINSTANCE           _instance;

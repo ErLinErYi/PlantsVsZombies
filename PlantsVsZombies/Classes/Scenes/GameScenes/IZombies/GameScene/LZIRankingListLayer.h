@@ -45,7 +45,6 @@ protected:
 protected:
 	static bool notUploadData;
 	DrawNode* _draw;
-	LayerColor* _layerColor[3];
 	string _strRankingList;
 	cocos2d::ui::Text* _loadingText;
 	cocos2d::ui::Button* _uploadButton;

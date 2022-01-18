@@ -17,7 +17,7 @@ CSVFile::CSVFile():
 //析构函数,释放内存
 CSVFile::~CSVFile()
 {
-    for (int i = 0; i < data.size(); i++)
+    for (unsigned int i = 0; i < data.size(); i++)
     {
         data[i].clear();
     }
@@ -25,7 +25,7 @@ CSVFile::~CSVFile()
 }
 
 //获取指定行列的数据
-const char* CSVFile::getData(int rows, int cols)
+const char* CSVFile::getData(unsigned int rows, unsigned int cols)
 {
     if (rows < 0
         || rows >= data.size()
@@ -38,9 +38,9 @@ const char* CSVFile::getData(int rows, int cols)
 }
 
 //获取指定数据的列下标
-int CSVFile::findColsData(int cols, const char* value)
+int CSVFile::findColsData(unsigned int cols, const char* value)
 {
-    for (int i = 0; i < data.size(); i++)
+    for (unsigned int i = 0; i < data.size(); i++)
     {
         if (strcmp(getData(i, cols), value) == 0)
         {
@@ -54,16 +54,12 @@ int CSVFile::findColsData(int cols, const char* value)
 bool CSVFile::openFile(const char* fileName)
 {
     string pathKey = CCFileUtils::getInstance()->fullPathForFilename(fileName);
-    unsigned char* pBuffer = NULL;
-    ssize_t bufferSize = 0;
-    pBuffer = CCFileUtils::getInstance()->getFileData(pathKey.c_str(), "r", &bufferSize);
-
-    string s = (char*)pBuffer;
-    string str = s.substr(0, bufferSize);
+    auto pBuffer = CCFileUtils::getInstance()->getDataFromFile(pathKey.c_str()).getBytes();
+    string str = (char*)pBuffer;
 
     vector<string> line;
     StringSplit(str, line, '\n');
-    for (int i = 0; i < line.size(); i++)
+    for (unsigned int i = 0; i < line.size(); i++)
     {
         vector<string> field;
         split(field, line[i]);
@@ -78,7 +74,7 @@ bool CSVFile::openFile(string& str)
 {
     vector<string> line;
     StringSplit(str, line, '\n');
-    for (int i = 0; i < line.size(); i++)
+    for (unsigned int i = 0; i < line.size(); i++)
     {
         vector<string> field;
         split(field, line[i]);
@@ -109,8 +105,8 @@ void CSVFile::StringSplit(const std::string& str, vector<string>& tokens, const 
 void CSVFile::split(vector<string>& field, string line)
 {
     string fld;
-    int i = 0;
-    int j = 0;
+    unsigned int i = 0;
+    unsigned int j = 0;
 
     if (line.length() == 0)
     {
@@ -134,14 +130,14 @@ void CSVFile::split(vector<string>& field, string line)
 
 int CSVFile::advquoted(const string& line, string& fld, int i)
 {
-    int j = 0;
+    unsigned int j = 0;
     fld = "";
     for (j = i; j < line.length(); j++)
     {
         if (line[j] == '"'
             && line[++j] != '"')
         {
-            int k = line.find_first_of(fieldsep, j);
+            unsigned int k = line.find_first_of(fieldsep, j);
             if (k > line.length())
             {
                 k = line.length();
@@ -175,7 +171,7 @@ void CSVFile::sortData(int pos, bool cmp)
 
 int CSVFile::advplain(const string& line, string& fld, int i)
 {
-    int j = 0;
+    unsigned int j = 0;
     j = line.find_first_of(fieldsep, i);
     if (j > line.length())
     {

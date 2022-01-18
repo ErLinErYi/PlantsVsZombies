@@ -1,4 +1,4 @@
-/**
+ï»¿/**
  *Copyright (c) 2022 LZ.All Right Reserved
  *Author : LZ
  *Date: 2022.01.18
@@ -8,10 +8,12 @@
 #include "Based/LZPlayMusic.h"
 #include "Based/LZUserData.h"
 #include "Based/LZCsvFile.h"
+#include "Based/LZGetMomentTime.h"
 #include "Scenes/GameScenes/Adventure/GameScene/LZAGSPauseQuitLayer.h"
 
 TRankingListLayer::TRankingListLayer():
-	_csvFile(nullptr)
+	_csvFile(nullptr),
+	_mostLevel(max(UserData::getInstance()->openIntUserData(const_cast<char*>("TESTINGGROUND")), 1))
 {
 }
 
@@ -19,14 +21,61 @@ TRankingListLayer::~TRankingListLayer()
 {
 }
 
+TRankingListLayer* TRankingListLayer::createLayer(bool notUploadData)
+{
+	IRankingListLayer::notUploadData = notUploadData;
+	return TRankingListLayer::create();
+}
+
 void TRankingListLayer::onShowDifferentTitle()
 {
-	auto title = cocos2d::ui::Text::create();
-	title->setFontName(GAME_FONT_NAME_1);
-	title->setFontSize(GAME_TEXT_SIZE("¡°ÎÒÊÇ½©Ê¬Ä£Ê½¡± Íæ¼Ò´³¹Ø¼ÇÂ¼ÅÅĞĞ°ñ"));
-	title->setString("¡°Ö²ÎïÊÔÁ¶³¡Ä£Ê½¡± Íæ¼Ò´³¹Ø¼ÇÂ¼ÅÅĞĞ°ñ");
-	title->setPosition(Vec2(660, 980));
-	this->addChild(title);
+	if (!notUploadData)
+	{
+		auto title = cocos2d::ui::Text::create();
+		title->setFontName(GAME_FONT_NAME_1);
+		title->setFontSize(GAME_TEXT_SIZE("â€œæˆ‘æ˜¯åƒµå°¸æ¨¡å¼â€ ç©å®¶é—¯å…³è®°å½•æ’è¡Œæ¦œ"));
+		title->setString("â€œæ¤ç‰©è¯•ç‚¼åœºæ¨¡å¼â€ ç©å®¶é—¯å…³è®°å½•æ’è¡Œæ¦œ");
+		title->setPosition(Vec2(660, 980));
+		this->addChild(title);
+	}
+	else
+	{
+		Vec2 pos[3] = { Vec2(100, 950) ,Vec2(480, 950) ,Vec2(860, 950) };
+		string str[3] = { "æˆ‘æ˜¯åƒµå°¸æ¨¡å¼æ’è¡Œæ¦œ","æ¤ç‰©è¯•ç‚¼åœºæ’è¡Œæ¦œ","é”¤åƒµå°¸æ¨¡å¼æ’è¡Œæ¦œ" };
+		for (int i = 0; i < 3; ++i)
+		{
+			auto layerColor = LayerColor::create(Color4B(i == 1 ? 0 : 255, 255, 255, 51));
+			layerColor->setContentSize(Size(360, 50));
+			layerColor->setPosition(pos[i]);
+			this->addChild(layerColor);
+
+			auto draw = DrawNode::create();
+			draw->drawRect(Vec2(0, 0), Vec2(360, 50), Color4F(i == 1 ? 0 : 1, 1, 1, 0.5f));
+			layerColor->addChild(draw);
+
+			auto button = Button::create();
+			button->ignoreContentAdaptWithSize(false);
+			button->setContentSize(Size(360, 50));
+			button->setTitleText(str[i]);
+			button->setTitleColor(Color3B(i == 1 ? 0 : 255, 255, 255));
+			button->setTitleFontSize(30);
+			button->setTitleFontName(GAME_FONT_NAME_1);
+			button->setPosition(Vec2(180, 25));
+			button->addTouchEventListener([=](Ref* sender, Widget::TouchEventType type)
+				{
+					switch (type)
+					{
+					case Widget::TouchEventType::BEGAN:
+						PlayMusic::playMusic("tap2");
+						break;
+					case Widget::TouchEventType::ENDED:
+						onSelectCsvFile(i);
+						break;
+					}
+				});
+			layerColor->addChild(button);
+		}
+	}
 }
 
 void TRankingListLayer::onDownloadRankingList()
@@ -50,7 +99,7 @@ void TRankingListLayer::onDownloadRankingList()
 		int errorCodeInternal,
 		const std::string& errorStr)
 	{
-		_loadingText->setString(GAME_TEXT("ÅÅĞĞ°ñ¼ÓÔØÊ§°Ü£¡"));
+		_loadingText->setString(GAME_TEXT("æ’è¡Œæ¦œåŠ è½½å¤±è´¥ï¼"));
 		_loadingText->setColor(Color3B::RED);
 	};
 }
@@ -58,9 +107,9 @@ void TRankingListLayer::onDownloadRankingList()
 void TRankingListLayer::onShowBackButton()
 {
 	_uploadButton = Button::create("SeedChooser_Button2.png", "SeedChooser_Button2_Glow.png", "", cocos2d::ui::Widget::TextureResType::PLIST);
-	_uploadButton->setTitleText(GAME_TEXT("Êı¾İÉÏ´«"));
+	_uploadButton->setTitleText(GAME_TEXT("æ•°æ®ä¸Šä¼ "));
 	_uploadButton->setTitleColor(Color3B(0, 255, 255));
-	_uploadButton->setTitleFontSize(GAME_TEXT_SIZE("ÍË³ö"));
+	_uploadButton->setTitleFontSize(GAME_TEXT_SIZE("é€€å‡º"));
 	_uploadButton->setScale(2.0f);
 	_uploadButton->setPosition(Vec2(1440, 70));
 	_uploadButton->setEnabled(false);
@@ -79,9 +128,9 @@ void TRankingListLayer::onShowBackButton()
 		});
 
 	auto button2 = Button::create("SeedChooser_Button2.png", "SeedChooser_Button2_Glow.png", "", cocos2d::ui::Widget::TextureResType::PLIST);
-	button2->setTitleText(GAME_TEXT("ÍË³ö"));
+	button2->setTitleText(GAME_TEXT("é€€å‡º"));
 	button2->setTitleColor(Color3B(0, 255, 255));
-	button2->setTitleFontSize(GAME_TEXT_SIZE("ÍË³ö"));
+	button2->setTitleFontSize(GAME_TEXT_SIZE("é€€å‡º"));
 	button2->setScale(2.0f);
 	button2->setPosition(Vec2(1785, 70));
 	this->addChild(button2);
@@ -102,16 +151,14 @@ void TRankingListLayer::onShowBackButton()
 
 void TRankingListLayer::onParseCsvData()
 {
-	auto mostLevelNumber = max(UserData::getInstance()->openIntUserData(const_cast<char*>("TESTINGGROUND")), 1);
-
 	if (!_csvFile)
 	{
 		_csvFile = new CSVFile();
 		_csvFile->openFile(_strRankingList);
 
 		vector<string> data;
-		data.push_back(GAME_TEXT("±¾µØ ÎÒ£º") + _global->userInformation->getUserName());
-		data.push_back(to_string(mostLevelNumber));
+		data.push_back(GAME_TEXT("æœ¬åœ° æˆ‘ï¼š") + _global->userInformation->getUserName());
+		data.push_back(to_string(_mostLevel));
 		_csvFile->addNewData(data);
 		_csvFile->sortData(1);
 	}
@@ -155,7 +202,7 @@ void TRankingListLayer::onParseCsvData()
 						level->setPosition(Vec2(960, h - 50 - 100 * i));
 						_rankingListScrollView->addChild(level);
 
-						if (nameStr.find(GAME_TEXT("±¾µØ ÎÒ£º")) != nameStr.npos)
+						if (nameStr.find(GAME_TEXT("æœ¬åœ° æˆ‘ï¼š")) != nameStr.npos)
 						{
 							num->setColor(Color3B(0, 255, 255));
 							name->setColor(Color3B(0, 255, 255));
@@ -167,8 +214,8 @@ void TRankingListLayer::onParseCsvData()
 							{
 								auto own = cocos2d::ui::Text::create();
 								own->setFontName(GAME_FONT_NAME_1);
-								own->setFontSize(GAME_TEXT_SIZE("ÎÒµÄÅÅÃûÃû³Æ¼ÇÂ¼"));
-								own->setString(StringUtils::format(GAME_TEXT("ÎÒµÄÅÅÃûÃû³Æ¼ÇÂ¼").c_str(), i + 1, _global->userInformation->getUserName().c_str(), mostLevelNumber));
+								own->setFontSize(GAME_TEXT_SIZE("æˆ‘çš„æ’ååç§°è®°å½•"));
+								own->setString(StringUtils::format(GAME_TEXT("æˆ‘çš„æ’ååç§°è®°å½•").c_str(), i + 1, _global->userInformation->getUserName().c_str(), _mostLevel));
 								own->setPosition(Vec2(660, 57));
 								own->setColor(Color3B(0, 255, 255));
 								own->setName("myList");
@@ -215,10 +262,62 @@ void TRankingListLayer::onParseCsvData()
 	onMouseEvent();
 }
 
-void TRankingListLayer::onUploadData()
-{
-}
-
 void TRankingListLayer::onCheckUploadButtonEnable()
 {
+	if (!notUploadData)
+	{
+		_nowNettime = new MomentTime();
+		_nowNettime->requestNetTime([this]()
+			{
+				auto recordMon = UserDefault::getInstance()->getIntegerForKey("RECORDMON");
+				if (_nowNettime->getNetMon() != recordMon)
+				{
+					UserData::getInstance()->caveUserData(const_cast<char*>("TRANKINGLISTDATAUPLOAD"), 0);
+					UserDefault::getInstance()->setIntegerForKey("RECORDDAY", 0);
+					UserDefault::getInstance()->setIntegerForKey("RECORDMON", 0);
+					UserDefault::getInstance()->setBoolForKey("ISIZERECORD", false);
+					UserDefault::getInstance()->setBoolForKey("ISTGRECORD", false);
+				}
+
+				auto recordDay = UserDefault::getInstance()->getIntegerForKey("RECORDDAY");
+				if (_nowNettime->getNetDay() != recordDay)
+				{
+					UserDefault::getInstance()->setBoolForKey("ISIZERECORD", false);
+					UserDefault::getInstance()->setBoolForKey("ISTGRECORD", false);
+				}
+
+				auto mostUpload = UserData::getInstance()->openIntUserData(const_cast<char*>("TRANKINGLISTDATAUPLOAD"));
+				auto isTgRecord = UserDefault::getInstance()->getBoolForKey("ISTGRECORD");
+				if (!isTgRecord && mostUpload < static_cast<int>(_mostLevel)) // æ²¡æœ‰ä¸Šä¼ è¿‡å¹¶ä¸”ä¸Šä¼ çš„æœ€é«˜è®°å½•å°äºå½“å‰è®°å½•
+				{
+					_uploadButton->setEnabled(true);
+				}
+			}, true);
+	}
+}
+
+void TRankingListLayer::onUploadData()
+{
+	_uploadButton->setEnabled(false);
+
+	Application::getInstance()->sendLeveData(_global->userInformation->getUserName(), _mostLevel, 1);
+	UserData::getInstance()->caveUserData(const_cast<char*>("TRANKINGLISTDATAUPLOAD"), static_cast<int>(_mostLevel));
+	UserDefault::getInstance()->setIntegerForKey("RECORDDAY", _nowNettime->getNetDay());
+	UserDefault::getInstance()->setIntegerForKey("RECORDMON", _nowNettime->getNetMon());
+	UserDefault::getInstance()->setBoolForKey("ISTGRECORD", true);
+
+	onSuccessfulFeedback();
+}
+
+void TRankingListLayer::onSelectCsvFile(int id)
+{
+	if (id == 0)
+	{
+		_director->getRunningScene()->addChild(IRankingListLayer::createLayer(), 10, "IRankingListLayer");
+		deleteDialog();
+	}
+	else if (id == 1)
+	{
+		onParseCsvData();
+	}
 }

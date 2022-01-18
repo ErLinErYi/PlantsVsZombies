@@ -26,9 +26,9 @@ public:
     bool openFile(const char* fileName);
     bool openFile(string& str);
     //根据行列获取数据
-    const char* getData(int rows, int cols);
+    const char* getData(unsigned int rows, unsigned int cols);
     //获取指定数据的列下标
-    int findColsData(int cols, const char* value);
+    int findColsData(unsigned int cols, const char* value);
     //得到总列数
     inline int getCols() { return cols; }
     //得到总行数

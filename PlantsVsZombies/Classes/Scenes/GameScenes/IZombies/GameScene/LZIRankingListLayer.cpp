@@ -108,15 +108,14 @@ void IRankingListLayer::onShowDifferentTitle()
 		string str[3] = { "我是僵尸模式排行榜","植物试炼场排行榜","锤僵尸模式排行榜" };
 		for (int i = 0; i < 3; ++i)
 		{
-			_layerColor[i] = LayerColor::create(Color4B(i == 0 ? 0 : 255, 255, 255, 51));
-			_layerColor[i]->setContentSize(Size(360, 50));
-			_layerColor[i]->setPosition(pos[i]);
-			this->addChild(_layerColor[i]);
+			auto layerColor = LayerColor::create(Color4B(i == 0 ? 0 : 255, 255, 255, 51));
+			layerColor->setContentSize(Size(360, 50));
+			layerColor->setPosition(pos[i]);
+			this->addChild(layerColor);
 
 			auto draw = DrawNode::create();
-			draw->drawRect(Vec2(0, 0), Vec2(360, 50), Color4F(0, 1, 1, 0.5f));
-			draw->setName("Layerline");
-			_layerColor[i]->addChild(draw);
+			draw->drawRect(Vec2(0, 0), Vec2(360, 50), Color4F(i == 0 ? 0 : 1, 1, 1, 0.5f));
+			layerColor->addChild(draw);
 
 			auto button = Button::create();
 			button->ignoreContentAdaptWithSize(false);
@@ -126,7 +125,6 @@ void IRankingListLayer::onShowDifferentTitle()
 			button->setTitleFontSize(30);
 			button->setTitleFontName(GAME_FONT_NAME_1);
 			button->setPosition(Vec2(180, 25));
-			button->setName("button");
 			button->addTouchEventListener([=](Ref* sender, Widget::TouchEventType type)
 				{
 					switch (type)
@@ -135,22 +133,11 @@ void IRankingListLayer::onShowDifferentTitle()
 						PlayMusic::playMusic("tap2");
 						break;
 					case Widget::TouchEventType::ENDED:
-						for (int j = 0; j < 3; ++j)
-						{
-							if (i != j)
-							{
-								_layerColor[j]->setColor(Color3B(255, 255, 255));
-								dynamic_cast<Button*>(_layerColor[j]->getChildByName("button"))->setTitleColor(Color3B(255, 255, 255));
-							}
-
-							_layerColor[i]->setColor(Color3B(0, 255, 255));
-							dynamic_cast<Button*>(_layerColor[i]->getChildByName("button"))->setTitleColor(Color3B(0, 255, 255));
-						}
 						onSelectCsvFile(i);
 						break;
 					}
 				});
-			_layerColor[i]->addChild(button);
+			layerColor->addChild(button);
 		}
 	}
 }
@@ -382,18 +369,6 @@ void IRankingListLayer::onShowLoadingText()
 	this->addChild(_loadingText);
 }
 
-void IRankingListLayer::onUploadData()
-{
-	_uploadButton->setEnabled(false);
-
-	Application::getInstance()->sendLeveData(_global->userInformation->getUserName(), IControlLayer::mostLevelNumber);
-	UserData::getInstance()->caveUserData(const_cast<char*>("IRANKINGLISTDATAUPLOAD"), static_cast<int>(IControlLayer::mostLevelNumber));
-	UserDefault::getInstance()->setIntegerForKey("RECORDDAY",_nowNettime->getNetDay());
-	UserDefault::getInstance()->setIntegerForKey("RECORDMON", _nowNettime->getNetMon());
-
-	onSuccessfulFeedback();
-}
-
 void IRankingListLayer::onShowUploadDataRequirement()
 {
 	auto draw = DrawNode::create();
@@ -459,16 +434,38 @@ void IRankingListLayer::onCheckUploadButtonEnable()
 					UserData::getInstance()->caveUserData(const_cast<char*>("IRANKINGLISTDATAUPLOAD"), 0);
 					UserDefault::getInstance()->setIntegerForKey("RECORDDAY", 0);
 					UserDefault::getInstance()->setIntegerForKey("RECORDMON", 0);
+					UserDefault::getInstance()->setBoolForKey("ISIZERECORD", false);
+					UserDefault::getInstance()->setBoolForKey("ISTGRECORD", false);
+				}
+
+				auto recordDay = UserDefault::getInstance()->getIntegerForKey("RECORDDAY");
+				if (_nowNettime->getNetDay() != recordDay)
+				{
+					UserDefault::getInstance()->setBoolForKey("ISIZERECORD", false);
+					UserDefault::getInstance()->setBoolForKey("ISTGRECORD", false);
 				}
 
 				auto mostUpload = UserData::getInstance()->openIntUserData(const_cast<char*>("IRANKINGLISTDATAUPLOAD"));
-				auto recordDay = UserDefault::getInstance()->getIntegerForKey("RECORDDAY");
-				if (_nowNettime->getNetDay() != recordDay && mostUpload < static_cast<int>(IControlLayer::mostLevelNumber)) // 不在同一天并且上传的最高记录小于当前记录
+				auto isIzeRecord = UserDefault::getInstance()->getBoolForKey("ISIZERECORD");
+				if (!isIzeRecord && mostUpload < static_cast<int>(IControlLayer::mostLevelNumber)) // 没有上传过并且上传的最高记录小于当前记录
 				{
 					_uploadButton->setEnabled(true);
 				}
 			}, true);
 	}
+}
+
+void IRankingListLayer::onUploadData()
+{
+	_uploadButton->setEnabled(false);
+
+	Application::getInstance()->sendLeveData(_global->userInformation->getUserName(), IControlLayer::mostLevelNumber);
+	UserData::getInstance()->caveUserData(const_cast<char*>("IRANKINGLISTDATAUPLOAD"), static_cast<int>(IControlLayer::mostLevelNumber));
+	UserDefault::getInstance()->setIntegerForKey("RECORDDAY", _nowNettime->getNetDay());
+	UserDefault::getInstance()->setIntegerForKey("RECORDMON", _nowNettime->getNetMon());
+	UserDefault::getInstance()->setBoolForKey("ISIZERECORD", true);
+
+	onSuccessfulFeedback();
 }
 
 void IRankingListLayer::onSuccessfulFeedback()
@@ -499,8 +496,7 @@ void IRankingListLayer::onSelectCsvFile(int id)
 	}
 	else if (id == 1)
 	{
-		auto rank = new TRankingListLayer();
-		rank->onParseCsvData();
-		delete rank;
+		_director->getRunningScene()->addChild(TRankingListLayer::createLayer(), 10, "TRankingListLayer");
+		deleteDialog();
 	}
 }

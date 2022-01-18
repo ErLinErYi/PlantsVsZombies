@@ -33,7 +33,10 @@ THE SOFTWARE.
 #include <shellapi.h>
 #include <WinVer.h>
 
-//#include "../Resources/launcher/include/jni.h"
+//#include "jni.h"
+//
+//typedef jint(WINAPI* _CreateJavaVM)(JavaVM**, void**, void*);
+
 /**
 @brief    This function change the PVRFrame show/hide setting in register.
 @param  bEnable If true show the PVRFrame window, otherwise hide.
@@ -308,14 +311,14 @@ bool Application::openURL(const std::string &url)
     return (size_t)r>32;
 }
 
-void Application::sendLeveData(const std::string& name, int level)
+void Application::sendLeveData(const std::string& name, int level, int id)
 {
-    //JavaVMOption options[3];
-    //options[0].optionString = "-Djava.compiler=NONE"; //Disabled JIT
-    //options[1].optionString = "-Djava.class.path=.;D:/CConSys/CConSys/proj.win32/Debug.win32/jar/lane_detect_integration.jar";
-    //options[2].optionString = "-verbose:NONE";
+    //auto path = "-Djava.class.path=.;" + FileUtils::getInstance()->fullPathForFilename("../launcher/Baidu_Mobstat_Android_FOR_GAME_SDK_1.7.jar");
 
-    ////options.optionString = "-Djava.class.path=Text.jar";
+    //JavaVMOption options[3];
+    //options[0].optionString = const_cast<char*>("-Djava.compiler=NONE"); //Disabled JIT
+    //options[1].optionString = const_cast<char*>("-Djava.class.path=.;C:/SoftwareProgram/PlantsVsZombies/PlantsVsZombies/launcher/Baidu_Mobstat_Android_FOR_GAME_SDK_1.7.jar");
+    //options[2].optionString = const_cast<char*>("-verbose:NONE");
 
     //JNIEnv* env = nullptr;
     //JavaVM* jvm = nullptr;
@@ -323,51 +326,45 @@ void Application::sendLeveData(const std::string& name, int level)
     //JavaVMInitArgs vm_args;
     //RtlZeroMemory(&vm_args, sizeof(JavaVMInitArgs));
 
-    //vm_args.version = JNI_VERSION_1_6;
+    //vm_args.version = JNI_VERSION_1_8;
     //vm_args.nOptions = 3;
     //vm_args.options = options;
     //vm_args.ignoreUnrecognized = JNI_TRUE;
 
-    //HINSTANCE hInstance = LoadLibrary(L"");
-    ////HINSTANCE hInstance = LoadLibrary(L"E:/Java/JDK1.8/jre/bin/client/jvm.dll");
+    ////auto dll = FileUtils::getInstance()->fullPathForFilename("../launcher/jre/bin/client/jvm.dll");
+    //HINSTANCE hInstance = LoadLibrary(L"C:/SoftwareProgram/PlantsVsZombies/PlantsVsZombies/launcher/jre/bin/client/jvm.dll");
     //if (hInstance == NULL)
     //    return;
     //_CreateJavaVM m_CreateJavaVM = (_CreateJavaVM)GetProcAddress(hInstance, "JNI_CreateJavaVM");
     //long status = (*m_CreateJavaVM)(&jvm, (void**)&env, &vm_args);
 
-    ////long status = JNI_CreateJavaVM(&jvm, (void**)&env, &vm_args);
     //if (status == JNI_ERR)
     //{
-    //   // std::cout << "failed" << status << std::endl;
     //    return;
     //}
 
-    ////jclass cls = env->FindClass("integretion/LaneDetect");
-    //jclass cls = env->FindClass("integretion/CameraRun");
+    //jclass cls = env->FindClass("com/baidu/mtjstatsdk/game/BDGameSDK");
     //if (cls == 0)
     //{
-    //    //std::cout << "找不到该类！" << std::endl;
     //    jvm->DestroyJavaVM();
     //    return;
     //}
 
-    //jmethodID mid = env->GetMethodID(cls, "run", "()V");
-    ////jmethodID mid = env->GetMethodID(cls, "cameraTest", "()Ljava/lang/Integer");
-    ////jmethodID mid = env->GetMethodID(cls, "returnAngleArray", "()[D");
-    ////jmethodID mid = env->GetStaticMethodID(cls, "fun", "(Ljava/lang/String;)Ljava/lang/String");
+    //jmethodID mid1 = env->GetStaticMethodID(cls, "initGame", "(Landroid/content/Context;Ljava/lang/String;)V");
+    //jmethodID mid = env->GetStaticMethodID(cls, "setAccount", "(Landroid/content/Context;Ljava/lang/String;Ljava/lang/String;)V");
+    //jmethodID mid2 = env->GetStaticMethodID(cls, "onUse", "(Ljava/lang/String;ILjava/lang/String;)V");
+
     //if (mid == 0)
     //{
-    //    //std::cout << "找不到该函数！" << std::endl;
     //    jvm->DestroyJavaVM();
     //    return;
     //}
 
-    ////std::cout << env->CallStaticObjectMethod(cls, mid) << std::endl;
-    //auto obj = env->AllocObject(cls);
-    //env->CallVoidMethod(obj, mid);
-    ////auto s = env->CallDoubleMethod(obj, mid);
-    ////CCLOG("%lf", s);
-    ////env->CallIntMethod(obj, mid);
+    //env->CallStaticVoidMethod(cls, mid1, NULL, "203504205f");
+    //env->CallStaticVoidMethod(cls, mid, NULL, "computer", "203504205f");
+    //env->CallStaticVoidMethod(cls, mid2, "45661223555", 321, "203504205f");
+
+    //CCLOG("123");
 }
 
 void Application::setResourceRootPath(const std::string& rootResDir)
