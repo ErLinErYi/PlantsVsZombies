@@ -1,27 +1,26 @@
-﻿/**
+/**
  *Copyright (c) 2022 LZ.All Right Reserved
  *Author : LZ
- *Date: 2022.01.18
+ *Date: 2022.01.19
  *Email: 2117610943@qq.com
  */
 #pragma once
-#include "Scenes/GameScenes/IZombies/GameScene/LZIRankingListLayer.h"
+#include "Scenes/GameScenes/TestingGround/GameScene/LZTRankingListLayer.h"
 
-class TRankingListLayer :public IRankingListLayer
+class HRankingListLayer :public TRankingListLayer
 {
 public:
-	CREATE_FUNC(TRankingListLayer);
+	CREATE_FUNC(HRankingListLayer);
 
-	static TRankingListLayer* createLayer(bool notUploadData = true);
-
-CC_CONSTRUCTOR_ACCESS:
-	TRankingListLayer();
-	~TRankingListLayer();
+	static HRankingListLayer* createLayer(bool notUploadData = true);
 	
+CC_CONSTRUCTOR_ACCESS:
+	HRankingListLayer();
+	~HRankingListLayer();
+
 protected:
 	virtual void onShowDifferentTitle() override;
 	virtual void onDownloadRankingList() override;
-	virtual void onShowBackButton() override;
 	virtual void onUploadData() override;
 	virtual void onCheckUploadButtonEnable() override;
 	virtual void onSelectCsvFile(int id) override;

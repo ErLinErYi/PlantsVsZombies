@@ -14,6 +14,7 @@
 #include "Based/LZGetMomentTime.h"
 #include "Based/LZDefine.h"
 #include "Scenes/GameScenes/TestingGround/GameScene/LZTRankingListLayer.h"
+#include "Scenes/GameScenes/HammerZombies/GameScene/LZHRankingListLayer.h"
 
 bool IRankingListLayer::notUploadData = false;
 
@@ -23,7 +24,8 @@ IRankingListLayer::IRankingListLayer():
 	_loadingText(nullptr),
 	_uploadButton(nullptr),
     _nowNettime(nullptr),
-	_csvFile(nullptr)
+	_csvFile(nullptr),
+	_mostLevel(UserData::getInstance()->openIntUserData(const_cast<char*>("IZOMBIES_MOST_LEVEL")))
 {
 	_downloader.reset(new network::Downloader());
 }
@@ -233,11 +235,6 @@ void IRankingListLayer::onDownloadRankingList()
 
 void IRankingListLayer::onParseCsvData()
 {
-	if (notUploadData)
-	{
-		IControlLayer::mostLevelNumber = UserData::getInstance()->openIntUserData(const_cast<char*>("IZOMBIES_MOST_LEVEL"));
-	}
-
 	if (!_csvFile)
 	{
 		_csvFile = new CSVFile();
@@ -245,7 +242,7 @@ void IRankingListLayer::onParseCsvData()
 
 		vector<string> data;
 		data.push_back(GAME_TEXT("本地 我：") + _global->userInformation->getUserName());
-		data.push_back(to_string(IControlLayer::mostLevelNumber));
+		data.push_back(to_string(_mostLevel));
 		_csvFile->addNewData(data);
 		_csvFile->sortData(1);
 	}
@@ -297,20 +294,16 @@ void IRankingListLayer::onParseCsvData()
 							level->setColor(Color3B(0, 255, 255));
 							level->runAction(RepeatForever::create(Sequence::create(ScaleTo::create(0.5f, 1.08f), ScaleTo::create(0.5f, 0.92f), nullptr)));
 
-							if (!this->getChildByName("myList"))
-							{
-								auto own = cocos2d::ui::Text::create();
-								own->setFontName(GAME_FONT_NAME_1);
-								own->setFontSize(GAME_TEXT_SIZE("我的排名名称记录"));
-								own->setString(StringUtils::format(GAME_TEXT("我的排名名称记录").c_str(), i + 1, _global->userInformation->getUserName().c_str(), IControlLayer::mostLevelNumber));
-								own->setPosition(Vec2(660, 57));
-								own->setColor(Color3B(0, 255, 255));
-								own->setName("myList");
-								this->addChild(own);
+							auto own = cocos2d::ui::Text::create();
+							own->setFontName(GAME_FONT_NAME_1);
+							own->setFontSize(GAME_TEXT_SIZE("我的排名名称记录"));
+							own->setString(StringUtils::format(GAME_TEXT("我的排名名称记录").c_str(), i + 1, _global->userInformation->getUserName().c_str(), _mostLevel));
+							own->setPosition(Vec2(660, 57));
+							own->setColor(Color3B(0, 255, 255));
+							this->addChild(own);
 
-								_draw->drawRect(Vec2(100, 22), Vec2(1220, 98), Color4F(0, 1, 1, 0.5f));
-								_draw->drawSolidRect(Vec2(100, 22), Vec2(1220, 98), Color4F(0, 1, 1, 0.2f));
-							}
+							_draw->drawRect(Vec2(100, 22), Vec2(1220, 98), Color4F(0, 1, 1, 0.5f));
+							_draw->drawSolidRect(Vec2(100, 22), Vec2(1220, 98), Color4F(0, 1, 1, 0.2f));
 							draw->drawSolidRect(Vec2(0, h - 100 * i - 1), Vec2(1120, h - 100 * (i + 1) + 1), Color4F(0, 1, 1, 0.2f));
 						}
 						if (i == 0)
@@ -441,6 +434,7 @@ void IRankingListLayer::onCheckUploadButtonEnable()
 					UserDefault::getInstance()->setIntegerForKey("RECORDMON", 0);
 					UserDefault::getInstance()->setBoolForKey("ISIZERECORD", false);
 					UserDefault::getInstance()->setBoolForKey("ISTGRECORD", false);
+					UserDefault::getInstance()->setBoolForKey("ISHZRECORD", false);
 				}
 
 				auto recordDay = UserDefault::getInstance()->getIntegerForKey("RECORDDAY");
@@ -448,11 +442,12 @@ void IRankingListLayer::onCheckUploadButtonEnable()
 				{
 					UserDefault::getInstance()->setBoolForKey("ISIZERECORD", false);
 					UserDefault::getInstance()->setBoolForKey("ISTGRECORD", false);
+					UserDefault::getInstance()->setBoolForKey("ISHZRECORD", false);
 				}
 
 				auto mostUpload = UserData::getInstance()->openIntUserData(const_cast<char*>("IRANKINGLISTDATAUPLOAD"));
 				auto isIzeRecord = UserDefault::getInstance()->getBoolForKey("ISIZERECORD");
-				if (!isIzeRecord && mostUpload < static_cast<int>(IControlLayer::mostLevelNumber)) // 没有上传过并且上传的最高记录小于当前记录
+				if (!isIzeRecord && mostUpload < static_cast<int>(_mostLevel)) // 没有上传过并且上传的最高记录小于当前记录
 				{
 					_uploadButton->setEnabled(true);
 				}
@@ -464,8 +459,8 @@ void IRankingListLayer::onUploadData()
 {
 	_uploadButton->setEnabled(false);
 
-	Application::getInstance()->sendLeveData(_global->userInformation->getUserName(), IControlLayer::mostLevelNumber);
-	UserData::getInstance()->caveUserData(const_cast<char*>("IRANKINGLISTDATAUPLOAD"), static_cast<int>(IControlLayer::mostLevelNumber));
+	Application::getInstance()->sendLeveData(_global->userInformation->getUserName(), _mostLevel);
+	UserData::getInstance()->caveUserData(const_cast<char*>("IRANKINGLISTDATAUPLOAD"), static_cast<int>(_mostLevel));
 	UserDefault::getInstance()->setIntegerForKey("RECORDDAY", _nowNettime->getNetDay());
 	UserDefault::getInstance()->setIntegerForKey("RECORDMON", _nowNettime->getNetMon());
 	UserDefault::getInstance()->setBoolForKey("ISIZERECORD", true);
@@ -502,6 +497,11 @@ void IRankingListLayer::onSelectCsvFile(int id)
 	else if (id == 1)
 	{
 		_director->getRunningScene()->addChild(TRankingListLayer::createLayer(), 10, "TRankingListLayer");
+		deleteDialog();
+	}
+	else if (id == 2)
+	{
+		_director->getRunningScene()->addChild(HRankingListLayer::createLayer(), 10, "HRankingListLayer");
 		deleteDialog();
 	}
 }

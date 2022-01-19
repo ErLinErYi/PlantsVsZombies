@@ -425,6 +425,7 @@ xcopy "$(ProjectDir)..\Resources" "$(OutDir)" /D /E /I /F /Y
     <ClCompile Include="..\Classes\Scenes\GameScenes\HammerZombies\GameScene\LZHGameTimerLayer.cpp" />
     <ClCompile Include="..\Classes\Scenes\GameScenes\HammerZombies\GameScene\LZHInformationLayer.cpp" />
     <ClCompile Include="..\Classes\Scenes\GameScenes\HammerZombies\GameScene\LZHPauseQuiteLayer.cpp" />
+    <ClCompile Include="..\Classes\Scenes\GameScenes\HammerZombies\GameScene\LZHRankingListLayer.cpp" />
     <ClCompile Include="..\Classes\Scenes\GameScenes\IZombies\GameScene\LZIAnimationLayer.cpp" />
     <ClCompile Include="..\Classes\Scenes\GameScenes\IZombies\GameScene\LZIBackGroundLayer.cpp" />
     <ClCompile Include="..\Classes\Scenes\GameScenes\IZombies\GameScene\LZIButtonLayer.cpp" />
@@ -634,6 +635,7 @@ xcopy "$(ProjectDir)..\Resources" "$(OutDir)" /D /E /I /F /Y
     <ClInclude Include="..\Classes\Scenes\GameScenes\HammerZombies\GameScene\LZHGameTimerLayer.h" />
     <ClInclude Include="..\Classes\Scenes\GameScenes\HammerZombies\GameScene\LZHInformationLayer.h" />
     <ClInclude Include="..\Classes\Scenes\GameScenes\HammerZombies\GameScene\LZHPauseQuiteLayer.h" />
+    <ClInclude Include="..\Classes\Scenes\GameScenes\HammerZombies\GameScene\LZHRankingListLayer.h" />
     <ClInclude Include="..\Classes\Scenes\GameScenes\IZombies\GameScene\LZIAnimationLayer.h" />
     <ClInclude Include="..\Classes\Scenes\GameScenes\IZombies\GameScene\LZIBackGroundLayer.h" />
     <ClInclude Include="..\Classes\Scenes\GameScenes\IZombies\GameScene\LZIButtonLayer.h" />

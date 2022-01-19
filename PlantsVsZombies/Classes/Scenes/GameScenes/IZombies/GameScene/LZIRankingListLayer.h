@@ -45,6 +45,8 @@ protected:
 
 protected:
 	static bool notUploadData;
+	int _mostLevel;
+	CSVFile* _csvFile;
 	DrawNode* _draw;
 	string _strRankingList;
 	cocos2d::ui::Text* _loadingText;
@@ -52,7 +54,4 @@ protected:
 	MomentTime* _nowNettime;
 	cocos2d::ui::ScrollView* _rankingListScrollView;
 	std::unique_ptr<network::Downloader> _downloader;
-
-private:
-	CSVFile* _csvFile;
 };

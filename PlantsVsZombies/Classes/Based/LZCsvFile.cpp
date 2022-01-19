@@ -155,6 +155,15 @@ int CSVFile::advquoted(const string& line, string& fld, int i)
 
 void CSVFile::sortData(int pos, bool cmp)
 {
+    for (auto& r : data)
+    {
+        auto n = r[1].find("\r");
+        if (n != string::npos)
+        {
+            r[1] = r[1].erase(n);
+        }
+    }
+
     sort(data.begin(), data.end(), 
         [cmp,pos](vector<string>& a, vector<string>& b)
         {

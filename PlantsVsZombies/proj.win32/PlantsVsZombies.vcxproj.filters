@@ -722,6 +722,9 @@
     <ClCompile Include="..\Classes\Scenes\GameScenes\TestingGround\GameScene\LZTRankingListLayer.cpp">
       <Filter>Class\Scenes\GameScenes\TestingGround\GameScene</Filter>
     </ClCompile>
+    <ClCompile Include="..\Classes\Scenes\GameScenes\HammerZombies\GameScene\LZHRankingListLayer.cpp">
+      <Filter>Class\Scenes\GameScenes\HammerZombies\GameScene</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="..\Classes\LZPlantsVsZombies.h">
@@ -1347,6 +1350,9 @@
     </ClInclude>
     <ClInclude Include="..\Classes\Scenes\GameScenes\TestingGround\GameScene\LZTRankingListLayer.h">
       <Filter>Class\Scenes\GameScenes\TestingGround\GameScene</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Classes\Scenes\GameScenes\HammerZombies\GameScene\LZHRankingListLayer.h">
+      <Filter>Class\Scenes\GameScenes\HammerZombies\GameScene</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
