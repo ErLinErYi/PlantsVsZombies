@@ -136,6 +136,7 @@ void IRankingListLayer::onShowTitleButton(int id)
 		button->setTitleFontSize(GAME_TEXT_SIZE(str[i]));
 		button->setTitleFontName(GAME_FONT_NAME_1);
 		button->setPosition(Vec2(180, 40));
+		button->setEnabled(!(i == id));
 		button->addTouchEventListener([=](Ref* sender, Widget::TouchEventType type)
 			{
 				switch (type)
