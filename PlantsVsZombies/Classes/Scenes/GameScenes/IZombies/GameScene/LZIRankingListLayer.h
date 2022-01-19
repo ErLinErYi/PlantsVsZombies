@@ -49,6 +49,9 @@ protected:
 	CSVFile* _csvFile;
 	DrawNode* _draw;
 	string _strRankingList;
+	string _isRecordName;
+	string _mostLevelName;
+	string _sURLList;
 	cocos2d::ui::Text* _loadingText;
 	cocos2d::ui::Button* _uploadButton;
 	MomentTime* _nowNettime;

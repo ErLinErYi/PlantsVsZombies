@@ -25,6 +25,7 @@ protected:
 	virtual void createHammerButton();
 	virtual void loadButtonInforamtion(Button* button);
 	virtual void updateHammerButton();
+	virtual void onShowRankingLayer() override;
 
 public:
 	static Button* stopButton;

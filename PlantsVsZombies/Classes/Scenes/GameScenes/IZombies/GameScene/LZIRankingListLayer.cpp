@@ -25,6 +25,9 @@ IRankingListLayer::IRankingListLayer():
 	_uploadButton(nullptr),
     _nowNettime(nullptr),
 	_csvFile(nullptr),
+	_isRecordName("ISIZERECORD"),
+	_mostLevelName("IRANKINGLISTDATAUPLOAD"),
+	_sURLList("https://gitee.com/GITLZ/PVZDownLoader/raw/master/ize.csv"),
 	_mostLevel(UserData::getInstance()->openIntUserData(const_cast<char*>("IZOMBIES_MOST_LEVEL")))
 {
 	_downloader.reset(new network::Downloader());
@@ -128,9 +131,9 @@ void IRankingListLayer::onShowTitleButton(int id)
 		auto button = Button::create();
 		button->ignoreContentAdaptWithSize(false);
 		button->setContentSize(Size(360, 80));
-		button->setTitleText(str[i]);
+		button->setTitleText(GAME_TEXT(str[i]));
 		button->setTitleColor(Color3B(i == id ? 0 : 255, 255, 255));
-		button->setTitleFontSize(35);
+		button->setTitleFontSize(GAME_TEXT_SIZE(str[i]));
 		button->setTitleFontName(GAME_FONT_NAME_1);
 		button->setPosition(Vec2(180, 40));
 		button->addTouchEventListener([=](Ref* sender, Widget::TouchEventType type)
@@ -209,8 +212,7 @@ void IRankingListLayer::onCreateScrollView()
 
 void IRankingListLayer::onDownloadRankingList()
 {
-	const string sURLList = "https://gitee.com/GITLZ/PVZDownLoader/raw/master/ize.csv";
-	_downloader->createDownloadDataTask(sURLList);
+	_downloader->createDownloadDataTask(_sURLList);
 	_downloader->onDataTaskSuccess = [this](const cocos2d::network::DownloadTask& task,
 		std::vector<unsigned char>& data)
 	{
@@ -429,7 +431,7 @@ void IRankingListLayer::onCheckUploadButtonEnable()
 				auto recordMon = UserDefault::getInstance()->getIntegerForKey("RECORDMON");
 				if (_nowNettime->getNetMon() != recordMon)
 				{
-					UserData::getInstance()->caveUserData(const_cast<char*>("IRANKINGLISTDATAUPLOAD"), 0);
+					UserData::getInstance()->caveUserData(const_cast<char*>(_mostLevelName.c_str()), 0);
 					UserDefault::getInstance()->setIntegerForKey("RECORDDAY", 0);
 					UserDefault::getInstance()->setIntegerForKey("RECORDMON", 0);
 					UserDefault::getInstance()->setBoolForKey("ISIZERECORD", false);
@@ -445,8 +447,8 @@ void IRankingListLayer::onCheckUploadButtonEnable()
 					UserDefault::getInstance()->setBoolForKey("ISHZRECORD", false);
 				}
 
-				auto mostUpload = UserData::getInstance()->openIntUserData(const_cast<char*>("IRANKINGLISTDATAUPLOAD"));
-				auto isIzeRecord = UserDefault::getInstance()->getBoolForKey("ISIZERECORD");
+				auto mostUpload = UserData::getInstance()->openIntUserData(const_cast<char*>(_mostLevelName.c_str()));
+				auto isIzeRecord = UserDefault::getInstance()->getBoolForKey(_isRecordName.c_str());
 				if (!isIzeRecord && mostUpload < static_cast<int>(_mostLevel)) // 没有上传过并且上传的最高记录小于当前记录
 				{
 					_uploadButton->setEnabled(true);

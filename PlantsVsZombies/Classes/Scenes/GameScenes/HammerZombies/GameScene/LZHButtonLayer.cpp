@@ -8,6 +8,7 @@
 #include "LZHButtonLayer.h"
 #include "LZHControlLayer.h"
 #include "LZHPauseQuiteLayer.h"
+#include "LZHRankingListLayer.h"
 #include "Scenes/GameScenes/Adventure/GameScene/LZAGSPauseQuitLayer.h"
 #include "Scenes/GameScenes/Adventure/GameScene/LZAGSPauseLayer.h"
 #include "Scenes/GameScenes/Adventure/GameScene/LZAGSData.h"
@@ -46,6 +47,11 @@ bool HButtonLayer::init()
 	_accelerateButton = createButton("SpeedButton", "SpeedButtonDown", Vec2(1770, 1030), GSLayerButton::accelerateButton);
 	createHammerButton();
 	createKeyBoardListener();
+	auto rankList = createButton("ButtonNew", "ButtonNew2", Vec2(1570, 1030), GSLayerButton::rankingListButton);
+	rankList->setTitleText(GAME_TEXT("闯关记录排行榜"));
+	rankList->setTitleFontSize(GAME_TEXT_SIZE("闯关记录排行榜"));
+	rankList->setTitleFontName(GAME_FONT_NAME_1);
+	rankList->setTitleColor(Color3B::BLACK);
 
 	return true;
 }
@@ -70,6 +76,9 @@ Button* HButtonLayer::createButton(const string& normal, const string& select, c
 					break;
 				case GSLayerButton::accelerateButton:
 					controlAccelerateScheduler();
+					break;
+				case GSLayerButton::rankingListButton:
+					onShowRankingLayer();
 					break;
 				}
 				break;
@@ -209,4 +218,11 @@ void HButtonLayer::updateHammerButton()
 			button->getChildByName("SeedPacketFlash")->setColor(Color3B::WHITE);
 		}
 	}
+}
+
+void HButtonLayer::onShowRankingLayer()
+{
+	GSPauseQuitLayer::pauseLayer();
+	PlayMusic::playMusic("tap2");
+	_director->getRunningScene()->addChild(HRankingListLayer::create(), 5, "HankingListLayer");
 }

@@ -15,6 +15,9 @@
 TRankingListLayer::TRankingListLayer()
 {
 	_csvFile = nullptr;
+	_isRecordName = "ISTGRECORD";
+	_mostLevelName = "TRANKINGLISTDATAUPLOAD";
+	_sURLList = "https://gitee.com/GITLZ/PVZDownLoader/raw/master/tg.csv";
 	_mostLevel = max(UserData::getInstance()->openIntUserData(const_cast<char*>("TESTINGGROUND")), 1);
 }
 
@@ -34,8 +37,8 @@ void TRankingListLayer::onShowDifferentTitle()
 	{
 		auto title = cocos2d::ui::Text::create();
 		title->setFontName(GAME_FONT_NAME_1);
-		title->setFontSize(GAME_TEXT_SIZE("“我是僵尸模式” 玩家闯关记录排行榜"));
-		title->setString("“植物试炼场模式” 玩家闯关记录排行榜");
+		title->setFontSize(GAME_TEXT_SIZE("“植物试炼场模式” 玩家闯关记录排行榜"));
+		title->setString(GAME_TEXT("“植物试炼场模式” 玩家闯关记录排行榜"));
 		title->setPosition(Vec2(660, 980));
 		this->addChild(title);
 	}
@@ -43,32 +46,6 @@ void TRankingListLayer::onShowDifferentTitle()
 	{
 		onShowTitleButton(1);
 	}
-}
-
-void TRankingListLayer::onDownloadRankingList()
-{
-	const string sURLList = "https://gitee.com/GITLZ/PVZDownLoader/raw/master/tg.csv";
-	_downloader->createDownloadDataTask(sURLList);
-	_downloader->onDataTaskSuccess = [this](const cocos2d::network::DownloadTask& task,
-		std::vector<unsigned char>& data)
-	{
-		_loadingText->setVisible(false);
-
-		for (auto s : data)
-		{
-			_strRankingList += s;
-		}
-
-		onParseCsvData();
-	};
-	_downloader->onTaskError = [this](const cocos2d::network::DownloadTask& task,
-		int errorCode,
-		int errorCodeInternal,
-		const std::string& errorStr)
-	{
-		_loadingText->setString(GAME_TEXT("排行榜加载失败！"));
-		_loadingText->setColor(Color3B::RED);
-	};
 }
 
 void TRankingListLayer::onShowBackButton()
@@ -114,42 +91,6 @@ void TRankingListLayer::onShowBackButton()
 				break;
 			}
 		});
-}
-
-void TRankingListLayer::onCheckUploadButtonEnable()
-{
-	if (!notUploadData)
-	{
-		_nowNettime = new MomentTime();
-		_nowNettime->requestNetTime([this]()
-			{
-				auto recordMon = UserDefault::getInstance()->getIntegerForKey("RECORDMON");
-				if (_nowNettime->getNetMon() != recordMon)
-				{
-					UserData::getInstance()->caveUserData(const_cast<char*>("TRANKINGLISTDATAUPLOAD"), 0);
-					UserDefault::getInstance()->setIntegerForKey("RECORDDAY", 0);
-					UserDefault::getInstance()->setIntegerForKey("RECORDMON", 0);
-					UserDefault::getInstance()->setBoolForKey("ISIZERECORD", false);
-					UserDefault::getInstance()->setBoolForKey("ISTGRECORD", false);
-					UserDefault::getInstance()->setBoolForKey("ISHZRECORD", false);
-				}
-
-				auto recordDay = UserDefault::getInstance()->getIntegerForKey("RECORDDAY");
-				if (_nowNettime->getNetDay() != recordDay)
-				{
-					UserDefault::getInstance()->setBoolForKey("ISIZERECORD", false);
-					UserDefault::getInstance()->setBoolForKey("ISTGRECORD", false);
-					UserDefault::getInstance()->setBoolForKey("ISHZRECORD", false);
-				}
-
-				auto mostUpload = UserData::getInstance()->openIntUserData(const_cast<char*>("TRANKINGLISTDATAUPLOAD"));
-				auto isTgRecord = UserDefault::getInstance()->getBoolForKey("ISTGRECORD");
-				if (!isTgRecord && mostUpload < static_cast<int>(_mostLevel)) // 没有上传过并且上传的最高记录小于当前记录
-				{
-					_uploadButton->setEnabled(true);
-				}
-			}, true);
-	}
 }
 
 void TRankingListLayer::onUploadData()

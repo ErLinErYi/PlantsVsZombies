@@ -55,7 +55,7 @@ void TSPSRequriementLayer::createText()
 
 	auto information = Text::create(GAME_TEXT("模式介绍"), GAME_FONT_NAME_1, GAME_TEXT_SIZE("模式介绍"));
 	information->setColor(Color3B::BLACK);
-	information->setGlobalZOrder(10);
+	//information->setGlobalZOrder(10);
 	information->setTextVerticalAlignment(TextVAlignment::CENTER);
 	information->setTextHorizontalAlignment(TextHAlignment::CENTER);
 	information->setTextAreaSize(Size(_objiectives->getContentSize().width - 85, 150));

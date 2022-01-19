@@ -20,9 +20,7 @@ CC_CONSTRUCTOR_ACCESS:
 	
 protected:
 	virtual void onShowDifferentTitle() override;
-	virtual void onDownloadRankingList() override;
 	virtual void onShowBackButton() override;
 	virtual void onUploadData() override;
-	virtual void onCheckUploadButtonEnable() override;
 	virtual void onSelectCsvFile(int id) override;
 };
