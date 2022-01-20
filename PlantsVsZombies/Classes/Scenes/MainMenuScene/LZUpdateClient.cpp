@@ -270,9 +270,8 @@ void UpdateClient::downloadData()
 	_explanText->setColor(Color3B::BLACK);
 	_explanText->setString("");
 
-	_fileName = GAME_TEXT("资源名称") + UserInformation::getNewEditionName(true) + ".exe";
-	static string path = FileUtils::getInstance()->fullPathForFilename("PlantsVsZombies.exe");
-	path = path.replace(path.rfind("PlantsVsZombies.exe"), sizeof("PlantsVsZombies.exe"), "") + _fileName;
+	_fileName = "lzscpvz" + UserInformation::getNewEditionName(true) + ".exe";
+	auto path = FileUtils::getInstance()->getWritablePath() + "DownloadNewEditionFile/" + _fileName;
 	_downloader->createDownloadFileTask(GAME_TEXT("资源网址"), path, _fileName);
 	
 	downloadProgress();
@@ -334,18 +333,19 @@ void UpdateClient::downloadSuccess()
 {
 	_downloader->onFileTaskSuccess = [this](const cocos2d::network::DownloadTask& task)
 	{
-		ShellExecute(NULL, L"open", stringToWstring(_fileName), NULL, NULL, SW_SHOWNORMAL);
-		Director::getInstance()->end();
-		//_progressText->setString(GAME_TEXT("下载成功")->second->text +
-		//	GAME_TEXT("存放路径")->second->text + task.identifier + " ]");
-		//_remindText->setString(GAME_TEXT("点击确定退出游戏！"));
-		//_explanText->setString(GAME_TEXT("下载成功说明"));
-
-		//((Button*)_dialog->getChildByName(to_string(static_cast<int>(Update_Button::百度网盘下载))))->setVisible(false);
-		//((Button*)_dialog->getChildByName(to_string(static_cast<int>(Update_Button::下载器下载))))->setVisible(false);
-		//((Button*)_dialog->getChildByName(to_string(static_cast<int>(Update_Button::直接下载))))->setVisible(false);
-		//((Button*)_dialog->getChildByName(to_string(static_cast<int>(Update_Button::退出游戏))))->setVisible(false);
-		//((Button*)_dialog->getChildByName(to_string(static_cast<int>(Update_Button::确定))))->setVisible(true);
+		auto str = FileUtils::getInstance()->getWritablePath() + "DownloadNewEditionFile/" + _fileName;
+		if (FileUtils::getInstance()->isFileExist(str))
+		{
+			ShellExecute(NULL, L"open", stringToWstring(str), NULL, NULL, SW_SHOWNORMAL);
+			Director::getInstance()->end();
+		}
+		else
+		{
+			_remindText->setString(GAME_TEXT("下载失败"));
+			((Button*)_dialog->getChildByName(to_string(static_cast<int>(Update_Button::下载器下载))))->setEnabled(true);
+			((Button*)_dialog->getChildByName(to_string(static_cast<int>(Update_Button::直接下载))))->setEnabled(true);
+			((Button*)_dialog->getChildByName(to_string(static_cast<int>(Update_Button::退出游戏))))->setEnabled(true);
+		}
 	};
 }
 
