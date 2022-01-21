@@ -17,7 +17,7 @@ TRankingListLayer::TRankingListLayer()
 	_csvFile = nullptr;
 	_isRecordName = "ISTGRECORD";
 	_mostLevelName = "TRANKINGLISTDATAUPLOAD";
-	_sURLList = "https://gitee.com/GITLZ/PVZDownLoader/raw/master/tg.csv";
+	_selectClos = 2;
 	_mostLevel = max(UserData::getInstance()->openIntUserData(const_cast<char*>("TESTINGGROUND")), 1);
 }
 
@@ -122,4 +122,16 @@ void TRankingListLayer::onSelectCsvFile(int id)
 		_director->getRunningScene()->addChild(HRankingListLayer::createLayer(), 10, "HRankingListLayer");
 		deleteDialog();
 	}
+}
+
+void TRankingListLayer::onAddLocalData()
+{
+	vector<string> data;
+	data.push_back(GAME_TEXT("本地 我：") + _global->userInformation->getUserName());
+	data.push_back("0");
+	data.push_back(to_string(_mostLevel));
+	data.push_back("0");
+	_csvFile->addNewData(data);
+	_csvFile->deleteSuffix("\r", 2);
+	_csvFile->sortData(2);
 }

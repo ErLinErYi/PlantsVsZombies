@@ -54,8 +54,7 @@ int CSVFile::findColsData(unsigned int cols, const char* value)
 bool CSVFile::openFile(const char* fileName)
 {
     string pathKey = CCFileUtils::getInstance()->fullPathForFilename(fileName);
-    auto pBuffer = CCFileUtils::getInstance()->getDataFromFile(pathKey.c_str()).getBytes();
-    string str = (char*)pBuffer;
+    auto str = CCFileUtils::getInstance()->getStringFromFile(pathKey.c_str());
 
     vector<string> line;
     StringSplit(str, line, '\n');
@@ -82,6 +81,19 @@ bool CSVFile::openFile(string& str)
         cols = max(cols, (int)field.size());
     }
     return true;
+}
+
+int CSVFile::getRows(int i, const string& exclude)
+{
+    int rowNum = 0;
+    for (auto& r : data)
+    {
+        if (r[i] != exclude)
+        {
+            ++rowNum;
+        }
+    }
+    return rowNum;
 }
 
 void CSVFile::addNewData(vector<string>& newData)
@@ -155,15 +167,6 @@ int CSVFile::advquoted(const string& line, string& fld, int i)
 
 void CSVFile::sortData(int pos, bool cmp)
 {
-    for (auto& r : data)
-    {
-        auto n = r[1].find("\r");
-        if (n != string::npos)
-        {
-            r[1] = r[1].erase(n);
-        }
-    }
-
     sort(data.begin(), data.end(), 
         [cmp,pos](vector<string>& a, vector<string>& b)
         {
@@ -176,6 +179,77 @@ void CSVFile::sortData(int pos, bool cmp)
                 return !cmp ? a[pos].size() > b[pos].size() : a[pos].size() < b[pos].size();
             }
         });
+}
+
+void CSVFile::deletePrefix(const char* separator, int pos)
+{
+    for (auto& r : data)
+    {
+        auto n = r[pos].find(separator);
+        r[pos] = r[pos].substr(n + strlen(separator));
+    }
+}
+
+void CSVFile::deleteSuffix(const char* separator, int pos)
+{
+    for (auto& r : data)
+    {
+        auto n = r[pos].find(separator);
+        if (n != string::npos)
+        {
+            r[pos] = r[pos].erase(n);
+        }
+    }
+}
+
+void CSVFile::removeDuplicationReservedMaximum(int pos)
+{
+    vector<vector<string> > tempData;
+    auto rows = getRows() - 1;
+
+    for (int i = 0; i < rows; ++i)
+    {
+        if (data[i][pos] == data[i + 1][pos])
+        {
+            for (int j = 0; j < cols; ++j)
+            {
+                if (j != pos)
+                {
+                    data[i + 1][j] = max(data[i][j], data[i + 1][j]);
+                }
+            }
+        }
+        else
+        {
+            tempData.emplace_back(data[i]);
+        }
+    }
+    if (data.size() > rows)
+    {
+        tempData.emplace_back(data[rows]);
+    }
+
+    data.clear();
+    data = tempData;
+}
+
+string CSVFile::csvDataToString()
+{
+    string str;
+    for (auto& r : data)
+    {
+        for (int i = 0; i < cols; ++i)
+        {
+            str += r[i];
+            if (i != cols - 1)
+            {
+                str += fieldsep;
+            }
+        }
+        str += "\n";
+    }
+
+    return str;
 }
 
 int CSVFile::advplain(const string& line, string& fld, int i)

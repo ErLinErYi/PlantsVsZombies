@@ -22,4 +22,5 @@ protected:
 	virtual void onShowDifferentTitle() override;
 	virtual void onUploadData() override;
 	virtual void onSelectCsvFile(int id) override;
+	virtual void onAddLocalData() override;
 };

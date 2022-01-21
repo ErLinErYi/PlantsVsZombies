@@ -42,10 +42,12 @@ protected:
 	virtual void onCheckUploadButtonEnable();
 	virtual void onSuccessfulFeedback();
 	virtual void onSelectCsvFile(int id);
+	virtual void onAddLocalData();
 
 protected:
 	static bool notUploadData;
 	int _mostLevel;
+	int _selectClos;
 	CSVFile* _csvFile;
 	DrawNode* _draw;
 	string _strRankingList;

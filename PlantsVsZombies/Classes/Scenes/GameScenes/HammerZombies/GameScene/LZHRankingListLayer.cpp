@@ -7,13 +7,14 @@
 #include "LZHRankingListLayer.h"
 #include "Based/LZGetMomentTime.h"
 #include "Based/LZUserData.h"
+#include "Based/LZCsvFile.h"
 
 HRankingListLayer::HRankingListLayer()
 {
 	_csvFile = nullptr;
 	_isRecordName = "ISHZRECORD";
 	_mostLevelName = "HRANKINGLISTDATAUPLOAD";
-	_sURLList = "https://gitee.com/GITLZ/PVZDownLoader/raw/master/hz.csv";
+	_selectClos = 3;
 	_mostLevel = max(1, UserData::getInstance()->openIntUserData(const_cast<char*>("MOST_HAMMERZOMBIES_LEVEL_NUMBER")));
 }
 
@@ -73,4 +74,16 @@ void HRankingListLayer::onSelectCsvFile(int id)
 	{
 		onParseCsvData();
 	}
+}
+
+void HRankingListLayer::onAddLocalData()
+{
+	vector<string> data;
+	data.push_back(GAME_TEXT("本地 我：") + _global->userInformation->getUserName());
+	data.push_back("0");
+	data.push_back("0");
+	data.push_back(to_string(_mostLevel));
+	_csvFile->addNewData(data);
+	_csvFile->deleteSuffix("\r", 3);
+	_csvFile->sortData(3);
 }

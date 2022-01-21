@@ -27,8 +27,9 @@ IRankingListLayer::IRankingListLayer():
 	_csvFile(nullptr),
 	_isRecordName("ISIZERECORD"),
 	_mostLevelName("IRANKINGLISTDATAUPLOAD"),
-	_sURLList("https://gitee.com/GITLZ/PVZDownLoader/raw/master/ize.csv"),
-	_mostLevel(UserData::getInstance()->openIntUserData(const_cast<char*>("IZOMBIES_MOST_LEVEL")))
+	_selectClos(1),
+	_sURLList("https://gitee.com/GITLZ/PVZDownLoader/raw/master/ranking.csv"),
+	_mostLevel(max(UserData::getInstance()->openIntUserData(const_cast<char*>("IZOMBIES_MOST_LEVEL")),1))
 {
 	_downloader.reset(new network::Downloader());
 }
@@ -55,7 +56,7 @@ bool IRankingListLayer::init()
 	onCreateScrollView();
 	onShowTitle();
 	onShowLoadingText();
-	onCheckUploadButtonEnable();
+	//onCheckUploadButtonEnable();
 	onDownloadRankingList();
 	onShowUploadDataRequirement();
 	onShowRankingListUpdateInformation();
@@ -236,23 +237,34 @@ void IRankingListLayer::onDownloadRankingList()
 	};
 }
 
+void IRankingListLayer::onAddLocalData()
+{
+	vector<string> data;
+	data.push_back(GAME_TEXT("本地 我：") + _global->userInformation->getUserName());
+	data.push_back(to_string(_mostLevel));
+	data.push_back("0");
+	data.push_back("0");
+	_csvFile->addNewData(data);
+	_csvFile->deleteSuffix("\r", 1);
+	_csvFile->sortData(1);
+}
+
 void IRankingListLayer::onParseCsvData()
 {
 	if (!_csvFile)
 	{
 		_csvFile = new CSVFile();
 		_csvFile->openFile(_strRankingList);
+		_csvFile->sortData(0);
+		_csvFile->removeDuplicationReservedMaximum(0);
+		_csvFile->deletePrefix("  ", 0);
 
-		vector<string> data;
-		data.push_back(GAME_TEXT("本地 我：") + _global->userInformation->getUserName());
-		data.push_back(to_string(_mostLevel));
-		_csvFile->addNewData(data);
-		_csvFile->sortData(1);
+		onAddLocalData();
 	}
 	
 	_rankingListScrollView->removeAllChildren();
 
-	auto row = _csvFile->getRows();
+	auto row = _csvFile->getRows(_selectClos, "0");
 	auto draw = DrawNode::create();
 	
 	_rankingListScrollView->setInnerContainerSize(Size(1120.f, max(700, 100 * row)));
@@ -285,7 +297,7 @@ void IRankingListLayer::onParseCsvData()
 						auto level = cocos2d::ui::Text::create();
 						level->setFontName(GAME_FONT_NAME_2);
 						level->setFontSize(35);
-						level->setString(_csvFile->getData(i, 1));
+						level->setString(_csvFile->getData(i, _selectClos));
 						level->setPosition(Vec2(960, h - 50 - 100 * i));
 						_rankingListScrollView->addChild(level);
 

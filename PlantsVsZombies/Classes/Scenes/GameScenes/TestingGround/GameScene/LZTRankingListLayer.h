@@ -23,4 +23,5 @@ protected:
 	virtual void onShowBackButton() override;
 	virtual void onUploadData() override;
 	virtual void onSelectCsvFile(int id) override;
+	virtual void onAddLocalData() override;
 };
