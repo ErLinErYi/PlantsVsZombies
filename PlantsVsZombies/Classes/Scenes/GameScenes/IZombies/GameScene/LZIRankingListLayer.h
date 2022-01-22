@@ -43,11 +43,14 @@ protected:
 	virtual void onSuccessfulFeedback();
 	virtual void onSelectCsvFile(int id);
 	virtual void onAddLocalData();
+	virtual void onSetMaxLevel(int level);
+	virtual int onGetMaxLevel();
 
 protected:
 	static bool notUploadData;
 	int _mostLevel;
 	int _selectClos;
+	int _encryptKey;
 	CSVFile* _csvFile;
 	DrawNode* _draw;
 	string _strRankingList;

@@ -24,9 +24,12 @@ protected:
 	virtual void showUserText() override;
 	virtual void showSunNumbers() override;
 	virtual void showGameType() override;
+	virtual void onSetMostFrenquence(int frequence);
+	virtual int onGetMostFrenquence();
 
 private:
 	string _text;
 	Text* _userName;
 	int _mostFrenquence;
+	int _encryptKey;
 };

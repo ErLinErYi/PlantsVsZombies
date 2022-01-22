@@ -18,7 +18,7 @@ TRankingListLayer::TRankingListLayer()
 	_isRecordName = "ISTGRECORD";
 	_mostLevelName = "TRANKINGLISTDATAUPLOAD";
 	_selectClos = 2;
-	_mostLevel = max(UserData::getInstance()->openIntUserData(const_cast<char*>("TESTINGGROUND")), 1);
+	onSetMaxLevel(max(UserData::getInstance()->openIntUserData(const_cast<char*>("TESTINGGROUND")), 1));
 }
 
 TRankingListLayer::~TRankingListLayer()
@@ -129,7 +129,7 @@ void TRankingListLayer::onAddLocalData()
 	vector<string> data;
 	data.push_back(GAME_TEXT("本地 我：") + _global->userInformation->getUserName());
 	data.push_back("0");
-	data.push_back(to_string(_mostLevel));
+	data.push_back(to_string(onGetMaxLevel()));
 	data.push_back("0");
 	_csvFile->addNewData(data);
 	_csvFile->deleteSuffix("\r", 2);

@@ -11,14 +11,14 @@ unsigned int ZombiesAppearControl::zombiesPosition[] = { 130,268,406,544,682 };
 unsigned int ZombiesAppearControl::zombiesPositionBigMap[] = { 255,391,527,663,799,935,1071,1207,1343,1479 };
 
 ZombiesAppearControl::ZombiesAppearControl() :
-  _zombiesAppearFrequency(0)
-, _lastFrequencyZombiesWasDeath(false)
+  _lastFrequencyZombiesWasDeath(false)
 , _isBegin(false)
 , _isShowWords(false)
 , _time(0)
 , _openLevelData(OpenLevelData::getInstance())
 {
 	_random.seed(time(nullptr));
+	setZombiesAppearFrequency(0);
 }
 
 ZombiesAppearControl::~ZombiesAppearControl()
@@ -67,7 +67,7 @@ int ZombiesAppearControl::getZombiesNumbersForAppearFrequency(const unsigned int
 
 int ZombiesAppearControl::getZombiesAppearFrequency() const
 {
-	return _zombiesAppearFrequency;
+	return _zombiesAppearFrequency ^ _encryptKey;
 }
 
 bool ZombiesAppearControl::getLastFrequencyZombiesWasDeath() const
@@ -113,11 +113,17 @@ int ZombiesAppearControl::getEqualProbabilityForRow(int maxRow)
 void ZombiesAppearControl::setZombiesAppearFrequency(const unsigned int zombiesAppearFrequency)
 {
 	_zombiesAppearFrequency = zombiesAppearFrequency;
+
+	_encryptKey = rand();
+	_zombiesAppearFrequency ^= _encryptKey;
 }
 
 void ZombiesAppearControl::setZombiesAppearFrequency()
 {
+	_zombiesAppearFrequency ^= _encryptKey;
 	++_zombiesAppearFrequency;
+
+	setZombiesAppearFrequency(_zombiesAppearFrequency);
 }
 
 void ZombiesAppearControl::setLastFrequencyZombiesWasDeath(bool lastFrequencyZombiesWasDeath)

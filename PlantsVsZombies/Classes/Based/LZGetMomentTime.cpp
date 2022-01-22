@@ -186,6 +186,18 @@ void MomentTime::initNetTime(time_t tmTime)
 
 void MomentTime::getLocalTime()
 {
+#if (CC_TARGET_PLATFORM == CC_PLATFORM_ANDROID || CC_TARGET_PLATFORM == CC_PLATFORM_IOS)
+	struct timeval now;
+
+	if (!_onlyNetTime)
+	{
+		gettimeofday(&now, NULL);
+	}
+
+	initTime(localtime(&now.tv_sec));
+#endif
+
+#if ( CC_TARGET_PLATFORM == CC_PLATFORM_WIN32 )
 	time_t tt;
 
 	if (!_onlyNetTime)
@@ -194,6 +206,7 @@ void MomentTime::getLocalTime()
 	}
 
 	initTime(localtime(&tt));
+#endif
 }
 
 void MomentTime::initTime(struct tm* netTime)

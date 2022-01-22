@@ -18,6 +18,10 @@ public:
 	CREATE_FUNC(IControlLayer);
 	void addLayer(Node* node, const int order, const string& name) { node->addChild(this, order, name); }
 	static void beginNewGame();
+	static void onSetMostLevel(unsigned int level);
+	static unsigned int onGetMostLevel();
+	static void onSetCurrentLevel(unsigned int level);
+	static unsigned int onGetCurrentLevel();
 
 CC_CONSTRUCTOR_ACCESS:
 	IControlLayer();
@@ -51,10 +55,6 @@ private:
 	void showBlackFadeOutAnimation();
 	void coinRecovery(const Vec2& position, const int id);
 	
-public:
-	static unsigned int currentLevelNumber;
-	static unsigned int mostLevelNumber;
-
 protected:
 	IButtonLayer::ZombiesCardButton _selectZombiesCard;                  // 所选僵尸
 	default_random_engine _random;                                       // 随机数引擎
@@ -65,4 +65,8 @@ protected:
 	int _pultPlantNumbers;
 	int _pultPlantRange;
 	int _otherPlantRange;
+	static unsigned int currentLevelNumber;
+	static unsigned int mostLevelNumber;
+	static unsigned int _encryptMKey;
+	static unsigned int _encryptCKey;
 };

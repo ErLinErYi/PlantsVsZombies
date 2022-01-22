@@ -15,7 +15,7 @@ HRankingListLayer::HRankingListLayer()
 	_isRecordName = "ISHZRECORD";
 	_mostLevelName = "HRANKINGLISTDATAUPLOAD";
 	_selectClos = 3;
-	_mostLevel = max(1, UserData::getInstance()->openIntUserData(const_cast<char*>("MOST_HAMMERZOMBIES_LEVEL_NUMBER")));
+	onSetMaxLevel(max(UserData::getInstance()->openIntUserData(const_cast<char*>("MOST_HAMMERZOMBIES_LEVEL_NUMBER")), 1));
 }
 
 HRankingListLayer::~HRankingListLayer()
@@ -82,7 +82,7 @@ void HRankingListLayer::onAddLocalData()
 	data.push_back(GAME_TEXT("本地 我：") + _global->userInformation->getUserName());
 	data.push_back("0");
 	data.push_back("0");
-	data.push_back(to_string(_mostLevel));
+	data.push_back(to_string(onGetMaxLevel()));
 	_csvFile->addNewData(data);
 	_csvFile->deleteSuffix("\r", 3);
 	_csvFile->sortData(3);

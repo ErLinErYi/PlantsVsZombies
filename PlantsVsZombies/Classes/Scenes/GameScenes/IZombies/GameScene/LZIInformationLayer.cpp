@@ -13,9 +13,9 @@
 IInformationLayer::IInformationLayer() :
 	_informationLayer(nullptr)
 {
-	IControlLayer::currentLevelNumber = max(1, UserData::getInstance()->openIntUserData(const_cast<char*>("IZOMBIES_LEVEL_NUMBER")));
-	IControlLayer::mostLevelNumber = max(IControlLayer::currentLevelNumber, 
-		static_cast<unsigned>(UserData::getInstance()->openIntUserData(const_cast<char*>("IZOMBIES_MOST_LEVEL"))));
+	IControlLayer::onSetCurrentLevel(max(1, UserData::getInstance()->openIntUserData(const_cast<char*>("IZOMBIES_LEVEL_NUMBER"))));
+	IControlLayer::onSetMostLevel(max(IControlLayer::onGetCurrentLevel(), 
+		static_cast<unsigned>(UserData::getInstance()->openIntUserData(const_cast<char*>("IZOMBIES_MOST_LEVEL")))));
 }
 
 IInformationLayer::~IInformationLayer()
@@ -37,7 +37,7 @@ void IInformationLayer::showUserText()
 {
 	auto username = cocos2d::ui::Text::create();
 	username->setString("“" + _global->userInformation->getUserName() + "”- " + GAME_TEXT("我是僵尸").c_str() + " - " +
-		StringUtils::format(GAME_TEXT("我是僵尸记录").c_str(), IControlLayer::currentLevelNumber, IControlLayer::mostLevelNumber) + GAME_TEXT("无尽模式"));
+		StringUtils::format(GAME_TEXT("我是僵尸记录").c_str(), IControlLayer::onGetCurrentLevel(), IControlLayer::onGetMostLevel()) + GAME_TEXT("无尽模式"));
 	username->setFontName(GAME_FONT_NAME_1);
 	username->setFontSize(GAME_TEXT_SIZE("手指灵活度与忍耐度训练"));
 	username->setColor(Color3B(0, 255, 255));

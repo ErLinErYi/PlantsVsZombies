@@ -20,6 +20,8 @@
 #include "Based/LZMouseEventControl.h"
 #include "Based/LZCoin.h"
 
+unsigned int IControlLayer::_encryptMKey = 1;
+unsigned int IControlLayer::_encryptCKey = 1;
 unsigned int IControlLayer::currentLevelNumber = 1;
 unsigned int IControlLayer::mostLevelNumber = 1;
 
@@ -60,7 +62,7 @@ void IControlLayer::initData()
 	{
 		showBlackFadeOutAnimation();
 
-		_global->userInformation->setSunNumbers(currentLevelNumber > 1 ? UserData::getInstance()->openIntUserData(const_cast<char*>("IZOMBIES_SUN_NUMBER")) : 400);
+		_global->userInformation->setSunNumbers(onGetCurrentLevel() > 1 ? UserData::getInstance()->openIntUserData(const_cast<char*>("IZOMBIES_SUN_NUMBER")) : 400);
 		informationLayerInformation->updateSunNumbers();
 
 		calculatePlantsNumbers();
@@ -407,17 +409,17 @@ void IControlLayer::judgeZombiesFadeOut()
 void IControlLayer::calculatePlantsNumbers()
 {
 	// 控制向日葵数量
-	if (currentLevelNumber < 5)
+	if (onGetCurrentLevel() < 5)
 	{
 		_sunFlowerNumbers = 6 + rand() % 4;
 	}
-	else if (currentLevelNumber < 10)
+	else if (onGetCurrentLevel() < 10)
 	{
 		_sunFlowerNumbers = 4 + rand() % 4;
 	}
 	else
 	{
-		if (currentLevelNumber % 5 == 0)
+		if (onGetCurrentLevel() % 5 == 0)
 		{
 			_sunFlowerNumbers = 8 + rand() % 4;
 		}
@@ -429,21 +431,21 @@ void IControlLayer::calculatePlantsNumbers()
 	}
 
 	// 控制投手植物数量
-	_pultPlantNumbers = max(6 + rand() % 4 - static_cast<int>(currentLevelNumber) / 2, 2);
+	_pultPlantNumbers = max(6 + rand() % 4 - static_cast<int>(onGetCurrentLevel()) / 2, 2);
 
 	// 其他植物数量
 	_totalNumber -= _sunFlowerNumbers;
 	_totalNumber -= _pultPlantNumbers;
 
 	// 控制所选植物范围
-	_pultPlantRange = min(static_cast<int>(currentLevelNumber / 40), 2);
-	if (currentLevelNumber % 5 == 0)
+	_pultPlantRange = min(static_cast<int>(onGetCurrentLevel() / 40), 2);
+	if (onGetCurrentLevel() % 5 == 0)
 	{
-		_otherPlantRange = min(static_cast<int>(currentLevelNumber / 4) + 7, 13);
+		_otherPlantRange = min(static_cast<int>(onGetCurrentLevel() / 4) + 7, 13);
 	}
 	else
 	{
-		_otherPlantRange = min(static_cast<int>(currentLevelNumber / 4) + 7, 13) + min(max(0, static_cast<int>(currentLevelNumber) - 24) / 20, 4);
+		_otherPlantRange = min(static_cast<int>(onGetCurrentLevel() / 4) + 7, 13) + min(max(0, static_cast<int>(onGetCurrentLevel()) - 24) / 20, 4);
 	}
 }
 
@@ -562,7 +564,33 @@ void IControlLayer::coinRecovery(const Vec2& position, const int id)
 
 void IControlLayer::beginNewGame()
 {
-	UserData::getInstance()->caveUserData(const_cast<char*>("IZOMBIES_MOST_LEVEL"), static_cast<int>(IControlLayer::mostLevelNumber));
+	UserData::getInstance()->caveUserData(const_cast<char*>("IZOMBIES_MOST_LEVEL"), static_cast<int>(IControlLayer::onGetMostLevel()));
 	UserData::getInstance()->caveUserData(const_cast<char*>("IZOMBIES_LEVEL_NUMBER"), 1);
 	UserData::getInstance()->caveUserData(const_cast<char*>("IZOMBIES_SUN_NUMBER"), 0);
+}
+
+void IControlLayer::onSetMostLevel(unsigned int level)
+{
+	mostLevelNumber = level;
+
+	_encryptMKey = rand();
+	mostLevelNumber ^= _encryptMKey;
+}
+
+unsigned int IControlLayer::onGetMostLevel()
+{
+	return mostLevelNumber ^ _encryptMKey;
+}
+
+void IControlLayer::onSetCurrentLevel(unsigned int level)
+{
+	currentLevelNumber = level;
+
+	_encryptCKey = rand();
+	currentLevelNumber ^= _encryptCKey;
+}
+
+unsigned int IControlLayer::onGetCurrentLevel()
+{
+	return currentLevelNumber ^ _encryptCKey;
 }

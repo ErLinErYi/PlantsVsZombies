@@ -15,7 +15,7 @@ TGInformationLayer::TGInformationLayer():
 	_userName(nullptr)
 {
 	_text = "“" + _global->userInformation->getUserName() + "”" + GAME_TEXT("植物试炼场") + " - ";
-	_mostFrenquence = UserData::getInstance()->openIntUserData(const_cast<char*>("TESTINGGROUND"));
+	onSetMostFrenquence(UserData::getInstance()->openIntUserData(const_cast<char*>("TESTINGGROUND")));
 }
 
 TGInformationLayer::~TGInformationLayer()
@@ -36,7 +36,7 @@ bool TGInformationLayer::init()
 void TGInformationLayer::showUserText()
 {
 	_userName = ui::Text::create();
-	_userName->setString(_text + StringUtils::format(GAME_TEXT("试炼场记录").c_str(), 1, _mostFrenquence > 1 ? _mostFrenquence : 1));
+	_userName->setString(_text + StringUtils::format(GAME_TEXT("试炼场记录").c_str(), 1, onGetMostFrenquence() > 1 ? onGetMostFrenquence() : 1));
 	_userName->setFontName(GAME_FONT_NAME_1);
 	_userName->setFontSize(GAME_TEXT_SIZE("植物试炼场"));
 	_userName->setColor(Color3B(0, 255, 255));
@@ -73,13 +73,26 @@ void TGInformationLayer::showGameType()
 	gameType = new GameType(this);
 }
 
+void TGInformationLayer::onSetMostFrenquence(int frequence)
+{
+	_mostFrenquence = frequence;
+
+	_encryptKey = rand();
+	_mostFrenquence ^= _encryptKey;
+}
+
+int TGInformationLayer::onGetMostFrenquence()
+{
+	return _mostFrenquence ^ _encryptKey;
+}
+
 void TGInformationLayer::updateText()
 {
 	if (_userName)
 	{
 		const auto number = controlLayerInformation->_zombiesAppearControl->getZombiesAppearFrequency();
-		if (number > _mostFrenquence)_mostFrenquence = number;
-		_userName->setString(_text + StringUtils::format(GAME_TEXT("试炼场记录").c_str(), number, _mostFrenquence));
-		UserData::getInstance()->caveUserData(const_cast<char*>("TESTINGGROUND"), _mostFrenquence);
+		if (number > onGetMostFrenquence())onSetMostFrenquence(number);
+		_userName->setString(_text + StringUtils::format(GAME_TEXT("试炼场记录").c_str(), number, onGetMostFrenquence()));
+		UserData::getInstance()->caveUserData(const_cast<char*>("TESTINGGROUND"), onGetMostFrenquence());
 	}
 }
