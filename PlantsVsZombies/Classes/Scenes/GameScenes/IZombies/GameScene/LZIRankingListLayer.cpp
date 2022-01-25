@@ -257,6 +257,7 @@ void IRankingListLayer::onParseCsvData()
 		_csvFile->openFile(_strRankingList);
 		_csvFile->sortData(0);
 		_csvFile->removeDuplicationReservedMaximum(0);
+		_csvFile->strMatchingAndInsertStr(0, Application::getInstance()->getUserName(), "  ", "网络 我：");
 		_csvFile->deletePrefix("  ", 0);
 
 		onAddLocalData();
@@ -474,7 +475,7 @@ void IRankingListLayer::onUploadData()
 {
 	_uploadButton->setEnabled(false);
 
-	Application::getInstance()->sendLeveData(_global->userInformation->getUserName(), _mostLevel);
+	Application::getInstance()->sendLeveData(_global->userInformation->getUserName(), _mostLevel, 0);
 	UserData::getInstance()->caveUserData(const_cast<char*>("IRANKINGLISTDATAUPLOAD"), static_cast<int>(_mostLevel));
 	UserDefault::getInstance()->setIntegerForKey("RECORDDAY", _nowNettime->getNetDay());
 	UserDefault::getInstance()->setIntegerForKey("RECORDMON", _nowNettime->getNetMon());

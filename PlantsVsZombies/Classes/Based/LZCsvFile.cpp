@@ -233,6 +233,17 @@ void CSVFile::removeDuplicationReservedMaximum(int pos)
     data = tempData;
 }
 
+void CSVFile::strMatchingAndInsertStr(int id, const string& matchStr, const string& insertPosStr, const string& insertStr)
+{
+    for (auto& r : data)
+    {
+        if (r[id] == matchStr)
+        {
+            r[id].insert(r[id].find(insertPosStr) + 1, insertStr);
+        }
+    }
+}
+
 string CSVFile::csvDataToString()
 {
     string str;

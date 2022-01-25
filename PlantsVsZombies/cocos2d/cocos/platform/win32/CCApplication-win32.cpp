@@ -367,6 +367,11 @@ void Application::sendLeveData(const std::string& name, int level, int id)
     //CCLOG("123");
 }
 
+const std::string Application::getUserName()
+{
+    return "";
+}
+
 void Application::setResourceRootPath(const std::string& rootResDir)
 {
     _resourceRootPath = rootResDir;
