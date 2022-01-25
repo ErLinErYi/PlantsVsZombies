@@ -271,7 +271,7 @@ void IRankingListLayer::onParseCsvData()
 		_csvFile->openFile(_strRankingList);
 		_csvFile->sortData(0);
 		_csvFile->removeDuplicationReservedMaximum(0);
-		_csvFile->strMatchingAndInsertStr(0, Application::getInstance()->getUserName(), "  ", "网络 我：");
+		_csvFile->strMatchingAndInsertStr(0, Application::getInstance()->getUserName(), "  ", GAME_TEXT("网络 我："));
 		_csvFile->deletePrefix("  ", 0);
 
 		onAddLocalData();
@@ -334,6 +334,15 @@ void IRankingListLayer::onParseCsvData()
 
 							_draw->drawRect(Vec2(100, 22), Vec2(1220, 98), Color4F(0, 1, 1, 0.5f));
 							_draw->drawSolidRect(Vec2(100, 22), Vec2(1220, 98), Color4F(0, 1, 1, 0.2f));
+							draw->drawSolidRect(Vec2(0, h - 100 * i - 1), Vec2(1120, h - 100 * (i + 1) + 1), Color4F(0, 1, 1, 0.2f));
+						}
+						if (nameStr.find("网络 我：") != nameStr.npos)
+						{
+							num->setColor(Color3B(0, 255, 255));
+							name->setColor(Color3B(0, 255, 255));
+							name->runAction(RepeatForever::create(Sequence::create(ScaleTo::create(0.5f, 1.08f), ScaleTo::create(0.5f, 0.92f), nullptr)));
+							level->setColor(Color3B(0, 255, 255));
+							level->runAction(RepeatForever::create(Sequence::create(ScaleTo::create(0.5f, 1.08f), ScaleTo::create(0.5f, 0.92f), nullptr)));
 							draw->drawSolidRect(Vec2(0, h - 100 * i - 1), Vec2(1120, h - 100 * (i + 1) + 1), Color4F(0, 1, 1, 0.2f));
 						}
 						if (i == 0)

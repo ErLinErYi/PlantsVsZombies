@@ -237,9 +237,9 @@ void CSVFile::strMatchingAndInsertStr(int id, const string& matchStr, const stri
 {
     for (auto& r : data)
     {
-        if (r[id] == matchStr)
+        if (r[id].substr(0,25) == matchStr)
         {
-            r[id].insert(r[id].find(insertPosStr) + 1, insertStr);
+            r[id].insert(r[id].find(insertPosStr) + 2, insertStr);
         }
     }
 }
