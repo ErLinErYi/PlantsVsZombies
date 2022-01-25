@@ -47,6 +47,10 @@ private:
 	void calculateZombiesData();
 	void showHammerButton();
 	void hideHammerButton();
+	void onSetMostLevel(int level);
+	void onSetCurrentLevel(int level);
+	unsigned int onGetMostLevel();
+	unsigned int onGetCurrentLevel();
 	
 protected:
 	SkeletonAnimation* _hammer;
@@ -61,4 +65,6 @@ protected:
 	bool _isHammerCheat;
 	bool _levelFinished;
 	int _hammerNumbers;
+	unsigned int _encryptMKey;
+	unsigned int _encryptCKey;
 };

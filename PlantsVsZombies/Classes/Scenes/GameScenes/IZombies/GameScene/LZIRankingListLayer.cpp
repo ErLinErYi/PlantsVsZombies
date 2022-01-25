@@ -28,10 +28,11 @@ IRankingListLayer::IRankingListLayer():
 	_isRecordName("ISIZERECORD"),
 	_mostLevelName("IRANKINGLISTDATAUPLOAD"),
 	_selectClos(1),
-	_sURLList("https://gitee.com/GITLZ/PVZDownLoader/raw/master/ranking.csv"),
-	_mostLevel(max(UserData::getInstance()->openIntUserData(const_cast<char*>("IZOMBIES_MOST_LEVEL")),1))
+	_mostLevel(0),
+	_sURLList("https://gitee.com/GITLZ/PVZDownLoader/raw/master/ranking.csv")
 {
 	_downloader.reset(new network::Downloader());
+	onSetMaxLevel(max(UserData::getInstance()->openIntUserData(const_cast<char*>("IZOMBIES_MOST_LEVEL")), 1));
 }
 
 IRankingListLayer::~IRankingListLayer()
@@ -241,12 +242,25 @@ void IRankingListLayer::onAddLocalData()
 {
 	vector<string> data;
 	data.push_back(GAME_TEXT("本地 我：") + _global->userInformation->getUserName());
-	data.push_back(to_string(_mostLevel));
+	data.push_back(to_string(onGetMaxLevel()));
 	data.push_back("0");
 	data.push_back("0");
 	_csvFile->addNewData(data);
 	_csvFile->deleteSuffix("\r", 1);
 	_csvFile->sortData(1);
+}
+
+void IRankingListLayer::onSetMaxLevel(int level)
+{
+	_mostLevel = level;
+
+	_encryptKey = rand();
+	_mostLevel ^= _encryptKey;
+}
+
+int IRankingListLayer::onGetMaxLevel()
+{
+	return _mostLevel ^ _encryptKey;
 }
 
 void IRankingListLayer::onParseCsvData()
@@ -313,7 +327,7 @@ void IRankingListLayer::onParseCsvData()
 							auto own = cocos2d::ui::Text::create();
 							own->setFontName(GAME_FONT_NAME_1);
 							own->setFontSize(GAME_TEXT_SIZE("我的排名名称记录"));
-							own->setString(StringUtils::format(GAME_TEXT("我的排名名称记录").c_str(), i + 1, _global->userInformation->getUserName().c_str(), _mostLevel));
+							own->setString(StringUtils::format(GAME_TEXT("我的排名名称记录").c_str(), i + 1, _global->userInformation->getUserName().c_str(), onGetMaxLevel()));
 							own->setPosition(Vec2(660, 57));
 							own->setColor(Color3B(0, 255, 255));
 							this->addChild(own);
@@ -442,30 +456,33 @@ void IRankingListLayer::onCheckUploadButtonEnable()
 		_nowNettime = new MomentTime();
 		_nowNettime->requestNetTime([this]()
 			{
-				auto recordMon = UserDefault::getInstance()->getIntegerForKey("RECORDMON");
-				if (_nowNettime->getNetMon() != recordMon)
+				if (_nowNettime->getNetDay() > 0 && _nowNettime->getNetMon() > 0 && _nowNettime->getNetYear() > 0)
 				{
-					UserData::getInstance()->caveUserData(const_cast<char*>(_mostLevelName.c_str()), 0);
-					UserDefault::getInstance()->setIntegerForKey("RECORDDAY", 0);
-					UserDefault::getInstance()->setIntegerForKey("RECORDMON", 0);
-					UserDefault::getInstance()->setBoolForKey("ISIZERECORD", false);
-					UserDefault::getInstance()->setBoolForKey("ISTGRECORD", false);
-					UserDefault::getInstance()->setBoolForKey("ISHZRECORD", false);
-				}
+					auto recordMon = UserDefault::getInstance()->getIntegerForKey("RECORDMON");
+					if (_nowNettime->getNetMon() != recordMon)
+					{
+						UserData::getInstance()->caveUserData(const_cast<char*>(_mostLevelName.c_str()), 0);
+						UserDefault::getInstance()->setIntegerForKey("RECORDDAY", 0);
+						UserDefault::getInstance()->setIntegerForKey("RECORDMON", 0);
+						UserDefault::getInstance()->setBoolForKey("ISIZERECORD", false);
+						UserDefault::getInstance()->setBoolForKey("ISTGRECORD", false);
+						UserDefault::getInstance()->setBoolForKey("ISHZRECORD", false);
+					}
 
-				auto recordDay = UserDefault::getInstance()->getIntegerForKey("RECORDDAY");
-				if (_nowNettime->getNetDay() != recordDay)
-				{
-					UserDefault::getInstance()->setBoolForKey("ISIZERECORD", false);
-					UserDefault::getInstance()->setBoolForKey("ISTGRECORD", false);
-					UserDefault::getInstance()->setBoolForKey("ISHZRECORD", false);
-				}
+					auto recordDay = UserDefault::getInstance()->getIntegerForKey("RECORDDAY");
+					if (_nowNettime->getNetDay() != recordDay)
+					{
+						UserDefault::getInstance()->setBoolForKey("ISIZERECORD", false);
+						UserDefault::getInstance()->setBoolForKey("ISTGRECORD", false);
+						UserDefault::getInstance()->setBoolForKey("ISHZRECORD", false);
+					}
 
-				auto mostUpload = UserData::getInstance()->openIntUserData(const_cast<char*>(_mostLevelName.c_str()));
-				auto isIzeRecord = UserDefault::getInstance()->getBoolForKey(_isRecordName.c_str());
-				if (!isIzeRecord && mostUpload < static_cast<int>(_mostLevel)) // 没有上传过并且上传的最高记录小于当前记录
-				{
-					_uploadButton->setEnabled(true);
+					auto mostUpload = UserData::getInstance()->openIntUserData(const_cast<char*>(_mostLevelName.c_str()));
+					auto isIzeRecord = UserDefault::getInstance()->getBoolForKey(_isRecordName.c_str());
+					if (!isIzeRecord && mostUpload < static_cast<int>(onGetMaxLevel())) // 没有上传过并且上传的最高记录小于当前记录
+					{
+						_uploadButton->setEnabled(true);
+					}
 				}
 			}, true);
 	}
@@ -475,8 +492,8 @@ void IRankingListLayer::onUploadData()
 {
 	_uploadButton->setEnabled(false);
 
-	Application::getInstance()->sendLeveData(_global->userInformation->getUserName(), _mostLevel, 0);
-	UserData::getInstance()->caveUserData(const_cast<char*>("IRANKINGLISTDATAUPLOAD"), static_cast<int>(_mostLevel));
+	Application::getInstance()->sendLeveData(_global->userInformation->getUserName(), onGetMaxLevel());
+	UserData::getInstance()->caveUserData(const_cast<char*>("IRANKINGLISTDATAUPLOAD"), static_cast<int>(onGetMaxLevel()));
 	UserDefault::getInstance()->setIntegerForKey("RECORDDAY", _nowNettime->getNetDay());
 	UserDefault::getInstance()->setIntegerForKey("RECORDMON", _nowNettime->getNetMon());
 	UserDefault::getInstance()->setBoolForKey("ISIZERECORD", true);

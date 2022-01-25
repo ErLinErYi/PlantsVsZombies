@@ -25,9 +25,7 @@ HControlLayer::HControlLayer() :
 	_attack(100),
 	_frequencyZombiesNumbers(10),
 	_maxFrequencyNumbers(3),
-	_currentLevelNumber(1),
 	_zombiesTypeNumbers(1),
-	_mostLevelNumber(1),
 	_currentLevelZombiesSpeed(2.f),
 	_isShowHammerButton(false),
 	_isHammerCheat(false),
@@ -35,6 +33,8 @@ HControlLayer::HControlLayer() :
 	_hammerNumbers(0)
 {
 	srand(time(nullptr));
+	onSetMostLevel(1);
+	onSetCurrentLevel(1);
 	createHammerAnimation();
 	createMouseListener();
 	calculateZombiesData();
@@ -109,7 +109,7 @@ void HControlLayer::updateHammerInformation()
 {
 	_hammer->setSkin("skin" + to_string(HButtonLayer::selectedHammer));
 	_attack = hammerInformation[HButtonLayer::selectedHammer].lowAttack + min(hammerInformation[HButtonLayer::selectedHammer].HigtAttack,
-		hammerInformation[HButtonLayer::selectedHammer].lowAttack + _currentLevelNumber * 15);
+		hammerInformation[HButtonLayer::selectedHammer].lowAttack + onGetCurrentLevel() * 15);
 }
 
 void HControlLayer::createMouseListener()
@@ -327,8 +327,8 @@ void HControlLayer::judgeLevelIsFinished()
 	{
 		_levelFinished = true;
 		_hammer->setVisible(false);
-		UserData::getInstance()->caveUserData(const_cast<char*>("HAMMERZOMBIES_LEVEL_NUMBER"), static_cast<int>(_currentLevelNumber + 1));
-		UserData::getInstance()->caveUserData(const_cast<char*>("MOST_HAMMERZOMBIES_LEVEL_NUMBER"), static_cast<int>(max(_currentLevelNumber + 1, _mostLevelNumber)));
+		UserData::getInstance()->caveUserData(const_cast<char*>("HAMMERZOMBIES_LEVEL_NUMBER"), static_cast<int>(onGetCurrentLevel() + 1));
+		UserData::getInstance()->caveUserData(const_cast<char*>("MOST_HAMMERZOMBIES_LEVEL_NUMBER"), static_cast<int>(max(onGetCurrentLevel() + 1, onGetMostLevel())));
 
 		auto gameEndShieldLayer = HGameEndLayer::create();
 		_director->getRunningScene()->addChild(gameEndShieldLayer, 10, "gameEndShieldLayer");
@@ -367,13 +367,13 @@ void HControlLayer::showPowImage(Zombies* zombie, const Vec2& position)
 
 void HControlLayer::calculateZombiesData()
 {
-	_currentLevelNumber = max(UserData::getInstance()->openIntUserData(const_cast<char*>("HAMMERZOMBIES_LEVEL_NUMBER")), 1);
-	_mostLevelNumber = max(static_cast<int>(_currentLevelNumber), UserData::getInstance()->openIntUserData(const_cast<char*>("MOST_HAMMERZOMBIES_LEVEL_NUMBER")));
-	_maxFrequencyNumbers += min(static_cast<int>(_currentLevelNumber / 20), 3);
-	_zombiesTypeNumbers = min(static_cast<int>(_zombiesTypeNumbers + _currentLevelNumber / 3), ZOMBIESNUMBERS);
-	_currentLevelZombiesSpeed += _currentLevelNumber * 0.02f;
+	onSetCurrentLevel(max(UserData::getInstance()->openIntUserData(const_cast<char*>("HAMMERZOMBIES_LEVEL_NUMBER")), 1));
+	onSetMostLevel(max(static_cast<int>(onGetCurrentLevel()), UserData::getInstance()->openIntUserData(const_cast<char*>("MOST_HAMMERZOMBIES_LEVEL_NUMBER"))));
+	_maxFrequencyNumbers += min(static_cast<int>(onGetCurrentLevel() / 20), 3);
+	_zombiesTypeNumbers = min(static_cast<int>(_zombiesTypeNumbers + onGetCurrentLevel() / 3), ZOMBIESNUMBERS);
+	_currentLevelZombiesSpeed += onGetCurrentLevel() * 0.02f;
 	_attack = hammerInformation[HButtonLayer::selectedHammer].lowAttack + min(hammerInformation[HButtonLayer::selectedHammer].HigtAttack,
-		hammerInformation[HButtonLayer::selectedHammer].lowAttack + _currentLevelNumber * 15);
+		hammerInformation[HButtonLayer::selectedHammer].lowAttack + onGetCurrentLevel() * 15);
 }
 
 void HControlLayer::showHammerButton()
@@ -401,4 +401,30 @@ void HControlLayer::hideHammerButton()
 		dynamic_cast<HInformationLayer*>(informationLayerInformation)->deleteHammerInformation();
 		_isShowHammerButton = false;
 	}
+}
+
+void HControlLayer::onSetMostLevel(int level)
+{
+	_mostLevelNumber = level;
+
+	_encryptMKey = rand();
+	_mostLevelNumber ^= _encryptMKey;
+}
+
+void HControlLayer::onSetCurrentLevel(int level)
+{
+	_currentLevelNumber = level;
+
+	_encryptCKey = rand();
+	_currentLevelNumber ^= _encryptCKey;
+}
+
+unsigned int HControlLayer::onGetMostLevel()
+{
+	return _mostLevelNumber ^ _encryptMKey;
+}
+
+unsigned int HControlLayer::onGetCurrentLevel()
+{
+	return _currentLevelNumber ^ _encryptCKey;
 }

@@ -108,6 +108,7 @@ public:
 
 private:
 	int _zombiesAppearFrequency;               // 僵尸出现波次
+	int _encryptKey;
 	bool _lastFrequencyZombiesWasDeath;        // 上一波僵尸已阵亡 
 	bool _isBegin;                             // 计时是否开始
 	bool _isShowWords;                         // 是否显示文字

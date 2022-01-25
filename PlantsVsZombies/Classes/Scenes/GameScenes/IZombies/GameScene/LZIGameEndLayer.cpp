@@ -89,12 +89,12 @@ void IGameEndLayer::rewardCoin(Button* button)
 						white->runAction(Sequence::create(DelayTime::create(1.2f + 0.05f * number), FadeIn::create(0.5f),
 							CallFunc::create([=]()
 								{
-									if (IControlLayer::currentLevelNumber == IControlLayer::mostLevelNumber)
+									if (IControlLayer::onGetCurrentLevel() == IControlLayer::onGetMostLevel())
 									{
-										UserData::getInstance()->caveUserData(const_cast<char*>("IZOMBIES_MOST_LEVEL"), static_cast<int>(IControlLayer::mostLevelNumber + 1));
+										UserData::getInstance()->caveUserData(const_cast<char*>("IZOMBIES_MOST_LEVEL"), static_cast<int>(IControlLayer::onGetMostLevel() + 1));
 									}
 									UserData::getInstance()->caveUserData(const_cast<char*>("COINNUMBERS"), _global->userInformation->getCoinNumbers());
-									UserData::getInstance()->caveUserData(const_cast<char*>("IZOMBIES_LEVEL_NUMBER"), static_cast<int>(IControlLayer::currentLevelNumber + 1));
+									UserData::getInstance()->caveUserData(const_cast<char*>("IZOMBIES_LEVEL_NUMBER"), static_cast<int>(IControlLayer::onGetCurrentLevel() + 1));
 									UserData::getInstance()->caveUserData(const_cast<char*>("IZOMBIES_SUN_NUMBER"), _global->userInformation->getSunNumbers());
 									Director::getInstance()->replaceScene(TransitionFade::create(0.5f, IContinueOrExitLayer::create()));
 
