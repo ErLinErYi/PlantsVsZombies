@@ -492,7 +492,7 @@ void IRankingListLayer::onUploadData()
 {
 	_uploadButton->setEnabled(false);
 
-	Application::getInstance()->sendLeveData(_global->userInformation->getUserName(), onGetMaxLevel());
+	Application::getInstance()->sendLeveData(_global->userInformation->getUserName(), onGetMaxLevel(), 0);
 	UserData::getInstance()->caveUserData(const_cast<char*>("IRANKINGLISTDATAUPLOAD"), static_cast<int>(onGetMaxLevel()));
 	UserDefault::getInstance()->setIntegerForKey("RECORDDAY", _nowNettime->getNetDay());
 	UserDefault::getInstance()->setIntegerForKey("RECORDMON", _nowNettime->getNetMon());
