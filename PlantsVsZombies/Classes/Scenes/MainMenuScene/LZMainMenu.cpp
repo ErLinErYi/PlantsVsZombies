@@ -409,7 +409,7 @@ void MainMenu::createAnimation()
 		Zombies->setPosition(Vec2(880, 400));
 		Zombies1->setPosition(Vec2(720, 450));
 		Zombies->setAnchorPoint(Vec2(0, 0));
-		Zombies->setScale(0.6f);
+		Zombies->setScale(0.6f); 
 		Zombies1->setScale(0.5f);
 		_sprite[1]->addChild(Zombies);
 		_sprite[1]->addChild(Zombies1);
@@ -434,16 +434,13 @@ void MainMenu::createAnimation()
 	detailedList->setColor(Color3B(200, 200, 200));
 	_sprite[3]->addChild(detailedList);
 
-	//iter = _global->userInformation->getAnimationData().find("powerup");
-	//if (iter != _global->userInformation->getAnimationData().end())/* 如果可以找到 */
-	//{
-	//	auto littlesprite = SkeletonAnimation::createWithData(iter->second);
-	//	littlesprite->setPosition(Vec2(350, 0));
-	//	littlesprite->setAnimation(0, "animation", true);
-	//	littlesprite->setScale(1.2f);
-	//	littlesprite->update(0);
-	//	_sprite[3]->addChild(littlesprite);
-	//}
+	/*auto littlesprite = SkeletonAnimation::createWithJsonFile("guaiSSS10e.json", "guaiSSS10e.atlas");
+	littlesprite->setPosition(Vec2(650, 500));
+	littlesprite->setAnimation(0, "atk", true);
+	littlesprite->setScale(2.f);
+	littlesprite->setScaleX(-2);
+	littlesprite->update(0);
+	_sprite[3]->addChild(littlesprite);*/
 }
 
 void MainMenu::createMouseListener()

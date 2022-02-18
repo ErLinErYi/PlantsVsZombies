@@ -224,7 +224,7 @@ void CSVFile::removeDuplicationReservedMaximum(int pos)
             tempData.emplace_back(data[i]);
         }
     }
-    if (data.size() > rows)
+    if (data.size() > static_cast<unsigned int>(rows))
     {
         tempData.emplace_back(data[rows]);
     }

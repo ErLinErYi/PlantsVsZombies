@@ -84,9 +84,18 @@ void HelpScene::createText()
 
 void HelpScene::openUrl(string name, string url, Vec2 postion)
 {
+	auto layerColor = LayerColor::create(Color4B(0, 255, 255, 80));
+	layerColor->setContentSize(Size(180, 40));
+	layerColor->setPosition(postion - Vec2(90, 18));
+	this->addChild(layerColor);
+
+	auto draw = DrawNode::create();
+	draw->drawRect(Vec2(0, 0), Vec2(180, 40), Color4F(0, 1, 1, 0.5f));
+	layerColor->addChild(draw);
+
 	auto github = Button::create();
 	github->setTitleFontName(GAME_FONT_NAME_1);
-	github->setTitleFontSize(20);
+	github->setTitleFontSize(35);
 	github->setTitleText(name);
 	github->setPosition(postion);
 	github->setTitleColor(Color3B(0, 255, 255));
@@ -96,16 +105,16 @@ void HelpScene::openUrl(string name, string url, Vec2 postion)
 			{
 			case Widget::TouchEventType::BEGAN:
 				PlayMusic::playMusic("tap2");
+#if CC_TARGET_PLATFORM==CC_PLATFORM_ANDROID
+				_webView->loadURL(url);
+				_webView->setVisible(true);
+#else
 				Application::getInstance()->openURL(url);
+#endif
 				break;
 			}
 		});
 	this->addChild(github);
-	
-	auto draw = DrawNode::create();
-	draw->drawLine(Vec2(0, 5), Vec2(github->getContentSize().width, 5), Color4F(0, 1, 1, 1));
-	draw->setLineWidth(2);
-	github->addChild(draw);
 }
 
 void HelpScene::createButton()
