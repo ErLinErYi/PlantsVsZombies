@@ -20,7 +20,7 @@ public:
 
 CC_CONSTRUCTOR_ACCESS:
 	PotatoMine(Node* node = nullptr);
-	~PotatoMine();
+	virtual ~PotatoMine();
 
 private:
 	void plantExplode() override;

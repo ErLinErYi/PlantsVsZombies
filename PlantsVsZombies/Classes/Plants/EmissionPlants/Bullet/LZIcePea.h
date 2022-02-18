@@ -13,7 +13,7 @@ class IcePea :public Pea
 {
 CC_CONSTRUCTOR_ACCESS:
     IcePea(Node* node);
-    ~IcePea();
+    virtual ~IcePea();
 
 protected:
     virtual void createShadow() override;

@@ -22,7 +22,7 @@ public:
 
 CC_CONSTRUCTOR_ACCESS:
 	WinterMelonPult(Node* node = nullptr);
-	~WinterMelonPult();
+	virtual ~WinterMelonPult();
 
 protected:
 	virtual void createBullet() override;

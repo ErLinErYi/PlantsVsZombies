@@ -14,7 +14,6 @@
 /////////////////////////////////////////////////////////////////////////////
 #undef APSTUDIO_READONLY_SYMBOLS
 
-
 /////////////////////////////////////////////////////////////////////////////
 // 中文(简体，中国) resources
 
@@ -43,43 +42,42 @@ END
 // remains consistent on all systems.
 GLFW_ICON               ICON                    "res\\PlantsVsZombies.ico"
 
-
 /////////////////////////////////////////////////////////////////////////////
 //
 // Version
 //
 
 VS_VERSION_INFO VERSIONINFO
- FILEVERSION 1,3,6,2
- PRODUCTVERSION 1,3,6,2
- FILEFLAGSMASK 0x3fL
+FILEVERSION 1, 3, 6, 2
+PRODUCTVERSION 1, 3, 6, 2
+FILEFLAGSMASK 0x3fL
 #ifdef _DEBUG
- FILEFLAGS 0x1L
+FILEFLAGS 0x1L
 #else
- FILEFLAGS 0x0L
+FILEFLAGS 0x0L
 #endif
- FILEOS 0x4L
- FILETYPE 0x2L
- FILESUBTYPE 0x0L
+FILEOS 0x4L
+FILETYPE 0x2L
+FILESUBTYPE 0x0L
 BEGIN
-    BLOCK "StringFileInfo"
-    BEGIN
-        BLOCK "080404b0"
-        BEGIN
-            VALUE "FileDescription", "“LZ”个人重制版 PVZ"
-            VALUE "FileVersion", "1, 3, 6, 2"
-            VALUE "InternalName", "lzscpvz"
-            VALUE "CompanyName", "Copyright LZ "
-            VALUE "LegalCopyright", "Copyright LZ "
-            VALUE "OriginalFilename", "PlantsVsZombies.exe"
-            VALUE "ProductName", "lzscpvz"
-            VALUE "ProductVersion", "1, 3, 6, 2"
-        END
-    END
-    BLOCK "VarFileInfo"
-    BEGIN
-        VALUE "Translation", 0x804, 1200
-    END
+BLOCK "StringFileInfo"
+BEGIN
+BLOCK "080404b0"
+BEGIN
+VALUE "FileDescription", "“LZ”个人重制版 PVZ"
+VALUE "FileVersion", "1, 3, 6, 2"
+VALUE "InternalName", "lzscpvz"
+VALUE "CompanyName", "Copyright LZ "
+VALUE "LegalCopyright", "Copyright LZ "
+VALUE "OriginalFilename", "PlantsVsZombies.exe"
+VALUE "ProductName", "lzscpvz"
+VALUE "ProductVersion", "1, 3, 6, 2"
+END
+END
+BLOCK "VarFileInfo"
+BEGIN
+VALUE "Translation", 0x804, 1200
+END
 END
 
 #endif    // 中文(简体，中国) resources

@@ -17,7 +17,7 @@ public:
 
 CC_CONSTRUCTOR_ACCESS:
 	WallNut(Node* node = nullptr);
-	~WallNut();
+	virtual ~WallNut();
 
 private:
 	void checkPlantHealthPoint() override;

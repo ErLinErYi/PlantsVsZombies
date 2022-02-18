@@ -17,7 +17,7 @@ public:
    
 CC_CONSTRUCTOR_ACCESS:
 	Jalapeno(Node* node = nullptr);
-	~Jalapeno();
+    virtual ~Jalapeno();
 
 protected:
     virtual void setPlantNoramlAnimation() override;

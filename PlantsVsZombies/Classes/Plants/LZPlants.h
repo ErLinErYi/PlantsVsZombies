@@ -252,7 +252,7 @@ public:
 
 CC_CONSTRUCTOR_ACCESS:
 	Plants(Node* node = nullptr, const Vec2& position = Vec2::ZERO);
-	~Plants();
+	virtual ~Plants();
 	
 protected:
 	/**

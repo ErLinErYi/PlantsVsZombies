@@ -21,7 +21,7 @@ public:
 
 CC_CONSTRUCTOR_ACCESS:
 	IcePeaShooter(Node* node = nullptr);
-	~IcePeaShooter();
+	virtual ~IcePeaShooter();
 
 protected:
 	virtual void createBullet() override;

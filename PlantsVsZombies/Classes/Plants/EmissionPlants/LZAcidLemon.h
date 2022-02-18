@@ -18,7 +18,7 @@ public:
 
 CC_CONSTRUCTOR_ACCESS:
 	AcidLemonShooter(Node* node = nullptr);
-	~AcidLemonShooter();
+	virtual ~AcidLemonShooter();
 
 protected:
 	virtual void createBullet() override;

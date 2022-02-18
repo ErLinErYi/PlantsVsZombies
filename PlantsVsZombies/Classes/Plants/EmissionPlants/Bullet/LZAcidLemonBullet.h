@@ -28,7 +28,7 @@ public:
 
 CC_CONSTRUCTOR_ACCESS:
 	AcidLemonBullet(Node* node = nullptr);
-	~AcidLemonBullet();
+	virtual ~AcidLemonBullet();
 
 private:
 	void createAcidLemonBulletExplode();

@@ -20,7 +20,7 @@ public:
 
 CC_CONSTRUCTOR_ACCESS:
     Squash(Node* node = nullptr);
-    ~Squash();
+    virtual ~Squash();
 
 protected:
     virtual void createListener() override;

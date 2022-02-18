@@ -22,5 +22,5 @@ protected:
 
 CC_CONSTRUCTOR_ACCESS:
     BattlePlants();
-    ~BattlePlants();
+    virtual ~BattlePlants();
 };

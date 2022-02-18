@@ -17,7 +17,7 @@ public:
 
 CC_CONSTRUCTOR_ACCESS:
 	Imitater(Node* node = nullptr);
-	~Imitater();
+	virtual ~Imitater();
 
 protected:
 	SkeletonAnimation* showPlantAnimationAndText() override;

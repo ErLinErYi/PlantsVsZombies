@@ -719,7 +719,7 @@ protected:
 
 CC_CONSTRUCTOR_ACCESS:
 	Zombies();
-	~Zombies();
+	virtual ~Zombies();
 
 private:
 	void setSmallZombieAttribute();

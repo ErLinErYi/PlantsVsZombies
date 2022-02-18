@@ -26,7 +26,7 @@ public:
 
 CC_CONSTRUCTOR_ACCESS:
     CitronBullet(Node* node, int id);
-    ~CitronBullet();
+    virtual ~CitronBullet();
 
 private:
     void createShadow() override;

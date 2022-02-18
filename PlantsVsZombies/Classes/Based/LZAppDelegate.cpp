@@ -30,117 +30,118 @@ AppDelegate::AppDelegate()
 {
 }
 
-AppDelegate::~AppDelegate() 
+AppDelegate::~AppDelegate()
 {
 #if USE_AUDIO_ENGINE
-    AudioEngine::end();
+	AudioEngine::end();
 #elif USE_SIMPLE_AUDIO_ENGINE
-    SimpleAudioEngine::end();
+	SimpleAudioEngine::end();
 #endif
 }
 
 void AppDelegate::initGLContextAttrs()
 {
-    // set OpenGL context attributes: red,green,blue,alpha,depth,stencil,multisamplesCount
-    GLContextAttrs glContextAttrs = {8, 8, 8, 8, 24, 8, 0};
+	// set OpenGL context attributes: red,green,blue,alpha,depth,stencil,multisamplesCount
+	GLContextAttrs glContextAttrs = { 8, 8, 8, 8, 24, 8, 0 };
 
-    GLView::setGLContextAttrs(glContextAttrs);
+	GLView::setGLContextAttrs(glContextAttrs);
 }
 
 static int register_all_packages()
 {
-    SpriteFrameCache::getInstance()->addSpriteFramesWithFile(
-        "resources/Images/LoadingScene/LoadingScene.plist",
-        "resources/Images/LoadingScene/LoadingScene.pvr.ccz");
-    return 0; 
+	ZipUtils::setPvrEncryptionKey(0xabcdefed, 0xffffffff, 0x19980324, 0x10086111);
+	SpriteFrameCache::getInstance()->addSpriteFramesWithFile(
+		"resources/Images/LoadingScene/LoadingScene.plist",
+		"resources/Images/LoadingScene/LoadingScene.pvr.ccz");
+	return 0;
 }
 
-bool AppDelegate::applicationDidFinishLaunching() 
+bool AppDelegate::applicationDidFinishLaunching()
 {
-    auto director = Director::getInstance();
+	auto director = Director::getInstance();
 
-    auto glview = director->getOpenGLView();
-   
-    if(!glview)
-    {
+	auto glview = director->getOpenGLView();
+
+	if (!glview)
+	{
 #if (CC_TARGET_PLATFORM == CC_PLATFORM_WIN32) || (CC_TARGET_PLATFORM == CC_PLATFORM_MAC) || (CC_TARGET_PLATFORM == CC_PLATFORM_LINUX)
-        glview = GLViewImpl::createWithRect(LZPVZNAME, cocos2d::Rect(0, 0, designResolutionSize.width, designResolutionSize.height), 1.0f);
+		glview = GLViewImpl::createWithRect(LZPVZNAME, cocos2d::Rect(0, 0, designResolutionSize.width, designResolutionSize.height), 1.0f);
 #else
-        glview = GLViewImpl::create(LZPVZNAME);
+		glview = GLViewImpl::create(LZPVZNAME);
 #endif
-        director->setOpenGLView(glview);
-    }
-   
-    RemoveMenu(GetSystemMenu(director->getOpenGLView()->getWin32Window(), false), SC_CLOSE, MF_BYCOMMAND);
+		director->setOpenGLView(glview);
+	}
 
-    register_all_packages();
+	RemoveMenu(GetSystemMenu(director->getOpenGLView()->getWin32Window(), false), SC_CLOSE, MF_BYCOMMAND);
 
-    // turn on display FPS
-    director->setDisplayStats(true);
+	register_all_packages();
 
-    // set FPS. the default value is 1.0/60 if you don't call this
-    director->setAnimationInterval(1.0f / UserInformation::getScreenDisplayFrequency());
-  
-    // Set the design resolution
-    glview->setDesignResolutionSize(designResolutionSize.width, designResolutionSize.height, ResolutionPolicy::EXACT_FIT);
+	// turn on display FPS
+	director->setDisplayStats(true);
 
-    // create a scene. it's an autorelease object
+	// set FPS. the default value is 1.0/60 if you don't call this
+	director->setAnimationInterval(1.0f / UserInformation::getScreenDisplayFrequency());
+
+	// Set the design resolution
+	glview->setDesignResolutionSize(designResolutionSize.width, designResolutionSize.height, ResolutionPolicy::EXACT_FIT);
+
+	// create a scene. it's an autorelease object
 	auto scene = LoadingScene::create();
 
-    // run
-    director->runWithScene(scene);
+	// run
+	director->runWithScene(scene);
 
-    return true;
+	return true;
 }
 
-void AppDelegate::applicationDidEnterBackground() 
+void AppDelegate::applicationDidEnterBackground()
 {
-    Director::getInstance()->stopAnimation();
+	Director::getInstance()->stopAnimation();
 
 #if USE_AUDIO_ENGINE
-    AudioEngine::pauseAll();
+	AudioEngine::pauseAll();
 #elif USE_SIMPLE_AUDIO_ENGINE
-    SimpleAudioEngine::getInstance()->pauseBackgroundMusic();
-    SimpleAudioEngine::getInstance()->pauseAllEffects();
+	SimpleAudioEngine::getInstance()->pauseBackgroundMusic();
+	SimpleAudioEngine::getInstance()->pauseAllEffects();
 #endif
 }
 
-void AppDelegate::applicationWillEnterForeground() 
+void AppDelegate::applicationWillEnterForeground()
 {
-    Director::getInstance()->startAnimation();
+	Director::getInstance()->startAnimation();
 
 #if USE_AUDIO_ENGINE
-    AudioEngine::resumeAll();
+	AudioEngine::resumeAll();
 #elif USE_SIMPLE_AUDIO_ENGINE
-    SimpleAudioEngine::getInstance()->resumeBackgroundMusic();
-    SimpleAudioEngine::getInstance()->resumeAllEffects();
+	SimpleAudioEngine::getInstance()->resumeBackgroundMusic();
+	SimpleAudioEngine::getInstance()->resumeAllEffects();
 #endif
 }
 
 void AppDelegate::applicationDidFocusCallBack()
 {
 #if USE_AUDIO_ENGINE
-    const auto scene = Director::getInstance()->getRunningScene();
-    if (scene && scene->getName() != "GameScene")
-    {
-        AudioEngine::resumeAll();
-    }
+	const auto scene = Director::getInstance()->getRunningScene();
+	if (scene && scene->getName() != "GameScene")
+	{
+		AudioEngine::resumeAll();
+	}
 #elif USE_SIMPLE_AUDIO_ENGINE
-    SimpleAudioEngine::getInstance()->resumeBackgroundMusic();
-    SimpleAudioEngine::getInstance()->resumeAllEffects();
+	SimpleAudioEngine::getInstance()->resumeBackgroundMusic();
+	SimpleAudioEngine::getInstance()->resumeAllEffects();
 #endif
-}
+	}
 
 void AppDelegate::applicationDidUnFocusCallBack()
 {
 #if USE_AUDIO_ENGINE
-    const auto scene = Director::getInstance()->getRunningScene();
-    if (scene && scene->getName() != "GameScene")
-    {
-        AudioEngine::pauseAll();
-    }
+	const auto scene = Director::getInstance()->getRunningScene();
+	if (scene && scene->getName() != "GameScene")
+	{
+		AudioEngine::pauseAll();
+	}
 #elif USE_SIMPLE_AUDIO_ENGINE
-    SimpleAudioEngine::getInstance()->pauseBackgroundMusic();
-    SimpleAudioEngine::getInstance()->pauseAllEffects();
+	SimpleAudioEngine::getInstance()->pauseBackgroundMusic();
+	SimpleAudioEngine::getInstance()->pauseAllEffects();
 #endif
-}
+	}

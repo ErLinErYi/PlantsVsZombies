@@ -16,7 +16,7 @@ public:
 
 CC_CONSTRUCTOR_ACCESS:
     FumeShroomBullet(Node* node);
-    ~FumeShroomBullet();
+    virtual ~FumeShroomBullet();
 
 protected:
     virtual bool getBulletIsEncounterWithZombie(Zombies* zombie) override;

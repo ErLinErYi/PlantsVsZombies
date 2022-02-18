@@ -197,7 +197,7 @@ public:
 
 CC_CONSTRUCTOR_ACCESS:
 	Bullet();
-	~Bullet();
+	virtual ~Bullet();
 
 protected:
 	virtual SkeletonAnimation* bulletInit(const std::string& plantname, const std::string& animaionname);

@@ -21,7 +21,7 @@ public:
 
 CC_CONSTRUCTOR_ACCESS:
 	ScaredyShroom(Node* node = nullptr);
-	~ScaredyShroom();
+	virtual ~ScaredyShroom();
 
 protected:
 	virtual void createBullet() override;

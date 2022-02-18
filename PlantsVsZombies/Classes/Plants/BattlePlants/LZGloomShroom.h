@@ -20,7 +20,7 @@ public:
 
 CC_CONSTRUCTOR_ACCESS:
 	GloomShroom(Node* node = nullptr);
-	~GloomShroom();
+	virtual ~GloomShroom();
 
 protected:
 	virtual void createListener() override;

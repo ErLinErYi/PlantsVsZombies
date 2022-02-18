@@ -18,7 +18,7 @@ public:
 
 CC_CONSTRUCTOR_ACCESS:
 	ThreePeaShooter(Node* node = nullptr);
-	~ThreePeaShooter();
+	virtual ~ThreePeaShooter();
 
 protected:
 	virtual void createBullet() override;

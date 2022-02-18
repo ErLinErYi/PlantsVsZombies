@@ -22,7 +22,7 @@ public:
 
 CC_CONSTRUCTOR_ACCESS:
 	CabbagePult(Node* node = nullptr);
-	~CabbagePult();
+	virtual ~CabbagePult();
 
 protected:
 	virtual void createBullet() override;

@@ -22,7 +22,7 @@ public:
 
 CC_CONSTRUCTOR_ACCESS:
 	GameScene();
-	~GameScene();
+	virtual ~GameScene();
 	virtual bool init() override;
 	
 protected:

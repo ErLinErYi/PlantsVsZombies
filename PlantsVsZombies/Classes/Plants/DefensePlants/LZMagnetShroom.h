@@ -16,7 +16,7 @@ public:
 
 CC_CONSTRUCTOR_ACCESS:
 	MagnetShroom(Node* node = nullptr);
-	~MagnetShroom();
+	virtual ~MagnetShroom();
 
 protected:
 	virtual void cavePlantInformation(rapidjson::Value& object, rapidjson::Document::AllocatorType& allocator) override;

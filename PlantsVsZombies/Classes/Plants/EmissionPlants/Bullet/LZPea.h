@@ -98,7 +98,7 @@ protected:
 
 CC_CONSTRUCTOR_ACCESS:
 	Pea(Node* node = nullptr);
-	~Pea();
+	virtual ~Pea();
 
 protected:
 	int _torchwoodTag;                    // 火炬树桩标记

@@ -18,7 +18,7 @@ public:
 
 CC_CONSTRUCTOR_ACCESS:
     IceBergLettuce(Node* node = nullptr);
-    ~IceBergLettuce();
+    virtual ~IceBergLettuce();
 
 protected:
     virtual void createListener() override;

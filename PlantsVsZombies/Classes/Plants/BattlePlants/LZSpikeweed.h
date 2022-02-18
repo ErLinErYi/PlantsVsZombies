@@ -18,7 +18,7 @@ public:
 
 CC_CONSTRUCTOR_ACCESS:
 	Spikeweed(Node* node = nullptr);
-	~Spikeweed();
+	virtual ~Spikeweed();
 
 private:
 	void createListener() override;

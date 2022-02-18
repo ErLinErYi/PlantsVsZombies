@@ -16,7 +16,7 @@ public:
 	
 CC_CONSTRUCTOR_ACCESS:
 	Pumpkin(Node* node = nullptr);
-	~Pumpkin();
+	virtual ~Pumpkin();
 
 protected:
 	virtual void checkPlantHealthPoint() override;

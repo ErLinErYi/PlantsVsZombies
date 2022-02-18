@@ -23,7 +23,7 @@ public:
 	
 CC_CONSTRUCTOR_ACCESS:
 	SunFlower(Node* node = nullptr);
-	~SunFlower();
+	virtual ~SunFlower();
 
 protected:
 	virtual void cavePlantInformation(rapidjson::Value& object, rapidjson::Document::AllocatorType& allocator) override;

@@ -17,7 +17,7 @@ public:
 
 CC_CONSTRUCTOR_ACCESS:
 	SunFlowerTwin(Node* node = nullptr);
-	~SunFlowerTwin();
+	virtual ~SunFlowerTwin();
 
 protected:
 	virtual void createListener() override;

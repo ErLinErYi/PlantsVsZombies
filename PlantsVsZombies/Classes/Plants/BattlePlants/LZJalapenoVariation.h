@@ -17,7 +17,7 @@ public:
 
 CC_CONSTRUCTOR_ACCESS:
     JalapenoVariation(Node* node = nullptr);
-    ~JalapenoVariation();
+    virtual ~JalapenoVariation();
 
 private:
     void showExplodeAnimation() override;

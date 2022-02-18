@@ -167,8 +167,8 @@ int CSVFile::advquoted(const string& line, string& fld, int i)
 
 void CSVFile::sortData(int pos, bool cmp)
 {
-    sort(data.begin(), data.end(), 
-        [cmp,pos](vector<string>& a, vector<string>& b)
+    stable_sort(data.begin(), data.end(), 
+        [cmp,pos](const vector<string>& a, const vector<string>& b)
         {
             if (a[pos].size() == b[pos].size())
             {
@@ -237,7 +237,7 @@ void CSVFile::strMatchingAndInsertStr(int id, const string& matchStr, const stri
 {
     for (auto& r : data)
     {
-        if (r[id].substr(0,25) == matchStr)
+        if (r[id] == matchStr)
         {
             r[id].insert(r[id].find(insertPosStr) + 2, insertStr);
         }
