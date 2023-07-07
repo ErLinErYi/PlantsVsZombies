@@ -1,6 +1,7 @@
 [[简体中文]](README.md)
 [[русский]](README_ru_ru.md)
 # PlantsVsZombies
+* **The project currently has over 100W Android users, with an average of 1000 new users per day. The PC version cannot be counted due to technical reasons.**
 * **Game engine based on version Cocos2d-X v3.16** [[Cocos2dx website]](https://www.cocos.com/)
 * **All games are developed with C++**
 * **If you're new to cocos2d-x, it's definitely a good entry point**
@@ -19,7 +20,7 @@
 - [runnable file download]（ https://gitlz.gitee.io/lz ）[video demo]（ https://www.bilibili.com/video/BV1kh411Q7W5?share_source=copy_web)
 
 ## Project class diagram
-![ClassDiagram](https://gitee.com/GITLZ/PlantsVsZombies/raw/master/ClassDiagram.png)
+![ClassDiagram](ClassDiagram.png)
 
 ## Running examples
 ![Image(图片)](https://gitee.com/GITLZ/PlantsVsZombies/raw/master/example.png)
