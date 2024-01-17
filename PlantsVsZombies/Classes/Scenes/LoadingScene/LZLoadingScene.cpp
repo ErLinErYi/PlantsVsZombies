@@ -645,35 +645,44 @@ void LoadingScene::throwException()
 void LoadingScene::checkEdition()
 {
 #if MYRELEASE
-	const string sURLList = "https://gitee.com/GITLZ/PVZDownLoader/raw/master/edition.txt";
-	_downloader->createDownloadDataTask(sURLList);
-	_downloader->onDataTaskSuccess = [this](const cocos2d::network::DownloadTask& task,
-		std::vector<unsigned char>& data)
-	{
-		string editionNetWork, editionNet;
-		for (auto p : data)
+	const string sURLList = "https://gitee.com/GITLZ/PVZDownLoader/releases/download/v/edition.txt";
+	auto path = FileUtils::getInstance()->getWritablePath() + "LZDownloadFile/" + "edition.txt";
+	_downloader->createDownloadFileTask(sURLList, path, "edition.txt");
+	_downloader->onFileTaskSuccess = [this](const cocos2d::network::DownloadTask& task)
 		{
-			editionNet += p;
-			if (p != '.')
-				editionNetWork += p;
-		}
-		
-		if (std::stoul(UserInformation::getClientEdition()) < std::stoul(editionNetWork))
-		{
-			UserInformation::setUpdateRequired(true);
-			UserInformation::setNewEditionName(editionNet);
-		}
-	};
+			auto path = FileUtils::getInstance()->getWritablePath() + "LZDownloadFile/" + "edition.txt";
+			FileUtils::getInstance()->getStringFromFile(path, [](string data)
+				{
+					string editionNetWork, editionNet;
+					for (auto& p : data)
+					{
+						editionNet += p;
+						if (p != '.')
+							editionNetWork += p;
+					}
 
-	auto editionName = UserDefault::getInstance()->getStringForKey("EDITION");
-	if (!editionName.empty())
-	{
-		if (std::stoul(UserInformation::getClientEdition()) < std::stoul(editionName))
+					if (std::stoul(UserInformation::getClientEdition()) < std::stoul(editionNetWork))
+					{
+						UserInformation::setUpdateRequired(true);
+						UserInformation::setNewEditionName(editionNet);
+					}
+				});
+		};
+
+	_downloader->onTaskError = [this](const cocos2d::network::DownloadTask& task,
+		int errorCode,
+		int errorCodeInternal,
+		const std::string& errorStr)
 		{
-			UserInformation::setUpdateRequired(true);
-			UserInformation::setNewEditionName(editionName);
-		}
-	}
+#ifdef DEBUG
+			log("Failed to download : %s, identifier(%s) error code(%d), internal error code(%d) desc(%s)"
+				, task.requestURL.c_str()
+				, task.identifier.c_str()
+				, errorCode
+				, errorCodeInternal
+				, errorStr.c_str());
+#endif // DEBUG
+		};
 #endif
 }
 

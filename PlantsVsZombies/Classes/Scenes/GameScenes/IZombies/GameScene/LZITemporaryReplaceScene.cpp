@@ -27,9 +27,13 @@ bool IContinueOrExitLayer::init()
 {
 	if (!Scene::init()) return false;
 
-	createBackground();
-	createButton("下一关", Vec2(Director::getInstance()->getWinSize().width / 2.f, 100), 2);
-	createText();
+	//createBackground();
+	//createButton("下一关", Vec2(Director::getInstance()->getWinSize().width / 2.f, 100), 2);
+	//createText();
+	runAction(Sequence::create(DelayTime::create(0.5f), CallFunc::create([]
+		{
+			Director::getInstance()->replaceScene(TransitionFade::create(0.5f, IZombiesScene::create()));
+		}), nullptr));
 
 	return true;
 }
@@ -38,7 +42,7 @@ void IContinueOrExitLayer::createButton(const string& text, const Vec2& pos, con
 {
 	/* 创建按钮 */
 	auto button = Button::create("ButtonNew2.png", "ButtonNew.png", "", cocos2d::ui::Widget::TextureResType::PLIST);
-	button->setTitleText(GAME_TEXT(text));
+	button->setTitleText(_global->userInformation->getGameText().find(text)->second->text);
 	button->setTitleColor(Color3B(0, 255, 255));
 	button->setTitleFontSize(50);
 	button->setScale(.7f);
@@ -57,7 +61,7 @@ void IContinueOrExitLayer::createButton(const string& text, const Vec2& pos, con
 				case 1:
 					break;
 				case 2:
-					Director::getInstance()->replaceScene(IZombiesScene::create());
+					Director::getInstance()->replaceScene(TransitionFade::create(0.5f, IZombiesScene::create()));
 					break;
 				default:
 					break;
@@ -70,14 +74,15 @@ void IContinueOrExitLayer::createButton(const string& text, const Vec2& pos, con
 void IContinueOrExitLayer::createText()
 {
 	auto objiectivesText = Text::create();
-	objiectivesText->setString(GAME_TEXT("模式说明"));
+	objiectivesText->setString(_global->userInformation->getGameText().find("模式说明")->second->text);
 	objiectivesText->setFontName(GAME_FONT_NAME_1);
-	objiectivesText->setFontSize(GAME_TEXT_SIZE("模式说明"));
+	objiectivesText->setFontSize(_global->userInformation->getGameText().find("模式说明")->second->fontsize);
 	objiectivesText->setColor(Color3B(0, 255, 255));
 	objiectivesText->setPosition(Vec2(Director::getInstance()->getWinSize().width / 2.f, 980));
 	this->addChild(objiectivesText);
 
-	auto information = Text::create(GAME_TEXT("我是僵尸模式介绍"), GAME_FONT_NAME_1, 50);
+	auto str = _global->userInformation->getGameText().find("我是僵尸模式介绍")->second;
+	auto information = Text::create(str->text, GAME_FONT_NAME_1, 50);
 	information->setColor(Color3B::BLACK);
 	information->setGlobalZOrder(10);
 	information->setTextVerticalAlignment(TextVAlignment::CENTER);

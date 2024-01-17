@@ -88,7 +88,8 @@ void ModernWorld::onEnter()
 
 void  ModernWorld::createBackground()
 {
-	auto layerColor = LayerColor::create(Color4B(30, 180, 190, 200));
+	auto layerColor = LayerColor::create(
+		_global->userInformation->getGameDifficulty() ? Color4B(128, 0, 255, 200) : Color4B(30, 180, 190, 200));
 	this->addChild(layerColor);
 
 	auto rotate = Sprite::createWithSpriteFrameName("RunBackground.png");

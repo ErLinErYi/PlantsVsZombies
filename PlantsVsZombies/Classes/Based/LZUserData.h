@@ -91,7 +91,7 @@ public:
 
 protected:
     UserData();
-    ~UserData();
+    virtual ~UserData();
     virtual string getUserDataFileName();
     virtual string getLevelDataFileName();
     virtual openUserDataReturnType openUserData();

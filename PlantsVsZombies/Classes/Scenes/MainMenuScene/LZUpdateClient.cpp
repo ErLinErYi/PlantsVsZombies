@@ -50,13 +50,13 @@ void UpdateClient::createDiglog()
 
 	showText();
 
-	createButton(GAME_TEXT("下载器下载"), Vec2(165, 100), Update_Button::下载器下载);
-	createButton(GAME_TEXT("直接下载"), Vec2(405, 100), Update_Button::直接下载);
-	createButton(GAME_TEXT("网站下载"), Vec2(645, 100), Update_Button::网站下载);
+	//createButton(GAME_TEXT("下载器下载"), Vec2(165, 100), Update_Button::下载器下载);
+	createButton(GAME_TEXT("直接下载"), Vec2(290, 100), Update_Button::直接下载);
+	createButton(GAME_TEXT("网站下载"), Vec2(530, 100), Update_Button::网站下载);
 	//createButton(GAME_TEXT("百度网盘下载")->second->text, Vec2(645, 100), Update_Button::百度网盘下载);
 	//createButton(GAME_TEXT("腾讯微云下载")->second, Vec2(405, 100), Update_Button::腾讯微云下载);
-	createButton(GAME_TEXT("关闭游戏"), Vec2(885, 100), Update_Button::退出游戏);
-	createButton(GAME_TEXT("确定"), Vec2(520, 100), Update_Button::确定);
+	createButton(GAME_TEXT("关闭游戏"), Vec2(770, 100), Update_Button::退出游戏);
+	//createButton(GAME_TEXT("确定"), Vec2(520, 100), Update_Button::确定);
 
 	/* 创建触摸监听 */
 	createTouchtListener(_dialog);
@@ -219,7 +219,7 @@ void UpdateClient::addMouseEvent()
 
 void UpdateClient::downloadHistoryText()
 {
-	const string sURLList = GAME_TEXT("更新信息网址");
+	const string sURLList = "http://qn.lzgd.xyz/history.txt";
 	_downloader->createDownloadDataTask(sURLList);
 	_downloader->onDataTaskSuccess = [this](const cocos2d::network::DownloadTask& task,
 		std::vector<unsigned char>& data)
@@ -272,7 +272,7 @@ void UpdateClient::downloadData()
 
 	_fileName = "lzscpvz" + UserInformation::getNewEditionName(true) + ".exe";
 	auto path = FileUtils::getInstance()->getWritablePath() + "DownloadNewEditionFile/" + _fileName;
-	_downloader->createDownloadFileTask(GAME_TEXT("资源网址"), path, _fileName);
+	_downloader->createDownloadFileTask("https://gitee.com/GITLZ/test/releases/download/v/Aurora.exe", path, _fileName);
 	
 	downloadProgress();
 	downloadSuccess();

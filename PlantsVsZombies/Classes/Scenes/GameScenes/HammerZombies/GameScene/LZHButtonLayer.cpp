@@ -47,11 +47,11 @@ bool HButtonLayer::init()
 	_accelerateButton = createButton("SpeedButton", "SpeedButtonDown", Vec2(1770, 1030), GSLayerButton::accelerateButton);
 	createHammerButton();
 	createKeyBoardListener();
-	auto rankList = createButton("ButtonNew", "ButtonNew2", Vec2(1570, 1030), GSLayerButton::rankingListButton);
-	rankList->setTitleText(GAME_TEXT("闯关记录排行榜"));
-	rankList->setTitleFontSize(GAME_TEXT_SIZE("闯关记录排行榜"));
-	rankList->setTitleFontName(GAME_FONT_NAME_1);
-	rankList->setTitleColor(Color3B::BLACK);
+	//auto rankList = createButton("ButtonNew", "ButtonNew2", Vec2(1570, 1030), GSLayerButton::rankingListButton);
+	//rankList->setTitleText(GAME_TEXT("闯关记录排行榜"));
+	//rankList->setTitleFontSize(GAME_TEXT_SIZE("闯关记录排行榜"));
+	//rankList->setTitleFontName(GAME_FONT_NAME_1);
+	//rankList->setTitleColor(Color3B::BLACK);
 
 	return true;
 }

@@ -37,7 +37,7 @@ public:
 
 CC_CONSTRUCTOR_ACCESS:
 	GSInformationLayer();
-	~GSInformationLayer();
+	virtual ~GSInformationLayer();
 	virtual bool init() override;
 
 protected:

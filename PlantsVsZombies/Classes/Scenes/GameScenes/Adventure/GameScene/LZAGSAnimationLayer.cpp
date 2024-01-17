@@ -231,7 +231,7 @@ void GSAnimationLayer::deletePlants(const int type)
 
 void GSAnimationLayer::createZombies()
 {
-	const uniform_int_distribution<unsigned>number(0, 500);
+	uniform_int_distribution<unsigned>number(0, 500);
 	auto zombies = createDifferentZombies(static_cast<ZombiesType>(
 		controlLayerInformation->_zombiesAppearControl->createDifferentTypeZombies(
 			controlLayerInformation->_zombiesAppearControl->getZombiesAppearFrequency())), this);
@@ -246,7 +246,7 @@ void GSAnimationLayer::createZombies()
 
 void GSAnimationLayer::createZombiesOnSurvival()
 {
-	const uniform_int_distribution<unsigned>number(0, 500);
+	uniform_int_distribution<unsigned>number(0, 500);
 	auto zombies = createDifferentZombies(static_cast<ZombiesType>(
 		controlLayerInformation->_zombiesAppearControl->createDifferentTypeZombies()), this);
 	zombies->setZombiePosition(Vec2(1780 + number(_random), controlLayerInformation->_zombiesAppearControl->getEqualProbabilityForRow()));

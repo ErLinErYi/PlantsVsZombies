@@ -92,7 +92,7 @@ double ZombiesAppearControl::getTime() const
 
 int ZombiesAppearControl::getEqualProbabilityForRow(int maxRow)
 {
-	const uniform_int_distribution<unsigned>number(0, maxRow);
+	uniform_int_distribution<unsigned>number(0, maxRow);
 
 	if (_judgeZombieRow.size() == maxRow + 1)
 	{

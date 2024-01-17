@@ -27,7 +27,7 @@ public:
 
 CC_CONSTRUCTOR_ACCESS:
 	SPSControlLayer();
-	~SPSControlLayer();
+	virtual ~SPSControlLayer();
 	virtual bool init() override;
 
 protected:
