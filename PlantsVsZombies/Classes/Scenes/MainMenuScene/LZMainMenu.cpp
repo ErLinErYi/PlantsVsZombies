@@ -64,7 +64,7 @@ bool MainMenu::init()
 	createNewUserDataFileName();
 	checkTestingGroundIsUnLock();
 #if MYRELEASE
-	if (UserInformation::getUpdateRequired())
+	if (!UserInformation::getUpdateRequired())
 	{
 		auto update = UpdateClient::create();
 		setMouseListenerEnable(false);

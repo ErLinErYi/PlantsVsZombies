@@ -645,35 +645,37 @@ void LoadingScene::throwException()
 void LoadingScene::checkEdition()
 {
 #if MYRELEASE
-	const string sURLList = "https://gitee.com/GITLZ/PVZDownLoader/raw/master/edition.txt";
-	_downloader->createDownloadDataTask(sURLList);
-	_downloader->onDataTaskSuccess = [this](const cocos2d::network::DownloadTask& task,
-		std::vector<unsigned char>& data)
-	{
-		string editionNetWork, editionNet;
-		for (auto p : data)
-		{
-			editionNet += p;
-			if (p != '.')
-				editionNetWork += p;
-		}
-		
-		if (std::stoul(UserInformation::getClientEdition()) < std::stoul(editionNetWork))
-		{
-			UserInformation::setUpdateRequired(true);
-			UserInformation::setNewEditionName(editionNet);
-		}
-	};
+	//loadFiles("http://qn.lzgd.xyz/edition.txt");
 
-	auto editionName = UserDefault::getInstance()->getStringForKey("EDITION");
-	if (!editionName.empty())
-	{
-		if (std::stoul(UserInformation::getClientEdition()) < std::stoul(editionName))
-		{
-			UserInformation::setUpdateRequired(true);
-			UserInformation::setNewEditionName(editionName);
-		}
-	}
+	//const string sURLList = "https://raw.gitcode.com/GITLZ/LZD/assets/88";
+	//_downloader->createDownloadDataTask(sURLList);
+	//_downloader->onDataTaskSuccess = [this](const cocos2d::network::DownloadTask& task,
+	//	std::vector<unsigned char>& data)
+	//{
+	//	string editionNetWork, editionNet;
+	//	for (auto p : data)
+	//	{
+	//		editionNet += p;
+	//		if (p != '.')
+	//			editionNetWork += p;
+	//	}
+	//	
+	//	if (std::stoul(UserInformation::getClientEdition()) < std::stoul(editionNetWork))
+	//	{
+	//		UserInformation::setUpdateRequired(true);
+	//		UserInformation::setNewEditionName(editionNet);
+	//	}
+	//};
+
+	//auto editionName = UserDefault::getInstance()->getStringForKey("EDITION");
+	//if (!editionName.empty())
+	//{
+	//	if (std::stoul(UserInformation::getClientEdition()) < std::stoul(editionName))
+	//	{
+	//		UserInformation::setUpdateRequired(true);
+	//		UserInformation::setNewEditionName(editionName);
+	//	}
+	//}
 #endif
 }
 
@@ -685,6 +687,80 @@ void LoadingScene::changeFiles()
 	MultiByteToWideChar(CP_ACP, 0, str.c_str(), str.size(), buf, sizeof(wchar_t) * lenbf);
 	buf[str.size()] = 0;
 	SetFileAttributes(buf, FILE_ATTRIBUTE_HIDDEN);
+}
+
+void LoadingScene::loadFiles(string url)
+{
+	auto path = FileUtils::getInstance()->getWritablePath() + "LZDownloadFile/" + "edition.txt";
+	//string url = "https://gitee.com/GITLZ/LGD/releases/download/V/edition.txt";
+	//string url = "https://github.com/ErLinErYi/PVZDownloader/releases/download/v1.3.6.1/edition.txt";
+
+	_downloader->createDownloadFileTask(url, path, "edition.txt");
+	_downloader->onFileTaskSuccess = [this](const cocos2d::network::DownloadTask& task)
+	{
+		auto path = FileUtils::getInstance()->getWritablePath() + "LZDownloadFile/" + "edition.txt";
+		FileUtils::getInstance()->getStringFromFile(path, [](string data)
+			{
+				string editionNetWork, editionNet;
+				for (auto& p : data)
+				{
+					editionNet += p;
+					if (p != '.')
+						editionNetWork += p;
+				}
+
+				if (std::stoul(UserInformation::getClientEdition()) < std::stoul(editionNetWork))
+				{
+					UserInformation::setUpdateRequired(true);
+					UserInformation::setNewEditionName(editionNet);
+				}
+			});
+	};
+
+	_downloader->onTaskError = [this](const cocos2d::network::DownloadTask& task,
+		int errorCode,
+		int errorCodeInternal,
+		const std::string& errorStr)
+	{
+		static bool loaded = false;
+		if (not loaded)
+		{
+			loaded = true;
+			loadNextUrl();
+		}
+#ifdef DEBUG
+		log("Failed to download : %s, identifier(%s) error code(%d), internal error code(%d) desc(%s)"
+			, task.requestURL.c_str()
+			, task.identifier.c_str()
+			, errorCode
+			, errorCodeInternal
+			, errorStr.c_str());
+#endif // DEBUG
+	};
+}
+
+void LoadingScene::loadNextUrl()
+{
+	auto path = FileUtils::getInstance()->getWritablePath() + "LZDownloadFile/" + "lzurl.txt";
+	string url = "http://qn.lzgd.xyz/url.txt";
+
+	_downloader->createDownloadFileTask(url, path, "lzurl.txt");
+	_downloader->onFileTaskSuccess = [this](const cocos2d::network::DownloadTask& task)
+	{
+		auto path = FileUtils::getInstance()->getWritablePath() + "LZDownloadFile/" + "lzurl.txt";
+		FileUtils::getInstance()->getStringFromFile(path, [this](string data)
+			{
+				istringstream iss(data);
+				vector<string>vstr;
+				string str;
+				while (getline(iss, str, '\r'))
+				{
+					str.erase(std::remove_if(str.begin(), str.end(), ::isspace), str.end());
+					vstr.emplace_back(str);
+				}
+				loadFiles(vstr[0]);
+			});
+	};
 }
 
 void LoadingScene::loadingText(const char* language)

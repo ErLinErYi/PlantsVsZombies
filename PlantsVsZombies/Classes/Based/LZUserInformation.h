@@ -20,9 +20,11 @@ using namespace cocos2d::ui;
 enum class WorldName
 {
 	Mordern = 0,
+	BigMap,
+	Mirror,
+	FrostibiteCaves,
 	DarkAges,
 	NeonMixtapeTour,
-	FrostibiteCaves,
 	None
 };
 

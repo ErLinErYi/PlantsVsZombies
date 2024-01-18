@@ -164,8 +164,7 @@ void SelectWorldScene::showTimeTravelAnimation()
 			{
 				AudioEngine::stop(clocks);
 				TimeTraveller->removeFromParent();
-				_world[0]->setEnabled(true);
-				_world[1]->setEnabled(true);
+				for (int i = 0; i < 3; ++i)_world[i]->setEnabled(true);
 			}), nullptr));
 }
 
@@ -205,7 +204,7 @@ void SelectWorldScene::createScrollView()
 	_scrollView->setBounceEnabled(true);
 	_scrollView->setDirection(ui::ScrollView::Direction::HORIZONTAL);
 	_scrollView->setContentSize(size);
-	_scrollView->setInnerContainerSize(Size(3500, size.height));
+	_scrollView->setInnerContainerSize(Size(4500, size.height));
 	_scrollView->setPosition(Vec2(0, 0));
 	_scrollView->jumpToPercentHorizontal(_selectWorldPosition);
 	this->addChild(_scrollView);
@@ -213,8 +212,8 @@ void SelectWorldScene::createScrollView()
 
 void SelectWorldScene::showDifferentWorlds()
 {
-	const string worldImageName[] = { {"World1"},{"World2"} ,{"World12"} ,{"World4"} ,{"World5"} ,{"World6"} ,{"World7"} ,{"World8"} ,{"World9"} ,{"World10"} ,{"World11"},{"World12"} };
-	const string worldName[] = { {"现代世界"},{"大地图世界"} ,{"尽请期待"} ,{"海盗港湾"} ,{"狂野西部"} ,{"冰河世纪"} ,{"未来世界"} ,{"侏罗纪世界"} ,{"大浪沙滩"} ,{"魔音时代"} ,{"失落之城"},{"尽请期待"} };
+	const string worldImageName[] = { {"World1"},{"World2"} ,{"World1"} ,{"World12"} ,{"World5"} ,{"World6"} ,{"World7"} ,{"World8"} ,{"World9"} ,{"World10"} ,{"World11"},{"World12"} };
+	const string worldName[] = { {"现代世界"},{"大地图世界"} ,{"尽请期待"} ,{"尽请期待"} ,{"狂野西部"} ,{"冰河世纪"} ,{"未来世界"} ,{"侏罗纪世界"} ,{"大浪沙滩"} ,{"魔音时代"} ,{"失落之城"},{"尽请期待"} };
 	for (int i = 0; i < 3; ++i)
 	{
 		_world[i] = ui::Button::create(worldImageName[i] + ".png", "", "",cocos2d::ui::Widget::TextureResType::PLIST);
@@ -260,8 +259,20 @@ void SelectWorldScene::showDifferentWorlds()
 						if (checkWorldUnlock())
 						{
 							_global->userInformation->setIsMirrorScene(false);
-							_global->userInformation->setSelectWorldName(WorldName::Mordern); /* 初始化背景 */
+							_global->userInformation->setSelectWorldName(WorldName::BigMap); /* 初始化背景 */
 							Director::getInstance()->replaceScene(TransitionFade::create(1.0f, BigMapWorld::create()));
+						}
+						else
+						{
+							this->addChild(SWSUnlockDialogLayer::create());
+						}
+						break;
+					case 2:
+						if (checkWorldUnlock())
+						{
+							_global->userInformation->setIsMirrorScene(true);
+							_global->userInformation->setSelectWorldName(WorldName::Mirror); /* 初始化背景 */
+							Director::getInstance()->replaceScene(TransitionFade::create(1.0f, ModernWorld::create()));
 						}
 						else
 						{

@@ -45,6 +45,7 @@ private:
     void downloadSuccess();
     void downloadError();
     bool checkCanPlay();
+    bool unCompress(const char* pOutFileName, const std::string& password = "");
     LPCUWSTR stringToWstring(string fileName);
 
 private:

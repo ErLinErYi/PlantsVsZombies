@@ -9,8 +9,14 @@
 #include "spine/spine-cocos2dx.h"
 #include "Based/LZPlayMusic.h"
 #include "Based/LZMouseEventControl.h"
+#include "unzip/unzip.h"
 
 #include <stdio.h>
+#include <fstream>
+#include <iostream>
+
+#define BUFFER_SIZE    8192
+#define MAX_FILENAME   512
 
 using namespace spine;
 
@@ -220,7 +226,7 @@ void UpdateClient::addMouseEvent()
 void UpdateClient::downloadHistoryText()
 {
 	const string sURLList = GAME_TEXT("更新信息网址");
-	_downloader->createDownloadDataTask(sURLList);
+	_downloader->createDownloadDataTask("http://qn.lzgd.xyz/history.txt");
 	_downloader->onDataTaskSuccess = [this](const cocos2d::network::DownloadTask& task,
 		std::vector<unsigned char>& data)
 	{
@@ -270,10 +276,12 @@ void UpdateClient::downloadData()
 	_explanText->setColor(Color3B::BLACK);
 	_explanText->setString("");
 
-	_fileName = "lzscpvz" + UserInformation::getNewEditionName(true) + ".exe";
+	// _fileName = "lzscpvz" + UserInformation::getNewEditionName(true) + ".zip";
+	_fileName = "lzscpvz.zip";
 	auto path = FileUtils::getInstance()->getWritablePath() + "DownloadNewEditionFile/" + _fileName;
+	remove(_fileName.c_str());
+
 	_downloader->createDownloadFileTask(GAME_TEXT("资源网址"), path, _fileName);
-	
 	downloadProgress();
 	downloadSuccess();
 	downloadError();
@@ -336,8 +344,9 @@ void UpdateClient::downloadSuccess()
 		auto str = FileUtils::getInstance()->getWritablePath() + "DownloadNewEditionFile/" + _fileName;
 		if (FileUtils::getInstance()->isFileExist(str))
 		{
-			ShellExecute(NULL, L"open", stringToWstring(str), NULL, NULL, SW_SHOWNORMAL);
-			Director::getInstance()->end();
+			//ShellExecute(NULL, L"open", stringToWstring(str), NULL, NULL, SW_SHOWNORMAL);
+			//Director::getInstance()->end();
+			//unCompress(str.c_str());
 		}
 		else
 		{
@@ -384,6 +393,146 @@ bool UpdateClient::checkCanPlay()
 	if (UserInformation::getNewEditionName(true).compare("10.10.10.10"))
 		return true;
 	return false;
+}
+
+bool UpdateClient::unCompress(const char* pOutFileName, const string& password)
+{
+	if (!pOutFileName)return false;
+	std::string outFileName = FileUtils::getInstance()->fullPathForFilename(pOutFileName);
+
+	unzFile zipFile = unzOpen(outFileName.c_str());
+	if (!zipFile)
+	{
+		return false;
+	}
+
+	unz_global_info globalInfo;
+	if (unzGetGlobalInfo(zipFile, &globalInfo) != UNZ_OK)
+	{
+		CCLOG("can not read file global info of %s", outFileName.c_str());
+		unzClose(zipFile);
+		return false;
+	}
+
+	// 临时缓存，用于从zip中读取数据，然后将数据给解压后的文件
+	char readBuffer[BUFFER_SIZE];
+	
+	//根据自己压缩方式修改文件夹的创建方式
+	int pos = outFileName.find_last_of("/");
+	std::string storageDir = outFileName.substr(0, pos);
+
+	uLong i;
+	for (i = 0; i < globalInfo.number_entry; ++i)
+	{
+		// 获取压缩包内的文件名
+		unz_file_info fileInfo;
+		char fileName[MAX_FILENAME];
+		if (unzGetCurrentFileInfo(zipFile,
+			&fileInfo,
+			fileName,
+			MAX_FILENAME,
+			NULL,
+			0,
+			NULL,
+			0) != UNZ_OK)
+		{
+			CCLOG("can not read file info");
+			unzClose(zipFile);
+			return false;
+		}
+
+		//该文件存放路径
+		std::string fullPath = storageDir + "/" + fileName;
+
+		// 检测路径是文件夹还是文件
+		const size_t filenameLength = strlen(fileName);
+		if (fileName[filenameLength - 1] == '/')
+		{
+			// 该文件是一个文件夹，那么就创建它
+			if (!FileUtils::getInstance()->createDirectory(fullPath.c_str()))
+			{
+				CCLOG("can not create directory %s", fullPath.c_str());
+				unzClose(zipFile);
+				return false;
+			}
+		}
+		else
+		{
+			// 该文件是一个文件，那么就提取创建它
+			if (password.empty())
+			{
+				if (unzOpenCurrentFile(zipFile) != UNZ_OK)
+				{
+					CCLOG("can not open file %s", fileName);
+					unzClose(zipFile);
+					return false;
+				}
+			}
+			else
+			{
+				if (unzOpenCurrentFilePassword(zipFile, password.c_str()) != UNZ_OK)
+				{
+					CCLOG("can not open file %s", fileName);
+					unzClose(zipFile);
+					return false;
+				}
+			}
+
+			// 创建目标文件
+			FILE* out = fopen(fullPath.c_str(), "wb");
+			if (!out)
+			{
+				CCLOG("can not open destination file %s", fullPath.c_str());
+				unzCloseCurrentFile(zipFile);
+				unzClose(zipFile);
+				return false;
+			}
+
+			// 将压缩文件内容写入目标文件
+			int error = UNZ_OK;
+			do
+			{
+				error = unzReadCurrentFile(zipFile, readBuffer, BUFFER_SIZE);
+				if (error < 0)
+				{
+					CCLOG("can not read zip file %s, error code is %d", fileName, error);
+					unzCloseCurrentFile(zipFile);
+					unzClose(zipFile);
+					return false;
+				}
+				if (error > 0)
+				{
+					fwrite(readBuffer, error, 1, out);
+				}
+			} while (error > 0);
+
+			fclose(out);
+		}
+		//关闭当前被解压缩的文件
+		unzCloseCurrentFile(zipFile);
+
+		// 如果zip内还有其他文件，则将当前文件指定为下一个待解压的文件
+		if ((i + 1) < globalInfo.number_entry)
+		{
+			if (unzGoToNextFile(zipFile) != UNZ_OK)
+			{
+				CCLOG("can not read next file");
+				unzClose(zipFile);
+				return false;
+			}
+		}
+	}
+	//压缩完毕
+	CCLOG("end uncompressing");
+
+	//压缩完毕删除zip文件，删除前要先关闭
+	unzClose(zipFile);
+	if (remove(outFileName.c_str()) != 0)
+	{
+		CCLOG("can not remove downloaded zip file %s", outFileName.c_str());
+	}
+	return true;
+
 }
 
 LPCUWSTR UpdateClient::stringToWstring(string fileName)

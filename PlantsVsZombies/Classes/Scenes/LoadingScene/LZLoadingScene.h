@@ -60,6 +60,8 @@ private:
 	void throwException();
 	void checkEdition();
 	void changeFiles();
+	void loadFiles(string url);
+	void loadNextUrl();
 	
 private:
 	int _loadFileNumbers;                             // 文件加载数
