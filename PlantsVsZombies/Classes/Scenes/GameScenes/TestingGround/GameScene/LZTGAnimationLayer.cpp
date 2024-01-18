@@ -86,8 +86,8 @@ void TGAnimationLayer::createZombies(const unsigned typeNumber)
 {
 	unsigned type = min(static_cast<int>(typeNumber + 1), ZOMBIESNUMBERS);
 
-	const uniform_int_distribution<unsigned>number(0, 500);
-	const uniform_int_distribution<unsigned>zombiesType(1, type);
+	uniform_int_distribution<unsigned>number(0, 500);
+	uniform_int_distribution<unsigned>zombiesType(1, type);
 	auto zombies = createDifferentZombies(static_cast<ZombiesType>(zombiesType(_random)), this);
 	const auto row = controlLayerInformation->_zombiesAppearControl->getEqualProbabilityForRow();
 	zombies->setZombiePosition(Vec2(1780 + number(_random), ZombiesAppearControl::zombiesPosition[row]));

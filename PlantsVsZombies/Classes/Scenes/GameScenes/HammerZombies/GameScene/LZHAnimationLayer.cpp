@@ -75,8 +75,8 @@ void HAnimationLayer::showCars()
 
 void HAnimationLayer::createZombies(const float mulSpeed, const float addSpeed, const unsigned typeNumber)
 {
-	const uniform_int_distribution<unsigned>number(0, 500);
-	const uniform_int_distribution<unsigned>zombiesType(1, typeNumber);
+	uniform_int_distribution<unsigned>number(0, 500);
+	uniform_int_distribution<unsigned>zombiesType(1, typeNumber);
 	auto zombies = createDifferentZombies(static_cast<ZombiesType>(zombiesType(_random)), this);
 	const auto row = controlLayerInformation->_zombiesAppearControl->getEqualProbabilityForRow();
 	zombies->setZombiePosition(Vec2(1780 + number(_random), ZombiesAppearControl::zombiesPosition[row]));

@@ -86,7 +86,7 @@ void BMAnimationLayer::plantPlants()
 
 void BMAnimationLayer::createZombies()
 {
-	const uniform_int_distribution<unsigned>number(0, 500);
+	uniform_int_distribution<unsigned>number(0, 500);
 	auto zombies = createDifferentZombies(static_cast<ZombiesType>(
 		controlLayerInformation->_zombiesAppearControl->createDifferentTypeZombies(
 			controlLayerInformation->_zombiesAppearControl->getZombiesAppearFrequency())), this);

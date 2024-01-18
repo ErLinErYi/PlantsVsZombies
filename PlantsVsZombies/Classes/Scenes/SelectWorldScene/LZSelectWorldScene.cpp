@@ -90,46 +90,86 @@ void SelectWorldScene::createSelectDifficulty()
 {
 	_global->userInformation->setGameDifficulty(UserData::getInstance()->openIntUserData(const_cast<char*>("DIFFICULTY")));
 		
-	auto checkbox = CheckBox::create();
-	checkbox->loadTextureBackGround("CheckBox2.png",cocos2d::ui::Widget::TextureResType::PLIST);
-	checkbox->loadTextureFrontCross("CheckBox.png",cocos2d::ui::Widget::TextureResType::PLIST);
-	checkbox->setPosition(Vec2(100,1080));
-	checkbox->setAnchorPoint(Vec2(0, 1));
-	checkbox->setSelected(_global->userInformation->getGameDifficulty() ? true : false);
-	this->addChild(checkbox);
+	auto radioButtonGroup = RadioButtonGroup::create();
+	radioButtonGroup->setAllowedNoSelection(false);
+	this->addChild(radioButtonGroup);
+
+	auto radioButton = RadioButton::create();
+	radioButton->loadTextureBackGround("CheckBox2.png", cocos2d::ui::Widget::TextureResType::PLIST);
+	radioButton->loadTextureFrontCross("CheckBox.png", cocos2d::ui::Widget::TextureResType::PLIST);
+	radioButton->setPosition(Vec2(103, 1080));
+	radioButton->setAnchorPoint(Vec2(0, 1));
+	radioButtonGroup->addRadioButton(radioButton);
+	this->addChild(radioButton);
+
+	auto radioButton2 = RadioButton::create();
+	radioButton2->loadTextureBackGround("CheckBox2.png", cocos2d::ui::Widget::TextureResType::PLIST);
+	radioButton2->loadTextureFrontCross("CheckBox.png", cocos2d::ui::Widget::TextureResType::PLIST);
+	radioButton2->setPosition(Vec2(203, 1080));
+	radioButton2->setAnchorPoint(Vec2(0, 1));
+	radioButtonGroup->addRadioButton(radioButton2);
+	this->addChild(radioButton2);
+
+	radioButtonGroup->setSelectedButton(_global->userInformation->getGameDifficulty());
 
 	if (!checkWorldUnlock())
 	{
-		checkbox->setEnabled(false);
-		if (checkbox->isSelected())
+		radioButton2->setEnabled(false);
+		if (radioButton2->isSelected())
 		{
-			checkbox->setSelected(false);
+			radioButton2->setSelected(false);
 			_global->userInformation->setGameDifficulty(0);
 			UserData::getInstance()->caveUserData(const_cast<char*>("DIFFICULTY"), _global->userInformation->getGameDifficulty());
 		}
 	}
-	
+
 	auto text = Text::create();
 	text->setPosition(Vec2(47, -20));
 	text->setTextColor(Color4B(0, 255, 255, 200));
 	text->setFontName(GAME_FONT_NAME_1);
-	text->setFontSize(GAME_TEXT_SIZE("噩梦模式"));
-	text->setString(_global->userInformation->getGameDifficulty() ? GAME_TEXT("噩梦模式") : GAME_TEXT("简单模式"));
-	text->enableGlow(Color4B::BLUE);
-	checkbox->addChild(text);
+	text->setFontSize(_global->userInformation->getGameText().find("噩梦模式")->second->fontsize);
+	text->setString(_global->userInformation->getGameText().find("简单模式")->second->text);
+	text->enableGlow(Color4B(0, 0, 255, 255));
+	radioButton->addChild(text);
 
-	checkbox->addEventListener([=](Ref* sender, CheckBox::EventType type)
+	auto text2 = Text::create();
+	text2->setPosition(Vec2(47, -20));
+	text2->setTextColor(Color4B(255, 0, 255, 200));
+	text2->setFontName(GAME_FONT_NAME_1);
+	text2->setFontSize(_global->userInformation->getGameText().find("噩梦模式")->second->fontsize);
+	text2->setString(_global->userInformation->getGameText().find("噩梦模式")->second->text);
+	text2->enableGlow(Color4B(255, 255, 255, 255));
+	radioButton2->addChild(text2);
+
+	radioButton->addEventListener([=](RadioButton* sender, RadioButton::EventType type)
 		{
 			PlayMusic::playMusic("bleep");
 			switch (type)
 			{
-			case cocos2d::ui::CheckBox::EventType::SELECTED:
-				_global->userInformation->setGameDifficulty(1);
-				text->setString(GAME_TEXT("噩梦模式"));
-				break;
-			case cocos2d::ui::CheckBox::EventType::UNSELECTED:
+			case cocos2d::ui::RadioButton::EventType::SELECTED:
 				_global->userInformation->setGameDifficulty(0);
-				text->setString(GAME_TEXT("简单模式"));
+				break;
+			case cocos2d::ui::RadioButton::EventType::UNSELECTED:
+				break;
+			default:
+				break;
+			}
+			_global->userInformation->getUserSelectWorldData().at(0)->isReadWoldInformation = false;
+			_global->userInformation->getUserSelectWorldData().at(1)->isReadWoldInformation = false;
+			UserData::getInstance()->caveUserData(const_cast<char*>("DIFFICULTY"), _global->userInformation->getGameDifficulty());
+		});
+
+	radioButton2->addEventListener([=](RadioButton* sender, RadioButton::EventType type)
+		{
+			PlayMusic::playMusic("bleep");
+			switch (type)
+			{
+			case cocos2d::ui::RadioButton::EventType::SELECTED:
+				_global->userInformation->setGameDifficulty(1);
+				break;
+			case cocos2d::ui::RadioButton::EventType::UNSELECTED:
+				break;
+			default:
 				break;
 			}
 			_global->userInformation->getUserSelectWorldData().at(0)->isReadWoldInformation = false;

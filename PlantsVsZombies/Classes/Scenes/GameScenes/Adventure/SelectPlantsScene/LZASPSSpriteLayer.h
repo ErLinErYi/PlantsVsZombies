@@ -63,7 +63,7 @@ private:
 	
 CC_CONSTRUCTOR_ACCESS:
 	SPSSpriteLayer();
-	~SPSSpriteLayer();
+	virtual ~SPSSpriteLayer();
 	virtual bool init() override;
 
 public:

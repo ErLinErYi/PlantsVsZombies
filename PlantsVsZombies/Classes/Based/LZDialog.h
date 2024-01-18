@@ -92,7 +92,7 @@ protected:
 
 CC_CONSTRUCTOR_ACCESS:
 	Dialog();
-	~Dialog();
+	virtual ~Dialog();
 	virtual bool init() override;
 
 protected:

@@ -38,7 +38,7 @@ public:
 
 CC_CONSTRUCTOR_ACCESS:
 	GSAnimationLayer(Node* node = nullptr);
-	~GSAnimationLayer();
+	virtual ~GSAnimationLayer();
 	virtual bool init() override;
 
 protected:

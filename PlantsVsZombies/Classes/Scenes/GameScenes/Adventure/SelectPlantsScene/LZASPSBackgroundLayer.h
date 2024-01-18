@@ -25,7 +25,7 @@ public:
 
 CC_CONSTRUCTOR_ACCESS:
 	SPSBackgroundLayer();
-	~SPSBackgroundLayer();
+	virtual ~SPSBackgroundLayer();
 	virtual bool init() override;
 
 protected:

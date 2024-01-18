@@ -28,7 +28,7 @@ public:
 
 CC_CONSTRUCTOR_ACCESS:
 	SelectPlantsScene();
-	~SelectPlantsScene();
+	virtual ~SelectPlantsScene();
 	virtual bool init() override;
 
 protected:

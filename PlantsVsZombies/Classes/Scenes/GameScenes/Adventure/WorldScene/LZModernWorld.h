@@ -28,7 +28,7 @@ public:
 
 CC_CONSTRUCTOR_ACCESS:
 	ModernWorld();
-	~ModernWorld();
+	virtual ~ModernWorld();
 	virtual bool init() override; 
 	virtual void onEnter() override;
 

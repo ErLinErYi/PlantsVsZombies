@@ -717,26 +717,16 @@ void LoadingScene::loadFiles(string url)
 			});
 	};
 
-	_downloader->onTaskError = [this](const cocos2d::network::DownloadTask& task,
-		int errorCode,
-		int errorCodeInternal,
-		const std::string& errorStr)
+	auto editionName = UserDefault::getInstance()->getStringForKey("EDITION");
+	if (!editionName.empty())
 	{
-		static bool loaded = false;
-		if (not loaded)
+		if (std::stoul(UserInformation::getClientEdition()) < std::stoul(editionName))
 		{
-			loaded = true;
-			loadNextUrl();
+			UserInformation::setUpdateRequired(true);
+			UserInformation::setNewEditionName(editionName);
 		}
-#ifdef DEBUG
-		log("Failed to download : %s, identifier(%s) error code(%d), internal error code(%d) desc(%s)"
-			, task.requestURL.c_str()
-			, task.identifier.c_str()
-			, errorCode
-			, errorCodeInternal
-			, errorStr.c_str());
-#endif // DEBUG
-	};
+	}
+#endif
 }
 
 void LoadingScene::loadNextUrl()

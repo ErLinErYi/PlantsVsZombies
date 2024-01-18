@@ -48,26 +48,26 @@ void TSPSControlLayer::createButton()
 			}
 		});
 
-	auto rankList = ui::Button::create("ButtonNew.png", "ButtonNew2.png", "", cocos2d::ui::Widget::TextureResType::PLIST);
-	rankList->setPosition(Vec2(1670, 1030));
-	rankList->setScale(0.7f);
-	rankList->setTitleText(GAME_TEXT("闯关记录排行榜"));
-	rankList->setTitleFontSize(GAME_TEXT_SIZE("闯关记录排行榜"));
-	rankList->setTitleFontName(GAME_FONT_NAME_1);
-	rankList->setTitleColor(Color3B::BLACK);
-	this->addChild(rankList);
-	rankList->addTouchEventListener([&](Ref* sender, ui::Widget::TouchEventType type)
-		{
-			switch (type)
-			{
-			case cocos2d::ui::Widget::TouchEventType::BEGAN:
-				PlayMusic::playMusic("tap2");
-				break;
-			case cocos2d::ui::Widget::TouchEventType::ENDED:
-				_director->getRunningScene()->addChild(TRankingListLayer::create(), 5, "RankingListLayer");
-				break;
-			}
-		});
+	//auto rankList = ui::Button::create("ButtonNew.png", "ButtonNew2.png", "", cocos2d::ui::Widget::TextureResType::PLIST);
+	//rankList->setPosition(Vec2(1670, 1030));
+	//rankList->setScale(0.7f);
+	//rankList->setTitleText(GAME_TEXT("闯关记录排行榜"));
+	//rankList->setTitleFontSize(GAME_TEXT_SIZE("闯关记录排行榜"));
+	//rankList->setTitleFontName(GAME_FONT_NAME_1);
+	//rankList->setTitleColor(Color3B::BLACK);
+	//this->addChild(rankList);
+	//rankList->addTouchEventListener([&](Ref* sender, ui::Widget::TouchEventType type)
+	//	{
+	//		switch (type)
+	//		{
+	//		case cocos2d::ui::Widget::TouchEventType::BEGAN:
+	//			PlayMusic::playMusic("tap2");
+	//			break;
+	//		case cocos2d::ui::Widget::TouchEventType::ENDED:
+	//			_director->getRunningScene()->addChild(TRankingListLayer::create(), 5, "RankingListLayer");
+	//			break;
+	//		}
+	//	});
 }
 
 void TSPSControlLayer::showUserName()

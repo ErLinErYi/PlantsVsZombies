@@ -45,7 +45,7 @@ public:
 
 CC_CONSTRUCTOR_ACCESS:
 	GSControlLayer();
-	~GSControlLayer();
+	virtual ~GSControlLayer();
 	virtual bool init() override;
 
 protected:
