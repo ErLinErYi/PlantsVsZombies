@@ -241,10 +241,10 @@ void IRankingListLayer::onDownloadRankingList()
 void IRankingListLayer::onAddLocalData()
 {
 	vector<string> data;
-	data.push_back(GAME_TEXT("本地 我：") + _global->userInformation->getUserName());
-	data.push_back(to_string(onGetMaxLevel()));
-	data.push_back("0");
-	data.push_back("0");
+	data.emplace_back(GAME_TEXT("本地 我：") + _global->userInformation->getUserName());
+	data.emplace_back(to_string(onGetMaxLevel()));
+	data.emplace_back("0");
+	data.emplace_back("0");
 	_csvFile->addNewData(data);
 	_csvFile->deleteSuffix("\r", 1);
 	_csvFile->sortData(1);

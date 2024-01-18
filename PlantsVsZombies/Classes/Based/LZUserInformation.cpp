@@ -504,7 +504,7 @@ void UserInformation::newUserSelectWorldData()
     {
         WorldData* worldData = new WorldData();
 
-        _userSelectWorldData.push_back(worldData);
+        _userSelectWorldData.emplace_back(worldData);
     }
 }
 

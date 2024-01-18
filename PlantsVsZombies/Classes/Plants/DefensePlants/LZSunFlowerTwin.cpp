@@ -102,7 +102,7 @@ void SunFlowerTwin::createSuns()
 		_sun->setPosition(_plantAnimation->getPosition() + pos[i]);
 		_sun->createSuns(1.f);
 
-		SunsGroup.push_back(_sun);
+		SunsGroup.emplace_back(_sun);
 	}
 
 	_isCreateSun = true;

@@ -132,9 +132,9 @@ void IceBergLettuce::explodeEffectZombies()
 		if (zombie->getZombieIsSurvive() && zombie->getZombieIsCanBeAttack() &&          /* 僵尸存活 && 僵尸可以被攻击到 */
 			getZombieIsSameLineWithPlant(zombie) && getZombieIsInExplodeRange(zombie))   /* 植物与僵尸在同一行 && 僵尸遇在范围内 */
 		{
-			_excludeZombie.push_back(zombie);
+			_excludeZombie.emplace_back(zombie);
 			_excludeZombieZorder = zombie->getZombieAnimation()->getLocalZOrder() + 1;
-			_excludeZombiePosition.push_back(zombie->getZombieAnimation()->getPosition() - Vec2(30, 10));
+			_excludeZombiePosition.emplace_back(zombie->getZombieAnimation()->getPosition() - Vec2(30, 10));
 		}
 	}
 }

@@ -60,11 +60,6 @@ void Coin::coinRecoveryAction(Coin* coin)
 {
     auto pos = Vec2(1655, 38);
     auto temporary = coin->getCoin();
-    if (BigMapGameScene::scrollView)
-    {
-        pos = pos * 2 + Vec2(220, 0);
-        temporary->setGlobalZOrder(1);
-    }
 
     auto actionMoveTo = EaseSineOut::create(MoveTo::create(0.5f, pos));
     auto actionScaleFade = Spawn::create(ScaleTo::create(0.2f, 0.3f), FadeOut::create(0.2f), nullptr);

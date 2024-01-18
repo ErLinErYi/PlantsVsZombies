@@ -252,7 +252,7 @@ void SelectWorldScene::createScrollView()
 
 void SelectWorldScene::showDifferentWorlds()
 {
-	const string worldImageName[] = { {"World1"},{"World2"} ,{"World1"} ,{"World12"} ,{"World5"} ,{"World6"} ,{"World7"} ,{"World8"} ,{"World9"} ,{"World10"} ,{"World11"},{"World12"} };
+	const string worldImageName[] = { {"World1"},{"World2"} ,{"World12"} ,{"World12"} ,{"World5"} ,{"World6"} ,{"World7"} ,{"World8"} ,{"World9"} ,{"World10"} ,{"World11"},{"World12"} };
 	const string worldName[] = { {"现代世界"},{"大地图世界"} ,{"尽请期待"} ,{"尽请期待"} ,{"狂野西部"} ,{"冰河世纪"} ,{"未来世界"} ,{"侏罗纪世界"} ,{"大浪沙滩"} ,{"魔音时代"} ,{"失落之城"},{"尽请期待"} };
 	for (int i = 0; i < 3; ++i)
 	{
@@ -272,13 +272,12 @@ void SelectWorldScene::showDifferentWorlds()
 		worldname->setScale(1.2f);
 		_scrollView->addChild(worldname);
 
-		if (i == 1&& !checkWorldUnlock())
+		if (i >= 1&& !checkWorldUnlock())
 		{
 			_world[i]->setColor(Color3B::BLACK);
 		}
 		if (i >= 2)
 		{
-			_world[i]->setEnabled(false);
 			worldname->setString(GAME_TEXT("尽请期待"));
 		}
 
@@ -301,18 +300,6 @@ void SelectWorldScene::showDifferentWorlds()
 							_global->userInformation->setIsMirrorScene(false);
 							_global->userInformation->setSelectWorldName(WorldName::BigMap); /* 初始化背景 */
 							Director::getInstance()->replaceScene(TransitionFade::create(1.0f, BigMapWorld::create()));
-						}
-						else
-						{
-							this->addChild(SWSUnlockDialogLayer::create());
-						}
-						break;
-					case 2:
-						if (checkWorldUnlock())
-						{
-							_global->userInformation->setIsMirrorScene(true);
-							_global->userInformation->setSelectWorldName(WorldName::Mirror); /* 初始化背景 */
-							Director::getInstance()->replaceScene(TransitionFade::create(1.0f, ModernWorld::create()));
 						}
 						else
 						{

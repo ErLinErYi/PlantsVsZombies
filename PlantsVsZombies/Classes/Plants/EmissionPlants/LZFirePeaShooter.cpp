@@ -93,7 +93,7 @@ void FirePeaShooter::createBullet()
 	_bulletAnimation->setBulletInRow(_rowAndColumn.y);
 	_bulletAnimation->createBullet();
 
-	BulletGroup.push_back(_bulletAnimation);
+	BulletGroup.emplace_back(_bulletAnimation);
 }
 
 SkeletonAnimation* FirePeaShooter::showPlantAnimationAndText()

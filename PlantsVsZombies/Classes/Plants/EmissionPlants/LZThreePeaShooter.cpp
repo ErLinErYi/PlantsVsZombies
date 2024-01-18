@@ -102,7 +102,7 @@ void ThreePeaShooter::createBullet()
 		_bulletAnimation->createBullet();
 		_bulletAnimation->getBullet()->setScale(0.9f);
 
-		BulletGroup.push_back(_bulletAnimation);
+		BulletGroup.emplace_back(_bulletAnimation);
 	}
 }
 

@@ -260,9 +260,9 @@ void Plants::setPlantVisible(const bool visible)
 	_plantAnimation->setVisible(visible);
 }
 
-void Plants::setPlantScale()
+void Plants::setPlantScale(float scale)
 {
-	_plantAnimation->setScale(_plantAnimation->getScale() + (4 - _plantTag / 10) / 20.f);
+	_plantAnimation->setScale(_plantAnimation->getScaleY() * scale);
 }
 
 void Plants::setPlantRemoveFromMap()

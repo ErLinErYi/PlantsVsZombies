@@ -156,7 +156,7 @@ void Citron::createBullet()
 	_bulletAnimation->setBulletInRow(_rowAndColumn.y);
 	_bulletAnimation->createBullet();
 
-	BulletGroup.push_back(_bulletAnimation);
+	BulletGroup.emplace_back(_bulletAnimation);
 }
 
 void Citron::cavePlantInformation(rapidjson::Value& object, rapidjson::Document::AllocatorType& allocator)

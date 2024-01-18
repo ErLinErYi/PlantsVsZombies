@@ -60,11 +60,12 @@ void BMAnimationLayer::showCars()
 					PlayMusic::playMusic("plastichit2");
 
 					auto car = new Car(this);
-					car->setPosition(Vec2(1510, 310 + 136 * i));
+					car->setPosition(Vec2(310, 120 + 87 * i));
 					car->setInRow(i);
+					car->setScale(0.7f);
 					car->showCar(CarType::BigMapCar);
 
-					CarsGroup.push_back(car);
+					CarsGroup.emplace_back(car);
 				}), nullptr));
 		}
 	}
@@ -75,11 +76,12 @@ void BMAnimationLayer::plantPlants()
 	PlayMusic::playMusic(rand() % 2 == 0 ? "plant2" : "plant");
 
 	auto plants = createDifferentPlants(buttonLayerInformation->mouseSelectImage->selectPlantsId, this);
-	plants->setPlantPosition(BIGMAP_ROW_COLUMN_TO_POSITION(controlLayerInformation->_plantsPosition));
+	plants->setPlantPosition(BIGMAP_ROW_COLUMN_TO_POSITION(controlLayerInformation->_plantsPosition) + Vec2(40, 30));
 	plants->setPlantLocalZOrder(SET_ANIMATION_Z_ORDER(controlLayerInformation->_plantsPosition));
 	plants->setPlantRowAndColumn(controlLayerInformation->_plantsPosition);
 	plants->setPlantTag(SET_TAG(controlLayerInformation->_plantsPosition));
 	plants->createPlantAnimation();
+	plants->setPlantScale(0.9f);
 
 	PlantsGroup.insert(pair<int, Plants*>(plants->getPlantAnimation()->getTag(), plants));
 }
@@ -91,11 +93,11 @@ void BMAnimationLayer::createZombies()
 		controlLayerInformation->_zombiesAppearControl->createDifferentTypeZombies(
 			controlLayerInformation->_zombiesAppearControl->getZombiesAppearFrequency())), this);
 	const auto row = controlLayerInformation->_zombiesAppearControl->getEqualProbabilityForRow(9);
-	zombies->setZombiePosition(Vec2(3890 + number(_random), ZombiesAppearControl::zombiesPositionBigMap[row]));
+	zombies->setZombiePosition(Vec2(1920 + number(_random), ZombiesAppearControl::zombiesPositionBigMap[row]));
 	zombies->setZombieInRow(row);
 	zombies->createZombie();
 	zombies->setZombieMultipleBloodVolume(4.f);
-	ZombiesGroup.push_back(zombies);
+	ZombiesGroup.emplace_back(zombies);
 	Zombies::zombiesNumbersChange("++");
 }
 

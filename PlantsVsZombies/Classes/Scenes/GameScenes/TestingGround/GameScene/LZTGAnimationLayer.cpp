@@ -76,7 +76,7 @@ void TGAnimationLayer::showCars()
 					car->setScale(0.8f);
 					car->showCar(CarType::WildWestCar);
 
-					CarsGroup.push_back(car);
+					CarsGroup.emplace_back(car);
 				}), nullptr));
 		}
 	}
@@ -94,7 +94,7 @@ void TGAnimationLayer::createZombies(const unsigned typeNumber)
 	zombies->setZombieInRow(row);
 	zombies->createZombie();
 	zombies->setZombieAttributeForGameTypeInvalid(true);
-	ZombiesGroup.push_back(zombies);
+	ZombiesGroup.emplace_back(zombies);
 	Zombies::zombiesNumbersChange("++");
 }
 

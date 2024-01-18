@@ -139,7 +139,7 @@ void StarFruit::createBullet()
 		_bulletAnimation->createBullet();
 		dynamic_cast<StarFruitBullet*>(_bulletAnimation)->setBulletAction(static_cast<StarFruitBullet::StarFruitBulletDirection>(i));
 
-		BulletGroup.push_back(_bulletAnimation);
+		BulletGroup.emplace_back(_bulletAnimation);
 	}
 }
 

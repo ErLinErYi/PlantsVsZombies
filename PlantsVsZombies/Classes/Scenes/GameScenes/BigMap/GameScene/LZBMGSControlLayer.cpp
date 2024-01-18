@@ -78,7 +78,7 @@ void BMControlLayer::createSchedule()
 void BMControlLayer::calculatePlantPosition()
 {
 	/* 如果不在范围内，移除到画面外 */
-	if (GRASS_BIGMAP_OUTSIDE(addScrollViewOffset(_cur)))
+	if (GRASS_BIGMAP_OUTSIDE(_cur))
 	{
 		_plantsPosition.x = 18;
 		_plantsPosition.y = 10;
@@ -98,132 +98,13 @@ void BMControlLayer::calculatePlantPosition()
 		for (unsigned int j = 0; j < gameMapInformation->columnNumbers; ++j)
 		{
 			
-			if (GRASS_BIGMAP_INSIDE(addScrollViewOffset(_cur), i, j) &&
+			if (GRASS_BIGMAP_INSIDE(_cur, i, j) &&
 				(_plantsPosition.x != j || _plantsPosition.y != i))
 			{
 				_plantsPosition.x = j;
 				_plantsPosition.y = i;
 			}
 		}
-	}
-}
-
-void BMControlLayer::createMouseListener()
-{
-	/* 创建鼠标监听 */
-	_listener = EventListenerMouse::create();
-	//_listener->setEnabled(false);
-
-	/* 鼠标移动 */
-	_listener->onMouseMove = [&](Event* event)
-	{
-		/* 获取鼠标位置 */
-		_cur = static_cast<EventMouse*>(event)->getLocationInView() * 2;
-		calculatePlantPosition();
-		mouseMoveControl();
-		showSelectedButtonHoverEffect(_cur / 2.f);
-		//changeScrollViewOffset();
-	};
-
-	/* 鼠标按下 */
-	_listener->onMouseDown = [&](Event* event)
-	{
-		_cur = static_cast<EventMouse*>(event)->getLocationInView();
-		mouseDownControl(static_cast<EventMouse*>(event));
-	};
-
-	_listener->onMouseScroll = [&](Event* event)
-	{
-		//const float scrollY = static_cast<EventMouse*>(event)->getScrollY() * 300;
-		//auto offset = BigMapGameScene::scrollView->getContentOffset();
-		//offset = Vec2(offset.x, offset.y + scrollY);
-		//if (offset.y > 0)offset.y = 0;
-		//if (offset.y < -1080)offset.y = -1080;
-		//BigMapGameScene::scrollView->setContentOffsetInDuration(offset, 0.1f);
-		//auto layer = BigMapGameScene::scrollView->getContainer();
-		//if (!layer->getActionByTag(0))
-		//{
-		//	BigMapGameScene::scrollView->setContentOffsetInDuration(Vec2(-1120, -540), 0.5f, 2);
-		//	auto action = Sequence::create(
-		//		EaseSineOut::create(ScaleTo::create(0.5f, .5f)), DelayTime::create(0.5f),
-		//		EaseSineOut::create(ScaleTo::create(1.f, 1.f)), nullptr);
-		//	action->setTag(0);
-		//	layer->runAction(action);
-		//}
-	};
-
-	_director->getEventDispatcher()->addEventListenerWithSceneGraphPriority(_listener, this);
-	/*runAction(Sequence::create(DelayTime::create(3.1f), 
-		CallFunc::create([=]() 
-			{
-				_listener->setEnabled(true);
-			}), nullptr));*/
-}
-
-Vec2 BMControlLayer::addScrollViewOffset(const Vec2& vec2)
-{
-	//auto offset = BigMapGameScene::scrollView->getContentOffset();
-	//return Vec2(vec2.x + fabs(offset.x), vec2.y + fabs(offset.y)) + Vec2(220, 0);
-	return vec2 + Vec2(220, 0);
-}
-
-void BMControlLayer::changeScrollViewOffset()
-{
-	_offset = BigMapGameScene::scrollView->getContentOffset();
-
-	if (_cur.x <= 2 || _cur.x >= 1918 || _cur.y <= 2 || _cur.y >= 1078)
-	{
-		if (_cur.x <= 3)
-		{
-			auto action = RepeatForever::create(Sequence::create(
-				CallFunc::create([&]()
-					{
-						_offset = Vec2(_offset.x + 2, _offset.y);
-						BigMapGameScene::scrollView->setContentOffset(_offset);
-					}), DelayTime::create(0.02f), nullptr));
-			action->setFlags(1);
-			this->runAction(action);
-		}
-		if (_cur.x >= 1917)
-		{
-			auto action = RepeatForever::create(Sequence::create(
-				CallFunc::create([&]()
-					{
-						_offset = Vec2(_offset.x - 2, _offset.y);
-						BigMapGameScene::scrollView->setContentOffset(_offset);
-					}), DelayTime::create(0.02f), nullptr));
-			action->setFlags(2);
-			this->runAction(action);
-		}
-		if (_cur.y <= 3)
-		{
-			auto action = RepeatForever::create(Sequence::create(
-				CallFunc::create([&]()
-					{
-						_offset = Vec2(_offset.x, _offset.y + 2);
-						BigMapGameScene::scrollView->setContentOffset(_offset);
-					}), DelayTime::create(0.02f), nullptr));
-			action->setFlags(3);
-			this->runAction(action);
-		}
-		if (_cur.y >= 1077)
-		{
-			auto action = RepeatForever::create(Sequence::create(
-				CallFunc::create([&]()
-					{
-						_offset = Vec2(_offset.x, _offset.y - 2);
-						BigMapGameScene::scrollView->setContentOffset(_offset);
-					}), DelayTime::create(0.02f), nullptr));
-			action->setFlags(4);
-			this->runAction(action);
-		}
-	}
-	else
-	{
-		this->stopActionsByFlags(1);
-		this->stopActionsByFlags(2);
-		this->stopActionsByFlags(3);
-		this->stopActionsByFlags(4);
 	}
 }
 
@@ -239,7 +120,6 @@ void BMControlLayer::createPreviewPlants()
 	
 	_plantCurImage = curPlants->createPlantImage();
 	_plantCurImage->setOpacity(255);
-	//_plantCurImage->setPosition(addScrollViewOffset(_cur));
 	_plantCurImage->setPosition(SET_OUT_MAP);
 	_plantCurImage->setGlobalZOrder(10);
 }
@@ -275,8 +155,8 @@ void BMControlLayer::mouseMoveControl()
 				if (gameMapInformation->plantPumpkin[posY][posX] == false)
 				{
 					const auto size = _plantPreviewImage->getContentSize() / 2.f;
-					_plantPreviewImage->setPosition(Vec2(GRASS_BIGMAP_POSITION_LEFT + 121 *
-						_plantsPosition.x + size.width, GRASS_BIGMAP_POSITION_BOTTOM + 136 * (_plantsPosition.y + 1) - size.height));
+					_plantPreviewImage->setPosition(Vec2(GRASS_BIGMAP_POSITION_LEFT + 77 * _plantsPosition.x + size.width,
+						GRASS_BIGMAP_POSITION_BOTTOM + 86 * (_plantsPosition.y + 1) - size.height) + Vec2(-10, 60));
 				}
 				else
 				{
@@ -292,8 +172,8 @@ void BMControlLayer::mouseMoveControl()
 				else
 				{
 					const auto size = _plantPreviewImage->getContentSize() / 2.f;
-					_plantPreviewImage->setPosition(Vec2(GRASS_BIGMAP_POSITION_LEFT + 121 *
-						_plantsPosition.x + size.width, GRASS_BIGMAP_POSITION_BOTTOM + 136 * (_plantsPosition.y + 1) - size.height));
+					_plantPreviewImage->setPosition(Vec2(GRASS_BIGMAP_POSITION_LEFT + 77 * _plantsPosition.x + size.width,
+						GRASS_BIGMAP_POSITION_BOTTOM + 86 * (_plantsPosition.y + 1) - size.height) + Vec2(-10, 60));
 				}
 			}
 		}
@@ -301,7 +181,7 @@ void BMControlLayer::mouseMoveControl()
 		{
 			_plantPreviewImage->setPosition(SET_OUT_MAP);
 		}
-		_plantCurImage->setPosition(addScrollViewOffset(_cur) + Vec2(0, 30));
+		_plantCurImage->setPosition(_cur + Vec2(0, 50));
 	}
 
 	/* 鼠标上有铲子 */
@@ -356,11 +236,11 @@ void BMControlLayer::checkPlantType(const int type)
 		{
 			if (plant && plant1 && plant->isVisible() && plant1->isVisible())
 			{
-				if (plant1->getBoundingBox().containsPoint(addScrollViewOffset(_cur * 2)))
+				if (plant1->getBoundingBox().containsPoint(_cur))
 				{
 					animationLayerInformation->deletePlants(1);/* 铲除植物 */
 				}
-				else if (plant->getBoundingBox().containsPoint(addScrollViewOffset(_cur * 2)))
+				else if (plant->getBoundingBox().containsPoint(_cur))
 				{
 					animationLayerInformation->deletePlants();/* 铲除植物 */
 				}
@@ -375,11 +255,11 @@ void BMControlLayer::checkPlantType(const int type)
 		{
 			if (plant && plant1 && plant->isVisible() && plant1->isVisible())
 			{
-				if (plant1->getBoundingBox().containsPoint(addScrollViewOffset(_cur)))
+				if (plant1->getBoundingBox().containsPoint(_cur))
 				{
 					plant1->setColor(Color3B(100, 100, 100));
 				}
-				else if (plant->getBoundingBox().containsPoint(addScrollViewOffset(_cur)))
+				else if (plant->getBoundingBox().containsPoint(_cur))
 				{
 					plant->setColor(Color3B(100, 100, 100));
 				}

@@ -140,7 +140,7 @@ void IButtonLayer::createZombiesCard()
 		ZombiesCardButton zcb;
 		zcb = zombiesCardInformation[i];
 		zcb.button = cardBackgroundImag;
-		zombiesCardButton.push_back(zcb);
+		zombiesCardButton.emplace_back(zcb);
 	}
 }
 

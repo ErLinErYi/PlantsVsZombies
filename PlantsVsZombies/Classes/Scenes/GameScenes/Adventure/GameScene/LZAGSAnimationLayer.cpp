@@ -240,7 +240,7 @@ void GSAnimationLayer::createZombies()
 	zombies->setZombieInRow(row);
 	zombies->createZombie();
 	zombies->setZombieAttributeForGameType();
-	ZombiesGroup.push_back(zombies);
+	ZombiesGroup.emplace_back(zombies);
 	Zombies::zombiesNumbersChange("++");
 }
 
@@ -252,7 +252,7 @@ void GSAnimationLayer::createZombiesOnSurvival()
 	zombies->setZombiePosition(Vec2(1780 + number(_random), controlLayerInformation->_zombiesAppearControl->getEqualProbabilityForRow()));
 	zombies->createZombie();
 	zombies->setZombieAttributeForGameType();
-	ZombiesGroup.push_back(zombies);
+	ZombiesGroup.emplace_back(zombies);
 	Zombies::zombiesNumbersChange("++");
 }
 
@@ -300,7 +300,7 @@ void GSAnimationLayer::showCars()
 					car->setScale(0.8f);
 					car->showCar(CarType::ModernCar);
 
-					CarsGroup.push_back(car);
+					CarsGroup.emplace_back(car);
 				}), nullptr));
 		}
 	}

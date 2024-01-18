@@ -36,12 +36,12 @@ bool BMButtonLayer::init()
 	createPlantsCard();
 	createRequirementButton();
 	createButton("StopButton", "StopButtonDown", Vec2(1870, 1030), GSLayerButton::stopButton);
-	_recoverySun = createButton("RecoverySun2", "RecoverySun", Vec2(550, 1025), GSLayerButton::recoverySunButton);
-	_recoveryCoin = createButton("RecoveryCoin2", "RecoveryCoin", Vec2(650, 1025), GSLayerButton::recoveryCoinButton);
+	// _recoverySun = createButton("RecoverySun2", "RecoverySun", Vec2(550, 1025), GSLayerButton::recoverySunButton);
+	// _recoveryCoin = createButton("RecoveryCoin2", "RecoveryCoin", Vec2(650, 1025), GSLayerButton::recoveryCoinButton);
 	_accelerateButton = createButton("SpeedButton", "SpeedButtonDown", Vec2(1770, 1030), GSLayerButton::accelerateButton);
 	_decelerateButton = createButton("SpeedButton", "SpeedButtonDown", Vec2(1670, 1030), GSLayerButton::decelerateButton, true);
 
-	schedule([&](float) { checkSunAndCoin(); }, 1.0f, "checkSunAndCoin");
+	// schedule([&](float) { checkSunAndCoin(); }, 1.0f, "checkSunAndCoin");
 	createKeyBoardListener();
 
 	return true;
@@ -176,7 +176,7 @@ void BMButtonLayer::recoveryCoinControl()
 
 void BMButtonLayer::changeScrollViewOffset()
 {
-	BigMapGameScene::scrollView->setContentOffset(_offset);
+	// BigMapGameScene::scrollView->setContentOffset(_offset);
 }
 
 void BMButtonLayer::checkSunAndCoin()

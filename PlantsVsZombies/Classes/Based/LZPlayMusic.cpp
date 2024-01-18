@@ -48,7 +48,7 @@ int PlayMusic::changeBgMusic(const std::string& _musicName, bool _loop)
 		int AudioID = AudioEngine::play2d(Global::getInstance()->userInformation->getMusicPath().find(_musicName)->second, _loop);
 		AudioEngine::setVolume(AudioID, Global::getInstance()->userInformation->getBackGroundMusicVolume());
 
-		Global::getInstance()->userInformation->getBackgroundMusic().push_back(AudioID);
+		Global::getInstance()->userInformation->getBackgroundMusic().emplace_back(AudioID);
 
 		return AudioID;
 	}

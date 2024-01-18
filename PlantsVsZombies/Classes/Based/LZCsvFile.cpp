@@ -62,7 +62,7 @@ bool CSVFile::openFile(const char* fileName)
     {
         vector<string> field;
         split(field, line[i]);
-        data.push_back(field);
+        data.emplace_back(field);
         cols = max(cols, (int)field.size());
     }
    
@@ -77,7 +77,7 @@ bool CSVFile::openFile(string& str)
     {
         vector<string> field;
         split(field, line[i]);
-        data.push_back(field);
+        data.emplace_back(field);
         cols = max(cols, (int)field.size());
     }
     return true;
@@ -98,7 +98,7 @@ int CSVFile::getRows(int i, const string& exclude)
 
 void CSVFile::addNewData(vector<string>& newData)
 {
-    data.push_back(newData);
+    data.emplace_back(newData);
 }
 
 void CSVFile::StringSplit(const std::string& str, vector<string>& tokens, const char& delimiters)
@@ -108,7 +108,7 @@ void CSVFile::StringSplit(const std::string& str, vector<string>& tokens, const 
 
     while (string::npos != pos
         || string::npos != lastPos) {
-        tokens.push_back(str.substr(lastPos, pos - lastPos));
+        tokens.emplace_back(str.substr(lastPos, pos - lastPos));
         lastPos = str.find_first_not_of(delimiters, pos);
         pos = str.find_first_of(delimiters, lastPos);
     }
@@ -135,7 +135,7 @@ void CSVFile::split(vector<string>& field, string line)
         {
             j = advplain(line, fld, i);
         }
-        field.push_back(fld);
+        field.emplace_back(fld);
         i = j + 1;
     } while (j < line.length());
 }

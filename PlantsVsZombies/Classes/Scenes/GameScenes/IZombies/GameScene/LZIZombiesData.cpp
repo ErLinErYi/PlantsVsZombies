@@ -204,7 +204,7 @@ void IZombiesData::openLevelZombiesData(char* key)
 		zombies->setZombieIsShowLoseShieldAnimation(true);
 		zombies->readZombieInformation();
 
-		ZombiesGroup.push_back(zombies);
+		ZombiesGroup.emplace_back(zombies);
 		Zombies::zombiesNumbersChange("++");
 	}
 }
@@ -229,7 +229,7 @@ void IZombiesData::openLevelBrainData(char* key)
 		b.brain = brain;
 		b.enable = (*_levelDataDocument)[key]["Brain"][to_string(i).c_str()]["Enable"].GetBool();
 		b.row = (*_levelDataDocument)[key]["Brain"][to_string(i).c_str()]["Row"].GetInt();
-		IAnimationLayer::BrainGroup.push_back(b);
+		IAnimationLayer::BrainGroup.emplace_back(b);
 	}
 }
 

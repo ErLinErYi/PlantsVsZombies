@@ -123,7 +123,7 @@ void Torchwood::createFirePea(Bullet* bullet)
 	firePea->createBullet();
 	firePea->setTorchwoodTag(_plantAnimation->getTag());
 
-	BulletGroup.push_back(firePea);
+	BulletGroup.emplace_back(firePea);
 }
 
 void Torchwood::createPea(Bullet* bullet)
@@ -136,7 +136,7 @@ void Torchwood::createPea(Bullet* bullet)
 	pea->createBullet();
 	pea->setTorchwoodTag(_plantAnimation->getTag());
 
-	BulletGroup.push_back(pea);
+	BulletGroup.emplace_back(pea);
 }
 
 void Torchwood::createFirePeaSmoke(Bullet* bullet)

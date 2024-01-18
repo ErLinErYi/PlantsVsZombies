@@ -198,7 +198,7 @@ public:
 	/**
 	 *设置植物大小
 	 */
-	virtual void setPlantScale();
+	virtual void setPlantScale(float scale);
 
 	/**
 	 * 从地图上删除植物 

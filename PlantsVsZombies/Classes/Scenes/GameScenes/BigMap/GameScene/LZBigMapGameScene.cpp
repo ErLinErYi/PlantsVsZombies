@@ -15,7 +15,7 @@
 #include "Based/LZMouseEventControl.h"
 #include "Based/LZPlayMusic.h"
 
-extension::ScrollView* BigMapGameScene::scrollView = nullptr;
+bool BigMapGameScene::bigMapWorld = false;
 
 BigMapGameScene::BigMapGameScene()
 {
@@ -23,7 +23,6 @@ BigMapGameScene::BigMapGameScene()
 
 BigMapGameScene::~BigMapGameScene()
 {
-	scrollView = nullptr;
 }
 
 bool BigMapGameScene::init()
@@ -34,13 +33,14 @@ bool BigMapGameScene::init()
 	pauseGame();
 
 	isRunGameScene = true;
+	bigMapWorld = true;
 	return true;
 }
 
 void BigMapGameScene::showGameLayer()
 {
 	controlPlayMusic();
-	createScrollView();  // 滑动层
+	//createScrollView();  // 滑动层
 	backgroundLayer();   // 背景层
 	informationLayer();  // 信息层
 	buttonLayer();       // 按钮层
@@ -70,22 +70,12 @@ void BigMapGameScene::createScrollView()
 	//			scrollView->setContentOffset(Vec2(-1120, -540));
 	//			scrollView->setTouchEnabled(true);
 	//		}), nullptr));
-
-	//创建滚动视图 
-	scrollView = extension::ScrollView::create(_director->getWinSize(), _scrollLayer);
-	scrollView->setPosition(Vec2(0, 0));
-	scrollView->setBounceable(false);
-	scrollView->setTouchEnabled(false);
-	scrollView->setTouchMode(Touch::DispatchMode::ALL_AT_ONCE);
-	scrollView->setName("scrollView");
-	scrollView->setContentOffset(Vec2(0, -540));
-	this->addChild(scrollView);
 }
 
 void BigMapGameScene::backgroundLayer()
 {
 	backgroundLayerInformation = BMBackgroundLayer::create();
-	backgroundLayerInformation->addLayer(_scrollLayer, 0, "backgroundLayer");
+	backgroundLayerInformation->addLayer(this, 0, "backgroundLayer");
 }
 
 void BigMapGameScene::controlLayer()
@@ -96,8 +86,8 @@ void BigMapGameScene::controlLayer()
 
 void BigMapGameScene::animationLayer()
 {
-	animationLayerInformation = BMAnimationLayer::create(_scrollLayer);
-	animationLayerInformation->addLayer(_scrollLayer, 2, "animationLayer");
+	animationLayerInformation = BMAnimationLayer::create(this);
+	animationLayerInformation->addLayer(this, 2, "animationLayer");
 }
 
 void BigMapGameScene::informationLayer()
@@ -109,7 +99,7 @@ void BigMapGameScene::informationLayer()
 void BigMapGameScene::goodsLayer()
 {
 	goodsLayerInformation = Layer::create();
-	_scrollLayer->addChild(goodsLayerInformation, 5, "goodsLayer");
+	this->addChild(goodsLayerInformation, 5, "goodsLayer");
 	MouseEventControl::goodsRecovery(goodsLayerInformation);
 }
 

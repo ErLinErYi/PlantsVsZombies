@@ -726,7 +726,6 @@ void LoadingScene::loadFiles(string url)
 			UserInformation::setNewEditionName(editionName);
 		}
 	}
-#endif
 }
 
 void LoadingScene::loadNextUrl()

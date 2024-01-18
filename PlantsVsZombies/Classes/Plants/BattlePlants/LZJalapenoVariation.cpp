@@ -74,21 +74,25 @@ void JalapenoVariation::showExplodeAnimation()
 	float hight = 138;
 	float bottom = GRASS_POSITION_BOTTOM;
 	float del = 140;
-	if (BigMapGameScene::scrollView)
+	float scale = 0.85f;
+	int offsetX = 5;
+	if (BigMapGameScene::bigMapWorld)
 	{
 		column = 9;
-		hight = 136;
+		hight = 86;
 		bottom = GRASS_BIGMAP_POSITION_BOTTOM;
-		del = 155;
+		del = 86;
+		scale = 0.6f;
+		offsetX = -5;
 	}
 
 	for (int i = column; i >= 0; --i)
 	{
 		auto jalapenoFire = SkeletonAnimation::createWithData(_global->userInformation->getAnimationData().find("Jalapeno_Fire")->second);
-		jalapenoFire->setPosition(Vec2(_plantAnimation->getPositionX() + 5, bottom + hight * (i + 1) - del));
+		jalapenoFire->setPosition(Vec2(_plantAnimation->getPositionX() + offsetX, bottom + hight * (i + 1) - del));
 		jalapenoFire->setAnimation(0, "animation", false);
 		jalapenoFire->setLocalZOrder((50 - i) * 100 + 50 - i + 100);
-		jalapenoFire->setScale(0.85f, 3.0f);
+		jalapenoFire->setScale(scale, 3.0f);
 		jalapenoFire->runAction(Sequence::create(DelayTime::create(2.f),
 			CallFunc::create([jalapenoFire]()
 				{

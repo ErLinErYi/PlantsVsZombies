@@ -25,6 +25,7 @@
 #include "Plants/DefensePlants/LZSunFlower.h"
 #include "Plants/EmissionPlants/Bullet/LZBullet.h"
 #include "Zombies/LZZombies.h"
+#include "Scenes/GameScenes/BigMap/GameScene/LZBigMapGameScene.h"
 
 bool GameScene::isRunGameScene = false;
 
@@ -52,6 +53,7 @@ GameScene::~GameScene()
 		removeCustomEventListeners(GLViewImpl::EVENT_WINDOW_UNFOCUSED);
 
 	isRunGameScene = false;
+	BigMapGameScene::bigMapWorld = false;
 }
 
 bool GameScene::init()

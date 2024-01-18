@@ -860,7 +860,7 @@ void UserData::openLevelZombiesData(char* key)
 		zombies->setZombieIsShowLoseShieldAnimation(true);
 		zombies->readZombieInformation();
 
-		ZombiesGroup.push_back(zombies);
+		ZombiesGroup.emplace_back(zombies);
 		Zombies::zombiesNumbersChange("++");
 	}
 }
@@ -897,7 +897,7 @@ void UserData::openLevelSelectCardData(char* key)
 		for (int i = 1; i <= selectNumbers; ++i)
 		{
 			card.cardTag = (*_levelDataDocument)[key]["SelectPlants"][to_string(i).c_str()]["CardTag"].GetInt();
-			userSelectCard.push_back(card);
+			userSelectCard.emplace_back(card);
 			plantsCardInformation[card.cardTag].PlantsSurPlusPrecent = (*_levelDataDocument)[key]["SelectPlants"][to_string(i).c_str()]["Percent"].GetFloat();
 			plantsCardInformation[card.cardTag].PlantsSurPlusCoolTime = (*_levelDataDocument)[key]["SelectPlants"][to_string(i).c_str()]["LastTime"].GetFloat();
 		}
@@ -922,7 +922,7 @@ void UserData::openLevelSunData(char* key)
 			(*_levelDataDocument)[key]["Sun"][to_string(i).c_str()]["PositionY"].GetFloat()));
 		sun->createSuns();
 
-		SunsGroup.push_back(sun);
+		SunsGroup.emplace_back(sun);
 	}
 }
 
@@ -938,7 +938,7 @@ void UserData::openLevelCoinData(char* key)
 		coin->setCoinLocalZOrder((*_levelDataDocument)[key]["Coin"][to_string(i).c_str()]["LocalZOrder"].GetInt());
 		coin->createCoin();
 
-		CoinsGroup.push_back(coin);
+		CoinsGroup.emplace_back(coin);
 	}
 }
 
@@ -956,7 +956,7 @@ void UserData::openLevelCarData(char* key)
 		car->setScale((*_levelDataDocument)[key]["Car"][to_string(i).c_str()]["CarScale"].GetFloat());
 		car->showCar(static_cast<CarType>((*_levelDataDocument)[key]["Car"][to_string(i).c_str()]["CarType"].GetInt()));
 		car->getCar()->getChildByName("fog")->setOpacity(0);
-		CarsGroup.push_back(car);
+		CarsGroup.emplace_back(car);
 	}
 }
 
@@ -979,7 +979,7 @@ void UserData::openLevelBulletData(char* key)
 		bullet->getBullet()->setTimeScale((*_levelDataDocument)[key]["Bullet"][to_string(i).c_str()]["BulletAnimationTimeScale"].GetFloat());
 		bullet->readBulletAnimationInformation(_levelDataDocument, key, i);
 
-		BulletGroup.push_back(bullet);
+		BulletGroup.emplace_back(bullet);
 	}
 }
 

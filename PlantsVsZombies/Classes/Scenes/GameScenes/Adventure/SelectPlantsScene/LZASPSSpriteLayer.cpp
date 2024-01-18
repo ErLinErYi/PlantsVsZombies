@@ -278,7 +278,7 @@ void SPSSpriteLayer::createMoveButton(Button* button, const Vec2& vec2)
 	UserSelectCard seed_bank_button{};
 	seed_bank_button.cardbutton = moveCard;
 	seed_bank_button.cardTag = button->getTag();
-	seedBankButton.push_back(seed_bank_button);
+	seedBankButton.emplace_back(seed_bank_button);
 
 	const float plantCardRollingDistanceLast = calculateScrollDistance();
 	moveCard->addTouchEventListener([=](Ref* sender, ui::Widget::TouchEventType type)
@@ -578,7 +578,7 @@ void SPSSpriteLayer::controlPlantCanSelect(Button* button, int priority)
 			auto cardStr = StringUtils::format("CardUnlock_%d", static_cast<int>(plantsCardInformation[priority].type));
 			if (!UserData::getInstance()->openBoolUserData(const_cast<char*>(cardStr.c_str())))
 			{
-				PlantsCardUnlock::unlockPlantsCard.push_back(plantsCardInformation[priority].type);
+				PlantsCardUnlock::unlockPlantsCard.emplace_back(plantsCardInformation[priority].type);
 				UserData::getInstance()->caveUserData(const_cast<char*>(cardStr.c_str()), true);
 			}
 		}

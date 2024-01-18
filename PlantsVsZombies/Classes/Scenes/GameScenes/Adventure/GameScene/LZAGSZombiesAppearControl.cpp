@@ -8,7 +8,7 @@
 #include "LZAGSZombiesAppearControl.h"
 
 unsigned int ZombiesAppearControl::zombiesPosition[] = { 130,268,406,544,682 };
-unsigned int ZombiesAppearControl::zombiesPositionBigMap[] = { 255,391,527,663,799,935,1071,1207,1343,1479 };
+unsigned int ZombiesAppearControl::zombiesPositionBigMap[] = { 80,166,252,338,424,510,596,682,768,854 };
 
 ZombiesAppearControl::ZombiesAppearControl() :
   _lastFrequencyZombiesWasDeath(false)

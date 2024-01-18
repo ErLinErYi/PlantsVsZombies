@@ -112,7 +112,7 @@ void Marigold::createCoins()
 	_coin = new Coin(goodsLayerInformation);
 	_coin->setPosition(_plantAnimation->getPosition());
 	_coin->createCoin();
-	CoinsGroup.push_back(_coin);
+	CoinsGroup.emplace_back(_coin);
 
 	_isCreateCoin = true;
 }

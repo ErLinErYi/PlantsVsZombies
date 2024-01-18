@@ -112,12 +112,7 @@ void SunFlower::sunRecovery(Sun* sun)
 {
 	auto pos = Vec2(290, 1025);
 	auto temporary = sun->getSun();
-	if (BigMapGameScene::scrollView)
-	{
-		pos = pos * 2 + Vec2(200, 10);
-		temporary->setGlobalZOrder(1);
-	}
-
+	
 	auto actionMoveTo = EaseSineOut::create(MoveTo::create(sun->calculateMoveTime(), pos));
 	auto actionScaleFade = Spawn::create(ScaleTo::create(0.2f, 0.3f), FadeOut::create(0.2f), nullptr);
 	auto actionCallFunc = CallFunc::create([=]()
@@ -158,7 +153,7 @@ void SunFlower::createSuns()
 	_sun->setSunTag(++_sunTag);
 	_sun->setPosition(_plantAnimation->getPosition());
 	_sun->createSuns();
-	SunsGroup.push_back(_sun);
+	SunsGroup.emplace_back(_sun);
 
 	_isCreateSun = true;
 }
@@ -167,19 +162,8 @@ void SunFlower::createRandomSuns()
 {
 	auto callFunc = CallFunc::create([=]()
 		{
-			Point pos = Point::ZERO;
-			Point pos1 = Point::ZERO;
-
-			if (BigMapGameScene::scrollView)
-			{
-				pos = Vec2(rand() % 2200 + 1700, 2300);
-				pos1 = Vec2(0, -(rand() % 1000) - 1000);
-			}
-			else
-			{
-				pos = Vec2(rand() % 1100 + 500, 1200);
-				pos1 = Vec2(0, -(rand() % 500) - 500);
-			}
+			auto pos = Vec2(rand() % 1100 + 500, 1200);
+			auto pos1 = Vec2(0, -(rand() % 500) - 500);
 
 			auto sun = new Sun(goodsLayerInformation);
 			sun->setSunTag(++_sunTag);
@@ -196,7 +180,7 @@ void SunFlower::createRandomSuns()
 						sun->getSun()->setVisible(false);
 					}), nullptr));
 
-			SunsGroup.push_back(sun);
+			SunsGroup.emplace_back(sun);
 		});
 
 	_node->runAction(RepeatForever::create(Sequence::create(DelayTime::create(5), callFunc, DelayTime::create(20), nullptr)));

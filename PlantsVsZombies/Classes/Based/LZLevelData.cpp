@@ -149,22 +149,22 @@ bool LevelData::readLevelData(const char* LevelName)
 
 		for (unsigned int i = 0; i < (*_document)[LevelName]["GameType"].Size(); i++)
 		{
-			_gameType.push_back((*_document)[LevelName]["GameType"][i].GetInt());
+			_gameType.emplace_back((*_document)[LevelName]["GameType"][i].GetInt());
 		}
 
 		for (unsigned int i = 0; i < (*_document)[LevelName]["ZombiesType"].Size(); i++)
 		{
-			_zombiesType.push_back((*_document)[LevelName]["ZombiesType"][i].GetInt());
+			_zombiesType.emplace_back((*_document)[LevelName]["ZombiesType"][i].GetInt());
 		}
 
 		for (unsigned int i = 0; i < (*_document)[LevelName]["MunchZombiesFrequency"].Size(); i++)
 		{
-			_munchZombiesFrequency.push_back((*_document)[LevelName]["MunchZombiesFrequency"][i].GetInt());
+			_munchZombiesFrequency.emplace_back((*_document)[LevelName]["MunchZombiesFrequency"][i].GetInt());
 		}
 
 		for (unsigned int i = 0; i < (*_document)[LevelName]["ZombiesNumbers"].Size(); i++)
 		{
-			_zombiesNumbers.push_back((*_document)[LevelName]["ZombiesNumbers"][i].GetInt());
+			_zombiesNumbers.emplace_back((*_document)[LevelName]["ZombiesNumbers"][i].GetInt());
 		}
 
 		vector<int> v;
@@ -173,9 +173,9 @@ bool LevelData::readLevelData(const char* LevelName)
 			v.clear();
 			for (unsigned int j = 0; j < (*_document)[LevelName]["ZombiesTypeProbability"][i].Size(); j++)
 			{
-				v.push_back((*_document)[LevelName]["ZombiesTypeProbability"][i][j].GetInt());
+				v.emplace_back((*_document)[LevelName]["ZombiesTypeProbability"][i][j].GetInt());
 			}
-			_zombiesTypeProbabilityFrequency.push_back(v);
+			_zombiesTypeProbabilityFrequency.emplace_back(v);
 		}
 
 		setGameTypes(LevelName);
@@ -220,7 +220,7 @@ void LevelData::setGameTypes(const char* LevelName)
 			{
 				MyPoint.x = (*_document)[LevelName]["NoPlants"][j][0].GetInt();
 				MyPoint.y = (*_document)[LevelName]["NoPlants"][j][1].GetInt();
-				_noPlantsPosition.push_back(MyPoint);
+				_noPlantsPosition.emplace_back(MyPoint);
 			}
 		}
 		break;

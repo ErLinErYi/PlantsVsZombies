@@ -86,12 +86,14 @@ void Jalapeno::showExplodeAnimation()
 	float left = GRASS_POSITION_LEFT;
 	float hight = 122;
 	float bottom = _plantAnimation->getPositionY() - 10;
-	if (BigMapGameScene::scrollView)
+	float scale = 1.f;
+	if (BigMapGameScene::bigMapWorld)
 	{
 		row = 18;
-		left = GRASS_BIGMAP_POSITION_LEFT;
-		hight = 121;
-		bottom = _plantAnimation->getPositionY() - 25;
+		left = GRASS_BIGMAP_POSITION_LEFT - 20;
+		hight = 77;
+		bottom = _plantAnimation->getPositionY() - 35;
+		scale = 0.6f;
 	}
 
 	for (unsigned int i = 0; i < row; i++)
@@ -99,7 +101,7 @@ void Jalapeno::showExplodeAnimation()
 		auto jalapenoFire = SkeletonAnimation::createWithData(_global->userInformation->getAnimationData().find("Jalapeno_Fire")->second);
 		jalapenoFire->setPosition(Vec2(left + hight * i + 60, bottom));
 		jalapenoFire->setAnimation(0, "animation", false);
-		jalapenoFire->setScaleY(3.0f);
+		jalapenoFire->setScale(scale, 3.0f);
 		jalapenoFire->setLocalZOrder(_plantAnimation->getLocalZOrder() + 100); // 植物绘制顺序加100正好等于僵尸绘制顺序 ，爆炸就可以覆盖到僵尸上面
 		jalapenoFire->runAction(Sequence::create(DelayTime::create(2.f),
 			CallFunc::create([jalapenoFire]()

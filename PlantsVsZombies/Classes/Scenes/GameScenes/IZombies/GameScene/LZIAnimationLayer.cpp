@@ -69,7 +69,7 @@ void IAnimationLayer::createZombies(ZombiesType type, float xPosition)
 	zombies->setZombieInRow(controlLayerInformation->_plantsPosition.y);
 	zombies->setZombieAttributeForGameTypeInvalid(true);
 	zombies->createZombie();
-	ZombiesGroup.push_back(zombies);
+	ZombiesGroup.emplace_back(zombies);
 	Zombies::zombiesNumbersChange("++");
 }
 
@@ -94,7 +94,7 @@ void IAnimationLayer::showBrain()
 			b.brain = brain;
 			b.enable = true;
 			b.row = i;
-			BrainGroup.push_back(b);
+			BrainGroup.emplace_back(b);
 		}
 	}
 }

@@ -21,4 +21,5 @@ CC_CONSTRUCTOR_ACCESS:
 protected:
 	virtual void createBackGroundEffect() override;
 	virtual void showPreviewZombies() override;
+	virtual Vec2 getPreviewZombiesPosition(UID& n1, UID& n2);
 };

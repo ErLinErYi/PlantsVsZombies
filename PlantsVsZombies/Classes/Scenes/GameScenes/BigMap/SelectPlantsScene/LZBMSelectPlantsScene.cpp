@@ -60,7 +60,7 @@ void BMSelectPlantsScene::controlShowRequirement()
 
 void BMSelectPlantsScene::selectPlantsCallBack()
 {
-	_scrollView->setContentOffsetInDuration(Vec2(-105, 0), 2.0f, 1);//设置滚动方向与时间
+	_scrollView->setContentOffsetInDuration(Vec2(-370, 0), 2.0f, 1);//设置滚动方向与时间
 
 	_eventType = SPSEventType::playGame;
 }
@@ -84,7 +84,7 @@ void BMSelectPlantsScene::eventUpdate(SPSEventType eventType)
 		}
 		break;
 	case SPSEventType::playGame:
-		if (_scrollView->getContentOffset().x >= -105)
+		if (_scrollView->getContentOffset().x >= -370)
 		{
 			/* 播放音乐 */
 			_eventType = SPSEventType::null;

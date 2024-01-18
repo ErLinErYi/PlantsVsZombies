@@ -127,7 +127,7 @@ void HButtonLayer::createHammerButton()
 		button->setTag(i);
 		this->addChild(button);
 
-		hammerButton.push_back(button);
+		hammerButton.emplace_back(button);
 
 		loadButtonInforamtion(button);
 		button->addTouchEventListener([=](Ref* sender, ui::Widget::TouchEventType type)

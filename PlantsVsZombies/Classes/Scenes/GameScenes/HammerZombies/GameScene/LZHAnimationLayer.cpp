@@ -67,7 +67,7 @@ void HAnimationLayer::showCars()
 					car->setScale(0.8f);
 					car->showCar(CarType::FutureCar);
 
-					CarsGroup.push_back(car);
+					CarsGroup.emplace_back(car);
 				}), nullptr));
 		}
 	}
@@ -86,6 +86,6 @@ void HAnimationLayer::createZombies(const float mulSpeed, const float addSpeed, 
 	zombies->setZombieCurrentSpeed(zombies->getZombieCurrentSpeed() * mulSpeed + addSpeed);
 	zombies->getZombieAnimation()->setTimeScale(zombies->getZombieAnimation()->getTimeScale() * mulSpeed + addSpeed);
 	zombies->setZombieDieRewardCoinPrecent(40);
-	ZombiesGroup.push_back(zombies);
+	ZombiesGroup.emplace_back(zombies);
 	Zombies::zombiesNumbersChange("++");
 }

@@ -376,7 +376,7 @@ void Zombies::rewardCoin(Zombies* zombies)
 		coin->setPosition(zombies->getZombieAnimation()->getPosition());	
 		coin->createCoin();
 
-		CoinsGroup.push_back(coin);
+		CoinsGroup.emplace_back(coin);
 	}
 }
 

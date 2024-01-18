@@ -37,8 +37,8 @@ void BMBackgroundLayer::setBackgroundImagePosition()
 	if (background != nullptr)
 	{
 		background->setAnchorPoint(Point(0, 0));
-		background->setContentSize(Size(5860, 2160));
-		background->setPosition(Vec2(0, 0));
+		background->setContentSize(Size(2930, 1081));
+		background->setPosition(Vec2(-370, 0));
 		this->addChild(background);
 	}
 }

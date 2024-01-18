@@ -54,7 +54,7 @@ void TSPSBackgroundLayer::showPreviewZombies()
 		previewzombies.animation = zombies->getZombieAnimation();
 		previewzombies.position_y = previewzombies.animation->getPositionY();
 		previewzombies.position_x = previewzombies.animation->getPositionX();
-		_previewZombies.push_back(previewzombies);
+		_previewZombies.emplace_back(previewzombies);
 	}
 
 	sortZombiesPosition();

@@ -83,7 +83,7 @@ void WaterMelonPult::createBullet()
 	dynamic_cast<Cabbage*>(_bulletAnimation)->setZombieHeight(_zombieHeight);
 	_bulletAnimation->createBullet();
 
-	BulletGroup.push_back(_bulletAnimation);
+	BulletGroup.emplace_back(_bulletAnimation);
 }
 
 SkeletonAnimation* WaterMelonPult::showPlantAnimationAndText()

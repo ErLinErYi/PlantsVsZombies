@@ -29,7 +29,7 @@ protected:
 	virtual void controlPlayMusic() override;
 
 public:
-	static extension::ScrollView* scrollView;
+	static bool bigMapWorld;
 
 protected:
 	Layer* _scrollLayer;
