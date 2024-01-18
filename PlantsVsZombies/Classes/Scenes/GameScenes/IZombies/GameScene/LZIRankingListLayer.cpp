@@ -29,7 +29,7 @@ IRankingListLayer::IRankingListLayer():
 	_mostLevelName("IRANKINGLISTDATAUPLOAD"),
 	_selectClos(1),
 	_mostLevel(0),
-	_sURLList("https://gitee.com/GITLZ/PVZDownLoader/raw/master/ranking.csv")
+	_sURLList("https://raw.githubusercontent.com/ErLinErYi/PVZDownloader/master/ranking.csv")
 {
 	_downloader.reset(new network::Downloader());
 	onSetMaxLevel(max(UserData::getInstance()->openIntUserData(const_cast<char*>("IZOMBIES_MOST_LEVEL")), 1));
@@ -327,7 +327,14 @@ void IRankingListLayer::onParseCsvData()
 							auto own = cocos2d::ui::Text::create();
 							own->setFontName(GAME_FONT_NAME_1);
 							own->setFontSize(GAME_TEXT_SIZE("我的排名名称记录"));
-							own->setString(StringUtils::format(GAME_TEXT("我的排名名称记录").c_str(), i + 1, _global->userInformation->getUserName().c_str(), onGetMaxLevel()));
+							if (i + 1 >= row)
+							{
+								own->setString(StringUtils::format(GAME_TEXT("我的排名名未上榜").c_str(), _global->userInformation->getUserName().c_str(), onGetMaxLevel()));
+							}
+							else
+							{
+								own->setString(StringUtils::format(GAME_TEXT("我的排名名称记录").c_str(), i + 1, _global->userInformation->getUserName().c_str(), onGetMaxLevel()));
+							}
 							own->setPosition(Vec2(660, 57));
 							own->setColor(Color3B(0, 255, 255));
 							this->addChild(own);
