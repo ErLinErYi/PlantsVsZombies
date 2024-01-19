@@ -691,18 +691,55 @@ void LoadingScene::changeFiles()
 
 void LoadingScene::loadFiles(string url)
 {
-	auto path = FileUtils::getInstance()->getWritablePath() + "LZDownloadFile/" + "edition.txt";
-	//string url = "https://gitee.com/GITLZ/LGD/releases/download/V/edition.txt";
-	//string url = "https://github.com/ErLinErYi/PVZDownloader/releases/download/v1.3.6.1/edition.txt";
-
-	_downloader->createDownloadFileTask(url, path, "edition.txt");
-	_downloader->onFileTaskSuccess = [this](const cocos2d::network::DownloadTask& task)
+	bool downloadFile = false;
+	if (downloadFile)
 	{
 		auto path = FileUtils::getInstance()->getWritablePath() + "LZDownloadFile/" + "edition.txt";
-		FileUtils::getInstance()->getStringFromFile(path, [](string data)
+		_downloader->createDownloadFileTask(url, path, "edition.txt");
+		_downloader->onFileTaskSuccess = [this](const cocos2d::network::DownloadTask& task)
+			{
+				auto path = FileUtils::getInstance()->getWritablePath() + "LZDownloadFile/" + "edition.txt";
+				FileUtils::getInstance()->getStringFromFile(path, [](string data)
+					{
+						string editionNetWork, editionNet;
+						for (auto& p : data)
+						{
+							editionNet += p;
+							if (p != '.')
+								editionNetWork += p;
+						}
+
+						if (std::stoul(UserInformation::getClientEdition()) < std::stoul(editionNetWork))
+						{
+							UserInformation::setUpdateRequired(true);
+							UserInformation::setNewEditionName(editionNet);
+						}
+					});
+			};
+
+		_downloader->onTaskError = [this](const cocos2d::network::DownloadTask& task,
+			int errorCode,
+			int errorCodeInternal,
+			const std::string& errorStr)
+			{
+#ifdef DEBUG
+				log("Failed to download : %s, identifier(%s) error code(%d), internal error code(%d) desc(%s)"
+					, task.requestURL.c_str()
+					, task.identifier.c_str()
+					, errorCode
+					, errorCodeInternal
+					, errorStr.c_str());
+#endif // DEBUG
+			};
+	}
+	else
+	{
+		_downloader->createDownloadDataTask(url);
+		_downloader->onDataTaskSuccess = [this](const cocos2d::network::DownloadTask& task,
+			std::vector<unsigned char>& data)
 			{
 				string editionNetWork, editionNet;
-				for (auto& p : data)
+				for (auto p : data)
 				{
 					editionNet += p;
 					if (p != '.')
@@ -714,8 +751,8 @@ void LoadingScene::loadFiles(string url)
 					UserInformation::setUpdateRequired(true);
 					UserInformation::setNewEditionName(editionNet);
 				}
-			});
-	};
+			};
+	}
 
 	auto editionName = UserDefault::getInstance()->getStringForKey("EDITION");
 	if (!editionName.empty())

@@ -47,8 +47,9 @@ void AppDelegate::initGLContextAttrs()
 	GLView::setGLContextAttrs(glContextAttrs);
 }
 
-static int register_all_packages()
-{
+static int register_all_packages( )
+{ 
+	ZipUtils::setPvrEncryptionKey(0xabcdefed, 0xffffffff, 0x19980324, 0x10086111);
 	SpriteFrameCache::getInstance()->addSpriteFramesWithFile(
 		"resources/Images/LoadingScene/LoadingScene.plist",
 		"resources/Images/LoadingScene/LoadingScene.pvr.ccz");
@@ -61,7 +62,7 @@ bool AppDelegate::applicationDidFinishLaunching()
 
 	auto glview = director->getOpenGLView();
 
-	if (!glview)
+	if (!glview) 
 	{
 #if (CC_TARGET_PLATFORM == CC_PLATFORM_WIN32) || (CC_TARGET_PLATFORM == CC_PLATFORM_MAC) || (CC_TARGET_PLATFORM == CC_PLATFORM_LINUX)
 		glview = GLViewImpl::createWithRect(LZPVZNAME, cocos2d::Rect(0, 0, designResolutionSize.width, designResolutionSize.height), 1.0f);

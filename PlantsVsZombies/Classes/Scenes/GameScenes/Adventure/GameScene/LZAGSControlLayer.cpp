@@ -127,10 +127,22 @@ void GSControlLayer::controlCardEnabled()
 		if (buttonLayerInformation->plantsCards[card.cardTag].plantsNeedSunNumbers > _global->userInformation->getSunNumbers())
 		{
 			buttonLayerInformation->plantsCards[card.cardTag].plantsCardText->setColor(Color3B::RED);
+
+			if (_cardActionChange[card.cardTag])
+			{
+				_cardActionChange[card.cardTag] = false;
+				controlCardAction(card.cardTag);
+			}
 		}
 		else
 		{
 			buttonLayerInformation->plantsCards[card.cardTag].plantsCardText->setColor(Color3B::WHITE);
+
+			if (not _cardActionChange[card.cardTag])
+			{
+				_cardActionChange[card.cardTag] = true;
+				controlCardAction(card.cardTag);
+			}
 		}
 		/* 如果卡牌填充倒计时完成 */
 		if (buttonLayerInformation->plantsCards[card.cardTag].timeBarIsFinished)
@@ -146,6 +158,21 @@ void GSControlLayer::controlCardEnabled()
 				buttonLayerInformation->plantsCards[card.cardTag].plantsCards->setColor(Color3B::GRAY);
 			}
 		}
+	}
+}
+
+void GSControlLayer::controlCardAction(const int tag)
+{
+	if (not _cardAction[tag])
+	{
+		_cardAction[tag] = true;
+		buttonLayerInformation->plantsCards[tag].plantsCards->setScale(0.0f);
+		buttonLayerInformation->plantsCards[tag].plantsCards->runAction(
+			Sequence::create(
+				/*EaseBounceOut::create(ScaleTo::create(0.0f, 0.1f)),*/
+				EaseBounceOut::create(ScaleTo::create(0.3f, 1.05f)),
+				EaseBounceOut::create(ScaleTo::create(0.02f, 1.0f)),
+				CallFunc::create([&, tag]() {_cardAction[tag] = false; }), nullptr));
 	}
 }
 

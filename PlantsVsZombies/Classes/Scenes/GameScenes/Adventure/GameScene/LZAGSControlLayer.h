@@ -7,9 +7,11 @@
 
 #pragma once
 #include <random>
+#include <bitset>
 
 #include "cocos2d.h"
 #include "Based/LZGlobalVariable.h"
+#include "Plants/LZPlants.h"
 
 using namespace cocos2d;
 
@@ -57,6 +59,7 @@ protected:
 	virtual void controlRefurbishMusicAndText();                                        /* 控制音乐与文字的刷新*/
 	virtual void createSchedule();                                                      /* 创建定时器 */
 	virtual void controlCardEnabled();                                                  /* 控制卡牌是否可用 */
+	virtual void controlCardAction(const int tag);                                      /* 控制卡牌是动画 */
 	virtual void calculatePlantPosition();                                              /* 计算植物种植位置 */
 	virtual void createMouseListener();                                                 /* 创建鼠标 */
 	virtual void mouseMoveControl();                                                    /* 鼠标移动控制 */
@@ -96,4 +99,6 @@ protected:
 	bool _isShowEggScene;                                // 是否显示
 	bool _isImitater;                                    // 是否模仿者
 	int _levelZombiesFrequence;                          // 僵尸总波数
+	bitset<PLANTSNUMBERS> _cardAction;                   // 卡牌动画
+	bitset<PLANTSNUMBERS> _cardActionChange;             // 卡牌动画切换
 };

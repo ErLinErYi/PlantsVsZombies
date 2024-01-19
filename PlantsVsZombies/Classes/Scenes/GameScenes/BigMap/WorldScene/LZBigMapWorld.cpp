@@ -194,7 +194,7 @@ void BigMapWorld::addScrollView(const int id)
     };
     for (int i = 0; i < _global->userInformation->getUserSelectWorldData().at(id)->levels; ++i)
     {
-        draw->drawSegment(BeginPoint[i], EndPoint[i], 4, Color4F(0, 1, 1, 0.6f));
+        draw->drawSegment(BeginPoint[i], EndPoint[i], 4, _global->userInformation->getGameDifficulty() ? Color4F(0.8f, 0, 0, 0.6f) : Color4F(0, 1, 1, 0.6f));
         draw->runAction(RepeatForever::create(Sequence::create(MoveBy::create(0.05f, Vec2(0.1f, 0.1f)), MoveBy::create(0.05f, Vec2(-0.1f, -0.1f)), nullptr)));
         auto LineAction = Sprite::createWithSpriteFrameName("LineAction.png");
         LineAction->setPosition(EndPoint[i]);

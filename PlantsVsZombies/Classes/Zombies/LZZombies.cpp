@@ -559,8 +559,7 @@ float Zombies::getZombiePositionY() const
 
 bool Zombies::getZombieIsEnterMap() const
 {
-	return (_zombiesAnimation->getPositionX() < controlLayerInformation->gameMapInformation->mapRight)
-		|| getZombieIsEat();
+	return (_zombiesAnimation->getPositionX() <= 1920) || getZombieIsEat();
 }
 
 float Zombies::getZombieCurrentBodyShieldVolume() const
