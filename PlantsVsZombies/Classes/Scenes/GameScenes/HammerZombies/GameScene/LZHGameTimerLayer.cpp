@@ -26,5 +26,4 @@ bool HGameTimerLayer::init()
 
 void HGameTimerLayer::createTimer()
 {
-	schedule([this](float) {_global->checkAnimationInterval();}, 1.f, "FPS");
 }

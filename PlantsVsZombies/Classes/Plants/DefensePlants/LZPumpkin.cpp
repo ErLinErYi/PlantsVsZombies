@@ -15,6 +15,7 @@ int Pumpkin::tagAddition = 10000;
 
 Pumpkin::Pumpkin(Node* node) :
 	_skinId(1),
+	_setZombiesNoteat(false),
 	_plantAnimationBack(nullptr)
 {
 	_node = node;
@@ -90,6 +91,21 @@ void Pumpkin::zombieEatPlant(Zombies* zombie)
 bool Pumpkin::getZombieIsEncounterPlant(Zombies* zombie)
 {
 	return fabs(zombie->getZombiePositionX() - _plantAnimation->getPositionX()) <= 100;
+}
+
+void Pumpkin::setZombieEatPlantControl(Zombies* zombie)
+{
+	if (not _setZombiesNoteat && zombie->getZombieIsEat())
+	{
+		_setZombiesNoteat = true;
+		zombie->setZombieIsEat(false);
+		if (!zombie->getZombieIsPlayDieAnimation()) /* 僵尸没有播放死亡动画 */
+		{
+			zombie->getZombieAnimation()->setTrackEventListener(zombie->getZombieAnimation()->getCurrent(), nullptr);
+		}
+	}
+
+	Plants::setZombieEatPlantControl(zombie);
 }
 
 void Pumpkin::checkPlantHealthPoint()

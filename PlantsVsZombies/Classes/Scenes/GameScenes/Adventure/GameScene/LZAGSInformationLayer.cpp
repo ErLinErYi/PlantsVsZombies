@@ -174,27 +174,32 @@ void GSInformationLayer::showPromptMuchZombiesText(const string& textName)
 
 void GSInformationLayer::createPromptText()
 {
-	auto promptText = Sprite::createWithSpriteFrameName("PromptText.png");
-	promptText->setColor(Color3B::BLACK);
-	promptText->setOpacity(150);
-	promptText->setScaleX(1.3f);
-	promptText->setPosition(Vec2(Director::getInstance()->getWinSize().width / 2.0f, 300));
-	promptText->setName("PromptText");
-	this->addChild(promptText);
+	static bool show = false;
+	if (not show)
+	{
+		show = true;
+		auto promptText = Sprite::createWithSpriteFrameName("PromptText.png");
+		promptText->setColor(Color3B::BLACK);
+		promptText->setOpacity(150);
+		promptText->setScaleX(1.3f);
+		promptText->setPosition(Vec2(Director::getInstance()->getWinSize().width / 2.0f, 300));
+		promptText->setName("PromptText");
+		this->addChild(promptText);
 
-	auto requiretext = Text::create(GAME_TEXT("提示信息"), GAME_FONT_NAME_1, GAME_TEXT_SIZE("提示信息"));
-	requiretext->setColor(Color3B::WHITE);
-	requiretext->setPosition(Vec2(Director::getInstance()->getWinSize().width / 2.0f, 300));
-	requiretext->setName("requiretext");
-	this->addChild(requiretext);
+		auto requiretext = Text::create(GAME_TEXT("提示信息"), GAME_FONT_NAME_1, GAME_TEXT_SIZE("提示信息"));
+		requiretext->setColor(Color3B::WHITE);
+		requiretext->setPosition(Vec2(Director::getInstance()->getWinSize().width / 2.0f, 300));
+		requiretext->setName("requiretext");
+		this->addChild(requiretext);
 
-	promptText->runAction(Sequence::create(DelayTime::create(4.0f), FadeOut::create(1.0f), nullptr));
-	requiretext->runAction(Sequence::create(DelayTime::create(4.0f), FadeOut::create(1.0f),
-		CallFunc::create([=]()
-			{
-				this->removeChildByName("PromptText");
-				this->removeChildByName("requiretext");
-			}), nullptr));
+		promptText->runAction(Sequence::create(DelayTime::create(4.0f), FadeOut::create(1.0f), nullptr));
+		requiretext->runAction(Sequence::create(DelayTime::create(4.0f), FadeOut::create(1.0f),
+			CallFunc::create([=]()
+				{
+					this->removeChildByName("PromptText");
+					this->removeChildByName("requiretext");
+				}), nullptr));
+	}
 }
 
 void GSInformationLayer::setProgressBarPercent(const float precent)

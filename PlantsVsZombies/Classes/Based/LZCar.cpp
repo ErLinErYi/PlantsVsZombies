@@ -131,8 +131,8 @@ void Car::createCarListener()
 {
 	for (auto& zombie : ZombiesGroup)
 	{
-		if (zombie->getZombieIsEnterMap() && zombie->getZombieIsSurvive() &&         /* 僵尸进入地图 && 僵尸没有死亡 */       
-			getZombieIsSameLineWithCar(zombie) && getzombieIsEncounterCar(zombie))   /* 僵尸与小车在同一行 && 僵尸遇到小车 */
+		if (zombie->getZombieAnimation()->getOpacity() > 10 && zombie->getZombieIsSurvive() &&         /* 僵尸进入地图 && 僵尸没有死亡 */
+			getZombieIsSameLineWithCar(zombie) && getzombieIsEncounterCar(zombie))                     /* 僵尸与小车在同一行 && 僵尸遇到小车 */
 		{
 			_isLive = true;
 

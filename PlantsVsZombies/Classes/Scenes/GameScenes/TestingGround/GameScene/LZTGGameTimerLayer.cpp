@@ -26,5 +26,4 @@ bool TGGameTimerLayer::init()
 
 void TGGameTimerLayer::createTimer()
 {
-	schedule([this](float) {_global->checkAnimationInterval(); }, 1.f, "FPS");
 }

@@ -166,7 +166,7 @@ void Zombies::setZombieMove(float delta)
 
 void Zombies::setZombieMoveInformation()
 {
-	if (!getZombieIsShow() && getZombieIsEnterMap())
+	if (!getZombieIsShow())
 	{
 		setZombieIsShow(true);
 		_zombiesAnimation->runAction(FadeIn::create(1.0f));
@@ -559,7 +559,7 @@ float Zombies::getZombiePositionY() const
 
 bool Zombies::getZombieIsEnterMap() const
 {
-	return (_zombiesAnimation->getPositionX() <= 1920) || getZombieIsEat();
+	return (_zombiesAnimation->getPositionX() <= controlLayerInformation->gameMapInformation->mapRight) || getZombieIsEat();
 }
 
 float Zombies::getZombieCurrentBodyShieldVolume() const

@@ -225,7 +225,7 @@ void UpdateClient::addMouseEvent()
 
 void UpdateClient::downloadHistoryText()
 {
-	const string sURLList = "http://qn.lzgd.xyz/history.txt";
+	const string sURLList = "http://www.lzgd.xyz/history.txt";
 	_downloader->createDownloadDataTask(sURLList);
 	_downloader->onDataTaskSuccess = [this](const cocos2d::network::DownloadTask& task,
 		std::vector<unsigned char>& data)
