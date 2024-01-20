@@ -199,6 +199,7 @@ void GSAnimationLayer::plantPlants()
 	plants->setPlantRowAndColumn(controlLayerInformation->_plantsPosition);
 	plants->setPlantTag(SET_TAG(controlLayerInformation->_plantsPosition));
 	plants->createPlantAnimation();
+	plants->setPlantScale(0.9f);
 	
 	PlantsGroup.insert(pair<int, Plants*>(plants->getPlantAnimation()->getTag(), plants));
 }

@@ -645,9 +645,8 @@ void LoadingScene::throwException()
 void LoadingScene::checkEdition()
 {
 #if MYRELEASE
-	//loadFiles("http://qn.lzgd.xyz/edition.txt");
+	//loadFiles("http://www.lzgd.xyz/edition_pc.txt");
 
-	//const string sURLList = "https://raw.gitcode.com/GITLZ/LZD/assets/88";
 	//_downloader->createDownloadDataTask(sURLList);
 	//_downloader->onDataTaskSuccess = [this](const cocos2d::network::DownloadTask& task,
 	//	std::vector<unsigned char>& data)

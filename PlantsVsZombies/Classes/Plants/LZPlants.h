@@ -314,6 +314,11 @@ protected:
 	virtual bool getZombieIsEncounterPlant(Zombies* zombie);
 
 	/**
+	 *获取当前位置是否存在保护类植物
+	 */
+	virtual bool getPositionHasProtectPlants();
+
+	/**
 	 *僵尸吃植物
 	 */
 	virtual void zombieEatPlant(Zombies* zombie);

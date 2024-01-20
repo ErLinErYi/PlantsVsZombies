@@ -60,6 +60,8 @@ GSControlLayer::GSControlLayer():
 ,   _isShowEggScene(false)
 ,   _isImitater(false)
 {
+	_cardAction.reset();
+	_cardActionChange.reset();
 }
 
 GSControlLayer::~GSControlLayer()
@@ -169,9 +171,9 @@ void GSControlLayer::controlCardAction(const int tag)
 		buttonLayerInformation->plantsCards[tag].plantsCards->setScale(0.0f);
 		buttonLayerInformation->plantsCards[tag].plantsCards->runAction(
 			Sequence::create(
-				/*EaseBounceOut::create(ScaleTo::create(0.0f, 0.1f)),*/
-				EaseBounceOut::create(ScaleTo::create(0.3f, 1.05f)),
-				EaseBounceOut::create(ScaleTo::create(0.02f, 1.0f)),
+				EaseBounceOut::create(ScaleTo::create(0.3f, 1.0f)),
+				EaseBounceOut::create(ScaleTo::create(0.05f, 0.95f)),
+				EaseBounceOut::create(ScaleTo::create(0.05f, 1.0f)),
 				CallFunc::create([&, tag]() {_cardAction[tag] = false; }), nullptr));
 	}
 }

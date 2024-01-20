@@ -72,7 +72,6 @@ bool MainMenu::init()
 		this->addChild(update, 10);
 	}
 #endif
-	schedule([this](float) {_global->checkAnimationInterval(); }, 1.f, "FPS");
 
 	return true;
 }

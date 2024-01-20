@@ -25,10 +25,12 @@ protected:
 	virtual bool getZombieIsEncounterPlant(Zombies* zombie) override;
 	virtual void readPlantInforamtion(rapidjson::Document* levelDataDocument, char* key, int i) override;
 	virtual void setPlantOtherInformation(rapidjson::Document* levelDataDocument, char* key, int i) override;
+	virtual void setZombieEatPlantControl(Zombies* zombie) override;
 
 private:
 	SkeletonAnimation* _plantAnimationBack;
 	int _skinId;
+	bool _setZombiesNoteat;
 
 public:
 	static int tagAddition;

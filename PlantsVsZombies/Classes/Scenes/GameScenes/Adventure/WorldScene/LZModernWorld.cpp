@@ -61,7 +61,6 @@ bool ModernWorld::init()
 	createLevelModeText();
     createGoBack();
 	createMouseListener();
-	schedule([this](float) {_global->checkAnimationInterval(); }, 1.f, "FPS");
 
 	return true;
 }

@@ -159,6 +159,7 @@ void PotatoMine::plantExplode()
 void PotatoMine::zombieEatPlant(Zombies* zombie)
 {
 	if (getPlantIsSurvive() && zombie->getZombieIsSurvive() && zombie->getZombieIsCanBeAttack() &&       /* 植物存活 && 僵尸存活 && 僵尸可以被攻击到 */
+		not getPositionHasProtectPlants() &&                                                             /* 植物所在位置没有保护性植物 */
 		getZombieIsSameLineWithPlant(zombie) && getZombieIsEncounterPlant(zombie))                       /* 植物与僵尸在同一行 && 僵尸遇到植物 */
 	{
 		if (_isReady)  /* 土豆雷准备好 */

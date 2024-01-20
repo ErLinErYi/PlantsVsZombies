@@ -122,6 +122,7 @@ void Spikeweed::zombieEatPlant(Zombies* zombie)
 {
 	if (getPlantIsSurvive() && Plants::getZombieIsSameLineWithPlant(zombie) &&   /* 植物存活 && 植物与僵尸在同一行 */
 		Plants::getZombieIsEncounterPlant(zombie) &&                             /* 僵尸遇到植物 */
+		not getPositionHasProtectPlants() &&                                     /* 植物所在位置没有保护性植物 */
 		zombie->getZombieType() == ZombiesType::GargantuarZombies)               /* 僵尸是巨人僵尸 */
 	{
 		if (zombie->getZombieIsSurvive() && !zombie->getZombieIsEat() && zombie->getZombieIsFrozen() != 2)

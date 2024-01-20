@@ -10,6 +10,7 @@
 #include "Zombies/LZZombies.h"
 #include "Scenes/GameScenes/Adventure/GameScene/LZAGSData.h"
 #include "Scenes/GameScenes/Adventure/GameScene/LZAGSBackgroundLayer.h"
+#include "Scenes/GameScenes/Adventure/GameScene/LZAGSControlLayer.h"
 #include "Based/LZPlayMusic.h"
 
 int Plants::plantNumber = -1;
@@ -320,9 +321,15 @@ bool Plants::getZombieIsEncounterPlant(Zombies* zombie)
 	}
 }
 
+bool Plants::getPositionHasProtectPlants()
+{
+	return controlLayerInformation->gameMapInformation->plantPumpkin[static_cast<int>(_rowAndColumn.y)][static_cast<int>(_rowAndColumn.x)];
+}
+
 void Plants::zombieEatPlant(Zombies* zombie)
 {
 	if (getPlantIsSurvive() && Plants::getZombieIsSameLineWithPlant(zombie) &&                  /* 植物存活 && 植物与僵尸在同一行 */
+		not getPositionHasProtectPlants() &&                                                    /* 植物所在位置没有保护性植物 */
 		Plants::getZombieIsEncounterPlant(zombie) && zombie->getZombieIsEatPlants())            /* 僵尸遇到植物 && 僵尸是吃植物的僵尸 */
 	{
 		setZombieEatPlantControl(zombie);

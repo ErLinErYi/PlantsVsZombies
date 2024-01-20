@@ -41,7 +41,6 @@ bool SelectPlantsScene::init()
 	createBackgroundLayer();
 	createControlLayer();
 	schedule([this](float) {eventUpdate(_eventType); }, "event");
-	schedule([this](float) {_global->checkAnimationInterval(); }, 1.f, "FPS");
 
 	return true;
 }
