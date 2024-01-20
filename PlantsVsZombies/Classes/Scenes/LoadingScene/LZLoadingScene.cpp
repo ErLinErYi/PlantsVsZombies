@@ -645,7 +645,7 @@ void LoadingScene::throwException()
 void LoadingScene::checkEdition()
 {
 #if MYRELEASE
-	//loadFiles("http://qn.lzgd.xyz/edition.txt");
+	//loadFiles("http://www.lzgd.xyz/edition.txt");
 
 	//const string sURLList = "https://raw.gitcode.com/GITLZ/LZD/assets/88";
 	//_downloader->createDownloadDataTask(sURLList);
