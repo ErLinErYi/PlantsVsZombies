@@ -1,7 +1,7 @@
 # PlantsVsZombies
 [[English]](README_en_us.md)
 [[русский]](README_ru_ru.MD)
-* **[项目教程博客地址](http://t.csdnimg.cn/rvr8r)**
+* **[本项目详细教程地址](http://t.csdnimg.cn/rvr8r)**
 * **游戏引擎基于版本 Cocos2d-X v3.16**
 * **游戏全部使用c++开发**
 * **如果你刚刚接触Cocos2d-X 这绝对是个不错的入门项目**
@@ -30,7 +30,9 @@
 * 安装visual studio 2017 or visual studio 2019
 * 下载此项目并在visual studio中编译运行<br>
 
-***注意！！！该项目不能直接运行，因为缺少游戏所需要的资源文件。（由于资源文件可能存在侵权问题，所以被移除。如果特别需要并且只是在学习的情况下可以向我索要该资源包。唯一的要求：把star点亮，并截图发给我以证明。如果您觉得这很困难，请您退出此仓库。）更新（2024.04.07）—>资源文件可以通过[百度网盘（提取码:lzpv）](https://pan.baidu.com/s/1e_b84veRSVuh1D7wYVh1ug?pwd=lzpv)链接获取。解压密码：`https://gitlz.gitee.io/lz`***
+***注意！！！该项目不能直接运行，因为缺少游戏所需要的资源文件。（由于资源文件可能存在侵权问题，所以被移除。唯一的要求：把star点亮。如果您觉得这很困难，请您退出此仓库。）***
+<br>
+***资源文件下载地址在项目教程中有给出，教程地址：[项目教程博客地址](http://t.csdnimg.cn/rvr8r)***
 
 ## 最后
 **Author: LZ** <br>
