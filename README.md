@@ -8,7 +8,11 @@
 * **如果是你C++初学者或者其他语言转游戏开发，这个项目没有复杂的语法绝对是一个不错的学习项目**
 * **如果你是游戏开发从业者想做一些类似的游戏，这个项目可能会帮到你或给你一些启发**
 * *!!! 重要*  **这个游戏模仿了原版植物大战僵尸。不要用于商业用途，否则后果自负**
-* **官网: https://gitlz.gitee.io/lz**
+* **官网: 
+游戏下载网址：<br>
+https://erlineryi.github.io/LZ <br>
+http://www.lzgd.xyz/web/index.html <br>
+https://gitlz.gitee.io/lz**
 
 ## 项目说明 <br>
 - 此游戏全部由本人自己制作完成。游戏具有可玩性（目前有104个关卡），今后会不定时更新（不断完善）。
@@ -17,7 +21,7 @@
 - 此游戏为仅供学习交流使用,不得用于商业用途，否则后果自负。
 - 目前有14种僵尸和13种植物，植物和僵尸的动画都是本人做的，由于做动画的能力有限，有些僵尸和植物动画不能实现.（动画使用Dragonbones/Spine制作）。
 - 如果发现程序有什么问题或者对游戏有什么建议可以发送到我的qq：2117610943或者Email：2117610943@qq.com。
-- [【可运行文件下载】](https://gitlz.gitee.io/lz)[【视频演示】](https://www.bilibili.com/video/BV1kh411Q7W5?share_source=copy_web)
+- [【可运行文件下载】](http://www.lzgd.xyz/web/index.html)[【视频演示】](https://www.bilibili.com/video/BV1kh411Q7W5?share_source=copy_web)
 
 ## 项目类图
 ![ClassDiagram](https://gitee.com/GITLZ/PlantsVsZombies/raw/master/ClassDiagram.png)
@@ -38,4 +42,7 @@
 **Author: LZ** <br>
 **QQ: 2117610943** <br>
 **Email: 2117610943@qq.com** <br>
-**Website: https://gitlz.gitee.io/lz** <br>
+**Website：<br>
+https://erlineryi.github.io/LZ <br>
+http://www.lzgd.xyz/web/index.html <br>
+https://gitlz.gitee.io/lz**
