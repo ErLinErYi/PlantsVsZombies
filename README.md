@@ -36,6 +36,7 @@ https://gitlz.gitee.io/lz**
 
 ***注意！！！该项目不能直接运行，因为缺少游戏所需要的资源文件。（由于资源文件可能存在侵权问题，所以被移除。唯一的要求：把star点亮。如果您觉得这很困难，请您退出此仓库。）***
 <br>
+**更新：**
 ***资源文件下载地址在项目教程（二）中有给出，教程地址：[项目教程博客地址](http://t.csdnimg.cn/rvr8r)***
 
 ## 最后
@@ -46,3 +47,5 @@ https://gitlz.gitee.io/lz**
 https://erlineryi.github.io/LZ <br>
 http://www.lzgd.xyz/web/index.html <br>
 https://gitlz.gitee.io/lz**
+
+[linux版本地址](https://github.com/Xi-Gong/Plants-Vs-Zombies)
