@@ -23,7 +23,7 @@ public:
 
 CC_CONSTRUCTOR_ACCESS:
     Chomper(Node* node = nullptr);
-    virtual ~Chomper();
+    ~Chomper();
 
 protected:
     virtual void createListener() override;

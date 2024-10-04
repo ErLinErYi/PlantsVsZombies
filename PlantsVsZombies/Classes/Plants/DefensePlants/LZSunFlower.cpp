@@ -112,7 +112,12 @@ void SunFlower::sunRecovery(Sun* sun)
 {
 	auto pos = Vec2(290, 1025);
 	auto temporary = sun->getSun();
-	
+	//if (BigMapGameScene::scrollView)
+	//{
+	//	pos = pos * 2 + Vec2(200, 10);
+	//	temporary->setGlobalZOrder(1);
+	//}
+
 	auto actionMoveTo = EaseSineOut::create(MoveTo::create(sun->calculateMoveTime(), pos));
 	auto actionScaleFade = Spawn::create(ScaleTo::create(0.2f, 0.3f), FadeOut::create(0.2f), nullptr);
 	auto actionCallFunc = CallFunc::create([=]()
@@ -131,7 +136,7 @@ void SunFlower::sunRecovery(Sun* sun)
 	{
 		auto offset = BigMapGameScene::scrollView->getContentOffset();
 		auto point = temporary->getPosition();
-		
+
 		temporary->retain();
 		temporary->removeFromParent();
 		informationLayerInformation->addChild(temporary);
@@ -257,13 +262,16 @@ Sun::Sun(Node* node) :
 void Sun::createSuns(float scale)
 {
 	_sun = SkeletonAnimation::createWithData(_global->userInformation->getAnimationData().find("Sun")->second);
-	_sun->addAnimation(0, "Sun_rotate", true);
-	_sun->setPosition(_position);
-	_sun->update(0);
-	_sun->runAction(Sequence::create(
-		Spawn::create(ScaleTo::create(0.5f, scale), JumpBy::create(0.6f, Vec2(rand() % 180 - 90, 0), rand() % 100 + 100, 1), nullptr),
-		DelayTime::create(14), FadeOut::create(0.5f), DelayTime::create(5.0f), CallFunc::create([this]() {_sun->setVisible(false); }), nullptr));
-	_node->addChild(_sun);
+	if (_sun)
+	{
+		_sun->addAnimation(0, "Sun_rotate", true);
+		_sun->setPosition(_position);
+		_sun->update(0);
+		_sun->runAction(Sequence::create(
+			Spawn::create(ScaleTo::create(0.5f, scale), JumpBy::create(0.6f, Vec2(rand() % 180 - 90, 0), rand() % 100 + 100, 1), nullptr),
+			DelayTime::create(14), FadeOut::create(0.5f), DelayTime::create(5.0f), CallFunc::create([this]() {_sun->setVisible(false); }), nullptr));
+		_node->addChild(_sun);
+	}
 }
 
 void Sun::setSunTag(const int& sunTag)

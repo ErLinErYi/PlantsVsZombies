@@ -18,7 +18,7 @@ public:
 
 CC_CONSTRUCTOR_ACCESS:
 	FirePeaShooter(Node* node = nullptr);
-	virtual ~FirePeaShooter();
+	~FirePeaShooter();
 
 protected:
 	virtual void createBullet() override;

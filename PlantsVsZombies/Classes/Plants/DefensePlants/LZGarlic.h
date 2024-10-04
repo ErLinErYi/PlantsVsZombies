@@ -18,7 +18,7 @@ public:
 
 CC_CONSTRUCTOR_ACCESS:
 	Garlic(Node* node = nullptr);
-	virtual ~Garlic();
+	~Garlic();
 
 private:
 	void zombieEatPlant(Zombies* zombie) override;

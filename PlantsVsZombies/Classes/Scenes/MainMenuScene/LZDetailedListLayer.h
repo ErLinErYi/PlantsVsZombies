@@ -20,25 +20,29 @@ CC_CONSTRUCTOR_ACCESS:
 	~DetailedList();
 	virtual bool init() override;
 
-private:
+protected:
 	void onShowChart(const string& gName, const Vec2& gPos,
 		string* mName, Vec2* mPos,
 		string* mNumber, Vec2* mNPos,
 		Vec2* pos, float* number, Color4F* color, int id = 2);
 
-	int getWorldMostLevel(bool dif, int id);
-	void onShowBackButton();
+	int getWorldMostLevel(int mode, int id);
+	virtual void onShowBackButton();
 	void onShowOtherThings();
 	void onShowTextData(const string& name, const string& name2, const Vec2& pos, const Vec2& pos2, int size = 25, int size2 = 25);
 	void onShowSumList();
 
-private:
+protected:
 	DrawNode* _drawNode;
 	DrawNode* _drawAction;
 	int _modernPLevel;
 	int _modernKLevel;
+	int _modernLLevel;
+	int _modernMLevel;
 	int _bigMapPLevel;
 	int _bigMapKLevel;
+	int _bigMapLLevel;
+	int _bigMapMLevel;
 	int _hammerLevel;
 	int _testGroundLevel;
 	int _izeLevel;

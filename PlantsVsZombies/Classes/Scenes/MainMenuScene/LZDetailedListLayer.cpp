@@ -1,11 +1,12 @@
 ﻿/**
- *Copyright (c) 2021 LZ.All Right Reserved
+ *Copyright (c) 2020 LZ.All Right Reserved
  *Author : LZ
  *Date: 2021.11.20
  *Email: 2117610943@qq.com
  */
 #include "LZDetailedListLayer.h"
 #include "Scenes/GameScenes/IZombies/GameScene/LZIRankingListLayer.h"
+#include "Scenes/GameScenes/Adventure/WorldScene/LZDonateLayer.h"
 #include "Based/LZUserData.h"
 #include "Based/LZPlayMusic.h"
 #include "Based/LZDefine.h"
@@ -46,39 +47,55 @@ bool DetailedList::init()
 	_drawNode->drawSolidRect(Vec2(970, 20), Vec2(1900, 1060), Color4F(0.2f, 0.2f, 0.2f, 0.7f));
 	this->addChild(_drawNode);
 
-	_modernPLevel = getWorldMostLevel(false, 1);
-	_modernKLevel = getWorldMostLevel(true, 1);
+	_modernPLevel = getWorldMostLevel(0, 1);
+	_modernKLevel = getWorldMostLevel(1, 1);
+	_modernLLevel = getWorldMostLevel(2, 1);
+	_modernMLevel = getWorldMostLevel(3, 1);
 
-	_bigMapPLevel = getWorldMostLevel(false, 2);
-	_bigMapKLevel = getWorldMostLevel(true, 2);
+	_bigMapPLevel = getWorldMostLevel(0, 2);
+	_bigMapKLevel = getWorldMostLevel(1, 2);
+	_bigMapLLevel = getWorldMostLevel(2, 2);
+	_bigMapMLevel = getWorldMostLevel(3, 2);
 
 	_hammerLevel = UserData::getInstance()->openIntUserData(const_cast<char*>("MOST_HAMMERZOMBIES_LEVEL_NUMBER"));
 	_testGroundLevel = UserData::getInstance()->openIntUserData(const_cast<char*>("TESTINGGROUND"));
 	_izeLevel = UserData::getInstance()->openIntUserData(const_cast<char*>("IZOMBIES_MOST_LEVEL"));
 	
 	
-	string mName[3] = { GAME_TEXT("简单模式"),GAME_TEXT("噩梦模式") };
-	string mNumber[3] = { to_string(_modernPLevel) + " / 52",to_string(_modernKLevel) + " / 52" };
-	Vec2 mPos[3] = { Vec2(40, 940) ,Vec2(40, 860) };
-	Vec2 mNPos[3] = { Vec2(440, 940) ,Vec2(440, 860) };
-	Vec2 pos[3] = { Vec2(450, 955), Vec2(450, 875) };
-	float number[3] = { _modernPLevel / 52.f * 480, _modernKLevel / 52.f * 480 };
-	Color4F color[3] = { Color4F(0,1,0,0.5f), Color4F(1,0,0,0.5f) };
-	onShowChart(GAME_TEXT("普通世界清单"), Vec2(475, 1020), mName, mPos, mNumber, mNPos, pos, number, color);
+	string mName[4] = { GAME_TEXT("简单模式"),GAME_TEXT("噩梦模式"),GAME_TEXT("地狱模式"),GAME_TEXT("炼狱模式") };
+	string mNumber[4] = { to_string(_modernPLevel) + " / 52",to_string(_modernKLevel) + " / 52", to_string(_modernLLevel) + " / 52",to_string(_modernMLevel) + " / 52" };
+	Vec2 mPos[4] = { Vec2(40, 990) ,Vec2(40, 940), Vec2(40, 890) ,Vec2(40, 840) };
+	Vec2 mNPos[4] = { Vec2(440, 990) ,Vec2(440, 940), Vec2(440, 890) ,Vec2(440, 840) };
+	Vec2 pos[4] = { Vec2(450, 1005), Vec2(450, 955), Vec2(450, 905), Vec2(450, 855) };
+	float number[4] = { _modernPLevel / 52.f * 480, _modernKLevel / 52.f * 480, _modernLLevel / 52.f * 480, _modernMLevel / 52.f * 480 };
+	Color4F color[4] = { Color4F(0,1,0,0.5f), Color4F(1,0,0,0.5f),  Color4F(1, 0.5f, 0, 0.5f), Color4F(0.35f, 0, 0.35f, 0.5f) };
+	onShowChart(GAME_TEXT("普通世界清单"), Vec2(475, 1040), mName, mPos, mNumber, mNPos, pos, number, color, 4);
 
 	mNumber[0] = to_string(_bigMapPLevel) + " / 52";
 	mNumber[1] = to_string(_bigMapKLevel) + " / 52";
-	mPos[0] = Vec2(40, 675);
-	mPos[1] = Vec2(40, 595);
-	mNPos[0] = Vec2(440, 675);
-	mNPos[1] = Vec2(440, 595);
-	pos[0] = Vec2(450, 690);
-	pos[1] = Vec2(450, 610);
+	mNumber[2] = to_string(_bigMapLLevel) + " / 52";
+	mNumber[3] = to_string(_bigMapMLevel) + " / 52";
+	mPos[0] = Vec2(40, 725);
+	mPos[1] = Vec2(40, 675);
+	mPos[2] = Vec2(40, 625);
+	mPos[3] = Vec2(40, 575);
+	mNPos[0] = Vec2(440, 725);
+	mNPos[1] = Vec2(440, 675);
+	mNPos[2] = Vec2(440, 625);
+	mNPos[3] = Vec2(440, 575);
+	pos[0] = Vec2(450, 740);
+	pos[1] = Vec2(450, 690);
+	pos[2] = Vec2(450, 640);
+	pos[3] = Vec2(450, 590);
 	number[0] = _bigMapPLevel / 52.f * 480;
 	number[1] = _bigMapKLevel / 52.f * 480;
-	color[0] = Color4F(1, 0.5f, 0, 0.5f);
-	color[1] = Color4F(0.35f, 0, 0.35f, 0.5f);
-	onShowChart(GAME_TEXT("大地图世界清单"), Vec2(475, 755), mName, mPos, mNumber, mNPos, pos, number, color);
+	number[2] = _bigMapLLevel / 52.f * 480;
+	number[3] = _bigMapMLevel / 52.f * 480;
+	color[0] = Color4F(0, 1, 0, 0.5f);
+	color[1] = Color4F(1, 0, 0, 0.5f);
+	color[2] = Color4F(1, 0.5f, 0, 0.5f);
+	color[3] = Color4F(0.35f, 0, 0.35f, 0.5f);
+	onShowChart(GAME_TEXT("大地图世界清单"), Vec2(475, 775), mName, mPos, mNumber, mNPos, pos, number, color, 4);
 
 	mName[0] = GAME_TEXT("锤僵尸模式原译");
 	mName[1] = GAME_TEXT("植物试炼场模式");
@@ -108,6 +125,7 @@ bool DetailedList::init()
 
 	onShowBackButton();
 
+	//Application::getInstance()->showInsert();
 	return true;
 }
 
@@ -116,7 +134,7 @@ void DetailedList::onShowChart(const string& gName, const Vec2& gPos,
 	string* mNumber, Vec2* mNPos, 
 	Vec2* pos, float* number, Color4F* color, int id)
 {
-	auto gameName = ui::Text::create();
+	auto gameName = cocos2d::ui::Text::create();
 	gameName->setString(gName);
 	gameName->setPosition(gPos);
 	gameName->setFontName(GAME_FONT_NAME_1);
@@ -126,7 +144,7 @@ void DetailedList::onShowChart(const string& gName, const Vec2& gPos,
 
 	for (int i = 0; i < id; ++i)
 	{
-		auto modeName = ui::Text::create();
+		auto modeName = cocos2d::ui::Text::create();
 		modeName->setString(mName[i]);
 		modeName->setPosition(mPos[i]);
 		modeName->setFontName(GAME_FONT_NAME_1);
@@ -134,7 +152,7 @@ void DetailedList::onShowChart(const string& gName, const Vec2& gPos,
 		modeName->setFontSize(25);
 		this->addChild(modeName);
 
-		auto modeNumber = ui::Text::create();
+		auto modeNumber = cocos2d::ui::Text::create();
 		modeNumber->setString(mNumber[i]);
 		modeNumber->setPosition(mNPos[i]);
 		modeNumber->setFontName(GAME_FONT_NAME_2);
@@ -158,17 +176,10 @@ void DetailedList::onShowChart(const string& gName, const Vec2& gPos,
 	}
 }
 
-int DetailedList::getWorldMostLevel(bool dif, int id)
+int DetailedList::getWorldMostLevel(int mode, int id)
 {
-	string worldFile;
-	if (dif)
-	{
-		worldFile = StringUtils::format(Global::getInstance()->userInformation->getSystemDifCaveFileName().c_str(), id);
-	}
-	else
-	{
-		worldFile = StringUtils::format(Global::getInstance()->userInformation->getSystemCaveFileName().c_str(), id);
-	}
+	auto gInfo = Global::getInstance()->userInformation;
+	string worldFile = StringUtils::format(gInfo->getSystemCaveFileName().c_str(), id, mode);
 
 	return max(0, UserData::getInstance()->openIntUserData(const_cast<char*>(worldFile.c_str())) - 1);
 }
@@ -180,7 +191,7 @@ void DetailedList::onShowBackButton()
 	button->setTitleColor(Color3B(0, 255, 255));
 	button->setTitleFontSize(GAME_TEXT_SIZE("退出"));
 	button->setScale(2.0f);
-	button->setPosition(Vec2(1785, 50));
+	button->setPosition(Vec2(1785, 100));
 	this->addChild(button);
 	button->addTouchEventListener([&](Ref* sender, Widget::TouchEventType type)
 		{
@@ -201,7 +212,7 @@ void DetailedList::onShowBackButton()
 	button2->setTitleColor(Color3B(0, 255, 255));
 	button2->setTitleFontSize(GAME_TEXT_SIZE("排行榜"));
 	button2->setScale(2.0f);
-	button2->setPosition(Vec2(1090, 50));
+	button2->setPosition(Vec2(1090, 100));
 	this->addChild(button2);
 	button2->addTouchEventListener([&](Ref* sender, Widget::TouchEventType type)
 		{
@@ -212,6 +223,26 @@ void DetailedList::onShowBackButton()
 				break;
 			case Widget::TouchEventType::ENDED:
 				_director->getRunningScene()->addChild(IRankingListLayer::createLayer(), 10, "IRankingListLayer");
+				break;
+			}
+		});
+
+	auto button3 = Button::create("SeedChooser_Button2.png", "SeedChooser_Button2_Glow.png", "", cocos2d::ui::Widget::TextureResType::PLIST);
+	button3->setTitleText(GAME_TEXT("支持作者"));
+	button3->setTitleColor(Color3B(0, 255, 255));
+	button3->setTitleFontSize(GAME_TEXT_SIZE("支持作者"));
+	button3->setScale(2.0f);
+	button3->setPosition(Vec2(1090, 1020));
+	this->addChild(button3);
+	button3->addTouchEventListener([&](Ref* sender, Widget::TouchEventType type)
+		{
+			switch (type)
+			{
+			case Widget::TouchEventType::BEGAN:
+				PlayMusic::playMusic("tap2");
+				break;
+			case Widget::TouchEventType::ENDED:
+				this->addChild(DonateLayer::create());
 				break;
 			}
 		});
@@ -258,12 +289,13 @@ void DetailedList::onShowTextData(const string& name, const string& name2, const
 
 void DetailedList::onShowSumList()
 {
-	auto num = min(_modernPLevel + _modernKLevel + _bigMapPLevel + _bigMapKLevel, 208);
+	auto num = min(_modernPLevel + _modernKLevel + _modernLLevel + _modernMLevel + 
+		           _bigMapPLevel + _bigMapKLevel + _bigMapLLevel + _bigMapMLevel, 416);
 	auto num2 = min(_hammerLevel, 170);
 	auto num3 = min(_testGroundLevel, 200);
 	auto num4 = min(_izeLevel, 251);
 	
-	auto sum = num / 208.f;
+	auto sum = num / 416.f;
 	auto sum2 = num2 / 170.f;
 	auto sum3 = num3 / 200.f;
 	auto sum4 = num4 / 251.f;

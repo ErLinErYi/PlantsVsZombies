@@ -10,17 +10,20 @@
 #include "Zombies/LZZombies.h"
 #include "Scenes/GameScenes/Adventure/GameScene/LZAGSData.h"
 #include "Scenes/GameScenes/Adventure/GameScene/LZAGSControlLayer.h"
+#include "Scenes/GameScenes/BigMap/GameScene/LZBigMapGameScene.h"
 #include "Based/LZPlayMusic.h"
 
 Bullet::Bullet() :
 	_node(nullptr)
 ,   _attack(0)
+,   _scale(BigMapGameScene::bigMapWorld ? 0.7f : 1.f)
 ,   _zombieInExplodeRangeNumbers(0)
 ,   _bulletRow(-1)
 ,   _isUsed(false)
 ,   _animationLoop(true)
 ,   _bulletType(BulletType::None)
 ,   _position(Vec2::ZERO)
+,   _positionOffset(Vec2::ZERO)
 ,   _global(Global::getInstance())
 {
 	srand(time(nullptr));

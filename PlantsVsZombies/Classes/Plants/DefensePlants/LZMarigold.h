@@ -18,7 +18,7 @@ public:
 
 CC_CONSTRUCTOR_ACCESS:
 	Marigold(Node* node = nullptr);
-	virtual ~Marigold();
+	~Marigold();
 
 protected:
 	virtual void cavePlantInformation(rapidjson::Value& object, rapidjson::Document::AllocatorType& allocator) override;

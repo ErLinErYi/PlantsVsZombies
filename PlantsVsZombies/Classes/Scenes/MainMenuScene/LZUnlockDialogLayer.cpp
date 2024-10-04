@@ -99,9 +99,9 @@ void UnlockDialogLayer::createButtons()
 					PlayMusic::playMusic("gravebutton");
 					if (payCoin)
 					{
-						if (_global->userInformation->getCoinNumbers() >= 100)
+						if (_global->userInformation->getCoinNumbers() >= 500)
 						{
-							_global->userInformation->setCoinNumbers(_global->userInformation->getCoinNumbers() - 100);
+							_global->userInformation->setCoinNumbers(_global->userInformation->getCoinNumbers() - 500);
 							UserData::getInstance()->caveUserData(const_cast<char*>("COINNUMBERS"), _global->userInformation->getCoinNumbers());
 							payCoin(true);
 						}

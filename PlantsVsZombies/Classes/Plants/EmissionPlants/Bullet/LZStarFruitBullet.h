@@ -28,7 +28,7 @@ public:
 
 CC_CONSTRUCTOR_ACCESS:
     StarFruitBullet(Node* node = nullptr);
-    virtual ~StarFruitBullet();
+    ~StarFruitBullet();
 
 protected:
     virtual void createShadow() override;

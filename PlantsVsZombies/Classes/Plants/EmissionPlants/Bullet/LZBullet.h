@@ -209,12 +209,14 @@ protected:
 protected:
 	SkeletonAnimation* _bulletAnimation;  // 动画
 	float _attack;                        // 攻击力
+	float _scale;                         // 缩放
 	bool _isUsed;                         // 是否使用
 	bool _animationLoop;                  // 动画循环播放
 	int _bulletRow;                       // 所在行
 	int _zombieInExplodeRangeNumbers;     // 溅射伤害僵尸数
 	Node* _node;                          // 父节点
 	Vec2 _position;                       // 位置
+	Vec2 _positionOffset;                 // 位置偏移
 	string _bulletName;                   // 豌豆名字
 	BulletType _bulletType;               // 子弹类型
 	Global* _global;                      // 全局单例

@@ -10,11 +10,13 @@
 #include "../LZPeaShooter.h"
 #include "Zombies/LZZombies.h"
 #include "Scenes/GameScenes/Adventure/GameScene/LZAGSData.h"
+#include "Scenes/GameScenes/BigMap/GameScene/LZBigMapGameScene.h"
 
 AcidLemonBullet::AcidLemonBullet(Node* node)
 {
     _node = node;
     _attack = 15;
+	_positionOffset = Vec2(70, 90) * (BigMapGameScene::bigMapWorld ? 0.7f : 1.f);
     _bulletType = BulletType::AcidLemonBullet;
 }
 
@@ -26,8 +28,8 @@ void AcidLemonBullet::createBullet()
 {
     bulletInit("LemonJuice", rand() % 2 ? "shoot" : "shoot1");
 
-	_bulletAnimation->setPosition(_position + Vec2(70, 90));
-	_bulletAnimation->setScale(0.9f);
+	_bulletAnimation->setPosition(_position + _positionOffset);
+	_bulletAnimation->setScale(0.9f * _scale);
 	_bulletAnimation->runAction(Sequence::create(MoveBy::create(8.0f, Vec2(8000, rand() % 31 - 15)),
 		CallFunc::create([this]()
 			{

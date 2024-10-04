@@ -27,7 +27,7 @@ void WinterMelonBullet::createBullet()
 
 	bulletInit("WinterMelon", "WinterMelon_Normal");
 
-	_bulletAnimation->setScale(0.8f);
+	_bulletAnimation->setScale(0.8f * _scale);
 	_bulletAnimation->setPosition(_initPosition);
 
 	createShadow(1.5f);

@@ -17,6 +17,7 @@
 #include "Based/LZCoin.h"
 #include "Based/LZUserData.h"
 #include "Based/LZPlayMusic.h"
+#include <Scenes/GameScenes/BigMap/GameScene/LZBigMapGameScene.h>
 
 unsigned int Zombies::_zombiesNumbers = 0;
 int Zombies::_zombiesNewDieNumbers = 0;
@@ -54,6 +55,7 @@ Zombies::Zombies() :
 ,   _isCanDelete{false,false}
 ,   _timeScale(0)
 ,   _isCanMove(true)
+,   _preCurrentSpeed(0)
 ,   _zombieEatPlantNumber(-1)
 ,   _zombieHowlNumbers(0)
 ,   _highLightIntensity(0.5f)
@@ -124,7 +126,7 @@ void Zombies::setZombiesListener()
 		});
 }
 
-void Zombies::setZombieScale(const int& scale) const
+void Zombies::setZombieScale(const float scale) const
 {
 	_zombiesAnimation->setScale(scale);
 }
@@ -936,6 +938,11 @@ void Zombies::zombieLoseHeadAnimation(const std::string& name, const float scale
 
 		showZombieShadow(head, 150);
 		setZombieAttributeForGameType(head);
+
+		if (BigMapGameScene::bigMapWorld)
+		{
+			head->setScale(head->getScale() * 0.7f);
+		}
 	}
 }
 
@@ -1142,6 +1149,7 @@ void Zombies::setZombieActionStop()
 		_timeScale = _zombiesAnimation->getTimeScale();
 		_zombiesAnimation->setColor(Color3B(0, 162, 232));
 		_zombiesAnimation->setTimeScale(0);                                          /* 运动速度0 */
+		_preCurrentSpeed = _currentSpeed;                                            /* 存储冷冻前速度 */
 		_currentSpeed = 0;                                                           /* 移动速度0 */
 	}
 }
@@ -1151,16 +1159,16 @@ void Zombies::setZombieActionRecovery(bool slow)
 	if (slow)
 	{
 		_timerTimeSlow = -1;
+		_bloodVolume > 0 ? _currentSpeed *= 2 : _currentSpeed = 0;
 	}
 	else
 	{
 		_timerTimeStop = -1;
+		_bloodVolume > 0 ? _currentSpeed = _preCurrentSpeed : _currentSpeed = 0;
 	}
 	_isFrozen = 0;
 	_zombiesAnimation->setColor(Color3B::WHITE);
 	_zombiesAnimation->setTimeScale(_timeScale);
-	_bloodVolume > 0 ? _currentSpeed = _speed : _currentSpeed = 0;
-	_isEat = false;
 }
 
 void Zombies::setZombieGLProgram()

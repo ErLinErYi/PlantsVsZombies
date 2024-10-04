@@ -30,9 +30,10 @@
 #include "libpvz.h"
 #pragma comment (lib,"libpvz")
 #endif // !DLLTEST
+#include "LZDefine.h"
 
 UserData* UserData::_instance = nullptr;
-int UserData::_levelDataVersion = 1350;
+int UserData::_levelDataVersion = 1370;
 
 UserData::UserData() :
   _global(Global::getInstance())
@@ -452,6 +453,7 @@ void UserData::caveLevelPlantsData(char* key)
 			object.AddMember("PlantsRow", plant.second->getPlantRow(), allocator);
 			object.AddMember("PlantsColumn", plant.second->getPlantColumn(), allocator);
 			object.AddMember("PlantsLocalZOrder", plant.second->getPlantAnimation()->getLocalZOrder(), allocator);
+			object.AddMember("PlantsScale", plant.second->getPlantAnimation()->getScale(), allocator);
 			object.AddMember("PlantsType", static_cast<int>(plant.second->getPlantType()), allocator);
 			
 			caveLevelPlantsAnimationData(plant.second, object);
@@ -509,6 +511,7 @@ void UserData::caveLevelZombiesData(char* key)
 			object.AddMember("ZombieInRow", zombie->getZombieInRow(), allocator);
 			object.AddMember("ZombieIsFrozen", zombie->getZombieIsFrozen(), allocator);
 			object.AddMember("ZombieLocalZOrder", zombie->getZombieAnimation()->getLocalZOrder(), allocator);
+			object.AddMember("ZombieScale", zombie->getZombieAnimation()->getScale(), allocator);
 			object.AddMember("ZombieType", static_cast<int>(zombie->getZombieType()), allocator);
 			object.AddMember("ZombieOpacity", static_cast<int>(zombie->getZombieAnimation()->getOpacity()), allocator);
 			
@@ -630,6 +633,7 @@ void UserData::caveLevelBulletData(char* key)
 			object.AddMember("BulletAnimationTimeScale", bullet->getBullet()->getTimeScale(), allocator);
 			object.AddMember("bulletInRow", bullet->getBulletInRow(), allocator);
 			object.AddMember("LocalZOrder", bullet->getBullet()->getLocalZOrder(), allocator);
+			object.AddMember("BulletScale", bullet->getBullet()->getScale(), allocator);
 
 			caveLevelBulletAnimationData(bullet, object);
 
@@ -695,12 +699,6 @@ void UserData::caveLevelOtherData(char* key)
 	object.AddMember("LastFrequencyZombiesWasDeath", controlLayerInformation->_zombiesAppearControl->getLastFrequencyZombiesWasDeath(), allocator);
 	object.AddMember("ProgressBarPercent", informationLayerInformation->getProgressBarPercent(), allocator);
 	object.AddMember("ProgressBarLastPercent", informationLayerInformation->getProgressBarLastPercent(), allocator);
-
-	//if (BigMapGameScene::scrollView)
-	//{
-	//	object.AddMember("BigMapOffsetX", BigMapGameScene::scrollView->getContentOffset().x, allocator);
-	//	object.AddMember("BigMapOffsetY", BigMapGameScene::scrollView->getContentOffset().y, allocator);
-	//}
 
 	(*_levelDataDocument)[key].AddMember("OtherData", object, _levelDataDocument->GetAllocator());
 }
@@ -784,10 +782,11 @@ void UserData::openLevelPlantsData(char* key)
 		plants->setPlantPosition(Vec2(
 			(*_levelDataDocument)[key]["Plants"][to_string(i).c_str()]["PlantsPositionX"].GetFloat(),
 			(*_levelDataDocument)[key]["Plants"][to_string(i).c_str()]["PlantsPositionY"].GetFloat()));
-		plants->setPlantLocalZOrder((*_levelDataDocument)[key]["Plants"][to_string(i).c_str()]["PlantsLocalZOrder"].GetInt());
 		plants->setPlantRowAndColumn(Vec2(
 			(*_levelDataDocument)[key]["Plants"][to_string(i).c_str()]["PlantsColumn"].GetInt(),
 			(*_levelDataDocument)[key]["Plants"][to_string(i).c_str()]["PlantsRow"].GetInt()));
+		// plants->setPlantLocalZOrder((*_levelDataDocument)[key]["Plants"][to_string(i).c_str()]["PlantsLocalZOrder"].GetInt());
+		plants->setPlantLocalZOrder(SET_ANIMATION_Z_ORDER(plants->getPlantRowAndColumn()));
 		plants->setPlantTag((*_levelDataDocument)[key]["Plants"][to_string(i).c_str()]["PlantsTag"].GetInt());
 		plants->readPlantInforamtion(_levelDataDocument, key, i);
 		plants->createPlantAnimation();
@@ -798,6 +797,7 @@ void UserData::openLevelPlantsData(char* key)
 		plants->setPlantHealthPoint((*_levelDataDocument)[key]["Plants"][to_string(i).c_str()]["PlantsHealthPoint"].GetFloat());
 		plants->getPlantAnimation()->getChildByName("SplashOfSoil")->setOpacity(0);
 		plants->getPlantAnimation()->getChildByName("BufEffect")->setOpacity(0);
+		plants->setPlantScale((*_levelDataDocument)[key]["Plants"][to_string(i).c_str()]["PlantsScale"].GetFloat(), false);
 
 		plants->setPlantOtherInformation(_levelDataDocument, key, i);
 		PlantsGroup.insert(pair<int, Plants*>(plants->getPlantAnimation()->getTag(), plants));
@@ -848,6 +848,7 @@ void UserData::openLevelZombiesData(char* key)
 		zombies->setZombieCurrentHeadShieldVolume((*_levelDataDocument)[key]["Zombies"][to_string(i).c_str()]["ZombieCurrentHeadShieldVolume"].GetFloat());
 		zombies->getZombieAnimation()->setOpacity((*_levelDataDocument)[key]["Zombies"][to_string(i).c_str()]["ZombieOpacity"].GetInt());
 		zombies->getZombieAnimation()->getChildByName("shadow")->setOpacity(zombies->getZombieAnimation()->getOpacity());
+		zombies->getZombieAnimation()->setScale((*_levelDataDocument)[key]["Zombies"][to_string(i).c_str()]["ZombieScale"].GetFloat());
 		zombies->setZombieIsFrozen((*_levelDataDocument)[key]["Zombies"][to_string(i).c_str()]["ZombieIsFrozen"].GetInt());
 		zombies->setZombieCurrentSpeed((*_levelDataDocument)[key]["Zombies"][to_string(i).c_str()]["ZombieCurrentSpeed"].GetFloat());
 		zombies->setZombieTimerTime((*_levelDataDocument)[key]["Zombies"][to_string(i).c_str()]["ZombieTimerTimeSlow"].GetInt(), true);
@@ -977,6 +978,7 @@ void UserData::openLevelBulletData(char* key)
 		//bullet->getBullet()->setOpacity((*_levelDataDocument)[key]["Bullet"][to_string(i).c_str()]["BulletOpcity"].GetInt());
 		bullet->getBullet()->update((*_levelDataDocument)[key]["Bullet"][to_string(i).c_str()]["BulletAnimationTime"].GetFloat());
 		bullet->getBullet()->setTimeScale((*_levelDataDocument)[key]["Bullet"][to_string(i).c_str()]["BulletAnimationTimeScale"].GetFloat());
+		bullet->getBullet()->setScale((*_levelDataDocument)[key]["Bullet"][to_string(i).c_str()]["BulletScale"].GetFloat());
 		bullet->readBulletAnimationInformation(_levelDataDocument, key, i);
 
 		BulletGroup.emplace_back(bullet);

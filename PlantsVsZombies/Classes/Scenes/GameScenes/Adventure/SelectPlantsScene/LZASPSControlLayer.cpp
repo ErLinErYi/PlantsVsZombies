@@ -13,6 +13,7 @@
 #include "Based/LZPlayMusic.h"
 #include "Based/LZUserData.h"
 #include "Based/LZDefine.h"
+#include <Scenes/GameScenes/Adventure/WorldScene/LZModernWorld.h>
 
 SPSControlLayer::SPSControlLayer():
 	_global(Global::getInstance())
@@ -116,11 +117,13 @@ void SPSControlLayer::createButton()
 
 void SPSControlLayer::showUserName()
 {
-	auto username = Text::create();
-	username->setString("“" + _global->userInformation->getUserName() + "”" + GAME_TEXT("的时空冒险之旅") +
-		_global->userInformation->getCurrentPlayWorldName() +
-		(_global->userInformation->getGameDifficulty() == 1 ? GAME_TEXT("噩梦模式") + " - " : GAME_TEXT("简单模式") + " - ") +
-		StringUtils::format(GAME_TEXT("第 %d 天").c_str(), _global->userInformation->getCurrentPlayLevels()));
+	auto gInfo = _global->userInformation;
+	auto username = cocos2d::ui::Text::create();
+	username->setString("“" + gInfo->getUserName() + "”" +
+		gInfo->getGameText().find("的时空冒险之旅")->second->text +
+		gInfo->getCurrentPlayWorldName() +
+		ModernWorld::getWorldText(gInfo->getGameDifficulty()) + " - " +
+		StringUtils::format(gInfo->getGameText().find("第 %d 天")->second->text.c_str(), gInfo->getCurrentPlayLevels()));
 	username->setFontName(GAME_FONT_NAME_1);
 	username->setFontSize(GAME_TEXT_SIZE("的时空冒险之旅"));
 	username->setColor(Color3B::YELLOW);

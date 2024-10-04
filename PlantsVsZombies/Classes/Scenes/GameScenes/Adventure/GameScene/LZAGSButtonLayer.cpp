@@ -42,7 +42,7 @@ bool GSButtonLayer::init()
 {
 	if(!Layer::init())return false;
 
-	showSeedBank();
+	// showSeedBank();
 	showShovelBank();
 	showNextWaveButton();
 	createPlantsCard();

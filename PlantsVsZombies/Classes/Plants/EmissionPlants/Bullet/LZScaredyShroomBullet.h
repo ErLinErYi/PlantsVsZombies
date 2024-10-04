@@ -28,7 +28,7 @@ public:
 
 CC_CONSTRUCTOR_ACCESS:
 	ScaredyShroomBullet(Node* node = nullptr);
-	virtual ~ScaredyShroomBullet();
+	~ScaredyShroomBullet();
 
 private:
 	void createBulletExplode();

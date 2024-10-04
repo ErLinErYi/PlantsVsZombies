@@ -16,7 +16,7 @@ public:
 
 CC_CONSTRUCTOR_ACCESS:
 	Blover(Node* node = nullptr);
-	virtual ~Blover();
+	~Blover();
 
 protected:
 	virtual void createListener() override;

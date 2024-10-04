@@ -20,7 +20,7 @@ public:
 
 CC_CONSTRUCTOR_ACCESS:
 	WaterMelonPult(Node* node = nullptr);
-	virtual ~WaterMelonPult();
+	~WaterMelonPult();
 
 protected:
 	virtual void createBullet() override;

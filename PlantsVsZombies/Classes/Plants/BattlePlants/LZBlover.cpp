@@ -92,7 +92,7 @@ void Blover::plantAttack(Zombies*)
 {
 	for (auto zombie : ZombiesGroup)
 	{
-		if (zombie->getZombieType() == ZombiesType::BalloonZombies && /*getZombieIsTheFrontOfPlant(zombie) &&*/     /* 僵尸是气球僵尸 && 僵尸在植物前方 */
+		if (zombie->getZombieType() == ZombiesType::BalloonZombies && /*getZombieIsTheFrontOfPlant(zombie) &&*/         /* 僵尸是气球僵尸 && 僵尸在植物前方 */
 			getZombieIsSameLineWithPlant(zombie) && zombie->getZombieIsSurvive() && zombie->getZombieIsEnterMap())  /* 僵尸与植物在同一行 && 僵尸没有死亡 && 僵尸进入地图 */
 		{
 			zombie->getZombieAnimation()->runAction(Sequence::create(MoveBy::create(1.f, Vec2(1500, 0)),

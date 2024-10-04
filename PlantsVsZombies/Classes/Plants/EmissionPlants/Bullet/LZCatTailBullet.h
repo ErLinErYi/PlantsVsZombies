@@ -12,7 +12,7 @@ class CatTailBullet :public Bullet
 {
 CC_CONSTRUCTOR_ACCESS:
     CatTailBullet(Node* node = nullptr);
-    virtual ~CatTailBullet();
+    ~CatTailBullet();
 
 protected:
     enum class RatateDirtection

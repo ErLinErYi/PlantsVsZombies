@@ -80,8 +80,8 @@ void Squash::createListener()
 						{
 							_plantAnimation->addAnimation(0, "Squash_LeftDown", false);
 						}), 
-					Spawn::create(EaseExponentialIn::create(MoveBy::create(0.3f, Vec2(0, -230))), 
-						Sequence::create(DelayTime::create(0.25f), CallFunc::create([=]() {plantExplode(); }), nullptr), nullptr),
+					Spawn::create(EaseExponentialIn::create(MoveBy::create(0.3f, Vec2(0, -230))),
+							Sequence::create(DelayTime::create(0.25f), CallFunc::create([=]() {plantExplode(); }), nullptr), nullptr),
 					CallFunc::create([=]() 
 						{
 							PlayMusic::playMusic("gargantuar_thump");
@@ -132,7 +132,7 @@ void Squash::plantAttack(Zombies* zombie)
 				_plantAnimation->setLocalZOrder(_plantAnimation->getLocalZOrder() + 21);
 				_plantAnimation->setAnimation(0, "Squash_LeftJump", false);
 			}
-			else if (checkZombiesPosition(zombie) == 1)
+			else if(checkZombiesPosition(zombie) == 1)
 			{
 				PlayMusic::playMusic(rand() % 2 ? "squash_hmm" : "squash_hmm2");
 				_isUsed = true;
@@ -173,7 +173,7 @@ void Squash::plantExplode()
 			hurtZombies(zombie);
 			zombie->setZombieHurtBlink();
 
-			if (!zombie->getZombieIsSurvive())
+			if (!zombie->getZombieIsSurvive() && zombie->getZombieType() != ZombiesType::GargantuarZombies)
 			{
 				zombie->setZombieVisible(false);
 			}
@@ -183,6 +183,7 @@ void Squash::plantExplode()
 
 bool Squash::getZombieIsInExplodeRange(Zombies* zombie)
 {
+	/* 僵尸是否在爆炸范围判断 */
 	return fabs(zombie->getZombieAnimation()->getPositionX() - _plantAnimation->getPositionX()) < 200;
 }
 

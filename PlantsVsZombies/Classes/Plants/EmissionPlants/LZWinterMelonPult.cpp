@@ -49,7 +49,7 @@ void WinterMelonPult::createPlantAnimation()
 {
 	_plantAnimation = plantInit("WinterMelonPult", "WinterMelonPult_Normal");
 	_plantAnimation->setAnchorPoint(Vec2::ANCHOR_MIDDLE);
-	_plantAnimation->setPosition(_position + Vec2(10, 0));
+	_plantAnimation->setPosition(_position);
 	_node->addChild(_plantAnimation);
 
 	// 影子

@@ -222,7 +222,7 @@ public:
 	/**
 	 *设置僵尸大小
 	 */
-	virtual void setZombieScale(const int& scale) const;
+	virtual void setZombieScale(const float scale) const;
 
 	/**
 	 * 设置僵尸所在行 
@@ -748,6 +748,7 @@ protected:
 	float _currentBodyShieldVolume;           // 当前护盾1血量
 	float _speed;                             // 存储移动速度
 	float _currentSpeed;                      // 移动速度
+	float _preCurrentSpeed;                   // 冷冻前速度
 	bool _isHaveShield;                       // 是否有护盾
 	bool _isUseForGameType;                   // 是否被使用在游戏类型
 	bool _isEat;                              // 是否在吃植物

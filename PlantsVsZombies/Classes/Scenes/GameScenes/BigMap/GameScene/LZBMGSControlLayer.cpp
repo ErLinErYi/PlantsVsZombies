@@ -194,7 +194,7 @@ void BMControlLayer::mouseMoveControl()
 		{
 			checkPlantType(1);
 		}
-		buttonLayerInformation->shovelImage->setPosition(_cur / 2.f + Vec2(35, 50));
+		buttonLayerInformation->shovelImage->setPosition(_cur + Vec2(35, 50));
 	}
 }
 

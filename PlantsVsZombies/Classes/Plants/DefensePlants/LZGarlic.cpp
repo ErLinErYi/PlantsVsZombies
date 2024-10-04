@@ -11,6 +11,7 @@
 #include "Scenes/GameScenes/Adventure/GameScene/LZAGSData.h"
 #include "Scenes/GameScenes/Adventure/SelectPlantsScene/LZASPSSpriteLayer.h"
 #include "Scenes/GameScenes/Adventure/GameScene/LZAGSBackgroundLayer.h"
+#include "Scenes/GameScenes/BigMap/GameScene/LZBigMapGameScene.h"
 #include "Based/LZPlayMusic.h"
 
 Garlic::Garlic(Node* node):
@@ -93,7 +94,7 @@ void Garlic::zombieEatPlant(Zombies* zombie)
 				PlayMusic::playMusic(eateffect[rand() % 3]);
 
 				setPlantHurtBlink();
-				
+
 				zombie->setZombieIsEatGarlic(true);
 				zombie->getZombieAnimation()->setAnimation(0, "Zombies_Eat", true);
 				zombie->getZombieAnimation()->runAction(Sequence::create(DelayTime::create(1.0f),
@@ -196,22 +197,24 @@ bool Garlic::getPlantIsSurvive() const
 
 void Garlic::changeZombiePositionY(Zombies* zombie)
 {
+	int moveDis = BigMapGameScene::bigMapWorld ? 86 : 138;
+
 	if (zombie->getZombieInRow() == 0)
 	{
-		zombie->getZombieAnimation()->runAction(MoveBy::create(0.5f, Vec2(-20, 138)));
+		zombie->getZombieAnimation()->runAction(MoveBy::create(0.5f, Vec2(-20, moveDis)));
 		zombie->getZombieAnimation()->setLocalZOrder(zombie->getZombieAnimation()->getLocalZOrder() - 100);
 		zombie->setZombieInRow(1);
 	}
 	else if (zombie->getZombieInRow() == 4 || zombie->getZombieInRow() == 9)
 	{
-		zombie->getZombieAnimation()->runAction(MoveBy::create(0.5f, Vec2(-20, -138)));
+		zombie->getZombieAnimation()->runAction(MoveBy::create(0.5f, Vec2(-20, -moveDis)));
 		zombie->getZombieAnimation()->setLocalZOrder(zombie->getZombieAnimation()->getLocalZOrder() + 100);
 		zombie->setZombieInRow(zombie->getZombieInRow() - 1);
 	}
 	else
 	{
 		const auto number = rand() % 2;
-		zombie->getZombieAnimation()->runAction(MoveBy::create(0.5f, Vec2(-20, number ? -138 : 138)));
+		zombie->getZombieAnimation()->runAction(MoveBy::create(0.5f, Vec2(-20, number ? -moveDis : moveDis)));
 		zombie->getZombieAnimation()->setLocalZOrder(zombie->getZombieAnimation()->getLocalZOrder() + (number ? 100 : -100));
 		zombie->setZombieInRow(number ? zombie->getZombieInRow() - 1 : zombie->getZombieInRow() + 1);
 	}
@@ -231,7 +234,8 @@ SkeletonAnimation* Garlic::showPlantAnimationAndText()
 	SPSSpriteLayer::createPlantsText(0, lta.find("GARLIC_1")->second->text, Vec2(190, 910), lta.find("GARLIC_1")->second->fontsize);
 	SPSSpriteLayer::createPlantsText(2, lta.find("GARLIC_2")->second->text, Vec2(360, 1000), lta.find("GARLIC_2")->second->fontsize, Color3B::YELLOW, false);
 	SPSSpriteLayer::createPlantsText(3, lta.find("GARLIC_3")->second->text, Vec2(440, 1000), lta.find("GARLIC_3")->second->fontsize, Color3B::RED, false);
-	SPSSpriteLayer::createPlantsText(1, lta.find("GARLIC_4")->second->text, Vec2(360, 870), lta.find("GARLIC_4")->second->fontsize, Color3B::ORANGE, false);
+	SPSSpriteLayer::createPlantsText(1, SPSSpriteLayer::selectRequirementText(lta, PlantsType::Garlic, "GARLIC_4", "GARLIC_5"), Vec2(360, 890),
+		lta.find("GARLIC_4")->second->fontsize, SPSSpriteLayer::isPlantIsCanSelect[static_cast<unsigned int>(PlantsType::Garlic)] ? Color3B::ORANGE : Color3B(255, 70, 0), false);
 	
 	return _plantAnimation;
 }

@@ -9,7 +9,7 @@
 #include "Scenes/GameScenes/Adventure/SelectPlantsScene/LZASPSSpriteLayer.h"
 #include "Scenes/GameScenes/Adventure/GameScene/LZAGSData.h"
 #include "Scenes/GameScenes/Adventure/GameScene/LZAGSAnimationLayer.h"
-#include "Scenes/GameScenes/Adventure/GameScene/LZAGSButtonLayer.h"
+#include "Scenes/GameScenes/BigMap/GameScene/LZBigMapGameScene.h"
 
 Imitater::Imitater(Node* node)
 {
@@ -95,6 +95,7 @@ void Imitater::createOtherPlant()
 	plants->setPlantRowAndColumn(getPlantRowAndColumn());
 	plants->setPlantTag(_plantAnimation->getTag());
 	plants->createPlantAnimation();
+	if (BigMapGameScene::bigMapWorld)plants->setPlantScale(0.7f);
 	_plantAnimation->setTag(-1);
 	
 	PlantsGroup.insert(pair<int, Plants*>(plants->getPlantAnimation()->getTag(), plants));

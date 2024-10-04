@@ -49,7 +49,6 @@ void AppDelegate::initGLContextAttrs()
 
 static int register_all_packages( )
 { 
-	ZipUtils::setPvrEncryptionKey(0xabcdefed, 0xffffffff, 0x19980324, 0x10086111);
 	SpriteFrameCache::getInstance()->addSpriteFramesWithFile(
 		"resources/Images/LoadingScene/LoadingScene.plist",
 		"resources/Images/LoadingScene/LoadingScene.pvr.ccz");

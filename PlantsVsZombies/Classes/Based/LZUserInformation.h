@@ -22,9 +22,9 @@ enum class WorldName
 	Mordern = 0,
 	BigMap,
 	Mirror,
-	FrostibiteCaves,
 	DarkAges,
 	NeonMixtapeTour,
+	FrostibiteCaves,
 	None
 };
 
@@ -80,7 +80,6 @@ public:
 	string& getUserCaveFileName(const int id);
 	string& getUserCaveFileNameKey(const int id);
 	string& getSystemCaveFileName();
-	string& getSystemDifCaveFileName();
 	list<int>& getBackgroundMusic();
 	float getSoundEffectVolume() const;
 	float getBackGroundMusicVolume() const;
@@ -93,13 +92,13 @@ public:
 	int getFps() const;
 	int getCurrentPlayLevels() const;
 	int getCurrentPlayWorldTag() const;
+	int getDynamicDifficultyValue() const;
 	bool getMainToWorld() const;
 	bool getIsUpdate() const;
 	bool getIsShowEggs() const;
 	Sprite* getBackground() const;
 	string& getCurrentPlayWorldName();
 	int getGameDifficulty() const;
-	int getDynamicDifficultyValue() const;
 	bool getIsMirrorScene() const;
 	void setGameDifficulty(const int difficulty);
 	void setCurrentPlayWorldName(const string& worldName);
@@ -145,7 +144,7 @@ public:
 	static bool getUpdateRequired();
 	static void setUpdateRequired(const bool update);
 	static DWORD getScreenDisplayFrequency();
-
+	
 CC_CONSTRUCTOR_ACCESS:
 	UserInformation();
 	~UserInformation();
@@ -178,7 +177,7 @@ private:
 	string _userCaveFileName[8];                         // 用户自己定义存档名称（主要用于显示）
 	string _userCaveFileNameKey[8];                      // 用户存档key
 	string _systemCaveFileName;                          // 系统定义存档名称（用于存取，防止用户定义的为空)
-	string _systemCaveFileName_difficult;                // 系统定义困难存档名称（用于存取，防止用户定义的为空)
+	//string _systemCaveFileName_difficult;                // 系统定义困难存档名称（用于存取，防止用户定义的为空)
 
 	float _soundEffectVolume;                            // 音效
 	float _backGroundMusicVolume;                        // 音乐

@@ -18,7 +18,7 @@ public:
 
 CC_CONSTRUCTOR_ACCESS:
 	Citron(Node* node = nullptr);
-	virtual ~Citron();
+	~Citron();
 
 protected:
 	virtual void createListener() override;

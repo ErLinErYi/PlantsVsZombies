@@ -12,6 +12,7 @@
 #include "Zombies/LZZombies.h"
 #include "Scenes/GameScenes/Adventure/GameScene/LZAGSData.h"
 #include "Scenes/GameScenes/Adventure/GameScene/LZAGSBackgroundLayer.h"
+#include "Scenes/GameScenes/BigMap/GameScene/LZBigMapGameScene.h"
 #include "Based/LZPlayMusic.h"
 
 CitronBullet::CitronBullet(Node* node, int id):
@@ -19,6 +20,7 @@ CitronBullet::CitronBullet(Node* node, int id):
 {
 	_node = node;
 	_attack = 400;
+	_positionOffset = Vec2(0, 70) * (BigMapGameScene::bigMapWorld ? 0.7f : 1.f);
 	_bulletType = BulletType::CitronBullet;
 }
 
@@ -30,8 +32,8 @@ void CitronBullet::createBullet()
 {
     bulletInit("CitronBullet", _animationId ? "animation1" : "animation");
 
-	_bulletAnimation->setPosition(_position + Vec2(0, 70));
-	_bulletAnimation->setScale(1.7f);
+	_bulletAnimation->setPosition(_position + _positionOffset);
+	_bulletAnimation->setScale(1.7f * _scale);
 	_bulletAnimation->runAction(Sequence::create(MoveBy::create(16.0f, Vec2(8000, 0)),
 		CallFunc::create([this]()
 			{

@@ -16,7 +16,7 @@ public:
 
 CC_CONSTRUCTOR_ACCESS:
 	MagnetShroom(Node* node = nullptr);
-	virtual ~MagnetShroom();
+	~MagnetShroom();
 
 protected:
 	virtual void cavePlantInformation(rapidjson::Value& object, rapidjson::Document::AllocatorType& allocator) override;
@@ -28,7 +28,6 @@ protected:
 	virtual bool getZombieIsInRange(Zombies* zombie);
 	virtual void showShieldMoveAction(Zombies* zombie, const bool type);
 	virtual void changeAnimation();
-	virtual void showShield(string name, float scale);
 
 protected:
 	bool _isCanAttack;

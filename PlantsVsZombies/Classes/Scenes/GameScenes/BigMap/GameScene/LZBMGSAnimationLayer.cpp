@@ -81,7 +81,7 @@ void BMAnimationLayer::plantPlants()
 	plants->setPlantRowAndColumn(controlLayerInformation->_plantsPosition);
 	plants->setPlantTag(SET_TAG(controlLayerInformation->_plantsPosition));
 	plants->createPlantAnimation();
-	plants->setPlantScale(0.9f);
+	plants->setPlantScale(0.7f);
 
 	PlantsGroup.insert(pair<int, Plants*>(plants->getPlantAnimation()->getTag(), plants));
 }
@@ -96,7 +96,8 @@ void BMAnimationLayer::createZombies()
 	zombies->setZombiePosition(Vec2(1920 + number(_random), ZombiesAppearControl::zombiesPositionBigMap[row]));
 	zombies->setZombieInRow(row);
 	zombies->createZombie();
-	zombies->setZombieMultipleBloodVolume(4.f);
+	zombies->setZombieMultipleBloodVolume(2.f);
+	zombies->setZombieScale(0.7f);
 	ZombiesGroup.emplace_back(zombies);
 	Zombies::zombiesNumbersChange("++");
 }

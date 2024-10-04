@@ -432,30 +432,33 @@ void InputDataMenu::unlock(int id)
 	{
 		UserData::getInstance()->caveUserData(const_cast<char*>("KILLALLZOMBIES"), 20000);
 		UserData::getInstance()->caveUserData(const_cast<char*>("COINNUMBERS"), 20000);
-		UserData::getInstance()->caveUserData(const_cast<char*>("WORLD_1_LEVELS"), 30);
+		UserData::getInstance()->caveUserData(const_cast<char*>("WORLD_1_LEVELS_0_MODE"), 30);
 	}
 	else if (id > 0)
 	{
 		UserData::getInstance()->caveUserData(const_cast<char*>("KILLALLZOMBIES"), 40000);
 		UserData::getInstance()->caveUserData(const_cast<char*>("COINNUMBERS"), 40000);
 		UserData::getInstance()->caveUserData(const_cast<char*>("ISBEGINSHOWEGGS"), true);
-		UserData::getInstance()->caveUserData(const_cast<char*>("WORLD_1_LEVELS"), 53);
-		UserData::getInstance()->caveUserData(const_cast<char*>("WORLD_1_LEVELS_DIF"), 10);
+		UserData::getInstance()->caveUserData(const_cast<char*>("WORLD_1_LEVELS_0_MODE"), 53);
+		UserData::getInstance()->caveUserData(const_cast<char*>("WORLD_1_LEVELS_1_MODE"), 1);
 
 		if (id > 1)
 		{
 			UserData::getInstance()->caveUserData(const_cast<char*>("KILLALLZOMBIES"), 50000);
 			UserData::getInstance()->caveUserData(const_cast<char*>("COINNUMBERS"), 50000);
-			UserData::getInstance()->caveUserData(const_cast<char*>("WORLD_1_LEVELS_DIF"), 53);
-			UserData::getInstance()->caveUserData(const_cast<char*>("WORLD_2_LEVELS"), 45);
-			UserData::getInstance()->caveUserData(const_cast<char*>("WORLD_2_LEVELS_DIF"), 30);
+			UserData::getInstance()->caveUserData(const_cast<char*>("WORLD_1_LEVELS_1_MODE"), 53);
+			UserData::getInstance()->caveUserData(const_cast<char*>("WORLD_1_LEVELS_2_MODE"), 30);
+			UserData::getInstance()->caveUserData(const_cast<char*>("WORLD_2_LEVELS_0_MODE"), 53);
+			UserData::getInstance()->caveUserData(const_cast<char*>("WORLD_2_LEVELS_1_MODE"), 53);
 
 			if (id > 2)
 			{
 				UserData::getInstance()->caveUserData(const_cast<char*>("KILLALLZOMBIES"), 88888);
 				UserData::getInstance()->caveUserData(const_cast<char*>("COINNUMBERS"), 88888);
-				UserData::getInstance()->caveUserData(const_cast<char*>("WORLD_2_LEVELS"), 53);
-				UserData::getInstance()->caveUserData(const_cast<char*>("WORLD_2_LEVELS_DIF"), 53);
+				UserData::getInstance()->caveUserData(const_cast<char*>("WORLD_1_LEVELS_2_MODE"), 53);
+				UserData::getInstance()->caveUserData(const_cast<char*>("WORLD_1_LEVELS_3_MODE"), 53);
+				UserData::getInstance()->caveUserData(const_cast<char*>("WORLD_2_LEVELS_2_MODE"), 53);
+				UserData::getInstance()->caveUserData(const_cast<char*>("WORLD_2_LEVELS_3_MODE"), 53);
 				UserData::getInstance()->caveUserData(const_cast<char*>("HAMMERZOMBIES_LEVEL_NUMBER"), 150);
 
 				if (id > 3)

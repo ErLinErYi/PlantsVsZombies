@@ -16,7 +16,7 @@ public:
 
 CC_CONSTRUCTOR_ACCESS:
 	WinterMelonBullet(Node* node = nullptr);
-	virtual ~WinterMelonBullet();
+	~WinterMelonBullet();
 
 protected:
 	virtual void bulletAttackHurtZombies(Zombies* zombie) override;

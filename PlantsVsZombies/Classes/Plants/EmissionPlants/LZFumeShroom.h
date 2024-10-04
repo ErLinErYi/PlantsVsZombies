@@ -21,7 +21,7 @@ public:
 
 CC_CONSTRUCTOR_ACCESS:
 	FumeShroom(Node* node = nullptr);
-	virtual ~FumeShroom();
+	~FumeShroom();
 
 protected:
 	virtual void createBullet() override;

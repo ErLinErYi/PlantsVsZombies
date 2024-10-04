@@ -199,7 +199,6 @@ void GSAnimationLayer::plantPlants()
 	plants->setPlantRowAndColumn(controlLayerInformation->_plantsPosition);
 	plants->setPlantTag(SET_TAG(controlLayerInformation->_plantsPosition));
 	plants->createPlantAnimation();
-	plants->setPlantScale(0.9f);
 	
 	PlantsGroup.insert(pair<int, Plants*>(plants->getPlantAnimation()->getTag(), plants));
 }
@@ -237,7 +236,7 @@ void GSAnimationLayer::createZombies()
 		controlLayerInformation->_zombiesAppearControl->createDifferentTypeZombies(
 			controlLayerInformation->_zombiesAppearControl->getZombiesAppearFrequency())), this);
 	const auto row = controlLayerInformation->_zombiesAppearControl->getEqualProbabilityForRow();
-	zombies->setZombiePosition(Vec2(1780 + number(_random), ZombiesAppearControl::zombiesPosition[row]));
+	zombies->setZombiePosition(Vec2(1920 + number(_random), ZombiesAppearControl::zombiesPosition[row]));
 	zombies->setZombieInRow(row);
 	zombies->createZombie();
 	zombies->setZombieAttributeForGameType();

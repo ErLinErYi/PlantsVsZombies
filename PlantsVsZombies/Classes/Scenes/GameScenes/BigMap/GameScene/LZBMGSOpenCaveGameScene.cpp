@@ -33,6 +33,8 @@ bool BMOpenCaveGameScene::init()
 #if CC_TARGET_PLATFORM == CC_PLATFORM_WIN32
 	pauseGame();
 #endif
+
+	bigMapWorld = true;
 	return true;
 }
 

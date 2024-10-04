@@ -20,7 +20,7 @@ public:
 
 CC_CONSTRUCTOR_ACCESS:
 	CatTail(Node* node = nullptr);
-	virtual ~CatTail();
+	~CatTail();
 
 protected:
 	virtual void createBullet() override;

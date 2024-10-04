@@ -9,6 +9,7 @@
 #include "Bullet/LZPea.h"
 #include "Zombies/LZZombies.h"
 #include "Scenes/GameScenes/Adventure/GameScene/LZAGSData.h"
+#include "Scenes/GameScenes/BigMap/GameScene/LZBigMapGameScene.h"
 
 ThreePeaShooter::ThreePeaShooter(Node* node)
 {
@@ -96,11 +97,11 @@ void ThreePeaShooter::createBullet()
 	for (int i = 0; i < 3; ++i)
 	{
 		_bulletAnimation = new Pea(_node);
-		_bulletAnimation->setBulletPosition(_position - Vec2(30, 0));
+		_bulletAnimation->setBulletPosition(_position - Vec2(30, 0) * (BigMapGameScene::bigMapWorld ? 0.7f : 1.f));
 		_bulletAnimation->setBulletInRow(_rowAndColumn.y + 1 - i);
 		dynamic_cast<Pea*>(_bulletAnimation)->setPeaDirectionType(static_cast<Pea::PeaDirectionType>(i));
 		_bulletAnimation->createBullet();
-		_bulletAnimation->getBullet()->setScale(0.9f);
+		_bulletAnimation->getBullet()->setScale(0.9f * (BigMapGameScene::bigMapWorld ? 0.7f : 1.f));
 
 		BulletGroup.emplace_back(_bulletAnimation);
 	}

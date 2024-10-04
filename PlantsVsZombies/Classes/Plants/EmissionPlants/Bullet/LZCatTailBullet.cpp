@@ -9,6 +9,7 @@
 #include "Zombies/LZZombies.h"
 #include "Scenes/GameScenes/Adventure/GameScene/LZAGSData.h"
 #include "Scenes/GameScenes/Adventure/GameScene/LZAGSControlLayer.h"
+#include "Scenes/GameScenes/BigMap/GameScene/LZBigMapGameScene.h"
 #include <cocos/editor-support/spine/extension.h>
 
 CatTailBullet::CatTailBullet(Node* node):
@@ -21,6 +22,7 @@ CatTailBullet::CatTailBullet(Node* node):
 {
     _node = node;
     _attack = 20;
+    _positionOffset = BigMapGameScene::bigMapWorld ? Vec2(55, 45) : Vec2(70, 85);
     _bulletType = BulletType::CatTailBullet;
 }
 
@@ -31,8 +33,8 @@ CatTailBullet::~CatTailBullet()
 void CatTailBullet::createBullet()
 {
     bulletInit("CatTailBullet", "CatTailBullet_Normal");
-    _bulletAnimation->setPosition(_position + Vec2(70, 85));
-    _bulletAnimation->setScale(0.75f);
+    _bulletAnimation->setPosition(_position + _positionOffset);
+    _bulletAnimation->setScale(0.75f * _scale);
     _bulletAnimation->setLocalZOrder(_bulletAnimation->getLocalZOrder() - 100);
     //createShadow();
     createListener();

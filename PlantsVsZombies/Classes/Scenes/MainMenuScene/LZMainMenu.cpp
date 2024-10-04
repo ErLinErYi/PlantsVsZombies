@@ -12,6 +12,7 @@
 #include "LZOptionsSence.h"
 #include "LZUnlockDialogLayer.h"
 #include "LZDetailedListLayer.h"
+#include "LZNoticeLayer.h"
 #include "Scenes/HelpScene/LZHelpScene.h"
 #include "Scenes/LoadingScene/LZLoadingScene.h"
 #include "Scenes/SelectWorldScene/LZSelectWorldScene.h"
@@ -351,11 +352,16 @@ void MainMenu::createFlowers(const float& Scale, const Vec2& vec2, const std::st
 
 bool MainMenu::checkHammerZombiesIsUnLock()
 {
-	auto number = UserData::getInstance()->openIntUserData(const_cast<char*>(
-		StringUtils::format(_global->userInformation->getSystemCaveFileName().c_str(), 1).c_str()));
-	auto number1 = UserData::getInstance()->openIntUserData(const_cast<char*>(
-		StringUtils::format(_global->userInformation->getSystemDifCaveFileName().c_str(), 1).c_str()));
-	return max(number, number1) > static_cast<int>(UnlockDialogLayer::unlockNeedNumbers);
+	for (int i = 0; i < 3; ++i)
+	{
+		auto number = UserData::getInstance()->openIntUserData(const_cast<char*>(
+			StringUtils::format(_global->userInformation->getSystemCaveFileName().c_str(), 1, i).c_str()));
+		if (number > static_cast<int>(UnlockDialogLayer::unlockNeedNumbers))
+		{
+			return true;
+		}
+	}
+	return false;
 }
 
 void MainMenu::checkTestingGroundIsUnLock()
@@ -515,6 +521,25 @@ void MainMenu::createMainButton()
 
 	_sprite[3]->addChild(_menu[0]);
 	this->addChild(_menu[1]);
+
+	auto notice = Button::create("Notice.png", "Notice2.png", "", cocos2d::ui::Widget::TextureResType::PLIST);
+	notice->setAnchorPoint(Vec2(1, 1));
+	notice->setPosition(Vec2(1920, 1080));
+	notice->setScale(0.8f);
+	this->addChild(notice);
+
+	notice->addTouchEventListener([this, notice](Ref* sender, cocos2d::ui::Widget::TouchEventType type)
+		{
+			switch (type)
+			{
+			case cocos2d::ui::Widget::TouchEventType::BEGAN:
+				PlayMusic::playMusic("bleep");
+				break;
+			case cocos2d::ui::Widget::TouchEventType::ENDED:
+				noticeButtonCallBack();
+				break;
+			}
+		});
 }
 
 void MainMenu::createMainSprite()
@@ -590,14 +615,14 @@ void MainMenu::createMainSprite()
 		_sprite[3]->addChild(_mainButton[i]);
 	}
 
-	if (_global->userInformation->getIsShowEggs())
+	auto gInfo = _global->userInformation;
+	if (gInfo->getIsShowEggs())
 	{
 		ui::Button* trophy;
-		if (UserData::getInstance()->openIntUserData(const_cast<char*>(
-			StringUtils::format(_global->userInformation->getSystemDifCaveFileName().c_str(),1).c_str())) > 52)
-			trophy = ui::Button::create("trophy.png", "", "",cocos2d::ui::Widget::TextureResType::PLIST);
+		if (UserData::getInstance()->openIntUserData(const_cast<char*>(StringUtils::format(gInfo->getSystemCaveFileName().c_str(), 1, 1).c_str())) > 52)
+			trophy = cocos2d::ui::Button::create("trophy.png", "", "", cocos2d::ui::Widget::TextureResType::PLIST);
 		else
-			trophy = ui::Button::create("trophy1.png", "", "",cocos2d::ui::Widget::TextureResType::PLIST);
+			trophy = cocos2d::ui::Button::create("trophy1.png", "", "", cocos2d::ui::Widget::TextureResType::PLIST);
 
 		trophy->setPosition(Vec2(-350, 310));
 		trophy->addTouchEventListener([this, trophy](Ref* sender, ui::Widget::TouchEventType type)
@@ -676,6 +701,19 @@ void MainMenu::detailedListCallBack()
 	{
 		detaled->setMouseListener(_mouse);
 		this->addChild(detaled, 1, "_detaled");
+	}
+}
+
+void MainMenu::noticeButtonCallBack()
+{
+	PlayMusic::playMusic("tap2");
+
+	setMouseListenerEnable(false);
+	auto notice = NoticeLayer::create();
+	if (notice)
+	{
+		notice->setMouseListener(_mouse);
+		this->addChild(notice, 1, "_notice");
 	}
 }
 

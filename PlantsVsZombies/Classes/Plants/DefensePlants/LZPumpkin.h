@@ -16,7 +16,7 @@ public:
 	
 CC_CONSTRUCTOR_ACCESS:
 	Pumpkin(Node* node = nullptr);
-	virtual ~Pumpkin();
+	~Pumpkin();
 
 protected:
 	virtual void checkPlantHealthPoint() override;
@@ -26,6 +26,7 @@ protected:
 	virtual void readPlantInforamtion(rapidjson::Document* levelDataDocument, char* key, int i) override;
 	virtual void setPlantOtherInformation(rapidjson::Document* levelDataDocument, char* key, int i) override;
 	virtual void setZombieEatPlantControl(Zombies* zombie) override;
+	virtual void setPlantScale(float scale, bool isGetInitialScale) override;
 
 private:
 	SkeletonAnimation* _plantAnimationBack;

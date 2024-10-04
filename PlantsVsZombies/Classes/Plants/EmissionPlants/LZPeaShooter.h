@@ -21,7 +21,7 @@ public:
 	
 CC_CONSTRUCTOR_ACCESS:
 	PeaShooter(Node* node = nullptr);
-	virtual ~PeaShooter();
+	~PeaShooter();
 
 protected:
 	virtual void createBullet() override;

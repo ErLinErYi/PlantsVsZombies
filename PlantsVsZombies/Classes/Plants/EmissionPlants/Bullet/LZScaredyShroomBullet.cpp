@@ -9,11 +9,13 @@
 
 #include "Zombies/LZZombies.h"
 #include "Scenes/GameScenes/Adventure/GameScene/LZAGSData.h"
+#include "Scenes/GameScenes/BigMap/GameScene/LZBigMapGameScene.h"
 
 ScaredyShroomBullet::ScaredyShroomBullet(Node* node)
 {
 	_node = node;
 	_attack = 20;
+	_positionOffset = Vec2(30, 50) * (BigMapGameScene::bigMapWorld ? 0.7f : 1.f);
 	_bulletType = BulletType::ScaredyShroomBullet;
 }
 
@@ -25,8 +27,8 @@ void ScaredyShroomBullet::createBullet()
 {
 	bulletInit("BubblesBullet", "BubblesBullet_Normal");
 
-	_bulletAnimation->setPosition(_position + Vec2(30, 50));
-	_bulletAnimation->setScale(1.2f);
+	_bulletAnimation->setPosition(_position + _positionOffset);
+	_bulletAnimation->setScale(1.2f * _scale);
 	_bulletAnimation->runAction(Sequence::create(MoveBy::create(16.0f, Vec2(8000, rand() % 31 - 15)),
 		CallFunc::create([this]()
 			{

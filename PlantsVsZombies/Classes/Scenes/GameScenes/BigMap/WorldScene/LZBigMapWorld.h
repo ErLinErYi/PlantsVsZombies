@@ -29,4 +29,5 @@ protected:
     virtual void createBackground() override;
     virtual void addScrollView(const int id) override;
     virtual void showLevels() override;
+    virtual Color4B getWorldColor(int id) override;
 };

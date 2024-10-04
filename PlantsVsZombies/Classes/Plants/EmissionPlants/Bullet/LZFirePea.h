@@ -15,7 +15,7 @@ public:
 
 CC_CONSTRUCTOR_ACCESS:
     FirePea(Node* node);
-    virtual ~FirePea();
+    ~FirePea();
 
 protected:
     virtual void createShadow(Vec2 position = Vec2::ZERO) override;

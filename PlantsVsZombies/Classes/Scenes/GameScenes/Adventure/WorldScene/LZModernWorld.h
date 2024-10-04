@@ -25,6 +25,7 @@ class ModernWorld :public Scene
 public:
 	CREATE_FUNC(ModernWorld);
 	static void setPopEnter(const bool isPopEnter);
+	static string getWorldText(int id);
 
 CC_CONSTRUCTOR_ACCESS:
 	ModernWorld();
@@ -45,6 +46,7 @@ protected:
 	virtual void addScrollView(const int id);
 	virtual void showLevels();
 	virtual void createLevelModeText();
+	virtual Color4B getWorldColor(int id);
 	Sprite* createSprite(const std::string& name, const Vec2& position, const float& scale, const int& zorder, const float& speed, bool IsFlipped = false);
 	Sprite* createSprite(Node* node, const std::string& name, const Vec2& position, const float& scale, const int& zorder,bool IsFlipped = false);
 	void playProhibitMusic(Button* button);

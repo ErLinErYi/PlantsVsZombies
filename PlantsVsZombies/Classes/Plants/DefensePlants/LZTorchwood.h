@@ -20,7 +20,7 @@ public:
 
 CC_CONSTRUCTOR_ACCESS:
 	Torchwood(Node* node = nullptr);
-	virtual ~Torchwood();
+	~Torchwood();
 
 private:
 	void createListener() override;

@@ -90,12 +90,21 @@ void Pumpkin::zombieEatPlant(Zombies* zombie)
 
 bool Pumpkin::getZombieIsEncounterPlant(Zombies* zombie)
 {
-	return fabs(zombie->getZombiePositionX() - _plantAnimation->getPositionX()) <= 100;
+	if (zombie->getZombieType() == ZombiesType::GargantuarZombies)
+	{
+		return zombie->getZombiePositionX() + 50 > _plantAnimation->getPositionX() &&
+			zombie->getZombiePositionX() - _plantAnimation->getPositionX() <= 170;
+	}
+	else
+	{
+		return zombie->getZombiePositionX() + 50 > _plantAnimation->getPositionX() &&
+			zombie->getZombiePositionX() - _plantAnimation->getPositionX() <= 100;
+	}
 }
 
 void Pumpkin::setZombieEatPlantControl(Zombies* zombie)
 {
-	if (not _setZombiesNoteat && zombie->getZombieIsEat())
+	if (not _setZombiesNoteat && zombie->getZombieIsEat() && zombie->getZombieType() != ZombiesType::GargantuarZombies)
 	{
 		_setZombiesNoteat = true;
 		zombie->setZombieIsEat(false);
@@ -106,6 +115,20 @@ void Pumpkin::setZombieEatPlantControl(Zombies* zombie)
 	}
 
 	Plants::setZombieEatPlantControl(zombie);
+}
+
+void Pumpkin::setPlantScale(float scale, bool isGetInitialScale)
+{
+	if (isGetInitialScale)
+	{
+		_plantAnimationBack->setScale(_plantAnimationBack->getScaleY() * scale);
+		_plantAnimation->setScale(_plantAnimation->getScaleY() * scale);
+	}
+	else
+	{
+		_plantAnimationBack->setScale(scale);
+		_plantAnimation->setScale(scale);
+	}
 }
 
 void Pumpkin::checkPlantHealthPoint()

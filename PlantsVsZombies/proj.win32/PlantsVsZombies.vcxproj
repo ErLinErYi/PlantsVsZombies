@@ -465,6 +465,7 @@ xcopy "$(ProjectDir)..\Resources" "$(OutDir)" /D /E /I /F /Y
     <ClCompile Include="..\Classes\Scenes\MainMenuScene\LZDetailedListLayer.cpp" />
     <ClCompile Include="..\Classes\Scenes\MainMenuScene\LZInputDataScene.cpp" />
     <ClCompile Include="..\Classes\Scenes\MainMenuScene\LZMainMenu.cpp" />
+    <ClCompile Include="..\Classes\Scenes\MainMenuScene\LZNoticeLayer.cpp" />
     <ClCompile Include="..\Classes\Scenes\MainMenuScene\LZOptionsSence.cpp" />
     <ClCompile Include="..\Classes\Scenes\MainMenuScene\LZQuitScene.cpp" />
     <ClCompile Include="..\Classes\Scenes\MainMenuScene\LZUnlockDialogLayer.cpp" />
@@ -675,6 +676,7 @@ xcopy "$(ProjectDir)..\Resources" "$(OutDir)" /D /E /I /F /Y
     <ClInclude Include="..\Classes\Scenes\MainMenuScene\LZDetailedListLayer.h" />
     <ClInclude Include="..\Classes\Scenes\MainMenuScene\LZInputDataScene.h" />
     <ClInclude Include="..\Classes\Scenes\MainMenuScene\LZMainMenu.h" />
+    <ClInclude Include="..\Classes\Scenes\MainMenuScene\LZNoticeLayer.h" />
     <ClInclude Include="..\Classes\Scenes\MainMenuScene\LZOptionsSence.h" />
     <ClInclude Include="..\Classes\Scenes\MainMenuScene\LZQuitScene.h" />
     <ClInclude Include="..\Classes\Scenes\MainMenuScene\LZUnlockDialogLayer.h" />

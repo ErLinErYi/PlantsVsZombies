@@ -276,10 +276,9 @@ void UpdateClient::downloadData()
 	_explanText->setColor(Color3B::BLACK);
 	_explanText->setString("");
 
-	// _fileName = "lzscpvz" + UserInformation::getNewEditionName(true) + ".zip";
-	_fileName = "lzscpvz.zip";
+	_fileName = "lzscpvz_setup.exe";
 	auto path = FileUtils::getInstance()->getWritablePath() + "DownloadNewEditionFile/" + _fileName;
-	_downloader->createDownloadFileTask("https://gitee.com/GITLZ/test/releases/download/v/Aurora.exe", path, _fileName);
+	_downloader->createDownloadFileTask("https://github.com/ErLinErYi/PVZDownloader/releases/download/V/lzscpvz_setup.exe", path, _fileName);
 	
 	downloadProgress();
 	downloadSuccess();
@@ -343,9 +342,8 @@ void UpdateClient::downloadSuccess()
 		auto str = FileUtils::getInstance()->getWritablePath() + "DownloadNewEditionFile/" + _fileName;
 		if (FileUtils::getInstance()->isFileExist(str))
 		{
-			//ShellExecute(NULL, L"open", stringToWstring(str), NULL, NULL, SW_SHOWNORMAL);
-			//Director::getInstance()->end();
-			//unCompress(str.c_str());
+			ShellExecute(NULL, L"open", stringToWstring(str), NULL, NULL, SW_SHOWNORMAL);
+			Director::getInstance()->end();
 		}
 		else
 		{

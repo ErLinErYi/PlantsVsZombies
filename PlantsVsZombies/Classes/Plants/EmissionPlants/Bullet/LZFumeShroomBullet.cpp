@@ -8,6 +8,7 @@
 #include "LZFumeShroomBullet.h"
 #include "Zombies/LZZombies.h"
 #include "Scenes/GameScenes/Adventure/GameScene/LZAGSData.h"
+#include "Scenes/GameScenes/BigMap/GameScene/LZBigMapGameScene.h"
 #include "Based/LZPlayMusic.h"
 
 FumeShroomBullet::FumeShroomBullet(Node* node)
@@ -15,6 +16,7 @@ FumeShroomBullet::FumeShroomBullet(Node* node)
 	_node = node;
 	_attack = 20;
 	_animationLoop = false;
+	_positionOffset = Vec2(60, 70) * (BigMapGameScene::bigMapWorld ? 0.7f : 1.f);
 	_bulletType = BulletType::FumeShroomBullet;
 }
 
@@ -26,7 +28,8 @@ void FumeShroomBullet::createBullet()
 {
 	bulletInit("FumeshroomBubbles", "animation");
 
-	_bulletAnimation->setPosition(_position + Vec2(60, 70));
+	_bulletAnimation->setPosition(_position + _positionOffset);
+	_bulletAnimation->setScale(_bulletAnimation->getScale() * _scale);
 	_bulletAnimation->runAction(Sequence::create(DelayTime::create(2.f), 
 		CallFunc::create([=]() 
 			{

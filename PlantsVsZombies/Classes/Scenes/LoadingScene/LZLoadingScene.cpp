@@ -224,6 +224,16 @@ void LoadingScene::loadUserFileData()
 		cocos2d::ui::CheckBox::EventType::SELECTED : cocos2d::ui::CheckBox::EventType::UNSELECTED);
 
 	Global::getInstance()->userInformation->newUserSelectWorldData();
+
+	if (!UserData::getInstance()->openBoolUserData(const_cast<char*>("USERFILE_1371")))
+	{
+		UserData::getInstance()->caveUserData(const_cast<char*>("USERFILE_1371"), true);
+
+		UserData::getInstance()->caveUserData(const_cast<char*>("WORLD_1_LEVELS_0_MODE"), UserData::getInstance()->openIntUserData(const_cast<char*>("WORLD_1_LEVELS")));
+		UserData::getInstance()->caveUserData(const_cast<char*>("WORLD_1_LEVELS_1_MODE"), UserData::getInstance()->openIntUserData(const_cast<char*>("WORLD_1_LEVELS_DIF")));
+		UserData::getInstance()->caveUserData(const_cast<char*>("WORLD_2_LEVELS_0_MODE"), UserData::getInstance()->openIntUserData(const_cast<char*>("WORLD_2_LEVELS")));
+		UserData::getInstance()->caveUserData(const_cast<char*>("WORLD_2_LEVELS_1_MODE"), UserData::getInstance()->openIntUserData(const_cast<char*>("WORLD_2_LEVELS_DIF")));
+	}
 }
 
 void LoadingScene::caveUserFileData()

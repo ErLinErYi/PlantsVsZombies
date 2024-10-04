@@ -16,7 +16,7 @@ public:
 	
 CC_CONSTRUCTOR_ACCESS:
 	WaterMelonBullet(Node* node = nullptr);
-	virtual ~WaterMelonBullet();
+	~WaterMelonBullet();
 
 protected:
 	virtual void bulletAttackHurtZombies(Zombies* zombie) override;

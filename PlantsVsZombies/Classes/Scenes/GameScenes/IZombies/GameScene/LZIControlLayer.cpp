@@ -57,6 +57,8 @@ void IControlLayer::initData()
 {
 	gameMapInformation = new GameMapInformation();
 	gameMapInformation->GameMapInitForIZombies();
+	MAP_INIT(gameMapInformation->plantsMap, NO_PLANTS);
+	MAP_INIT(gameMapInformation->plantPumpkin, false);
 
 	if (!IOpenCaveGameLayer::isReadFile)
 	{

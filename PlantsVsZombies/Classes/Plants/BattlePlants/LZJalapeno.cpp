@@ -12,6 +12,7 @@
 #include "Scenes/GameScenes/Adventure/GameScene/LZAGSBackgroundLayer.h"
 #include "Scenes/GameScenes/BigMap/GameScene/LZBigMapGameScene.h"
 #include "Based/LZPlayMusic.h"
+#include "Based/LZDefine.h"
 
 Jalapeno::Jalapeno(Node* node)
 {

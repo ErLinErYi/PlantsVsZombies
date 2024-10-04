@@ -27,8 +27,8 @@ void FirePea::createBullet()
 {
     bulletInit("FirePea", _peaAnimationName);
 
-    _bulletAnimation->setPosition(_position + Vec2(70, 85));
-    _bulletAnimation->setScale(1.5f);
+    _bulletAnimation->setPosition(_position + _positionOffset);
+    _bulletAnimation->setScale(1.5f * _scale);
 
     setBulletAction();
 }
@@ -125,9 +125,14 @@ void FirePea::createPeaExplode()
 
 void FirePea::recoveryFrozenZombie(Zombies* zombie)
 {
-    if (zombie->getZombieTimerTime() != -1 || zombie->getZombieTimerTime(true) != -1)
+    if (zombie->getZombieTimerTime() != -1)
     {
         zombie->setZombieActionRecovery();
+    }
+
+    if (zombie->getZombieTimerTime(true) != -1)
+    {
+        zombie->setZombieActionRecovery(true);
     }
 }
 

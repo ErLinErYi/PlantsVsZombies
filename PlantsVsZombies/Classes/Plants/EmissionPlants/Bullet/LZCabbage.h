@@ -25,7 +25,7 @@ public:
 
 CC_CONSTRUCTOR_ACCESS:
 	Cabbage(Node* node = nullptr);
-	virtual ~Cabbage();
+	~Cabbage();
 
 protected:
 	virtual void caveBulletInformation(rapidjson::Value& object, rapidjson::Document::AllocatorType& allocator) override;

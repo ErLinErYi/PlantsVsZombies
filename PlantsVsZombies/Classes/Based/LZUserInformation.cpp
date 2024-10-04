@@ -40,11 +40,10 @@ UserInformation::UserInformation():
 , _stretchingShow(CheckBox::EventType::SELECTED)
 , _dynamicDifficult(CheckBox::EventType::UNSELECTED)
 , _selectWorldName(WorldName::Mordern)
-, _systemCaveFileName("WORLD_%d_LEVELS")
-, _systemCaveFileName_difficult("WORLD_%d_LEVELS_DIF")
+, _systemCaveFileName("WORLD_%d_LEVELS_%d_MODE")
+//, _systemCaveFileName_difficult("WORLD_%d_LEVELS_DIF")
 {
     string keyName[] = { "USERNAMEDATA","USERNAMEDATA_2","USERNAMEDATA_3","USERNAMEDATA_4","USERNAMEDATA_5","USERNAMEDATA_6","USERNAMEDATA_7","USERNAMEDATA_8" };
-
     for (int i = 0; i < 8; ++i) 
     {
         _userCaveFileNameKey[i] = keyName[i];
@@ -161,11 +160,6 @@ string& UserInformation::getSystemCaveFileName()
     return _systemCaveFileName;
 }
 
-string& UserInformation::getSystemDifCaveFileName()
-{
-    return _systemCaveFileName_difficult;
-}
-
 list<int>& UserInformation::getBackgroundMusic()
 {
     return _backGroundMusic;
@@ -226,6 +220,11 @@ int UserInformation::getCurrentPlayWorldTag() const
     return _currentPlayWorldTag;
 }
 
+int UserInformation::getDynamicDifficultyValue() const
+{
+    return _dynamicDifficultyValue;
+}
+
 bool UserInformation::getMainToWorld() const
 {
     return _mainToWorld;
@@ -254,11 +253,6 @@ string& UserInformation::getCurrentPlayWorldName()
 int UserInformation::getGameDifficulty() const
 {
     return _gameDifficulty;
-}
-
-int UserInformation::getDynamicDifficultyValue() const
-{
-    return _dynamicDifficultyValue;
 }
 
 bool UserInformation::getIsMirrorScene() const

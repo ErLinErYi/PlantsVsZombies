@@ -21,7 +21,7 @@ public:
 
 CC_CONSTRUCTOR_ACCESS:
 	StarFruit(Node* node = nullptr);
-	virtual ~StarFruit();
+	~StarFruit();
 
 protected:
 	virtual void createBullet() override;

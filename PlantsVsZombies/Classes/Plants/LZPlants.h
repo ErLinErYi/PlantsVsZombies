@@ -28,16 +28,15 @@ enum class PlantsType
 	SunFlower = 0,      /* 向日葵 */
 	PeaShooter,         /* 豌豆射手 */
 	WallNut,            /* 坚果墙 */
-	CherryBomb,         /* 樱桃炸弹 */
 	PotatoMine,         /* 土豆雷 */
 	CabbagePult,        /* 卷心菜投手 */
+	Marigold,           /* 金盏花 */
 	Torchwood,          /* 火炬树桩 */
 	Spikeweed,          /* 地刺 */
 	Garlic,             /* 大蒜 */
 	ScaredyShroom,      /* 胆小姑 */
 	IceBergLettuce,     /* 冰莴苣 */
-	Marigold,           /* 金盏花 */
-	Imitater,           /* 模仿者 */
+	CherryBomb,         /* 樱桃炸弹 */
 	Chomper,            /* 大嘴花 */
 	Squash,             /* 倭瓜 */
 	IcePeaShooter,      /* 寒冰豌豆射手 */
@@ -45,6 +44,7 @@ enum class PlantsType
 	AcidLemonShooter,   /* 强酸柠檬射手 */
 	Blover,             /* 三叶草 */
 	SunFlowerTwin,      /* 双胞向日葵 */
+	Imitater,           /* 模仿者 */
 	WaterMelonPult,     /* 西瓜投手 */
 	Pumpkin,            /* 南瓜头 */
 	Jalapeno,           /* 火爆辣椒 */
@@ -54,9 +54,9 @@ enum class PlantsType
 	ThreePeaShooter,    /* 三头豌豆射手 */
 	StarFruit,          /* 杨桃 */
 	WinterMelonPult,    /* 冰瓜投手 */
-	Citron,             /* 离子缘 */
-	CatTail,            /* 香蒲 */
 	GloomShroom,        /* 忧郁菇 */
+	CatTail,            /* 香蒲 */
+	Citron,             /* 离子缘 */
 	//...
 	None = 34
 };  
@@ -75,8 +75,8 @@ public:
 		Button* plantsCards;            /* 卡牌 */
 		Text* plantsCardText;           /* 卡牌文字 */
 		ProgressTimer* progressTimer;   /* 倒计时 */
-		float plantsCoolTime;           /* 植物冷却时间 */
 		int plantsNeedSunNumbers;       /* 所需阳光 */
+		float plantsCoolTime;           /* 植物冷却时间 */
 		bool timeBarIsFinished;         /* 倒计时是否完成 */
 		int tag;                        /* 编号 */
 	};
@@ -84,17 +84,20 @@ public:
 	struct point { int x, y; };
 	struct PlantsCardInformation
 	{
-		const string information[3];              // 文字信息
-		const unsigned int quality;               // 品质
-		unsigned int priority;                    // 优先级
-		const int plantsNeedSunNumbers;           // 植物所需阳光数
-		const float plantsCoolTime;               // 植物冷却时间
-		float PlantsSurPlusCoolTime;              // 植物剩余冷却时间
-		float PlantsSurPlusPrecent;               // 植物剩余进度百分比
-		const bool flippedX;                      // 左右反转
-		const PlantsType type;                    // 植物类型
-		const Color3B color;                      // 颜色
-		const point requirement{ 0,0 };           // 要求
+		PlantsCardInformation(string, string, string,
+			unsigned int, unsigned int, int, float, float,
+			float, bool, PlantsType, Color3B, int, int);
+		string information[3];              // 文字信息
+		unsigned int quality;               // 品质
+		unsigned int priority;              // 优先级
+		int plantsNeedSunNumbers;           // 植物所需阳光数
+		float plantsCoolTime;               // 植物冷却时间
+		float PlantsSurPlusCoolTime;        // 植物剩余冷却时间
+		float PlantsSurPlusPrecent;         // 植物剩余进度百分比
+		bool flippedX;                      // 左右反转
+		PlantsType type;                    // 植物类型
+		Color3B color;                      // 颜色
+		point requirement{ 0,0 };           // 要求
 	};
 };
 
@@ -198,7 +201,7 @@ public:
 	/**
 	 *设置植物大小
 	 */
-	virtual void setPlantScale(float scale);
+	virtual void setPlantScale(float scale, bool isGetInitialScale = true);
 
 	/**
 	 * 从地图上删除植物 

@@ -10,6 +10,7 @@
 
 #include "Zombies/LZZombies.h"
 #include "Scenes/GameScenes/Adventure/GameScene/LZAGSData.h"
+#include "Scenes/GameScenes/BigMap/GameScene/LZBigMapGameScene.h"
 
 Cabbage::Cabbage(Node* node) :
   _zombiePosition(Vec2::ZERO)
@@ -37,7 +38,7 @@ void Cabbage::createBullet()
 
 	bulletInit("CabbageBullet", "Cabbage_Rotate");
 
-	_bulletAnimation->setScale(0.8f);
+	_bulletAnimation->setScale(0.8f * _scale);
 	_bulletAnimation->setPosition(_initPosition);
 	_bulletAnimation->setAnchorPoint(Vec2(0, 0));
 
@@ -127,12 +128,24 @@ Vec2 Cabbage::calculateZombiePosition()
 	}
 	else
 	{
-		if (fabs(_position.x + 70 - _zombiePosition.x) >= 662)
-			return _zombiePosition + Vec2(_zombieSpeed * 2, 20);
-		else if (fabs(_position.x + 70 - _zombiePosition.x) >= 300)
-			return _zombiePosition + Vec2(_zombieSpeed / 2.f, 20);
+		if (BigMapGameScene::bigMapWorld)
+		{
+			if (fabs(_position.x + 70 - _zombiePosition.x) >= 662)
+				return _zombiePosition + Vec2(_zombieSpeed, 20);
+			else if (fabs(_position.x + 70 - _zombiePosition.x) >= 300)
+				return _zombiePosition + Vec2(_zombieSpeed / 3.f, 20);
+			else
+				return _zombiePosition + Vec2(-_zombieSpeed / 2, 20);
+		}
 		else
-			return _zombiePosition + Vec2(-_zombieSpeed, 20);
+		{
+			if (fabs(_position.x + 70 - _zombiePosition.x) >= 662)
+				return _zombiePosition + Vec2(_zombieSpeed * 2, 20);
+			else if (fabs(_position.x + 70 - _zombiePosition.x) >= 300)
+				return _zombiePosition + Vec2(_zombieSpeed / 2.f, 20);
+			else
+				return _zombiePosition + Vec2(-_zombieSpeed, 20);
+		}
 	}
 }
 

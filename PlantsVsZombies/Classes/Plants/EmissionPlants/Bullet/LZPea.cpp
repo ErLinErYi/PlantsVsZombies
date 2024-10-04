@@ -10,19 +10,28 @@
 
 #include "Zombies/LZZombies.h"
 #include "Scenes/GameScenes/Adventure/GameScene/LZAGSData.h"
+#include "Scenes/GameScenes/BigMap/GameScene/LZBigMapGameScene.h"
 
 Pea::Pea(Node* node) :
     _torchwoodTag(0)
 ,   _actionTime(0.3f)
-,   _initPostion{ {200,120},{200,-120} }
+,   _initPostion{ {200,120 },{200,-120 } }
 ,   _peaDirectionType(PeaDirectionType::Normal)
 ,   _peaAnimationName("normal")
 {
 	_node = node;
 	_attack = 20;
+	_positionOffset = Vec2(70, 85);
 	_bulletType = BulletType::Pea;
 
 	srand(time(nullptr));
+
+	if (BigMapGameScene::bigMapWorld)
+	{
+		_positionOffset = Vec2(70, 85) * 0.7f;
+		_initPostion[0].y = 120 * 0.7f;
+		_initPostion[1].y = -120 * 0.7f;
+	}
 }
 
 Pea::~Pea()
@@ -32,7 +41,8 @@ Pea::~Pea()
 void Pea::createBullet()
 {
 	bulletInit("FirePea", _peaAnimationName);
-	_bulletAnimation->setPosition(_position + Vec2(70, 85));
+	_bulletAnimation->setPosition(_position + _positionOffset);
+	_bulletAnimation->setScale(_bulletAnimation->getScale() * _scale);
 
 	setBulletAction();
 }

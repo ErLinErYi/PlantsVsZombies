@@ -147,25 +147,16 @@ void MagnetShroom::showShieldMoveAction(Zombies* zombie, const bool type)
 	}
 
 	auto shield = Sprite::createWithSpriteFrameName(name + ".png");
-	shield->setPosition(zombie->getZombieAnimation()->getPosition() + (type ? Vec2(-30, 190) : Vec2(0, 50)));
+	shield->setPosition(zombie->getZombieAnimation()->getPosition() + (type ? Vec2(0, 100) : Vec2(0, 50)));
 	shield->setLocalZOrder(_plantAnimation->getLocalZOrder() + 1);
 	shield->setScale(zombie->getZombieAnimation()->getScale());
 	shield->runAction(Sequence::create(MoveTo::create(0.5f, _plantAnimation->getPosition() + Vec2(0, 100)),
-		CallFunc::create([=]()
+		DelayTime::create(2.f),ScaleTo::create(7.f, 0.f),
+		CallFunc::create([shield]()
 			{
-				showShield(name, shield->getScale());
 				shield->removeFromParent();
 			}), nullptr));
 	_node->addChild(shield);
-}
-
-void MagnetShroom::showShield(string name, float scale)
-{
-	auto shield1 = Sprite::createWithSpriteFrameName(name + ".png");
-	shield1->setPosition(Vec2(0, 100));
-	shield1->setScale(scale);
-	shield1->runAction(Sequence::create(DelayTime::create(1.f), ScaleTo::create(7.f, 0.f), nullptr));
-	_plantAnimation->addChild(shield1);
 }
 
 SkeletonAnimation* MagnetShroom::showPlantAnimationAndText()

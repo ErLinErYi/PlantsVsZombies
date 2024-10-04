@@ -27,7 +27,7 @@ void StarFruitBullet::createBullet()
 {
 	bulletInit("StarFruitBullet", "animation");
 	_bulletAnimation->setPosition(_position);
-	_bulletAnimation->setTimeScale(1.5f);
+	_bulletAnimation->setTimeScale(1.5f * _scale);
 	
 	createShadow();
 }

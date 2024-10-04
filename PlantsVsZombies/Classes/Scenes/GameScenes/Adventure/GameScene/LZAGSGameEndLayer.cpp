@@ -182,27 +182,18 @@ void GSGameEndLayer::rewardThing()
 void GSGameEndLayer::caveLevelNumber()
 {
 	/* 记录关数 */
-	if (_global->userInformation->getUserSelectWorldData().at(
-		_global->userInformation->getCurrentPlayWorldTag())->levels == _global->userInformation->getCurrentPlayLevels())
+	auto gInfo = _global->userInformation;
+	if (gInfo->getUserSelectWorldData().at(gInfo->getCurrentPlayWorldTag())->levels == gInfo->getCurrentPlayLevels())
 	{
-		string worldFile;
-		if (_global->userInformation->getGameDifficulty())
-		{
-			worldFile = StringUtils::format(_global->userInformation->getSystemDifCaveFileName().c_str(), _global->userInformation->getCurrentPlayWorldTag() + 1);
-		}
-		else
-		{
-			worldFile = StringUtils::format(_global->userInformation->getSystemCaveFileName().c_str(), _global->userInformation->getCurrentPlayWorldTag() + 1);
-		}
-		
-		UserData::getInstance()->caveUserData(const_cast<char*>(worldFile.c_str()),
-			++_global->userInformation->getUserSelectWorldData().at(_global->userInformation->getCurrentPlayWorldTag())->levels);
+		string worldFile = StringUtils::format(gInfo->getSystemCaveFileName().c_str(), gInfo->getCurrentPlayWorldTag() + 1, gInfo->getGameDifficulty());
+
+		UserData::getInstance()->caveUserData(const_cast<char*>(worldFile.c_str()), ++gInfo->getUserSelectWorldData().at(gInfo->getCurrentPlayWorldTag())->levels);
 	}
 
-	if (_global->userInformation->getCurrentPlayLevels() >= 52)
+	if (gInfo->getCurrentPlayLevels() >= 52)
 	{
 		UserData::getInstance()->caveUserData(const_cast<char*>("ISBEGINSHOWEGGS"), true);
-		_global->userInformation->setIsShowEggs(true);
+		gInfo->setIsShowEggs(true);
 	}
 }
 

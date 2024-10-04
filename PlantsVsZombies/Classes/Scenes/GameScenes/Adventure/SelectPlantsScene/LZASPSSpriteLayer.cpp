@@ -73,14 +73,16 @@ void SPSSpriteLayer::alreadySelectPlantsDialog()
 	seedBank->setAnchorPoint(Vec2(0, 1));
 	//SeedBank->setCapInsets(Rect(0, 6, 87, 373));
 	seedBank->setContentSize(Size(210, 967));
+	seedBank->setOpacity(0);
 	seedBank->runAction(MoveTo::create(0.2f, Vec2(0, 1080)));
 	this->addChild(seedBank);
 
 	for (unsigned int i = 0; i < 9; ++i)
 	{
-		auto Seed = Sprite::createWithSpriteFrameName("SeedPacketSilhouette.png");
+		auto Seed = Sprite::createWithSpriteFrameName("SeedPacketFlash.png");
 		Seed->setContentSize(Size(180, 100));
 		Seed->setPosition(Vec2(105, 897 - 103 * i));
+		Seed->setColor(Color3B(0, 255, 255));
 		seedBank->addChild(Seed);
 	}
 }

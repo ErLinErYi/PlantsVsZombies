@@ -11,6 +11,8 @@
 #include "ui/CocosGUI.h"
 #include "Based/LZGlobalVariable.h"
 
+#define WorldNumbers 2
+
 using namespace cocos2d;
 using namespace cocos2d::ui;
 using namespace cocos2d::experimental;
@@ -34,12 +36,15 @@ private:
 	void createMouseListener();
     void createGoBack();
 	void createSelectDifficulty();
-	bool checkWorldUnlock();
+	void modeButtonCallBack(RadioButton* button, int worldId);
+	void modeButtonText(RadioButton* button, const string& modeName, const Vec2& position, const Color4B& color1, const Color4B& color2);
+	int checkWorldUnlock();
+	int checkModeUnlock(int id = 1);
 	
 private:
 	Size _backgroundSize;
 	float _selectWorldPosition;
-	ui::ScrollView* _scrollView;
-	Button* _world[13];
+	cocos2d::ui::ScrollView* _scrollView;
+	Button* _world[WorldNumbers + 1];
 	Global* _global;
 };

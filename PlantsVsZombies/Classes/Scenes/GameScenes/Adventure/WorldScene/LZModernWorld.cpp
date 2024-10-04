@@ -87,8 +87,7 @@ void ModernWorld::onEnter()
 
 void  ModernWorld::createBackground()
 {
-	auto layerColor = LayerColor::create(
-		_global->userInformation->getGameDifficulty() ? Color4B(128, 0, 255, 200) : Color4B(30, 180, 190, 200));
+	auto layerColor = LayerColor::create(getWorldColor(_global->userInformation->getGameDifficulty()));
 	this->addChild(layerColor);
 
 	auto rotate = Sprite::createWithSpriteFrameName("RunBackground.png");
@@ -204,7 +203,8 @@ void ModernWorld::addScrollView(const int id)
 	};
 	for (int i = 0; i < _global->userInformation->getUserSelectWorldData().at(id)->levels; ++i)
 	{
-		draw->drawSegment(BeginPoint[i], EndPoint[i], 4, _global->userInformation->getGameDifficulty() ? Color4F(0.8f, 0, 0, 0.6f) : Color4F(0, 1, 1, 0.6f));
+		auto color4B = getWorldColor(_global->userInformation->getGameDifficulty());
+		draw->drawSegment(BeginPoint[i], EndPoint[i], 4, Color4F(color4B.r / 255.f, color4B.g / 255.f, color4B.b / 255.f, color4B.a / 255.f));
 		draw->runAction(RepeatForever::create(Sequence::create(MoveBy::create(0.05f, Vec2(0.1f, 0.1f)), MoveBy::create(0.05f, Vec2(-0.1f, -0.1f)), nullptr)));
 		auto LineAction = Sprite::createWithSpriteFrameName("LineAction.png");
 		LineAction->setPosition(EndPoint[i]);
@@ -506,6 +506,25 @@ void ModernWorld::createLevelModeText()
 	this->addChild(levelModeText);
 }
 
+Color4B ModernWorld::getWorldColor(int id)
+{
+	Color4B color;
+	if (id == 0)color = Color4B(255, 255, 255, 200);
+	else if (id == 1)color = Color4B(0, 255, 255, 200);
+	else if (id == 2)color = Color4B(128, 0, 255, 200);
+	else color = Color4B(255, 0, 0, 200);
+	return color;
+}
+
+string ModernWorld::getWorldText(int id)
+{
+	if (id == 0) return Global::getInstance()->userInformation->getGameText().find("简单模式")->second->text;
+	else if (id == 1)return  Global::getInstance()->userInformation->getGameText().find("噩梦模式")->second->text;
+	else if (id == 2)return  Global::getInstance()->userInformation->getGameText().find("地狱模式")->second->text;
+	else return  Global::getInstance()->userInformation->getGameText().find("炼狱模式")->second->text;
+}
+
+
 Sprite* ModernWorld::createSprite(const std::string& name, const Vec2& position, const float& scale, const int& zorder, const float& speed, bool IsFlipped)
 {
 	auto sprite = Sprite::createWithSpriteFrameName(name + ".png");
@@ -649,25 +668,21 @@ void ModernWorld::createButtonListener(ui::Button* button, const int& ID)
 void ModernWorld::readWorldLevel()
 {
 	/* 读取该世界关卡数据 */
-	if (!_global->userInformation->getUserSelectWorldData().at(0)->isReadWoldInformation)
+	auto gInfo = _global->userInformation;
+	if (!gInfo->getUserSelectWorldData().at(0)->isReadWoldInformation)
 	{
-		OpenLevelData::getInstance()->openLevelsData(_global->userInformation->getTextPath().find(_global->userInformation->getGameDifficulty() ?
-				"GameDataModernWorldDif" : "GameDataModernWorld")->second);
-		_global->userInformation->getUserSelectWorldData().at(0)->isReadWoldInformation = true;
-		_global->userInformation->getUserSelectWorldData().at(1)->isReadWoldInformation = false;
+		auto levelData = StringUtils::format("GameDataModernWorld_%d", gInfo->getGameDifficulty());
+		OpenLevelData::getInstance()->openLevelsData(gInfo->getTextPath().find(levelData)->second);
+
+		gInfo->getUserSelectWorldData().at(0)->isReadWoldInformation = true;
+		gInfo->getUserSelectWorldData().at(1)->isReadWoldInformation = false;
 	}
 
-	string worldFile;
-	if (_global->userInformation->getGameDifficulty())
-		worldFile = StringUtils::format(_global->userInformation->getSystemDifCaveFileName().c_str(), 1);
-	else
-		worldFile = StringUtils::format(_global->userInformation->getSystemCaveFileName().c_str(), 1);
-	_global->userInformation->getUserSelectWorldData().at(0)->levels =
-		UserData::getInstance()->openIntUserData(const_cast<char*>(worldFile.c_str()));
-	
-	if (_global->userInformation->getUserSelectWorldData().at(0)->levels == 0)
+	string worldFile = StringUtils::format(gInfo->getSystemCaveFileName().c_str(), 1, gInfo->getGameDifficulty());
+	gInfo->getUserSelectWorldData().at(0)->levels = UserData::getInstance()->openIntUserData(const_cast<char*>(worldFile.c_str()));
+	if (gInfo->getUserSelectWorldData().at(0)->levels == 0)
 	{
-		_global->userInformation->getUserSelectWorldData().at(0)->levels = 1;
+		gInfo->getUserSelectWorldData().at(0)->levels = 1;
 	}
 }
 

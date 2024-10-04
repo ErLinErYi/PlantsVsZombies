@@ -16,7 +16,7 @@ class EmissionPlants :public Plants
 {
 CC_CONSTRUCTOR_ACCESS:
     EmissionPlants();
-    virtual ~EmissionPlants();
+    ~EmissionPlants();
 
 protected:
     virtual void createBullet() = 0;

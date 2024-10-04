@@ -64,11 +64,10 @@ void OptionsMenu::createDialog()
 	this->createCheckBox(Vec2(300, 175), Vec2(140, 175), GAME_TEXT("拉伸显示"), OptionScene_CheckBox::拉伸显示, "options_checkbox0", "options_checkbox1");
 
 	/* 创建彩蛋 */
-	if (_global->userInformation->getIsShowEggs() &&
-		(UserData::getInstance()->openIntUserData(const_cast<char*>(StringUtils::format(
-			_global->userInformation->getSystemCaveFileName().c_str(), 1).c_str())) >= 52 ||
-		UserData::getInstance()->openIntUserData(const_cast<char*>(StringUtils::format(
-			_global->userInformation->getSystemDifCaveFileName().c_str(), 1).c_str())) >= 52))
+	/* 创建彩蛋 */
+	auto gInfo = _global->userInformation;
+	auto data = StringUtils::format(gInfo->getSystemCaveFileName().c_str(), 1, 0).c_str();
+	if (gInfo->getIsShowEggs() && UserData::getInstance()->openIntUserData(const_cast<char*>(data)) >= 52)
 	{
 		auto button = Button::create("button.png", "button_down.png", "",cocos2d::ui::Widget::TextureResType::PLIST);
 		button->setTitleLabel(label(GAME_TEXT("制作者"),GAME_TEXT_SIZE("制作者"), Vec2(0, 0), 0, Color3B::GRAY, 0.5f));
