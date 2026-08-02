@@ -13,7 +13,7 @@ source ${PLUGIN_ROOT}/tools/toolsForPublish/environment.sh
 
 echo
 if [ "0" != "$?" ]; then
-    echo "Build error occoured!!!"
+    echo "Build error occurred!!!"
     exit 1
 fi
 
